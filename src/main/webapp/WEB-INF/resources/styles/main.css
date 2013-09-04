@@ -1,0 +1,11 @@
+body {
+  font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,"Lucida Grande","Luxi Sans",Arial,sans-serif;
+}
+
+.btn {
+  border-width: 0;
+}
+
+.btn-group>.btn, .btn-group+.btn {
+  border-width: 0px!important;
+}

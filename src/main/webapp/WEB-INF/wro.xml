@@ -1,0 +1,25 @@
+<groups xmlns="http://www.isdc.ro/wro">
+	<!-- 首页 -->
+	<group name="app">
+		<js>/static-resources/scripts/jquery/jquery-1.10.2.js</js>
+		<js>/static-resources/scripts/jquery/bootstrap.js</js>
+		<js>/static-resources/scripts/jquery/bootbox.js</js>
+		<js>/static-resources/scripts/jquery/handlebars.js</js>
+		<js>/static-resources/scripts/jquery/jqrest-1.0.0.js</js>
+		<js>/static-resources/scripts/jquery/jquery.serialize-object.js</js>
+		<js>/static-resources/scripts/jquery/jquery.slimscroll.js</js>
+		<js>/static-resources/scripts/jquery/jquery.ztree.all-3.5.js</js>
+		<js>/static-resources/scripts/jquery/json2.js</js>
+		<css>/static-resources/styles/ui/bootstrap.min.css</css>
+		<css>/static-resources/styles/ui/bootstrap-responsive.min.css</css>
+		<css>/static-resources/styles/ui/font-awesome.min.css</css>
+		<css>/static-resources/styles/ui/ace.min.css</css>
+		<css>/static-resources/styles/ui/ace-responsive.min.css</css>
+		<css>/static-resources/styles/ui/ace-skins.min.css</css>
+		<css>/static-resources/styles/ui/zTreeStyle/zTreeStyle.css</css>
+		<css>/static-resources/styles/main.css</css>
+	</group>
+	<group name="ikj">
+		<css>/static-resources/scripts/sea-modules/ikj/grid/1.4.0/grid.css</css>
+	</group>
+</groups>

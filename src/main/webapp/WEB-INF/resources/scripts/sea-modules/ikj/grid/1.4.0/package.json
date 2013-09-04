@@ -1,0 +1,28 @@
+{
+  "name": "grid",
+  "family": "ikj",
+  "version": "1.4.0",
+  "description": "提供了表格展示功能，可以分页，点击，排序",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "homepage": "http://stonelee.info/ace-grid/demo/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stonelee/ace-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stonelee/ace-grid/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "jquery/jquery/1.10.1/jquery",
+      "seajs": "seajs/seajs/2.0.0/sea",
+
+      "widget": "arale/widget/1.0.3/widget",
+      "templatable": "arale/widget/1.0.3/templatable",
+      "handlebars": "gallery/handlebars/1.0.0/handlebars",
+      "underscore": "gallery/underscore/1.4.4/underscore"
+    },
+    "output": ["grid.js", "grid.css"]
+  }
+}
