@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid');
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
 	// 提示信息
 	$('button[title]').tooltip({
@@ -99,7 +99,7 @@ define(function(require, exports, module) {
 		});
 		$('#groupEntity').html(html);
 	});
-	
+
 	// 获取角色
 	$.get('roles', function(data) {
 		var html;
@@ -109,7 +109,30 @@ define(function(require, exports, module) {
 		$('#roleEntity').html(html);
 	});
 
-	// 新建
-	$('#create').click(function() {
+	console.log($('#save'));
+
+	// 保存
+	$('#save').click(function() {
+		console.log('save');
+
+		var object = $('#create-form').serializeObject();
+
+		// 验证
+		if (object.credential === '') {
+			console.log('请输入密码');
+			return;
+		}
+		if (object.checkCredential === '') {
+			console.log('请输入确认密码');
+			return;
+		}
+		if (object.credential !== object.checkCredential) {
+			console.log('两次输入的密码不一致，请重新输入');
+			return;
+		}
+
+		$.post(contextPath + '/api/accounts', JSON.stringify(object), function(data) {
+
+		});
 	});
 });

@@ -29,10 +29,10 @@
 				<div class="page-header position-relative">
 					<div class="row-fluid">
 						<div class="span12">
-							<button id="create" class="btn btn-small btn-primary" data-toggle="modal" data-target="#modal-form">
+							<button id="create" class="btn btn-small btn-primary" data-toggle="modal" data-target="#create-modal">
 								<i class="icon-plus-sign-alt"></i> 新建
 							</button>
-							<button id="edit" class="btn btn-small btn-primary disabled">
+							<button id="edit" class="btn btn-small btn-primary disabled" data-toggle="modal" data-target="#edit-modal">
 								<i class="icon-edit"></i> 编辑
 							</button>
 							<button id="remove" class="btn btn-small btn-danger disabled">
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="modal-form" class="modal hide" tabindex="-1">
+	<div id="create-modal" class="modal hide" tabindex="-1">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h4 class="blue bigger">新建</h4>
@@ -63,7 +63,7 @@
 		<div class="modal-body overflow-visible">
 			<div class="row-fluid">
 				<div class="span12">
-					<form class="form-horizontal">
+					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
 							<label class="control-label span2" for="principal">用户名</label>
 							<div class="controls">
@@ -95,13 +95,13 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="telephone">所属机构</label>
+							<label class="control-label span2" for="groupEntity">所属机构</label>
 							<div class="controls">
 								<select id="groupEntity" name="groupEntity[id]" class="span10"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="telephone">角色</label>
+							<label class="control-label span2" for="roleEntity">角色</label>
 							<div class="controls">
 								<select id="roleEntity" name="roleEntity[id]" class="span10"></select>
 							</div>
@@ -116,6 +116,77 @@
 					</form>
 				</div>
 			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="save" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 编辑 -->
+	<div id="edit-modal" class="modal hide" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h4 class="blue bigger">编辑</h4>
+		</div>
+		<div class="modal-body overflow-visible">
+			<form>
+				<div class="row-fluid">
+					<div class="span6">
+						<label class="span4" for="principal">用户名</label>
+						<input id="principal" name="principal" class="span8" type="text">
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span6">
+						<label class="span4" for="realName">姓名</label>
+						<input id="realName" name="realName" class="span8" type="text">
+					</div>
+					<div class="span6">
+						<label class="span4" for="telephone">电话</label>
+						<input id="telephone" name="telephone" class="span8" type="text">
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span6">
+						<label class="span4" for="credential">密码</label>
+						<input id="credential" name="credential" class="span8" type="password">
+					</div>
+					<div class="span6">
+						<label class="span4" for="checkCredential">确认密码</label>
+						<input id="checkCredential" name="checkCredential" class="span8" type="password">
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span6">
+						<label class="span4" for="groupEntity">机构</label> <select id="groupEntity" name="groupEntity[id]" class="span8"></select>
+					</div>
+					<div class="span6">
+						<label class="span4" for="roleEntity">角色</label> <select id="roleEntity" name="roleEntity[id]" class="span8"></select>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span6">
+						<label class="span4" for="groupEntity">是否锁定</label>
+						<div class="span8">
+							<input id="locked" name="locked" type="checkbox" class="ace">
+							<span class="lbl"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="alert alert-danger">
+						<button type="button" class="close" data-dismiss="alert">
+							<i class="icon-remove"></i>
+						</button>
+						<strong> <i class="icon-remove"></i> 
+						</strong>
+					</div>
+				</div>
+			</form>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-small btn-primary">
