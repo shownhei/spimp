@@ -1,0 +1,26 @@
+{
+  "name": "kjquery",
+  "family": "ikj",
+  "version": "1.0.0",
+  "description": "将所有jquery插件进行打包",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-kjquery.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-kjquery/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$",
+      "ztree": "gallery/ztree/3.5.2/ztree",
+      "rest": "ikj/rest/1.0.0/rest",
+      "gritter": "ikj/gritter/1.0.0/gritter",
+      "serialize-object": "ikj/serialize-object/1.0.0/serialize-object",
+      "bootstrap": "ikj/bootstrap/2.3.2/bootstrap"
+    },
+    "output": ["kjquery.js"]
+  }
+}

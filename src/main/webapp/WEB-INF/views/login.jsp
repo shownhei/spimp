@@ -12,8 +12,15 @@
 <link href="${resources}/styles/ui/ace-responsive.min.css" rel="stylesheet">
 <link href="${resources}/styles/ui/ace-skins.min.css" rel="stylesheet">
 <link href="${resources}/styles/main.css" rel="stylesheet">
-<script src="${resources}/scripts/jquery/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="${resources}/scripts/app/login.js" type="text/javascript"></script>
+<script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
+<script type="text/javascript">
+	seajs.config({
+		alias : {
+			$ : 'jquery/jquery/1.10.1/jquery'
+		}
+	});
+	seajs.use('${resources}/scripts/app/login');
+</script>
 </head>
 <body class="login-layout">
 	<div class="main-container container-fluid">
