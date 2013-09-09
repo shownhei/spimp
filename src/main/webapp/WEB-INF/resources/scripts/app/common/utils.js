@@ -77,6 +77,45 @@ define(function(require, exports, module) {
 		});
 	};
 
+	utils.select.setOption = function(selectId, optionValue) {
+		/**
+		 * 移除已选择的option，在非IE浏览器可使用： $('#' + id + ' >
+		 * option').removeAttr('selected'); 为兼容IE浏览器，只能如此循环替换。。。
+		 */
+		$.each($('#' + selectId + ' > option'), function(key, value) {
+			var option = $(value);
+			option.replaceWith('<option value="' + option.attr('value') + '">' + option.text() + '</option>');
+		});
+		var selectOption = $('#' + selectId + ' > option[value="' + optionValue + '"]');
+		selectOption.replaceWith('<option value="' + optionValue + '" selected="selected">' + selectOption.text() + '</option>');
+	};
+
+	/**
+	 * 表单
+	 */
+	utils.form = {};
+
+	utils.form.fill = function(formId, model) {
+		var inputs = $('#' + formId).find(':input');
+
+		$.each(inputs, function(key, value) {
+			if (value.tagName === 'SELECT') {
+				var propertys = $(value).attr('name').replace(/\[/g, '.').replace(/\]/g, '').split('.');
+
+				// 目前只处理2层或3层嵌套的情况
+				if (propertys.length === 2) {
+					utils.select.setOption($(value).attr('id'), model[propertys[0]][propertys[1]]);
+				} else if (propertys.length === 3) {
+					utils.select.setOption($(value).attr('id'), model[propertys[0]][propertys[1]][propertys[2]]);
+				}
+			} else if (value.tagName === 'TEXTAREA') {
+				$(value).html(model[$(value).attr('name')]);
+			} else {
+				$(value).val(model[$(value).attr('name')]);
+			}
+		});
+	};
+
 	/**
 	 * 编码
 	 */

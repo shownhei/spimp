@@ -6,6 +6,11 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
+	// 获取机构
+	Utils.select.remote([ 'create-groupEntity', 'edit-groupEntity' ], 'groups?label=mine', 'id', 'name');
+	// 获取角色
+	Utils.select.remote([ 'create-roleEntity', 'edit-roleEntity' ], 'roles', 'id', 'name');
+
 	// 配置表格列
 	var fields = [ {
 		header : '编号',
@@ -76,7 +81,6 @@ define(function(require, exports, module) {
 	var grid = new Grid({
 		parentNode : '#account-table',
 		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=' + pageSize,
-		urlParser : /(grid_)\d+(.*)/,
 		model : {
 			fields : fields,
 			height : gridHeight
@@ -91,11 +95,6 @@ define(function(require, exports, module) {
 			changeButtonsStatus();
 		}
 	}).render();
-
-	// 获取机构
-	Utils.select.remote([ 'groupEntity' ], 'groups?label=mine', 'id', 'name');
-	// 获取角色
-	Utils.select.remote([ 'roleEntity' ], 'roles', 'id', 'name');
 
 	// 新建
 	$('#create').click(function() {
@@ -147,5 +146,36 @@ define(function(require, exports, module) {
 			return;
 		}
 
+		Utils.modal.reset('edit');
+
+		var selectId = grid.selected.data('data').id;
+		$.get('accounts/' + selectId, function(data) {
+			var model = data.data;
+
+			Utils.form.fill('edit-form', model);
+
+			$('#edit-modal').modal({
+				backdrop : 'static'
+			});
+		});
+	});
+
+	// 更新
+	$('#edit-save').click(function() {
+		var object = $('#edit-form').serializeObject();
+
+		// 处理属性
+		object.credential = null;
+		object.locked = grid.selected.data('data').locked;
+
+		var selectId = grid.selected.data('data').id;
+		$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				$('#edit-modal').modal('hide');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
 	});
 });

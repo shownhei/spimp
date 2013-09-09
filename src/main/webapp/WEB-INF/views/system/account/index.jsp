@@ -67,49 +67,49 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">用户名</label>
 							<div class="controls">
-								<input id="principal" name="principal" type="text" class="span11">
+								<input name="principal" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="realName">姓名</label>
 							<div class="controls">
-								<input id="realName" name="realName" type="text" class="span11">
+								<input name="realName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="credential">密码</label>
 							<div class="controls">
-								<input id="credential" name="credential" type="password" class="span11">
+								<input name="credential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="checkCredential">确认密码</label>
 							<div class="controls">
-								<input id="checkCredential" name="checkCredential" type="password" class="span11">
+								<input name="checkCredential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="telephone">电话</label>
 							<div class="controls">
-								<input id="telephone" name="telephone" type="text" class="span11">
+								<input name="telephone" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select id="groupEntity" name="groupEntity[id]" class="span11"></select>
+								<select id="create-groupEntity" name="groupEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="roleEntity">角色</label>
 							<div class="controls">
-								<select id="roleEntity" name="roleEntity[id]" class="span11"></select>
+								<select id="create-roleEntity" name="roleEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="locked"></label>
 							<div class="controls">
-								<label> <input id="locked" name="locked" type="checkbox" class="ace"> <span class="lbl"> 锁定</span>
+								<label> <input name="locked" type="checkbox" class="ace"> <span class="lbl"> 锁定</span>
 								</label>
 							</div>
 						</div>
@@ -124,6 +124,64 @@
 		</div>
 		<div class="modal-footer">
 			<button id="create-save" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 编辑 -->
+	<div id="edit-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">编辑</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="edit-form" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label span2" for="principal">用户名</label>
+							<div class="controls">
+								<input name="principal" type="text" class="span11" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="realName">姓名</label>
+							<div class="controls">
+								<input name="realName" type="text" class="span11">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="telephone">电话</label>
+							<div class="controls">
+								<input name="telephone" type="text" class="span11">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="groupEntity">所属机构</label>
+							<div class="controls">
+								<select id="edit-groupEntity" name="groupEntity[id]" class="span11"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="roleEntity">角色</label>
+							<div class="controls">
+								<select id="edit-roleEntity" name="roleEntity[id]" class="span11"></select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="edit-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div id="edit-message-content" class="alert alert-error"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="edit-save" class="btn btn-small btn-primary">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
