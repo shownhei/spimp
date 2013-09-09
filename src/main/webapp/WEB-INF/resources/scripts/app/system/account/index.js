@@ -58,7 +58,7 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected) {
+		if (selected && data.id !== 1) {
 			$('#edit,#remove,#reset').removeClass('disabled');
 			if (data.locked) {
 				$('#lock').addClass('disabled');

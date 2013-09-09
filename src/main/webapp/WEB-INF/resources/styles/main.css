@@ -19,13 +19,12 @@ body {
 	padding: 8px 20px 10px;
 }
 
-.modal-backdrop,.modal-backdrop.fade.in {
-	opacity: .15;
-	filter: alpha(opacity = 15);
-}
-
 .form-horizontal .controls {
 	margin-left: 100px;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 6px;
 }
 
 .modal-header {
@@ -36,13 +35,14 @@ body {
 	padding: 10px;
 }
 
-.form-horizontal .control-group {
-	margin-bottom: 6px;
+.modal-backdrop,.modal-backdrop.fade.in {
+	opacity: .15;
+	filter: alpha(opacity = 15);
 }
 
 .tooltip.in {
 	opacity: 0.8;
-	filter: alpha(opacity = 80)
+	filter: alpha(opacity = 80);
 }
 
 .tooltip-inner {
