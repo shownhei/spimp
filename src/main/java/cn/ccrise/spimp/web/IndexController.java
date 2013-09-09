@@ -26,4 +26,8 @@ public class IndexController {
 	public String systemAccount() {
 		return "system/account/index";
 	}
+	@RequestMapping(value = "/ercs/dictionary", method = RequestMethod.GET)
+	public String ercsDictionary() {
+		return "ercs/dictionary/index";
+	}
 }
