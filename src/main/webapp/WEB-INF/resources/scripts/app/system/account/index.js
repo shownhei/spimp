@@ -52,6 +52,7 @@ define(function(require, exports, module) {
 
 	// 计算表格高度
 	var gridHeight = $(window).height() - ($('.breadcrumbs').height() + $('.navbar').height() + $('.page-header').height() + 115);
+	var pageSize = Math.floor(gridHeight / 20);
 
 	/**
 	 * 修改/重置按钮状态
@@ -74,7 +75,7 @@ define(function(require, exports, module) {
 	// 配置表格
 	var grid = new Grid({
 		parentNode : '#account-table',
-		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=18',
+		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=' + pageSize,
 		urlParser : /(grid_)\d+(.*)/,
 		model : {
 			fields : fields,
