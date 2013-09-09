@@ -1,0 +1,20 @@
+{
+  "name": "ace",
+  "family": "ikj",
+  "version": "0.0.0",
+  "description": "ace",
+  "author": "Stone Lee <istonelee@gmail.com>",
+  "spm": {
+    "alias": {
+      "$": "jquery/jquery/1.10.1/jquery",
+      "$-debug": "jquery/jquery/1.10.1/jquery-debug",
+      "seajs": "seajs/seajs/2.0.0/sea",
+
+      "kjquery": "ikj/kjquery/1.0.0/kjquery",
+      "bootbox": "ikj/bootbox/3.3.0/bootbox",
+      "grid": "ikj/grid/1.4.0/grid"
+    },
+    "output": ["plugins.js"],
+    "include": "all"
+  }
+}

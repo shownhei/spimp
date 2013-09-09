@@ -1,0 +1,14 @@
+{
+  "name": "bootstrap",
+  "family": "ikj",
+  "version": "2.3.2",
+  "description": "bootstrap",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["bootstrap.js"]
+  }
+}

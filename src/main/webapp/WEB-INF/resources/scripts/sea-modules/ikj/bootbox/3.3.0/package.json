@@ -1,0 +1,14 @@
+{
+  "name": "bootbox",
+  "family": "ikj",
+  "version": "3.3.0",
+  "description": "bootbox",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["bootbox.js"]
+  }
+}

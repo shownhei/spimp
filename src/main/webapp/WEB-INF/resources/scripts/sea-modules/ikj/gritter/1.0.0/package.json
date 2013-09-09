@@ -1,0 +1,14 @@
+{
+  "name": "gritter",
+  "family": "ikj",
+  "version": "1.0.0",
+  "description": "gritter",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["gritter.js"]
+  }
+}

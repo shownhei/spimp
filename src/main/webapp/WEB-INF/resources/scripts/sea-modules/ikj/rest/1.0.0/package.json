@@ -1,0 +1,21 @@
+{
+  "name": "rest",
+  "family": "ikj",
+  "version": "1.0.0",
+  "description": "jQuery RESTful插件，实现PUT和DELETE AJAX请求",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-rest.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-rest/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["rest.js"]
+  }
+}
