@@ -7,6 +7,28 @@ define(function(require, exports, module) {
 	var utils = {};
 
 	/**
+	 * 按钮
+	 */
+	utils.button = {};
+	var buttonDisableCSS = 'disabled';
+
+	utils.button.disable = function(ids) {
+		$.each(ids, function(key, value) {
+			$('#' + value).addClass(buttonDisableCSS);
+		});
+	};
+
+	utils.button.enable = function(ids) {
+		$.each(ids, function(key, value) {
+			$('#' + value).removeClass(buttonDisableCSS);
+		});
+	};
+
+	utils.button.isDisable = function(id) {
+		return $('#' + id).hasClass(buttonDisableCSS);
+	};
+
+	/**
 	 * 弹出框。
 	 */
 	utils.modal = {};

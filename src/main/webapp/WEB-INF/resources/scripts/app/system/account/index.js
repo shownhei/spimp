@@ -59,16 +59,16 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected && data.id !== 1) {
-			$('#edit,#remove,#reset').removeClass('disabled');
+			Utils.button.enable([ 'edit', 'remove', 'reset' ]);
 			if (data.locked) {
-				$('#lock').addClass('disabled');
-				$('#unlock').removeClass('disabled');
+				Utils.button.enable([ 'unlock' ]);
+				Utils.button.disable([ 'lock' ]);
 			} else {
-				$('#lock').removeClass('disabled');
-				$('#unlock').addClass('disabled');
+				Utils.button.enable([ 'lock' ]);
+				Utils.button.disable([ 'unlock' ]);
 			}
 		} else {
-			$('#edit,#remove,#lock,#unlock,#reset').addClass('disabled');
+			Utils.button.disable([ 'edit', 'remove', 'lock', 'unlock', 'reset' ]);
 		}
 	}
 
@@ -139,5 +139,13 @@ define(function(require, exports, module) {
 				Utils.modal.message('create', data.errors);
 			}
 		});
+	});
+
+	// 编辑
+	$('#edit').click(function() {
+		if (Utils.button.isDisable('edit')) {
+			return;
+		}
+
 	});
 });
