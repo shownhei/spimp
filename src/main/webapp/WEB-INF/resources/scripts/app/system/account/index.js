@@ -99,9 +99,7 @@ define(function(require, exports, module) {
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
-		$('#create-modal').modal({
-			backdrop : 'static'
-		});
+		Utils.modal.show('create');
 	});
 
 	// 保存
@@ -133,7 +131,7 @@ define(function(require, exports, module) {
 		$.post('accounts', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
-				$('#create-modal').modal('hide');
+				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
 			}
@@ -153,10 +151,7 @@ define(function(require, exports, module) {
 			var model = data.data;
 
 			Utils.form.fill('edit-form', model);
-
-			$('#edit-modal').modal({
-				backdrop : 'static'
-			});
+			Utils.modal.show('edit');
 		});
 	});
 
@@ -172,7 +167,7 @@ define(function(require, exports, module) {
 		$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
-				$('#edit-modal').modal('hide');
+				Utils.modal.hide('edit');
 			} else {
 				Utils.modal.message('edit', data.errors);
 			}

@@ -33,6 +33,31 @@ define(function(require, exports, module) {
 	 */
 	utils.modal = {};
 
+	utils.modal.show = function(prefix) {
+		var $modal = $('#' + prefix + '-modal');
+		$modal.modal({
+			backdrop : 'static'
+		});
+
+		// jquery-ui没有考虑具有marginLeft时left的取值问题
+		function getContainerment() {
+			var marginLeft = parseInt($modal.css('marginLeft'), 10) || 0, marginTop = parseInt($modal.css('marginTop'), 10) || 0, width = $modal.outerWidth(), height = $modal
+					.outerHeight(), wholeWidth = $(document).width(), wholeHeight = $(document).height();
+
+			return [ -marginLeft, -marginTop, wholeWidth - width - marginLeft, wholeHeight - height - marginTop ];
+		}
+
+		$modal.draggable({
+			addClasses : false,
+			handle : '.modal-header',
+			containment : getContainerment()
+		});
+	};
+
+	utils.modal.hide = function(prefix) {
+		$('#' + prefix + '-modal').modal('hide');
+	};
+
 	utils.modal.reset = function(prefix) {
 		document.getElementById(prefix + '-form').reset();
 		$('#' + prefix + '-message-content').html('');
