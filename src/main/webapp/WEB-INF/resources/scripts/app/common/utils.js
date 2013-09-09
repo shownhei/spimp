@@ -120,8 +120,8 @@ define(function(require, exports, module) {
 	 */
 	utils.form = {};
 
-	utils.form.fill = function(formId, model) {
-		var inputs = $('#' + formId).find(':input');
+	utils.form.fill = function(prefix, model) {
+		var inputs = $('#' + prefix + '-form').find(':input');
 
 		$.each(inputs, function(key, value) {
 			if (value.tagName === 'SELECT') {
@@ -139,6 +139,10 @@ define(function(require, exports, module) {
 				$(value).val(model[$(value).attr('name')]);
 			}
 		});
+	};
+
+	utils.form.serialize = function(prefix) {
+		return $('#' + prefix + '-form').serializeObject();
 	};
 
 	/**

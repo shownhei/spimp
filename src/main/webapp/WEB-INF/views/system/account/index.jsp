@@ -117,7 +117,10 @@
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
-						<div id="create-message-content" class="alert alert-error"></div>
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -175,7 +178,10 @@
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
-						<div id="edit-message-content" class="alert alert-error"></div>
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
+						</div>
 					</div>
 				</div>
 			</div>

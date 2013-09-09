@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 	});
 
 	// 获取机构
-	Utils.select.remote([ 'create-groupEntity', 'edit-groupEntity' ], 'groups?label=mine', 'id', 'name');
+	Utils.select.remote([ 'create-groupEntity', 'edit-groupEntity' ], 'groups', 'id', 'name');
 	// 获取角色
 	Utils.select.remote([ 'create-roleEntity', 'edit-roleEntity' ], 'roles', 'id', 'name');
 
@@ -104,7 +104,7 @@ define(function(require, exports, module) {
 
 	// 保存
 	$('#create-save').click(function() {
-		var object = $('#create-form').serializeObject();
+		var object = Utils.form.serialize('create');
 
 		// 验证
 		if (object.credential === '') {
@@ -148,16 +148,16 @@ define(function(require, exports, module) {
 
 		var selectId = grid.selected.data('data').id;
 		$.get('accounts/' + selectId, function(data) {
-			var model = data.data;
+			var object = data.data;
 
-			Utils.form.fill('edit-form', model);
+			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
 	});
 
 	// 更新
 	$('#edit-save').click(function() {
-		var object = $('#edit-form').serializeObject();
+		var object = Utils.form.serialize('edit');
 
 		// 处理属性
 		object.credential = null;
@@ -173,4 +173,52 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+
+	// 删除
+	$('#remove').click(function() {
+	});
+
+	// 锁定
+	$('#lock').click(function() {
+		if (Utils.button.isDisable('lock')) {
+			return;
+		}
+
+		update(true, null);
+	});
+
+	// 解锁
+	$('#unlock').click(function() {
+		if (Utils.button.isDisable('unlock')) {
+			return;
+		}
+
+		update(false, null);
+	});
+
+	/**
+	 * 更新部分属性
+	 */
+	function update(locked, credential) {
+		var selectId = grid.selected.data('data').id;
+		$.get('accounts/' + selectId, function(data) {
+			var object = data.data;
+			object.credential = credential;
+			if (locked !== null) {
+				object.locked = locked;
+			}
+			object.groupEntity = {
+				id : object.groupEntity.id
+			};
+			object.roleEntity = {
+				id : object.roleEntity.id
+			};
+
+			$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+				if (data.success === true) {
+					grid.refresh();
+				}
+			});
+		});
+	}
 });
