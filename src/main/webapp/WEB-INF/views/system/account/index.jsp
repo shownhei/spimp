@@ -12,44 +12,37 @@
 	<div class="main-container container-fluid">
 		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="breadcrumbs" id="breadcrumbs">
-				<ul class="breadcrumb">
-					<li class="active">用户管理</li>
-				</ul>
+			<div class="page-toolbar">
+				<div class="toolbar">
+					<button id="create" class="btn btn-small btn-success">
+						<i class="icon-plus-sign-alt"></i> 新建
+					</button>
+					<button id="edit" class="btn btn-small btn-primary disabled">
+						<i class="icon-edit"></i> 编辑
+					</button>
+					<button id="lock" class="btn btn-small btn-primary disabled" title="锁定后账户无法登录">
+						<i class="icon-lock"></i> 锁定
+					</button>
+					<button id="unlock" class="btn btn-small btn-primary disabled" title="解锁后账户可以登录">
+						<i class="icon-unlock"></i> 解锁
+					</button>
+					<button id="remove" class="btn btn-small btn-danger disabled">
+						<i class="icon-trash"></i> 删除
+					</button>
+					<button id="reset" class="btn btn-small btn-danger disabled" title="将密码重置为123456">
+						<i class="icon-refresh"></i> 重置密码
+					</button>
+				</div>
 				<div class="nav-search" id="nav-search">
 					<form class="form-search">
 						<span class="input-icon">
-							<input type="text" placeholder="搜索..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off">
+							<input name="search" type="text" placeholder="搜索..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 					</form>
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="page-header position-relative">
-					<div class="row-fluid">
-						<div class="span12">
-							<button id="create" class="btn btn-small btn-primary">
-								<i class="icon-plus-sign-alt"></i> 新建
-							</button>
-							<button id="edit" class="btn btn-small btn-primary disabled">
-								<i class="icon-edit"></i> 编辑
-							</button>
-							<button id="remove" class="btn btn-small btn-danger disabled">
-								<i class="icon-trash"></i> 删除
-							</button>
-							<button id="lock" class="btn btn-small btn-primary disabled tooltip-warning" title="锁定后账户无法登录">
-								<i class="icon-lock"></i> 锁定
-							</button>
-							<button id="unlock" class="btn btn-small btn-primary disabled tooltip-warning" title="解锁后账户可以登录">
-								<i class="icon-unlock"></i> 解锁
-							</button>
-							<button id="reset" class="btn btn-small btn-danger disabled tooltip-warning" title="将密码重置为123456">
-								<i class="icon-refresh"></i> 重置密码
-							</button>
-						</div>
-					</div>
-				</div>
 				<div class="row-fluid" id="account-table"></div>
 			</div>
 		</div>

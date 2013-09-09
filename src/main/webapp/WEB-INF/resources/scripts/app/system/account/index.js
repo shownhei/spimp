@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度
-	var gridHeight = $(window).height() - ($('.breadcrumbs').height() + $('.navbar').height() + $('.page-header').height() + 115);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 20);
 
 	/**
