@@ -38,13 +38,13 @@
 							<button id="remove" class="btn btn-small btn-danger disabled">
 								<i class="icon-trash"></i> 删除
 							</button>
-							<button id="lock" class="btn btn-small btn-primary disabled" title="锁定后账户无法登录">
+							<button id="lock" class="btn btn-small btn-primary disabled tooltip-warning" title="锁定后账户无法登录">
 								<i class="icon-lock"></i> 锁定
 							</button>
-							<button id="unlock" class="btn btn-small btn-primary disabled" title="解锁后账户可以登录">
+							<button id="unlock" class="btn btn-small btn-primary disabled tooltip-warning" title="解锁后账户可以登录">
 								<i class="icon-unlock"></i> 解锁
 							</button>
-							<button id="reset" class="btn btn-small btn-danger disabled" title="将密码重置为123456">
+							<button id="reset" class="btn btn-small btn-danger disabled tooltip-warning" title="将密码重置为123456">
 								<i class="icon-refresh"></i> 重置密码
 							</button>
 						</div>

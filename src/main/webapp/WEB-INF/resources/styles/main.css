@@ -39,3 +39,37 @@ body {
 .form-horizontal .control-group {
 	margin-bottom: 6px;
 }
+
+.tooltip.in {
+	opacity: 0.8;
+	filter: alpha(opacity = 80)
+}
+
+.tooltip-inner {
+	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica,
+		"Lucida Grande", "Luxi Sans", Arial, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.tooltip-warning+.tooltip>.tooltip-inner {
+	background-color: #f9f2ba;
+	color: #5b5316;
+	border: 1px solid #e9d315;
+}
+
+.tooltip-warning+.tooltip.top .tooltip-arrow {
+	border-top-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.right .tooltip-arrow {
+	border-right-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.left .tooltip-arrow {
+	border-left-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.bottom .tooltip-arrow {
+	border-bottom-color: #e9d315
+}
