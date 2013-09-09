@@ -21,9 +21,21 @@ body {
 
 .modal-backdrop,.modal-backdrop.fade.in {
 	opacity: .15;
-	filter: alpha(opacity =  15);
+	filter: alpha(opacity = 15);
 }
 
 .form-horizontal .controls {
 	margin-left: 100px;
+}
+
+.modal-header {
+	padding: 0px 15px;
+}
+
+.modal-body {
+	padding: 10px;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 6px;
 }

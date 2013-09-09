@@ -29,19 +29,19 @@
 				<div class="page-header position-relative">
 					<div class="row-fluid">
 						<div class="span12">
-							<button id="create" class="btn btn-small btn-primary" data-toggle="modal" data-target="#create-modal">
+							<button id="create" class="btn btn-small btn-primary">
 								<i class="icon-plus-sign-alt"></i> 新建
 							</button>
-							<button id="edit" class="btn btn-small btn-primary disabled" data-toggle="modal" data-target="#edit-modal">
+							<button id="edit" class="btn btn-small btn-primary disabled">
 								<i class="icon-edit"></i> 编辑
 							</button>
 							<button id="remove" class="btn btn-small btn-danger disabled">
 								<i class="icon-trash"></i> 删除
 							</button>
-							<button id="lock" class="btn btn-small disabled" title="锁定后账户无法登录">
+							<button id="lock" class="btn btn-small btn-primary disabled" title="锁定后账户无法登录">
 								<i class="icon-lock"></i> 锁定
 							</button>
-							<button id="unlock" class="btn btn-small disabled" title="解锁后账户可以登录">
+							<button id="unlock" class="btn btn-small btn-primary disabled" title="解锁后账户可以登录">
 								<i class="icon-unlock"></i> 解锁
 							</button>
 							<button id="reset" class="btn btn-small btn-danger disabled" title="将密码重置为123456">
@@ -50,60 +50,60 @@
 						</div>
 					</div>
 				</div>
-				<div class="row-fluid" id="table"></div>
+				<div class="row-fluid" id="account-table"></div>
 			</div>
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide" tabindex="-1">
+	<div id="create-modal" class="modal hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h4 class="blue bigger">新建</h4>
+			<h5 class="blue">新建</h5>
 		</div>
-		<div class="modal-body overflow-visible">
+		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
 							<label class="control-label span2" for="principal">用户名</label>
 							<div class="controls">
-								<input id="principal" name="principal" type="text" class="span10">
+								<input id="principal" name="principal" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="realName">姓名</label>
 							<div class="controls">
-								<input id="realName" name="realName" type="text" class="span10">
+								<input id="realName" name="realName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="credential">密码</label>
 							<div class="controls">
-								<input id="credential" name="credential" type="password" class="span10">
+								<input id="credential" name="credential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="checkCredential">确认密码</label>
 							<div class="controls">
-								<input id="checkCredential" name="checkCredential" type="text" class="span10">
+								<input id="checkCredential" name="checkCredential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="telephone">电话</label>
 							<div class="controls">
-								<input id="telephone" name="telephone" type="text" class="span10">
+								<input id="telephone" name="telephone" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select id="groupEntity" name="groupEntity[id]" class="span10"></select>
+								<select id="groupEntity" name="groupEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="roleEntity">角色</label>
 							<div class="controls">
-								<select id="roleEntity" name="roleEntity[id]" class="span10"></select>
+								<select id="roleEntity" name="roleEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -115,81 +115,15 @@
 						</div>
 					</form>
 				</div>
+				<div id="create-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div id="create-message-content" class="alert alert-error"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="save" class="btn btn-small btn-primary">
-				<i class="icon-ok"></i> 确定
-			</button>
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 取消
-			</button>
-		</div>
-	</div>
-	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide" tabindex="-1">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h4 class="blue bigger">编辑</h4>
-		</div>
-		<div class="modal-body overflow-visible">
-			<form>
-				<div class="row-fluid">
-					<div class="span6">
-						<label class="span4" for="principal">用户名</label>
-						<input id="principal" name="principal" class="span8" type="text">
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<label class="span4" for="realName">姓名</label>
-						<input id="realName" name="realName" class="span8" type="text">
-					</div>
-					<div class="span6">
-						<label class="span4" for="telephone">电话</label>
-						<input id="telephone" name="telephone" class="span8" type="text">
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<label class="span4" for="credential">密码</label>
-						<input id="credential" name="credential" class="span8" type="password">
-					</div>
-					<div class="span6">
-						<label class="span4" for="checkCredential">确认密码</label>
-						<input id="checkCredential" name="checkCredential" class="span8" type="password">
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<label class="span4" for="groupEntity">机构</label> <select id="groupEntity" name="groupEntity[id]" class="span8"></select>
-					</div>
-					<div class="span6">
-						<label class="span4" for="roleEntity">角色</label> <select id="roleEntity" name="roleEntity[id]" class="span8"></select>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span6">
-						<label class="span4" for="groupEntity">是否锁定</label>
-						<div class="span8">
-							<input id="locked" name="locked" type="checkbox" class="ace">
-							<span class="lbl"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="alert alert-danger">
-						<button type="button" class="close" data-dismiss="alert">
-							<i class="icon-remove"></i>
-						</button>
-						<strong> <i class="icon-remove"></i> 
-						</strong>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small btn-primary">
+			<button id="create-save" class="btn btn-small btn-primary">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

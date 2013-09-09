@@ -72,8 +72,8 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	new Grid({
-		parentNode : '#table',
+	var grid = new Grid({
+		parentNode : '#account-table',
 		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=18',
 		urlParser : /(grid_)\d+(.*)/,
 		model : {
@@ -92,47 +92,51 @@ define(function(require, exports, module) {
 	}).render();
 
 	// 获取机构
-	$.get('groups?label=mine', function(data) {
-		var html;
-		$.each(data.data, function(index, item) {
-			html += '<option value="' + item.id + '">' + item.name + '</option>';
-		});
-		$('#groupEntity').html(html);
-	});
-
+	Utils.select.remote([ 'groupEntity' ], 'groups?label=mine', 'id', 'name');
 	// 获取角色
-	$.get('roles', function(data) {
-		var html;
-		$.each(data.data, function(index, item) {
-			html += '<option value="' + item.id + '">' + item.name + '</option>';
-		});
-		$('#roleEntity').html(html);
-	});
+	Utils.select.remote([ 'roleEntity' ], 'roles', 'id', 'name');
 
-	console.log($('#save'));
+	// 新建
+	$('#create').click(function() {
+		Utils.modal.reset('create');
+		$('#create-modal').modal({
+			backdrop : 'static'
+		});
+	});
 
 	// 保存
-	$('#save').click(function() {
-		console.log('save');
-
+	$('#create-save').click(function() {
 		var object = $('#create-form').serializeObject();
 
 		// 验证
 		if (object.credential === '') {
-			console.log('请输入密码');
+			Utils.modal.message('create', [ '请输入密码' ]);
 			return;
 		}
 		if (object.checkCredential === '') {
-			console.log('请输入确认密码');
+			Utils.modal.message('create', [ '请输入确认密码' ]);
 			return;
 		}
 		if (object.credential !== object.checkCredential) {
-			console.log('两次输入的密码不一致，请重新输入');
+			Utils.modal.message('create', [ '两次输入的密码不一致，请重新输入' ]);
 			return;
 		}
 
-		$.post(contextPath + '/api/accounts', JSON.stringify(object), function(data) {
+		// 处理属性
+		if (object.locked === 'on') {
+			object.locked = true;
+		} else {
+			object.locked = false;
+		}
+		delete object.checkCredential;
 
+		$.post('accounts', JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				$('#create-modal').modal('hide');
+			} else {
+				Utils.modal.message('create', data.errors);
+			}
 		});
 	});
 });
