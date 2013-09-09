@@ -391,8 +391,23 @@ define("ikj/grid/1.4.0/grid-debug", [ "jquery/jquery/1.10.1/jquery-debug", "aral
         //public method
         gotoPage: function(id) {
             var r = this.get("urlParser");
-            var url = this.get("url").replace(r, "$1" + id + "$2");
+            var url;
+            if (!r) {
+                url = this._getSpecUrl(id);
+            } else {
+                url = this.get("url").replace(r, "$1" + id + "$2");
+            }
             this.set("url", url);
+        },
+        //项目特定的url指定方式
+        _getSpecUrl: function(id) {
+            var url = this.get("url");
+            if (url.indexOf("pageNumber=") == -1) {
+                url += "&pageNumber=" + id;
+            } else {
+                url = url.replace(/(pageNumber=)\d+/, "$1" + id);
+            }
+            return url;
         },
         prevPage: function() {
             var id = this.data.prevPage;
@@ -424,6 +439,21 @@ define("ikj/grid/1.4.0/grid-debug", [ "jquery/jquery/1.10.1/jquery-debug", "aral
         },
         hideLoading: function() {
             this.loading.hide();
+        },
+        selectedData: function(key) {
+            if (!this.model.needCheckbox) {
+                if (this.selected) {
+                    var data = this.selected.data("data");
+                    return key ? data[key] : data;
+                } else {
+                    return null;
+                }
+            } else {
+                return $.map(this.selected, function(selected, index) {
+                    var data = selected.data("data");
+                    return key ? data[key] : data;
+                });
+            }
         }
     });
     module.exports = Grid;
