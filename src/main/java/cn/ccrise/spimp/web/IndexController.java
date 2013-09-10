@@ -34,4 +34,8 @@ public class IndexController {
 	public String ercsPlan() {
 		return "ercs/plan/index";
 	}
+	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
+	public String systemLog() {
+		return "system/log/index";
+	}
 }

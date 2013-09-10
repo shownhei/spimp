@@ -18,6 +18,19 @@ define(function(require, exports, module) {
 		width : 50,
 		align : 'center'
 	}, {
+		header : '',
+		name : 'locked',
+		align : 'center',
+		width : 20,
+		render : function(value) {
+			switch (value) {
+				case false:
+					return '';
+				case true:
+					return '<i class="icon-lock"></i>';
+			}
+		}
+	}, {
 		header : '用户名',
 		name : 'principal'
 	}, {
@@ -39,17 +52,6 @@ define(function(require, exports, module) {
 		header : '电话',
 		name : 'telephone'
 	}, {
-		header : '是否锁定',
-		name : 'locked',
-		render : function(value) {
-			switch (value) {
-				case false:
-					return '<span style="color:#96CE8D">否</span>';
-				case true:
-					return '<span style="color:orange">是</span>';
-			}
-		}
-	}, {
 		header : '创建时间',
 		name : 'createTime',
 		width : 150
@@ -57,7 +59,7 @@ define(function(require, exports, module) {
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
-	var pageSize = Math.floor(gridHeight / 20);
+	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
 	 * 修改/重置按钮状态
@@ -252,7 +254,7 @@ define(function(require, exports, module) {
 	// 搜索
 	$('#nav-search-button').click(function() {
 		grid.set({
-			url : defaultUrl + '&' + $('#search-form').serialize()
+			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
 });
