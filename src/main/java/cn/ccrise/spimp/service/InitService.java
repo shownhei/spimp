@@ -74,8 +74,8 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initSecondLevelMenu() {
 		String rootMenuIdentifier = resourceEntityServiceImpl.getRootMenu().getIdentifier();
-		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "", 2);
+		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", 1);
+		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 2);
 	}
 
 	@Override
