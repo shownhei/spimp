@@ -51,7 +51,9 @@
 	<div id="create-modal" class="modal hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="blue">新建</h5>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
@@ -119,7 +121,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="create-save" class="btn btn-small btn-primary">
+			<button id="create-save" class="btn btn-small btn-success">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
@@ -131,7 +133,9 @@
 	<div id="edit-modal" class="modal hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="blue">编辑</h5>
+			<h5 class="blue">
+				<i class="icon-edit"></i> 编辑
+			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
@@ -181,6 +185,70 @@
 		</div>
 		<div class="modal-footer">
 			<button id="edit-save" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 删除 -->
+	<div id="remove-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：删除用户将删除与此用户关联的所有数据，确认删除选中的用户？
+				</div>
+				<div id="remove-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 重置密码 -->
+	<div id="reset-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-refresh"></i> 重置密码
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 确认重置选中用户的密码为：<b>123456</b> 吗？
+				</div>
+				<div id="reset-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="reset-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="reset-save" class="btn btn-small btn-danger">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

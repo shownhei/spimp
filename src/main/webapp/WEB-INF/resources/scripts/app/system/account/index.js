@@ -55,7 +55,7 @@ define(function(require, exports, module) {
 		width : 150
 	} ];
 
-	// 计算表格高度
+	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 20);
 
@@ -87,9 +87,6 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
-		},
-		onSort : function(name, direction) {
-			console.log(name, direction);
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
@@ -146,7 +143,7 @@ define(function(require, exports, module) {
 
 		Utils.modal.reset('edit');
 
-		var selectId = grid.selected.data('data').id;
+		var selectId = grid.selectedData('id');
 		$.get('accounts/' + selectId, function(data) {
 			var object = data.data;
 
@@ -161,9 +158,9 @@ define(function(require, exports, module) {
 
 		// 处理属性
 		object.credential = null;
-		object.locked = grid.selected.data('data').locked;
+		object.locked = grid.selectedData('locked');
 
-		var selectId = grid.selected.data('data').id;
+		var selectId = grid.selectedData('id');
 		$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -172,10 +169,6 @@ define(function(require, exports, module) {
 				Utils.modal.message('edit', data.errors);
 			}
 		});
-	});
-
-	// 删除
-	$('#remove').click(function() {
 	});
 
 	// 锁定
@@ -196,11 +189,44 @@ define(function(require, exports, module) {
 		update(false, null);
 	});
 
+	// 删除
+	$('#remove').click(function() {
+		if (Utils.button.isDisable('remove')) {
+			return;
+		}
+
+		Utils.modal.show('remove');
+	});
+
+	// 删除确认
+	$('#remove-save').click(function() {
+		var selectId = grid.selectedData('id');
+		$.del('accounts/' + selectId, function(data) {
+			grid.refresh();
+			Utils.modal.hide('remove');
+		});
+	});
+
+	// 删除
+	$('#reset').click(function() {
+		if (Utils.button.isDisable('reset')) {
+			return;
+		}
+
+		Utils.modal.show('reset');
+	});
+
+	// 删除确认
+	$('#reset-save').click(function() {
+		update(null, '123456');
+		Utils.modal.hide('reset');
+	});
+
 	/**
 	 * 更新部分属性
 	 */
 	function update(locked, credential) {
-		var selectId = grid.selected.data('data').id;
+		var selectId = grid.selectedData('id');
 		$.get('accounts/' + selectId, function(data) {
 			var object = data.data;
 			object.credential = credential;
