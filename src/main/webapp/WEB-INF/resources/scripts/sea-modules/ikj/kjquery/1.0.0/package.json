@@ -15,6 +15,7 @@
   "spm": {
     "alias": {
       "$": "$",
+      "jquery-ui": "ikj/jquery-ui/1.10.3/jquery-ui",
       "ztree": "gallery/ztree/3.5.2/ztree",
       "rest": "ikj/rest/1.0.0/rest",
       "gritter": "ikj/gritter/1.0.0/gritter",

@@ -6,6 +6,11 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
+	// 获取机构
+	Utils.select.remote([ 'create-groupEntity', 'edit-groupEntity' ], 'groups', 'id', 'name');
+	// 获取角色
+	Utils.select.remote([ 'create-roleEntity', 'edit-roleEntity' ], 'roles', 'id', 'name');
+
 	// 配置表格列
 	var fields = [ {
 		header : '编号',
@@ -50,32 +55,33 @@ define(function(require, exports, module) {
 		width : 150
 	} ];
 
-	// 计算表格高度
-	var gridHeight = $(window).height() - ($('.breadcrumbs').height() + $('.navbar').height() + $('.page-header').height() + 115);
+	// 计算表格高度和行数
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var pageSize = Math.floor(gridHeight / 20);
 
 	/**
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected) {
-			$('#edit,#remove,#reset').removeClass('disabled');
+		if (selected && data.id !== 1) {
+			Utils.button.enable([ 'edit', 'remove', 'reset' ]);
 			if (data.locked) {
-				$('#lock').addClass('disabled');
-				$('#unlock').removeClass('disabled');
+				Utils.button.enable([ 'unlock' ]);
+				Utils.button.disable([ 'lock' ]);
 			} else {
-				$('#lock').removeClass('disabled');
-				$('#unlock').addClass('disabled');
+				Utils.button.enable([ 'lock' ]);
+				Utils.button.disable([ 'unlock' ]);
 			}
 		} else {
-			$('#edit,#remove,#lock,#unlock,#reset').addClass('disabled');
+			Utils.button.disable([ 'edit', 'remove', 'lock', 'unlock', 'reset' ]);
 		}
 	}
 
 	// 配置表格
+	var defaultUrl = contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#account-table',
-		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=18',
-		urlParser : /(grid_)\d+(.*)/,
+		url : defaultUrl,
 		model : {
 			fields : fields,
 			height : gridHeight
@@ -83,30 +89,20 @@ define(function(require, exports, module) {
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
 		},
-		onSort : function(name, direction) {
-			console.log(name, direction);
-		},
 		onLoaded : function() {
 			changeButtonsStatus();
 		}
 	}).render();
 
-	// 获取机构
-	Utils.select.remote([ 'groupEntity' ], 'groups?label=mine', 'id', 'name');
-	// 获取角色
-	Utils.select.remote([ 'roleEntity' ], 'roles', 'id', 'name');
-
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
-		$('#create-modal').modal({
-			backdrop : 'static'
-		});
+		Utils.modal.show('create');
 	});
 
 	// 保存
 	$('#create-save').click(function() {
-		var object = $('#create-form').serializeObject();
+		var object = Utils.form.serialize('create');
 
 		// 验证
 		if (object.credential === '') {
@@ -133,10 +129,130 @@ define(function(require, exports, module) {
 		$.post('accounts', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
-				$('#create-modal').modal('hide');
+				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
 			}
+		});
+	});
+
+	// 编辑
+	$('#edit').click(function() {
+		if (Utils.button.isDisable('edit')) {
+			return;
+		}
+
+		Utils.modal.reset('edit');
+
+		var selectId = grid.selectedData('id');
+		$.get('accounts/' + selectId, function(data) {
+			var object = data.data;
+
+			Utils.form.fill('edit', object);
+			Utils.modal.show('edit');
+		});
+	});
+
+	// 更新
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
+
+		// 处理属性
+		object.credential = null;
+		object.locked = grid.selectedData('locked');
+
+		var selectId = grid.selectedData('id');
+		$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
+
+	// 锁定
+	$('#lock').click(function() {
+		if (Utils.button.isDisable('lock')) {
+			return;
+		}
+
+		update(true, null);
+	});
+
+	// 解锁
+	$('#unlock').click(function() {
+		if (Utils.button.isDisable('unlock')) {
+			return;
+		}
+
+		update(false, null);
+	});
+
+	// 删除
+	$('#remove').click(function() {
+		if (Utils.button.isDisable('remove')) {
+			return;
+		}
+
+		Utils.modal.show('remove');
+	});
+
+	// 删除确认
+	$('#remove-save').click(function() {
+		var selectId = grid.selectedData('id');
+		$.del('accounts/' + selectId, function(data) {
+			grid.refresh();
+			Utils.modal.hide('remove');
+		});
+	});
+
+	// 删除
+	$('#reset').click(function() {
+		if (Utils.button.isDisable('reset')) {
+			return;
+		}
+
+		Utils.modal.show('reset');
+	});
+
+	// 删除确认
+	$('#reset-save').click(function() {
+		update(null, '123456');
+		Utils.modal.hide('reset');
+	});
+
+	/**
+	 * 更新部分属性
+	 */
+	function update(locked, credential) {
+		var selectId = grid.selectedData('id');
+		$.get('accounts/' + selectId, function(data) {
+			var object = data.data;
+			object.credential = credential;
+			if (locked !== null) {
+				object.locked = locked;
+			}
+			object.groupEntity = {
+				id : object.groupEntity.id
+			};
+			object.roleEntity = {
+				id : object.roleEntity.id
+			};
+
+			$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+				if (data.success === true) {
+					grid.refresh();
+				}
+			});
+		});
+	}
+
+	// 搜索
+	$('#nav-search-button').click(function() {
+		grid.set({
+			url : defaultUrl + '&' + $('#search-form').serialize()
 		});
 	});
 });

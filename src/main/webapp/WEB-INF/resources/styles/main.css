@@ -11,6 +11,40 @@ body {
 	border-width: 0px !important;
 }
 
+.page-toolbar {
+	position: relative;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #f5f5f5;
+	min-height: 40px;
+	line-height: 39px;
+	padding: 0 20px 0 20px;
+	display: block;
+}
+
+.toolbar {
+	background-color: transparent;
+	display: inline-block;
+	line-height: 24px;
+	margin: 0 22px 0 0;
+	padding: 0;
+	font-size: 13px;
+	color: #333;
+	border-radius: 0;
+}
+
+@media only screen and (max-width:979px) {
+	.toolbar {
+		margin-left: 80px
+	}
+}
+
+@media only screen and (max-width:480px) {
+	.toolbar {
+		margin-left: 26px
+	}
+}
+
+}
 .page-header {
 	padding-bottom: 5px;
 }
@@ -19,13 +53,12 @@ body {
 	padding: 8px 20px 10px;
 }
 
-.modal-backdrop,.modal-backdrop.fade.in {
-	opacity: .15;
-	filter: alpha(opacity = 15);
-}
-
 .form-horizontal .controls {
 	margin-left: 100px;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 6px;
 }
 
 .modal-header {
@@ -36,6 +69,41 @@ body {
 	padding: 10px;
 }
 
-.form-horizontal .control-group {
-	margin-bottom: 6px;
+.modal-backdrop,.modal-backdrop.fade.in {
+	opacity: .15;
+	filter: alpha(opacity = 15);
+}
+
+.tooltip.in {
+	opacity: 0.8;
+	filter: alpha(opacity = 80);
+}
+
+.tooltip-inner {
+	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica,
+		"Lucida Grande", "Luxi Sans", Arial, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.tooltip-warning+.tooltip>.tooltip-inner {
+	background-color: #f9f2ba;
+	color: #5b5316;
+	border: 1px solid #e9d315;
+}
+
+.tooltip-warning+.tooltip.top .tooltip-arrow {
+	border-top-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.right .tooltip-arrow {
+	border-right-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.left .tooltip-arrow {
+	border-left-color: #e9d315
+}
+
+.tooltip-warning+.tooltip.bottom .tooltip-arrow {
+	border-bottom-color: #e9d315
 }
