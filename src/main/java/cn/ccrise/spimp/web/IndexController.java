@@ -30,4 +30,8 @@ public class IndexController {
 	public String ercsDictionary() {
 		return "ercs/dictionary/index";
 	}
+	@RequestMapping(value = "/ercs/plan", method = RequestMethod.GET)
+	public String ercsPlan() {
+		return "ercs/plan/index";
+	}
 }

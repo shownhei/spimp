@@ -53,20 +53,25 @@ public class DictionaryController {
 		return new Response(dictionaryService.get(id));
 	}
 
+
 	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Dictionary> page, String typeCode) {
-		return new Response(dictionaryService.getPage(page,
-				Restrictions.eq("typeCode", typeCode)));
+	public Response page(Page<Dictionary> page, String typeCode,Boolean list) {
+		page = dictionaryService.getPage(page,
+				Restrictions.eq("typeCode", typeCode));
+		if(list!=null && list.booleanValue()){
+			return new Response(page.getResult());
+		}
+		return new Response(page);
 	}
 
 	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody Dictionary dictionary) {
-		List<Dictionary> existList=dictionaryService.find(Restrictions.eq("typeCode", dictionary.getTypeCode()),Restrictions.eq("itemName", dictionary.getItemName()));
-		if(existList.size()>0){
-			return response(existList.get(0), false, "update");
-		}
+	public Response save( @RequestBody Dictionary dictionary) {
+//		List<Dictionary> existList=dictionaryService.find(Restrictions.eq("typeCode", dictionary.getTypeCode()),Restrictions.eq("itemName", dictionary.getItemName()));
+//		if(existList.size()>0){
+//			return response(existList.get(0), false, "update");
+//		}
 		// 业务验证
 //		Account accountInDB = dictionaryService.get(id);
 //		// 更新时如果用户名更改，则需要验证用户名唯一性
