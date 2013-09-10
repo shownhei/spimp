@@ -78,9 +78,10 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
+	var defaultUrl = contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#account-table',
-		url : contextPath + '/system/accounts?orderBy=id&order=desc&pageSize=' + pageSize,
+		url : defaultUrl,
 		model : {
 			fields : fields,
 			height : gridHeight
@@ -247,4 +248,11 @@ define(function(require, exports, module) {
 			});
 		});
 	}
+
+	// 搜索
+	$('#nav-search-button').click(function() {
+		grid.set({
+			url : defaultUrl + '&' + $('#search-form').serialize()
+		});
+	});
 });

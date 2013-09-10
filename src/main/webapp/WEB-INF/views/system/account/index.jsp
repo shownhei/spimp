@@ -33,12 +33,13 @@
 						<i class="icon-refresh"></i> 重置密码
 					</button>
 				</div>
-				<div class="nav-search" id="nav-search">
-					<form class="form-search">
+				<div class="nav-search">
+					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input name="search" type="text" placeholder="搜索..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入用户名或姓名..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
+						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
 				</div>
 			</div>

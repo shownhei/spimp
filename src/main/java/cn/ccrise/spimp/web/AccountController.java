@@ -100,10 +100,11 @@ public class AccountController {
 
 	@RequestMapping(value = "/system/accounts", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Account> page, String query) {
+	public Response page(Page<Account> page, String search) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
-		if (query != null) {
-			criterions.add(Restrictions.ilike("principal", query, MatchMode.ANYWHERE));
+		if (search != null) {
+			criterions.add(Restrictions.or(Restrictions.ilike("principal", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("realName", search, MatchMode.ANYWHERE)));
 		}
 
 		accountService.getPage(page, criterions.toArray(new Criterion[0]));
