@@ -1,0 +1,14 @@
+{
+  "name": "jquery-ui",
+  "family": "ikj",
+  "version": "1.10.3",
+  "description": "jQuery ui",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["jquery-ui.js"]
+  }
+}
