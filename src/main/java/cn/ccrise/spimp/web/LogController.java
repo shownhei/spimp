@@ -3,8 +3,8 @@
  */
 package cn.ccrise.spimp.web;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.criterion.Criterion;

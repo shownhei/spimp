@@ -26,4 +26,9 @@ public class IndexController {
 	public String systemAccount() {
 		return "system/account/index";
 	}
+
+	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
+	public String systemLog() {
+		return "system/log/index";
+	}
 }

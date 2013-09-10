@@ -145,6 +145,27 @@ define(function(require, exports, module) {
 		return $('#' + prefix + '-form').serializeObject();
 	};
 
+	utils.form.buildParams = function(formId, ignoreEmptyParam) {
+		var ignoreParam = true;
+		var urlParams = '';
+
+		$.each($('#' + formId).serializeArray(), function(key, value) {
+			if (ignoreEmptyParam !== undefined) {
+				ignoreParam = ignoreEmptyParam;
+			}
+
+			if (ignoreParam) {
+				if (value.value !== '') {
+					urlParams += '&' + value.name + '=' + value.value;
+				}
+			} else {
+				urlParams += '&' + value.name + '=' + value.value;
+			}
+
+		});
+		return encodeURI(urlParams);
+	};
+
 	/**
 	 * 编码
 	 */

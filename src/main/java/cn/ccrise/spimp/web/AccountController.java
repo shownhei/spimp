@@ -191,12 +191,12 @@ public class AccountController {
 		String[] args = { account.getPrincipal(), account.getRealName(), account.getRoleEntity().getName(),
 				account.getGroupEntity().getName() };
 		if (result) {
-			logEntityServiceImpl.info(messageSource.getMessage("account." + messageKey + ".success", args,
+			logEntityServiceImpl.warn(messageSource.getMessage("account." + messageKey + ".success", args,
 					Locale.getDefault()));
 			ResponseDataFilter.filter(account);
 			return new Response(account);
 		} else {
-			logEntityServiceImpl.warn(messageSource.getMessage("account." + messageKey + ".failure", args,
+			logEntityServiceImpl.severe(messageSource.getMessage("account." + messageKey + ".failure", args,
 					Locale.getDefault()));
 			return new Response(false);
 		}
