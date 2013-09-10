@@ -3,11 +3,6 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '编号',
-		name : 'id',
-		width : 50,
-		align : 'center'
-	}, {
 		header : '级别',
 		name : 'level',
 		align : 'center',
@@ -56,6 +51,8 @@ define(function(require, exports, module) {
 		url : defaultUrl,
 		model : {
 			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
 			height : gridHeight
 		}
 	}).render();
