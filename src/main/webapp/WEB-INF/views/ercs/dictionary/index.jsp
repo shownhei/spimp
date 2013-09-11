@@ -54,6 +54,8 @@
 								</a></li>
 								<li title="避险场所种类:refuge_type"><a href="#refuge_type" data-toggle="tab"> 避险场所种类
 								</a></li>
+								<li title="应急资源种类:resource_type"><a href="#resource_type" data-toggle="tab"> 应急资源种类
+								</a></li>
 
 							</ul>
 
@@ -79,6 +81,9 @@
 								</div>
 								<div class="tab-pane" id="refuge_type">
 									<div class="row-fluid" id="refuge_type-table"></div>
+								</div>
+								<div class="tab-pane" id="resource_type">
+									<div class="row-fluid" id="resource_type-table"></div>
 								</div>
 							</div>
 						</div>
