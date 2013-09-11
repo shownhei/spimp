@@ -51,7 +51,15 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
-	public String index() {
+	public String indexStaff() {
 		return "ercs/staff/index";
+	}
+	/**
+	 * 应急法规
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/law", method = RequestMethod.GET)
+	public String indexLaw() {
+		return "ercs/law/index";
 	}
 }
