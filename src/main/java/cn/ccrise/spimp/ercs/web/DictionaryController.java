@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,9 +57,13 @@ public class DictionaryController {
 
 	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Dictionary> page, String typeCode,Boolean list) {
-		page = dictionaryService.getPage(page,
-				Restrictions.eq("typeCode", typeCode));
+	public Response page(Page<Dictionary> page, String typeCode,Boolean list,String itemName) {
+		if(StringUtils.isBlank(itemName)){
+			page = dictionaryService.getPage(page,Restrictions.eq("typeCode", typeCode));
+		}else{
+			page = dictionaryService.getPage(page,Restrictions.eq("typeCode", typeCode),Restrictions.like("itemName", "%"+itemName+"%"));
+		}
+		
 		if(list!=null && list.booleanValue()){
 			return new Response(page.getResult());
 		}

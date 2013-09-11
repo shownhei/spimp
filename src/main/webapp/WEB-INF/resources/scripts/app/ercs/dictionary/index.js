@@ -9,17 +9,13 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '编号',
-		name : 'id',
-		width : 50,
-		align : 'typeCode'
-	}, {
 		header : '字典名称',
 		name : 'itemName'
 	}];
-
+	// 计算表格高度和行数
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 110);
+	var pageSize = Math.floor(gridHeight / 20);
 	// 计算表格高度
-	var gridHeight = $(window).height() - ($('.breadcrumbs').height() + $('.navbar').height() + $('.page-header').height() + 115);
 	/**
 	 * 修改/重置按钮状态
 	 */
@@ -40,6 +36,7 @@ define(function(require, exports, module) {
 			url : contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=18&typeCode='+tableKeyArray[i],
 			urlParser : /(grid_)\d+(.*)/,
 			model : {
+				needOrder:true,
 				fields : fields,
 				height : gridHeight
 			},
@@ -53,9 +50,11 @@ define(function(require, exports, module) {
 				changeButtonsStatus();
 			}
 		}).render();
+		grid['table_key']=tableKeyArray[i];
 		tableArray[tableKeyArray[i]+'-table']=grid;
 		
 	}
+	
 	$('a[data-toggle="tab"]').on('shown', function (e) {
 		var flag=e.target.href;
 		var tableKey=flag.substr(flag.indexOf('#')+1);
@@ -71,7 +70,53 @@ define(function(require, exports, module) {
 		$('#itemName').val('');
 		$('#itemName')[0].focus();
 	});
-
+	// 删除
+	$('#delete').click(function() {
+		if (Utils.button.isDisable('delete')) {
+			return;
+		}
+		Utils.modal.show('delete');
+	});
+	// 删除确认
+	$('#delete-save').click(function() {
+		var selectId = Center['currentTable'].selectedData('id');
+		$.del('/ercs/dictionaries/' + selectId, function(data) {
+			Center['currentTable'].refresh();
+			Utils.modal.hide('delete');
+		});
+	});
+	// 编辑
+	$('#edit').click(function() {
+		if (Utils.button.isDisable('edit')) {
+			return;
+		}
+		Utils.modal.reset('edit');
+		var selectId = Center['currentTable'].selectedData('id');
+		$.get('/ercs/dictionaries/' + selectId, function(data) {
+			var object = data.data;
+			Utils.form.fill('edit', object);
+			Utils.modal.show('edit');
+		});
+	});
+	// 更新
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
+		// 验证
+		if (object.itemName === '') {
+			Utils.modal.message('create', [ '请输入字典值' ]);
+			return;
+		}
+		// 处理属性
+		var selectId = Center['currentTable'].selectedData('id');
+		$.put('/ercs/dictionaries/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				Center['currentTable'].refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
 	// 保存
 	$('#create-save').click(function() {
 		var object = $('#create-form').serializeObject();
@@ -87,6 +132,13 @@ define(function(require, exports, module) {
 			} else {
 				Utils.modal.message('create', data.errors);
 			}
+		});
+	});
+	Center['currentTable']=tableArray[tableKeyArray[0]+'-table'];
+	// 搜索
+	$('#query').click(function() {
+		Center['currentTable'].set({
+			url : contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=18&typeCode='+Center['currentTable']['table_key'] + Utils.form.buildParams('query-form')
 		});
 	});
 });
