@@ -52,6 +52,8 @@
 										事故类别 </a></li>
 								<li title="事故响应级别:response_level"><a href="#response_level" data-toggle="tab"> 事故响应级别
 								</a></li>
+								<li title="避险场所种类:refuge_type"><a href="#refuge_type" data-toggle="tab"> 避险场所种类
+								</a></li>
 
 							</ul>
 
@@ -74,6 +76,9 @@
 
 								<div class="tab-pane" id="response_level">
 									<div class="row-fluid" id="response_level-table"></div>
+								</div>
+								<div class="tab-pane" id="refuge_type">
+									<div class="row-fluid" id="refuge_type-table"></div>
 								</div>
 							</div>
 						</div>
