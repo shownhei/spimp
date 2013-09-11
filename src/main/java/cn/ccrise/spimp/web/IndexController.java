@@ -62,4 +62,12 @@ public class IndexController {
 	public String indexLaw() {
 		return "ercs/law/index";
 	}
+	/**
+	 * 避难场所
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/place", method = RequestMethod.GET)
+	public String index() {
+		return "ercs/place/index";
+	}
 }
