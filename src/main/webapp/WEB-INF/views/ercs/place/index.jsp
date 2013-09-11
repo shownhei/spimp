@@ -27,12 +27,11 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 					    <span class="input-icon">
-							<select id="planTypeSelect" name="planTypeSelect[id]" type="text"
-							placeholder="选择类型" class="input-small nav-search-input" ></select>
-							<i class="icon-search nav-search-icon"></i>
+							<select id="refugeTypeSelect" name="refugeType"
+							class="input-small" style="width:150px;"></select>
 						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="refugeName" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -40,7 +39,7 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="law-table"></div>
+				<div class="row-fluid" id="refuge-table"></div>
 			</div>
 		</div>
 	</div>
@@ -59,7 +58,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">种类</label>
 							<div class="controls">
-								<input id="refugeType" name="refugeType" type="text" class="span11">
+							    <select id="create-refugeType" name="refugeType[id]"  class="span11" ></select>
 							</div>
 						</div>
 	        
@@ -178,7 +177,7 @@
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">种类</label>
 							<div class="controls">
-								<input  name="refugeType" type="text" class="span11">
+								<select id="edit-refugeType" name="refugeType[id]"  class="span11" ></select>
 							</div>
 						</div>
 	        

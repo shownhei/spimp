@@ -6,11 +6,17 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-
+	Utils.select.remote([ 'create-refugeType','edit-refugeType','refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
 	// 配置表格列
 	var fields = [{
         header : '种类',
-        name : 'refugeType'
+        name : 'refugeType',
+        render:function(val){
+        	if(val){
+        		return val.itemName;
+        	}
+        	return '';
+        }
     },{
         header : '名称',
         name : 'refugeName'
@@ -64,7 +70,7 @@ define(function(require, exports, module) {
 	// 配置表格
 	var defaultUrl = contextPath + '/ercs/refuges?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
-		parentNode : '#law-table',
+		parentNode : '#refuge-table',
 		url : defaultUrl,
 		model : {
 			fields : fields,
