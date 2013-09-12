@@ -83,7 +83,15 @@ define(function(require, exports, module) {
 	$('#create-save').click(
 			function() {
 				var object = Utils.form.serialize('create');
-
+				// 验证
+				if (object.resourceName === '') {
+					Utils.modal.message('create', [ '请输入资源名称' ]);
+					return;
+				}
+				if (object.resourceNo === '') {
+					Utils.modal.message('create', [ '请输入资源编号' ]);
+					return;
+				}
 				if (object.department === '') {
 					delete object.department;
 				}
@@ -122,6 +130,14 @@ define(function(require, exports, module) {
 	$('#edit-save').click(
 			function() {
 				var object = Utils.form.serialize('edit');
+				if (object.resourceName === '') {
+					Utils.modal.message('edit', [ '请输入资源名称' ]);
+					return;
+				}
+				if (object.resourceNo === '') {
+					Utils.modal.message('edit', [ '请输入资源编号' ]);
+					return;
+				}
 				if (object.department === '') {
 					delete object.department;
 				}

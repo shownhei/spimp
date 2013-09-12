@@ -4,9 +4,14 @@
 package cn.ccrise.spimp.ercs.web;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.ercs.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.EmergencyPlan;
+import cn.ccrise.spimp.ercs.service.DictionaryService;
 import cn.ccrise.spimp.ercs.service.EmergencyPlanService;
 
 /**
@@ -30,7 +37,8 @@ import cn.ccrise.spimp.ercs.service.EmergencyPlanService;
 @Controller
 public class EmergencyPlanController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+	@Autowired
+	private DictionaryService dictionaryService;
 	@Autowired
 	private EmergencyPlanService emergencyPlanService;
 
@@ -48,8 +56,20 @@ public class EmergencyPlanController {
 
 	@RequestMapping(value = "/ercs/plans", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyPlan> page) {
-		return new Response(emergencyPlanService.getPage(page));
+	public Response page(Page<EmergencyPlan> page,String planName,Long planType) {
+		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
+		if (StringUtils.isNotBlank(planName)) {
+			param.add(Restrictions.like("planName", "%" + planName + "%"));
+		}
+		if (planType != null) {
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq(
+					"id", planType));
+			if (result != null && result.size() > 0) {
+				param.add(Restrictions.eq("planType", result.iterator()
+						.next()));
+			}
+		}
+		return new Response(emergencyPlanService.getPage(page,param.toArray(new SimpleExpression[0])));
 	}
 
 	@RequestMapping(value = "/ercs/plans", method = RequestMethod.POST)
