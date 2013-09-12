@@ -26,9 +26,48 @@ public class IndexController {
 	public String systemAccount() {
 		return "system/account/index";
 	}
-
+	/**
+	 * 字典管理
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/dictionary", method = RequestMethod.GET)
+	public String ercsDictionary() {
+		return "ercs/dictionary/index";
+	}
+	/**
+	 * 应急方案管理
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/plan", method = RequestMethod.GET)
+	public String ercsPlan() {
+		return "ercs/plan/index";
+	}
 	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
 	public String systemLog() {
 		return "system/log/index";
+	}
+	/**
+	 * 应急救援人员
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
+	public String indexStaff() {
+		return "ercs/staff/index";
+	}
+	/**
+	 * 应急法规
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/law", method = RequestMethod.GET)
+	public String indexLaw() {
+		return "ercs/law/index";
+	}
+	/**
+	 * 避难场所
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/place", method = RequestMethod.GET)
+	public String index() {
+		return "ercs/place/index";
 	}
 }
