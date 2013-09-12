@@ -16,7 +16,13 @@ define(function(require, exports, module) {
         name : 'resourceNo'
     },{
         header : '类别',
-        name : 'resourceType'
+        name : 'resourceType',
+        render:function(val){
+        	if(val){
+        		return val.itemName;
+        	}
+        	return '';
+        }
     },{
         header : '所属单位',
         name : 'department'
