@@ -6,9 +6,15 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-refugeType', 'edit-refugeType',
+			'refugeTypeSelect' ],
+			'/ercs/dictionaries?typeCode=refuge_type&list=true', 'id',
+			'itemName');
 	// 配置表格列
 	var fields = [ {
+		header : '名称',
+		name : 'refugeName'
+	}, {
 		header : '种类',
 		name : 'refugeType',
 		render : function(val) {
@@ -17,9 +23,6 @@ define(function(require, exports, module) {
 			}
 			return '';
 		}
-	}, {
-		header : '名称',
-		name : 'refugeName'
 	}, {
 		header : '数量',
 		name : 'quantity'
@@ -53,7 +56,9 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height()
+			- ($('.navbar').height() + $('.page-toolbar').height()
+					+ $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -68,7 +73,8 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/refuges?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath
+			+ '/ercs/refuges?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#refuge-table',
 		url : defaultUrl,
@@ -96,7 +102,26 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-
+		if (object.refugeName === '') {
+			Utils.modal.message('create', [ '请输入场所名称' ]);
+			return;
+		}
+		if (object.position === '') {
+			Utils.modal.message('create', [ '请输入场所位置' ]);
+			return;
+		}
+		if (object.capacity === '') {
+			Utils.modal.message('create', [ '请输入可容纳人数' ]);
+			return;
+		}
+		if (object.manager === '') {
+			Utils.modal.message('create', [ '请输入管理人员名称' ]);
+			return;
+		}
+		if (object.telepone === '') {
+			Utils.modal.message('create', [ '请输入管理人联系方式' ]);
+			return;
+		}
 		if (object.department === '') {
 			delete object.department;
 		}
@@ -131,32 +156,53 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(function() {
-		var object = Utils.form.serialize('edit');
-		if (object.department === '') {
-			delete object.department;
-		}
-		if (object.refugeType === '') {
-			delete object.refugeType;
-		}
-		// 处理属性
-		var selectId = grid.selectedData('id');
-		$.put('/ercs/refuges/' + selectId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('edit');
-			} else {
-				Utils.modal.message('edit', data.errors);
-			}
-		});
-	});
+	$('#edit-save').click(
+			function() {
+				var object = Utils.form.serialize('edit');
+				if (object.refugeName === '') {
+					Utils.modal.message('edit', [ '请输入场所名称' ]);
+					return;
+				}
+				if (object.position === '') {
+					Utils.modal.message('edit', [ '请输入场所位置' ]);
+					return;
+				}
+				if (object.capacity === '') {
+					Utils.modal.message('edit', [ '请输入可容纳人数' ]);
+					return;
+				}
+				if (object.manager === '') {
+					Utils.modal.message('edit', [ '请输入管理人员名称' ]);
+					return;
+				}
+				if (object.telepone === '') {
+					Utils.modal.message('edit', [ '请输入管理人联系方式' ]);
+					return;
+				}
+				if (object.department === '') {
+					delete object.department;
+				}
+				if (object.refugeType === '') {
+					delete object.refugeType;
+				}
+				// 处理属性
+				var selectId = grid.selectedData('id');
+				$.put('/ercs/refuges/' + selectId, JSON.stringify(object),
+						function(data) {
+							if (data.success) {
+								grid.refresh();
+								Utils.modal.hide('edit');
+							} else {
+								Utils.modal.message('edit', data.errors);
+							}
+						});
+			});
 
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
@@ -168,32 +214,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
-	/**
-	 * 更新部分属性
-	 */
-	function update(locked, credential) {
-		var selectId = grid.selectedData('id');
-		$.get('/ercs/refuges/' + selectId, function(data) {
-			var object = data.data;
-			object.credential = credential;
-			if (locked !== null) {
-				object.locked = locked;
-			}
-			object.groupEntity = {
-				id : object.groupEntity.id
-			};
-			object.roleEntity = {
-				id : object.roleEntity.id
-			};
-
-			$.put('/ercs/refuges/' + selectId, JSON.stringify(object), function(data) {
-				if (data.success === true) {
-					grid.refresh();
-				}
-			});
-		});
-	}
 
 	// 搜索
 	$('#nav-search-button').click(function() {
