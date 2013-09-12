@@ -9,11 +9,6 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '编号',
-		name : 'id',
-		width : 50,
-		align : 'center'
-	}, {
 		header : '预案名称',
 		name : 'planName'
 	}, {
@@ -54,6 +49,8 @@ define(function(require, exports, module) {
 		url : defaultUrl,
 		model : {
 			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
 			height : gridHeight
 		},
 		onClick : function(target, data) {

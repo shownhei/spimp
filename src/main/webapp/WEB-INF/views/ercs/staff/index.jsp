@@ -54,6 +54,13 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
+							<label class="control-label span2" for="principal">姓名</label>
+							<div class="controls">
+								<input id="staffName" name="staffName" type="text"
+									class="span11">
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label span2" for="principal">员工类型</label>
 							<div class="controls">
 								<input id="staffType" name="staffType" type="text"
@@ -61,13 +68,6 @@
 							</div>
 						</div>
 
-						<div class="control-group">
-							<label class="control-label span2" for="principal">姓名</label>
-							<div class="controls">
-								<input id="staffName" name="staffName" type="text"
-									class="span11">
-							</div>
-						</div>
 
 						<div class="control-group">
 							<label class="control-label span2" for="principal">部门</label>
