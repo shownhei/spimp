@@ -14,16 +14,16 @@ define(function(require, exports, module) {
 	}];
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 110);
-	var pageSize = Math.floor(gridHeight / 20);
+	var pageSize = Math.floor(gridHeight / 21);
 	// 计算表格高度
 	/**
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			$('#edit,#delete').removeClass('disabled');
+			Utils.button.enable([ 'edit', 'delete' ]);
 		} else {
-			$('#edit,#delete').addClass('disabled');
+			Utils.button.disable([ 'edit', 'delete' ]);
 		}
 	}
 
@@ -34,7 +34,6 @@ define(function(require, exports, module) {
 		var grid = new Grid({
 			parentNode : '#'+tableKeyArray[i]+'-table',
 			url : contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=18&typeCode='+tableKeyArray[i],
-			urlParser : /(grid_)\d+(.*)/,
 			model : {
 				needOrder:true,
 				fields : fields,
@@ -42,9 +41,6 @@ define(function(require, exports, module) {
 			},
 			onClick : function(target, data) {
 				changeButtonsStatus(this.selected, data);
-			},
-			onSort : function(name, direction) {
-				console.log(name, direction);
 			},
 			onLoaded : function() {
 				changeButtonsStatus();
@@ -64,9 +60,8 @@ define(function(require, exports, module) {
 	});
 	// 新建
 	$('#create').click(function() {
-		$('#create-modal').modal({
-			backdrop : 'static'
-		});
+		Utils.modal.reset('create');
+		Utils.modal.show('create');
 		$('#itemName').val('');
 		$('#itemName')[0].focus();
 	});
@@ -103,7 +98,7 @@ define(function(require, exports, module) {
 		var object = Utils.form.serialize('edit');
 		// 验证
 		if (object.itemName === '') {
-			Utils.modal.message('create', [ '请输入字典值' ]);
+			Utils.modal.message('edit', [ '请输入字典值' ]);
 			return;
 		}
 		// 处理属性

@@ -57,7 +57,7 @@
 
 							</ul>
 
-							<div class="tab-content" style="padding: 0px 0px 16px 0px;">
+							<div class="tab-content" style="padding: 0px 0px 0px 0px;">
 								<div class="tab-pane in active" id="plan_type">
 									<div class="row-fluid" id="plan_type-table"></div>
 								</div>
