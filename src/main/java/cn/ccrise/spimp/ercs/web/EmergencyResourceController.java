@@ -46,7 +46,6 @@ public class EmergencyResourceController {
 		return new Response(emergencyResourceService.get(id));
 	}
 
-
 	@RequestMapping(value = "/ercs/emergency-resources", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<EmergencyResource> page) {

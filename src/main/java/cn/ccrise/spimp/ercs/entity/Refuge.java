@@ -86,104 +86,6 @@ public class Refuge extends IDEntity {
 	 */
 	private String telepone;
 	private Timestamp addTime;
-	@ManyToOne
-	public Dictionary getRefugeType() {
-		return refugeType;
-	}
-
-	public void setRefugeType(Dictionary refugeType) {
-		this.refugeType = refugeType;
-	}
-
-	public String getRefugeName() {
-		return refugeName;
-	}
-
-	public void setRefugeName(String refugeName) {
-		this.refugeName = refugeName;
-	}
-
-	public Long getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	public String getBasicInfomation() {
-		return basicInfomation;
-	}
-
-	public void setBasicInfomation(String basicInfomation) {
-		this.basicInfomation = basicInfomation;
-	}
-
-
-	public String getRefugeArea() {
-		return refugeArea;
-	}
-
-	public void setRefugeArea(String refugeArea) {
-		this.refugeArea = refugeArea;
-	}
-
-	public String getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(String capacity) {
-		this.capacity = capacity;
-	}
-
-	public String getInfrastructure() {
-		return infrastructure;
-	}
-
-	public void setInfrastructure(String infrastructure) {
-		this.infrastructure = infrastructure;
-	}
-
-	public String getProtection() {
-		return protection;
-	}
-
-	public void setProtection(String protection) {
-		this.protection = protection;
-	}
-
-	@ManyToOne
-	public GroupEntity getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(GroupEntity department) {
-		this.department = department;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
-	public String getTelepone() {
-		return telepone;
-	}
-
-	public void setTelepone(String telepone) {
-		this.telepone = telepone;
-	}
 
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
@@ -192,8 +94,106 @@ public class Refuge extends IDEntity {
 		return addTime;
 	}
 
+	public String getBasicInfomation() {
+		return basicInfomation;
+	}
+
+	public String getCapacity() {
+		return capacity;
+	}
+
+	@ManyToOne
+	public GroupEntity getDepartment() {
+		return department;
+	}
+
+	public String getInfrastructure() {
+		return infrastructure;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public String getProtection() {
+		return protection;
+	}
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public String getRefugeArea() {
+		return refugeArea;
+	}
+
+	public String getRefugeName() {
+		return refugeName;
+	}
+
+	@ManyToOne
+	public Dictionary getRefugeType() {
+		return refugeType;
+	}
+
+	public String getTelepone() {
+		return telepone;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setBasicInfomation(String basicInfomation) {
+		this.basicInfomation = basicInfomation;
+	}
+
+	public void setCapacity(String capacity) {
+		this.capacity = capacity;
+	}
+
+	public void setDepartment(GroupEntity department) {
+		this.department = department;
+	}
+
+	public void setInfrastructure(String infrastructure) {
+		this.infrastructure = infrastructure;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public void setProtection(String protection) {
+		this.protection = protection;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setRefugeArea(String refugeArea) {
+		this.refugeArea = refugeArea;
+	}
+
+	public void setRefugeName(String refugeName) {
+		this.refugeName = refugeName;
+	}
+
+	public void setRefugeType(Dictionary refugeType) {
+		this.refugeType = refugeType;
+	}
+
+	public void setTelepone(String telepone) {
+		this.telepone = telepone;
 	}
 
 }

@@ -5,50 +5,50 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-     Utils.select.remote([ 'edit-expertiseArea','create-expertiseArea'], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');	
-     Utils.select.remote([ 'edit-responseLevel' , 'create-responseLevel'], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
 
 	// 配置表格列
-	var fields = [{
-        header : '员工类型',
-        name : 'staffType'
-    },{
-        header : '姓名',
-        name : 'staffName'
-    },{
-        header : '部门',
-        name : 'department'
-    },{
-        header : '专业领域',
-        name : 'expertiseArea',
-        render:function(val){
-        	if(val){
-        		return val.itemName;
-        	}
-        	return '';
-        }
-    },{
-        header : '职称',
-        name : 'title'
-    },{
-        header : '经验',
-        name : 'experience'
-    },{
-        header : '联系方式',
-        name : 'phone'
-    },{
-        header : '事故响应级别',
-        name : 'responseLevel',
-        render:function(val){
-        	if(val){
-        		return val.itemName;
-        	}
-        	return '';
-        }
-    },{
-        header : '创建时间',
-        name : 'addTime'
-    } ];
+	var fields = [ {
+		header : '员工类型',
+		name : 'staffType'
+	}, {
+		header : '姓名',
+		name : 'staffName'
+	}, {
+		header : '部门',
+		name : 'department'
+	}, {
+		header : '专业领域',
+		name : 'expertiseArea',
+		render : function(val) {
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		}
+	}, {
+		header : '职称',
+		name : 'title'
+	}, {
+		header : '经验',
+		name : 'experience'
+	}, {
+		header : '联系方式',
+		name : 'phone'
+	}, {
+		header : '事故响应级别',
+		name : 'responseLevel',
+		render : function(val) {
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		}
+	}, {
+		header : '创建时间',
+		name : 'addTime'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -58,21 +58,21 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-	    if (selected ) {
-		   Utils.button.enable([ 'edit', 'remove' ]);
-		}else{
-		   Utils.button.disable([ 'edit', 'remove' ]);
+		if (selected) {
+			Utils.button.enable([ 'edit', 'remove' ]);
+		} else {
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
-		
+
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/rescuers?orderBy=id&order=desc&pageSize='+pageSize;
+	var defaultUrl = contextPath + '/ercs/rescuers?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#staff-table',
 		url : defaultUrl,
 		model : {
-			needOrder:true,
+			needOrder : true,
 			fields : fields,
 			height : gridHeight
 		},
@@ -95,7 +95,7 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-        $('#create-save').addClass('disabled');
+		$('#create-save').addClass('disabled');
 
 		$.post('/ercs/rescuers', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -153,7 +153,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
 
 	/**
 	 * 更新部分属性

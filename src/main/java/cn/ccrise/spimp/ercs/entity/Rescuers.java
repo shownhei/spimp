@@ -58,67 +58,83 @@ public class Rescuers extends IDEntity {
 	 */
 	private Dictionary responseLevel;
 	private Timestamp addTime;
-	public String getStaffType() {
-		return staffType;
-	}
-	public void setStaffType(String staffType) {
-		this.staffType = staffType;
-	}
-	public String getStaffName() {
-		return staffName;
-	}
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
-	}
-	@ManyToOne
-	public GroupEntity getDepartment() {
-		return department;
-	}
-	public void setDepartment(GroupEntity department) {
-		this.department = department;
-	}
-	@ManyToOne
-	public Dictionary getExpertiseArea() {
-		return expertiseArea;
-	}
-	public void setExpertiseArea(Dictionary expertiseArea) {
-		this.expertiseArea = expertiseArea;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getExperience() {
-		return experience;
-	}
-	public void setExperience(String experience) {
-		this.experience = experience;
-	}
 
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	@ManyToOne
-	public Dictionary getResponseLevel() {
-		return responseLevel;
-	}
-	public void setResponseLevel(Dictionary responseLevel) {
-		this.responseLevel = responseLevel;
-	}
-	@Column(updatable=false)
+	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getAddTime() {
 		return addTime;
 	}
+
+	@ManyToOne
+	public GroupEntity getDepartment() {
+		return department;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	@ManyToOne
+	public Dictionary getExpertiseArea() {
+		return expertiseArea;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	@ManyToOne
+	public Dictionary getResponseLevel() {
+		return responseLevel;
+	}
+
+	public String getStaffName() {
+		return staffName;
+	}
+
+	public String getStaffType() {
+		return staffType;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
 	}
-	
-	
+
+	public void setDepartment(GroupEntity department) {
+		this.department = department;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+	public void setExpertiseArea(Dictionary expertiseArea) {
+		this.expertiseArea = expertiseArea;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setResponseLevel(Dictionary responseLevel) {
+		this.responseLevel = responseLevel;
+	}
+
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+
+	public void setStaffType(String staffType) {
+		this.staffType = staffType;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 }

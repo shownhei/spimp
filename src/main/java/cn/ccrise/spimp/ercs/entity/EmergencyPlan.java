@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -43,12 +42,19 @@ public class EmergencyPlan extends IDEntity {
 	 */
 	private Timestamp addTime;
 
-	public String getPlanName() {
-		return planName;
+	@Column(updatable = false)
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getAddTime() {
+		return addTime;
 	}
 
-	public void setPlanName(String planName) {
-		this.planName = planName;
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public String getPlanName() {
+		return planName;
 	}
 
 	@ManyToOne
@@ -56,26 +62,20 @@ public class EmergencyPlan extends IDEntity {
 		return planType;
 	}
 
-	public void setPlanType(Dictionary planType) {
-		this.planType = planType;
-	}
-
-	public String getAttachment() {
-		return attachment;
+	public void setAddTime(Timestamp addTime) {
+		this.addTime = addTime;
 	}
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	@Column(updatable=false)
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getAddTime() {
-		return addTime;
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
 	}
 
-	public void setAddTime(Timestamp addTime) {
-		this.addTime = addTime;
+	public void setPlanType(Dictionary planType) {
+		this.planType = planType;
 	}
 
 }

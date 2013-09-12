@@ -95,7 +95,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("应急法规", "/ercs/law", ercs, "", 7);
 		resourceEntityServiceImpl.saveMenuResource("现场处置方案", "/ercs/scheme", ercs, "", 8);
 		resourceEntityServiceImpl.saveMenuResource("应急机构", "/ercs/organization", ercs, "", 9);
-		
+
 		resourceEntityServiceImpl.saveMenuResource("三维应急演练", "/ercs/3d", ercs, "", 10);
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", 11);
 

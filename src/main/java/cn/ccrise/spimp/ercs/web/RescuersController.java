@@ -50,15 +50,14 @@ public class RescuersController {
 		return new Response(rescuersService.get(id));
 	}
 
-
 	@RequestMapping(value = "/ercs/rescuers", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Rescuers> page,String staffName) {
-		ArrayList<SimpleExpression> param=new ArrayList<SimpleExpression>();
-		if(StringUtils.isNotBlank(staffName)){
-			param.add(Restrictions.like("staffName", "%"+staffName+"%"));
+	public Response page(Page<Rescuers> page, String staffName) {
+		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
+		if (StringUtils.isNotBlank(staffName)) {
+			param.add(Restrictions.like("staffName", "%" + staffName + "%"));
 		}
-		return new Response(rescuersService.getPage(page,param.toArray(new SimpleExpression[0])));
+		return new Response(rescuersService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 
 	@RequestMapping(value = "/ercs/rescuers", method = RequestMethod.POST)

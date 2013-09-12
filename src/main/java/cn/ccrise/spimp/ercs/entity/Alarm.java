@@ -30,68 +30,41 @@ public class Alarm extends IDEntity {
 	 */
 	private Long serialNumber;
 	/**
-     * 事故地点
-     */
-     private String accidentLocation;
-   
-     /**
-     * 事故类型
-     */
-     private Dictionary accidentType;
-   
-     /**
-     * 严重程度
-     */
-     private String severity;
-   
-     /**
-     * 报警人
-     */
-     private String alarmPeople;
-   
-     /**
-     * 报警时间
-     */
-     private Timestamp alarmTime;
+	 * 事故地点
+	 */
+	private String accidentLocation;
 
-	public Long getSerialNumber() {
-		return serialNumber;
-	}
+	/**
+	 * 事故类型
+	 */
+	private Dictionary accidentType;
 
-	public void setSerialNumber(Long serialNumber) {
-		this.serialNumber = serialNumber;
-	}
+	/**
+	 * 严重程度
+	 */
+	private String severity;
+
+	/**
+	 * 报警人
+	 */
+	private String alarmPeople;
+
+	/**
+	 * 报警时间
+	 */
+	private Timestamp alarmTime;
 
 	public String getAccidentLocation() {
 		return accidentLocation;
 	}
 
-	public void setAccidentLocation(String accidentLocation) {
-		this.accidentLocation = accidentLocation;
-	}
 	@ManyToOne
 	public Dictionary getAccidentType() {
 		return accidentType;
 	}
 
-	public void setAccidentType(Dictionary accidentType) {
-		this.accidentType = accidentType;
-	}
-
-	public String getSeverity() {
-		return severity;
-	}
-
-	public void setSeverity(String severity) {
-		this.severity = severity;
-	}
-
 	public String getAlarmPeople() {
 		return alarmPeople;
-	}
-
-	public void setAlarmPeople(String alarmPeople) {
-		this.alarmPeople = alarmPeople;
 	}
 
 	@Column(updatable = false)
@@ -101,8 +74,36 @@ public class Alarm extends IDEntity {
 		return alarmTime;
 	}
 
+	public Long getSerialNumber() {
+		return serialNumber;
+	}
+
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setAccidentLocation(String accidentLocation) {
+		this.accidentLocation = accidentLocation;
+	}
+
+	public void setAccidentType(Dictionary accidentType) {
+		this.accidentType = accidentType;
+	}
+
+	public void setAlarmPeople(String alarmPeople) {
+		this.alarmPeople = alarmPeople;
+	}
+
 	public void setAlarmTime(Timestamp alarmTime) {
 		this.alarmTime = alarmTime;
 	}
-     
+
+	public void setSerialNumber(Long serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+
 }

@@ -48,12 +48,14 @@ public class EmergencyLawController {
 		return new Response(emergencyLawService.get(id));
 	}
 
-
 	@RequestMapping(value = "/ercs/emergency-laws", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyLaw> page,String search) {
-		if(StringUtils.isNotBlank(search)){
-			emergencyLawService.getPage(page,Restrictions.or(Restrictions.like("fileNo", "%"+search+"%"),Restrictions.like("fileName", "%"+search+"%")));
+	public Response page(Page<EmergencyLaw> page, String search) {
+		if (StringUtils.isNotBlank(search)) {
+			emergencyLawService.getPage(
+					page,
+					Restrictions.or(Restrictions.like("fileNo", "%" + search + "%"),
+							Restrictions.like("fileName", "%" + search + "%")));
 		}
 		return new Response(emergencyLawService.getPage(page));
 	}

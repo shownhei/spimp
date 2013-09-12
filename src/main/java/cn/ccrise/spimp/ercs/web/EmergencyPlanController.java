@@ -54,7 +54,7 @@ public class EmergencyPlanController {
 
 	@RequestMapping(value = "/ercs/plans", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save( @RequestBody EmergencyPlan emergencyPlan) {
+	public Response save(@RequestBody EmergencyPlan emergencyPlan) {
 		emergencyPlan.setAddTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(emergencyPlanService.save(emergencyPlan));
 	}
@@ -62,7 +62,7 @@ public class EmergencyPlanController {
 	@RequestMapping(value = "/ercs/plans/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody EmergencyPlan emergencyPlan, @PathVariable long id) {
-		logger.debug("{}",emergencyPlan);
+		logger.debug("{}", emergencyPlan);
 		return new Response(emergencyPlanService.update(emergencyPlan));
 	}
 }

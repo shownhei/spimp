@@ -6,30 +6,29 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-
 	// 配置表格列
-	var fields = [{
-        header : '名称',
-        name : 'resourceName'
-    },{
-        header : '编号',
-        name : 'resourceNo'
-    },{
-        header : '类别',
-        name : 'resourceType',
-        render:function(val){
-        	if(val){
-        		return val.itemName;
-        	}
-        	return '';
-        }
-    },{
-        header : '所属单位',
-        name : 'department'
-    },{
-        header : '录入时间',
-        name : 'addTime'
-    }];
+	var fields = [ {
+		header : '名称',
+		name : 'resourceName'
+	}, {
+		header : '编号',
+		name : 'resourceNo'
+	}, {
+		header : '类别',
+		name : 'resourceType',
+		render : function(val) {
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		}
+	}, {
+		header : '所属单位',
+		name : 'department'
+	}, {
+		header : '录入时间',
+		name : 'addTime'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -39,14 +38,15 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected ) {
+		if (selected) {
 			Utils.button.enable([ 'edit', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove']);
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
-	Utils.select.remote([ 'create-resourceType','edit-resourceType','resourceTypeSelect'], '/ercs/dictionaries?typeCode=resource_type&list=true', 'id', 'itemName');
-	
+	Utils.select.remote([ 'create-resourceType', 'edit-resourceType', 'resourceTypeSelect' ], '/ercs/dictionaries?typeCode=resource_type&list=true', 'id',
+			'itemName');
+
 	// 配置表格
 	var defaultUrl = contextPath + '/ercs/emergency-resources?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
@@ -77,10 +77,10 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
-		if(object.resourceType===''){
+		if (object.resourceType === '') {
 			delete object.resourceType;
 		}
 		$.post('/ercs/emergency-resources', JSON.stringify(object), function(data) {
@@ -113,10 +113,10 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
-		if(object.resourceType===''){
+		if (object.resourceType === '') {
 			delete object.resourceType;
 		}
 		// 处理属性
@@ -130,7 +130,6 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
 
 	// 删除
 	$('#remove').click(function() {
@@ -149,8 +148,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
-
 
 	// 搜索
 	$('#nav-search-button').click(function() {

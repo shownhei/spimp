@@ -6,51 +6,51 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-refugeType','edit-refugeType','refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
 	// 配置表格列
-	var fields = [{
-        header : '种类',
-        name : 'refugeType',
-        render:function(val){
-        	if(val){
-        		return val.itemName;
-        	}
-        	return '';
-        }
-    },{
-        header : '名称',
-        name : 'refugeName'
-    },{
-        header : '数量',
-        name : 'quantity'
-    },{
-        header : '位置',
-        name : 'position'
-    },{
-        header : '基本情况',
-        name : 'basicInfomation'
-    },{
-        header : '面积',
-        name : 'refugeArea'
-    },{
-        header : '可容纳人数',
-        name : 'capacity'
-    },{
-        header : '基础设施',
-        name : 'infrastructure'
-    },{
-        header : '防护功能',
-        name : 'protection'
-    },{
-        header : '隶属单位',
-        name : 'department'
-    },{
-        header : '管理人',
-        name : 'manager'
-    },{
-        header : '联系方式',
-        name : 'telepone'
-    }];
+	var fields = [ {
+		header : '种类',
+		name : 'refugeType',
+		render : function(val) {
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		}
+	}, {
+		header : '名称',
+		name : 'refugeName'
+	}, {
+		header : '数量',
+		name : 'quantity'
+	}, {
+		header : '位置',
+		name : 'position'
+	}, {
+		header : '基本情况',
+		name : 'basicInfomation'
+	}, {
+		header : '面积',
+		name : 'refugeArea'
+	}, {
+		header : '可容纳人数',
+		name : 'capacity'
+	}, {
+		header : '基础设施',
+		name : 'infrastructure'
+	}, {
+		header : '防护功能',
+		name : 'protection'
+	}, {
+		header : '隶属单位',
+		name : 'department'
+	}, {
+		header : '管理人',
+		name : 'manager'
+	}, {
+		header : '联系方式',
+		name : 'telepone'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -60,10 +60,10 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected ) {
+		if (selected) {
 			Utils.button.enable([ 'edit', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove']);
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
 
@@ -97,10 +97,10 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
-		if(object.refugeType===''){
+		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
 		$.post('/ercs/refuges', JSON.stringify(object), function(data) {
@@ -133,10 +133,10 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
-		if(object.refugeType===''){
+		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
 		// 处理属性
@@ -150,7 +150,6 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
 
 	// 删除
 	$('#remove').click(function() {
@@ -169,7 +168,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
 
 	/**
 	 * 更新部分属性

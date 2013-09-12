@@ -24,17 +24,21 @@ public class Dictionary extends IDEntity {
 	 * 字典名称
 	 */
 	private String itemName;
-	public String getTypeCode() {
-		return typeCode;
-	}
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
+
 	public String getItemName() {
 		return itemName;
 	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}
+
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
+
 }

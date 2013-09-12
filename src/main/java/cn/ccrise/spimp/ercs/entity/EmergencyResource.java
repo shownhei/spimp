@@ -27,62 +27,30 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Table(name = "ercs_emergency_resources")
 public class EmergencyResource extends IDEntity {
 	/**
-     * 名称
-     */
-     private String resourceName;
-   
-     /**
-     * 编号
-     */
-     private String resourceNo;
-   
-     /**
-     * 类别
-     */
-     private Dictionary resourceType;
-   
-     /**
-     * 所属单位
-     */
-     private GroupEntity department;
-   
-     /**
-     * 录入时间
-     */
-     private Timestamp addTime;
+	 * 名称
+	 */
+	private String resourceName;
 
-	public String getResourceName() {
-		return resourceName;
-	}
+	/**
+	 * 编号
+	 */
+	private String resourceNo;
 
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
-	}
+	/**
+	 * 类别
+	 */
+	private Dictionary resourceType;
 
-	public String getResourceNo() {
-		return resourceNo;
-	}
+	/**
+	 * 所属单位
+	 */
+	private GroupEntity department;
 
-	public void setResourceNo(String resourceNo) {
-		this.resourceNo = resourceNo;
-	}
-	@ManyToOne
-	public Dictionary getResourceType() {
-		return resourceType;
-	}
+	/**
+	 * 录入时间
+	 */
+	private Timestamp addTime;
 
-	public void setResourceType(Dictionary resourceType) {
-		this.resourceType = resourceType;
-	}
-
-	@ManyToOne
-	public GroupEntity getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(GroupEntity department) {
-		this.department = department;
-	}
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
@@ -90,8 +58,42 @@ public class EmergencyResource extends IDEntity {
 		return addTime;
 	}
 
+	@ManyToOne
+	public GroupEntity getDepartment() {
+		return department;
+	}
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public String getResourceNo() {
+		return resourceNo;
+	}
+
+	@ManyToOne
+	public Dictionary getResourceType() {
+		return resourceType;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
 	}
-     
+
+	public void setDepartment(GroupEntity department) {
+		this.department = department;
+	}
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+	public void setResourceNo(String resourceNo) {
+		this.resourceNo = resourceNo;
+	}
+
+	public void setResourceType(Dictionary resourceType) {
+		this.resourceType = resourceType;
+	}
+
 }

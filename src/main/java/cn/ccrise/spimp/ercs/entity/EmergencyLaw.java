@@ -25,60 +25,60 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Entity
 @Table(name = "ercs_emergency_laws")
 public class EmergencyLaw extends IDEntity {
-	 /**
-     * 文件号
-     */
-     private String fileNo;
-   
-     /**
-     * 文件名
-     */
-     private String fileName;
-   
-     /**
-     * 发布单位
-     */
-     private GroupEntity department;
-   
-     /**
-     * 发布时间
-     */
-     private  Timestamp addTime;
+	/**
+	 * 文件号
+	 */
+	private String fileNo;
 
-	public String getFileNo() {
-		return fileNo;
-	}
+	/**
+	 * 文件名
+	 */
+	private String fileName;
 
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
-	}
+	/**
+	 * 发布单位
+	 */
+	private GroupEntity department;
 
-	public String getFileName() {
-		return fileName;
-	}
+	/**
+	 * 发布时间
+	 */
+	private Timestamp addTime;
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-	@ManyToOne
-	public GroupEntity getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(GroupEntity department) {
-		this.department = department;
-	}
-
-	@Column(updatable=false)
+	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getAddTime() {
 		return addTime;
 	}
 
+	@ManyToOne
+	public GroupEntity getDepartment() {
+		return department;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public String getFileNo() {
+		return fileNo;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
 	}
-     
-     
+
+	public void setDepartment(GroupEntity department) {
+		this.department = department;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
+	}
+
 }
