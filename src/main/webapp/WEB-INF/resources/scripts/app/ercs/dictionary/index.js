@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 		}
 	}
 
-	var tableKeyArray=['plan_type','personal_category','expertise_area','accident_category','response_level','refuge_type'];
+	var tableKeyArray=['plan_type','personal_category','expertise_area','accident_category','response_level','refuge_type','resource_type'];
 	var tableArray={};
 	for(var i=0;i<tableKeyArray.length;i++){
 		// 配置表格

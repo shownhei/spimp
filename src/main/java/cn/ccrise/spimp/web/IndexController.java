@@ -70,4 +70,20 @@ public class IndexController {
 	public String index() {
 		return "ercs/place/index";
 	}
+	/**
+	 * 应急资源
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/material", method = RequestMethod.GET)
+	public String indexResource() {
+		return "ercs/material/index";
+	}
+	/**
+	 * 接警处理
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/alarm", method = RequestMethod.GET)
+	public String indexErcsAlarm() {
+		return "ercs/alarm/index";
+	}
 }
