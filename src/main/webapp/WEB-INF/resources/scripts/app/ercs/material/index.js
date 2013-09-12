@@ -8,19 +8,20 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '名称',
+		header : '资源名称',
 		name : 'resourceName'
 	}, {
 		header : '编号',
 		name : 'resourceNo'
 	}, {
-		header : '类别',
+		header : '资源类别',
 		name : 'resourceType',
 		render : function(val) {
 			if (val) {
 				return val.itemName;
+			} else {
+				return '';
 			}
-			return '';
 		}
 	}, {
 		header : '所属单位',
@@ -31,7 +32,9 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height()
+			- ($('.navbar').height() + $('.page-toolbar').height()
+					+ $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -44,11 +47,15 @@ define(function(require, exports, module) {
 			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
-	Utils.select.remote([ 'create-resourceType', 'edit-resourceType', 'resourceTypeSelect' ], '/ercs/dictionaries?typeCode=resource_type&list=true', 'id',
+	Utils.select.remote([ 'create-resourceType', 'edit-resourceType',
+			'resourceTypeSelect' ],
+			'/ercs/dictionaries?typeCode=resource_type&list=true', 'id',
 			'itemName');
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/emergency-resources?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath
+			+ '/ercs/emergency-resources?orderBy=id&order=desc&pageSize='
+			+ pageSize;
 	var grid = new Grid({
 		parentNode : '#material-table',
 		url : defaultUrl,
@@ -70,28 +77,29 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
-		$('#resourceName')[0].focus();
 	});
 
 	// 保存
-	$('#create-save').click(function() {
-		var object = Utils.form.serialize('create');
+	$('#create-save').click(
+			function() {
+				var object = Utils.form.serialize('create');
 
-		if (object.department === '') {
-			delete object.department;
-		}
-		if (object.resourceType === '') {
-			delete object.resourceType;
-		}
-		$.post('/ercs/emergency-resources', JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('create');
-			} else {
-				Utils.modal.message('create', data.errors);
-			}
-		});
-	});
+				if (object.department === '') {
+					delete object.department;
+				}
+				if (object.resourceType === '') {
+					delete object.resourceType;
+				}
+				$.post('/ercs/emergency-resources', JSON.stringify(object),
+						function(data) {
+							if (data.success) {
+								grid.refresh();
+								Utils.modal.hide('create');
+							} else {
+								Utils.modal.message('create', data.errors);
+							}
+						});
+			});
 
 	// 编辑
 	$('#edit').click(function() {
@@ -111,32 +119,33 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(function() {
-		var object = Utils.form.serialize('edit');
-		if (object.department === '') {
-			delete object.department;
-		}
-		if (object.resourceType === '') {
-			delete object.resourceType;
-		}
-		// 处理属性
-		var selectId = grid.selectedData('id');
-		$.put('/ercs/emergency-resources/' + selectId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('edit');
-			} else {
-				Utils.modal.message('edit', data.errors);
-			}
-		});
-	});
+	$('#edit-save').click(
+			function() {
+				var object = Utils.form.serialize('edit');
+				if (object.department === '') {
+					delete object.department;
+				}
+				if (object.resourceType === '') {
+					delete object.resourceType;
+				}
+				// 处理属性
+				var selectId = grid.selectedData('id');
+				$.put('/ercs/emergency-resources/' + selectId, JSON
+						.stringify(object), function(data) {
+					if (data.success) {
+						grid.refresh();
+						Utils.modal.hide('edit');
+					} else {
+						Utils.modal.message('edit', data.errors);
+					}
+				});
+			});
 
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
