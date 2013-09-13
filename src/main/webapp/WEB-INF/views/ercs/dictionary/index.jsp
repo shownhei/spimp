@@ -115,15 +115,15 @@
 					<form id="edit-form" class="form-horizontal">
 						<input name="id" type="hidden" class="span11">
 						<div class="control-group">
-							<label class="control-label span2" for="fileName">文件名</label>
+							<label class="control-label span2" for="itemName">文件名</label>
 							<div class="controls">
-								<input name="fileName" type="text" class="span11">
+								<input name="itemName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="fileNo">字典类型</label>
 							<div class="controls">
-								<select id="typeCode" name="typeCode" class="input-small"
+								<select id="edit-typeCode" name="typeCode" class="input-small"
 									style="width: 150px;">
 									<option value="plan_type">应急预案种类</option>
 									<option value="personal_category">人员类别</option>
