@@ -55,14 +55,7 @@
 							</ul>
 							<div id="tab-content" class="tab-content">
 								<div id="basic" class="tab-pane in active">
-									<div class="profile-user-info profile-user-info-striped">
-										<div class="profile-info-row">
-											<div class="profile-info-name">角色名</div>
-											<div class="profile-info-value">
-												<span class="editable editable-click" id="role-name">alexdoe</span>
-											</div>
-										</div>
-									</div>
+									<div class="row-fluid" id="account-table"></div>
 								</div>
 								<div id="resources" class="tab-pane">
 									<p>菜单权限</p>

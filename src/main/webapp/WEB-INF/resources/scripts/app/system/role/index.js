@@ -6,9 +6,6 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	// 计算表格高度和行数
-	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
-
 	// 角色树配置
 	var setting = {
 		view : {
@@ -52,6 +49,11 @@ define(function(require, exports, module) {
 				} else {
 					Utils.button.disable([ 'edit', 'remove' ]);
 				}
+
+				// 根据选择角色加载用户数据
+				grid.set({
+					url : contextPath + '/system/roles/' + treeNode.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize
+				});
 			},
 			onAsyncSuccess : function(event, treeId, treeNode, msg) {
 				var roleTree = $.fn.zTree.getZTreeObj(treeId);
@@ -61,8 +63,55 @@ define(function(require, exports, module) {
 	};
 
 	var roleTree = $.fn.zTree.init($('#role-tree'), setting);
+
+	// 计算树和表格高度
+	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 174);
 	$('#role-tree').height(treeHeight + 39);
 	$('#tab-content').height(treeHeight);
+
+	// 配置表格列
+	var fields = [ {
+		header : '',
+		name : 'locked',
+		align : 'center',
+		width : 20,
+		render : function(value) {
+			switch (value) {
+				case false:
+					return '';
+				case true:
+					return '<i class="icon-lock"></i>';
+			}
+		}
+	}, {
+		header : '用户名',
+		name : 'principal'
+	}, {
+		header : '所属机构',
+		name : 'groupEntity',
+		render : function(value) {
+			return value.name;
+		}
+	}, {
+		header : '姓名',
+		name : 'realName'
+	}, {
+		header : '电话',
+		name : 'telephone'
+	} ];
+
+	// 配置表格
+	var pageSize = Math.floor(gridHeight / 21);
+	var grid = new Grid({
+		parentNode : '#account-table',
+		model : {
+			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
+			height : gridHeight
+		}
+	}).render();
 
 	// 新建
 	$('#create').click(function() {
