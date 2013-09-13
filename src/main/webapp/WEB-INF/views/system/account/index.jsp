@@ -59,7 +59,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
+					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label span2" for="principal">用户名</label>
 							<div class="controls">
@@ -141,7 +141,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label span2" for="principal">用户名</label>
 							<div class="controls">

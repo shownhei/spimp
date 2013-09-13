@@ -166,3 +166,7 @@ body {
 	border: 1px solid #c5d0dc;
 	border-top: 0;
 }
+
+.tree-widget-main {
+	overflow: auto;
+}

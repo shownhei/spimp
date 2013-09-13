@@ -33,7 +33,7 @@
 					<div class="span3">
 						<div class="widget-box tree-widget-box">
 							<div class="widget-body tree-widget-body">
-								<div class="widget-main padding-8">
+								<div class="widget-main padding-8 tree-widget-main">
 									<div id="role-tree" class="ztree"></div>
 								</div>
 							</div>
@@ -85,7 +85,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
+					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label span2" for="name">角色名</label>
 							<div class="controls">
@@ -124,7 +124,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label span2" for="name">角色名</label>
 							<div class="controls">
