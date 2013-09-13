@@ -6,10 +6,8 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-refugeType', 'edit-refugeType',
-			'refugeTypeSelect' ],
-			'/ercs/dictionaries?typeCode=refuge_type&list=true', 'id',
-			'itemName');
+	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
+
 	// 配置表格列
 	var fields = [ {
 		header : '名称',
@@ -56,9 +54,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height()
-					+ $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -73,8 +69,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath
-			+ '/ercs/refuges?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/refuges?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#refuge-table',
 		url : defaultUrl,
@@ -96,7 +91,6 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
-		$('#fileNo')[0].focus();
 	});
 
 	// 保存
@@ -128,6 +122,7 @@ define(function(require, exports, module) {
 		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
+
 		$.post('/ercs/refuges', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -156,47 +151,47 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(
-			function() {
-				var object = Utils.form.serialize('edit');
-				if (object.refugeName === '') {
-					Utils.modal.message('edit', [ '请输入场所名称' ]);
-					return;
-				}
-				if (object.position === '') {
-					Utils.modal.message('edit', [ '请输入场所位置' ]);
-					return;
-				}
-				if (object.capacity === '') {
-					Utils.modal.message('edit', [ '请输入可容纳人数' ]);
-					return;
-				}
-				if (object.manager === '') {
-					Utils.modal.message('edit', [ '请输入管理人员名称' ]);
-					return;
-				}
-				if (object.telepone === '') {
-					Utils.modal.message('edit', [ '请输入管理人联系方式' ]);
-					return;
-				}
-				if (object.department === '') {
-					delete object.department;
-				}
-				if (object.refugeType === '') {
-					delete object.refugeType;
-				}
-				// 处理属性
-				var selectId = grid.selectedData('id');
-				$.put('/ercs/refuges/' + selectId, JSON.stringify(object),
-						function(data) {
-							if (data.success) {
-								grid.refresh();
-								Utils.modal.hide('edit');
-							} else {
-								Utils.modal.message('edit', data.errors);
-							}
-						});
-			});
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
+		if (object.refugeName === '') {
+			Utils.modal.message('edit', [ '请输入场所名称' ]);
+			return;
+		}
+		if (object.position === '') {
+			Utils.modal.message('edit', [ '请输入场所位置' ]);
+			return;
+		}
+		if (object.capacity === '') {
+			Utils.modal.message('edit', [ '请输入可容纳人数' ]);
+			return;
+		}
+		if (object.manager === '') {
+			Utils.modal.message('edit', [ '请输入管理人员名称' ]);
+			return;
+		}
+		if (object.telepone === '') {
+			Utils.modal.message('edit', [ '请输入管理人联系方式' ]);
+			return;
+		}
+
+		// 处理属性
+		if (object.department === '') {
+			delete object.department;
+		}
+		if (object.refugeType === '') {
+			delete object.refugeType;
+		}
+
+		var selectId = grid.selectedData('id');
+		$.put('/ercs/refuges/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
 
 	// 删除
 	$('#remove').click(function() {

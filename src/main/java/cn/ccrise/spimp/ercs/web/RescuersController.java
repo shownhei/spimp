@@ -56,7 +56,7 @@ public class RescuersController {
 	public Response page(Page<Rescuers> page, String staffName) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(staffName)) {
-			param.add(Restrictions.like("staffName", staffName,MatchMode.ANYWHERE));
+			param.add(Restrictions.like("staffName", staffName, MatchMode.ANYWHERE));
 		}
 		return new Response(rescuersService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}

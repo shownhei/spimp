@@ -4,11 +4,11 @@
 package cn.ccrise.spimp.ercs.web;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
@@ -66,10 +66,10 @@ public class DictionaryController {
 			param.add(Restrictions.eq("typeCode", typeCode));
 		}
 		if (StringUtils.isNotBlank(itemName)) {
-			param.add(Restrictions.like("itemName", "%"+itemName+"%"));
+			param.add(Restrictions.like("itemName", itemName, MatchMode.ANYWHERE));
 		}
-		page=dictionaryService.getPage(page,param.toArray(new SimpleExpression[0]));
-		
+		page = dictionaryService.getPage(page, param.toArray(new SimpleExpression[0]));
+
 		if (list != null && list.booleanValue()) {
 			return new Response(page.getResult());
 		}

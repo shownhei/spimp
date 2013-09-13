@@ -57,20 +57,18 @@ public class EmergencyPlanController {
 
 	@RequestMapping(value = "/ercs/plans", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyPlan> page,String planName,Long planType) {
+	public Response page(Page<EmergencyPlan> page, String planName, Long planType) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(planName)) {
-			param.add(Restrictions.like("planName",  planName ,MatchMode.ANYWHERE));
+			param.add(Restrictions.like("planName", planName, MatchMode.ANYWHERE));
 		}
 		if (planType != null) {
-			List<Dictionary> result = dictionaryService.find(Restrictions.eq(
-					"id", planType));
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", planType));
 			if (result != null && result.size() > 0) {
-				param.add(Restrictions.eq("planType", result.iterator()
-						.next()));
+				param.add(Restrictions.eq("planType", result.iterator().next()));
 			}
 		}
-		return new Response(emergencyPlanService.getPage(page,param.toArray(new SimpleExpression[0])));
+		return new Response(emergencyPlanService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 
 	@RequestMapping(value = "/ercs/plans", method = RequestMethod.POST)

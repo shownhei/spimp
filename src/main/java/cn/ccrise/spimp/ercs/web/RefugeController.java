@@ -57,21 +57,18 @@ public class RefugeController {
 
 	@RequestMapping(value = "/ercs/refuges", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Refuge> page,String refugeName,Long refugeType) {
+	public Response page(Page<Refuge> page, String refugeName, Long refugeType) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(refugeName)) {
-			param.add(Restrictions.like("refugeName", refugeName,MatchMode.ANYWHERE));
+			param.add(Restrictions.like("refugeName", refugeName, MatchMode.ANYWHERE));
 		}
 		if (refugeType != null) {
-			List<Dictionary> result = dictionaryService.find(Restrictions.eq(
-					"id", refugeType));
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", refugeType));
 			if (result != null && result.size() > 0) {
-				param.add(Restrictions.eq("refugeType", result.iterator()
-						.next()));
+				param.add(Restrictions.eq("refugeType", result.iterator().next()));
 			}
 		}
-		return new Response(refugeService.getPage(page,
-				param.toArray(new SimpleExpression[0])));
+		return new Response(refugeService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 
 	@RequestMapping(value = "/ercs/refuges", method = RequestMethod.POST)

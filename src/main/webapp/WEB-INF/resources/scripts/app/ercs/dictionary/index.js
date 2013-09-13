@@ -6,12 +6,11 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-
 	// 配置表格列
 	var fields = [ {
 		header : '字典名称',
 		name : 'itemName'
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -21,16 +20,17 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected ) {
+		if (selected) {
 			Utils.button.enable([ 'edit', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove']);
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
 
-	$('#typeCodeSelect').bind('change',function(){
+	$('#typeCodeSelect').bind('change', function() {
 		$('#nav-search-button').trigger('click');
 	});
+
 	// 配置表格
 	var defaultUrl = contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
@@ -100,6 +100,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入字典值' ]);
 			return;
 		}
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/dictionaries/' + selectId, JSON.stringify(object), function(data) {
@@ -111,7 +112,6 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
 
 	// 删除
 	$('#remove').click(function() {
@@ -129,6 +129,7 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
+
 	// 搜索
 	$('#nav-search-button').click(function() {
 		grid.set({

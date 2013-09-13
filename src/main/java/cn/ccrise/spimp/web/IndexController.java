@@ -23,9 +23,15 @@ public class IndexController {
 	private ResourceEntityServiceImpl resourceEntityServiceImpl;
 
 	/**
+	 * 接警处理
+	 */
+	@RequestMapping(value = "/ercs/alarm", method = RequestMethod.GET)
+	public String ercsAlarm() {
+		return "ercs/alarm/index";
+	}
+
+	/**
 	 * 字典管理
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/ercs/dictionary", method = RequestMethod.GET)
 	public String ercsDictionary() {
@@ -33,9 +39,31 @@ public class IndexController {
 	}
 
 	/**
+	 * 应急法规
+	 */
+	@RequestMapping(value = "/ercs/law", method = RequestMethod.GET)
+	public String ercsLaw() {
+		return "ercs/law/index";
+	}
+
+	/**
+	 * 应急资源
+	 */
+	@RequestMapping(value = "/ercs/material", method = RequestMethod.GET)
+	public String ercsMaterial() {
+		return "ercs/material/index";
+	}
+
+	/**
+	 * 避难场所
+	 */
+	@RequestMapping(value = "/ercs/place", method = RequestMethod.GET)
+	public String ercsPlace() {
+		return "ercs/place/index";
+	}
+
+	/**
 	 * 应急方案管理
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/ercs/plan", method = RequestMethod.GET)
 	public String ercsPlan() {
@@ -43,62 +71,34 @@ public class IndexController {
 	}
 
 	/**
-	 * 避难场所
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/place", method = RequestMethod.GET)
-	public String index() {
-		return "ercs/place/index";
-	}
-
-	/**
-	 * 接警处理
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/alarm", method = RequestMethod.GET)
-	public String indexErcsAlarm() {
-		return "ercs/alarm/index";
-	}
-
-	/**
-	 * 应急法规
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/law", method = RequestMethod.GET)
-	public String indexLaw() {
-		return "ercs/law/index";
-	}
-
-	/**
-	 * 应急资源
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/material", method = RequestMethod.GET)
-	public String indexResource() {
-		return "ercs/material/index";
-	}
-
-	/**
 	 * 应急救援人员
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
-	public String indexStaff() {
+	public String ercsStaff() {
 		return "ercs/staff/index";
 	}
 
+	/**
+	 * 用户管理
+	 */
 	@RequestMapping(value = "/system/account", method = RequestMethod.GET)
 	public String systemAccount() {
 		return "system/account/index";
 	}
 
+	/**
+	 * 日志查询
+	 */
 	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
 	public String systemLog() {
 		return "system/log/index";
+	}
+
+	/**
+	 * 角色管理
+	 */
+	@RequestMapping(value = "/system/role", method = RequestMethod.GET)
+	public String systemRole() {
+		return "system/role/index";
 	}
 }

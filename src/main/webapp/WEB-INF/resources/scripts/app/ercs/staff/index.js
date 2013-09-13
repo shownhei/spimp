@@ -5,12 +5,9 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ],
-			'/ercs/dictionaries?typeCode=expertise_area&list=true', 'id',
-			'itemName');
-	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ],
-			'/ercs/dictionaries?typeCode=response_level&list=true', 'id',
-			'itemName');
+
+	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {
@@ -55,10 +52,8 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height()
-					+ $('.page-header').height() + 100);
-	var pageSize = Math.floor(gridHeight / 20);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
 	 * 修改/重置按钮状态
@@ -69,17 +64,14 @@ define(function(require, exports, module) {
 		} else {
 			Utils.button.disable([ 'edit', 'remove' ]);
 		}
-
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath
-			+ '/ercs/rescuers?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/rescuers?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#staff-table',
 		url : defaultUrl,
 		model : {
-			needOrder : true,
 			fields : fields,
 			needOrder : true,
 			orderWidth : 50,
@@ -103,6 +95,7 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
+
 		if (object.staffType === '') {
 			Utils.modal.message('create', [ '请输入员工类型' ]);
 			return;
@@ -115,6 +108,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入联系方式' ]);
 			return;
 		}
+
 		Utils.button.disable([ 'create-save' ]);
 		$.post('/ercs/rescuers', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -131,7 +125,9 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('edit')) {
 			return;
 		}
+
 		Utils.modal.reset('edit');
+
 		var selectId = grid.selectedData('id');
 		$.get('/ercs/rescuers/' + selectId, function(data) {
 			var object = data.data;
@@ -141,33 +137,32 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(
-			function() {
-				var object = Utils.form.serialize('edit');
-				if (object.staffType === '') {
-					Utils.modal.message('edit', [ '请输入员工类型' ]);
-					return;
-				}
-				if (object.staffName === '') {
-					Utils.modal.message('edit', [ '请输入姓名' ]);
-					return;
-				}
-				if (object.phone === '') {
-					Utils.modal.message('edit', [ '请输入联系方式' ]);
-					return;
-				}
-				// 处理属性
-				var selectId = grid.selectedData('id');
-				$.put('/ercs/rescuers/' + selectId, JSON.stringify(object),
-						function(data) {
-							if (data.success) {
-								grid.refresh();
-								Utils.modal.hide('edit');
-							} else {
-								Utils.modal.message('edit', data.errors);
-							}
-						});
-			});
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
+
+		if (object.staffType === '') {
+			Utils.modal.message('edit', [ '请输入员工类型' ]);
+			return;
+		}
+		if (object.staffName === '') {
+			Utils.modal.message('edit', [ '请输入姓名' ]);
+			return;
+		}
+		if (object.phone === '') {
+			Utils.modal.message('edit', [ '请输入联系方式' ]);
+			return;
+		}
+
+		var selectId = grid.selectedData('id');
+		$.put('/ercs/rescuers/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
 
 	// 删除
 	$('#remove').click(function() {

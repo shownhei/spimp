@@ -6,21 +6,20 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-
 	// 配置表格列
-	var fields = [{
-        header : '文件名',
-        name : 'fileName'
-    },{
-        header : '文件号',
-        name : 'fileNo'
-    },{
-        header : '发布单位',
-        name : 'department'
-    },{
-        header : '发布时间',
-        name : 'addTime'
-    }];
+	var fields = [ {
+		header : '文件名',
+		name : 'fileName'
+	}, {
+		header : '文件号',
+		name : 'fileNo'
+	}, {
+		header : '发布单位',
+		name : 'department'
+	}, {
+		header : '发布时间',
+		name : 'addTime'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -30,10 +29,10 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-		if (selected ) {
+		if (selected) {
 			Utils.button.enable([ 'edit', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove']);
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
 
@@ -75,7 +74,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入文件名' ]);
 			return;
 		}
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
 
@@ -114,14 +113,16 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入文件号' ]);
 			return;
 		}
+
 		// 验证
 		if (object.fileName === '') {
 			Utils.modal.message('edit', [ '请输入文件名' ]);
 			return;
 		}
-		if(object.department===''){
+		if (object.department === '') {
 			delete object.department;
 		}
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/emergency-laws/' + selectId, JSON.stringify(object), function(data) {
@@ -133,7 +134,6 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
 
 	// 删除
 	$('#remove').click(function() {
@@ -151,6 +151,7 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
+
 	// 搜索
 	$('#nav-search-button').click(function() {
 		grid.set({

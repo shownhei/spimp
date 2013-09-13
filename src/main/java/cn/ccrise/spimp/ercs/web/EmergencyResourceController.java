@@ -57,22 +57,18 @@ public class EmergencyResourceController {
 
 	@RequestMapping(value = "/ercs/emergency-resources", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyResource> page, String resourceName,
-			Long refugeType) {
+	public Response page(Page<EmergencyResource> page, String resourceName, Long refugeType) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(resourceName)) {
-			param.add(Restrictions.like("resourceName",resourceName ,MatchMode.ANYWHERE));
+			param.add(Restrictions.like("resourceName", resourceName, MatchMode.ANYWHERE));
 		}
 		if (refugeType != null) {
-			List<Dictionary> result = dictionaryService.find(Restrictions.eq(
-					"id", refugeType));
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", refugeType));
 			if (result != null && result.size() > 0) {
-				param.add(Restrictions.eq("resourceType", result.iterator()
-						.next()));
+				param.add(Restrictions.eq("resourceType", result.iterator().next()));
 			}
 		}
-		return new Response(emergencyResourceService.getPage(page,
-				param.toArray(new SimpleExpression[0])));
+		return new Response(emergencyResourceService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 
 	@RequestMapping(value = "/ercs/emergency-resources", method = RequestMethod.POST)
@@ -84,9 +80,7 @@ public class EmergencyResourceController {
 
 	@RequestMapping(value = "/ercs/emergency-resources/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(
-			@Valid @RequestBody EmergencyResource emergencyResource,
-			@PathVariable long id) {
+	public Response update(@Valid @RequestBody EmergencyResource emergencyResource, @PathVariable long id) {
 		return new Response(emergencyResourceService.update(emergencyResource));
 	}
 }

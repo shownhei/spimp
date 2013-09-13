@@ -53,9 +53,10 @@ public class EmergencyLawController {
 	@ResponseBody
 	public Response page(Page<EmergencyLaw> page, String search) {
 		if (StringUtils.isNotBlank(search)) {
-			page = emergencyLawService.getPage(page, Restrictions.or(
-					Restrictions.like("fileNo", search ,MatchMode.ANYWHERE),
-					Restrictions.like("fileName",  search ,MatchMode.ANYWHERE)));
+			page = emergencyLawService.getPage(
+					page,
+					Restrictions.or(Restrictions.like("fileNo", search, MatchMode.ANYWHERE),
+							Restrictions.like("fileName", search, MatchMode.ANYWHERE)));
 		} else {
 			page = emergencyLawService.getPage(page);
 		}
@@ -71,8 +72,7 @@ public class EmergencyLawController {
 
 	@RequestMapping(value = "/ercs/emergency-laws/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody EmergencyLaw emergencyLaw,
-			@PathVariable long id) {
+	public Response update(@Valid @RequestBody EmergencyLaw emergencyLaw, @PathVariable long id) {
 		return new Response(emergencyLawService.update(emergencyLaw));
 	}
 }

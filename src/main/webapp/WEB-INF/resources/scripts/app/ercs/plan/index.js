@@ -5,7 +5,8 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-     Utils.select.remote([ 'create-planType','edit-planType','planTypeSelect' ], '/ercs/dictionaries?typeCode=plan_type&list=true', 'id', 'itemName');	
+
+	Utils.select.remote([ 'create-planType', 'edit-planType', 'planTypeSelect' ], '/ercs/dictionaries?typeCode=plan_type&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {
@@ -20,30 +21,29 @@ define(function(require, exports, module) {
 	}, {
 		header : '附件',
 		name : 'attachment'
-	},{
+	}, {
 		header : '创建时间',
 		name : 'addTime',
 		width : 150
-	}  ];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
-	var pageSize = Math.floor(gridHeight / 20);
+	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-	    if (selected ) {
-		   Utils.button.enable([ 'edit', 'remove' ]);
-		}else{
-		   Utils.button.disable([ 'edit', 'remove' ]);
+		if (selected) {
+			Utils.button.enable([ 'edit', 'remove' ]);
+		} else {
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
-		
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/plans?orderBy=id&order=desc&pageSize='+pageSize;
+	var defaultUrl = contextPath + '/ercs/plans?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#plan-table',
 		url : defaultUrl,
@@ -65,7 +65,6 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
-		$('#planName')[0].focus();
 	});
 
 	// 保存
@@ -76,6 +75,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入预案名称' ]);
 			return;
 		}
+
 		$.post('plans', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -91,7 +91,9 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('edit')) {
 			return;
 		}
+
 		Utils.modal.reset('edit');
+
 		var selectId = grid.selectedData('id');
 		$.get('plans/' + selectId, function(data) {
 			var object = data.data;
@@ -103,11 +105,13 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+
 		// 验证
 		if (object.planName === '') {
 			Utils.modal.message('edit', [ '请输入预案名称' ]);
 			return;
 		}
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('plans/' + selectId, JSON.stringify(object), function(data) {
