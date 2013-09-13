@@ -3,10 +3,14 @@
  */
 package cn.ccrise.spimp.ercs.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +61,15 @@ public class DictionaryController {
 	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Dictionary> page, String typeCode, Boolean list, String itemName) {
-		if (StringUtils.isBlank(itemName)) {
-			page = dictionaryService.getPage(page, Restrictions.eq("typeCode", typeCode));
-		} else {
-			page = dictionaryService.getPage(page, Restrictions.eq("typeCode", typeCode),
-					Restrictions.like("itemName", "%" + itemName + "%"));
+		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
+		if (StringUtils.isNotBlank(typeCode)) {
+			param.add(Restrictions.eq("typeCode", typeCode));
 		}
-
+		if (StringUtils.isNotBlank(itemName)) {
+			param.add(Restrictions.like("itemName", "%"+itemName+"%"));
+		}
+		page=dictionaryService.getPage(page,param.toArray(new SimpleExpression[0]));
+		
 		if (list != null && list.booleanValue()) {
 			return new Response(page.getResult());
 		}
