@@ -29,6 +29,7 @@
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<select id="typeCodeSelect" name="typeCode" class="input-small"
 							style="width: 150px;">
+							<option value="" title="请选择字典类型" style="color:rgb(197, 197, 197);">&nbsp;请选择字典类型..</option>
 							<option value="plan_type" title="引用标记：plan_type">应急预案种类</option>
 							<option value="personal_category" title="引用标记：personal_category">人员类别</option>
 							<option value="expertise_area" title="引用标记：expertise_area">专业领域</option>
@@ -37,7 +38,7 @@
 							<option value="refuge_type" title="引用标记：refuge_type">避险场所种类</option>
 							<option value="resource_type" title="引用标记：resource_type">应急资源种类</option>
 						</select> <span class="input-icon"> <input id="nav-search-input"
-							name="search" type="text" placeholder="输入字典名称..."
+							name="itemName" type="text" placeholder="输入字典名称..."
 							class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
