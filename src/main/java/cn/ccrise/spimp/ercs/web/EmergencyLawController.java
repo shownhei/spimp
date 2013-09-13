@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +54,8 @@ public class EmergencyLawController {
 	public Response page(Page<EmergencyLaw> page, String search) {
 		if (StringUtils.isNotBlank(search)) {
 			page = emergencyLawService.getPage(page, Restrictions.or(
-					Restrictions.like("fileNo", "%" + search + "%"),
-					Restrictions.like("fileName", "%" + search + "%")));
+					Restrictions.like("fileNo", search ,MatchMode.ANYWHERE),
+					Restrictions.like("fileName",  search ,MatchMode.ANYWHERE)));
 		} else {
 			page = emergencyLawService.getPage(page);
 		}

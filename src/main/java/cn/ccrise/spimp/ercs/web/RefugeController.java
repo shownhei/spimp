@@ -10,6 +10,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public class RefugeController {
 	public Response page(Page<Refuge> page,String refugeName,Long refugeType) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(refugeName)) {
-			param.add(Restrictions.like("refugeName", "%" + refugeName + "%"));
+			param.add(Restrictions.like("refugeName", refugeName,MatchMode.ANYWHERE));
 		}
 		if (refugeType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq(

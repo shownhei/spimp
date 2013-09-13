@@ -10,6 +10,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public class EmergencyPlanController {
 	public Response page(Page<EmergencyPlan> page,String planName,Long planType) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(planName)) {
-			param.add(Restrictions.like("planName", "%" + planName + "%"));
+			param.add(Restrictions.like("planName",  planName ,MatchMode.ANYWHERE));
 		}
 		if (planType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq(
