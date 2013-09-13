@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急法规管理 - 安全生产综合管理平台</title>
+<title>避难场所管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -138,15 +138,15 @@
 								<input id="telepone" name="telepone" type="text" class="span11">
 							</div>
 						</div>
-					</form>
-				</div>
-				<div id="create-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
+						<div id="create-message-alert" class="row-fluid hide">
+							<div class="span12">
+								<div class="alert alert-error">
+									<i class="icon-remove"></i>
+									<span id="create-message-content"></span>
+								</div>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>

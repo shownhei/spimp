@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,12 +53,13 @@ public class EmergencyLawController {
 	@ResponseBody
 	public Response page(Page<EmergencyLaw> page, String search) {
 		if (StringUtils.isNotBlank(search)) {
-			emergencyLawService.getPage(
-					page,
-					Restrictions.or(Restrictions.like("fileNo", "%" + search + "%"),
-							Restrictions.like("fileName", "%" + search + "%")));
+			page = emergencyLawService.getPage(page, Restrictions.or(
+					Restrictions.like("fileNo", search ,MatchMode.ANYWHERE),
+					Restrictions.like("fileName",  search ,MatchMode.ANYWHERE)));
+		} else {
+			page = emergencyLawService.getPage(page);
 		}
-		return new Response(emergencyLawService.getPage(page));
+		return new Response(page);
 	}
 
 	@RequestMapping(value = "/ercs/emergency-laws", method = RequestMethod.POST)
@@ -69,7 +71,8 @@ public class EmergencyLawController {
 
 	@RequestMapping(value = "/ercs/emergency-laws/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody EmergencyLaw emergencyLaw, @PathVariable long id) {
+	public Response update(@Valid @RequestBody EmergencyLaw emergencyLaw,
+			@PathVariable long id) {
 		return new Response(emergencyLawService.update(emergencyLaw));
 	}
 }

@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>用户管理 - 安全生产综合管理平台</title>
+<title>应急预案管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -27,12 +27,11 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 					    <span class="input-icon">
-							<select id="planTypeSelect" name="planTypeSelect[id]" type="text"
-							placeholder="选择类型" class="input-small nav-search-input" ></select>
-							<i class="icon-search nav-search-icon"></i>
+							<select id="planTypeSelect" name="planType" 
+							class="input-small" ></select>
 						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="planName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>

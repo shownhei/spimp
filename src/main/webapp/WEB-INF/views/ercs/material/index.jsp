@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急法规管理 - 安全生产综合管理平台</title>
+<title>应急资源管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -31,7 +31,7 @@
 							class="input-small" style="width:150px;"></select>
 						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="refugeName" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入资源名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -56,7 +56,7 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						 <div class="control-group">
-							<label class="control-label span2" for="principal">名称</label>
+							<label class="control-label span2" for="principal">资源名称</label>
 							<div class="controls">
 								<input id="resourceName" name="resourceName" type="text" class="span11">
 							</div>
@@ -70,7 +70,7 @@
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">类别</label>
+							<label class="control-label span2" for="principal">资源类别</label>
 							<div class="controls">
 								<select id="create-resourceType" name="resourceType[id]"  class="span11" ></select>
 							</div>
@@ -83,12 +83,6 @@
 							</div>
 						</div>
 	        
-					    <div class="control-group">
-							<label class="control-label span2" for="principal">录入时间</label>
-							<div class="controls">
-								<input id="addTime" name="addTime" type="text" class="span11">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -125,7 +119,7 @@
 						<input  name="id" type="hidden" class="span11">
 						
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">名称</label>
+							<label class="control-label span2" for="principal">资源名称</label>
 							<div class="controls">
 								<input  name="resourceName" type="text" class="span11">
 							</div>
@@ -139,9 +133,8 @@
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">类别</label>
+							<label class="control-label span2" for="principal">资源类别</label>
 							<div class="controls">
-								<input  name="resourceType" type="text" class="span11">
 								<select id="edit-resourceType" name="resourceType[id]"  class="span11" ></select>
 							</div>
 						</div>
@@ -153,12 +146,6 @@
 							</div>
 						</div>
 	        
-					    <div class="control-group">
-							<label class="control-label span2" for="principal">录入时间</label>
-							<div class="controls">
-								<input  name="addTime" type="text" class="span11">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">

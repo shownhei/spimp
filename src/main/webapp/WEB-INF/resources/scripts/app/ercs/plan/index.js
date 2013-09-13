@@ -9,11 +9,6 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '编号',
-		name : 'id',
-		width : 50,
-		align : 'center'
-	}, {
 		header : '预案名称',
 		name : 'planName'
 	}, {
@@ -54,6 +49,8 @@ define(function(require, exports, module) {
 		url : defaultUrl,
 		model : {
 			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
 			height : gridHeight
 		},
 		onClick : function(target, data) {
@@ -74,30 +71,12 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-
 		// 验证
-		if (object.credential === '') {
-			Utils.modal.message('create', [ '请输入密码' ]);
+		if (object.planName === '') {
+			Utils.modal.message('create', [ '请输入预案名称' ]);
 			return;
 		}
-		if (object.checkCredential === '') {
-			Utils.modal.message('create', [ '请输入确认密码' ]);
-			return;
-		}
-		if (object.credential !== object.checkCredential) {
-			Utils.modal.message('create', [ '两次输入的密码不一致，请重新输入' ]);
-			return;
-		}
-
-		// 处理属性
-		if (object.locked === 'on') {
-			object.locked = true;
-		} else {
-			object.locked = false;
-		}
-		delete object.checkCredential;
-
-		$.post('accounts', JSON.stringify(object), function(data) {
+		$.post('plans', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -118,13 +97,17 @@ define(function(require, exports, module) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
-			$('#edit-form input[name="planName"]')[0].focus();
 		});
 	});
 
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		// 验证
+		if (object.planName === '') {
+			Utils.modal.message('edit', [ '请输入预案名称' ]);
+			return;
+		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('plans/' + selectId, JSON.stringify(object), function(data) {
@@ -155,40 +138,10 @@ define(function(require, exports, module) {
 		});
 	});
 
-
-	/**
-	 * 更新部分属性
-	 */
-	function update(locked, credential) {
-		var selectId = grid.selectedData('id');
-		$.get('ercs/plans/' + selectId, function(data) {
-			var object = data.data;
-			object.credential = credential;
-			if (locked !== null) {
-				object.locked = locked;
-			}
-			object.groupEntity = {
-				id : object.groupEntity.id
-			};
-			object.roleEntity = {
-				id : object.roleEntity.id
-			};
-
-			$.put('ercs/plans/' + selectId, JSON.stringify(object), function(data) {
-				if (data.success === true) {
-					grid.refresh();
-				}
-			});
-		});
-	}
-
 	// 搜索
 	$('#nav-search-button').click(function() {
 		grid.set({
-			url : defaultUrl + '&' + $('#search-form').serialize()
+			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
-	});
-	$(document).ready(function(){
-	    
 	});
 });

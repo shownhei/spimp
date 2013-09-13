@@ -51,17 +51,17 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
-						<div class="control-group">
-							<label class="control-label span2" for="fileNo">文件号</label>
-							<div class="controls">
-								<input id="fileNo" name="fileNo" type="text" class="span11">
-							</div>
-						</div>
 	        
 					    <div class="control-group">
 							<label class="control-label span2" for="fileName">文件名</label>
 							<div class="controls">
 								<input id="fileName" name="fileName" type="text" class="span11">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="fileNo">文件号</label>
+							<div class="controls">
+								<input id="fileNo" name="fileNo" type="text" class="span11">
 							</div>
 						</div>
 	        
@@ -106,16 +106,15 @@
 					<form id="edit-form" class="form-horizontal">
 						<input  name="id" type="hidden" class="span11">
 					    <div class="control-group">
-							<label class="control-label span2" for="fileNo">文件号</label>
-							<div class="controls">
-								<input  name="fileNo" type="text" class="span11">
-							</div>
-						</div>
-	        
-					    <div class="control-group">
 							<label class="control-label span2" for="fileName">文件名</label>
 							<div class="controls">
 								<input  name="fileName" type="text" class="span11">
+							</div>
+						</div>
+					    <div class="control-group">
+							<label class="control-label span2" for="fileNo">文件号</label>
+							<div class="controls">
+								<input  name="fileNo" type="text" class="span11">
 							</div>
 						</div>
 	        

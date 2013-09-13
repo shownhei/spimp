@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class RescuersController {
 	public Response page(Page<Rescuers> page, String staffName) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(staffName)) {
-			param.add(Restrictions.like("staffName", "%" + staffName + "%"));
+			param.add(Restrictions.like("staffName", staffName,MatchMode.ANYWHERE));
 		}
 		return new Response(rescuersService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}

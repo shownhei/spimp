@@ -9,11 +9,11 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [{
-        header : '文件号',
-        name : 'fileNo'
-    },{
         header : '文件名',
         name : 'fileName'
+    },{
+        header : '文件号',
+        name : 'fileNo'
     },{
         header : '发布单位',
         name : 'department'
@@ -60,13 +60,21 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
-		$('#fileNo')[0].focus();
 	});
 
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-
+		// 验证
+		if (object.fileNo === '') {
+			Utils.modal.message('create', [ '请输入文件号' ]);
+			return;
+		}
+		// 验证
+		if (object.fileName === '') {
+			Utils.modal.message('create', [ '请输入文件名' ]);
+			return;
+		}
 		if(object.department===''){
 			delete object.department;
 		}
@@ -101,6 +109,16 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		// 验证
+		if (object.fileNo === '') {
+			Utils.modal.message('edit', [ '请输入文件号' ]);
+			return;
+		}
+		// 验证
+		if (object.fileName === '') {
+			Utils.modal.message('edit', [ '请输入文件名' ]);
+			return;
+		}
 		if(object.department===''){
 			delete object.department;
 		}
@@ -122,7 +140,6 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
@@ -134,34 +151,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
-
-	/**
-	 * 更新部分属性
-	 */
-	function update(locked, credential) {
-		var selectId = grid.selectedData('id');
-		$.get('/ercs/emergency-laws/' + selectId, function(data) {
-			var object = data.data;
-			object.credential = credential;
-			if (locked !== null) {
-				object.locked = locked;
-			}
-			object.groupEntity = {
-				id : object.groupEntity.id
-			};
-			object.roleEntity = {
-				id : object.roleEntity.id
-			};
-
-			$.put('/ercs/emergency-laws/' + selectId, JSON.stringify(object), function(data) {
-				if (data.success === true) {
-					grid.refresh();
-				}
-			});
-		});
-	}
-
 	// 搜索
 	$('#nav-search-button').click(function() {
 		grid.set({
