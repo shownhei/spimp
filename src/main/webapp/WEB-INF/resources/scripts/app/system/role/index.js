@@ -37,8 +37,10 @@ define(function(require, exports, module) {
 				var roleTree = $.fn.zTree.getZTreeObj(treeId);
 				var resourceTree = $.fn.zTree.getZTreeObj('resources-tree');
 
+				resourceTree.checkAllNodes(false);
+
 				if (treeNode.level > 0) {
-					Utils.button.enable([ 'edit', 'save-menu' ]);
+					Utils.button.enable([ 'edit' ]);
 
 					// 如果角色包含用户则不能删除
 					$.get(contextPath + '/system/roles/' + treeNode.id + '/accounts', function(data) {
@@ -50,7 +52,6 @@ define(function(require, exports, module) {
 					});
 
 					// 根据角色加载菜单
-					resourceTree.checkAllNodes(false);
 					Utils.button.disable([ 'save-menu' ]);
 					$.get(contextPath + '/system/roles/' + treeNode.id + '/resources?type=list', function(data) {
 						$.each(data.data, function(entryIndex, entry) {
