@@ -257,6 +257,11 @@ define(function(require, exports, module) {
 		// 更新角色菜单权限
 		var selectId = roleTree.getSelectedNodes()[0].id;
 		$.put(contextPath + '/system/roles/' + selectId + '/resources?resourceIds=' + menus.join(','), function(data) {
+			if (data.success) {
+				$('#alert-message').html('保存成功。').show().fadeOut(2000);
+			} else {
+				$('#alert-message').html('保存失败，请重试。').show().fadeOut(2000);
+			}
 		});
 	});
 

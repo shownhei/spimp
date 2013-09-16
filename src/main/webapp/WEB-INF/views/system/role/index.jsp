@@ -58,18 +58,25 @@
 									<div class="row-fluid" id="account-table"></div>
 								</div>
 								<div id="resources" class="tab-pane">
-									<button id="save-menu" class="btn btn-small btn-success disabled" title="请选择角色">
-										<i class="icon-save"></i>
-										<span class="hidden-phone">保存</span>
-									</button>
-									<button id="check-all-menu" class="btn btn-small btn-primary">
-										<i class="icon-check"></i>
-										<span class="hidden-phone">全选</span>
-									</button>
-									<button id="uncheck-all-menu" class="btn btn-small btn-primary">
-										<i class="icon-check-empty"></i>
-										<span class="hidden-phone">反选</span>
-									</button>
+									<div class="row-fluid">
+										<div class="span6">
+											<button id="save-menu" class="btn btn-small btn-success disabled" title="请选择角色">
+												<i class="icon-save"></i>
+												<span class="hidden-phone">保存</span>
+											</button>
+											<button id="check-all-menu" class="btn btn-small btn-primary">
+												<i class="icon-check"></i>
+												<span class="hidden-phone">全选</span>
+											</button>
+											<button id="uncheck-all-menu" class="btn btn-small btn-primary">
+												<i class="icon-check-empty"></i>
+												<span class="hidden-phone">反选</span>
+											</button>
+										</div>
+										<div class="span6">
+											<div id="alert-message" class="alert alert-message pull-right hide"></div>
+										</div>
+									</div>
 									<div class="row-fluid">
 										<div class="span12">
 											<div id="resources-tree" class="ztree"></div>
