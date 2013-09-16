@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 	});
 
 	// 角色树配置
-	var setting = {
+	var roleTreeSetting = {
 		view : {
 			selectedMulti : false,
 			showTitle : false
@@ -34,8 +34,11 @@ define(function(require, exports, module) {
 		},
 		callback : {
 			onClick : function(event, treeId, treeNode, clickFlag) {
+				var roleTree = $.fn.zTree.getZTreeObj(treeId);
+				var resourceTree = $.fn.zTree.getZTreeObj('resources-tree');
+
 				if (treeNode.level > 0) {
-					Utils.button.enable([ 'edit' ]);
+					Utils.button.enable([ 'edit', 'save-menu' ]);
 
 					// 如果角色包含用户则不能删除
 					$.get(contextPath + '/system/roles/' + treeNode.id + '/accounts', function(data) {
@@ -46,8 +49,23 @@ define(function(require, exports, module) {
 						}
 					});
 
+					// 根据角色加载菜单
+					resourceTree.checkAllNodes(false);
+					Utils.button.disable([ 'save-menu' ]);
+					$.get(contextPath + '/system/roles/' + treeNode.id + '/resources?type=list', function(data) {
+						$.each(data.data, function(entryIndex, entry) {
+							var node = resourceTree.getNodesByParam('id', entry.id);
+							if (node[0] !== undefined) {
+								resourceTree.checkNode(node[0], true, false);
+							}
+						});
+
+						// 启用保存按钮
+						Utils.button.enable([ 'save-menu' ]);
+					});
+
 				} else {
-					Utils.button.disable([ 'edit', 'remove' ]);
+					Utils.button.disable([ 'edit', 'remove', 'save-menu' ]);
 				}
 
 				// 根据选择角色加载用户数据
@@ -62,12 +80,45 @@ define(function(require, exports, module) {
 		}
 	};
 
-	var roleTree = $.fn.zTree.init($('#role-tree'), setting);
+	var roleTree = $.fn.zTree.init($('#roles-tree'), roleTreeSetting);
+
+	// 菜单树配置
+	var resourceTreeSetting = {
+		view : {
+			selectedMulti : false,
+			showTitle : false,
+			showIcon : false
+		},
+		async : {
+			enable : true,
+			url : contextPath + '/system/resources/2',
+			type : "get",
+			dataFilter : function(treeId, parentNode, responseData) {
+				return responseData.data;
+			}
+		},
+		check : {
+			enable : true
+		},
+		data : {
+			key : {
+				children : 'resourceEntities'
+			}
+		},
+		callback : {
+			onAsyncSuccess : function(event, treeId, treeNode, msg) {
+				var resourceTree = $.fn.zTree.getZTreeObj(treeId);
+				resourceTree.expandAll(true);
+			}
+		}
+	};
+
+	var resourceTree = $.fn.zTree.init($('#resources-tree'), resourceTreeSetting);
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 174);
-	$('#role-tree').height(treeHeight + 39);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 175);
+	$('#roles-tree').height(treeHeight + 39);
 	$('#tab-content').height(treeHeight);
 
 	// 配置表格列
@@ -189,5 +240,41 @@ define(function(require, exports, module) {
 			roleTree.reAsyncChildNodes(null, "refresh");
 			Utils.modal.hide('remove');
 		});
+	});
+
+	// 保存菜单权限
+	$('#save-menu').click(function() {
+		if (Utils.button.isDisable('save-menu')) {
+			return;
+		}
+
+		// 获取所有选中的菜单id
+		var menus = [];
+		$.each(resourceTree.getCheckedNodes(true), function(entryIndex, entry) {
+			menus.push(entry.id);
+		});
+
+		// 更新角色菜单权限
+		var selectId = roleTree.getSelectedNodes()[0].id;
+		$.put(contextPath + '/system/roles/' + selectId + '/resources?resourceIds=' + menus.join(','), function(data) {
+		});
+	});
+
+	// 全选
+	$('#check-all-menu').click(function() {
+		if (Utils.button.isDisable('check-all-menu')) {
+			return;
+		}
+
+		resourceTree.checkAllNodes(true);
+	});
+
+	// 反选
+	$('#uncheck-all-menu').click(function() {
+		if (Utils.button.isDisable('uncheck-all-menu')) {
+			return;
+		}
+
+		resourceTree.checkAllNodes(false);
 	});
 });

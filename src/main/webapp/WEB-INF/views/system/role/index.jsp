@@ -18,11 +18,11 @@
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">新建</span>
 					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled" title="编辑角色名">
+					<button id="edit" class="btn btn-small btn-primary disabled" title="选择角色后可编辑角色名">
 						<i class="icon-edit"></i>
 						<span class="hidden-phone">编辑</span>
 					</button>
-					<button id="remove" class="btn btn-small btn-danger disabled" title="请先选择角色，包含用户的角色无法删除">
+					<button id="remove" class="btn btn-small btn-danger disabled" title="选择角色后可删除该角色，若该角色包含用户将不允许删除">
 						<i class="icon-trash"></i>
 						<span class="hidden-phone">删除</span>
 					</button>
@@ -34,7 +34,7 @@
 						<div class="widget-box tree-widget-box">
 							<div class="widget-body tree-widget-body">
 								<div class="widget-main padding-8 tree-widget-main">
-									<div id="role-tree" class="ztree"></div>
+									<div id="roles-tree" class="ztree"></div>
 								</div>
 							</div>
 						</div>
@@ -44,12 +44,12 @@
 							<ul class="nav nav-tabs">
 								<li class="active">
 									<a data-toggle="tab" href="#basic">
-										<i class="green icon-home bigger-110"></i> 基本信息
+										<i class="green icon-home"></i> 基本信息
 									</a>
 								</li>
 								<li>
 									<a data-toggle="tab" href="#resources">
-										<i class="green icon-home bigger-110"></i> 菜单权限
+										<i class="green icon-list"></i> 菜单权限
 									</a>
 								</li>
 							</ul>
@@ -58,7 +58,23 @@
 									<div class="row-fluid" id="account-table"></div>
 								</div>
 								<div id="resources" class="tab-pane">
-									<p>菜单权限</p>
+									<button id="save-menu" class="btn btn-small btn-success disabled" title="请选择角色">
+										<i class="icon-save"></i>
+										<span class="hidden-phone">保存</span>
+									</button>
+									<button id="check-all-menu" class="btn btn-small btn-primary">
+										<i class="icon-check"></i>
+										<span class="hidden-phone">全选</span>
+									</button>
+									<button id="uncheck-all-menu" class="btn btn-small btn-primary">
+										<i class="icon-check-empty"></i>
+										<span class="hidden-phone">反选</span>
+									</button>
+									<div class="row-fluid">
+										<div class="span12">
+											<div id="resources-tree" class="ztree"></div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
