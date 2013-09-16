@@ -41,7 +41,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	// 配置表格

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,6 +172,13 @@ public class RoleController {
 	public Response saveResources(@PathVariable long id, long[] resourceIds) {
 		RoleEntity role = roleEntityServiceImpl.get(id);
 		role.getResourceEntities().clear();
+
+		// 判断是否包含根资源，若没有自动添加
+		ResourceEntity root = resourceEntityServiceImpl.getRoot();
+		if (!ArrayUtils.contains(resourceIds, root.getId())) {
+			role.getResourceEntities().add(root);
+		}
+
 		for (long resourceId : resourceIds) {
 			role.getResourceEntities().add(resourceEntityServiceImpl.get(resourceId));
 		}
