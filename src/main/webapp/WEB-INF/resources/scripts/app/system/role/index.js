@@ -91,7 +91,7 @@ define(function(require, exports, module) {
 		},
 		async : {
 			enable : true,
-			url : contextPath + '/system/resources/2',
+			url : contextPath + '/system/resources/2?order=true',
 			type : "get",
 			dataFilter : function(treeId, parentNode, responseData) {
 				return responseData.data;
