@@ -183,7 +183,13 @@ define(function(require, exports, module) {
 
 		$.post(contextPath + '/system/roles', JSON.stringify(object), function(data) {
 			if (data.success) {
+				// 重置页面
 				roleTree.reAsyncChildNodes(null, "refresh");
+				resourceTree.checkAllNodes(false);
+				Utils.button.disable([ 'edit', 'remove', 'save-menu' ]);
+				grid.set({
+					url : contextPath + '/system/roles/' + data.data.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize
+				});
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
@@ -217,7 +223,10 @@ define(function(require, exports, module) {
 
 		$.put(contextPath + '/system/roles/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
-				roleTree.reAsyncChildNodes(null, "refresh");
+				// 只更新节点名称
+				var node = roleTree.getNodesByParam('id', data.data.id);
+				node[0].name = data.data.name;
+				roleTree.updateNode(node[0]);
 				Utils.modal.hide('edit');
 			} else {
 				Utils.modal.message('edit', data.errors);
@@ -238,7 +247,10 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = roleTree.getSelectedNodes()[0].id;
 		$.del(contextPath + '/system/roles/' + selectId, function(data) {
+			// 重置页面
 			roleTree.reAsyncChildNodes(null, "refresh");
+			resourceTree.checkAllNodes(false);
+			Utils.button.disable([ 'edit', 'remove', 'save-menu' ]);
 			Utils.modal.hide('remove');
 		});
 	});

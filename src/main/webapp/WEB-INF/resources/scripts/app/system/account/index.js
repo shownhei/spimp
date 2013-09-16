@@ -127,7 +127,9 @@ define(function(require, exports, module) {
 
 		$.post(contextPath + '/system/accounts', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.refresh();
+				grid.set({
+					url : defaultUrl
+				});
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
