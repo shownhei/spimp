@@ -5,6 +5,7 @@ package cn.ccrise.spimp.web;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -131,6 +132,10 @@ public class GroupController {
 	@ResponseBody
 	public Response save(@Valid @RequestBody GroupEntity groupEntity) {
 		// 业务验证
+		if (groupEntityServiceImpl.findUniqueBy("number", groupEntity.getNumber()) == null ? false : true) {
+			Map<String, String> result = ValidationUtils.renderResultMap("Unique.groupEntity.number", messageSource);
+			return new Response(result);
+		}
 
 		// 保存
 		boolean result = groupEntityServiceImpl.associatedSave(groupEntity);
@@ -143,6 +148,15 @@ public class GroupController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody GroupEntity groupEntity, @PathVariable long id) {
 		// 业务验证
+		GroupEntity groupInDB = groupEntityServiceImpl.get(id);
+		// 更新时如果机构编号更改，则需要验证机构编号唯一性
+		if (!groupInDB.getNumber().equals(groupEntity.getNumber())) {
+			if (groupEntityServiceImpl.findUniqueBy("number", groupEntity.getNumber()) == null ? false : true) {
+				Map<String, String> result = ValidationUtils
+						.renderResultMap("Unique.groupEntity.number", messageSource);
+				return new Response(result);
+			}
+		}
 
 		// 更新
 		boolean result = groupEntityServiceImpl.associatedUpdate(groupEntity);

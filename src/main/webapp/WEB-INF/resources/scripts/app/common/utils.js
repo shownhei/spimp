@@ -115,6 +115,15 @@ define(function(require, exports, module) {
 		selectOption.replaceWith('<option value="' + optionValue + '" selected="selected">' + selectOption.text() + '</option>');
 	};
 
+	utils.select.setOptionByName = function(formPrefix, selectName, optionValue) {
+		$.each($('#' + formPrefix + '-form select[name="' + selectName + '"] > option'), function(key, value) {
+			var option = $(value);
+			option.replaceWith('<option value="' + option.attr('value') + '">' + option.text() + '</option>');
+		});
+		var selectOption = $('#' + formPrefix + '-form select[name="' + selectName + '"] > option[value="' + optionValue + '"]');
+		selectOption.replaceWith('<option value="' + optionValue + '" selected="selected">' + selectOption.text() + '</option>');
+	};
+
 	/**
 	 * 表单
 	 */
@@ -127,8 +136,10 @@ define(function(require, exports, module) {
 			if (value.tagName === 'SELECT') {
 				var propertys = $(value).attr('name').replace(/\[/g, '.').replace(/\]/g, '').split('.');
 
-				// 目前只处理2层或3层嵌套的情况
-				if (propertys.length === 2) {
+				// 目前只处理1层、2层或3层嵌套的情况
+				if (propertys.length === 1) {
+					utils.select.setOptionByName(prefix, $(value).attr('name'), model[propertys[0]]);
+				} else if (propertys.length === 2) {
 					utils.select.setOption($(value).attr('id'), model[propertys[0]][propertys[1]]);
 				} else if (propertys.length === 3) {
 					utils.select.setOption($(value).attr('id'), model[propertys[0]][propertys[1]][propertys[2]]);

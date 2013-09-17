@@ -87,6 +87,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 机构管理
+	 */
+	@RequestMapping(value = "/system/group", method = RequestMethod.GET)
+	public String systemGroup() {
+		return "system/group/index";
+	}
+
+	/**
 	 * 日志查询
 	 */
 	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
