@@ -72,16 +72,16 @@ public class RoleController {
 	}
 
 	/**
-	 * 获取角色资源。
+	 * 获取角色账户。
 	 * 
 	 * @param id
 	 *            角色id
-	 * @return 角色资源树
+	 * @return 角色包含账户
 	 */
 	@RequestMapping(value = "/system/roles/{id}/accounts", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getAccounts(Page<Account> page, @PathVariable long id) {
-		ResourceEntity role = resourceEntityServiceImpl.get(id);
+		RoleEntity role = roleEntityServiceImpl.get(id);
 		Page<Account> newPage = accountService.getPage(page, Restrictions.eq("roleEntity", role));
 
 		ResponseDataFilter.filter(newPage.getResult());
