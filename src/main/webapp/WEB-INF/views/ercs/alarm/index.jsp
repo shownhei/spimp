@@ -8,6 +8,7 @@
 <%@ include file="../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
+<div id="test" style=" z-index:9001;position:absolute;top:100px;left:100px;width:400px;height:200px;background-color:red;">111221</div>
 	<%@ include file="../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
 		<%@ include file="../../common/sidebar.jsp"%>

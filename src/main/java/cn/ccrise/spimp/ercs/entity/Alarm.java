@@ -26,9 +26,17 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Table(name = "ercs_alarms")
 public class Alarm extends IDEntity {
 	/**
-	 * 流水号
+	 * 未处理
 	 */
-	private Long serialNumber;
+	public static final Integer DEAL_FLAG_UNDEALED = 0;
+	/**
+	 * 已处理
+	 */
+	public static final Integer DEAL_FLAG_DEALED = 1;
+	/**
+	 * 操作标记 是否已处理 1 ：已处理0：未处理
+	 */
+	private Integer dealFlag;
 	/**
 	 * 事故地点
 	 */
@@ -58,6 +66,14 @@ public class Alarm extends IDEntity {
 		return accidentLocation;
 	}
 
+	public Integer getDealFlag() {
+		return dealFlag;
+	}
+
+	public void setDealFlag(Integer dealFlag) {
+		this.dealFlag = dealFlag;
+	}
+
 	@ManyToOne
 	public Dictionary getAccidentType() {
 		return accidentType;
@@ -74,8 +90,8 @@ public class Alarm extends IDEntity {
 		return alarmTime;
 	}
 
-	public Long getSerialNumber() {
-		return serialNumber;
+	public Integer getSerialNumber() {
+		return dealFlag;
 	}
 
 	public String getSeverity() {
@@ -98,8 +114,8 @@ public class Alarm extends IDEntity {
 		this.alarmTime = alarmTime;
 	}
 
-	public void setSerialNumber(Long serialNumber) {
-		this.serialNumber = serialNumber;
+	public void setSerialNumber(Integer dealFlag) {
+		this.dealFlag = dealFlag;
 	}
 
 	public void setSeverity(String severity) {

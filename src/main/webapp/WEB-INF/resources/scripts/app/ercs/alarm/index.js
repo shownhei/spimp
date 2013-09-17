@@ -150,4 +150,67 @@ define(function(require, exports, module) {
 			url : defaultUrl + '&' + $('#search-form').serialize()
 		});
 	});
+	var idarray=[];
+	function openDialog(alarmId){
+		var idStr=alarmId+'';
+		var len=idarray.length;
+		var html='<div id="d'+idStr+'" style=" z-index:9001;border-color: black;border-width:1x;border-style: solid;position:absolute;top:'+(100+len*2)+'px;left:'+(100+len*4)+'px;width:400px;height:200px;background-color:red;" >'+idStr+'</div>';
+		onclick="$(\'#d'+idStr+'\').remove();";
+		$(html).appendTo($('#test'));
+		//触发关闭操作
+		$("#d"+idStr).bind('click',{id:idStr},function(event){
+			$.ajax({
+				url:'/ercs/alarm/closealarm',
+				data:'alarmId='+event.data.id,
+				success:function(){
+					
+				}
+			});
+		});
+	}
+	function asynGet() {
+		$.ajax({
+			type : 'GET',
+			url : '/ercs/alarm/waitalarm',
+			cache : false,
+			data:'idArray='+idarray.join(','),
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				var newIdArray=data.newAlarmList;
+				var len = idarray.length;
+				for(var i=0;i<newIdArray.length;i++){
+					idarray.push(newIdArray[i]);
+					openDialog(newIdArray[i]);
+				}
+				Utils.modal.show('create');
+				asynGet();
+			},
+			error : function(data) {
+				asynGet();
+			}
+		});
+	}
+	var asynClose=function() {
+		$.ajax({
+			type : 'GET',
+			url : '/ercs/alarm/waitclose',
+			cache : false,
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				var alarmId=data.newAlarmList[0];
+				$('#d'+alarmId).hide();
+				asynClose();
+			},
+			error : function(data) {
+				asynClose();
+			}
+		});
+	}
+	asynGet();
+	asynClose();
+	
+	
+	
 });
