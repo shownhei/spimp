@@ -66,14 +66,6 @@ public class Alarm extends IDEntity {
 		return accidentLocation;
 	}
 
-	public Integer getDealFlag() {
-		return dealFlag;
-	}
-
-	public void setDealFlag(Integer dealFlag) {
-		this.dealFlag = dealFlag;
-	}
-
 	@ManyToOne
 	public Dictionary getAccidentType() {
 		return accidentType;
@@ -90,7 +82,7 @@ public class Alarm extends IDEntity {
 		return alarmTime;
 	}
 
-	public Integer getSerialNumber() {
+	public Integer getDealFlag() {
 		return dealFlag;
 	}
 
@@ -112,6 +104,10 @@ public class Alarm extends IDEntity {
 
 	public void setAlarmTime(Timestamp alarmTime) {
 		this.alarmTime = alarmTime;
+	}
+
+	public void setDealFlag(Integer dealFlag) {
+		this.dealFlag = dealFlag;
 	}
 
 	public void setSerialNumber(Integer dealFlag) {

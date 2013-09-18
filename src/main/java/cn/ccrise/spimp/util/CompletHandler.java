@@ -15,25 +15,25 @@ public class CompletHandler implements Runnable {
 		this.record = record;
 	}
 
+	public HashMap<String, List<Long>> getRecord() {
+		return record;
+	}
+
 	public String getSessionId() {
 		return sessionId;
 	}
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-
-	public HashMap<String, List<Long>> getRecord() {
-		return record;
+	@Override
+	public void run() {
+		record.get(getSessionId());
 	}
 
 	public void setRecord(HashMap<String, List<Long>> record) {
 		this.record = record;
 	}
 
-	@Override
-	public void run() {
-		record.get(this.getSessionId());
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 
 }

@@ -13,8 +13,6 @@ import cn.ccrise.spimp.ercs.entity.AlarmReadRecord;
 
 /**
  * AlarmReadRecord Service。
- * 
- * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Service
 public class AlarmReadRecordService extends HibernateDataServiceImpl<AlarmReadRecord, Long> {
@@ -27,14 +25,19 @@ public class AlarmReadRecordService extends HibernateDataServiceImpl<AlarmReadRe
 
 	public void addReadRecord(String sessionId, Long alarmId[]) {
 		if (alarmId != null && alarmId.length > 0) {
-			for (int i = 0; i < alarmId.length; i++) {
+			for (Long element : alarmId) {
 				AlarmReadRecord record = new AlarmReadRecord();
-				record.setAlarmId(alarmId[i]);
+				record.setAlarmId(element);
 				record.setRecordTime(System.currentTimeMillis());
 				record.setSessionId(sessionId);
 				save(record);
 			}
 		}
+	}
+
+	@Override
+	public HibernateDAO<AlarmReadRecord, Long> getDAO() {
+		return alarmReadRecordDAO;
 	}
 
 	/**
@@ -43,12 +46,6 @@ public class AlarmReadRecordService extends HibernateDataServiceImpl<AlarmReadRe
 	 * @param alarmId
 	 */
 	public void removeAlarm(Long alarmId) {
-		this.getDAO().getSession().createQuery("delete from AlarmReadRecord a where a.alarmId=" + alarmId)
-				.executeUpdate();
-	}
-
-	@Override
-	public HibernateDAO<AlarmReadRecord, Long> getDAO() {
-		return alarmReadRecordDAO;
+		getDAO().getSession().createQuery("delete from AlarmReadRecord a where a.alarmId=" + alarmId).executeUpdate();
 	}
 }

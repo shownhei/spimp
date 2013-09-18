@@ -13,12 +13,6 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 	 */
 	private Timestamp recordTime;
 
-	public Long getTimePassed() {
-		Long temp = System.currentTimeMillis() - recordTime.getTime();
-		System.out.println("等待时间:" + temp + "毫秒");
-		return temp;
-	}
-
 	/**
 	 * 记录时间，判断是否超时的时候使用
 	 */
@@ -26,12 +20,18 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 		return recordTime;
 	}
 
-	public void setRecordTime(Timestamp recordTime) {
-		this.recordTime = recordTime;
-	}
-
 	public String getSessionId() {
 		return sessionId;
+	}
+
+	public Long getTimePassed() {
+		Long temp = System.currentTimeMillis() - recordTime.getTime();
+		System.out.println("等待时间:" + temp + "毫秒");
+		return temp;
+	}
+
+	public void setRecordTime(Timestamp recordTime) {
+		this.recordTime = recordTime;
 	}
 
 	public void setSessionId(String sessionId) {

@@ -18,28 +18,28 @@ public class AlarmReadRecord extends IDEntity {
 	private Long alarmId;
 	private Long recordTime;
 
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-
 	public Long getAlarmId() {
 		return alarmId;
-	}
-
-	public void setAlarmId(Long alarmId) {
-		this.alarmId = alarmId;
 	}
 
 	public Long getRecordTime() {
 		return recordTime;
 	}
 
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setAlarmId(Long alarmId) {
+		this.alarmId = alarmId;
+	}
+
 	public void setRecordTime(Long recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 
 }

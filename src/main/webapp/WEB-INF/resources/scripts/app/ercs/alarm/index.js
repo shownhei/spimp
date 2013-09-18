@@ -5,8 +5,8 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
-	Utils.select.remote([ 'create-accidentType', 'edit-accidentType', 'accidentTypeSelect' ], '/ercs/dictionaries?typeCode=plan_type&list=true', 'id',
+	Utils.select.remote([ 'accidentTypeSelect' ],
+			'/ercs/dictionaries?typeCode=accident_category&list=true', 'id',
 			'itemName');
 
 	// 配置表格列
@@ -15,23 +15,35 @@ define(function(require, exports, module) {
 		name : 'accidentLocation'
 	}, {
 		header : '事故类型',
-		name : 'accidentType'
+		name : 'accidentType',
+		render : function(val) {
+			if (val===undefined||val===''||val==null) {
+				return '';
+			} else {
+				return val.itemName;
+			}
+		}
 	}, {
 		header : '严重程度',
 		name : 'severity'
+	}, {
+		header : '处理状态',
+		name : 'dealFlag',
+		render : function(val) {
+			return val === undefined ? '' : (val === 0 ? '未处理' : '已处理')
+		}
 	}, {
 		header : '报警人',
 		name : 'alarmPeople'
 	}, {
 		header : '报警时间',
 		name : 'alarmTime'
-	}, {
-		header : '接警流水号',
-		name : 'serialNumber'
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height()
+			- ($('.navbar').height() + $('.page-toolbar').height()
+					+ $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -47,7 +59,8 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/alarms?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath
+			+ '/ercs/alarms?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#alarm-table',
 		url : defaultUrl,
@@ -64,34 +77,6 @@ define(function(require, exports, module) {
 			changeButtonsStatus();
 		}
 	}).render();
-
-	// 新建
-	$('#create').click(function() {
-		Utils.modal.reset('create');
-		Utils.modal.show('create');
-	});
-
-	// 保存
-	$('#create-save').click(function() {
-		var object = Utils.form.serialize('create');
-
-		// 验证
-		if (object.credential === '') {
-			Utils.modal.message('create', [ '请输入密码' ]);
-			return;
-		}
-
-		// 处理属性
-
-		$.post('/ercs/alarms', JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('create');
-			} else {
-				Utils.modal.message('create', data.errors);
-			}
-		});
-	});
 
 	// 编辑
 	$('#edit').click(function() {
@@ -111,34 +96,33 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(function() {
-		var object = Utils.form.serialize('edit');
-
-		var selectId = grid.selectedData('id');
-
-		$.put('/ercs/alarms' + selectId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('edit');
-			} else {
-				Utils.modal.message('edit', data.errors);
-			}
-		});
-	});
+	$('#edit-save').click(
+			function() {
+				var object = Utils.form.serialize('edit');
+				var selectId = grid.selectedData('id');
+				$.put('/ercs/alarms' + selectId, JSON.stringify(object),
+						function(data) {
+							if (data.success) {
+								grid.refresh();
+								Utils.modal.hide('edit');
+							} else {
+								Utils.modal.message('edit', data.errors);
+							}
+						});
+			});
 
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/ercs/alarms' + selectId, function(data) {
+		$.del('/ercs/alarms/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
@@ -150,40 +134,66 @@ define(function(require, exports, module) {
 			url : defaultUrl + '&' + $('#search-form').serialize()
 		});
 	});
-	var idarray=[];
-	function openDialog(alarmId){
-		var idStr=alarmId+'';
-		var len=idarray.length;
-		var html='<div id="d'+idStr+'" style=" z-index:9001;border-color: black;border-width:1x;border-style: solid;position:absolute;top:'+(100+len*2)+'px;left:'+(100+len*4)+'px;width:400px;height:200px;background-color:red;" >'+idStr+'</div>';
-		onclick="$(\'#d'+idStr+'\').remove();";
-		$(html).appendTo($('#test'));
-		//触发关闭操作
-		$("#d"+idStr).bind('click',{id:idStr},function(event){
-			$.ajax({
-				url:'/ercs/alarm/closealarm',
-				data:'alarmId='+event.data.id,
-				success:function(){
-					
-				}
-			});
-		});
+
+	var idarray = [];
+	function openDialog(alarmId) {
+		$
+				.ajax({
+					url : '/ercs/alarms/' + alarmId,
+					success : function(data) {
+						var raw = data.data;
+						var template = Handlebars.compile($(
+								'#alarmwindow-template').html());
+						var html = template(raw);
+						$(html).appendTo($('body'));
+						delete raw.accidentType;
+						Utils.modal.show('edit' + raw.id);
+						Utils.select
+								.remote(
+										[ 'edit' + raw.id + '-accidentType' ],
+										'/ercs/dictionaries?typeCode=accident_category&list=true',
+										'id', 'itemName');
+						// 事件绑定
+						$('#edit' + raw.id + '-save').bind(
+								'click',
+								{
+									alarmId : raw.id
+								},
+								function(event) {
+									var object = Utils.form.serialize('edit'
+											+ event.data.alarmId);
+									var selectId = event.data.alarmId;
+									$.put('/ercs/alarms/' + selectId, JSON
+											.stringify(object), function(data) {
+										if (data.success) {
+											Utils.modal.hide('edit'
+													+ event.data.alarmId);
+										} else {
+											Utils.modal.message('edit'
+													+ event.data.alarmId,
+													data.errors);
+										}
+									});
+								});// bind end
+						Utils.form.fill('edit' + raw.id, raw);
+					}
+				});
 	}
 	function asynGet() {
 		$.ajax({
 			type : 'GET',
 			url : '/ercs/alarm/waitalarm',
 			cache : false,
-			data:'idArray='+idarray.join(','),
+			data : 'idArray=' + idarray.join(','),
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				var newIdArray=data.newAlarmList;
+				var newIdArray = data.alarmList;
 				var len = idarray.length;
-				for(var i=0;i<newIdArray.length;i++){
+				for ( var i = 0; i < newIdArray.length; i++) {
 					idarray.push(newIdArray[i]);
 					openDialog(newIdArray[i]);
 				}
-				Utils.modal.show('create');
 				asynGet();
 			},
 			error : function(data) {
@@ -191,7 +201,7 @@ define(function(require, exports, module) {
 			}
 		});
 	}
-	var asynClose=function() {
+	var asynClose = function() {
 		$.ajax({
 			type : 'GET',
 			url : '/ercs/alarm/waitclose',
@@ -199,8 +209,8 @@ define(function(require, exports, module) {
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				var alarmId=data.newAlarmList[0];
-				$('#d'+alarmId).hide();
+				var alarmId = data.alarmList[0];
+				Utils.modal.hide('edit' + alarmId);
 				asynClose();
 			},
 			error : function(data) {
@@ -210,7 +220,5 @@ define(function(require, exports, module) {
 	}
 	asynGet();
 	asynClose();
-	
-	
-	
+
 });

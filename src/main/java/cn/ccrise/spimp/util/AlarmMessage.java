@@ -26,24 +26,24 @@ public class AlarmMessage {
 		return alarmList;
 	}
 
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-
-	public void setAlarmList(List<Long> newAlarmList) {
-		this.alarmList = newAlarmList;
-	}
-
 	public String getMessgage() {
 		return messgage;
 	}
 
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setAlarmList(List<Long> newAlarmList) {
+		alarmList = newAlarmList;
+	}
+
 	public void setMessgage(String messgage) {
 		this.messgage = messgage;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 
 }
