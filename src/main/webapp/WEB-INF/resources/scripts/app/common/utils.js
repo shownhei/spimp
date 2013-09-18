@@ -52,6 +52,8 @@ define(function(require, exports, module) {
 			handle : '.modal-header',
 			containment : getContainerment()
 		});
+
+		return $modal;
 	};
 
 	utils.modal.hide = function(prefix) {
