@@ -103,7 +103,7 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">角色名</label>
+							<label class="control-label span2" for="name">角色名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>
@@ -142,7 +142,7 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">角色名</label>
+							<label class="control-label span2" for="name">角色名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>

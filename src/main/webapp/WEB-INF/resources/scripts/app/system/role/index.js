@@ -177,7 +177,7 @@ define(function(require, exports, module) {
 
 		// 验证
 		if (object.name === '') {
-			Utils.modal.message('create', [ '请输入角色名' ]);
+			Utils.modal.message('create', [ '请输入角色名称' ]);
 			return;
 		}
 

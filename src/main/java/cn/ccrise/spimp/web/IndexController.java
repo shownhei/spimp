@@ -111,6 +111,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 菜单管理
+	 */
+	@RequestMapping(value = "/system/resource", method = RequestMethod.GET)
+	public String systemResource() {
+		return "system/resource/index";
+	}
+
+	/**
 	 * 角色管理
 	 */
 	@RequestMapping(value = "/system/role", method = RequestMethod.GET)
