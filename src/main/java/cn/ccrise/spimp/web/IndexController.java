@@ -79,6 +79,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 现场处置方案
+	 */
+	@RequestMapping(value = "/ercs/scheme", method = RequestMethod.GET)
+	public String ercsScheme() {
+		return "ercs/scheme/index";
+	}
+
+	/**
 	 * 用户管理
 	 */
 	@RequestMapping(value = "/system/account", method = RequestMethod.GET)

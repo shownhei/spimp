@@ -15,12 +15,13 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
 public class CodeGenerator {
 	private final String packageName = "cn.ccrise.spimp";
 
-	private final String uriPrefix = "alarm";
-	private final String entityName = "Alarm";
+	private final String uriPrefix = "scheme";
+	private final String entityName = "Scheme";
 
 	@Test
 	public void generateController() {
-		CodeGeneratorUtils.generateController(entityName, packageName, uriPrefix);
+		CodeGeneratorUtils.generateController(entityName, packageName,
+				uriPrefix);
 	}
 
 	@Test
