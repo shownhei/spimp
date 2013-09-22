@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -37,6 +38,7 @@ public class Alarm extends IDEntity {
 	 * 操作标记 是否已处理 1 ：已处理0：未处理
 	 */
 	private Integer dealFlag;
+	private String detail;
 	/**
 	 * 事故地点
 	 */
@@ -48,9 +50,9 @@ public class Alarm extends IDEntity {
 	private Dictionary accidentType;
 
 	/**
-	 * 严重程度
+	 * 严重程度 事故等级level
 	 */
-	private String severity;
+	private Dictionary accidentLevel;
 
 	/**
 	 * 报警人
@@ -62,8 +64,37 @@ public class Alarm extends IDEntity {
 	 */
 	private Timestamp alarmTime;
 
+	/**
+	 * 问题处理时间
+	 */
+	private Timestamp processingTime;
+
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getProcessingTime() {
+		return processingTime;
+	}
+
+	/**
+	 * 问题处理时间
+	 * 
+	 * @param processingTime
+	 */
+	public void setProcessingTime(Timestamp processingTime) {
+		this.processingTime = processingTime;
+	}
+
 	public String getAccidentLocation() {
 		return accidentLocation;
+	}
+
+	@Lob
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	@ManyToOne
@@ -84,10 +115,6 @@ public class Alarm extends IDEntity {
 
 	public Integer getDealFlag() {
 		return dealFlag;
-	}
-
-	public String getSeverity() {
-		return severity;
 	}
 
 	public void setAccidentLocation(String accidentLocation) {
@@ -114,8 +141,13 @@ public class Alarm extends IDEntity {
 		this.dealFlag = dealFlag;
 	}
 
-	public void setSeverity(String severity) {
-		this.severity = severity;
+	@ManyToOne
+	public Dictionary getAccidentLevel() {
+		return accidentLevel;
+	}
+
+	public void setAccidentLevel(Dictionary accidentLevel) {
+		this.accidentLevel = accidentLevel;
 	}
 
 }

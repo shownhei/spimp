@@ -77,13 +77,19 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			while (it.hasNext()) {
 				deferredResult = it.next();
 				Long timePassed = deferredResult.getTimePassed();
-				if (timePassed > 1000 * 60 * 1) {
-					deferredResult.setErrorResult("be disconnected ...");
-				} else {
-					deferredResult.setResult(message);
-					closeAlarm(alarmId);
+				try {
+
+					if (timePassed > 1000 * 60 * 1) {
+						deferredResult.setErrorResult("be disconnected ...");
+					} else {
+						deferredResult.setResult(message);
+						closeAlarm(alarmId);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					it.remove();
 				}
-				it.remove();
 			}
 		}
 	}
@@ -125,6 +131,18 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				arrayList.add(id);
 			}
 		}
+	}
+
+	/**
+	 * 更新
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	public boolean updateAlarm(Alarm entity) {
+		update(entity);
+		notifyAlarmProcessed(entity.getId());
+		return true;
 	}
 
 	/**
@@ -228,6 +246,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				List<Alarm> newAlarmList = getNoRecordAlarmList(sessionId);
 				List<Long> newAlarmIdList = new ArrayList<Long>();
 				if (newAlarmList.size() == 0) {
+					logger.debug("{}", waiter.getTimePassed());
 					if (waiter.getTimePassed() > 200000) {
 						waiter.setErrorResult("TimePassed:" + waiter.getTimePassed());
 						it.remove();
@@ -266,17 +285,5 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				}
 			}
 		}
-	}
-
-	/**
-	 * 更新
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public boolean updateAlarm(Alarm entity) {
-		update(entity);
-		notifyAlarmProcessed(entity.getId());
-		return true;
 	}
 }

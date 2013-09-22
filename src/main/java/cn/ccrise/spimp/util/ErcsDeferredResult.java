@@ -24,6 +24,11 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 		return sessionId;
 	}
 
+	/**
+	 * 等待已耗时,毫秒
+	 * 
+	 * @return 耗时 毫秒数
+	 */
 	public Long getTimePassed() {
 		Long temp = System.currentTimeMillis() - recordTime.getTime();
 		System.out.println("等待时间:" + temp + "毫秒");

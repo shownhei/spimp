@@ -20,7 +20,7 @@
 					<form id="edit{{id}}-form" class="form-horizontal">
 						<input  name="id" type="hidden" class="span11">
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">事故地点</label>
+							<label class="control-label span2" for="accidentLocation">事故地点</label>
 							<div class="controls">
 								<input  name="accidentLocation" type="text" class="span11">
 							</div>
@@ -34,21 +34,26 @@
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">严重程度</label>
+							<label class="control-label span2" for="edit{{id}}-accidentLevel">严重程度</label>
 							<div class="controls">
-								<input  name="severity" type="text" class="span11">
+                                <select id="edit{{id}}-accidentLevel" name="accidentLevel[id]"  class="span11" ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">报警人</label>
+							<label class="control-label span2" for="alarmPeople">报警人</label>
 							<div class="controls">
 								<input  name="alarmPeople" type="text" class="span11">
 							</div>
 						</div>
-	        
+	                    <div class="control-group">
+							<label class="control-label span2" for="detail">事故描述</label>
+							<div class="controls">
+							   <textarea  name="detail"   rows=5 class="span11"></textarea>
+							</div>
+						</div>
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">报警时间</label>
+							<label class="control-label span2" for="alarmTime">报警时间</label>
 							<div class="controls">
 								<input  name="alarmTime" readOnly=true type="text" value="{{alarmTime}}" class="span11">
 							</div>
@@ -98,8 +103,17 @@
 							class="input-small" style="width:150px;"></select>
 						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
-							<i class="icon-search nav-search-icon"></i>
+							<select id="accidentLevelSelect" name="accidentLevel"
+							class="input-small" style="width:150px;">
+							</select>
+						</span>
+						<span class="input-icon">
+							<select id="dealFlagSelect" name="dealFlag"
+							class="input-small" style="width:150px;">
+							<option >请选择事故状态</option>
+							<option value='0'>未处理</option>
+							<option value='1'>已处理</option>
+							</select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
@@ -132,16 +146,16 @@
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">事故类型</label>
+							<label class="control-label span2" for="edit-accidentType">事故类型</label>
 							<div class="controls">
-								<input  name="accidentType" type="text" class="span11">
+								<select id="edit-accidentType" name="accidentType[id]"  class="span11" ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">严重程度</label>
 							<div class="controls">
-								<input  name="severity" type="text" class="span11">
+								<select id="edit-accidentLevel" name="accidentLevel[id]"  class="span11" ></select>
 							</div>
 						</div>
 	        
@@ -152,19 +166,20 @@
 							</div>
 						</div>
 	        
+	        
+					    <div class="control-group">
+							<label class="control-label span2" for="principal">事故描述</label>
+							<div class="controls">
+							   <textarea  name="detail"  rows=5 class="span11"></textarea>
+							</div>
+						</div>
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">报警时间</label>
 							<div class="controls">
 								<input  name="alarmTime" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label span2" for="principal">接警流水号</label>
-							<div class="controls">
-								<input  name="serialNumber" type="text" class="span11">
-							</div>
-						</div>
+						<input  name="dealFlag" type="hidden" class="span11">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">

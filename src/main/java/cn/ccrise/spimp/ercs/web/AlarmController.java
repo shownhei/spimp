@@ -121,6 +121,7 @@ public class AlarmController {
 	@RequestMapping(value = "/ercs/alarms/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Alarm alarm, @PathVariable long id) {
+		alarm.setProcessingTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(alarmService.updateAlarm(alarm));
 	}
 
