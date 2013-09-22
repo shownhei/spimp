@@ -28,6 +28,7 @@
 	var contextPath = "${contextPath}";
 	var resources = "${resources}";
 	var requestURI = "${requestURI}";
+	var GRID_ROW_HEIGHT = 21;
 	//生产环境下改为false
 	var isDevelopment = true;
 

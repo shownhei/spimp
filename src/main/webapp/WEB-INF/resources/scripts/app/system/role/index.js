@@ -154,7 +154,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 配置表格
-	var pageSize = Math.floor(gridHeight / 21);
+	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 	var grid = new Grid({
 		parentNode : '#account-table',
 		model : {
