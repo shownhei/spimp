@@ -30,7 +30,7 @@
 			</div>
 			<div class="page-content">
 				<div class="row-fluid">
-					<div class="span3">
+					<div class="span4">
 						<div class="widget-box tree-widget-box">
 							<div class="widget-body tree-widget-body">
 								<div class="widget-main padding-8 tree-widget-main">
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="span9">
+					<div class="span8">
 						<div class="tabbable">
 							<ul class="nav nav-tabs">
 								<li class="active">
