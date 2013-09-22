@@ -20,8 +20,7 @@ public class CodeGenerator {
 
 	@Test
 	public void generateController() {
-		CodeGeneratorUtils.generateController(entityName, packageName,
-				uriPrefix);
+		CodeGeneratorUtils.generateController(entityName, packageName, uriPrefix);
 	}
 
 	@Test
