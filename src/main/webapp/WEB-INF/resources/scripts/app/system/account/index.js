@@ -53,7 +53,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -125,9 +125,11 @@ define(function(require, exports, module) {
 		}
 		delete object.checkCredential;
 
-		$.post('accounts', JSON.stringify(object), function(data) {
+		$.post(contextPath + '/system/accounts', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.refresh();
+				grid.set({
+					url : defaultUrl
+				});
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
@@ -144,7 +146,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('accounts/' + selectId, function(data) {
+		$.get(contextPath + '/system/accounts/' + selectId, function(data) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
@@ -161,7 +163,7 @@ define(function(require, exports, module) {
 		object.locked = grid.selectedData('locked');
 
 		var selectId = grid.selectedData('id');
-		$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+		$.put(contextPath + '/system/accounts/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -201,7 +203,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('accounts/' + selectId, function(data) {
+		$.del(contextPath + '/system/accounts/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
@@ -227,7 +229,7 @@ define(function(require, exports, module) {
 	 */
 	function update(locked, credential) {
 		var selectId = grid.selectedData('id');
-		$.get('accounts/' + selectId, function(data) {
+		$.get(contextPath + '/system/accounts/' + selectId, function(data) {
 			var object = data.data;
 			object.credential = credential;
 			if (locked !== null) {
@@ -240,7 +242,7 @@ define(function(require, exports, module) {
 				id : object.roleEntity.id
 			};
 
-			$.put('accounts/' + selectId, JSON.stringify(object), function(data) {
+			$.put(contextPath + '/system/accounts/' + selectId, JSON.stringify(object), function(data) {
 				if (data.success === true) {
 					grid.refresh();
 				}

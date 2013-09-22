@@ -144,3 +144,44 @@ body {
 	font-size: 10px;
 	padding: 1px 5px 1px;
 }
+
+.tree-widget-box {
+	border-top: 2px solid #4c8fbd;
+	border-bottom: 0;
+	margin: 0;
+	box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.tree-widget-header {
+	min-height: 32px;
+	background: #fff;
+	border-bottom: 1px solid #c5d0dc;
+}
+
+.tree-widget-header>:first-child {
+	line-height: 26px;
+}
+
+.tree-widget-body {
+	border: 1px solid #c5d0dc;
+	border-top: 0;
+}
+
+.tree-widget-main {
+	overflow: auto;
+}
+
+.toolbar-ft {
+	border-top: 1px solid #ddd;
+}
+
+.grid-cell {
+	border-color: rgb(225, 225, 225) !important;
+	border-style: solid !important;
+}
+
+.alert-message {
+	padding: 1px 35px 1px 14px;
+	margin-bottom: 0;
+	font-size: 13px;
+}
