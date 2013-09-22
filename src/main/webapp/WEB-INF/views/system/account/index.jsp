@@ -15,22 +15,28 @@
 			<div class="page-toolbar">
 				<div class="toolbar">
 					<button id="create" class="btn btn-small btn-success">
-						<i class="icon-plus-sign-alt"></i> 新建
+						<i class="icon-plus-sign-alt"></i>
+						<span class="hidden-phone">新建</span>
 					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">
-						<i class="icon-edit"></i> 编辑
+						<i class="icon-edit"></i>
+						<span class="hidden-phone">编辑</span>
 					</button>
 					<button id="lock" class="btn btn-small btn-primary disabled" title="锁定后账户无法登录">
-						<i class="icon-lock"></i> 锁定
+						<i class="icon-lock"></i>
+						<span class="hidden-phone">锁定</span>
 					</button>
 					<button id="unlock" class="btn btn-small btn-primary disabled" title="解锁后账户可以登录">
-						<i class="icon-unlock"></i> 解锁
+						<i class="icon-unlock"></i>
+						<span class="hidden-phone">解锁</span>
 					</button>
 					<button id="remove" class="btn btn-small btn-danger disabled">
-						<i class="icon-trash"></i> 删除
+						<i class="icon-trash"></i>
+						<span class="hidden-phone">删除</span>
 					</button>
 					<button id="reset" class="btn btn-small btn-danger disabled" title="将密码重置为123456">
-						<i class="icon-refresh"></i> 重置密码
+						<i class="icon-refresh"></i>
+						<span class="hidden-phone">重置密码</span>
 					</button>
 				</div>
 				<div class="nav-search">

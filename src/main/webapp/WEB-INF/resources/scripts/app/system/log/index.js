@@ -6,6 +6,7 @@ define(function(require, exports, module) {
 		header : '级别',
 		name : 'level',
 		align : 'center',
+		width : 40,
 		render : function(value) {
 			switch (value) {
 				case 'INFO':
@@ -19,6 +20,8 @@ define(function(require, exports, module) {
 	}, {
 		header : '用户',
 		name : 'currentUserName',
+		hidden : 'tablet',
+		width : 60,
 		render : function(value) {
 			if (value === 'System') {
 				return '系统';
@@ -29,11 +32,11 @@ define(function(require, exports, module) {
 	}, {
 		header : '记录IP',
 		name : 'ip',
+		hidden : 'tablet',
 		width : 120
 	}, {
 		header : '内容',
-		name : 'content',
-		width : 600
+		name : 'content'
 	}, {
 		header : '记录时间',
 		name : 'recordTime',
