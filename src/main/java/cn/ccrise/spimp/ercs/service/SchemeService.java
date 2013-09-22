@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.service;
+package cn.ccrise.spimp.ercs.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
-import cn.ccrise.spimp.access.SchemeDAO;
-import cn.ccrise.spimp.entity.Scheme;
+import cn.ccrise.spimp.ercs.access.SchemeDAO;
+import cn.ccrise.spimp.ercs.entity.Scheme;
 
 /**
  * Scheme Service。

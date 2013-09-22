@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.web;
+package cn.ccrise.spimp.ercs.web;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Scheme;
-import cn.ccrise.spimp.service.SchemeService;
+import cn.ccrise.spimp.ercs.entity.Scheme;
+import cn.ccrise.spimp.ercs.service.SchemeService;
 
 import com.google.common.collect.Lists;
 
@@ -39,30 +39,24 @@ public class SchemeController {
 	@Autowired
 	private SchemeService schemeService;
 
-	@RequestMapping(value = "/scheme/schemes/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/ercs/schemes/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(schemeService.delete(id));
 	}
 
-	@RequestMapping(value = "/scheme/schemes/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/schemes/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(schemeService.get(id));
 	}
 
-	@RequestMapping(value = "/scheme/scheme", method = RequestMethod.GET)
-	public String index() {
-		return "scheme/scheme/index";
-	}
-
-	@RequestMapping(value = "/scheme/schemes", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/schemes", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Scheme> page, String search) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (search != null) {
-			criterions.add(Restrictions.or(
-					Restrictions.ilike("type", search, MatchMode.ANYWHERE),
+			criterions.add(Restrictions.or(Restrictions.ilike("type", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("decide", search, MatchMode.ANYWHERE)));
 		}
 
@@ -70,16 +64,15 @@ public class SchemeController {
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/scheme/schemes", method = RequestMethod.POST)
+	@RequestMapping(value = "/ercs/schemes", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Scheme scheme) {
 		return new Response(schemeService.save(scheme));
 	}
 
-	@RequestMapping(value = "/scheme/schemes/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/ercs/schemes/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Scheme scheme,
-			@PathVariable long id) {
+	public Response update(@Valid @RequestBody Scheme scheme, @PathVariable long id) {
 		return new Response(schemeService.update(scheme));
 	}
 }

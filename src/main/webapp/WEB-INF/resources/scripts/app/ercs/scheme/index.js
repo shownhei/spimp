@@ -47,7 +47,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/scheme/schemes?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/schemes?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#material-table',
 		url : defaultUrl,
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
 			delete object.resourceType;
 		}
 
-		$.post('/scheme/schemes', JSON.stringify(object), function(data) {
+		$.post('/ercs/schemes', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -109,7 +109,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('/scheme/schemes/' + selectId, function(data) {
+		$.get('/ercs/schemes/' + selectId, function(data) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
@@ -131,7 +131,7 @@ define(function(require, exports, module) {
 
 		// 处理属性
 		var selectId = grid.selectedData('id');
-		$.put('/scheme/schemes/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/ercs/schemes/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -152,7 +152,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/scheme/schemes/' + selectId, function(data) {
+		$.del('/ercs/schemes/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
