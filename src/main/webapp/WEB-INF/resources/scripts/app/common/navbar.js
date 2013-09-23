@@ -38,4 +38,12 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+
+	$('#logout').click(function() {
+		Utils.modal.show('logout');
+	});
+
+	$('#logout-save').click(function() {
+		window.location = contextPath + '/logout';
+	});
 });

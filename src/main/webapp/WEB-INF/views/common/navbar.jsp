@@ -60,7 +60,7 @@
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="/logout">
+							<a id="logout" style="cursor: pointer;">
 								<i class="icon-off"></i> 退出
 							</a>
 						</li>
@@ -120,6 +120,30 @@
 	</div>
 	<div class="modal-footer">
 		<button id="account-settings-save" class="btn btn-small btn-primary">
+			<i class="icon-ok"></i> 确定
+		</button>
+		<button class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i> 取消
+		</button>
+	</div>
+</div>
+<!-- 退出 -->
+<div id="logout-modal" class="modal hide">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h5 class="red">
+			<i class="icon-off"></i> 退出
+		</h5>
+	</div>
+	<div class="modal-body">
+		<div class="row-fluid">
+			<div class="span12">
+				<i class="icon-warning-sign"></i> 确认退出登录？
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button id="logout-save" class="btn btn-small btn-danger">
 			<i class="icon-ok"></i> 确定
 		</button>
 		<button class="btn btn-small" data-dismiss="modal">
