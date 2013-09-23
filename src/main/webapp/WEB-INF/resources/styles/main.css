@@ -193,3 +193,7 @@ body {
 .nav-search-input210 {
 	width: 210px !important;
 }
+
+.nav-add-on {
+	padding: 1px 5px !important;
+}

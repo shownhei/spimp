@@ -180,6 +180,20 @@ define(function(require, exports, module) {
 	};
 
 	/**
+	 * 日期控件
+	 */
+	utils.input = {};
+
+	utils.input.date = function(selector, format) {
+		$(selector).datepicker({
+			autoclose : true,
+			format : format === undefined ? 'yyyy-mm-dd' : format
+		}).next().on('click', function() {
+			$(this).prev().focus();
+		});
+	};
+
+	/**
 	 * 编码
 	 */
 	utils.html = {};

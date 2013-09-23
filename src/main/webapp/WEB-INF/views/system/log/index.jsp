@@ -15,9 +15,19 @@
 			<div class="page-toolbar">
 				<div class="nav-query">
 					<form id="query-form" class="form-inline" onsubmit="return false;">
-						<input id="startDate" name="startDate" type="datetime" placeholder="开始日期" class="input-small" autocomplete="off">
-						<input id="endDate" name="endDate" type="datetime" placeholder="结束日期" class="input-small" autocomplete="off">
-						<select id="level" name="level" class="input-small">
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始日期" class="input-small" autocomplete="off">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束日期" class="input-small" autocomplete="off">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<select name="level" class="input-small">
 							<option value="" class="light-grey">选择级别</option>
 							<option value="INFO" class="green">消息</option>
 							<option value="WARN" class="orange">警告</option>
