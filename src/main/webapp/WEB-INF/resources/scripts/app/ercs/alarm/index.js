@@ -7,13 +7,17 @@ define(function(require, exports, module) {
     $('button[title]').tooltip({
         placement: 'bottom'
     });
-    Utils.select.remote(['accidentTypeSelect', 'edit-accidentType'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-    Utils.select.remote(['accidentLevelSelect'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-    Utils.select.remote(['edit-accidentLevel'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+    Utils.select.remote(['accidentTypeSelect', 'edit-accidentType', 'view-accidentType'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName', true, "请选择事故类型...");
+    Utils.select.remote(['accidentLevelSelect'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName', true, "请选择严重程度...");
+    Utils.select.remote(['edit-accidentLevel', 'view-accidentLevel'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
 
-    $('#accidentTypeSelect').bind('change',function(){
-    	var val=$(this).children('option:selected').val();
-    	$('#nav-search-button').trigger('click');
+    $('#accidentTypeSelect').bind('change', function() {
+        var val = $(this).children('option:selected').val();
+        $('#nav-search-button').trigger('click');
+    });
+    $('#accidentLevelSelect').bind('change', function() {
+        var val = $(this).children('option:selected').val();
+        $('#nav-search-button').trigger('click');
     });
     // 配置表格列
     var fields = [{
@@ -22,7 +26,7 @@ define(function(require, exports, module) {
     }, {
         header: '事故类型',
         name: 'accidentType',
-        width:100,
+        width: 100,
         render: function(val) {
             if (val === undefined || val === '' || val == null) {
                 return '';
@@ -33,31 +37,31 @@ define(function(require, exports, module) {
     }, {
         header: '严重程度',
         name: 'accidentLevel',
-        render:function(val){
-        	if (val === undefined || val === '' || val == null) {
+        render: function(val) {
+            if (val === undefined || val === '' || val == null) {
                 return '';
             } else {
-                return val.itemName;
+                return '<div style="color:red;">' + val.itemName + '</div>';
             }
         }
     }, {
         header: '处理状态',
         name: 'dealFlag',
-        width:120,
+        width: 120,
         render: function(val) {
             return val === undefined ? '' : (val === 0 ? '未处理' : '已处理')
         }
     }, {
         header: '报警人',
-        width:120,
+        width: 120,
         name: 'alarmPeople'
     }, {
         header: '报警时间',
-        width:150,
+        width: 150,
         name: 'alarmTime'
-    },{
+    }, {
         header: '处理时间',
-        width:150,
+        width: 150,
         name: 'processingTime'
     }];
 
@@ -71,9 +75,9 @@ define(function(require, exports, module) {
 
     function changeButtonsStatus(selected, data) {
         if (selected) {
-            Utils.button.enable(['edit', 'remove']);
+            Utils.button.enable(['edit', 'remove', 'view']);
         } else {
-            Utils.button.disable(['edit', 'remove']);
+            Utils.button.disable(['edit', 'remove', 'view']);
         }
 
     }
@@ -92,14 +96,30 @@ define(function(require, exports, module) {
         onClick: function(target, data) {
             changeButtonsStatus(this.selected, data);
         },
-        onDBClick: function(target, data) {
-            changeButtonsStatus(this.selected, data);
-        },
         onLoaded: function() {
             changeButtonsStatus();
+            renderRowColor();
         }
     }).render();
 
+    // 根据严重程度渲染行颜色
+
+
+    function renderRowColor() {
+        var records = grid.data.result;
+        var rows = grid.$('.grid-row');
+        for (var i = 0; i < rows.length; i++) {
+            var raw = records[i];
+            $(rows[i]).removeClass('grid-row-alt');
+            if (raw.accidentLevel.itemValue == '1') {
+                rows[i].bgColor = "red";
+            } else if (raw.accidentLevel.itemValue == '2') {
+                rows[i].bgColor = "yellow";
+            } else if (raw.accidentLevel.itemValue == '3') {
+                rows[i].bgColor = "green";
+            }
+        }
+    }
     // 编辑
     $('#edit').click(function() {
         if (Utils.button.isDisable('edit')) {
@@ -111,12 +131,26 @@ define(function(require, exports, module) {
         var selectId = grid.selectedData('id');
         $.get('/ercs/alarms/' + selectId, function(data) {
             var object = data.data;
-
             Utils.form.fill('edit', object);
             Utils.modal.show('edit');
         });
     });
+    $('#view').click(
 
+    function() {
+        if (Utils.button.isDisable('view')) {
+            return;
+        }
+        var selectId = grid.selectedData('id');
+        $.get('/ercs/alarms/' + selectId, function(data) {
+            var object = data.data;
+            var template = Handlebars.compile($('#viewwindow-template').html());
+            var html = template(object);
+            $(html).appendTo($('body'));
+            Utils.form.fill('view', object);
+            Utils.modal.show('view');
+        });
+    });
     // 更新
     $('#edit-save').click(
 
@@ -156,7 +190,14 @@ define(function(require, exports, module) {
             url: defaultUrl + '&' + $('#search-form').serialize()
         });
     });
-
+    $('#nav-reset-button').click(function() {
+        $('#accidentTypeSelect').val('');
+        $('#accidentLevelSelect').val('');
+        $('#dealFlagSelect').val('');
+        grid.set({
+            url: defaultUrl
+        });
+    });
     var idarray = [];
 
     function openDialog(alarmId) {
@@ -170,12 +211,16 @@ define(function(require, exports, module) {
                 delete raw.accidentType;
                 Utils.modal.show('edit' + raw.id);
                 Utils.select.remote(['edit' + raw.id + '-accidentType'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-                Utils.select.remote(['edit' + raw.id + '-accidentLevel'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+                Utils.select.remote(['edit' + raw.id + '-accidentLevel'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
                 // 事件绑定
                 $('#edit' + raw.id + '-save').bind('click', {
                     alarmId: raw.id
                 }, function(event) {
                     var object = Utils.form.serialize('edit' + event.data.alarmId);
+                    if (object.accidentLocation == '') {
+                        Utils.modal.message('edit' + event.data.alarmId, ["事故地点不能为空"]);
+                        return false;
+                    }
                     var selectId = event.data.alarmId;
                     $.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {
                         if (data.success) {
@@ -195,6 +240,7 @@ define(function(require, exports, module) {
             type: 'GET',
             url: '/ercs/alarm/waitalarm',
             cache: false,
+            // timeout:600000,
             data: 'idArray=' + idarray.join(','),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -207,8 +253,10 @@ define(function(require, exports, module) {
                 }
                 asynGet();
             },
-            error: function(data) {
-                asynGet();
+            error: function(data, textStatus) {
+                if (textStatus !== 'error') {
+                    asynGet();
+                }
             }
         });
     }
@@ -224,8 +272,10 @@ define(function(require, exports, module) {
                     Utils.modal.hide('edit' + alarmId);
                     asynClose();
                 },
-                error: function(data) {
-                    asynClose();
+                error: function(data, textStatus) {
+                    if (textStatus !== 'error') {
+                        asynClose();
+                    }
                 }
             });
         }

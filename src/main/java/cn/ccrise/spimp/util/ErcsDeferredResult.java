@@ -6,6 +6,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 public class ErcsDeferredResult<T> extends DeferredResult<T> {
 
+	public static final Long TIME_LIMIT = 1000 * 60 * 4L;
 	private String sessionId;
 
 	/**
@@ -41,6 +42,11 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
+	}
+
+	@Override
+	public String toString() {
+		return this.getSessionId() + "|" + this.getRecordTime() + "|" + this.getTimePassed();
 	}
 
 }

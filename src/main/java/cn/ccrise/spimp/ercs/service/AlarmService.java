@@ -5,7 +5,6 @@ package cn.ccrise.spimp.ercs.service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.spimp.ercs.access.AlarmDAO;
 import cn.ccrise.spimp.ercs.entity.Alarm;
 import cn.ccrise.spimp.util.AlarmMessage;
+import cn.ccrise.spimp.util.AlarmWaiterTimeOutHandler;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 
 import com.google.common.collect.Queues;
@@ -79,7 +79,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				Long timePassed = deferredResult.getTimePassed();
 				try {
 
-					if (timePassed > 1000 * 60 * 1) {
+					if (timePassed > ErcsDeferredResult.TIME_LIMIT) {
 						deferredResult.setErrorResult("be disconnected ...");
 					} else {
 						deferredResult.setResult(message);
@@ -159,14 +159,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			waitAlarmQueue.add(getterInstance);
 		}
 		setRequestRecord(request.getSession().getId(), ids);
-		getterInstance.onTimeout(new Runnable() {
-			@Override
-			public void run() {
-				synchronized (readRecord) {
-					readRecord.remove(sessionId);
-				}
-			}
-		});
+		getterInstance.onTimeout(new AlarmWaiterTimeOutHandler(sessionId, waitAlarmQueue));
 		notifyAlarmWaiters(request);
 	}
 
@@ -227,7 +220,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				returnList.add((Alarm) it.next());
 			}
 		}
-		logger.debug("{}", returnList);
 		return returnList;
 	}
 
@@ -235,19 +227,22 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	 * 通知所有的客户端进行接警处理:弹出对话框
 	 */
 	private void notifyAlarmWaiters(HttpServletRequest request) {
+		printCurrentStatus();
 		synchronized (waitAlarmQueue) {
 			Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
 			ErcsDeferredResult<AlarmMessage> waiter = null;
 			while (it.hasNext()) {
 				waiter = it.next();
-				logger.debug(new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(waiter.getRecordTime()));
+
+				// logger.debug(new
+				// SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(waiter.getRecordTime()));
 				String sessionId = waiter.getSessionId();
 				// 最新事件列表
 				List<Alarm> newAlarmList = getNoRecordAlarmList(sessionId);
 				List<Long> newAlarmIdList = new ArrayList<Long>();
 				if (newAlarmList.size() == 0) {
-					logger.debug("{}", waiter.getTimePassed());
-					if (waiter.getTimePassed() > 200000) {
+					// logger.debug("{}", waiter.getTimePassed());
+					if (waiter.getTimePassed() > ErcsDeferredResult.TIME_LIMIT.longValue()) {
 						waiter.setErrorResult("TimePassed:" + waiter.getTimePassed());
 						it.remove();
 					}
@@ -272,6 +267,30 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		}
 	}
 
+	private void printCurrentStatus() {
+		synchronized (waitAlarmQueue) {
+			Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
+			ErcsDeferredResult<AlarmMessage> waiter = null;
+			int i = 0;
+			logger.debug("===========current status===============");
+			while (it.hasNext()) {
+				waiter = it.next();
+				logger.debug("sessionId:" + waiter.getSessionId());
+				logger.debug("SetOrExpired:" + waiter.isSetOrExpired());
+				logger.debug("SetOrExpired:" + waiter.isSetOrExpired());
+				logger.debug("RecordTime:" + waiter.getRecordTime());
+				logger.debug("TimePassed:" + waiter.getTimePassed());
+				i++;
+			}
+			logger.debug("当前队列共有:" + i + "个连接");
+		}
+	}
+
+	/**
+	 * 主动释放上一个连接
+	 * 
+	 * @param sessionId
+	 */
 	private void reasePreRequest(String sessionId) {
 		synchronized (waitAlarmQueue) {
 			Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
@@ -280,7 +299,8 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				waiter = it.next();
 				if (waiter.getSessionId().equals(sessionId)) {
 					waiter.setErrorResult("refreshed....");
-					logger.debug("{}", "刷新了一个");
+					logger.debug("{}", "释放上一个连接");
+					logger.debug("{}", waiter);
 					it.remove();
 				}
 			}

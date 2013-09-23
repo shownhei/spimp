@@ -69,32 +69,13 @@ public class Alarm extends IDEntity {
 	 */
 	private Timestamp processingTime;
 
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getProcessingTime() {
-		return processingTime;
-	}
-
-	/**
-	 * 问题处理时间
-	 * 
-	 * @param processingTime
-	 */
-	public void setProcessingTime(Timestamp processingTime) {
-		this.processingTime = processingTime;
+	@ManyToOne
+	public Dictionary getAccidentLevel() {
+		return accidentLevel;
 	}
 
 	public String getAccidentLocation() {
 		return accidentLocation;
-	}
-
-	@Lob
-	public String getDetail() {
-		return detail;
-	}
-
-	public void setDetail(String detail) {
-		this.detail = detail;
 	}
 
 	@ManyToOne
@@ -117,6 +98,21 @@ public class Alarm extends IDEntity {
 		return dealFlag;
 	}
 
+	@Lob
+	public String getDetail() {
+		return detail;
+	}
+
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getProcessingTime() {
+		return processingTime;
+	}
+
+	public void setAccidentLevel(Dictionary accidentLevel) {
+		this.accidentLevel = accidentLevel;
+	}
+
 	public void setAccidentLocation(String accidentLocation) {
 		this.accidentLocation = accidentLocation;
 	}
@@ -137,17 +133,21 @@ public class Alarm extends IDEntity {
 		this.dealFlag = dealFlag;
 	}
 
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	/**
+	 * 问题处理时间
+	 * 
+	 * @param processingTime
+	 */
+	public void setProcessingTime(Timestamp processingTime) {
+		this.processingTime = processingTime;
+	}
+
 	public void setSerialNumber(Integer dealFlag) {
 		this.dealFlag = dealFlag;
-	}
-
-	@ManyToOne
-	public Dictionary getAccidentLevel() {
-		return accidentLevel;
-	}
-
-	public void setAccidentLevel(Dictionary accidentLevel) {
-		this.accidentLevel = accidentLevel;
 	}
 
 }

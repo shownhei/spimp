@@ -87,7 +87,7 @@ public class AlarmController {
 
 	@RequestMapping(value = "/ercs/alarms", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Alarm> page, Long accidentType, HttpServletRequest httpServletRequest) {
+	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, HttpServletRequest httpServletRequest) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (accidentType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", accidentType));
@@ -95,6 +95,14 @@ public class AlarmController {
 				param.add(Restrictions.eq("accidentType", result.iterator().next()));
 			}
 		}
+		if (accidentLevel != null) {
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", accidentLevel));
+			if (result != null && result.size() > 0) {
+				param.add(Restrictions.eq("accidentLevel", result.iterator().next()));
+			}
+		}
+		page.setOrder("desc");
+		page.setOrderBy("alarmTime");
 		return new Response(alarmService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 

@@ -6,6 +6,73 @@
 <title>应急报警管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
+<script id="viewwindow-template" type="text/x-handlebars-template">
+	<div id="view-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-th-list"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="view-form" class="form-horizontal">
+						<input  name="id" type="hidden" class="span11">
+						
+					    <div class="control-group">
+							<label class="control-label span2" for="accidentLocation">事故地点</label>
+							<div class="controls">
+								<span  name="accidentLocation"   disabled class="span11">{{accidentLocation}}</span>
+							</div>
+						</div>
+	        
+					    <div class="control-group">
+							<label class="control-label span2" for="-accidentType">事故类型</label>
+							<div class="controls">
+                                <span   class="span11">{{accidentType.itemName}}</span>
+							</div>
+						</div>
+	        
+					    <div class="control-group">
+							<label class="control-label span2" for="accidentLevel">严重程度</label>
+							<div class="controls">
+								<span   class="span11">{{accidentLevel.itemName}}</span>
+							</div>
+						</div>
+	        
+					    <div class="control-group">
+							<label class="control-label span2" for="alarmPeople">报警人</label>
+							<div class="controls">
+								<span  name="alarmPeople" type="text" disabled  class="span11">{{alarmPeople}}</span>
+							</div>
+						</div>
+	        
+	        
+					    <div class="control-group">
+							<label class="control-label span2" for="detail">事故描述</label>
+							<div class="controls">
+                                 <span  type="text" disabled  class="span11">{{detail}}</span>
+							</div>
+						</div>
+					    <div class="control-group">
+							<label class="control-label span2" for="alarmTime">报警时间</label>
+							<div class="controls">
+								<span  type="text" disabled  class="span11">{{alarmTime}}</span>
+							</div>
+						</div>
+						<input  name="dealFlag" type="hidden" class="span11">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
+</script>
 <script id="alarmwindow-template" type="text/x-handlebars-template">
 	<div id="edit{{id}}-modal" class="modal hide">
 		<div class="modal-header">
@@ -49,7 +116,7 @@
 	                    <div class="control-group">
 							<label class="control-label span2" for="detail">事故描述</label>
 							<div class="controls">
-							   <textarea  name="detail"   rows=5 class="span11"></textarea>
+							   <textarea  name="detail"  rows=5 class="span11"></textarea>
 							</div>
 						</div>
 					    <div class="control-group">
@@ -61,7 +128,7 @@
 						<input  name="dealFlag" readOnly=true type="hidden" value="{{dealFlag}}" class="span11">
 					</form>
 				</div>
-				<div id="edit-message-alert" class="row-fluid hide">
+				<div id="edit{{id}}-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
 							<i class="icon-remove"></i>
@@ -95,6 +162,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="view" class="btn btn-small  disabled">
+						<i class="icon-th-list"></i> 查看
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
@@ -110,12 +180,13 @@
 						<span class="input-icon">
 							<select id="dealFlagSelect" name="dealFlag"
 							class="input-small" style="width:150px;">
-							<option >请选择事故状态</option>
+							<option value=''>请选择事故状态</option>
 							<option value='0'>未处理</option>
 							<option value='1'>已处理</option>
 							</select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
+						<button id="nav-reset-button" class="btn btn-small btn-primary">重置</button>
 					</form>
 				</div>
 			</div>
@@ -176,7 +247,7 @@
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">报警时间</label>
 							<div class="controls">
-								<input  name="alarmTime" type="text" class="span11">
+								<input  name="alarmTime" readOnly disabled type="text" class="span11">
 							</div>
 						</div>
 						<input  name="dealFlag" type="hidden" class="span11">
@@ -201,6 +272,8 @@
 			</button>
 		</div>
 	</div>
+	<!-- 编辑end -->
+	
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal hide">
 		<div class="modal-header">
