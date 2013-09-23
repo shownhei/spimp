@@ -1,0 +1,21 @@
+{
+  "name": "datepicker",
+  "family": "ikj",
+  "version": "1.2.0",
+  "description": "A datepicker for @twitter bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by @eternicode",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-datepicker.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-datepicker/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["datepicker.js"]
+  }
+}
