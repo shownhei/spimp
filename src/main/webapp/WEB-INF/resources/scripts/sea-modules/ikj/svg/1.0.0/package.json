@@ -1,0 +1,36 @@
+{
+  "name": "svg",
+  "family": "ikj",
+  "version": "1.0.0",
+  "description": "跨浏览器的SVG操作，IE9以下使用Adobe SVG Viewer 6",
+  "keywords": [
+      "widget"
+  ],
+  "author": "stonelee <istonelee@gmail.com>",
+  "maintainers": [
+      "stonelee <istonelee@gmail.com>"
+  ],
+  "bugs": {
+    "url": ""
+  },
+  "tests": ["svg"],
+  "spm": {
+    "alias": {
+      "class": "arale/class/1.0.0/class",
+      "events": "arale/events/1.1.0/events",
+      "handlebars": "gallery/handlebars/1.0.0/handlebars",
+      "easing": "arale/easing/1.0.0/easing"
+    },
+    "engines": {
+      "seajs": "seajs/seajs/2.0.0/sea.js",
+      "plugin-text": "seajs/seajs/2.0.0/plugin-text.js"
+    },
+    "devAlias": {
+      "$": "jquery/jquery/1.10.1/jquery",
+      "mocha": "gallery/mocha/1.9.0/mocha",
+      "puerh": "popomore/puerh/0.1.0/puerh",
+      "sinon": "gallery/sinon/1.6.0/sinon"
+    },
+    "output": ["svg.js"]
+  }
+}
