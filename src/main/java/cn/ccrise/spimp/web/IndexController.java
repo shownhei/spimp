@@ -39,6 +39,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 应急指示-二维展示
+	 */
+	@RequestMapping(value = "/ercs/indicate/2d", method = RequestMethod.GET)
+	public String ercsIndicate2d() {
+		return "ercs/indicate/2d/index";
+	}
+
+	/**
 	 * 应急法规
 	 */
 	@RequestMapping(value = "/ercs/law", method = RequestMethod.GET)
