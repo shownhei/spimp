@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 	var fields = [ {
 		header : '字典名称',
 		name : 'itemName'
-	},{
+	}, {
 		header : '字典值',
 		name : 'itemValue'
 	} ];

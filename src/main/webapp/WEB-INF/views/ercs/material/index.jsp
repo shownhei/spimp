@@ -27,8 +27,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 					    <span class="input-icon">
-							<select id="resourceTypeSelect" name="refugeType"
-							class="input-small" style="width:150px;"></select>
+							<select id="resourceTypeSelect" name="refugeType" class="input-small span2"></select>
 						</span>
 						<span class="input-icon">
 							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入资源名称..." class="input-small nav-search-input" autocomplete="off">

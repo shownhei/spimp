@@ -26,9 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-					    <span class="input-icon">
-							<select id="refugeTypeSelect" name="refugeType"
-							class="input-small" style="width:150px;"></select>
+						<span class="input-icon">
+							<select id="refugeTypeSelect" name="refugeType" class="input-small span2"></select>
 						</span>
 						<span class="input-icon">
 							<input id="nav-search-input" name="refugeName" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
@@ -58,81 +57,70 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">种类</label>
 							<div class="controls">
-							    <select id="create-refugeType" name="refugeType[id]"  class="span11" ></select>
+								<select id="create-refugeType" name="refugeType[id]" class="span11"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">名称</label>
 							<div class="controls">
 								<input id="refugeName" name="refugeName" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">数量</label>
 							<div class="controls">
 								<input id="quantity" name="quantity" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">位置</label>
 							<div class="controls">
 								<input id="position" name="position" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">基本情况</label>
 							<div class="controls">
 								<input id="basicInfomation" name="basicInfomation" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">面积</label>
 							<div class="controls">
 								<input id="refugeArea" name="refugeArea" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">可容纳人数</label>
 							<div class="controls">
 								<input id="capacity" name="capacity" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">基础设施</label>
 							<div class="controls">
 								<input id="infrastructure" name="infrastructure" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">防护功能</label>
 							<div class="controls">
 								<input id="protection" name="protection" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">隶属单位</label>
 							<div class="controls">
 								<input id="department" name="department" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">管理人</label>
 							<div class="controls">
 								<input id="manager" name="manager" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">联系方式</label>
 							<div class="controls">
 								<input id="telepone" name="telepone" type="text" class="span11">
@@ -171,90 +159,78 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
-					    <input  name="id" type="hidden" class="span11">
-						
-					    <div class="control-group">
+						<input name="id" type="hidden" class="span11">
+						<input name="id" type="hidden" class="span11">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">种类</label>
 							<div class="controls">
-								<select id="edit-refugeType" name="refugeType[id]"  class="span11" ></select>
+								<select id="edit-refugeType" name="refugeType[id]" class="span11"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">名称</label>
 							<div class="controls">
-								<input  name="refugeName" type="text" class="span11">
+								<input name="refugeName" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">数量</label>
 							<div class="controls">
-								<input  name="quantity" type="text" class="span11">
+								<input name="quantity" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">位置</label>
 							<div class="controls">
-								<input  name="position" type="text" class="span11">
+								<input name="position" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">基本情况</label>
 							<div class="controls">
-								<input  name="basicInfomation" type="text" class="span11">
+								<input name="basicInfomation" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">面积</label>
 							<div class="controls">
-								<input  name="refugeArea" type="text" class="span11">
+								<input name="refugeArea" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">可容纳人数</label>
 							<div class="controls">
-								<input  name="capacity" type="text" class="span11">
+								<input name="capacity" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">基础设施</label>
 							<div class="controls">
-								<input  name="infrastructure" type="text" class="span11">
+								<input name="infrastructure" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">防护功能</label>
 							<div class="controls">
-								<input  name="protection" type="text" class="span11">
+								<input name="protection" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">隶属单位</label>
 							<div class="controls">
-								<input  name="department" type="text" class="span11">
+								<input name="department" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">管理人</label>
 							<div class="controls">
-								<input  name="manager" type="text" class="span11">
+								<input name="manager" type="text" class="span11">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="principal">联系方式</label>
 							<div class="controls">
-								<input  name="telepone" type="text" class="span11">
+								<input name="telepone" type="text" class="span11">
 							</div>
 						</div>
 					</form>
