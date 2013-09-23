@@ -34,6 +34,7 @@
 							<option value="personal_category" title="引用标记：personal_category">人员类别</option>
 							<option value="expertise_area" title="引用标记：expertise_area">专业领域</option>
 							<option value="accident_category" title="引用标记：accident_category">事故类别</option>
+							<option value="accident_level"  title="引用标记：accident_level">事故严重程度</option>
 							<option value="response_level" title="引用标记：response_level">事故响应级别</option>
 							<option value="refuge_type" title="引用标记：refuge_type">避险场所种类</option>
 							<option value="resource_type" title="引用标记：resource_type">应急资源种类</option>
@@ -77,12 +78,19 @@
 									<option value="personal_category">人员类别</option>
 									<option value="expertise_area">专业领域</option>
 									<option value="accident_category">事故类别</option>
+									<option value="accident_level">事故严重程度</option>
 									<option value="response_level">事故响应级别</option>
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 								</select>
 							</div>
 						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="itemName">字典值</label>
+							<div class="controls">
+								<input id="itemValue" name="itemValue" type="text" class="span11">
+							</div>
+						</div>						
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -129,14 +137,22 @@
 									<option value="personal_category">人员类别</option>
 									<option value="expertise_area">专业领域</option>
 									<option value="accident_category">事故类别</option>
+									<option value="accident_level">事故严重程度</option>
 									<option value="response_level">事故响应级别</option>
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 								</select>
 							</div>
 						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="itemName">字典值</label>
+							<div class="controls">
+								<input id="itemValue" name="itemValue" type="text" class="span11">
+							</div>
+						</div>
 					</form>
 				</div>
+				
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
