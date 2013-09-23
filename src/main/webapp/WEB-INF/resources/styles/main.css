@@ -185,3 +185,11 @@ body {
 	margin-bottom: 0;
 	font-size: 13px;
 }
+
+.pointer {
+	cursor: pointer;
+}
+
+.nav-search-input210 {
+	width: 210px !important;
+}

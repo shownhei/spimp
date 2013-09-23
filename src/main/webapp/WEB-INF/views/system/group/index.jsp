@@ -30,8 +30,8 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入机构名称或机构编号..." class="input-small nav-search-input" autocomplete="off"
-								style="width: 210px;">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入机构名称或机构编号..." class="input-small nav-search-input nav-search-input210"
+								autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>

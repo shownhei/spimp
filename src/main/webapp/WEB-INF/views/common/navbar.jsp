@@ -49,18 +49,18 @@
 					</a>
 					<ul class="user-menu pull-right dropdown-menu dropdown-light dropdown-caret dropdown-closer">
 						<li>
-							<a id="settings" style="cursor: pointer;">
+							<a id="settings" class="pointer">
 								<i class="icon-cog"></i> 设置
 							</a>
 						</li>
 						<li>
-							<a id="account-settings" style="cursor: pointer;">
+							<a id="account-settings" class="pointer">
 								<i class="icon-user"></i> 账号
 							</a>
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a id="logout" style="cursor: pointer;">
+							<a id="logout" class="pointer">
 								<i class="icon-off"></i> 退出
 							</a>
 						</li>
