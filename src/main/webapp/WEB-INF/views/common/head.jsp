@@ -62,4 +62,5 @@
 		seajs.use('${resources}/scripts/dist/plugins');
 	}
 	seajs.use('${resources}/scripts/app/common/sidebar');
+	seajs.use('${resources}/scripts/app/common/navbar');
 </script>

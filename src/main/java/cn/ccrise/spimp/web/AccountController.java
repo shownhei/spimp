@@ -69,10 +69,12 @@ public class AccountController {
 			// 设置新密码
 			accountInDB.setCredential(DigestUtils.sha256Hex(newPassword));
 			accountService.update(accountInDB);
+			String[] args = { account.getPrincipal() };
+			logEntityServiceImpl.warn(messageSource.getMessage("account.change.password", args, Locale.getDefault()));
 			return new Response(true);
 		} else {
 			Map<String, String> errors = Maps.newHashMap();
-			errors.put("password", "原密码不正确");
+			errors.put("password", messageSource.getMessage("Incorrect.account.password", null, Locale.getDefault()));
 			return new Response(errors);
 		}
 	}

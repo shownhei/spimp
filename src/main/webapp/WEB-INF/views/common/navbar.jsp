@@ -49,12 +49,12 @@
 					</a>
 					<ul class="user-menu pull-right dropdown-menu dropdown-light dropdown-caret dropdown-closer">
 						<li>
-							<a href="#">
+							<a id="settings" style="cursor: pointer;">
 								<i class="icon-cog"></i> 设置
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a id="account-settings" style="cursor: pointer;">
 								<i class="icon-user"></i> 账号
 							</a>
 						</li>
@@ -68,5 +68,62 @@
 				</li>
 			</ul>
 		</div>
+	</div>
+</div>
+<!-- 账号 -->
+<div id="account-settings-modal" class="modal hide">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h5 class="blue">
+			<i class="icon-user"></i> 账号
+		</h5>
+	</div>
+	<div class="modal-body">
+		<div class="row-fluid">
+			<div class="span12">
+				<form id="account-settings-form" class="form-horizontal" onsubmit="return false;">
+					<div class="control-group">
+						<label class="control-label span2" for="principal">用户名</label>
+						<div class="controls">
+							<input name="principal" type="text" class="span11" readonly="readonly" value="${account.principal}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label span2" for="oldPassword">当前密码</label>
+						<div class="controls">
+							<input name="oldPassword" type="password" class="span11">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label span2" for="newPassword1">新密码</label>
+						<div class="controls">
+							<input name="newPassword1" type="password" class="span11">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label span2" for="newPassword2">确认密码</label>
+						<div class="controls">
+							<input name="newPassword2" type="password" class="span11">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div id="account-settings-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="account-settings-message-content"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button id="account-settings-save" class="btn btn-small btn-primary">
+			<i class="icon-ok"></i> 确定
+		</button>
+		<button class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i> 取消
+		</button>
 	</div>
 </div>
