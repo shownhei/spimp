@@ -43,8 +43,8 @@
 		<property name="maxActive" value="40" />
 		<property name="maxIdle" value="20" />
 		<property name="defaultAutoCommit" value="false" />
-		<!-- 连接Idle一个小时后超时 -->
-		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-		<property name="minEvictableIdleTimeMillis" value="3600000" />
+		<!-- 连接Idle半个小时后超时，每15分钟检查一次 -->
+		<property name="timeBetweenEvictionRunsMillis" value="900000" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
 	</bean>
 </beans>
