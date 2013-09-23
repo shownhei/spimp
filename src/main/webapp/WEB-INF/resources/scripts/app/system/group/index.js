@@ -236,6 +236,7 @@ define(function(require, exports, module) {
 		}, true);
 		if (searchResult !== null) {
 			groupTree.selectNode(searchResult);
+			reset();
 		}
 	});
 });

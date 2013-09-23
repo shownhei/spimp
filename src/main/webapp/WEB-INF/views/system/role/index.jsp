@@ -18,7 +18,7 @@
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">新建</span>
 					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled" title="选择角色后可编辑角色名">
+					<button id="edit" class="btn btn-small btn-primary disabled" title="选择角色后可编辑角色名称">
 						<i class="icon-edit"></i>
 						<span class="hidden-phone">编辑</span>
 					</button>
@@ -179,7 +179,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<i class="icon-warning-sign"></i> 提示：如果角色包含用户，将不能删除，确认删除选中的角色？
+					<i class="icon-warning-sign"></i> 提示：确认删除选中的角色？
 				</div>
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
