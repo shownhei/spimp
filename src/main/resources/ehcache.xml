@@ -11,6 +11,9 @@
 	<cache name="SimplePageCachingFilter" maxElementsInMemory="1000" memoryStoreEvictionPolicy="LFU" eternal="false"
 		timeToIdleSeconds="432000" timeToLiveSeconds="864000" overflowToDisk="false" />
 
+	<cache name="cn.ccrise.ikjp.core.security.entity.LogEntity" maxElementsInMemory="10000" maxElementsOnDisk="100000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" overflowToDisk="true" diskPersistent="false" />
+
 	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache" maxElementsInMemory="10000" maxElementsOnDisk="100000"
 		memoryStoreEvictionPolicy="LRU" eternal="true" overflowToDisk="true" diskPersistent="false" />
 
