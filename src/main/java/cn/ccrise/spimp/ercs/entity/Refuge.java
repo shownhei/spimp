@@ -30,57 +30,46 @@ public class Refuge extends IDEntity {
 	 * 种类
 	 */
 	private Dictionary refugeType;
-
 	/**
 	 * 名称
 	 */
 	private String refugeName;
-
 	/**
 	 * 数量
 	 */
 	private Long quantity;
-
 	/**
 	 * 位置
 	 */
 	private String position;
-
 	/**
 	 * 基本情况
 	 */
 	private String basicInfomation;
-
 	/**
 	 * 面积
 	 */
 	private String refugeArea;
-
 	/**
 	 * 可容纳人数
 	 */
 	private String capacity;
-
 	/**
 	 * 基础设施
 	 */
 	private String infrastructure;
-
 	/**
 	 * 防护功能
 	 */
 	private String protection;
-
 	/**
 	 * 隶属单位
 	 */
 	private GroupEntity department;
-
 	/**
 	 * 管理人
 	 */
 	private String manager;
-
 	/**
 	 * 联系方式
 	 */
@@ -195,5 +184,4 @@ public class Refuge extends IDEntity {
 	public void setTelepone(String telepone) {
 		this.telepone = telepone;
 	}
-
 }

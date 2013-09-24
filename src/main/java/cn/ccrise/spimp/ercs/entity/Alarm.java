@@ -33,22 +33,18 @@ public class Alarm extends IDEntity {
 	 * 事故地点
 	 */
 	private String accidentLocation;
-
 	/**
 	 * 事故类型
 	 */
 	private Dictionary accidentType;
-
 	/**
 	 * 严重程度
 	 */
 	private String severity;
-
 	/**
 	 * 报警人
 	 */
 	private String alarmPeople;
-
 	/**
 	 * 报警时间
 	 */
@@ -105,5 +101,4 @@ public class Alarm extends IDEntity {
 	public void setSeverity(String severity) {
 		this.severity = severity;
 	}
-
 }

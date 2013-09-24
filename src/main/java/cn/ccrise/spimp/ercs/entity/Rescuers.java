@@ -57,6 +57,9 @@ public class Rescuers extends IDEntity {
 	 * 事故响应级别
 	 */
 	private Dictionary responseLevel;
+	/**
+	 * 添加时间
+	 */
 	private Timestamp addTime;
 
 	@Column(updatable = false)
@@ -136,5 +139,4 @@ public class Rescuers extends IDEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 }

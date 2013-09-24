@@ -29,17 +29,14 @@ public class EmergencyLaw extends IDEntity {
 	 * 文件号
 	 */
 	private String fileNo;
-
 	/**
 	 * 文件名
 	 */
 	private String fileName;
-
 	/**
 	 * 发布单位
 	 */
 	private GroupEntity department;
-
 	/**
 	 * 发布时间
 	 */
@@ -80,5 +77,4 @@ public class EmergencyLaw extends IDEntity {
 	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 	}
-
 }

@@ -63,6 +63,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 应急机构
+	 */
+	@RequestMapping(value = "/ercs/organization", method = RequestMethod.GET)
+	public String ercsOrganization() {
+		return "ercs/organization/index";
+	}
+
+	/**
 	 * 避难场所
 	 */
 	@RequestMapping(value = "/ercs/place", method = RequestMethod.GET)
@@ -132,13 +140,5 @@ public class IndexController {
 	@RequestMapping(value = "/system/role", method = RequestMethod.GET)
 	public String systemRole() {
 		return "system/role/index";
-	}
-
-	/**
-	 * 应急机构
-	 */
-	@RequestMapping(value = "/ercs/organization", method = RequestMethod.GET)
-	public String ercsOrganization() {
-		return "ercs/organization/index";
 	}
 }

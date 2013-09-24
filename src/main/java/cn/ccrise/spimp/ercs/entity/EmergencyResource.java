@@ -30,22 +30,18 @@ public class EmergencyResource extends IDEntity {
 	 * 名称
 	 */
 	private String resourceName;
-
 	/**
 	 * 编号
 	 */
 	private String resourceNo;
-
 	/**
 	 * 类别
 	 */
 	private Dictionary resourceType;
-
 	/**
 	 * 所属单位
 	 */
 	private GroupEntity department;
-
 	/**
 	 * 录入时间
 	 */
@@ -95,5 +91,4 @@ public class EmergencyResource extends IDEntity {
 	public void setResourceType(Dictionary resourceType) {
 		this.resourceType = resourceType;
 	}
-
 }

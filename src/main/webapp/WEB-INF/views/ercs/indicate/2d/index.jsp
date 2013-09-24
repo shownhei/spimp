@@ -8,23 +8,23 @@
 <%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-  <%@ include file="../../../common/navbar.jsp"%>
-  <div class="main-container container-fluid">
-    <%@ include file="../../../common/sidebar.jsp"%>
-    <div class="main-content">
-      <div class="page-toolbar"></div>
-      <div class="page-content">
-        <div class="row-fluid" id="svgContainer"></div>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-    seajs.config({
-      alias: {
-        svg: 'ikj/svg/1.0.0/svg'
-      }
-    });
-    seajs.use('${resources}/scripts/app/ercs/indicate/2d/index');
-  </script>
+	<%@ include file="../../../common/navbar.jsp"%>
+	<div class="main-container container-fluid">
+		<%@ include file="../../../common/sidebar.jsp"%>
+		<div class="main-content">
+			<div class="page-toolbar"></div>
+			<div class="page-content">
+				<div class="row-fluid" id="svgContainer"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		seajs.config({
+			alias : {
+				svg : 'ikj/svg/1.0.0/svg'
+			}
+		});
+		seajs.use('${resources}/scripts/app/ercs/indicate/2d/index');
+	</script>
 </body>
 </html>

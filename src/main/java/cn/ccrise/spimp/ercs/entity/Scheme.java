@@ -23,12 +23,30 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Entity
 @Table(name = "ercs_schemes")
 public class Scheme extends IDEntity {
-	private Timestamp startTime;// 事故发生时间
-	private String type;// 事故类型
-	private String address;// 事故发生地点
-	private String file;// 处置方案
-	private String decide;// 方案制定人
-	private Timestamp uploadTime;// 事故上传时间
+	/**
+	 * 事故发生时间
+	 */
+	private Timestamp startTime;
+	/**
+	 * 事故类型
+	 */
+	private String type;
+	/**
+	 * 事故发生地点
+	 */
+	private String address;
+	/**
+	 * 处置方案
+	 */
+	private String file;
+	/**
+	 * 方案制定人
+	 */
+	private String decide;
+	/**
+	 * 事故上传时间
+	 */
+	private Timestamp uploadTime;
 
 	public String getAddress() {
 		return address;
@@ -81,5 +99,4 @@ public class Scheme extends IDEntity {
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
 	}
-
 }

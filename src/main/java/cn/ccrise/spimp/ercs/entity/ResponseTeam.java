@@ -28,7 +28,6 @@ public class ResponseTeam extends IDEntity {
 	 * 副总指挥
 	 */
 	private String deputyCommander;
-
 	/**
 	 * 下属成员
 	 */
@@ -38,49 +37,44 @@ public class ResponseTeam extends IDEntity {
 	 */
 	private Dictionary responseLevel;
 
-	public String getTeamName() {
-		return teamName;
-	}
-
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
-	}
-
 	public String getCommander() {
 		return commander;
-	}
-
-	public void setCommander(String commander) {
-		this.commander = commander;
 	}
 
 	public String getDeputyCommander() {
 		return deputyCommander;
 	}
 
-	public void setDeputyCommander(String deputyCommander) {
-		this.deputyCommander = deputyCommander;
-	}
-
 	public String getMembers() {
 		return members;
+	}
+
+	@ManyToOne
+	public Dictionary getResponseLevel() {
+		return responseLevel;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setCommander(String commander) {
+		this.commander = commander;
+	}
+
+	public void setDeputyCommander(String deputyCommander) {
+		this.deputyCommander = deputyCommander;
 	}
 
 	public void setMembers(String members) {
 		this.members = members;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	@ManyToOne
-	public Dictionary getResponseLevel() {
-		return responseLevel;
-	}
-
 	public void setResponseLevel(Dictionary responseLevel) {
 		this.responseLevel = responseLevel;
 	}
 
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 }

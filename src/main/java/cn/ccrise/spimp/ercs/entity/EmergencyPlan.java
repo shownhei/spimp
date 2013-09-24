@@ -77,5 +77,4 @@ public class EmergencyPlan extends IDEntity {
 	public void setPlanType(Dictionary planType) {
 		this.planType = planType;
 	}
-
 }

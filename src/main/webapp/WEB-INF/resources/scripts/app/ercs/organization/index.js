@@ -5,8 +5,9 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	Utils.select.remote([ 'create-responseLevel','edit-responseLevel'], '/ercs/dictionaries?typeCode=response_level&list=true', 'id',
-	'itemName');
+
+	Utils.select.remote([ 'create-responseLevel', 'edit-responseLevel' ], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
+
 	// 配置表格列
 	var fields = [ {
 		header : '机构名称',
@@ -20,11 +21,11 @@ define(function(require, exports, module) {
 	}, {
 		header : '下属成员',
 		name : 'members'
-	},{
+	}, {
 		header : '响应级别',
 		name : 'responseLevel',
-		render:function(val){
-			if(val===null||val===undefined){
+		render : function(val) {
+			if (val === null || val === undefined) {
 				return '';
 			}
 			return val.itemName;
@@ -146,7 +147,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入响应级别' ]);
 			return;
 		}
-		
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/response-teams/' + selectId, JSON.stringify(object), function(data) {
