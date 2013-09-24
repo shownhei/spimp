@@ -229,6 +229,11 @@ define(function(require, exports, module) {
 	// 搜索
 	$('#nav-search-button').click(function() {
 		var input = $('#nav-search-input').val();
+
+		if (input === '') {
+			return;
+		}
+
 		var searchResult = groupTree.getNodesByFilter(function(node) {
 			if (node.level > 0 && (node.name.indexOf(input) > -1 || node.number.indexOf(input) > -1)) {
 				return true;
