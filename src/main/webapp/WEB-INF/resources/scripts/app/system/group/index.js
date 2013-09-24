@@ -236,7 +236,7 @@ define(function(require, exports, module) {
 		}, true);
 		if (searchResult !== null) {
 			groupTree.selectNode(searchResult);
-			reset();
+			groupTreeSetting.callback.onClick(null, 'groups-tree', searchResult, null);
 		}
 	});
 });
