@@ -20,7 +20,8 @@ define(function(require, exports, module) {
 
 			// 一级菜单
 			$.each(data.data.resourceEntities, function(entryIndex, entry) {
-				var legend = $('<legend class="blue">' + entry.name + '</legend>').css('margin', '0px').css('cursor', 'pointer');
+				var legend = $('<legend class="blue"><i class="' + entry.iconCls + '" style="margin:0 4px 0 0"></i>' + entry.name + '</legend>').css('margin',
+						'0px').css('cursor', 'pointer');
 				var fieldset = $('<fieldset>').css(fieldsetCss).append(legend);
 
 				var up = $(icon('up_' + entry.id, 'icon-chevron-left', 'green', '向左'));
