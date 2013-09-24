@@ -133,4 +133,12 @@ public class IndexController {
 	public String systemRole() {
 		return "system/role/index";
 	}
+
+	/**
+	 * 应急机构
+	 */
+	@RequestMapping(value = "/ercs/organization", method = RequestMethod.GET)
+	public String ercsOrganization() {
+		return "ercs/organization/index";
+	}
 }
