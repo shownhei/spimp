@@ -16,7 +16,7 @@
     "alias": {
       "$": "$",
       "jquery-ui": "ikj/jquery-ui/1.10.3/jquery-ui",
-      "ztree": "gallery/ztree/3.5.14/ztree",
+      "ztree": "ikj/ztree/3.5.14/ztree",
       "rest": "ikj/rest/1.0.0/rest",
       "gritter": "ikj/gritter/1.0.0/gritter",
       "serialize-object": "ikj/serialize-object/1.0.0/serialize-object",

@@ -1,0 +1,21 @@
+{
+  "name": "ztree",
+  "family": "ikj",
+  "version": "3.5.14",
+  "description": "ztree",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-ztree.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-ztree/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["ztree.js"]
+  }
+}
