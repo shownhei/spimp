@@ -171,6 +171,16 @@ body {
 	overflow: auto;
 }
 
+.ztree li a:hover {
+	text-decoration: none !important;
+	background-color: #f9f2ba !important;
+}
+
+.ztree li a.curSelectedNode {
+	background-color: #f9f2ba !important;
+	border: 1px #f9f2ba solid !important;
+}
+
 .toolbar-ft {
 	border-top: 1px solid #ddd;
 }
