@@ -108,12 +108,12 @@
 					</div>
 				</form>
 			</div>
-			<div id="account-settings-message-alert" class="row-fluid hide">
-				<div class="span12">
-					<div class="alert alert-error">
-						<i class="icon-remove"></i>
-						<span id="account-settings-message-content"></span>
-					</div>
+		</div>
+		<div id="account-settings-message-alert" class="row-fluid hide">
+			<div class="span12">
+				<div class="alert alert-error">
+					<i class="icon-remove"></i>
+					<span id="account-settings-message-content"></span>
 				</div>
 			</div>
 		</div>

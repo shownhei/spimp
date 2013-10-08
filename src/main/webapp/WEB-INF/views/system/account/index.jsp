@@ -180,12 +180,12 @@
 						</div>
 					</form>
 				</div>
-				<div id="edit-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="edit-message-content"></span>
-						</div>
+			</div>
+			<div id="edit-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="edit-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -212,12 +212,12 @@
 				<div class="span12">
 					<i class="icon-warning-sign"></i> 提示：删除用户将删除与此用户关联的所有数据，确认删除选中的用户？
 				</div>
-				<div id="remove-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="remove-message-content"></span>
-						</div>
+			</div>
+			<div id="remove-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="remove-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -244,12 +244,12 @@
 				<div class="span12">
 					<i class="icon-warning-sign"></i> 确认重置选中用户的密码为：<b>123456</b> 吗？
 				</div>
-				<div id="reset-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="reset-message-content"></span>
-						</div>
+			</div>
+			<div id="reset-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="reset-message-content"></span>
 					</div>
 				</div>
 			</div>

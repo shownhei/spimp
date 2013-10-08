@@ -110,12 +110,12 @@
 						</div>
 					</form>
 				</div>
-				<div id="create-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
-						</div>
+			</div>
+			<div id="create-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="create-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -149,12 +149,12 @@
 						</div>
 					</form>
 				</div>
-				<div id="edit-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="edit-message-content"></span>
-						</div>
+			</div>
+			<div id="edit-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="edit-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -181,12 +181,12 @@
 				<div class="span12">
 					<i class="icon-warning-sign"></i> 提示：确认删除选中的角色？
 				</div>
-				<div id="remove-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="remove-message-content"></span>
-						</div>
+			</div>
+			<div id="remove-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="remove-message-content"></span>
 					</div>
 				</div>
 			</div>
