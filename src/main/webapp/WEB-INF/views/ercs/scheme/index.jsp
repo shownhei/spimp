@@ -52,12 +52,11 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
+					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
 						<div class="control-group">
 							<label class="control-label span2" for="principal">事故类别</label>
 							<div class="controls">
-								<input id="type" name="type" type="text"
-									class="span11">
+								<select id="create-type" name="type[id]"  class="span11" ></select>
 							</div>
 						</div>
 
@@ -65,14 +64,6 @@
 							<label class="control-label span2" for="principal">事故现场</label>
 							<div class="controls">
 								<input id="address" name="address" type="text"
-									class="span11">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label span2" for="principal">处置方案</label>
-							<div class="controls">
-								<input id="file" name="file" type="file"
 									class="span11">
 							</div>
 						</div>
@@ -91,14 +82,21 @@
 									class="span11">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="principal">事故上传时间</label>
+                        <div class="control-group" style="display:none;">
+							<label class="control-label span2" for="credential">处置方案</label>
 							<div class="controls">
-								<input id="uploadTime" name="uploadTime" type="text"
-									class="span11">
+								<input id="attachment" readonly name="attachment" type="text" class="span10">
+								<input value="删除" type="button" id="create-file-delete">
 							</div>
 						</div>
-
+					</form>
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" style="margin-bottom:0px;" method="post" enctype="multipart/form-data" target="acceptFrame">
+						<div class="control-group">
+							<label class="control-label span2" for="credential">处置方案</label>
+							<div class="controls">
+								<input  name="file" id="file" type="file" class="span11">
+							</div>
+						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -136,7 +134,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">事故类别</label>
 							<div class="controls">
-								<input name="type" type="text" class="span11">
+								<select id="edit-type" name="type[id]"  class="span11" ></select>
 							</div>
 						</div>
 
@@ -147,12 +145,6 @@
 							</div>
 						</div>
 
-						<div class="control-group">
-							<label class="control-label span2" for="principal">处置方案</label>
-							<div class="controls">
-								<input name="file" type="text" class="span11">
-							</div>
-						</div>
 
 						<div class="control-group">
 							<label class="control-label span2" for="principal">方案指定人</label>
@@ -169,9 +161,9 @@
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故上传时间</label>
+							<label class="control-label span2" for="principal">处置方案</label>
 							<div class="controls">
-								<input name="uploadTime" type="text" class="span11">
+								<input name="attachment" readonly type="text" class="span11">
 							</div>
 						</div>
 
@@ -229,5 +221,6 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/scheme/index');
 	</script>
+	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
 </body>
 </html>

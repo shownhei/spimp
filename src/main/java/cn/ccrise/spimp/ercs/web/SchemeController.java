@@ -3,6 +3,7 @@
  */
 package cn.ccrise.spimp.ercs.web;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -67,6 +68,7 @@ public class SchemeController {
 	@RequestMapping(value = "/ercs/schemes", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Scheme scheme) {
+		scheme.setUploadTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(schemeService.save(scheme));
 	}
 
