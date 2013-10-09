@@ -1,32 +1,41 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-
+	window.$=$;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-resourceType', 'edit-resourceType', 'resourceTypeSelect' ], '/ercs/dictionaries?typeCode=resource_type&list=true', 'id',
+	Utils.select.remote([ 'create-type', 'edit-type' ], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id',
 			'itemName');
-
 	// 配置表格列
 	var fields = [ {
 		header : '事故类别',
-		name : 'type'
+		name : 'type',
+		width:100,
+		render:function(v){
+			return v?v.itemName:'';
+		}
 	}, {
 		header : '事故现场',
 		name : 'address'
-	}, {
-		header : '处置方案',
-		name : 'file'
-	}, {
+	},{
 		header : '方案指定人',
+		width:100,
 		name : 'decide'
 	}, {
+		header : '附件',
+		name : 'attachment',
+		render:function(v){
+			return v?'<a href="'+v+'" target="_blank">'+(v.substring(v.lastIndexOf('&#x2F;')+6))+'</a>':'';
+		}
+	},  {
 		header : '事故发生时间',
+		width:145,
 		name : 'startTime'
 	}, {
 		header : '事故上传时间',
+		width:145,
 		name : 'uploadTime'
 	} ];
 
@@ -163,4 +172,19 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
+	$('#file').bind('change',function(){
+		if($('#file').val()!==''){
+			$('#create-file-form').submit();
+		}
+	});
+	$('#create-file-delete').bind('click',function(){
+		$('#attachment').parent().parent().hide();
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
+	});
 });
+function callBack(data){
+	$('#attachment').val(data.data);
+	$('#create-file-form').hide();
+	$('#attachment').parent().parent().show();
+}

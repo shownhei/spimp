@@ -43,6 +43,42 @@ public class UploadController {
 	@Autowired
 	private LogEntityServiceImpl logEntityServiceImpl;
 
+	@RequestMapping(value = "/simpleupload", method = RequestMethod.POST)
+	public void simpleUpload(@RequestParam MultipartFile file, HttpSession httpSession, HttpServletResponse response,
+			final String uploadPath) throws IOException {
+		// 生成文件路径
+		String filePath = generatePath(file);
+
+		// 自定义上传目录
+		if (!Strings.isNullOrEmpty(uploadPath)) {
+			if (uploadPath.charAt(uploadPath.length() - 1) != '/') {
+				defaultUploadPath = uploadPath + '/';
+			} else {
+				defaultUploadPath = uploadPath;
+			}
+		} else {
+			defaultUploadPath = DEFAULT_PATH;
+		}
+
+		// 获取上传目录的真实路径
+		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
+
+		// 写入文件
+		final File newFile = new File(uploadRealPath + "/" + filePath);
+		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
+
+		// 记录日志
+		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
+
+		// 设置响应
+		response.setContentType("text/html");
+		response.getWriter().write(
+				"<script>parent.callBack("
+						+ JSON.toJSONString(new Response(new String(
+								(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
+		response.flushBuffer();
+	}
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public void upload(@RequestParam MultipartFile file, HttpSession httpSession, HttpServletResponse response,
 			final String uploadPath) throws IOException {

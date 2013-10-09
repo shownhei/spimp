@@ -5,7 +5,9 @@ package cn.ccrise.spimp.ercs.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -30,7 +32,7 @@ public class Scheme extends IDEntity {
 	/**
 	 * 事故类型
 	 */
-	private String type;
+	private Dictionary type;
 	/**
 	 * 事故发生地点
 	 */
@@ -38,7 +40,7 @@ public class Scheme extends IDEntity {
 	/**
 	 * 处置方案
 	 */
-	private String file;
+	private String attachment;
 	/**
 	 * 方案制定人
 	 */
@@ -56,20 +58,18 @@ public class Scheme extends IDEntity {
 		return decide;
 	}
 
-	public String getFile() {
-		return file;
-	}
-
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public String getType() {
+	@ManyToOne
+	public Dictionary getType() {
 		return type;
 	}
 
+	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getUploadTime() {
@@ -84,15 +84,19 @@ public class Scheme extends IDEntity {
 		this.decide = decide;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
 	}
 
 	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-	public void setType(String type) {
+	public void setType(Dictionary type) {
 		this.type = type;
 	}
 
