@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-
+	window.$=$;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -17,6 +17,12 @@ define(function(require, exports, module) {
 		header : '发布单位',
 		name : 'department'
 	}, {
+		header : '附件',
+		name : 'attachment',
+		render:function(v){
+			return v?'<a href="'+v+'" target="_blank">'+(v.substring(v.lastIndexOf('&#x2F;')+6))+'</a>':'';
+		}
+	},{
 		header : '发布时间',
 		name : 'addTime'
 	} ];
@@ -58,6 +64,7 @@ define(function(require, exports, module) {
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
+		$('#attachment').parent().parent().hide();
 		Utils.modal.show('create');
 	});
 
@@ -158,4 +165,19 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
+	$('#file').bind('change',function(){
+		if($('#file').val()!==''){
+			$('#create-file-form').submit();
+		}
+	});
+	$('#create-file-delete').bind('click',function(){
+		$('#attachment').parent().parent().hide();
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
+	});
 });
+function callBack(data){
+	$('#attachment').val(data.data);
+	$('#create-file-form').hide();
+	$('#attachment').parent().parent().show();
+}

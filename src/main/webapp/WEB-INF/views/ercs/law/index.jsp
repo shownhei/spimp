@@ -50,7 +50,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
+					<form id="create-form" class="form-horizontal"  style="margin-bottom:0px;">
 	        
 					    <div class="control-group">
 							<label class="control-label span2" for="fileName">文件名</label>
@@ -64,11 +64,25 @@
 								<input id="fileNo" name="fileNo" type="text" class="span11">
 							</div>
 						</div>
-	        
 					    <div class="control-group">
 							<label class="control-label span2" for="department">发布单位</label>
 							<div class="controls">
 								<input id="department" name="department" type="text" class="span11">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="fileNo">附件</label>
+							<div class="controls">
+								<input id="attachment" readonly name="attachment" type="text" class="span10">
+								<input value="删除" type="button" id="create-file-delete">
+							</div>
+						</div>
+					</form>
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame"  style="margin-bottom:0px;">
+						<div class="control-group">
+							<label class="control-label span2" for="credential">附件</label>
+							<div class="controls">
+								<input  name="file" id="file" type="file" class="span11">
 							</div>
 						</div>
 					</form>
@@ -180,5 +194,6 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/law/index');
 	</script>
+	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
 </body>
 </html>
