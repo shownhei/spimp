@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,29 +27,52 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Table(name = "ercs_alarms")
 public class Alarm extends IDEntity {
 	/**
-	 * 流水号
+	 * 未处理
 	 */
-	private Long serialNumber;
+	public static final Integer DEAL_FLAG_UNDEALED = 0;
+	/**
+	 * 已处理
+	 */
+	public static final Integer DEAL_FLAG_DEALED = 1;
+	/**
+	 * 操作标记 是否已处理 1 ：已处理0：未处理
+	 */
+	private Integer dealFlag;
+	private String detail;
 	/**
 	 * 事故地点
 	 */
 	private String accidentLocation;
+
 	/**
 	 * 事故类型
 	 */
 	private Dictionary accidentType;
+
 	/**
-	 * 严重程度
+	 * 严重程度 事故等级level
 	 */
-	private String severity;
+	private Dictionary accidentLevel;
+
 	/**
 	 * 报警人
 	 */
 	private String alarmPeople;
+
 	/**
 	 * 报警时间
 	 */
 	private Timestamp alarmTime;
+
+	/**
+	 * 问题处理时间
+	 */
+	private Timestamp processingTime;
+
+	@ManyToOne
+	public Dictionary getAccidentLevel() {
+		return accidentLevel;
+	}
 
 	public String getAccidentLocation() {
 		return accidentLocation;
@@ -70,12 +94,23 @@ public class Alarm extends IDEntity {
 		return alarmTime;
 	}
 
-	public Long getSerialNumber() {
-		return serialNumber;
+	public Integer getDealFlag() {
+		return dealFlag;
 	}
 
-	public String getSeverity() {
-		return severity;
+	@Lob
+	public String getDetail() {
+		return detail;
+	}
+
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getProcessingTime() {
+		return processingTime;
+	}
+
+	public void setAccidentLevel(Dictionary accidentLevel) {
+		this.accidentLevel = accidentLevel;
 	}
 
 	public void setAccidentLocation(String accidentLocation) {
@@ -94,11 +129,25 @@ public class Alarm extends IDEntity {
 		this.alarmTime = alarmTime;
 	}
 
-	public void setSerialNumber(Long serialNumber) {
-		this.serialNumber = serialNumber;
+	public void setDealFlag(Integer dealFlag) {
+		this.dealFlag = dealFlag;
 	}
 
-	public void setSeverity(String severity) {
-		this.severity = severity;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
+
+	/**
+	 * 问题处理时间
+	 * 
+	 * @param processingTime
+	 */
+	public void setProcessingTime(Timestamp processingTime) {
+		this.processingTime = processingTime;
+	}
+
+	public void setSerialNumber(Integer dealFlag) {
+		this.dealFlag = dealFlag;
+	}
+
 }
