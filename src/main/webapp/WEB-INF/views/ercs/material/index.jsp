@@ -78,7 +78,8 @@
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">所属单位</label>
 							<div class="controls">
-								<input id="department" name="department" type="text" class="span11">
+								<input id="create_department" name="department" readonly  type="text" class="span10">
+								<input type="button" value="选择" id="create_selectGroup">
 							</div>
 						</div>
 	        
@@ -141,7 +142,8 @@
 					    <div class="control-group">
 							<label class="control-label span2" for="principal">所属单位</label>
 							<div class="controls">
-								<input  name="department" type="text" class="span11">
+								<input id="edit_department" name="department" readonly type="text" class="span10">
+								<button type="button" value='选择' id="edit_selectGroup">选择</button>
 							</div>
 						</div>
 	        
@@ -149,7 +151,7 @@
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
-						<div class="alert alert-error">
+						<div class="alert alert-error">s
 							<i class="icon-remove"></i>
 							<span id="edit-message-content"></span>
 						</div>
@@ -201,5 +203,12 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/material/index');
 	</script>
+	<div id="create_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="create_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
+
+	</div>
+	<div id="edit_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="edit_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
+	</div>
 </body>
 </html>
