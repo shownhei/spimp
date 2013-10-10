@@ -67,7 +67,8 @@
 					    <div class="control-group">
 							<label class="control-label span2" for="department">发布单位</label>
 							<div class="controls">
-								<input id="department" name="department" type="text" class="span11">
+								<input id="create-department" name="department" readonly  type="text" class="span10">
+	                            <button type="button" id="create-selectGroup">选择</button>
 							</div>
 						</div>
 						<div class="control-group">
@@ -131,11 +132,17 @@
 								<input  name="fileNo" type="text" class="span11">
 							</div>
 						</div>
-	        
+	                    <div class="control-group">
+							<label class="control-label span2" for="fileNo">附件</label>
+							<div class="controls">
+								<input  readonly name="attachment" type="text" class="span11">
+							</div>
+						</div>
 					    <div class="control-group">
 							<label class="control-label span2" for="department">发布单位</label>
 							<div class="controls">
-								<input  name="department" type="text" class="span11">
+								<input id="edit-department" name="department" readonly  type="text" class="span10">
+	                            <button type="button" id="edit-selectGroup">选择</button>	
 							</div>
 						</div>
 					</form>
@@ -195,5 +202,12 @@
 		seajs.use('${resources}/scripts/app/ercs/law/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
+		<div id="create_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="create_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
+
+	</div>
+	<div id="edit_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="edit_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
+	</div>
 </body>
 </html>
