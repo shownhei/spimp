@@ -72,7 +72,8 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">部门</label>
 							<div class="controls">
-								<select id="create-department" name="department[id]" class="span11"></select>
+								<input type='text'  readonly id="create-department" name="department" class="span10">
+								<input type="button" value="选择" id="create_selectGroup">
 							</div>
 						</div>
 
@@ -163,7 +164,8 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">部门</label>
 							<div class="controls">
-								<select id="edit-department"  name="department[id]" class="span11"></select>
+							    <input type='text' readonly id="edit-department" name="department" class="span10">
+								<button type="button" id="edit_selectGroup">选择</button>
 							</div>
 						</div>
 
@@ -254,7 +256,13 @@
 			</button>
 		</div>
 	</div>
+	<div id="create_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="create_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
 
+	</div>
+	<div id="edit_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
+		<ul id="edit_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
+	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/staff/index');
 	</script>

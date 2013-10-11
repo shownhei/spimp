@@ -55,15 +55,15 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">种类</label>
-							<div class="controls">
-								<select id="create-refugeType" name="refugeType[id]" class="span11"></select>
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label span2" for="principal">名称</label>
 							<div class="controls">
 								<input id="refugeName" name="refugeName" type="text" class="span11">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="principal">种类</label>
+							<div class="controls">
+								<select id="create-refugeType" name="refugeType[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -289,5 +289,6 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/place/index');
 	</script>
+	
 </body>
 </html>

@@ -12,10 +12,8 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields = [ {
 		header : '姓名',
+		width:100,
 		name : 'staffName'
-	}, {
-		header : '员工类型',
-		name : 'staffType'
 	}, {
 		header : '专业领域',
 		name : 'expertiseArea',
@@ -25,10 +23,27 @@ define(function(require, exports, module) {
 			}
 			return '';
 		}
-	}, {
+	},{
+		header : '事故响应级别',
+		name : 'responseLevel',
+		width:100,
+		render : function(val) {
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		}
+	},  {
 		header : '部门',
+		render:function(v){
+			return v?v.name:'';
+		},
 		name : 'department'
-	}, {
+	},{
+		header : '员工类型',
+		width:100,
+		name : 'staffType'
+	},  {
 		header : '职称',
 		name : 'title'
 	}, {
@@ -38,16 +53,8 @@ define(function(require, exports, module) {
 		header : '联系方式',
 		name : 'phone'
 	}, {
-		header : '事故响应级别',
-		name : 'responseLevel',
-		render : function(val) {
-			if (val) {
-				return val.itemName;
-			}
-			return '';
-		}
-	}, {
 		header : '创建时间',
+		width:150,
 		name : 'addTime'
 	} ];
 
@@ -108,7 +115,9 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入联系方式' ]);
 			return;
 		}
-
+		var department={id:$('#create-department').attr('data-id'),name:object.department};
+		delete object.department;
+		object.department=department;
 		Utils.button.disable([ 'create-save' ]);
 		$.post('/ercs/rescuers', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -132,6 +141,8 @@ define(function(require, exports, module) {
 		$.get('/ercs/rescuers/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
+			$('#edit-department').val(object.department.name);
+			$('#edit-department').attr('data-id',object.department.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -152,7 +163,9 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入联系方式' ]);
 			return;
 		}
-
+		var department={id:$('#edit-department').attr('data-id'),name:object.department};
+		delete object.department;
+		object.department=department;
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/rescuers/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -188,4 +201,67 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
+	function groupTree(treewindow,_treePanel,_triggerName,aimElm){
+		var me = this;
+		this.beforeClick=function(treeId, treeNode){
+			return true;
+		};
+		this.onClick=function(e, treeId, treeNode){
+			var zTree = $.fn.zTree.getZTreeObj(_treePanel),
+			nodes = zTree.getSelectedNodes();
+			var cityObj = $("#"+aimElm);
+			cityObj.val(nodes[0].name);
+			cityObj.attr("data-id", nodes[0].id);
+		};
+		this.setting={
+				view: {
+					dblClickExpand: false
+				},
+				async : {
+					enable : true,
+					url : contextPath + '/system/groups',
+					type : "get",
+					dataFilter : function(treeId, parentNode, responseData) {
+						return responseData.data[0].groupEntities;
+					}
+				},
+				data : {
+					key : {
+						children : 'groupEntities'
+					}
+				},
+				callback: {
+					beforeClick: me.beforeClick,
+					onClick: me.onClick
+				}
+		};
+		
+		this.onKeyDown=function(){
+			if (!(event.target.id == "menuBtn" || event.target.id == treewindow || $(event.target).parents("#"+treewindow).length>0)) {
+				me.hideTree();
+			}
+		};
+		this.showTree=function(){
+			var cityObj = $("#"+aimElm);
+			var cityOffset = cityObj.offset();
+			$("#"+treewindow).css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+			$("#"+treewindow).css('z-index',1090);
+			$("#"+treewindow).css("background-color",'white');
+			$("#"+treewindow).css("-webkit-box-shadow",'0 3px 7px rgba(0, 0, 0, 0.3)');
+			$("#"+treewindow).css("border",'1px solid rgba(0, 0, 0, 0.3)');
+			$("body").bind("mousedown", me.onKeyDown);
+		};
+		this.hideTree=function(){
+			$("#"+treewindow).fadeOut("fast");
+			$("body").unbind("mousedown", me.onKeyDown);
+		};
+		var currentTree = $.fn.zTree.init($('#'+_treePanel), me.setting);
+		$('#'+_triggerName).bind('click',function(){
+			me.showTree();
+		});
+		return currentTree;
+	}
+	//创建edit_selectGroup
+	new groupTree('create_groupSelectTree','create_treeDemo','create_selectGroup','create-department');
+	new groupTree('edit_groupSelectTree','edit_treeDemo','edit_selectGroup','edit-department');
 });
