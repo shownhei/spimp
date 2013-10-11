@@ -19,7 +19,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 
 /**
- * Refuge。
+ * 避难场所
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
