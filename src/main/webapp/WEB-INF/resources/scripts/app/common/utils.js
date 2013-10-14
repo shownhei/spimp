@@ -53,6 +53,23 @@ define(function(require, exports, module) {
 			containment : getContainerment()
 		});
 
+		// 完全居中
+		var screenWidth = $(document).width(), screenHeight = $(document).height();
+		var modalWidth = $modal.width(), modalHeight = $modal.height();
+		var modalTop = 0, modalLeft = 0;
+
+		if (screenHeight > modalHeight) {
+			modalTop = (screenHeight - modalHeight) / 2;
+		}
+		if (screenWidth > modalWidth) {
+			modalLeft = (screenWidth - modalWidth) / 2;
+		}
+
+		$modal.offset({
+			top : modalTop,
+			left : modalLeft
+		});
+
 		return $modal;
 	};
 
