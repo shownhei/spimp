@@ -207,3 +207,27 @@ body {
 .nav-add-on {
 	padding: 1px 5px !important;
 }
+
+.modal-xs {
+	width: 240px;
+}
+
+.modal-sm {
+	width: 400px;
+}
+
+.modal-md {
+	width: 560px;
+}
+
+.modal-lg {
+	width: 720px;
+}
+
+.modal-xl {
+	width: 880px;
+}
+
+.modal-lg label.span2,.modal-xl label.span2 {
+	width: 80px;
+}
