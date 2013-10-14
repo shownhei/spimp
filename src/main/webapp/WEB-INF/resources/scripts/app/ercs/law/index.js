@@ -86,6 +86,11 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入文件名' ]);
 			return;
 		}
+		// 验证
+		if (object.attachment === '') {
+			Utils.modal.message('create', [ '附件不能为空' ]);
+			return;
+		}
 		if (object.department === '') {
 			delete object.department;
 		}
@@ -136,10 +141,14 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入文件号' ]);
 			return;
 		}
-
 		// 验证
 		if (object.fileName === '') {
 			Utils.modal.message('edit', [ '请输入文件名' ]);
+			return;
+		}
+		// 验证
+		if (object.attachment === '') {
+			Utils.modal.message('create', [ '附件不能为空' ]);
 			return;
 		}
 		if (object.department === '') {
@@ -194,70 +203,10 @@ define(function(require, exports, module) {
 		$('#create-file-form').show();
 	});
 	
-	function groupTree(treewindow,_treePanel,_triggerName,aimElm){
-		var me = this;
-		this.beforeClick=function(treeId, treeNode){
-			return true;
-		};
-		this.onClick=function(e, treeId, treeNode){
-			var zTree = $.fn.zTree.getZTreeObj(_treePanel),
-			nodes = zTree.getSelectedNodes();
-			var cityObj = $("#"+aimElm);
-			cityObj.val(nodes[0].name);
-			cityObj.attr("data-id", nodes[0].id);
-		};
-		this.setting={
-				view: {
-					dblClickExpand: false
-				},
-				async : {
-					enable : true,
-					url : contextPath + '/system/groups',
-					type : "get",
-					dataFilter : function(treeId, parentNode, responseData) {
-						return responseData.data[0].groupEntities;
-					}
-				},
-				data : {
-					key : {
-						children : 'groupEntities'
-					}
-				},
-				callback: {
-					beforeClick: me.beforeClick,
-					onClick: me.onClick
-				}
-		};
-		
-		this.onKeyDown=function(){
-			if (!(event.target.id == "menuBtn" || event.target.id == treewindow || $(event.target).parents("#"+treewindow).length>0)) {
-				me.hideTree();
-			}
-		};
-		this.showTree=function(){
-			var cityObj = $("#"+aimElm);
-			var cityOffset = cityObj.offset();
-			$("#"+treewindow).css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-			$("#"+treewindow).css('z-index',1090);
-			$("#"+treewindow).css("background-color",'white');
-			$("#"+treewindow).css("-webkit-box-shadow",'0 3px 7px rgba(0, 0, 0, 0.3)');
-			$("#"+treewindow).css("border",'1px solid rgba(0, 0, 0, 0.3)');
-			$("body").bind("mousedown", me.onKeyDown);
-		};
-		this.hideTree=function(){
-			$("#"+treewindow).fadeOut("fast");
-			$("body").unbind("mousedown", me.onKeyDown);
-		};
-		var currentTree = $.fn.zTree.init($('#'+_treePanel), me.setting);
-		$('#'+_triggerName).bind('click',function(){
-			me.showTree();
-		});
-		return currentTree;
-	}
 	//创建
-	new groupTree('create_groupSelectTree','create_treeDemo','create-selectGroup','create-department');
+	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create-selectGroup','create-department');
 	//编辑
-	new groupTree('edit_groupSelectTree','edit_treeDemo','edit-selectGroup','edit-department');
+	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit-selectGroup','edit-department');
 });
 function callBack(data){
 	$('#attachment').val(data.data);

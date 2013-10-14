@@ -202,12 +202,5 @@
 		seajs.use('${resources}/scripts/app/ercs/law/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
-		<div id="create_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
-		<ul id="create_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
-
-	</div>
-	<div id="edit_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
-		<ul id="edit_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
-	</div>
 </body>
 </html>

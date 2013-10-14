@@ -74,7 +74,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="members">下属成员</label>
 							<div class="controls">
-								<input id="members" name="members" type="text" class="span11">
+								<textarea id="members" name="members"  class="span11"></textarea>
 							</div>
 						</div>
 						<div class="control-group">

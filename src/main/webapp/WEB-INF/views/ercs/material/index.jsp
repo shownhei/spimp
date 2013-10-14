@@ -203,12 +203,5 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/material/index');
 	</script>
-	<div id="create_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
-		<ul id="create_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
-
-	</div>
-	<div id="edit_groupSelectTree" class="menuContent " style="display: none; position: absolute;">
-		<ul id="edit_treeDemo" class="ztree" style="margin-top: 0; width: 160px;"></ul>
-	</div>
 </body>
 </html>

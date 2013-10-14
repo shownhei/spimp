@@ -44,7 +44,10 @@ define(function(require, exports, module) {
 		name : 'protection'
 	}, {
 		header : '隶属单位',
-		name : 'department'
+		name : 'department',
+		render:function(v){
+			return v?v.name:'';
+		}
 	}, {
 		header : '管理人',
 		name : 'manager'
@@ -122,7 +125,9 @@ define(function(require, exports, module) {
 		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
-
+		var department={id:$('#create_department').attr('data-id'),name:object.department};
+		delete object.department;
+		object.department=department;
 		$.post('/ercs/refuges', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -144,8 +149,11 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get('/ercs/refuges/' + selectId, function(data) {
 			var object = data.data;
-
 			Utils.form.fill('edit', object);
+			if(object.department){
+				$('#edit_department').val(object.department.name);
+				$('#edit_department').attr('data-id',object.department.id);
+			}
 			Utils.modal.show('edit');
 		});
 	});
@@ -181,7 +189,9 @@ define(function(require, exports, module) {
 		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
-
+		var department={id:$('#edit_department').attr('data-id'),name:object.department};
+		delete object.department;
+		object.department=department;
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/refuges/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -216,4 +226,6 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
+	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create_selectGroup','create_department');
+	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit_selectGroup','edit_department');
 });
