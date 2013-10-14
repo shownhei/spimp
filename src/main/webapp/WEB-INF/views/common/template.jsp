@@ -20,7 +20,7 @@
 				{{/if}}
 			</a>
 			{{#if resourceEntities}}
-			<ul class="submenu">
+			<ul class="submenu" style="background-color: #f5f5f5;">
 				{{#each resourceEntities}}
 				<li>
 					<a href="{{uri}}">
