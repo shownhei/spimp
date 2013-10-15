@@ -9,6 +9,6 @@
     "alias": {
       "$": "$"
     },
-    "output": ["bootstrap.js"]
+    "output": ["bootstrap.js","bootstrap.css","bootstrap-responsive.css"]
   }
 }

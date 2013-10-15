@@ -8,8 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
 <%-- <link href="${resources}/app.css" rel="stylesheet"> --%>
-<link href="${resources}/styles/ui/bootstrap.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="${resources}/scripts/sea-modules/ikj/bootstrap/2.3.2/bootstrap.css" rel="stylesheet">
+<link href="${resources}/scripts/sea-modules/ikj/bootstrap/2.3.2/bootstrap-responsive.css" rel="stylesheet">
 <link href="${resources}/styles/ui/font-awesome.min.css" rel="stylesheet">
 <link href="${resources}/styles/ui/ace.min.css" rel="stylesheet">
 <link href="${resources}/styles/ui/ace-responsive.min.css" rel="stylesheet">
