@@ -21,6 +21,7 @@
       "gritter": "ikj/gritter/1.0.0/gritter",
       "serialize-object": "ikj/serialize-object/1.0.0/serialize-object",
       "bootstrap": "ikj/bootstrap/2.3.2/bootstrap",
+      "autocomplete": "ikj/autocomplete/1.1.0/autocomplete",
       "datepicker": "ikj/datepicker/1.2.0/datepicker",
       "daterangepicker": "ikj/daterangepicker/1.2.0/daterangepicker"
     },

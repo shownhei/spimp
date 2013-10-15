@@ -1,0 +1,21 @@
+{
+  "name": "autocomplete",
+  "family": "ikj",
+  "version": "1.1.0",
+  "description": "autocomplete",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-autocomplete.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-autocomplete/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["autocomplete.js"]
+  }
+}
