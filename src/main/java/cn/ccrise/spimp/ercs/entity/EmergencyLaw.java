@@ -40,17 +40,18 @@ public class EmergencyLaw extends IDEntity {
 	/**
 	 * 附件
 	 */
-	private String attachment;
+	private UploadedFile attachment;
 	/**
 	 * 发布时间
 	 */
 	private Timestamp addTime;
 
-	public String getAttachment() {
+	@ManyToOne
+	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(String attachment) {
+	public void setAttachment(UploadedFile attachment) {
 		this.attachment = attachment;
 	}
 
