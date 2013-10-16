@@ -124,8 +124,6 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-
-		
 		
 		// 验证
 		if (object.planName === '') {
@@ -193,6 +191,9 @@ define(function(require, exports, module) {
 			});
 		}
 		$('#create-file-form').show();
+	});
+	$('#planTypeSelect').bind('change',function(){
+		$('#nav-search-button').trigger('click');
 	});
 });
 //文件上传回调
