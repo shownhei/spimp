@@ -95,7 +95,76 @@ define(function(require, exports, module) {
 		$('#' + prefix + '-message-content').html(message);
 		$('#' + prefix + '-message-alert').show();
 	};
+	utils.modal.showProcess=function(processId){
+		var _html=[
+		    '<div id="'+processId+'-modal" class="modal hide" style="z-index:1052;">',
+				'<div class="modal-header">',
+					'<h5 class="red">',
+						'<i class="icon-trash"></i> 请稍后',
+					'</h5>',
+				'</div>',
+				'<div class="modal-body">',
+					'<div class="row-fluid">',
+					      '<div class="control-group" id="processParent">',
+						    '<label class="control-label" ></label>',
+						    '<div class="controls">',
+								'<div class="progress progress-striped active span12" >',
+		                            '<div class="bar" id="'+processId+'" style="width: 1px;"></div>',
+		                        '</div>',
+							'</div>',
+		                  '</div>',
+					'</div>',
+				'</div>',
+				'<div class="modal-footer">',
+					'<button class="btn btn-small" data-dismiss="modal">',
+					'</button>',
+				'</div>',
+			'</div>'
+		           ];
+		if($('#process-modal').length==0){
+			$(_html.join('')).appendTo($("body"));
+			$('<div class="modal-backdrop  in" id="'+processId+'-modal-black" style="z-index:1051;"></div>').appendTo($("body"));
+		}else{
+			$('#'+processId+'-modal').show();
+			$('#'+processId+'-modal-black').show();
+		}
+		// 完全居中
+		var $modal=$('#'+processId+'-modal');
+		var screenWidth = $(document).width(), screenHeight = $(document).height();
+		var modalWidth = $modal.width(), modalHeight = $modal.height();
+		var modalTop = 0, modalLeft = 0;
 
+		if (screenHeight > modalHeight) {
+			modalTop = (screenHeight - modalHeight) / 2;
+		}
+		$modal.offset({
+			top : modalTop
+		});
+		this.count=1;
+		var me =this;
+		this.process=$('#'+processId);
+		this.reset=function(){
+			me.count=1;
+			me.process.css("width",1+"px");
+		};
+		this.loopFunc=function(){
+			me.count+=2;
+			console.log(me.count);
+			me.process.css("width",me.count+"px");
+		};
+		this.intervalReference=setInterval(me.loopFunc, 200);
+		this.stop=function(){
+			clearInterval(me.intervalReference);
+			this.reset();
+			this.close();
+		};
+		this.reset();
+		this.close=function(){
+			$('#'+processId+'-modal').hide();
+			$('#'+processId+'-modal-black').hide();
+		};
+		$('#'+processId+'-modal').show();
+	};
 	/**
 	 * 下拉列表。
 	 */
@@ -237,7 +306,7 @@ define(function(require, exports, module) {
 				}
 		};
 		
-		this.onKeyDown=function(){
+		this.onKeyDown=function(event){
 			if (!(event.target.id == "menuBtn" || event.target.id == treewindow || $(event.target).parents("#"+treewindow).length>0)) {
 				me.hideTree();
 			}
