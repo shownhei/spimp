@@ -1,6 +1,8 @@
+
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 	window.$=$;
+	window.Utils=Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -23,7 +25,8 @@ define(function(require, exports, module) {
 		header : '附件',
 		name : 'attachment',
 		render:function(v){
-			return v?'<a href="'+v+'" target="_blank">'+(v.substring(v.lastIndexOf('&#x2F;')+6))+'</a>':'';
+			var name=v.filePath.substring(v.filePath.lastIndexOf('/')+1);
+			return v?'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')">'+name+'</a>':'';
 		}
 	}, {
 		header : '创建时间',
@@ -69,17 +72,27 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
+		$('#create-file-delete').trigger('click');
 	});
 
 	// 保存
 	$('#create-save').click(function() {
+		if($('#create-save').hasClass('disabled')){
+			return ;
+		}
 		var object = Utils.form.serialize('create');
 		// 验证
 		if (object.planName === '') {
 			Utils.modal.message('create', [ '请输入预案名称' ]);
 			return;
 		}
-
+		if (object.attachment === '') {
+			Utils.modal.message('create', [ '请添加附件' ]);
+			return;
+		}
+		var attachment={id:$('#attachment').attr('data-id'),name:object.filePath};
+		delete object.filePath;
+		object.attachment=attachment;
 		$.post('plans', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -102,6 +115,8 @@ define(function(require, exports, module) {
 		$.get('plans/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
+			$('#edit_attachment').val(object.attachment.filePath);
+			$('#edit_attachment').attr('data-id',object.attachment.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -110,12 +125,16 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 
+		
+		
 		// 验证
 		if (object.planName === '') {
 			Utils.modal.message('edit', [ '请输入预案名称' ]);
 			return;
 		}
-
+		var attachment={id:$('#edit_attachment').attr('data-id')};
+		delete object.attachment;
+		object.attachment=attachment;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('plans/' + selectId, JSON.stringify(object), function(data) {
@@ -156,17 +175,39 @@ define(function(require, exports, module) {
 	$('#file').bind('change',function(){
 		if($('#file').val()!==''){
 			$('#create-file-form').submit();
+			var process=new Utils.modal.showProcess('process');
+			window.process=process;
 		}
 	});
 	$('#create-file-delete').bind('click',function(){
 		$('#attachment').parent().parent().hide();
 		$('#create-file-form')[0].reset();
+		if($('#attachment').val()){
+			var process=new Utils.modal.showProcess('process');
+			window.process=process;
+			$.del('/ercs/uploaded-files/'+$('#attachment').attr('data-id'), function(data) {
+				grid.refresh();
+				window.process.stop();
+				window.process=null;
+				Utils.modal.hide('remove');
+			});
+		}
 		$('#create-file-form').show();
 	});
 });
 //文件上传回调
 function callBack(data){
-	$('#attachment').val(data.data);
+	console.log(data.data);
+	var attachment=$('#attachment');
+	attachment.val(data.data.filePath);
+	attachment.attr('data-id',data.data.id);
 	$('#create-file-form').hide();
-	$('#attachment').parent().parent().show();
+	attachment.parent().parent().show();
+	$('#create-save').removeClass('disabled');
+	window.process.stop();
+	window.process=null;
+}
+function showDocument(id){
+	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
+	Utils.modal.show('view');
 }

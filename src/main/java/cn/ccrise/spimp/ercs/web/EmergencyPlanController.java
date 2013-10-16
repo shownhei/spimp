@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +46,8 @@ public class EmergencyPlanController {
 
 	@RequestMapping(value = "/ercs/plans/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(emergencyPlanService.delete(id));
+	public Response delete(HttpSession httpSession, @PathVariable long id) {
+		return new Response(emergencyPlanService.deletePlan(httpSession, id));
 	}
 
 	@RequestMapping(value = "/ercs/plans/{id}", method = RequestMethod.GET)

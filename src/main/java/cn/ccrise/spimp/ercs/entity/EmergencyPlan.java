@@ -36,7 +36,7 @@ public class EmergencyPlan extends IDEntity {
 	/**
 	 * 附件
 	 */
-	private String attachment;
+	private UploadedFile attachment;
 	/**
 	 * 上传时间
 	 */
@@ -49,7 +49,8 @@ public class EmergencyPlan extends IDEntity {
 		return addTime;
 	}
 
-	public String getAttachment() {
+	@ManyToOne
+	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
@@ -66,7 +67,7 @@ public class EmergencyPlan extends IDEntity {
 		this.addTime = addTime;
 	}
 
-	public void setAttachment(String attachment) {
+	public void setAttachment(UploadedFile attachment) {
 		this.attachment = attachment;
 	}
 
