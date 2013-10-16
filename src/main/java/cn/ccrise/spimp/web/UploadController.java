@@ -24,6 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.ccrise.ikjp.core.security.service.impl.LogEntityServiceImpl;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.ercs.entity.UploadedFile;
+import cn.ccrise.spimp.ercs.service.UploadedFileService;
+import cn.ccrise.spimp.service.Document2PDFConvertService;
+import cn.ccrise.spimp.service.PDF2SwfService;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
@@ -39,7 +43,10 @@ public class UploadController {
 	private static final int RANDOM_NUMERIC_COUNT = 6;
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	private String defaultUploadPath = DEFAULT_PATH;
-
+	@Autowired
+	private Document2PDFConvertService document2PDFConvertService;
+	@Autowired
+	private UploadedFileService uploadedFileService;
 	@Autowired
 	private LogEntityServiceImpl logEntityServiceImpl;
 
@@ -67,15 +74,37 @@ public class UploadController {
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
 
+		String uploadFolder = getUploadFolder();
+		String fullName = newFile.getAbsolutePath();
+		String pdfRealPath = null;
+		String pdfPath = null;
+		if (!fullName.endsWith(".pdf")) {
+			pdfRealPath = fullName + ".pdf";
+			this.document2PDFConvertService.service(fullName, pdfRealPath);
+		} else {
+			pdfRealPath = fullName;
+		}
+		pdfPath = defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath + ".pdf";
+		UploadedFile instance = new UploadedFile();
+		instance.setPdfPath(pdfPath);
+		instance.setFilePath(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath);
+		instance.setAddTime(new Timestamp(System.currentTimeMillis()));
+		uploadedFileService.save(instance);
+		if (!fullName.endsWith(".pdf")) {
+			this.document2PDFConvertService.service(fullName, pdfRealPath);
+		}
+		PDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\", instance.getId()
+				+ ".swf");
+		instance.setSwfPath(uploadFolder + "/" + instance.getId() + ".swf");
+		uploadedFileService.save(instance);
 		// 记录日志
 		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
 
 		// 设置响应
 		response.setContentType("text/html");
+
 		response.getWriter().write(
-				"<script>parent.callBack("
-						+ JSON.toJSONString(new Response(new String(
-								(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
+				"<script>parent.callBack(" + JSON.toJSONString(new Response(instance)) + ")</script>");
 		response.flushBuffer();
 	}
 
@@ -135,5 +164,10 @@ public class UploadController {
 				+ RandomStringUtils.randomNumeric(RANDOM_NUMERIC_COUNT) + type.toLowerCase();
 
 		return folder + "/" + newFullFileName;
+	}
+
+	private String getUploadFolder() {
+		return DEFAULT_PATH.replaceFirst("/WEB-INF", "")
+				+ new SimpleDateFormat("yyyy-MM").format(new Timestamp(System.currentTimeMillis()));
 	}
 }
