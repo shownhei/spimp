@@ -6,6 +6,7 @@ package cn.ccrise.spimp.ercs.web;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.hibernate.criterion.Criterion;
@@ -42,8 +43,8 @@ public class SchemeController {
 
 	@RequestMapping(value = "/ercs/schemes/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(schemeService.delete(id));
+	public Response delete(HttpSession httpSession, @PathVariable long id) {
+		return new Response(schemeService.deleteScheme(httpSession, id));
 	}
 
 	@RequestMapping(value = "/ercs/schemes/{id}", method = RequestMethod.GET)

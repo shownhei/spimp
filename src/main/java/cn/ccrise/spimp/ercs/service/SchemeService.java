@@ -3,6 +3,8 @@
  */
 package cn.ccrise.spimp.ercs.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,15 @@ import cn.ccrise.spimp.ercs.entity.Scheme;
 public class SchemeService extends HibernateDataServiceImpl<Scheme, Long> {
 	@Autowired
 	private SchemeDAO schemeDAO;
+	@Autowired
+	private UploadedFileService uploadedFileService;
+
+	public boolean deleteScheme(HttpSession httpSession, Long id) {
+		Scheme temp = this.findUniqueBy("id", id);
+		uploadedFileService.deleteFile(httpSession, temp.getAttachment().getId());
+		this.delete(temp);
+		return true;
+	}
 
 	@Override
 	public HibernateDAO<Scheme, Long> getDAO() {

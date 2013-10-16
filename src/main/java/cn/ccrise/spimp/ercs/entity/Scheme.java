@@ -40,7 +40,7 @@ public class Scheme extends IDEntity {
 	/**
 	 * 处置方案
 	 */
-	private String attachment;
+	private UploadedFile attachment;
 	/**
 	 * 方案制定人
 	 */
@@ -84,11 +84,12 @@ public class Scheme extends IDEntity {
 		this.decide = decide;
 	}
 
-	public String getAttachment() {
+	@ManyToOne
+	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(String attachment) {
+	public void setAttachment(UploadedFile attachment) {
 		this.attachment = attachment;
 	}
 
