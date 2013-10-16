@@ -1,9 +1,18 @@
 package cn.ccrise.spimp.util;
+
 import com.artofsolving.jodconverter.DefaultDocumentFormatRegistry;
 import com.artofsolving.jodconverter.DocumentFamily;
 import com.artofsolving.jodconverter.DocumentFormat;
 
 public class ErcsDocumentFormatRegistry extends DefaultDocumentFormatRegistry {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
 
 	public ErcsDocumentFormatRegistry() {
 		super();
@@ -21,14 +30,6 @@ public class ErcsDocumentFormatRegistry extends DefaultDocumentFormatRegistry {
 				"application/vnd.ms-excel", "xlsx");
 		xlsx.setExportFilter(DocumentFamily.SPREADSHEET, "MS Excel 97");
 		addDocumentFormat(xlsx);
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

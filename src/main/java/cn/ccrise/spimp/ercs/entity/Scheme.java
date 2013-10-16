@@ -54,6 +54,11 @@ public class Scheme extends IDEntity {
 		return address;
 	}
 
+	@ManyToOne
+	public UploadedFile getAttachment() {
+		return attachment;
+	}
+
 	public String getDecide() {
 		return decide;
 	}
@@ -80,17 +85,12 @@ public class Scheme extends IDEntity {
 		this.address = address;
 	}
 
-	public void setDecide(String decide) {
-		this.decide = decide;
-	}
-
-	@ManyToOne
-	public UploadedFile getAttachment() {
-		return attachment;
-	}
-
 	public void setAttachment(UploadedFile attachment) {
 		this.attachment = attachment;
+	}
+
+	public void setDecide(String decide) {
+		this.decide = decide;
 	}
 
 	public void setStartTime(Timestamp startTime) {

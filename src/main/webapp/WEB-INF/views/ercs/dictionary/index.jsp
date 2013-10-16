@@ -120,7 +120,7 @@
 					<form id="edit-form" class="form-horizontal">
 						<input name="id" type="hidden" class="span11">
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">文件名</label>
+							<label class="control-label span2" for="itemName">字典名称</label>
 							<div class="controls">
 								<input name="itemName" type="text" class="span11">
 							</div>

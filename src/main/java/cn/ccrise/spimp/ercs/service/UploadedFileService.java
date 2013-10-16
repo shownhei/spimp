@@ -22,6 +22,9 @@ import cn.ccrise.spimp.ercs.entity.UploadedFile;
  */
 @Service
 public class UploadedFileService extends HibernateDataServiceImpl<UploadedFile, Long> {
+	@Autowired
+	private UploadedFileDAO uploadedFileDAO;
+
 	public boolean deleteFile(HttpSession httpSession, Long id) {
 		UploadedFile temp = findUniqueBy("id", id);
 		String uploadRealPath = httpSession.getServletContext().getRealPath("/WEB-INF/");
@@ -40,9 +43,6 @@ public class UploadedFileService extends HibernateDataServiceImpl<UploadedFile, 
 		this.delete(temp);
 		return true;
 	}
-
-	@Autowired
-	private UploadedFileDAO uploadedFileDAO;
 
 	@Override
 	public HibernateDAO<UploadedFile, Long> getDAO() {

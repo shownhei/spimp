@@ -26,7 +26,7 @@ public class SchemeService extends HibernateDataServiceImpl<Scheme, Long> {
 	private UploadedFileService uploadedFileService;
 
 	public boolean deleteScheme(HttpSession httpSession, Long id) {
-		Scheme temp = this.findUniqueBy("id", id);
+		Scheme temp = findUniqueBy("id", id);
 		uploadedFileService.deleteFile(httpSession, temp.getAttachment().getId());
 		this.delete(temp);
 		return true;

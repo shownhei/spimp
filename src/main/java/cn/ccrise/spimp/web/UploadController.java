@@ -35,7 +35,6 @@ import com.google.common.base.Strings;
 /**
  * 文件上传Controller。
  * 
- * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Controller
 public class UploadController {
@@ -45,6 +44,8 @@ public class UploadController {
 	private String defaultUploadPath = DEFAULT_PATH;
 	@Autowired
 	private Document2PDFConvertService document2PDFConvertService;
+	@Autowired
+	private PDF2SwfService pDF2SwfService;
 	@Autowired
 	private UploadedFileService uploadedFileService;
 	@Autowired
@@ -74,29 +75,7 @@ public class UploadController {
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
 
-		String uploadFolder = getUploadFolder();
-		String fullName = newFile.getAbsolutePath();
-		String pdfRealPath = null;
-		String pdfPath = null;
-		if (!fullName.endsWith(".pdf")) {
-			pdfRealPath = fullName + ".pdf";
-			this.document2PDFConvertService.service(fullName, pdfRealPath);
-		} else {
-			pdfRealPath = fullName;
-		}
-		pdfPath = defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath + ".pdf";
-		UploadedFile instance = new UploadedFile();
-		instance.setPdfPath(pdfPath);
-		instance.setFilePath(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath);
-		instance.setAddTime(new Timestamp(System.currentTimeMillis()));
-		uploadedFileService.save(instance);
-		if (!fullName.endsWith(".pdf")) {
-			this.document2PDFConvertService.service(fullName, pdfRealPath);
-		}
-		PDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\", instance.getId()
-				+ ".swf");
-		instance.setSwfPath(uploadFolder + "/" + instance.getId() + ".swf");
-		uploadedFileService.save(instance);
+		UploadedFile instance = fileUploadFilter(filePath, newFile);
 		// 记录日志
 		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
 
@@ -141,6 +120,47 @@ public class UploadController {
 				.write(JSON.toJSONString(new Response(new String(
 						(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))));
 		response.flushBuffer();
+	}
+
+	/**
+	 * 文档上传的过滤操作
+	 * 
+	 * @param filePath
+	 * @param newFile
+	 * @return
+	 * @throws IOException
+	 */
+	private UploadedFile fileUploadFilter(String filePath, final File newFile) throws IOException {
+		String uploadFolder = getUploadFolder();
+		String fullName = newFile.getAbsolutePath();
+		String pdfRealPath = null;
+		String pdfPath = null;
+		if (!fullName.endsWith(".pdf")) {
+			pdfRealPath = fullName + ".pdf";
+			document2PDFConvertService.service(fullName, pdfRealPath);
+		} else {
+			pdfRealPath = fullName;
+		}
+		pdfPath = defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath + ".pdf";
+		UploadedFile instance = new UploadedFile();
+		instance.setPdfPath(pdfPath);
+		instance.setFilePath(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath);
+		instance.setAddTime(new Timestamp(System.currentTimeMillis()));
+		uploadedFileService.save(instance);
+		if (!fullName.endsWith(".pdf")) {
+			/**
+			 * 转化pdf
+			 */
+			document2PDFConvertService.service(fullName, pdfRealPath);
+		}
+		/**
+		 * 转化swf
+		 */
+		pDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\", instance.getId()
+				+ ".swf");
+		instance.setSwfPath(uploadFolder + "/" + instance.getId() + ".swf");
+		uploadedFileService.save(instance);
+		return instance;
 	}
 
 	private String generatePath(MultipartFile file) {

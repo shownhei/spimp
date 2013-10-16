@@ -109,6 +109,14 @@ public class IndexController {
 		return "ercs/staff/index";
 	}
 
+	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView get(@PathVariable long id) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("file", uploadedFileService.findUniqueBy("id", id));
+		return new ModelAndView("/ercs/view-pdf", root);
+	}
+
 	/**
 	 * 用户管理
 	 */
@@ -147,13 +155,5 @@ public class IndexController {
 	@RequestMapping(value = "/system/role", method = RequestMethod.GET)
 	public String systemRole() {
 		return "system/role/index";
-	}
-
-	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView get(@PathVariable long id) {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("file", uploadedFileService.findUniqueBy("id", id));
-		return new ModelAndView("/ercs/view-pdf", root);
 	}
 }

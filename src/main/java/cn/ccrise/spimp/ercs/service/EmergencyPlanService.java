@@ -26,7 +26,7 @@ public class EmergencyPlanService extends HibernateDataServiceImpl<EmergencyPlan
 	private UploadedFileService uploadedFileService;
 
 	public boolean deletePlan(HttpSession httpSession, Long id) {
-		EmergencyPlan temp = this.findUniqueBy("id", id);
+		EmergencyPlan temp = findUniqueBy("id", id);
 		uploadedFileService.deleteFile(httpSession, temp.getAttachment().getId());
 		this.delete(temp);
 		return true;

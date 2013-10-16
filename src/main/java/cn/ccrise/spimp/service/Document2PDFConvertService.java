@@ -15,14 +15,27 @@ import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConv
 @Service
 public class Document2PDFConvertService {
 
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
 	private OpenOfficeConnection connection;
 	private Process process;
+
 	private String OpenOffice_HOME = "E:\\Program Files (x86)\\OpenOffice 4";// 这里是OpenOffice的安装目录,
 
-	public void service(String sourceFile, String destFile) {
-		this.startService();
-		this.convert(sourceFile, destFile);
-		this.closeService();
+	/**
+	 * 关闭服务
+	 */
+	public void closeService() {
+		// close the connection
+		getConnection().disconnect();
+		// 关闭OpenOffice服务的进程
+		getProcess().destroy();
 	}
 
 	public void convert(String sourceFile, String destFile) {
@@ -36,6 +49,28 @@ public class Document2PDFConvertService {
 		DocumentConverter converter = new OpenOfficeDocumentConverter(connection, new ErcsDocumentFormatRegistry());
 		converter.convert(inputFile, outputFile);
 
+	}
+
+	public OpenOfficeConnection getConnection() {
+		return connection;
+	}
+
+	public Process getProcess() {
+		return process;
+	}
+
+	public void service(String sourceFile, String destFile) {
+		startService();
+		convert(sourceFile, destFile);
+		closeService();
+	}
+
+	public void setConnection(OpenOfficeConnection connection) {
+		this.connection = connection;
+	}
+
+	public void setProcess(Process process) {
+		this.process = process;
 	}
 
 	/**
@@ -56,40 +91,6 @@ public class Document2PDFConvertService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 关闭服务
-	 */
-	public void closeService() {
-		// close the connection
-		this.getConnection().disconnect();
-		// 关闭OpenOffice服务的进程
-		this.getProcess().destroy();
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public OpenOfficeConnection getConnection() {
-		return connection;
-	}
-
-	public void setConnection(OpenOfficeConnection connection) {
-		this.connection = connection;
-	}
-
-	public Process getProcess() {
-		return process;
-	}
-
-	public void setProcess(Process process) {
-		this.process = process;
 	}
 
 }

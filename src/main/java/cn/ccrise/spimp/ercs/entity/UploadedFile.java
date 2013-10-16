@@ -28,46 +28,46 @@ public class UploadedFile extends IDEntity {
 	private String swfPath;
 	private Timestamp addTime;
 
-	public String getPdfPath() {
-		return pdfPath;
-	}
-
-	public void setPdfPath(String pdfPath) {
-		this.pdfPath = pdfPath;
-	}
-
-	public String getSwfPath() {
-		return swfPath;
-	}
-
-	public void setSwfPath(String swfPath) {
-		this.swfPath = swfPath;
-	}
-
-	public String getSimpleName() {
-		return simpleName;
-	}
-
-	public void setSimpleName(String simpleName) {
-		this.simpleName = simpleName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getAddTime() {
 		return addTime;
 	}
 
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public String getPdfPath() {
+		return pdfPath;
+	}
+
+	public String getSimpleName() {
+		return simpleName;
+	}
+
+	public String getSwfPath() {
+		return swfPath;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public void setPdfPath(String pdfPath) {
+		this.pdfPath = pdfPath;
+	}
+
+	public void setSimpleName(String simpleName) {
+		this.simpleName = simpleName;
+	}
+
+	public void setSwfPath(String swfPath) {
+		this.swfPath = swfPath;
 	}
 
 }

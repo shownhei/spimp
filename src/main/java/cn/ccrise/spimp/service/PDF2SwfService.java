@@ -5,13 +5,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+@Service
 public class PDF2SwfService {
+
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
+
 	/**
 	 * SWFTools的环境安装路径
 	 */
-	public static String SWFTOOLS_PATH = "F:\\Program Files (x86)\\SWFTools\\";
+	public String SWFTOOLS_PATH = "F:\\Program Files (x86)\\SWFTools\\";
 
-	public static int convertPDF2SWF(String sourcePath, String destPath, String fileName) throws IOException {
+	public int convertPDF2SWF(String sourcePath, String destPath, String fileName) throws IOException {
 
 		File dest = new File(destPath);
 
@@ -50,15 +58,5 @@ public class PDF2SwfService {
 
 		}
 		return pro.exitValue();
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			PDF2SwfService.convertPDF2SWF("E:\\666.pdf", "E:\\vvvv\\", "999.swf");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
