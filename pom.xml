@@ -46,6 +46,11 @@
 	</pluginRepositories>
 
 	<dependencies>
+	    <dependency>
+			<groupId>org.rxtx</groupId>
+			<artifactId>rxtxcomm</artifactId>
+			<version>2.0-7pre1</version>
+		</dependency>
 		<dependency>
 			<groupId>cn.ccrise</groupId>
 			<artifactId>ikjp.core</artifactId>
