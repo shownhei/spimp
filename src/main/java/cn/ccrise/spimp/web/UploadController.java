@@ -70,7 +70,7 @@ public class UploadController {
 
 		// 获取上传目录的真实路径
 		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
-
+		filePath = replaceChars(filePath);
 		// 写入文件
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
@@ -106,7 +106,7 @@ public class UploadController {
 
 		// 获取上传目录的真实路径
 		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
-
+		filePath = replaceChars(filePath);
 		// 写入文件
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
@@ -185,6 +185,10 @@ public class UploadController {
 				+ RandomStringUtils.randomNumeric(RANDOM_NUMERIC_COUNT) + type.toLowerCase();
 
 		return folder + "/" + newFullFileName;
+	}
+
+	private String replaceChars(String srcString) {
+		return srcString.replace("[", "【").replace("]", "】");
 	}
 
 	private String getUploadFolder() {
