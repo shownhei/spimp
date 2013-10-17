@@ -71,7 +71,7 @@
 	</div>
 </div>
 <!-- 账号 -->
-<div id="account-settings-modal" class="modal hide">
+<div id="account-settings-modal" class="modal modal-sm hide">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h5 class="blue">
@@ -83,25 +83,25 @@
 			<div class="span12">
 				<form id="account-settings-form" class="form-horizontal" onsubmit="return false;">
 					<div class="control-group">
-						<label class="control-label span2" for="principal">用户名</label>
+						<label class="control-label span3" for="principal">用户名</label>
 						<div class="controls">
 							<input name="principal" type="text" class="span11" readonly="readonly" value="${account.principal}">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span2" for="oldPassword">当前密码</label>
+						<label class="control-label span3" for="oldPassword">当前密码</label>
 						<div class="controls">
 							<input name="oldPassword" type="password" class="span11">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span2" for="newPassword1">新密码</label>
+						<label class="control-label span3" for="newPassword1">新密码</label>
 						<div class="controls">
 							<input name="newPassword1" type="password" class="span11">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span2" for="newPassword2">确认密码</label>
+						<label class="control-label span3" for="newPassword2">确认密码</label>
 						<div class="controls">
 							<input name="newPassword2" type="password" class="span11">
 						</div>
@@ -128,7 +128,7 @@
 	</div>
 </div>
 <!-- 退出 -->
-<div id="logout-modal" class="modal hide">
+<div id="logout-modal" class="modal modal-xs hide">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h5 class="red">

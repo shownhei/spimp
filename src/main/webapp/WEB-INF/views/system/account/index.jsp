@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -67,49 +67,49 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">用户名</label>
+							<label class="control-label span3" for="principal">用户名</label>
 							<div class="controls">
 								<input name="principal" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="realName">姓名</label>
+							<label class="control-label span3" for="realName">姓名</label>
 							<div class="controls">
 								<input name="realName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="credential">密码</label>
+							<label class="control-label span3" for="credential">密码</label>
 							<div class="controls">
 								<input name="credential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="checkCredential">确认密码</label>
+							<label class="control-label span3" for="checkCredential">确认密码</label>
 							<div class="controls">
 								<input name="checkCredential" type="password" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="telephone">电话</label>
+							<label class="control-label span3" for="telephone">电话</label>
 							<div class="controls">
 								<input name="telephone" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="groupEntity">所属机构</label>
+							<label class="control-label span3" for="groupEntity">所属机构</label>
 							<div class="controls">
 								<select id="create-groupEntity" name="groupEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="roleEntity">角色</label>
+							<label class="control-label span3" for="roleEntity">角色</label>
 							<div class="controls">
 								<select id="create-roleEntity" name="roleEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="locked"></label>
+							<label class="control-label span3" for="locked"></label>
 							<div class="controls">
 								<label> <input name="locked" type="checkbox" class="ace"> <span class="lbl"> 锁定</span>
 								</label>
@@ -137,7 +137,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -149,31 +149,31 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">用户名</label>
+							<label class="control-label span3" for="principal">用户名</label>
 							<div class="controls">
 								<input name="principal" type="text" class="span11" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="realName">姓名</label>
+							<label class="control-label span3" for="realName">姓名</label>
 							<div class="controls">
 								<input name="realName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="telephone">电话</label>
+							<label class="control-label span3" for="telephone">电话</label>
 							<div class="controls">
 								<input name="telephone" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="groupEntity">所属机构</label>
+							<label class="control-label span3" for="groupEntity">所属机构</label>
 							<div class="controls">
 								<select id="edit-groupEntity" name="groupEntity[id]" class="span11"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="roleEntity">角色</label>
+							<label class="control-label span3" for="roleEntity">角色</label>
 							<div class="controls">
 								<select id="edit-roleEntity" name="roleEntity[id]" class="span11"></select>
 							</div>
@@ -200,7 +200,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -232,7 +232,7 @@
 		</div>
 	</div>
 	<!-- 重置密码 -->
-	<div id="reset-modal" class="modal hide">
+	<div id="reset-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

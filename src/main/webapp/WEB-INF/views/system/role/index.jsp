@@ -91,7 +91,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -103,7 +103,7 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">角色名称</label>
+							<label class="control-label span3" for="name">角色名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>
@@ -130,7 +130,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -142,7 +142,7 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">角色名称</label>
+							<label class="control-label span3" for="name">角色名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>
@@ -169,7 +169,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

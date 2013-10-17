@@ -101,7 +101,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -113,19 +113,19 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">机构名称</label>
+							<label class="control-label span3" for="name">机构名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="number">机构编号</label>
+							<label class="control-label span3" for="number">机构编号</label>
 							<div class="controls">
 								<input name="number" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="name">机构类别</label>
+							<label class="control-label span3" for="name">机构类别</label>
 							<div class="controls">
 								<select name="category" class="span11">
 									<option value="公司-company">公司</option>
@@ -157,7 +157,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -169,19 +169,19 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="name">机构名称</label>
+							<label class="control-label span3" for="name">机构名称</label>
 							<div class="controls">
 								<input name="name" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="number">机构编号</label>
+							<label class="control-label span3" for="number">机构编号</label>
 							<div class="controls">
 								<input name="number" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="name">机构类别</label>
+							<label class="control-label span3" for="name">机构类别</label>
 							<div class="controls">
 								<select name="category" class="span11">
 									<option value="公司-company">公司</option>
@@ -213,7 +213,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
