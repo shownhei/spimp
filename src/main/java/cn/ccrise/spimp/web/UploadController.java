@@ -75,7 +75,7 @@ public class UploadController {
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
 
-		UploadedFile instance = fileUploadFilter(filePath, newFile);
+		UploadedFile instance = fileUploadFilter(file.getOriginalFilename(), filePath, newFile);
 		// 记录日志
 		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
 
@@ -130,7 +130,7 @@ public class UploadController {
 	 * @return
 	 * @throws IOException
 	 */
-	private UploadedFile fileUploadFilter(String filePath, final File newFile) throws IOException {
+	private UploadedFile fileUploadFilter(String sourceName, String filePath, final File newFile) throws IOException {
 		String uploadFolder = getUploadFolder();
 		String fullName = newFile.getAbsolutePath();
 		String pdfRealPath = null;
@@ -147,6 +147,7 @@ public class UploadController {
 		instance.setFilePath(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath);
 		instance.setAddTime(new Timestamp(System.currentTimeMillis()));
 		uploadedFileService.save(instance);
+		instance.setSimpleName(sourceName);
 		if (!fullName.endsWith(".pdf")) {
 			/**
 			 * 转化pdf

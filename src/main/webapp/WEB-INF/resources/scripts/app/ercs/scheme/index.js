@@ -27,9 +27,11 @@ define(function(require, exports, module) {
 	}, {
 		header : '附件',
 		name : 'attachment',
+		width:100,
 		render:function(v){
-			var name=v.filePath.substring(v.filePath.lastIndexOf('/')+1);
-			return v?'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')">'+name+'</a>':'';
+			var name=v.simpleName;
+			var html='<a href="'+v.filePath+'" target="_blank">下载</a>&nbsp;';
+			return v?html+'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')" title='+name+'>预览</a>':'';
 		}
 	},  {
 		header : '事故发生时间',
