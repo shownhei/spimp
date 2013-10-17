@@ -3,14 +3,20 @@
  */
 package cn.ccrise.spimp.web;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
+import cn.ccrise.spimp.ercs.service.UploadedFileService;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -18,7 +24,8 @@ import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
 @Controller
 public class IndexController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+	@Autowired
+	private UploadedFileService uploadedFileService;
 	@Autowired
 	private ResourceEntityServiceImpl resourceEntityServiceImpl;
 
@@ -100,6 +107,14 @@ public class IndexController {
 	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
 	public String ercsStaff() {
 		return "ercs/staff/index";
+	}
+
+	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView get(@PathVariable long id) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("file", uploadedFileService.findUniqueBy("id", id));
+		return new ModelAndView("/ercs/view-pdf", root);
 	}
 
 	/**

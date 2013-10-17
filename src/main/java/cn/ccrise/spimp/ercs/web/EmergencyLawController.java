@@ -5,6 +5,7 @@ package cn.ccrise.spimp.ercs.web;
 
 import java.sql.Timestamp;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
@@ -39,8 +40,8 @@ public class EmergencyLawController {
 
 	@RequestMapping(value = "/ercs/emergency-laws/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(emergencyLawService.delete(id));
+	public Response delete(HttpSession httpSession, @PathVariable long id) {
+		return new Response(emergencyLawService.deleteEmergencyLaw(httpSession, id));
 	}
 
 	@RequestMapping(value = "/ercs/emergency-laws/{id}", method = RequestMethod.GET)

@@ -163,7 +163,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">处置方案</label>
 							<div class="controls">
-								<input name="attachment" readonly type="text" class="span11">
+								<input name="attachment" id="edit_attachment" readonly type="text" class="span11">
 							</div>
 						</div>
 
@@ -222,5 +222,23 @@
 		seajs.use('${resources}/scripts/app/ercs/scheme/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
+	<div id="view-modal" class="modal hide" style="width:800px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+			<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 </body>
 </html>

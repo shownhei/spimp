@@ -40,25 +40,22 @@ public class EmergencyLaw extends IDEntity {
 	/**
 	 * 附件
 	 */
-	private String attachment;
+	private UploadedFile attachment;
 	/**
 	 * 发布时间
 	 */
 	private Timestamp addTime;
-
-	public String getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
-	}
 
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getAddTime() {
 		return addTime;
+	}
+
+	@ManyToOne
+	public UploadedFile getAttachment() {
+		return attachment;
 	}
 
 	@ManyToOne
@@ -76,6 +73,10 @@ public class EmergencyLaw extends IDEntity {
 
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
 	}
 
 	public void setDepartment(GroupEntity department) {
