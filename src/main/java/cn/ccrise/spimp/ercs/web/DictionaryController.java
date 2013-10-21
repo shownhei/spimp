@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,11 +50,11 @@ public class DictionaryController {
 	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
-		try {
-			return new Response(dictionaryService.delete(id));
-		} catch (Exception e) {
-			return new Response(false);
-		}
+		return new Response(dictionaryService.delete(id));
+		// try {
+		// } catch (Exception e) {
+		// return new Response(false);
+		// }
 	}
 
 	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.GET)
@@ -90,5 +91,13 @@ public class DictionaryController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Dictionary dictionary, @PathVariable long id) {
 		return new Response(dictionaryService.update(dictionary));
+	}
+
+	@ExceptionHandler
+	@ResponseBody
+	public Response handleException(Exception error) {
+		Response tResponse = new Response(false);
+		tResponse.setData(error.getMessage());
+		return tResponse;
 	}
 }
