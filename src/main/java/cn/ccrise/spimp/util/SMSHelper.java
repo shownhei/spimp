@@ -24,16 +24,11 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.ccrise.ikjp.core.util.PropertiesUtils;
-
 /**
  * 串口操作及消息发送工具类。
- * 
- * @author David Niu(david.kosoon@gmail.com)
  */
 public class SMSHelper implements SerialPortEventListener {
 	protected static Logger log = LoggerFactory.getLogger(SMSHelper.class);
-	public static final String SMS_COMM = PropertiesUtils.getString("sms.comm");
 	private static SMSHelper _COMM_UTIL;
 	private InputStream _INPUT_STREAM; // 从串口来的输入流
 	private OutputStream _OUTPUT_STREAM; // 向串口输出的流
@@ -41,7 +36,7 @@ public class SMSHelper implements SerialPortEventListener {
 	private CommPortIdentifier _PORT_ID; // 端口ID
 
 	private static StringBuilder _MESSAGE; // 设备产生的信息
-	private static String _DEFAULT_PORT = SMS_COMM;
+	private static String _DEFAULT_PORT = Constant.SMS_COMM;
 
 	private static final long _TIME_OUT = 5000; // 串口检测失效时长(ms)
 	private static final long _TIME_DELAY = 50; // 串口检测相隔时长(ms)

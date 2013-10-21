@@ -24,7 +24,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
-@Table(name = "you_smses")
+@Table(name = "ercs_smses")
 public class SMS extends IDEntity {
 	/**
 	 * 接收人手机号
