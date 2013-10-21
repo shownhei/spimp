@@ -27,11 +27,12 @@ define(function(require, exports, module) {
 	}, {
 		header : '附件',
 		name : 'attachment',
-		width:100,
+		width:300,
 		render:function(v){
 			var name=v.simpleName;
-			var html='<a href="'+v.filePath+'" target="_blank">下载</a>&nbsp;';
-			return v?html+'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')" title='+name+'>预览</a>':'';
+			var html='<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')" title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
+			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
+			return v?html:'';
 		}
 	},  {
 		header : '事故发生时间',
