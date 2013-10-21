@@ -83,27 +83,27 @@
 			<div class="span12">
 				<form id="account-settings-form" class="form-horizontal" onsubmit="return false;">
 					<div class="control-group">
-						<label class="control-label span3" for="principal">用户名</label>
+						<label class="control-label" for="principal">用户名</label>
 						<div class="controls">
-							<input name="principal" type="text" class="span11" readonly="readonly" value="${account.principal}">
+							<input name="principal" type="text" readonly="readonly" value="${account.principal}">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span3" for="oldPassword">当前密码</label>
+						<label class="control-label" for="oldPassword">当前密码</label>
 						<div class="controls">
-							<input name="oldPassword" type="password" class="span11">
+							<input name="oldPassword" type="password">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span3" for="newPassword1">新密码</label>
+						<label class="control-label" for="newPassword1">新密码</label>
 						<div class="controls">
-							<input name="newPassword1" type="password" class="span11">
+							<input name="newPassword1" type="password">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label span3" for="newPassword2">确认密码</label>
+						<label class="control-label" for="newPassword2">确认密码</label>
 						<div class="controls">
-							<input name="newPassword2" type="password" class="span11">
+							<input name="newPassword2" type="password">
 						</div>
 					</div>
 				</form>

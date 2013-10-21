@@ -113,21 +113,21 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span3" for="name">机构名称</label>
+							<label class="control-label" for="name">机构名称</label>
 							<div class="controls">
-								<input name="name" type="text" class="span11">
+								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="number">机构编号</label>
+							<label class="control-label" for="number">机构编号</label>
 							<div class="controls">
-								<input name="number" type="text" class="span11">
+								<input name="number" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="name">机构类别</label>
+							<label class="control-label" for="name">机构类别</label>
 							<div class="controls">
-								<select name="category" class="span11">
+								<select name="category">
 									<option value="公司-company">公司</option>
 									<option value="办公室-office">办公室</option>
 									<option value="煤矿-mine">煤矿</option>
@@ -169,21 +169,21 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span3" for="name">机构名称</label>
+							<label class="control-label" for="name">机构名称</label>
 							<div class="controls">
-								<input name="name" type="text" class="span11">
+								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="number">机构编号</label>
+							<label class="control-label" for="number">机构编号</label>
 							<div class="controls">
-								<input name="number" type="text" class="span11">
+								<input name="number" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="name">机构类别</label>
+							<label class="control-label" for="name">机构类别</label>
 							<div class="controls">
-								<select name="category" class="span11">
+								<select name="category">
 									<option value="公司-company">公司</option>
 									<option value="办公室-office">办公室</option>
 									<option value="煤矿-mine">煤矿</option>

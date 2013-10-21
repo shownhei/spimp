@@ -85,14 +85,7 @@ body {
 	padding: 8px 10px 10px;
 }
 
-.form-horizontal .controls {
-	margin-left: 100px;
-}
-
-.form-horizontal .control-group {
-	margin-bottom: 6px;
-}
-
+/* 弹出框样式 */
 .modal-header {
 	padding: 0px 15px;
 }
@@ -109,14 +102,19 @@ body {
 	margin: 0;
 }
 
-.modal-body form input,select {
+.modal-body form .control-group {
+	margin-bottom: 6px;
 	height: 26px;
-	font-size: 13px;
-	min-height: 26px !important;
 }
 
 .modal-body form .control-label {
 	padding-top: 3px;
+	min-height: 26px !important;
+}
+
+.modal-body form input,select,textarea {
+	height: 26px;
+	font-size: 13px;
 	min-height: 26px !important;
 }
 
@@ -125,8 +123,94 @@ body {
 	margin-bottom: 0;
 }
 
-.modal-body form .control-group {
-	height: 26px;
+.modal-xs {
+	width: 240px;
+}
+
+.modal-xs form label {
+	width: 70px !important;
+	box-sizing: border-box;
+}
+
+.modal-xs form input,.modal-xs form select,.modal-xs form textarea {
+	width: 130px !important;
+	box-sizing: border-box;
+}
+
+.modal-xs .controls {
+	margin-left: 80px;
+}
+
+.modal-sm {
+	width: 400px;
+}
+
+.modal-sm form label {
+	width: 90px !important;
+	box-sizing: border-box;
+}
+
+.modal-sm form input,.modal-sm form select,.modal-sm form textarea {
+	width: 270px !important;
+	box-sizing: border-box;
+}
+
+.modal-sm .controls {
+	margin-left: 100px;
+}
+
+.modal-md {
+	width: 560px;
+}
+
+.modal-md form label {
+	width: 110px !important;
+	box-sizing: border-box;
+}
+
+.modal-md form input,.modal-md form select,.modal-md form textarea {
+	width: 400px !important;
+	box-sizing: border-box;
+}
+
+.modal-md .controls {
+	margin-left: 130px;
+}
+
+.modal-lg {
+	width: 720px;
+}
+
+.modal-lg form label {
+	width: 110px !important;
+	box-sizing: border-box;
+}
+
+.modal-lg form input,.modal-lg form select,.modal-lg form textarea {
+	width: 560px !important;
+	box-sizing: border-box;
+}
+
+.modal-lg .controls {
+	margin-left: 130px;
+}
+
+.modal-xl {
+	width: 880px;
+}
+
+.modal-xl form label {
+	width: 110px !important;
+	box-sizing: border-box;
+}
+
+.modal-xl form input,.modal-xl form select,.modal-xl form textarea {
+	width: 720px !important;
+	box-sizing: border-box;
+}
+
+.modal-xl .controls {
+	margin-left: 130px;
 }
 
 .modal-footer {
@@ -138,6 +222,7 @@ body {
 	filter: alpha(opacity = 15);
 }
 
+/* 菜单 */
 .menu-toggler {
 	background-color: #888;
 }
@@ -250,28 +335,4 @@ body {
 
 .nav-add-on {
 	padding: 1px 5px !important;
-}
-
-.modal-xs {
-	width: 240px;
-}
-
-.modal-sm {
-	width: 400px;
-}
-
-.modal-md {
-	width: 560px;
-}
-
-.modal-lg {
-	width: 720px;
-}
-
-.modal-xl {
-	width: 880px;
-}
-
-.modal-lg label.span2,.modal-xl label.span2 {
-	width: 80px;
 }

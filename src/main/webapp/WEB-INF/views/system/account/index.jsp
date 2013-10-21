@@ -67,49 +67,49 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span3" for="principal">用户名</label>
+							<label class="control-label" for="principal">用户名</label>
 							<div class="controls">
-								<input name="principal" type="text" class="span11">
+								<input name="principal" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="realName">姓名</label>
+							<label class="control-label" for="realName">姓名</label>
 							<div class="controls">
-								<input name="realName" type="text" class="span11">
+								<input name="realName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="credential">密码</label>
+							<label class="control-label" for="credential">密码</label>
 							<div class="controls">
-								<input name="credential" type="password" class="span11">
+								<input name="credential" type="password">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="checkCredential">确认密码</label>
+							<label class="control-label" for="checkCredential">确认密码</label>
 							<div class="controls">
-								<input name="checkCredential" type="password" class="span11">
+								<input name="checkCredential" type="password">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="telephone">电话</label>
+							<label class="control-label" for="telephone">电话</label>
 							<div class="controls">
-								<input name="telephone" type="text" class="span11">
+								<input name="telephone" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="groupEntity">所属机构</label>
+							<label class="control-label" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select id="create-groupEntity" name="groupEntity[id]" class="span11"></select>
+								<select id="create-groupEntity" name="groupEntity[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="roleEntity">角色</label>
+							<label class="control-label" for="roleEntity">角色</label>
 							<div class="controls">
-								<select id="create-roleEntity" name="roleEntity[id]" class="span11"></select>
+								<select id="create-roleEntity" name="roleEntity[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="locked"></label>
+							<label class="control-label" for="locked"></label>
 							<div class="controls">
 								<label> <input name="locked" type="checkbox" class="ace"> <span class="lbl"> 锁定</span>
 								</label>
@@ -149,33 +149,33 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span3" for="principal">用户名</label>
+							<label class="control-label" for="principal">用户名</label>
 							<div class="controls">
-								<input name="principal" type="text" class="span11" readonly="readonly">
+								<input name="principal" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="realName">姓名</label>
+							<label class="control-label" for="realName">姓名</label>
 							<div class="controls">
-								<input name="realName" type="text" class="span11">
+								<input name="realName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="telephone">电话</label>
+							<label class="control-label" for="telephone">电话</label>
 							<div class="controls">
-								<input name="telephone" type="text" class="span11">
+								<input name="telephone" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="groupEntity">所属机构</label>
+							<label class="control-label" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select id="edit-groupEntity" name="groupEntity[id]" class="span11"></select>
+								<select id="edit-groupEntity" name="groupEntity[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span3" for="roleEntity">角色</label>
+							<label class="control-label" for="roleEntity">角色</label>
 							<div class="controls">
-								<select id="edit-roleEntity" name="roleEntity[id]" class="span11"></select>
+								<select id="edit-roleEntity" name="roleEntity[id]"></select>
 							</div>
 						</div>
 					</form>
