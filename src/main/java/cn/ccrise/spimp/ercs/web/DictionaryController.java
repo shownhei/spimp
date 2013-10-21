@@ -51,10 +51,6 @@ public class DictionaryController {
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(dictionaryService.delete(id));
-		// try {
-		// } catch (Exception e) {
-		// return new Response(false);
-		// }
 	}
 
 	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.GET)

@@ -209,7 +209,9 @@ define(function(require, exports, module) {
 		});
 	});
 	$('#file').bind('change',function(){
-		if($('#file').val()!==''){
+		var fileVal=$('#file').val();
+		if(fileVal!==''){
+			//待验证特定类型
 			$('#create-file-form').submit();
 			var process=new Utils.modal.showProcess('process');
 			window.process=process;
