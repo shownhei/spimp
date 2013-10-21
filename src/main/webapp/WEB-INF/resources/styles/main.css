@@ -3,6 +3,10 @@ body {
 		"Lucida Grande", "Luxi Sans", Arial, sans-serif;
 }
 
+*:focus {
+	outline: 0px !important;
+}
+
 .btn {
 	border-width: 0;
 }
@@ -104,7 +108,7 @@ body {
 
 .modal-body form .control-group {
 	margin-bottom: 6px;
-	height: 26px;
+	min-height: 26px;
 }
 
 .modal-body form .control-label {
@@ -112,7 +116,7 @@ body {
 	min-height: 26px !important;
 }
 
-.modal-body form input,select,textarea {
+.modal-body form input,select {
 	height: 26px;
 	font-size: 13px;
 	min-height: 26px !important;
@@ -133,7 +137,7 @@ body {
 }
 
 .modal-xs form input,.modal-xs form select,.modal-xs form textarea {
-	width: 130px !important;
+	width: 130px;
 	box-sizing: border-box;
 }
 
@@ -151,7 +155,7 @@ body {
 }
 
 .modal-sm form input,.modal-sm form select,.modal-sm form textarea {
-	width: 270px !important;
+	width: 270px;
 	box-sizing: border-box;
 }
 
@@ -169,7 +173,7 @@ body {
 }
 
 .modal-md form input,.modal-md form select,.modal-md form textarea {
-	width: 400px !important;
+	width: 400px;
 	box-sizing: border-box;
 }
 
@@ -187,7 +191,7 @@ body {
 }
 
 .modal-lg form input,.modal-lg form select,.modal-lg form textarea {
-	width: 560px !important;
+	width: 560px;
 	box-sizing: border-box;
 }
 
@@ -205,7 +209,7 @@ body {
 }
 
 .modal-xl form input,.modal-xl form select,.modal-xl form textarea {
-	width: 720px !important;
+	width: 720px;
 	box-sizing: border-box;
 }
 
