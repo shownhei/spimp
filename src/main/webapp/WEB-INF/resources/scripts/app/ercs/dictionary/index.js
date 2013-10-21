@@ -128,8 +128,12 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/ercs/dictionaries/' + selectId, function(data) {
-			grid.refresh();
-			Utils.modal.hide('remove');
+		    Utils.modal.hide('remove');
+			if (data.success) {
+				grid.refresh();
+			}else{
+				Utils.modal.show('remove_error');
+			}
 		});
 	});
 

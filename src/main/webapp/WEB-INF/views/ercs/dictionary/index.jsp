@@ -62,12 +62,6 @@
 					<form id="create-form" class="form-horizontal">
 						<input id="typeCode" name="typeCode" type="hidden">
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典项名称</label>
-							<div class="controls">
-								<input id="itemName" name="itemName" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label span2" for="typeCode">字典分类</label>
 							<div class="controls">
 								<select id="typeCode" name="typeCode" class="input-small span11">
@@ -80,6 +74,12 @@
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="itemName">字典项名称</label>
+							<div class="controls">
+								<input id="itemName" name="itemName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
@@ -120,12 +120,6 @@
 					<form id="edit-form" class="form-horizontal">
 						<input name="id" type="hidden" class="span11">
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典名称</label>
-							<div class="controls">
-								<input name="itemName" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label span2" for="fileNo">字典类型</label>
 							<div class="controls">
 								<select id="edit-typeCode" name="typeCode" class="input-small span11">
@@ -138,6 +132,12 @@
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="itemName">字典名称</label>
+							<div class="controls">
+								<input name="itemName" type="text" class="span11">
 							</div>
 						</div>
 						<div class="control-group">
@@ -196,6 +196,34 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<div id="remove_error-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：该数据在其他地方存在引用，请先解除引用再删除!
+				</div>
+				<div id="remove_error-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove_error-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>
