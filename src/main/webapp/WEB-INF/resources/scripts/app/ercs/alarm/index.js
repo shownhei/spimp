@@ -96,7 +96,7 @@ define(function(require, exports, module) {
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
-			renderRowColor();
+			//renderRowColor();
 		}
 	}).render();
 
@@ -154,7 +154,11 @@ define(function(require, exports, module) {
 	function() {
 		var object = Utils.form.serialize('edit');
 		var selectId = grid.selectedData('id');
-		$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {
+		if (object.accidentLevel === '') {
+			Utils.modal.message('edit', [ '请输入事故等级' ]);
+			return;
+		}
+		$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {alert(1);
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -221,12 +225,33 @@ define(function(require, exports, module) {
 					var selectId = event.data.alarmId;
 					$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {
 						if (data.success) {
+							grid.refresh();
 							Utils.modal.hide('edit' + event.data.alarmId);
 						} else {
 							Utils.modal.message('edit' + event.data.alarmId, data.errors);
 						}
 					});
-				});
+				});//edit-save
+				$('#edit' + raw.id + '-miss').bind('click', {
+					alarmId : raw.id
+				}, function(event) {
+					var object = Utils.form.serialize('edit' + event.data.alarmId);
+					if (object.accidentLocation === '') {
+						Utils.modal.message('edit' + event.data.alarmId, [ "事故地点不能为空" ]);
+						return false;
+					}
+					delete object.accidentLevel;
+					delete object.accidentType;
+					var selectId = event.data.alarmId;
+					$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {
+						if (data.success) {
+							grid.refresh();
+							Utils.modal.hide('edit' + event.data.alarmId);
+						} else {
+							Utils.modal.message('edit' + event.data.alarmId, data.errors);
+						}
+					});
+				});//edit-save
 				Utils.form.fill('edit' + raw.id, raw);
 			}
 		});
