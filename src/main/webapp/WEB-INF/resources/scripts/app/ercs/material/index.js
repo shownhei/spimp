@@ -1,13 +1,11 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-
+	Utils.input.date('input[type=datetime]');
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-resourceType', 'edit-resourceType', 'resourceTypeSelect' ], '/ercs/dictionaries?typeCode=resource_type&list=true', 'id',
-			'itemName');
 
 	// 配置表格列
 	var fields = [ {
@@ -15,31 +13,42 @@ define(function(require, exports, module) {
 		name : 'resourceName'
 	}, {
 		header : '编号',
-		width:150,
 		name : 'resourceNo'
 	}, {
-		header : '资源类别',
-		width:150,
-		name : 'resourceType',
-		render : function(val) {
-			if (val) {
-				return val.itemName;
-			} else {
-				return '';
-			}
-		}
+		header : '数量',
+		width:50,
+		name : 'amount'
 	}, {
-		header : '所属单位',
-		width:150,
-		name : 'department',
-		render:function(v){
-			return v?v.name:'';
-		}
+		header : '用途',
+		name : 'function'
+	},{
+		header : '型号',
+		name : 'model'
+	},{
+		header : '产地',
+		name : 'origin'
 	}, {
-		header : '录入时间',
-		width:150,
-		name : 'addTime'
-	} ];
+		header : '购买时间',
+		width:70,
+		name : 'butTime'
+	}, {
+		header : '有效使用时间',
+		name : 'expiration'
+	},{
+		header : '存放位置',
+		width:70,
+		name : 'location'
+	}, {
+		header : '管理人员',
+		width:70,
+		name : 'manager'
+	}, {
+		header : '手机',
+		name : 'telephone'
+	},{
+		header : '备注',
+		name : 'remark'
+	}];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -93,17 +102,6 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入资源编号' ]);
 			return;
 		}
-		if (object.department === '') {
-			Utils.modal.message('create', [ '请输入所属单位' ]);
-			return;
-		}
-		if (object.resourceType === '') {
-			delete object.resourceType;
-		}
-
-		var department={id:$('#create_department').attr('data-id'),name:object.department};
-		delete object.department;
-		object.department=department;
 		$.post('/ercs/emergency-resources', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -146,16 +144,6 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入资源编号' ]);
 			return;
 		}
-		if (object.department === '') {
-			Utils.modal.message('edit', [ '请输入所属单位' ]);
-			return;
-		}
-		if (object.resourceType === '') {
-			delete object.resourceType;
-		}
-		var department={id:$('#edit_department').attr('data-id'),name:object.department};
-		delete object.department;
-		object.department=department;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/emergency-resources/' + selectId, JSON.stringify(object), function(data) {
@@ -191,8 +179,4 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	//创建
-	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create_selectGroup','create_department');
-	//编辑
-	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit_selectGroup','edit_department');
 });

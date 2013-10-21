@@ -3,18 +3,17 @@
  */
 package cn.ccrise.spimp.ercs.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
-import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 
@@ -35,28 +34,138 @@ public class EmergencyResource extends IDEntity {
 	 */
 	private String resourceNo;
 	/**
-	 * 类别
+	 * 数量
 	 */
-	private Dictionary resourceType;
+	private Integer amount;
 	/**
-	 * 所属单位
+	 * 功能 作用
 	 */
-	private GroupEntity department;
+	private String function;
+	/**
+	 * 型号
+	 */
+	private String model;
+	/**
+	 * 原产地
+	 */
+	private String origin;
+	/**
+	 * 购买时间
+	 */
+	private Date butTime;
+	/**
+	 * 有效使用期限
+	 */
+	private String expiration;
+	/**
+	 * 存放位置
+	 */
+	private String location;
+	/**
+	 * 管理人员
+	 */
+	private String manager;
+
+	/**
+	 * 联系方式
+	 */
+	private String telephone;
+
+	/**
+	 * 备注
+	 */
+	private String remark;
+
 	/**
 	 * 录入时间
 	 */
 	private Timestamp addTime;
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getFunction() {
+		return function;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+	public Date getButTime() {
+		return butTime;
+	}
+
+	public void setButTime(Date butTime) {
+		this.butTime = butTime;
+	}
+
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getAddTime() {
 		return addTime;
-	}
-
-	@ManyToOne
-	public GroupEntity getDepartment() {
-		return department;
 	}
 
 	public String getResourceName() {
@@ -67,17 +176,8 @@ public class EmergencyResource extends IDEntity {
 		return resourceNo;
 	}
 
-	@ManyToOne
-	public Dictionary getResourceType() {
-		return resourceType;
-	}
-
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
-	}
-
-	public void setDepartment(GroupEntity department) {
-		this.department = department;
 	}
 
 	public void setResourceName(String resourceName) {
@@ -86,9 +186,5 @@ public class EmergencyResource extends IDEntity {
 
 	public void setResourceNo(String resourceNo) {
 		this.resourceNo = resourceNo;
-	}
-
-	public void setResourceType(Dictionary resourceType) {
-		this.resourceType = resourceType;
 	}
 }
