@@ -139,6 +139,9 @@
 			</div>
 		</div>
 		<div class="modal-footer">
+            <button id="edit{{id}}-miss" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 误报
+			</button>
 			<button id="edit{{id}}-save" class="btn btn-small btn-primary">
 				<i class="icon-ok"></i> 确定
 			</button>
