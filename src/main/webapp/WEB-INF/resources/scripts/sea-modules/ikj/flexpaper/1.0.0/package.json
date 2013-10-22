@@ -1,0 +1,22 @@
+{
+  "name": "flexpaper",
+  "family": "ikj",
+  "version": "1.0.0",
+  "description": "在线查看word文档",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-flexpaper.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-flexpaper/issues"
+  },
+  "license": "GPLv3",
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["flexpaper.js","FlexPaperViewer.swf"]
+  }
+}
