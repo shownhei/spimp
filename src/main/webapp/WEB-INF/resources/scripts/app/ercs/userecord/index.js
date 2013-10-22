@@ -8,8 +8,6 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-planType', 'edit-planType', 'planTypeSelect' ], '/ercs/dictionaries?typeCode=plan_type&list=true', 'id', 'itemName');
-
 	// 配置表格列
 	var fields = [ {
 		header : '物资名称',
@@ -162,9 +160,5 @@ define(function(require, exports, module) {
 		grid.set({
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
-	});
-	//文件上传
-	$('#planTypeSelect').bind('change',function(){
-		$('#nav-search-button').trigger('click');
 	});
 });
