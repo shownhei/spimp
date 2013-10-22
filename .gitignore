@@ -3,3 +3,4 @@
 /.classpath
 /.project
 /src/main/resources/application.local.properties
+/src/main/webapp/WEB-INF/uploads
