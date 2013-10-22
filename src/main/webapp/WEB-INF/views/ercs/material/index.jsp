@@ -40,54 +40,54 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
 				<i class="icon-plus-sign-alt"></i> 新建
 			</h5>
 		</div>
-		<div class="modal-body">
+		<div class="modal-body ">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
-						 <div class="control-group">
-							<label class="control-label span2" for="principal">资源名称</label>
+					<form id="create-form" class="form-horizontal ">
+						<div class="control-group">
+							<label class="control-label " for="principal">资源名称</label>
 							<div class="controls">
-								<input id="resourceName" name="resourceName" type="text" class="span11">
+								<input id="resourceName" name="resourceName" type="text" >
 							</div>
 						</div>
-                        <div class="row-fluid ">
+                        <div class="row-fluid span12">
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text"  class="span9">
+									<input id="resourceNo" name="resourceNo" type="text"   >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text"  class="span9">
+									<input id="amount" name="amount" type="text"  >
 								</div>
 							</div>
 						</div>	        
 	        			<div class="control-group">
-							<label class="control-label span2" for="function">用途</label>
+							<label class="control-label" for="function">用途</label>
 							<div class="controls">
-								<input id="function" name="function" type="text" class="span11">
+								<input id="function" name="function" type="text" >
 							</div>
 						</div>	
 					    <div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text"  class="span9">
+									<input id="model" name="model" type="text" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"  class="span9">
+									<input id="origin" name="origin" type="text"  >
 								</div>
 							</div>
 						</div>	 	
@@ -107,9 +107,9 @@
 						</div>	
 						
 						<div class="control-group">
-							<label class="control-label span2" for="location">存放位置</label>
+							<label class="control-label" for="location">存放位置</label>
 							<div class="controls">
-								<input id="location" name="location" type="text" class="span11">
+								<input id="location" name="location" type="text" >
 							</div>
 						</div>	
 						<div class="row-fluid ">
@@ -127,9 +127,9 @@
 							</div>
 						</div>	
 						<div class="control-group">
-							<label class="control-label span2" for="remark">备注</label>
+							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" class="span11">
+								<input id="remark" name="remark" type="text" >
 							</div>
 						</div>						
 					</form>
@@ -154,7 +154,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -165,87 +165,86 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
-						
+						<input  name="id" type="hidden" >
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">资源名称</label>
+							<label class="control-label" for="principal">资源名称</label>
 							<div class="controls">
-								<input id="resourceName" name="resourceName" type="text" class="span11">
+								<input id="resourceName" name="resourceName" type="text" >
 							</div>
 						</div>
                         <div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text"  class="span9">
+									<input id="resourceNo" name="resourceNo" type="text" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text"  class="span9">
+									<input id="amount" name="amount" type="text">
 								</div>
 							</div>
 						</div>	        
 	        			<div class="control-group">
-							<label class="control-label span2" for="function">用途</label>
+							<label class="control-label" for="function">用途</label>
 							<div class="controls">
-								<input id="function" name="function" type="text" class="span11">
+								<input id="function" name="function" type="text" >
 							</div>
 						</div>	
 					    <div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text"  class="span9">
+									<input id="model" name="model" type="text"  >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"  class="span9">
+									<input id="origin" name="origin" type="text"  >
 								</div>
 							</div>
 						</div>	 	
 						<div class="row-fluid ">
 							<div class="control-group span6">
-								<label class="control-label span4" for="butTime">购置时间</label>
+								<label class="control-label " for="butTime">购置时间</label>
 								<div class="controls">
-									<input id="butTime" name="butTime" type="datetime"  class="span9">
+									<input id="butTime" name="butTime" type="datetime" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="expiration">使用期限</label>
 								<div class="controls">
-									<input id="expiration" name="expiration" type="text"  class="span9">
+									<input id="expiration" name="expiration" type="text" >
 								</div>
 							</div>
 						</div>	
 						
 						<div class="control-group">
-							<label class="control-label span2" for="location">存放位置</label>
+							<label class="control-label" for="location">存放位置</label>
 							<div class="controls">
-								<input id="location" name="location" type="text" class="span11">
+								<input id="location" name="location" type="text" >
 							</div>
 						</div>	
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="manager">管理人员</label>
 								<div class="controls">
-									<input id="manager" name="manager" type="text"  class="span9">
+									<input id="manager" name="manager" type="text" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="telephone">手机</label>
 								<div class="controls">
-									<input id="telephone" name="telephone" type="text"  class="span9">
+									<input id="telephone" name="telephone" type="text" >
 								</div>
 							</div>
 						</div>	
 						<div class="control-group">
-							<label class="control-label span2" for="remark">备注</label>
+							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" class="span11">
+								<input id="remark" name="remark" type="text" >
 							</div>
 						</div>	
 	        
@@ -271,7 +270,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

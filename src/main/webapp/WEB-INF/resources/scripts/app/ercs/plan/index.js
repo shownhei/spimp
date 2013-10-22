@@ -89,6 +89,10 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入预案名称' ]);
 			return;
 		}
+		if (object.planType === '') {
+			Utils.modal.message('create', [ '请添选择预案种类' ]);
+			return;
+		}
 		if (object.attachment === '') {
 			Utils.modal.message('create', [ '请添加附件' ]);
 			return;

@@ -31,9 +31,13 @@ public class Alarm extends IDEntity {
 	 */
 	public static final Integer DEAL_FLAG_UNDEALED = 0;
 	/**
-	 * 已处理
+	 * 正常已处理
 	 */
 	public static final Integer DEAL_FLAG_DEALED = 1;
+	/**
+	 * 正常已处理
+	 */
+	public static final Integer DEAL_FLAG_FALSE_POSITIVES = 2;
 	/**
 	 * 操作标记 是否已处理 1 ：已处理0：未处理
 	 */
