@@ -36,18 +36,6 @@ body {
 	border-radius: 0;
 }
 
-@media only screen and (max-width:979px) {
-	.toolbar {
-		margin-left: 80px
-	}
-}
-
-@media only screen and (max-width:480px) {
-	.toolbar {
-		margin-left: 26px
-	}
-}
-
 .nav-query {
 	position: absolute;
 	top: 6px;
@@ -56,12 +44,24 @@ body {
 }
 
 @media only screen and (max-width:979px) {
+	.toolbar {
+		margin-left: 80px
+	}
 	.nav-query {
 		margin-left: 80px
 	}
 }
 
-@media only screen and (max-width:480px) {
+@media only screen and (max-width: 767px) {
+	.input-prepend input,.input-append input {
+		width: 60px;
+	}
+}
+
+@media only screen and (max-width:320px) {
+	.toolbar {
+		margin-left: 26px
+	}
 	.nav-query {
 		margin-left: 26px
 	}
@@ -133,6 +133,7 @@ body {
 
 .modal-xs form label {
 	width: 70px !important;
+	float: left !important;
 	box-sizing: border-box;
 }
 
@@ -151,6 +152,7 @@ body {
 
 .modal-sm form label {
 	width: 90px !important;
+	float: left !important;
 	box-sizing: border-box;
 }
 

@@ -45,10 +45,12 @@ define(function(require, exports, module) {
 		name : 'realName'
 	}, {
 		header : '电话',
-		name : 'telephone'
+		name : 'telephone',
+		hidden : 'phone'
 	}, {
 		header : '创建时间',
 		name : 'createTime',
+		hidden : 'phone',
 		width : 150
 	} ];
 

@@ -112,8 +112,13 @@ define(function(require, exports, module) {
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 175);
-	$('#groups-tree').height(treeHeight + 39);
-	$('#tab-content').height(treeHeight);
+	if ($(window).width() >= 768) {
+		$('#groups-tree').height(treeHeight + 39);
+		$('#tab-content').height(treeHeight);
+	} else {
+		$('#groups-tree').height(150);
+		$('#tab-content').height(treeHeight - 170);
+	}
 
 	// 新建
 	$('#create').click(function() {
