@@ -1,6 +1,8 @@
+
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-
+	window.$=$;
+	window.Utils=Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -8,11 +10,38 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '字典名称',
-		name : 'itemName'
+		header : '物资名称',
+		name : 'resource',
+		render:function(v){
+			return v.resourceName;
+		}
 	}, {
-		header : '字典值',
-		name : 'itemValue'
+		header : '物资编号',
+		name : 'resource',
+		width:80,
+		render:function(v){
+			return v.resourceNo;
+		}
+	},{
+		header : '使用时间',
+		name : 'useTime'
+	},{
+		header : '使用数量',
+		width:70,
+		name : 'useAmount'
+	}, {
+		header : '检查维修时间',
+		name : 'maintenanceTime'
+	}, {
+		header : '更换情况',
+		name : 'replacement'
+	} ,{
+		header : '报废情况',
+		name : 'scrapped'
+	},{
+		header : '备注',
+		name : 'remark',
+		width : 80
 	} ];
 
 	// 计算表格高度和行数
@@ -30,14 +59,10 @@ define(function(require, exports, module) {
 		}
 	}
 
-	$('#typeCodeSelect').bind('change', function() {
-		$('#nav-search-button').trigger('click');
-	});
-
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/resource-use-records?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
-		parentNode : '#dictionary-table',
+		parentNode : '#plan-table',
 		url : defaultUrl,
 		model : {
 			fields : fields,
@@ -57,18 +82,18 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
+		$('#create-file-delete').trigger('click');
 	});
 
 	// 保存
 	$('#create-save').click(function() {
+		if($('#create-save').hasClass('disabled')){
+			return ;
+		}
 		var object = Utils.form.serialize('create');
 		// 验证
-		if (object.itemName === '') {
-			Utils.modal.message('create', [ '请输入字典值' ]);
-			return;
-		}
-
-		$.post('/ercs/dictionaries', JSON.stringify(object), function(data) {
+		object.resource={id:1};
+		$.post('resource-use-records', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -87,9 +112,8 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('/ercs/dictionaries/' + selectId, function(data) {
+		$.get('resource-use-records/' + selectId, function(data) {
 			var object = data.data;
-
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
@@ -98,15 +122,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		
 		// 验证
-		if (object.itemName === '') {
-			Utils.modal.message('edit', [ '请输入字典值' ]);
-			return;
-		}
-
 		// 处理属性
+		object.resource={id:1};
 		var selectId = grid.selectedData('id');
-		$.put('/ercs/dictionaries/' + selectId, JSON.stringify(object), function(data) {
+		$.put('resource-use-records/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -121,19 +142,16 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
+
 		Utils.modal.show('remove');
 	});
 
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/ercs/dictionaries/' + selectId, function(data) {
-		    Utils.modal.hide('remove');
-			if (data.success) {
-				grid.refresh();
-			}else{
-				Utils.modal.show('remove_error');
-			}
+		$.del('resource-use-records/' + selectId, function(data) {
+			grid.refresh();
+			Utils.modal.hide('remove');
 		});
 	});
 

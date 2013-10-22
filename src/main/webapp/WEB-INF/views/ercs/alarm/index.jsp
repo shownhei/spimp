@@ -74,7 +74,7 @@
 	</div>
 </script>
 <script id="alarmwindow-template" type="text/x-handlebars-template">
-	<div id="edit{{id}}-modal" class="modal hide">
+	<div id="edit{{id}}-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -85,47 +85,47 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit{{id}}-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
+						<input  name="id" type="hidden" >
 					    <div class="control-group">
-							<label class="control-label span2" for="accidentLocation">事故地点</label>
+							<label class="control-label " for="accidentLocation">事故地点</label>
 							<div class="controls">
-								<input  name="accidentLocation" type="text" class="span11">
+								<input  name="accidentLocation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">事故类型</label>
+							<label class="control-label " for="principal">事故类型</label>
 							<div class="controls">
-                                <select id="edit{{id}}-accidentType" name="accidentType[id]"  class="span11" ></select>
+                                <select id="edit{{id}}-accidentType" name="accidentType[id]"  ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="edit{{id}}-accidentLevel">严重程度</label>
+							<label class="control-label " for="edit{{id}}-accidentLevel">严重程度</label>
 							<div class="controls">
-                                <select id="edit{{id}}-accidentLevel" name="accidentLevel[id]"  class="span11" ></select>
+                                <select id="edit{{id}}-accidentLevel" name="accidentLevel[id]" ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="alarmPeople">报警人</label>
+							<label class="control-label " for="alarmPeople">报警人</label>
 							<div class="controls">
-								<input  name="alarmPeople" type="text" class="span11">
+								<input  name="alarmPeople" type="text" >
 							</div>
 						</div>
 	                    <div class="control-group">
-							<label class="control-label span2" for="detail">事故描述</label>
+							<label class="control-label " for="detail">事故描述</label>
 							<div class="controls">
-							   <textarea  name="detail"  rows=5 class="span11"></textarea>
+							   <textarea  name="detail"  rows=5 ></textarea>
 							</div>
 						</div>
 					    <div class="control-group">
-							<label class="control-label span2" for="alarmTime">报警时间</label>
+							<label class="control-label " for="alarmTime">报警时间</label>
 							<div class="controls">
-								<input  name="alarmTime" readOnly=true type="text" value="{{alarmTime}}" class="span11">
+								<input  name="alarmTime" readOnly=true type="text" value="{{alarmTime}}" >
 							</div>
 						</div>
-						<input  name="dealFlag" readOnly=true type="hidden" value="{{dealFlag}}" class="span11">
+						<input  name="dealFlag" readOnly=true type="hidden" value="{{dealFlag}}">
 					</form>
 				</div>
 				<div id="edit{{id}}-message-alert" class="row-fluid hide">
@@ -139,6 +139,9 @@
 			</div>
 		</div>
 		<div class="modal-footer">
+            <button id="edit{{id}}-miss" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 误报
+			</button>
 			<button id="edit{{id}}-save" class="btn btn-small btn-primary">
 				<i class="icon-ok"></i> 确定
 			</button>
@@ -183,6 +186,7 @@
 							<option value=''>请选择事故状态</option>
 							<option value='0'>未处理</option>
 							<option value='1'>已处理</option>
+							<option value='2'>误报</option>
 							</select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -196,7 +200,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -207,50 +211,50 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
+						<input  name="id" type="hidden" >
 						
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">事故地点</label>
+							<label class="control-label " for="principal">事故地点</label>
 							<div class="controls">
-								<input  name="accidentLocation" type="text" class="span11">
+								<input  name="accidentLocation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="edit-accidentType">事故类型</label>
+							<label class="control-label" for="edit-accidentType">事故类型</label>
 							<div class="controls">
-								<select id="edit-accidentType" name="accidentType[id]"  class="span11" ></select>
+								<select id="edit-accidentType" name="accidentType[id]"  ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">严重程度</label>
+							<label class="control-label" for="accidentLevel">严重程度</label>
 							<div class="controls">
-								<select id="edit-accidentLevel" name="accidentLevel[id]"  class="span11" ></select>
+								<select id="edit-accidentLevel" name="accidentLevel[id]"  ></select>
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">报警人</label>
+							<label class="control-label" for="alarmPeople">报警人</label>
 							<div class="controls">
-								<input  name="alarmPeople" type="text" class="span11">
+								<input  name="alarmPeople" type="text">
 							</div>
 						</div>
 	        
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">事故描述</label>
+							<label class="control-label" for="detail">事故描述</label>
 							<div class="controls">
-							   <textarea  name="detail"  rows=5 class="span11"></textarea>
+							   <textarea  name="detail"  rows=5></textarea>
 							</div>
 						</div>
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">报警时间</label>
+							<label class="control-label" for="alarmTime">报警时间</label>
 							<div class="controls">
-								<input  name="alarmTime" readOnly disabled type="text" class="span11">
+								<input  name="alarmTime" readOnly disabled type="text">
 							</div>
 						</div>
-						<input  name="dealFlag" type="hidden" class="span11">
+						<input  name="dealFlag" type="hidden">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
@@ -275,7 +279,7 @@
 	<!-- 编辑end -->
 	
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -303,6 +307,34 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<div id="warning-modal" class="modal modal-xs hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：未处理的报警记录不能删除？
+				</div>
+				<div id="warning-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="warning-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 确定
 			</button>
 		</div>
 	</div>

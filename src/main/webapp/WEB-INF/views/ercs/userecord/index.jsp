@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急预案管理 - 安全生产综合管理平台</title>
+<title>应急物资使用管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -56,30 +56,45 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
 					    <div class="control-group">
-							<label class="control-label " for="principal">预案名称</label>
+							<label class="control-label " for="resource">对应的物资</label>
 							<div class="controls">
-								<input id="planName" name="planName" type="text">
+								<input id="resource" name="resource" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planType">预案种类</label>
+							<label class="control-label" for="useTime">使用时间</label>
 							<div class="controls">
-								<select id="create-planType" name="planType[id]"></select>
+								<input id="useTime" name="useTime" type="text">
 							</div>
 						</div>
-						<div class="control-group" style="display:none;">
-							<label class="control-label" for="credential">附件</label>
-							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" >
-								<input value="删除" type="button" id="create-file-delete">
-							</div>
-						</div>
-					</form>
-					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
 						<div class="control-group">
-							<label class="control-label" for="credential">附件</label>
+							<label class="control-label " for="useAmount">使用数量</label>
 							<div class="controls">
-								<input  name="file" id="file" type="file">
+								<input id="useAmount" name="useAmount" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="maintenanceTime">检查维修时间</label>
+							<div class="controls">
+								<input id="maintenanceTime" name="maintenanceTime" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="replacement">更换情况</label>
+							<div class="controls">
+								<input id="replacement" name="replacement" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="scrapped">报废情况</label>
+							<div class="controls">
+								<input id="scrapped" name="scrapped" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="remark">备注</label>
+							<div class="controls">
+								<input id="remark" name="remark" type="text">
 							</div>
 						</div>
 					</form>
@@ -117,24 +132,47 @@
 					<form id="edit-form" class="form-horizontal">
 					    <input  name="id" type="hidden">
 						<div class="control-group">
-							<label class="control-label" for="principal">预案名称</label>
+							<label class="control-label " for="resource">对应的物资</label>
 							<div class="controls">
-								<input  name="planName" type="text">
+								<input id="resource" name="resource" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planType">预案种类</label>
+							<label class="control-label" for="useTime">使用时间</label>
 							<div class="controls">
-								<select id="edit-planType" name="planType[id]"></select>
+								<input id="useTime" name="useTime" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="credential">附件</label>
+							<label class="control-label " for="useAmount">使用数量</label>
 							<div class="controls">
-								<input  name="attachment" id="edit_attachment" readonly type="text">
+								<input id="useAmount" name="useAmount" type="text">
 							</div>
 						</div>
-
+						<div class="control-group">
+							<label class="control-label " for="maintenanceTime">检查维修时间</label>
+							<div class="controls">
+								<input id="maintenanceTime" name="maintenanceTime" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="replacement">更换情况</label>
+							<div class="controls">
+								<input id="replacement" name="replacement" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="scrapped">报废情况</label>
+							<div class="controls">
+								<input id="scrapped" name="scrapped" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="remark">备注</label>
+							<div class="controls">
+								<input id="remark" name="remark" type="text">
+							</div>
+						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
@@ -188,28 +226,8 @@
 			</button>
 		</div>
 	</div>
-	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/plan/index');
+		seajs.use('${resources}/scripts/app/ercs/userecord/index');
 	</script>
-	<div id="view-modal" class="modal modal-xl hide" >
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
-			</h5>
-		</div>
-		<div class="modal-body">
-			<div class="row-fluid">
-			<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 关闭
-			</button>
-		</div>
-	</div>
-	
 </body>
 </html>

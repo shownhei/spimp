@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -53,37 +53,37 @@
 					<form id="create-form" class="form-horizontal"  style="margin-bottom:0px;">
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="fileName">文件名</label>
+							<label class="control-label" for="fileName">文件名</label>
 							<div class="controls">
-								<input id="fileName" name="fileName" type="text" class="span11">
+								<input id="fileName" name="fileName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="fileNo">文件号</label>
+							<label class="control-label" for="fileNo">文件号</label>
 							<div class="controls">
-								<input id="fileNo" name="fileNo" type="text" class="span11">
+								<input id="fileNo" name="fileNo" type="text">
 							</div>
 						</div>
 					    <div class="control-group">
-							<label class="control-label span2" for="department">发布单位</label>
+							<label class="control-label" for="department">发布单位</label>
 							<div class="controls">
 								<input id="create-department" name="department" readonly  type="text" class="span10">
 	                            <button type="button" id="create-selectGroup">选择</button>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="fileNo">附件</label>
+							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10">
+								<input id="attachment" readonly name="attachment" type="text">
 								<input value="删除" type="button" id="create-file-delete">
 							</div>
 						</div>
 					</form>
 					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame"  style="margin-bottom:0px;">
 						<div class="control-group">
-							<label class="control-label span2" for="credential">附件</label>
+							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input  name="file" id="file" type="file" class="span11">
+								<input  name="file" id="file" type="file">
 							</div>
 						</div>
 					</form>
@@ -108,7 +108,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -119,28 +119,28 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
+						<input  name="id" type="hidden">
 					    <div class="control-group">
-							<label class="control-label span2" for="fileName">文件名</label>
+							<label class="control-label" for="fileName">文件名</label>
 							<div class="controls">
-								<input  name="fileName" type="text" class="span11">
+								<input  name="fileName" type="text">
 							</div>
 						</div>
 					    <div class="control-group">
-							<label class="control-label span2" for="fileNo">文件号</label>
+							<label class="control-label" for="fileNo">文件号</label>
 							<div class="controls">
-								<input  name="fileNo" type="text" class="span11">
+								<input  name="fileNo" type="text">
 							</div>
 						</div>
 	                    <div class="control-group">
-							<label class="control-label span2" for="fileNo">附件</label>
+							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input  readonly name="attachment" id="edit_attachment" type="text" class="span11">
+								<input  readonly name="attachment" id="edit_attachment" type="text">
 							</div>
 						</div>
 						
 					    <div class="control-group">
-							<label class="control-label span2" for="department">发布单位</label>
+							<label class="control-label" for="department">发布单位</label>
 							<div class="controls">
 								<input id="edit-department" name="department" readonly  type="text" class="span10">
 	                            <button type="button" id="edit-selectGroup">选择</button>	
@@ -168,7 +168,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -203,11 +203,11 @@
 		seajs.use('${resources}/scripts/app/ercs/law/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
-	<div id="view-modal" class="modal hide" style="width:800px;">
+	<div id="view-modal" class="modal modal-xl hide" >
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
+			<h5 class="green">
+				<i class="icon-th-list"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">

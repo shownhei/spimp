@@ -24,9 +24,12 @@ define(function(require, exports, module) {
 	}, {
 		header : '附件',
 		name : 'attachment',
+		width:300,
 		render:function(v){
-			var name=v.filePath.substring(v.filePath.lastIndexOf('/')+1);
-			return v?'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')">'+name+'</a>':'';
+			var name=v.simpleName;
+			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
+			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
+			return v?html:'';
 		}
 	},{
 		header : '发布时间',
@@ -206,7 +209,9 @@ define(function(require, exports, module) {
 		});
 	});
 	$('#file').bind('change',function(){
-		if($('#file').val()!==''){
+		var fileVal=$('#file').val();
+		if(fileVal!==''){
+			//待验证特定类型
 			$('#create-file-form').submit();
 			var process=new Utils.modal.showProcess('process');
 			window.process=process;
@@ -228,6 +233,13 @@ define(function(require, exports, module) {
 	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create-selectGroup','create-department');
 	//编辑
 	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit-selectGroup','edit-department');
+	$(document).click(function(event){
+		var docId=$(event.target).attr('doc_id');
+		if(docId){
+			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+			Utils.modal.show('view');
+		}
+	});
 });
 function callBack(data){
 	$('#attachment').val(data.data.filePath);
@@ -236,8 +248,4 @@ function callBack(data){
 	window.process.stop();
 	window.process=null;
 	$('#attachment').parent().parent().show();
-}
-function showDocument(id){
-	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
-	Utils.modal.show('view');
 }

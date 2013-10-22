@@ -24,9 +24,12 @@ define(function(require, exports, module) {
 	}, {
 		header : '附件',
 		name : 'attachment',
+		width:300,
 		render:function(v){
-			var name=v.filePath.substring(v.filePath.lastIndexOf('/')+1);
-			return v?'<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')">'+name+'</a>':'';
+			var name=v.simpleName;
+			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
+			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
+			return v?html:'';
 		}
 	}, {
 		header : '创建时间',
@@ -84,6 +87,10 @@ define(function(require, exports, module) {
 		// 验证
 		if (object.planName === '') {
 			Utils.modal.message('create', [ '请输入预案名称' ]);
+			return;
+		}
+		if (object.planType === '') {
+			Utils.modal.message('create', [ '请添选择预案种类' ]);
 			return;
 		}
 		if (object.attachment === '') {
@@ -195,6 +202,13 @@ define(function(require, exports, module) {
 	$('#planTypeSelect').bind('change',function(){
 		$('#nav-search-button').trigger('click');
 	});
+	$(document).click(function(event){
+		var docId=$(event.target).attr('doc_id');
+		if(docId){
+			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+			Utils.modal.show('view');
+		}
+	});
 });
 //文件上传回调
 function callBack(data){
@@ -207,8 +221,4 @@ function callBack(data){
 	$('#create-save').removeClass('disabled');
 	window.process.stop();
 	window.process=null;
-}
-function showDocument(id){
-	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
-	Utils.modal.show('view');
 }

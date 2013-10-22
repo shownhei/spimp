@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">新建</h5>
@@ -62,15 +62,9 @@
 					<form id="create-form" class="form-horizontal">
 						<input id="typeCode" name="typeCode" type="hidden">
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典项名称</label>
+							<label class="control-label" for="typeCode">字典分类</label>
 							<div class="controls">
-								<input id="itemName" name="itemName" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="typeCode">字典分类</label>
-							<div class="controls">
-								<select id="typeCode" name="typeCode" class="input-small span11">
+								<select id="typeCode" name="typeCode" class="input-small">
 									<option value="plan_type">应急预案种类</option>
 									<option value="personal_category">人员类别</option>
 									<option value="expertise_area">专业领域</option>
@@ -83,9 +77,15 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典值</label>
+							<label class="control-label" for="itemName">字典项名称</label>
 							<div class="controls">
-								<input id="itemValue" name="itemValue" type="text" class="span11">
+								<input id="itemName" name="itemName" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="itemName">字典值</label>
+							<div class="controls">
+								<input id="itemValue" name="itemValue" type="text">
 							</div>
 						</div>
 					</form>
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -118,15 +118,9 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden" class="span11">
+						<input name="id" type="hidden">
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典名称</label>
-							<div class="controls">
-								<input name="itemName" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="fileNo">字典类型</label>
+							<label class="control-label" for="fileNo">字典类型</label>
 							<div class="controls">
 								<select id="edit-typeCode" name="typeCode" class="input-small span11">
 									<option value="plan_type">应急预案种类</option>
@@ -141,9 +135,15 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="itemName">字典值</label>
+							<label class="control-label" for="itemName">字典名称</label>
 							<div class="controls">
-								<input id="itemValue" name="itemValue" type="text" class="span11">
+								<input name="itemName" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="itemName">字典值</label>
+							<div class="controls">
+								<input id="itemValue" name="itemValue" type="text">
 							</div>
 						</div>
 					</form>
@@ -168,7 +168,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -196,6 +196,34 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<div id="remove_error-modal" class="modal  modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：该数据在其他地方存在引用，请先解除引用再删除!
+				</div>
+				<div id="remove_error-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove_error-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

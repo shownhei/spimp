@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -54,23 +54,23 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">姓名</label>
+							<label class="control-label" for="principal">姓名</label>
 							<div class="controls">
 								<input id="staffName" name="staffName" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">员工类型</label>
+							<label class="control-label" for="principal">员工类型</label>
 							<div class="controls">
 								<input id="staffType" name="staffType" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">部门</label>
+							<label class="control-label" for="principal">部门</label>
 							<div class="controls">
 								<input type='text'  readonly id="create-department" name="department" class="span10">
 								<input type="button" value="选择" id="create_selectGroup">
@@ -78,38 +78,38 @@
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">专业领域</label>
+							<label class="control-label" for="principal">专业领域</label>
 							<div class="controls">
-								<select id="create-expertiseArea" name="expertiseArea[id]" class="span11"></select>
+								<select id="create-expertiseArea" name="expertiseArea[id]" ></select>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">职称</label>
+							<label class="control-label" for="principal">职称</label>
 							<div class="controls">
-								<input id="title" name="title" type="text" class="span11">
+								<input id="title" name="title" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">经验</label>
+							<label class="control-label" for="principal">经验</label>
 							<div class="controls">
 								<input id="experience" name="experience" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">联系方式</label>
+							<label class="control-label" for="principal">联系方式</label>
 							<div class="controls">
-								<input id="phone" name="phone" type="text" class="span11">
+								<input id="phone" name="phone" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故响应级别</label>
+							<label class="control-label" for="principal">事故响应级别</label>
 							<div class="controls">
-									<select id="create-responseLevel" name="responseLevel[id]" class="span11"></select>
+									<select id="create-responseLevel" name="responseLevel[id]" ></select>
 							</div>
 						</div>
 					</form>
@@ -133,7 +133,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -144,25 +144,25 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden" class="span11">
+						<input name="id" type="hidden" >
 						<div class="control-group">
-							<label class="control-label span2" for="principal">员工类型</label>
+							<label class="control-label" for="principal">员工类型</label>
 							<div class="controls">
 								<input  name="staffType" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">姓名</label>
+							<label class="control-label" for="principal">姓名</label>
 							<div class="controls">
 								<input  name="staffName" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">部门</label>
+							<label class="control-label" for="principal">部门</label>
 							<div class="controls">
 							    <input type='text' readonly id="edit-department" name="department" class="span10">
 								<button type="button" id="edit_selectGroup">选择</button>
@@ -170,38 +170,38 @@
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">专业领域</label>
+							<label class="control-label" for="principal">专业领域</label>
 							<div class="controls">
-								<select id="edit-expertiseArea" name="expertiseArea[id]" class="span11"></select>
+								<select id="edit-expertiseArea" name="expertiseArea[id]" ></select>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">职称</label>
+							<label class="control-label" for="principal">职称</label>
 							<div class="controls">
-								<input  name="title" type="text" class="span11">
+								<input  name="title" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">经验</label>
+							<label class="control-label" for="principal">经验</label>
 							<div class="controls">
 								<input  name="experience" type="text"
-									class="span11">
+									>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">联系方式</label>
+							<label class="control-label" for="principal">联系方式</label>
 							<div class="controls">
-								<input  name="phone" type="text" class="span11">
+								<input  name="phone" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故响应级别</label>
+							<label class="control-label" for="principal">事故响应级别</label>
 							<div class="controls">
-								<select id="edit-responseLevel" name="responseLevel[id]" class="span11"></select>
+								<select id="edit-responseLevel" name="responseLevel[id]" ></select>
 							</div>
 						</div>
 
@@ -226,7 +226,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

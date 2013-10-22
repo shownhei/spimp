@@ -175,7 +175,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	}
 
 	private void closeAlarm(Long alarmId) {
-		findUniqueBy("id", alarmId).setDealFlag(Alarm.DEAL_FLAG_DEALED);
 		getDAO().getSession().createQuery("delete from AlarmReadRecord raw where raw.alarmId=" + alarmId)
 				.executeUpdate();
 	}

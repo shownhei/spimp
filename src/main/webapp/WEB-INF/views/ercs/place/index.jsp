@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -57,7 +57,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">名称</label>
 							<div class="controls">
-								<input id="refugeName" name="refugeName" type="text" class="span11">
+								<input id="refugeName" name="refugeName" type="text">
 							</div>
 						</div>
 						<div class="row-fluid ">
@@ -77,13 +77,13 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">位置</label>
 							<div class="controls">
-								<input id="position" name="position" type="text" class="span11">
+								<input id="position" name="position" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="principal">基本情况</label>
 							<div class="controls">
-								<input id="basicInfomation" name="basicInfomation" type="text" class="span11">
+								<input id="basicInfomation" name="basicInfomation" type="text">
 							</div>
 						</div>
 						
@@ -104,13 +104,13 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">基础设施</label>
 							<div class="controls">
-								<input id="infrastructure" name="infrastructure" type="text" class="span11">
+								<input id="infrastructure" name="infrastructure" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="principal">防护功能</label>
 							<div class="controls">
-								<input id="protection" name="protection" type="text" class="span11">
+								<input id="protection" name="protection" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -158,7 +158,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal modal-md  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -171,9 +171,9 @@
 					<form id="edit-form" class="form-horizontal">
 						<input name="id" type="hidden" >
 						<div class="control-group">
-							<label class="control-label span2" for="principal">名称</label>
+							<label class="control-label" for="principal">名称</label>
 							<div class="controls">
-								<input name="refugeName" type="text" class="span11">
+								<input name="refugeName" type="text">
 							</div>
 						</div>
 						<div class="row-fluid ">
@@ -191,15 +191,15 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">位置</label>
+							<label class="control-label" for="principal">位置</label>
 							<div class="controls">
-								<input name="position" type="text" class="span11">
+								<input name="position" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">基本情况</label>
+							<label class="control-label" for="principal">基本情况</label>
 							<div class="controls">
-								<input name="basicInfomation" type="text" class="span11">
+								<input name="basicInfomation" type="text">
 							</div>
 						</div>
 						
@@ -218,19 +218,19 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">基础设施</label>
+							<label class="control-label" for="principal">基础设施</label>
 							<div class="controls">
-								<input  name="infrastructure" type="text" class="span11">
+								<input  name="infrastructure" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">防护功能</label>
+							<label class="control-label" for="principal">防护功能</label>
 							<div class="controls">
-								<input name="protection" type="text" class="span11">
+								<input name="protection" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">隶属单位</label>
+							<label class="control-label" for="principal">隶属单位</label>
 							<div class="controls">
 								<input name="department" readonly id="edit_department" type="text" class="span9 pull-left"/>
 								<button type="button"  id="edit_selectGroup" >选择</button>
@@ -273,7 +273,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal  modal-xs  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

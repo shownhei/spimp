@@ -109,6 +109,14 @@ public class IndexController {
 		return "ercs/staff/index";
 	}
 
+	/**
+	 * 应急物资使用记录
+	 */
+	@RequestMapping(value = "/ercs/userecord", method = RequestMethod.GET)
+	public String ercsResourceUseRecord() {
+		return "ercs/userecord/index";
+	}
+
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView get(@PathVariable long id) {
