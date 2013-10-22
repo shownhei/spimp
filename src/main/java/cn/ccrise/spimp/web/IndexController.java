@@ -102,6 +102,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 应急物资使用记录
+	 */
+	@RequestMapping(value = "/ercs/medicalsupply", method = RequestMethod.GET)
+	public String ercsMedicalSupply() {
+		return "ercs/medicalsupply/index";
+	}
+
+	/**
 	 * 现场处置方案
 	 */
 	@RequestMapping(value = "/ercs/scheme", method = RequestMethod.GET)

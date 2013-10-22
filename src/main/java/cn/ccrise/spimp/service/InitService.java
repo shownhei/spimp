@@ -98,6 +98,8 @@ public class InitService extends DataInitAbstractService {
 
 		resourceEntityServiceImpl.saveMenuResource("三维应急演练", "/ercs/3d", ercs, "", 10);
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", 11);
+		resourceEntityServiceImpl.saveMenuResource("应急物资管理使用记录", "/ercs/medicalsupply", ercs, "", 12);
+		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", ercs, "", 13);
 
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
