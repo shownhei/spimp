@@ -35,7 +35,7 @@ define(function(require, exports, module) {
 	        },{
 	            header : '备注',
 	            name : 'remark'
-	        },];
+	        }];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);

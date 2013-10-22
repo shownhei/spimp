@@ -121,7 +121,7 @@ define(function(require, exports, module) {
 				'</div>',
 			'</div>'
 		           ];
-		if($('#process-modal').length==0){
+		if($('#process-modal').length===0){
 			$(_html.join('')).appendTo($("body"));
 			$('<div class="modal-backdrop  in" id="'+processId+'-modal-black" style="z-index:1051;"></div>').appendTo($("body"));
 		}else{
@@ -267,7 +267,7 @@ define(function(require, exports, module) {
 
 	utils.form.groupTree=function(treewindow,_treePanel,_triggerName,aimElm){
 		var me = this;
-		if($('#'+treewindow).length==0){
+		if($('#'+treewindow).length===0){
 			var _html='<div id="'+treewindow+'" class="menuContent " style="display: none; position: absolute;">';
 			_html+='    <ul id="'+_treePanel+'" class="ztree" style="margin-top: 0; width: 160px;"></ul>';
 			_html+='   </div>';
@@ -307,7 +307,7 @@ define(function(require, exports, module) {
 		};
 		
 		this.onKeyDown=function(event){
-			if (!(event.target.id == "menuBtn" || event.target.id == treewindow || $(event.target).parents("#"+treewindow).length>0)) {
+			if (!(event.target.id === "menuBtn" || event.target.id === treewindow || $(event.target).parents("#"+treewindow).length>0)) {
 				me.hideTree();
 			}
 		};

@@ -183,7 +183,7 @@ define(function(require, exports, module) {
 		}
 		//未处理的记录不能删除
 		var row = grid.selectedData();
-		if(row.dealFlag==0){
+		if(row.dealFlag===0){
 			Utils.modal.show('warning');
 			return false;
 		}

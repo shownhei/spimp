@@ -52,58 +52,58 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">器材/药品名称</label>
+							<label class="control-label " for="principal">器材/药品名称</label>
 							<div class="controls">
-								<input id="name" name="name" type="text" class="span11">
+								<input id="name" name="name" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">数量</label>
+							<label class="control-label " for="principal">数量</label>
 							<div class="controls">
-								<input id="amount" name="amount" type="text" class="span11">
+								<input id="amount" name="amount" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">型号</label>
+							<label class="control-label " for="principal">型号</label>
 							<div class="controls">
-								<input id="model" name="model" type="text" class="span11">
+								<input id="model" name="model" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">产地</label>
+							<label class="control-label " for="principal">产地</label>
 							<div class="controls">
-								<input id="origin" name="origin" type="text" class="span11">
+								<input id="origin" name="origin" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">购置时间</label>
+							<label class="control-label " for="principal">购置时间</label>
 							<div class="controls">
-								<input id="buyTime" name="buyTime" type="datetime" class="span11">
+								<input id="buyTime" name="buyTime" type="datetime">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">有效使用期限</label>
+							<label class="control-label " for="principal">有效使用期限</label>
 							<div class="controls">
-								<input id="expiration" name="expiration" type="text" class="span11">
+								<input id="expiration" name="expiration" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">使用、更换、报废情况</label>
+							<label class="control-label " for="principal">使用、更换、报废情况</label>
 							<div class="controls">
-								<input id="situation" name="situation" type="text" class="span11">
+								<input id="situation" name="situation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">备注</label>
+							<label class="control-label " for="principal">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" class="span11">
+								<input id="remark" name="remark" type="text">
 							</div>
 						</div>
 					</form>
@@ -141,58 +141,58 @@
 					<form id="edit-form" class="form-horizontal">
 					    <input  name="id" type="hidden">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">器材/药品名称</label>
+							<label class="control-label " for="principal">器材/药品名称</label>
 							<div class="controls">
-								<input  name="name" type="text" class="span11">
+								<input  name="name" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">数量</label>
+							<label class="control-label " for="principal">数量</label>
 							<div class="controls">
-								<input  name="amount" type="text" class="span11">
+								<input  name="amount" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">型号</label>
+							<label class="control-label " for="principal">型号</label>
 							<div class="controls">
-								<input  name="model" type="text" class="span11">
+								<input  name="model" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">产地</label>
+							<label class="control-label " for="principal">产地</label>
 							<div class="controls">
-								<input  name="origin" type="text" class="span11">
+								<input  name="origin" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">购置时间</label>
+							<label class="control-label " for="principal">购置时间</label>
 							<div class="controls">
-								<input  name="buyTime" type="text"  readonly type="datetime" class="span11">
+								<input  name="buyTime" type="text"  readonly type="datetime">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">有效使用期限</label>
+							<label class="control-label " for="principal">有效使用期限</label>
 							<div class="controls">
-								<input  name="expiration" type="text" class="span11">
+								<input  name="expiration" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">使用、更换、报废情况</label>
+							<label class="control-label " for="principal">使用、更换、报废情况</label>
 							<div class="controls">
-								<input  name="situation" type="text" class="span11">
+								<input  name="situation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label span2" for="principal">备注</label>
+							<label class="control-label " for="principal">备注</label>
 							<div class="controls">
-								<input  name="remark" type="text" class="span11">
+								<input  name="remark" type="text">
 							</div>
 						</div>
 
@@ -250,7 +250,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/medicalsupply/index');
+		seajs.use('${resources}/scripts/app/ercs/medical-supply/index');
 	</script>
 </body>
 </html>
