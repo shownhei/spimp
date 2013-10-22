@@ -41,6 +41,21 @@ public class LocationStationController {
 	@Autowired
 	private LocationStaffService locationStaffService;
 
+	/**
+	 * 分站内人员信息详情页面-转向
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/location-stations-staff/detail", method = RequestMethod.GET)
+	public ModelAndView alarmDetail(String param) {
+		ModelAndView modelAndView = new ModelAndView("ercs/realtime/staffDetail");
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("param", param);
+		modelAndView.addObject("datas", params);
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "/ercs/location-stations", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<LocationStation> page) {
@@ -58,21 +73,6 @@ public class LocationStationController {
 		}
 		page.setResult(stations);
 		return new Response(page);
-	}
-
-	/**
-	 * 分站内人员信息详情页面-转向
-	 * 
-	 * @param param
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/location-stations-staff/detail", method = RequestMethod.GET)
-	public ModelAndView alarmDetail(String param) {
-		ModelAndView modelAndView = new ModelAndView("ercs/realtime/staffDetail");
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("param", param);
-		modelAndView.addObject("datas", params);
-		return modelAndView;
 	}
 
 	/**

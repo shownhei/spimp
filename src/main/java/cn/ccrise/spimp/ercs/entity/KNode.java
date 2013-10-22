@@ -187,6 +187,13 @@ public class KNode extends IDEntity {
 		return alaAvgData;
 	}
 
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	@Column(name = "alaEndTime")
+	public Timestamp getAlaEndTime() {
+		return alaEndTime;
+	}
+
 	@Column(name = "alaIsSave")
 	public Boolean getAlaIsSave() {
 		return alaIsSave;
@@ -224,13 +231,6 @@ public class KNode extends IDEntity {
 	@Column(name = "alarmUpperValue")
 	public Double getAlarmUpperValue() {
 		return alarmUpperValue;
-	}
-
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Column(name = "alaEndTime")
-	public Timestamp getAlaEndTime() {
-		return alaEndTime;
 	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)

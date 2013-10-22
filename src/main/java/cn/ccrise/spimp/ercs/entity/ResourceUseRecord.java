@@ -55,46 +55,31 @@ public class ResourceUseRecord extends IDEntity {
 	 */
 	private String remark;
 
-	public Integer getUseAmount() {
-		return useAmount;
-	}
-
-	public void setUseAmount(Integer useAmount) {
-		this.useAmount = useAmount;
-	}
-
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getMaintenanceTime() {
 		return maintenanceTime;
 	}
 
-	public void setMaintenanceTime(Timestamp maintenanceTime) {
-		this.maintenanceTime = maintenanceTime;
+	public String getRemark() {
+		return remark;
 	}
 
 	public String getReplacement() {
 		return replacement;
 	}
 
-	public void setReplacement(String replacement) {
-		this.replacement = replacement;
+	@ManyToOne
+	public EmergencyResource getResource() {
+		return resource;
 	}
 
 	public String getScrapped() {
 		return scrapped;
 	}
 
-	public void setScrapped(String scrapped) {
-		this.scrapped = scrapped;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public Integer getUseAmount() {
+		return useAmount;
 	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
@@ -103,17 +88,32 @@ public class ResourceUseRecord extends IDEntity {
 		return useTime;
 	}
 
-	public void setUseTime(Timestamp useTime) {
-		this.useTime = useTime;
+	public void setMaintenanceTime(Timestamp maintenanceTime) {
+		this.maintenanceTime = maintenanceTime;
 	}
 
-	@ManyToOne
-	public EmergencyResource getResource() {
-		return resource;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setReplacement(String replacement) {
+		this.replacement = replacement;
 	}
 
 	public void setResource(EmergencyResource resource) {
 		this.resource = resource;
+	}
+
+	public void setScrapped(String scrapped) {
+		this.scrapped = scrapped;
+	}
+
+	public void setUseAmount(Integer useAmount) {
+		this.useAmount = useAmount;
+	}
+
+	public void setUseTime(Timestamp useTime) {
+		this.useTime = useTime;
 	}
 
 }

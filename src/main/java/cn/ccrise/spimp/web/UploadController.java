@@ -187,12 +187,12 @@ public class UploadController {
 		return folder + "/" + newFullFileName;
 	}
 
-	private String replaceChars(String srcString) {
-		return srcString.replace("[", "【").replace("]", "】");
-	}
-
 	private String getUploadFolder() {
 		return DEFAULT_PATH.replaceFirst("/WEB-INF", "")
 				+ new SimpleDateFormat("yyyy-MM").format(new Timestamp(System.currentTimeMillis()));
+	}
+
+	private String replaceChars(String srcString) {
+		return srcString.replace("[", "【").replace("]", "】");
 	}
 }

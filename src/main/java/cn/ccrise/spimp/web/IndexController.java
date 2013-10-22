@@ -94,6 +94,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 应急物资使用记录
+	 */
+	@RequestMapping(value = "/ercs/userecord", method = RequestMethod.GET)
+	public String ercsResourceUseRecord() {
+		return "ercs/userecord/index";
+	}
+
+	/**
 	 * 现场处置方案
 	 */
 	@RequestMapping(value = "/ercs/scheme", method = RequestMethod.GET)
@@ -107,14 +115,6 @@ public class IndexController {
 	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
 	public String ercsStaff() {
 		return "ercs/staff/index";
-	}
-
-	/**
-	 * 应急物资使用记录
-	 */
-	@RequestMapping(value = "/ercs/userecord", method = RequestMethod.GET)
-	public String ercsResourceUseRecord() {
-		return "ercs/userecord/index";
 	}
 
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)

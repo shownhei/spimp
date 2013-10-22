@@ -59,6 +59,14 @@ public class DictionaryController {
 		return new Response(dictionaryService.get(id));
 	}
 
+	@ExceptionHandler
+	@ResponseBody
+	public Response handleException(Exception error) {
+		Response tResponse = new Response(false);
+		tResponse.setData(error.getMessage());
+		return tResponse;
+	}
+
 	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Dictionary> page, String typeCode, Boolean list, String itemName) {
@@ -87,13 +95,5 @@ public class DictionaryController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Dictionary dictionary, @PathVariable long id) {
 		return new Response(dictionaryService.update(dictionary));
-	}
-
-	@ExceptionHandler
-	@ResponseBody
-	public Response handleException(Exception error) {
-		Response tResponse = new Response(false);
-		tResponse.setData(error.getMessage());
-		return tResponse;
 	}
 }

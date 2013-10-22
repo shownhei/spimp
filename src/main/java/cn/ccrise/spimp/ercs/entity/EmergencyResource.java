@@ -81,91 +81,47 @@ public class EmergencyResource extends IDEntity {
 	 */
 	private Timestamp addTime;
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public String getFunction() {
-		return function;
-	}
-
-	public void setFunction(String function) {
-		this.function = function;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public Date getButTime() {
-		return butTime;
-	}
-
-	public void setButTime(Date butTime) {
-		this.butTime = butTime;
-	}
-
-	public String getExpiration() {
-		return expiration;
-	}
-
-	public void setExpiration(String expiration) {
-		this.expiration = expiration;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
-	public String getTelephone() {
-		return telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	@Column(updatable = false)
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getAddTime() {
+		return addTime;
 	}
 
 	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public Date getButTime() {
+		return butTime;
 	}
 
-	@Column(updatable = false)
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getAddTime() {
-		return addTime;
+	public String getExpiration() {
+		return expiration;
+	}
+
+	public String getFunction() {
+		return function;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public String getRemark() {
+		return remark;
 	}
 
 	public String getResourceName() {
@@ -176,8 +132,48 @@ public class EmergencyResource extends IDEntity {
 		return resourceNo;
 	}
 
+	public String getTelephone() {
+		return telephone;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setButTime(Date butTime) {
+		this.butTime = butTime;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public void setResourceName(String resourceName) {
@@ -186,5 +182,9 @@ public class EmergencyResource extends IDEntity {
 
 	public void setResourceNo(String resourceNo) {
 		this.resourceNo = resourceNo;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 }
