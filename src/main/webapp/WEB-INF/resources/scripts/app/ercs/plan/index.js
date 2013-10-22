@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 		width:300,
 		render:function(v){
 			var name=v.simpleName;
-			var html='<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')" title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
+			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
 			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
 			return v?html:'';
 		}
@@ -202,6 +202,13 @@ define(function(require, exports, module) {
 	$('#planTypeSelect').bind('change',function(){
 		$('#nav-search-button').trigger('click');
 	});
+	$(document).click(function(event){
+		var docId=$(event.target).attr('doc_id');
+		if(docId){
+			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+			Utils.modal.show('view');
+		}
+	});
 });
 //文件上传回调
 function callBack(data){
@@ -214,8 +221,4 @@ function callBack(data){
 	$('#create-save').removeClass('disabled');
 	window.process.stop();
 	window.process=null;
-}
-function showDocument(id){
-	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
-	Utils.modal.show('view');
 }

@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 		width:300,
 		render:function(v){
 			var name=v.simpleName;
-			var html='<a href="javascript:void(0);" onclick="showDocument(\''+v.id+'\')" title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
+			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
 			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
 			return v?html:'';
 		}
@@ -195,6 +195,13 @@ define(function(require, exports, module) {
 		$('#create-file-form')[0].reset();
 		$('#create-file-form').show();
 	});
+	$(document).click(function(event){
+		var docId=$(event.target).attr('doc_id');
+		if(docId){
+			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+			Utils.modal.show('view');
+		}
+	});
 });
 function callBack(data){
 	$('#attachment').val(data.data.filePath);
@@ -203,8 +210,4 @@ function callBack(data){
 	window.process.stop();
 	window.process=null;
 	$('#attachment').parent().parent().show();
-}
-function showDocument(id){
-	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
-	Utils.modal.show('view');
 }

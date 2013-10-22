@@ -192,7 +192,7 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/plan/index');
 	</script>
-	<div id="view-modal" class="modal hide" style="width:800px;">
+	<div id="view-modal" class="modal modal-xl hide" >
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
