@@ -250,7 +250,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/medical-supplies/index');
+		seajs.use('${resources}/scripts/app/ercs/medical-supply/index');
 	</script>
 </body>
 </html>

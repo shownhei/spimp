@@ -54,7 +54,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/medical-supply?orderBy=id&order=desc&pageSize='+pageSize;
+	var defaultUrl = contextPath + '/ercs/medical-supplies?orderBy=id&order=desc&pageSize='+pageSize;
 	var grid = new Grid({
 		parentNode : '#medicalSupplies-table',
 		url : defaultUrl,
@@ -103,7 +103,7 @@ define(function(require, exports, module) {
 			return;
 		}
 
-		$.post('/ercs/medical-supply', JSON.stringify(object), function(data) {
+		$.post('/ercs/medical-supplies', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -120,7 +120,7 @@ define(function(require, exports, module) {
 		}
 		Utils.modal.reset('edit');
 		var selectId = grid.selectedData('id');
-		$.get('/ercs/medical-supply/' + selectId, function(data) {
+		$.get('/ercs/medical-supplies/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
@@ -152,7 +152,7 @@ define(function(require, exports, module) {
 			return;
 		}
 		var selectId = grid.selectedData('id');
-		$.put('/ercs/medical-supply/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/ercs/medical-supplies/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -174,7 +174,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/ercs/medical-supply/' + selectId, function(data) {
+		$.del('/ercs/medical-supplies/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
