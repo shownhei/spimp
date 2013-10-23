@@ -35,19 +35,19 @@ public class MedicalSuppliesController {
 	@Autowired
 	private MedicalSuppliesService medicalSuppliesService;
 
-	@RequestMapping(value = "/ercs/medical-supply/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/ercs/medical-supplies/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(medicalSuppliesService.delete(id));
 	}
 
-	@RequestMapping(value = "/ercs/medical-supply/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/medical-supplies/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(medicalSuppliesService.get(id));
 	}
 
-	@RequestMapping(value = "/ercs/medical-supply", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/medical-supplies", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<MedicalSupplies> page, String name) {
 		if (StringUtils.isBlank(name)) {
@@ -58,13 +58,13 @@ public class MedicalSuppliesController {
 		}
 	}
 
-	@RequestMapping(value = "/ercs/medical-supply", method = RequestMethod.POST)
+	@RequestMapping(value = "/ercs/medical-supplies", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody MedicalSupplies medicalSupplies) {
 		return new Response(medicalSuppliesService.save(medicalSupplies));
 	}
 
-	@RequestMapping(value = "/ercs/medical-supply/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/ercs/medical-supplies/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody MedicalSupplies medicalSupplies, @PathVariable long id) {
 		return new Response(medicalSuppliesService.update(medicalSupplies));
