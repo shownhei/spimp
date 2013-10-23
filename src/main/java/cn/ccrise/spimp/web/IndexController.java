@@ -96,17 +96,17 @@ public class IndexController {
 	/**
 	 * 应急物资使用记录
 	 */
-	@RequestMapping(value = "/ercs/userecord", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/use-record", method = RequestMethod.GET)
 	public String ercsResourceUseRecord() {
-		return "ercs/userecord/index";
+		return "ercs/use-record/index";
 	}
 
 	/**
 	 * 医护器材
 	 */
-	@RequestMapping(value = "/ercs/medical", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/medical-supplies", method = RequestMethod.GET)
 	public String ercsMedicalSupply() {
-		return "ercs/medical-supply/index";
+		return "ercs/medical-supplies/index";
 	}
 
 	/**

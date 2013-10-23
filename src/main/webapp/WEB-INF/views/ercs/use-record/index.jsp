@@ -227,7 +227,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/userecord/index');
+		seajs.use('${resources}/scripts/app/ercs/use-record/index');
 	</script>
 </body>
 </html>
