@@ -3,18 +3,13 @@
  */
 package cn.ccrise.spimp.ercs.entity;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import cn.ccrise.ikjp.core.entity.IDEntity;
-import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
-import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 
 /**
  * ResourceUseRecord。 应急救援物资使用管理记录表
@@ -30,7 +25,7 @@ public class ResourceUseRecord extends IDEntity {
 	/**
 	 * 使用时间
 	 */
-	private Timestamp useTime;
+	private Date useTime;
 	/**
 	 * 使用数量
 	 */
@@ -39,7 +34,7 @@ public class ResourceUseRecord extends IDEntity {
 	/**
 	 * 检查维修时间
 	 */
-	private Timestamp maintenanceTime;
+	private Date maintenanceTime;
 
 	/**
 	 * 更换情况
@@ -54,12 +49,6 @@ public class ResourceUseRecord extends IDEntity {
 	 * 备注
 	 */
 	private String remark;
-
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getMaintenanceTime() {
-		return maintenanceTime;
-	}
 
 	public String getRemark() {
 		return remark;
@@ -82,16 +71,6 @@ public class ResourceUseRecord extends IDEntity {
 		return useAmount;
 	}
 
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getUseTime() {
-		return useTime;
-	}
-
-	public void setMaintenanceTime(Timestamp maintenanceTime) {
-		this.maintenanceTime = maintenanceTime;
-	}
-
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
@@ -112,8 +91,20 @@ public class ResourceUseRecord extends IDEntity {
 		this.useAmount = useAmount;
 	}
 
-	public void setUseTime(Timestamp useTime) {
+	public Date getUseTime() {
+		return useTime;
+	}
+
+	public void setUseTime(Date useTime) {
 		this.useTime = useTime;
+	}
+
+	public Date getMaintenanceTime() {
+		return maintenanceTime;
+	}
+
+	public void setMaintenanceTime(Date maintenanceTime) {
+		this.maintenanceTime = maintenanceTime;
 	}
 
 }

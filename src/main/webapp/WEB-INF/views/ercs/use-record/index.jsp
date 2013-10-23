@@ -26,12 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-					    <span class="input-icon">
-							<select id="planTypeSelect" name="planType" 
-							class="input-small" ></select>
-						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="planName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -64,7 +60,7 @@
 						<div class="control-group">
 							<label class="control-label" for="useTime">使用时间</label>
 							<div class="controls">
-								<input id="useTime" name="useTime" type="text">
+								<input id="useTime" type=datetime name="useTime" >
 							</div>
 						</div>
 						<div class="control-group">
@@ -76,7 +72,7 @@
 						<div class="control-group">
 							<label class="control-label " for="maintenanceTime">检查维修时间</label>
 							<div class="controls">
-								<input id="maintenanceTime" name="maintenanceTime" type="text">
+								<input id="maintenanceTime" name="maintenanceTime" type=datetime>
 							</div>
 						</div>
 						<div class="control-group">
@@ -134,13 +130,13 @@
 						<div class="control-group">
 							<label class="control-label " for="resource">对应的物资</label>
 							<div class="controls">
-								<input id="resource" name="resource" type="text">
+								<input id="edit-resource" name="resource" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="useTime">使用时间</label>
 							<div class="controls">
-								<input id="useTime" name="useTime" type="text">
+								<input id="useTime" type=datetime name="useTime" >
 							</div>
 						</div>
 						<div class="control-group">
@@ -152,7 +148,7 @@
 						<div class="control-group">
 							<label class="control-label " for="maintenanceTime">检查维修时间</label>
 							<div class="controls">
-								<input id="maintenanceTime" name="maintenanceTime" type="text">
+								<input id="maintenanceTime" type=datetime name="maintenanceTime" >
 							</div>
 						</div>
 						<div class="control-group">

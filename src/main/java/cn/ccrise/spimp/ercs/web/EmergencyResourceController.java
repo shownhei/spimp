@@ -57,10 +57,13 @@ public class EmergencyResourceController {
 
 	@RequestMapping(value = "/ercs/emergency-resources", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyResource> page, String resourceName, Long refugeType) {
+	public Response page(Page<EmergencyResource> page, String resourceName, Long refugeType, String q) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(resourceName)) {
 			param.add(Restrictions.like("resourceName", resourceName, MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(q)) {
+			param.add(Restrictions.like("resourceName", q, MatchMode.ANYWHERE));
 		}
 		if (refugeType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", refugeType));

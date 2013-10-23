@@ -3,11 +3,51 @@ define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 	window.$=$;
 	window.Utils=Utils;
+	Utils.input.date('input[type=datetime]');
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
+	$("#resource").autocomplete('/ercs/emergency-resources', {
+		dataType : "json",
+		parse : function(data) {
+			if(data.data.result.length===0){
+				$('#resource').val('');
+			}
+			return $.map(data.data.result, function(row) {
+				return {
+					data : row,
+					value : row.resourceName,
+					result : row.resourceName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.resourceName;
+		}
+	}).result(function(e, item) {
+		$('#resource').attr('data-id',item.id);
+	});
+	$("#edit-resource").autocomplete('/ercs/emergency-resources', {
+		dataType : "json",
+		parse : function(data) {
+			if(data.data.result.length===0){
+				$('#edit-resource').val('');
+			}
+			return $.map(data.data.result, function(row) {
+				return {
+					data : row,
+					value : row.resourceName,
+					result : row.resourceName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.resourceName;
+		}
+	}).result(function(e, item) {
+		$('#edit-resource').attr('data-id',item.id);
+	});
 	// 配置表格列
 	var fields = [ {
 		header : '物资名称',
@@ -92,7 +132,16 @@ define(function(require, exports, module) {
 		}
 		var object = Utils.form.serialize('create');
 		// 验证
-		object.resource={id:1};
+		if (object.resource === '') {
+			Utils.modal.message('create', [ '请选择物资名称' ]);
+			return;
+		}
+		if (object.resource === '') {
+			Utils.modal.message('create', [ '请选择物资名称' ]);
+			return;
+		}
+		var resource={resourceName:object.resource,id:$('#resource').attr('data-id')};
+		object.resource=resource;
 		$.post('resource-use-records', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -115,6 +164,8 @@ define(function(require, exports, module) {
 		$.get('resource-use-records/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
+			$('#edit-resource').val(object.resource.resourceName);
+			$('#edit-resource').attr("data-id",object.resource.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -125,8 +176,9 @@ define(function(require, exports, module) {
 		
 		// 验证
 		// 处理属性
-		object.resource={id:1};
 		var selectId = grid.selectedData('id');
+		var resource={resourceName:object.resource,id:$('#edit-resource').attr('data-id')};
+		object.resource=resource;
 		$.put('resource-use-records/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
