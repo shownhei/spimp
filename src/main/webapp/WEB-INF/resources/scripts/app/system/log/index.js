@@ -65,8 +65,6 @@ define(function(require, exports, module) {
 
 	// 搜索
 	$('#query').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('query-form')
-		});
+		grid.set('url', defaultUrl + Utils.form.buildParams('query-form'));
 	});
 });

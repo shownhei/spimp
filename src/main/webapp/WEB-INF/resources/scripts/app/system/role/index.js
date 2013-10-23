@@ -70,9 +70,7 @@ define(function(require, exports, module) {
 				}
 
 				// 根据选择角色加载用户数据
-				grid.set({
-					url : contextPath + '/system/roles/' + treeNode.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize
-				});
+				grid.set('url', contextPath + '/system/roles/' + treeNode.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize);
 			},
 			onAsyncSuccess : function(event, treeId, treeNode, msg) {
 				var roleTree = $.fn.zTree.getZTreeObj(treeId);
@@ -193,9 +191,7 @@ define(function(require, exports, module) {
 				roleTree.reAsyncChildNodes(null, "refresh");
 				resourceTree.checkAllNodes(false);
 				Utils.button.disable([ 'edit', 'remove', 'save-menu' ]);
-				grid.set({
-					url : contextPath + '/system/roles/' + data.data.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize
-				});
+				grid.set('url', contextPath + '/system/roles/' + data.data.id + '/accounts?orderBy=id&order=desc&pageSize=' + pageSize);
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);

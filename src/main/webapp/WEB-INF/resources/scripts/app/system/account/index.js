@@ -129,9 +129,7 @@ define(function(require, exports, module) {
 
 		$.post(contextPath + '/system/accounts', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.set({
-					url : defaultUrl
-				});
+				grid.refresh();
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
@@ -254,8 +252,6 @@ define(function(require, exports, module) {
 
 	// 搜索
 	$('#nav-search-button').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('search-form')
-		});
+		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
 });
