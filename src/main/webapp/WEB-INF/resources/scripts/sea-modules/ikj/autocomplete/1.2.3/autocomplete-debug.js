@@ -1,4 +1,4 @@
-define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(require, exports, module) {
+define("ikj/autocomplete/1.2.3/autocomplete-debug", [ "$-debug" ], function(require, exports, module) {
     var jQuery = require("$-debug");
     (function($) {
         $.fn.extend({
@@ -8,7 +8,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                     url: isUrl ? urlOrData : null,
                     data: isUrl ? null : urlOrData,
                     delay: isUrl ? $.Autocompleter.defaults.delay : 10,
-                    max: options && !options.scroll ? 10 : 150
+                    max: options && !options.scroll ? 10 : 150,
+                    noRecord: "No Records."
                 }, options);
                 // if highlight is set to false, replace it with a do-nothing function
                 options.highlight = options.highlight || function(value) {
@@ -49,6 +50,10 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 PAGEDOWN: 34,
                 BACKSPACE: 8
             };
+            var globalFailure = null;
+            if (options.failure != null && typeof options.failure == "function") {
+                globalFailure = options.failure;
+            }
             // Create $ object for input element
             var $input = $(input).attr("autocomplete", "off").addClass(options.inputClass);
             var timeout;
@@ -62,14 +67,14 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
             var select = $.Autocompleter.Select(options, input, selectCurrent, config);
             var blockSubmit;
             // prevent form submit in opera when selecting with return key
-            $.browser.opera && $(input.form).bind("submit.autocomplete", function() {
+            navigator.userAgent.indexOf("Opera") != -1 && $(input.form).bind("submit.autocomplete", function() {
                 if (blockSubmit) {
                     blockSubmit = false;
                     return false;
                 }
             });
-            // only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
-            $input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+            // older versions of opera don't trigger keydown multiple times while pressed, others don't work with keypress at all
+            $input.bind((navigator.userAgent.indexOf("Opera") != -1 && !"KeyboardEvent" in window ? "keypress" : "keydown") + ".autocomplete", function(event) {
                 // a keypress means the input has focus
                 // avoids issue where input had focus before the autocomplete was applied
                 hasFocus = 1;
@@ -77,8 +82,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 lastKeyPressCode = event.keyCode;
                 switch (event.keyCode) {
                   case KEY.UP:
-                    event.preventDefault();
                     if (select.visible()) {
+                        event.preventDefault();
                         select.prev();
                     } else {
                         onChange(0, true);
@@ -86,8 +91,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                     break;
 
                   case KEY.DOWN:
-                    event.preventDefault();
                     if (select.visible()) {
+                        event.preventDefault();
                         select.next();
                     } else {
                         onChange(0, true);
@@ -95,8 +100,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                     break;
 
                   case KEY.PAGEUP:
-                    event.preventDefault();
                     if (select.visible()) {
+                        event.preventDefault();
                         select.pageUp();
                     } else {
                         onChange(0, true);
@@ -104,8 +109,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                     break;
 
                   case KEY.PAGEDOWN:
-                    event.preventDefault();
                     if (select.visible()) {
+                        event.preventDefault();
                         select.pageDown();
                     } else {
                         onChange(0, true);
@@ -144,8 +149,16 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 }
             }).click(function() {
                 // show select when clicking in a focused field
-                if (hasFocus++ > 1 && !select.visible()) {
-                    onChange(0, true);
+                // but if clickFire is true, don't require field
+                // to be focused to begin with; just show select
+                if (options.clickFire) {
+                    if (!select.visible()) {
+                        onChange(0, true);
+                    }
+                } else {
+                    if (hasFocus++ > 1 && !select.visible()) {
+                        onChange(0, true);
+                    }
                 }
             }).bind("search", function() {
                 // TODO why not just specifying both arguments?
@@ -168,7 +181,7 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
             }).bind("flushCache", function() {
                 cache.flush();
             }).bind("setOptions", function() {
-                $.extend(options, arguments[1]);
+                $.extend(true, options, arguments[1]);
                 // if we've updated the data, repopulate
                 if ("data" in arguments[1]) cache.populate();
             }).bind("unautocomplete", function() {
@@ -296,8 +309,13 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 if (!options.matchCase) term = term.toLowerCase();
                 var data = cache.load(term);
                 // recieve the cached data
-                if (data && data.length) {
-                    success(term, data);
+                if (data) {
+                    if (data.length) {
+                        success(term, data);
+                    } else {
+                        var parsed = options.parse && options.parse(options.noRecord) || parse(options.noRecord);
+                        success(term, parsed);
+                    }
                 } else if (typeof options.url == "string" && options.url.length > 0) {
                     var extraParams = {
                         timestamp: +new Date()
@@ -325,7 +343,11 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 } else {
                     // if we have a failure, we need to empty the list -- this prevents the the [TAB] key from selecting the last successful match
                     select.emptyList();
-                    failure(term);
+                    if (globalFailure != null) {
+                        globalFailure();
+                    } else {
+                        failure(term);
+                    }
                 }
             }
             function parse(data) {
@@ -357,8 +379,8 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
             matchCase: false,
             matchSubset: true,
             matchContains: false,
-            cacheLength: 10,
-            max: 100,
+            cacheLength: 100,
+            max: 1e3,
             mustMatch: false,
             extraParams: {},
             selectFirst: true,
@@ -369,12 +391,15 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
             autoFill: false,
             width: 0,
             multiple: false,
-            multipleSeparator: ", ",
+            multipleSeparator: " ",
+            inputFocus: true,
+            clickFire: false,
             highlight: function(value, term) {
                 return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
             },
             scroll: true,
-            scrollHeight: 180
+            scrollHeight: 180,
+            scrollJumpPosition: true
         };
         $.Autocompleter.Cache = function(options) {
             var data = {};
@@ -411,7 +436,7 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                     // if rawValue is a string, make an array otherwise just reference the array
                     rawValue = typeof rawValue == "string" ? [ rawValue ] : rawValue;
                     var value = options.formatMatch(rawValue, i + 1, options.data.length);
-                    if (value === false) continue;
+                    if (typeof value === "undefined" || value === false) continue;
                     var firstChar = value.charAt(0).toLowerCase();
                     // if no lookup array for this character exists, look it up now
                     if (!stMatchSets[firstChar]) stMatchSets[firstChar] = [];
@@ -448,7 +473,7 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 populate: populate,
                 load: function(q) {
                     if (!options.cacheLength || !length) return null;
-                    /* 
+                    /*
 			 * if dealing w/local data and matchContains than we must make sure
 			 * to loop through all the data collections looking for matches
 			 */
@@ -499,7 +524,13 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
             // Create results
             function init() {
                 if (!needsInit) return;
-                element = $("<div/>").hide().addClass(options.resultsClass).css("position", "absolute").appendTo(document.body);
+                element = $("<div/>").hide().addClass(options.resultsClass).css("position", "absolute").appendTo(document.body).hover(function(event) {
+                    // Browsers except FF do not fire mouseup event on scrollbars, resulting in mouseDownOnSelect remaining true, and results list not always hiding.
+                    if ($(this).is(":visible")) {
+                        input.focus();
+                    }
+                    config.mouseDownOnSelect = false;
+                });
                 list = $("<ul/>").appendTo(element).mouseover(function(event) {
                     if (target(event).nodeName && target(event).nodeName.toUpperCase() == "LI") {
                         active = $("li", list).removeClass(CLASSES.ACTIVE).index(target(event));
@@ -508,8 +539,7 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 }).click(function(event) {
                     $(target(event)).addClass(CLASSES.ACTIVE);
                     select();
-                    // TODO provide option to avoid setting focus again after selection? useful for cleanup-on-focus
-                    input.focus();
+                    if (options.inputFocus) input.focus();
                     return false;
                 }).mousedown(function() {
                     config.mouseDownOnSelect = true;
@@ -543,11 +573,13 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                 }
             }
             function movePosition(step) {
-                active += step;
-                if (active < 0) {
-                    active = listItems.size() - 1;
-                } else if (active >= listItems.size()) {
-                    active = 0;
+                if (options.scrollJumpPosition || !options.scrollJumpPosition && !(step < 0 && active == 0 || step > 0 && active == listItems.size() - 1)) {
+                    active += step;
+                    if (active < 0) {
+                        active = listItems.size() - 1;
+                    } else if (active >= listItems.size()) {
+                        active = 0;
+                    }
                 }
             }
             function limitNumberOfItems(available) {
@@ -622,7 +654,7 @@ define("ikj/autocomplete/1.1.0/autocomplete-debug", [ "$-debug" ], function(requ
                             maxHeight: options.scrollHeight,
                             overflow: "auto"
                         });
-                        if ($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
+                        if (navigator.userAgent.indexOf("MSIE") != -1 && typeof document.body.style.maxHeight === "undefined") {
                             var listHeight = 0;
                             listItems.each(function() {
                                 listHeight += this.offsetHeight;

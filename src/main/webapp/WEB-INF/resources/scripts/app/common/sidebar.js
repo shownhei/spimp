@@ -20,7 +20,6 @@ define(function(require, exports, module) {
 		handle_side_menu();
 
 		handleSubmenuHeight();
-
 	});
 
 	function handleSubmenuHeight() {
