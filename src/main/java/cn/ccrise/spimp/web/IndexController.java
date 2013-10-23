@@ -125,6 +125,11 @@ public class IndexController {
 		return "ercs/staff/index";
 	}
 
+	@RequestMapping(value = "/ercs/specia-list", method = RequestMethod.GET)
+	public String index() {
+		return "ercs/specia-list/index";
+	}
+
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView get(@PathVariable long id) {

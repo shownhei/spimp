@@ -100,7 +100,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", 11);
 		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/use-record", ercs, "", 12);
 		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", ercs, "", 13);
-
+		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/specia-list", ercs, "", 14);
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", 1);
