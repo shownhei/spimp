@@ -255,9 +255,11 @@ define(function(require, exports, module) {
 		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
 
+	// 自动完成
 	$('#nav-search-input').autocomplete(contextPath + '/system/accounts', {
 		dataType : "json",
 		mustMatch : true,
+		delay : 1000,
 		cacheLength : 0,
 		parse : function(data) {
 			return $.map(data.data, function(row) {

@@ -16,9 +16,8 @@ define(function(require, exports, module) {
 		$.get(contextPath + '/system/resources/2?order=true', function(data) {
 			$('#menus').empty();
 
-			var menuCount = data.data.resourceEntities.length; // 菜单个数
-
 			// 一级菜单
+			var firstMenuCount = data.data.resourceEntities.length; // 菜单个数
 			$.each(data.data.resourceEntities, function(entryIndex, entry) {
 				var legend = $('<legend class="blue"><i class="' + entry.iconCls + '" style="margin:0 4px 0 0"></i>' + entry.name + '</legend>').css('margin',
 						'0px').css('cursor', 'pointer');
@@ -34,7 +33,7 @@ define(function(require, exports, module) {
 					$(this).append(editMenu);
 					if (entry.sequence === 1) {
 						$(this).append(down);
-					} else if (entry.sequence === menuCount) {
+					} else if (entry.sequence === firstMenuCount) {
 						$(this).append(up);
 					} else {
 						$(this).append(up).append(down);
@@ -46,38 +45,8 @@ define(function(require, exports, module) {
 					down.detach();
 				});
 
-				var subMenuCount = entry.resourceEntities.length; // 子菜单个数
-
-				// 二级菜单
-				$.each(entry.resourceEntities, function(itemIndex, item) {
-					var menu = $('<div style="font-size:14px">' + item.name + '</div>').css('margin', '1px').css('cursor', 'pointer');
-
-					var up = $(icon('up_' + item.id, 'icon-chevron-up', 'green', '向上'));
-					var down = $(icon('down_' + item.id, 'icon-chevron-down', 'green', '向下'));
-					var edit = $(icon('edit_' + item.id, 'icon-edit', 'blue', '编辑'));
-
-					// 显示操作按钮
-					menu.hover(function() {
-						menu.css('background-color', '#f9f2ba');
-						$(this).append(edit);
-						if (subMenuCount !== 1) {
-							if (item.sequence === 1) {
-								$(this).append(down);
-							} else if (item.sequence === subMenuCount) {
-								$(this).append(up);
-							} else {
-								$(this).append(up).append(down);
-							}
-						}
-					}, function() {
-						menu.css('background-color', 'transparent');
-						edit.detach();
-						up.detach();
-						down.detach();
-					});
-
-					fieldset.append(menu);
-				});
+				// 生成多级菜单
+				generateMultilevelMenu(entry, fieldset, -15);
 
 				$('#menus').append(fieldset);
 			});
@@ -131,4 +100,42 @@ define(function(require, exports, module) {
 	}
 
 	load();
+
+	/**
+	 * 生成多级菜单
+	 */
+	function generateMultilevelMenu(resource, appendTo, marginLeft) {
+		marginLeft += 15;
+		var menuCount = resource.resourceEntities.length; // 菜单个数
+		$.each(resource.resourceEntities, function(index, menu) {
+			var menuHtml = $('<div style="font-size:14px">' + menu.name + '</div>').css('margin', '1px 1px 1px ' + marginLeft + 'px').css('cursor', 'pointer');
+
+			var up = $(icon('up_' + menu.id, 'icon-chevron-up', 'green', '向上'));
+			var down = $(icon('down_' + menu.id, 'icon-chevron-down', 'green', '向下'));
+			var edit = $(icon('edit_' + menu.id, 'icon-edit', 'blue', '编辑'));
+
+			menuHtml.hover(function() {
+				menuHtml.css('background-color', '#f9f2ba');
+				$(this).append(edit);
+				if (menuCount !== 1) {
+					if (menu.sequence === 1) {
+						$(this).append(down);
+					} else if (menu.sequence === menuCount) {
+						$(this).append(up);
+					} else {
+						$(this).append(up).append(down);
+					}
+				}
+			}, function() {
+				menuHtml.css('background-color', 'transparent');
+				edit.detach();
+				up.detach();
+				down.detach();
+			});
+
+			appendTo.append(menuHtml);
+
+			generateMultilevelMenu(menu, appendTo, marginLeft);
+		});
+	}
 });
