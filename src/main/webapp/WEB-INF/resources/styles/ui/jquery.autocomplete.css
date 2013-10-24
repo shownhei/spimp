@@ -1,6 +1,7 @@
 .ac_results {
+	margin-top: 1px;
 	padding: 0px;
-	border: 1px solid black;
+	border: 1px solid rgb(68, 146, 201);
 	background-color: white;
 	overflow: hidden;
 	z-index: 99999;
@@ -39,10 +40,11 @@
 }
 
 .ac_odd {
-	background-color: #eee;
+	background-color: white;
+	color: #393939;
 }
 
 .ac_over {
-	background-color: #0A246A;
+	background-color: rgb(68, 146, 201);
 	color: white;
 }

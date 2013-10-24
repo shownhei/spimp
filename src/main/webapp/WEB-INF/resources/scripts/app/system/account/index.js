@@ -254,4 +254,24 @@ define(function(require, exports, module) {
 	$('#nav-search-button').click(function() {
 		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
+
+	$('#nav-search-input').autocomplete(contextPath + '/system/accounts', {
+		dataType : "json",
+		mustMatch : true,
+		cacheLength : 0,
+		parse : function(data) {
+			return $.map(data.data, function(row) {
+				return {
+					data : row,
+					value : row.realName,
+					result : row.realName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.realName + '[' + item.principal + ']';
+		}
+	}).result(function(e, item) {
+		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
+	});
 });
