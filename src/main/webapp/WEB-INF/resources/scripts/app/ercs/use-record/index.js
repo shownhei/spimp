@@ -8,12 +8,11 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	$("#resource").autocomplete('/ercs/emergency-resources', {
+	$("#resource,#edit-resource").autocomplete('/ercs/emergency-resources', {
 		dataType : "json",
+		mustMatch:true,
+		cacheLength:0,
 		parse : function(data) {
-			if(data.data.result.length===0){
-				$('#resource').val('');
-			}
 			return $.map(data.data.result, function(row) {
 				return {
 					data : row,
@@ -26,27 +25,7 @@ define(function(require, exports, module) {
 			return item.resourceName;
 		}
 	}).result(function(e, item) {
-		$('#resource').attr('data-id',item.id);
-	});
-	$("#edit-resource").autocomplete('/ercs/emergency-resources', {
-		dataType : "json",
-		parse : function(data) {
-			if(data.data.result.length===0){
-				$('#edit-resource').val('');
-			}
-			return $.map(data.data.result, function(row) {
-				return {
-					data : row,
-					value : row.resourceName,
-					result : row.resourceName
-				};
-			});
-		},
-		formatItem : function(item) {
-			return item.resourceName;
-		}
-	}).result(function(e, item) {
-		$('#edit-resource').attr('data-id',item.id);
+		$(e).attr('data-id',item.id);
 	});
 	// 配置表格列
 	var fields = [ {
