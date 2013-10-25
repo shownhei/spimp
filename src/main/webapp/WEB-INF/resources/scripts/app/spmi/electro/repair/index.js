@@ -13,19 +13,19 @@ define(function(require, exports, module) {
 	}, {
 		header : '检修人',
 		name : 'name'
-	},{
+	}, {
 		header : '设备名称',
 		name : 'deviceName'
 	}, {
 		header : '设备型号',
 		name : 'version'
-	},  {
+	}, {
 		header : '开工时间',
-		width:145,
+		width : 145,
 		name : 'startTime'
 	}, {
 		header : '完工时间',
-		width:145,
+		width : 145,
 		name : 'uploadTime'
 	} ];
 

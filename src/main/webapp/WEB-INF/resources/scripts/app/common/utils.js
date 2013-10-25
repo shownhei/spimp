@@ -95,6 +95,7 @@ define(function(require, exports, module) {
 		$('#' + prefix + '-message-content').html(message);
 		$('#' + prefix + '-message-alert').show();
 	};
+	
 	utils.modal.showProcess=function(processId){
 		var _html=[
 		    '<div id="'+processId+'-modal" class="modal hide" style="z-index:1052;">',
@@ -165,6 +166,7 @@ define(function(require, exports, module) {
 		};
 		$('#'+processId+'-modal').show();
 	};
+	
 	/**
 	 * 下拉列表。
 	 */
@@ -331,6 +333,7 @@ define(function(require, exports, module) {
 		});
 		return currentTree;
 	};
+	
 	/**
 	 * 日期控件
 	 */

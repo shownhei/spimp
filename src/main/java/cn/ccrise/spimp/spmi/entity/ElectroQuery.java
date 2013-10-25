@@ -33,100 +33,32 @@ public class ElectroQuery extends IDEntity {
 	private String size;// 尺寸
 	private String phone;// 设备图片
 
-	public String getFrequency() {
-		return frequency;
-	}
-
-	public void setFrequency(String frequency) {
-		this.frequency = frequency;
-	}
-
 	public String getDeviceVersion() {
 		return deviceVersion;
-	}
-
-	public void setDeviceVersion(String deviceVersion) {
-		this.deviceVersion = deviceVersion;
-	}
-
-	public String getElectroVersion() {
-		return electroVersion;
-	}
-
-	public void setElectroVersion(String electroVersion) {
-		this.electroVersion = electroVersion;
 	}
 
 	public String getElectricity() {
 		return electricity;
 	}
 
-	public void setElectricity(String electricity) {
-		this.electricity = electricity;
-	}
-
-	public String getVoltage() {
-		return voltage;
-	}
-
-	public void setVoltage(String voltage) {
-		this.voltage = voltage;
-	}
-
-	public String getPower() {
-		return power;
-	}
-
-	public void setPower(String power) {
-		this.power = power;
+	public String getElectroVersion() {
+		return electroVersion;
 	}
 
 	public String getExplosion() {
 		return explosion;
 	}
 
-	public void setExplosion(String explosion) {
-		this.explosion = explosion;
+	public String getFrequency() {
+		return frequency;
 	}
 
 	public String getMineSecurity() {
 		return mineSecurity;
 	}
 
-	public void setMineSecurity(String mineSecurity) {
-		this.mineSecurity = mineSecurity;
-	}
-
 	public String getPhase() {
 		return phase;
-	}
-
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
-
-	public Date getRolloutDate() {
-		return rolloutDate;
-	}
-
-	public void setRolloutDate(Date rolloutDate) {
-		this.rolloutDate = rolloutDate;
-	}
-
-	public String getRolloutNum() {
-		return rolloutNum;
-	}
-
-	public void setRolloutNum(String rolloutNum) {
-		this.rolloutNum = rolloutNum;
-	}
-
-	public String getSize() {
-		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
 	}
 
 	@Lob
@@ -134,7 +66,75 @@ public class ElectroQuery extends IDEntity {
 		return phone;
 	}
 
+	public String getPower() {
+		return power;
+	}
+
+	public Date getRolloutDate() {
+		return rolloutDate;
+	}
+
+	public String getRolloutNum() {
+		return rolloutNum;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public String getVoltage() {
+		return voltage;
+	}
+
+	public void setDeviceVersion(String deviceVersion) {
+		this.deviceVersion = deviceVersion;
+	}
+
+	public void setElectricity(String electricity) {
+		this.electricity = electricity;
+	}
+
+	public void setElectroVersion(String electroVersion) {
+		this.electroVersion = electroVersion;
+	}
+
+	public void setExplosion(String explosion) {
+		this.explosion = explosion;
+	}
+
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
+	}
+
+	public void setMineSecurity(String mineSecurity) {
+		this.mineSecurity = mineSecurity;
+	}
+
+	public void setPhase(String phase) {
+		this.phase = phase;
+	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public void setPower(String power) {
+		this.power = power;
+	}
+
+	public void setRolloutDate(Date rolloutDate) {
+		this.rolloutDate = rolloutDate;
+	}
+
+	public void setRolloutNum(String rolloutNum) {
+		this.rolloutNum = rolloutNum;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public void setVoltage(String voltage) {
+		this.voltage = voltage;
 	}
 }

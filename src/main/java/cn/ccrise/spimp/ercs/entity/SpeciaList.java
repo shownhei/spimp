@@ -60,61 +60,28 @@ public class SpeciaList extends IDEntity {
 	 */
 	private String remark;
 
-	public Integer getGender() {
-		return gender;
-	}
-
-	public void setGender(Integer gender) {
-		this.gender = gender;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public String getAddress() {
+		return address;
 	}
 
 	public Date getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
-	}
-
-	@ManyToOne
-	public Dictionary getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(Dictionary specialty) {
-		this.specialty = specialty;
-	}
-
-	public String getPhysicalCondition() {
-		return physicalCondition;
-	}
-
-	public void setPhysicalCondition(String physicalCondition) {
-		this.physicalCondition = physicalCondition;
+	public Integer getGender() {
+		return gender;
 	}
 
 	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public String getName() {
+		return name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public String getPhysicalCondition() {
+		return physicalCondition;
 	}
 
 	@Lob
@@ -122,8 +89,41 @@ public class SpeciaList extends IDEntity {
 		return remark;
 	}
 
+	@ManyToOne
+	public Dictionary getSpecialty() {
+		return specialty;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPhysicalCondition(String physicalCondition) {
+		this.physicalCondition = physicalCondition;
+	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setSpecialty(Dictionary specialty) {
+		this.specialty = specialty;
 	}
 
 }

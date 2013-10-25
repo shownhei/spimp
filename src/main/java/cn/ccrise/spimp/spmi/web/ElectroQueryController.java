@@ -60,18 +60,6 @@ public class ElectroQueryController {
 		return new Response(electroQueryService.getPage(page));
 	}
 
-	@RequestMapping(value = "/spmi/electro/electro-queries", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody ElectroQuery electroQuery) {
-		return new Response(electroQueryService.save(electroQuery));
-	}
-
-	@RequestMapping(value = "/spmi/electro/electro-queries/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody ElectroQuery electroQuery, @PathVariable long id) {
-		return new Response(electroQueryService.update(electroQuery));
-	}
-
 	@RequestMapping(value = "/spmi/electro/multi-query", method = RequestMethod.GET)
 	@ResponseBody
 	public Response query(Page<ElectroQuery> page, ElectroQuery electroQuery, String startTime, String endTime) {
@@ -121,5 +109,17 @@ public class ElectroQueryController {
 		}
 
 		return new Response(electroQueryService.getPage(page, criterions.toArray(new Criterion[0])));
+	}
+
+	@RequestMapping(value = "/spmi/electro/electro-queries", method = RequestMethod.POST)
+	@ResponseBody
+	public Response save(@Valid @RequestBody ElectroQuery electroQuery) {
+		return new Response(electroQueryService.save(electroQuery));
+	}
+
+	@RequestMapping(value = "/spmi/electro/electro-queries/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Response update(@Valid @RequestBody ElectroQuery electroQuery, @PathVariable long id) {
+		return new Response(electroQueryService.update(electroQuery));
 	}
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -17,52 +16,41 @@
 				<form id="query-form">
 					<div class="row-fluid">
 						<div class="span3">
-							<input type="text" name="deviceVersion" style="height: 20px;"
-								placeholder="设备型号">
+							<input type="text" name="deviceVersion" style="height: 20px;" placeholder="设备型号">
 						</div>
 						<div class="span3">
-							<input type="text" name="electroVersion" style="height: 20px;"
-								placeholder="机电型号">
+							<input type="text" name="electroVersion" style="height: 20px;" placeholder="机电型号">
 						</div>
 						<div class="span3">
-							<input type="text" name="electricity" style="height: 20px;"
-								placeholder="额定电流">
+							<input type="text" name="electricity" style="height: 20px;" placeholder="额定电流">
 						</div>
 						<div class="span3">
-							<input type="text" name="voltage" style="height: 20px;"
-								placeholder="额定电压">
+							<input type="text" name="voltage" style="height: 20px;" placeholder="额定电压">
 						</div>
 					</div>
 					<div class="row-fluid">
 						<div class="span3">
-							<input type="text" name="power" style="height: 20px;"
-								placeholder="额定功率">
+							<input type="text" name="power" style="height: 20px;" placeholder="额定功率">
 						</div>
 						<div class="span3">
-							<input type="text" name="frequency" style="height: 20px;"
-								placeholder="额定频率">
+							<input type="text" name="frequency" style="height: 20px;" placeholder="额定频率">
 						</div>
 						<div class="span3">
-							<input type="text" name="explosion" style="height: 20px;"
-								placeholder="防爆合格证信息">
+							<input type="text" name="explosion" style="height: 20px;" placeholder="防爆合格证信息">
 						</div>
 						<div class="span3">
-							<input type="text" name="mineSecurity" style="height: 20px;"
-								placeholder="煤安标志信息">
+							<input type="text" name="mineSecurity" style="height: 20px;" placeholder="煤安标志信息">
 						</div>
 					</div>
 					<div class="row-fluid">
 						<div class="span3">
-							<input type="text" name="phase" style="height: 20px;"
-								placeholder="相数">
+							<input type="text" name="phase" style="height: 20px;" placeholder="相数">
 						</div>
 						<div class="span3">
-							<input type="text" name="rolloutNum" style="height: 20px;"
-								placeholder="出厂编号">
+							<input type="text" name="rolloutNum" style="height: 20px;" placeholder="出厂编号">
 						</div>
 						<div class="span3">
-							<input type="text" name="size" style="height: 20px;"
-								placeholder="外形尺寸">
+							<input type="text" name="size" style="height: 20px;" placeholder="外形尺寸">
 						</div>
 					</div>
 				</form>
@@ -76,20 +64,18 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
-					<button id="submit" type="button"
-						class="btn btn-primary btn-small pull-right">查询</button>
-					<button id="reset" type="button"
-						class="btn btn-primary btn-small pull-right">重置</button>
+					<button id="submit" type="button" class="btn btn-primary btn-small pull-right">查询</button>
+					<button id="reset" type="button" class="btn btn-primary btn-small pull-right">重置</button>
 					<div class="input-append pull-right">
-						<input id="endTime" name="endDate" type="datetime"
-							placeholder="结束日期" class="input-small" autocomplete="off">
-						<span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+						<input id="endTime" name="endDate" type="datetime" placeholder="结束日期" class="input-small" autocomplete="off">
+						<span class="add-on nav-add-on">
+							<i class="icon-calendar"></i>
 						</span>
 					</div>
 					<div class="input-append pull-right">
-						<input id="startTime" name="startDate" type="datetime"
-							placeholder="开始日期" class="input-small" autocomplete="off">
-						<span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+						<input id="startTime" name="startDate" type="datetime" placeholder="开始日期" class="input-small" autocomplete="off">
+						<span class="add-on nav-add-on">
+							<i class="icon-calendar"></i>
 						</span>
 					</div>
 				</div>
@@ -108,22 +94,19 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="principal">设备型号</label>
 							<div class="controls">
 								<input id="deviceVersion" name="deviceVersion" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">机电型号</label>
 							<div class="controls">
 								<input id="electroVersion" name="electroVersion" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电流</label>
 							<div class="controls">
@@ -193,9 +176,9 @@
 						<div class="input-append">
 							<label class="control-label" for="principal">出厂日期</label>
 							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="rolloutDate" type="datetime" placeholder="出厂日期" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
 						</div>
@@ -204,7 +187,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -230,36 +214,29 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="view-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="view-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="principal">设备型号</label>
 							<div class="controls">
-								<input id="deviceVersion" name="deviceVersion" type="text"
-									readonly="readonly">
+								<input id="deviceVersion" name="deviceVersion" type="text" readonly="readonly">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">机电型号</label>
 							<div class="controls">
-								<input id="electroVersion" name="electroVersion" type="text"
-									readonly="readonly">
+								<input id="electroVersion" name="electroVersion" type="text" readonly="readonly">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电流</label>
 							<div class="controls">
-								<input id="electricity" name="electricity" type="text"
-									readonly="readonly">
+								<input id="electricity" name="electricity" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text"
-									readonly="readonly">
+								<input id="voltage" name="voltage" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -271,36 +248,31 @@
 						<div class="control-group">
 							<label class="control-label" for="principal">额定频率</label>
 							<div class="controls">
-								<input id="frequency" name="frequency" type="text"
-									readonly="readonly">
+								<input id="frequency" name="frequency" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="principal">防爆合格证信息</label>
 							<div class="controls">
-								<input id="explosion" name="voltage" type="text"
-									readonly="readonly">
+								<input id="explosion" name="voltage" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text"
-									readonly="readonly">
+								<input id="voltage" name="voltage" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="explosion" type="text"
-									readonly="readonly">
+								<input id="voltage" name="explosion" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="principal">煤安标志信息</label>
 							<div class="controls">
-								<input id="mineSecurity" name="mineSecurity" type="text"
-									readonly="readonly">
+								<input id="mineSecurity" name="mineSecurity" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -312,8 +284,7 @@
 						<div class="control-group">
 							<label class="control-label" for="principal">出厂编号</label>
 							<div class="controls">
-								<input id="rolloutNum" name="rolloutNum" type="text"
-									readonly="readonly">
+								<input id="rolloutNum" name="rolloutNum" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -325,9 +296,9 @@
 						<div class="input-append">
 							<label class="control-label" for="principal">出厂日期</label>
 							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期"
-									readonly="readonly" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="rolloutDate" type="datetime" placeholder="出厂日期" readonly="readonly" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
 						</div>
@@ -352,22 +323,19 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="principal">设备型号</label>
 							<div class="controls">
 								<input id="deviceVersion" name="deviceVersion" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">机电型号</label>
 							<div class="controls">
 								<input id="electroVersion" name="electroVersion" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">额定电流</label>
 							<div class="controls">
@@ -437,9 +405,9 @@
 						<div class="input-append">
 							<label class="control-label" for="principal">出厂日期</label>
 							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="rolloutDate" type="datetime" placeholder="出厂日期" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
 						</div>
@@ -448,7 +416,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -479,7 +448,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

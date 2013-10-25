@@ -79,7 +79,7 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initSecondLevelMenu() {
 		String rootMenuIdentifier = resourceEntityServiceImpl.getRootMenu().getIdentifier();
-		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-medkit", 1);
+		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-wrench", 1);
 		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", 2);
 		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 3);
 	}
@@ -90,7 +90,7 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initThirdLevelMenu() {
-		// 安全生产管理信息系统
+		// 安全生产管理
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 1);
 
@@ -105,12 +105,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("应急法规", "/ercs/law", ercs, "", 7);
 		resourceEntityServiceImpl.saveMenuResource("现场处置方案", "/ercs/scheme", ercs, "", 8);
 		resourceEntityServiceImpl.saveMenuResource("应急机构", "/ercs/organization", ercs, "", 9);
-
 		resourceEntityServiceImpl.saveMenuResource("三维应急演练", "/ercs/3d", ercs, "", 10);
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", 11);
 		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/use-record", ercs, "", 12);
 		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", ercs, "", 13);
 		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/specia-list", ercs, "", 14);
+
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", 1);

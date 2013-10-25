@@ -30,56 +30,56 @@ public class ElectroRepair extends IDEntity {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public String getContent() {
+		return content;
 	}
 
 	public String getDeviceName() {
 		return deviceName;
 	}
 
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
+	public String getName() {
+		return name;
 	}
 
 	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public String getVersion() {
+		return version;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-	public String getContent() {
-		return content;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 }

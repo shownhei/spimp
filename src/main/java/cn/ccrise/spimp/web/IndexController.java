@@ -70,6 +70,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 医护器材
+	 */
+	@RequestMapping(value = "/ercs/medical-supply", method = RequestMethod.GET)
+	public String ercsMedicalSupply() {
+		return "ercs/medical-supply/index";
+	}
+
+	/**
 	 * 应急机构
 	 */
 	@RequestMapping(value = "/ercs/organization", method = RequestMethod.GET)
@@ -102,14 +110,6 @@ public class IndexController {
 	}
 
 	/**
-	 * 医护器材
-	 */
-	@RequestMapping(value = "/ercs/medical-supply", method = RequestMethod.GET)
-	public String ercsMedicalSupply() {
-		return "ercs/medical-supply/index";
-	}
-
-	/**
 	 * 现场处置方案
 	 */
 	@RequestMapping(value = "/ercs/scheme", method = RequestMethod.GET)
@@ -125,17 +125,36 @@ public class IndexController {
 		return "ercs/staff/index";
 	}
 
-	@RequestMapping(value = "/ercs/specia-list", method = RequestMethod.GET)
-	public String index() {
-		return "ercs/specia-list/index";
-	}
-
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView get(@PathVariable long id) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("file", uploadedFileService.findUniqueBy("id", id));
 		return new ModelAndView("/ercs/view-pdf", root);
+	}
+
+	@RequestMapping(value = "/ercs/specia-list", method = RequestMethod.GET)
+	public String index() {
+		return "ercs/specia-list/index";
+	}
+
+	/**
+	 * 设备参数查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/electro/query", method = RequestMethod.GET)
+	public String spmiQuery() {
+		return "spmi/electro/query/index";
+	}
+
+	// 安全生产管理信息系统
+	/**
+	 * 机电故障维修跟踪
+	 */
+	@RequestMapping(value = "/spmi/electro/repair", method = RequestMethod.GET)
+	public String spmiRepair() {
+		return "spmi/electro/repair/index";
 	}
 
 	/**
@@ -176,24 +195,5 @@ public class IndexController {
 	@RequestMapping(value = "/system/role", method = RequestMethod.GET)
 	public String systemRole() {
 		return "system/role/index";
-	}
-
-	// 安全生产管理信息系统
-	/**
-	 * 机电故障维修跟踪
-	 */
-	@RequestMapping(value = "/spmi/electro/repair", method = RequestMethod.GET)
-	public String spmiRepair() {
-		return "spmi/electro/repair/index";
-	}
-
-	/**
-	 * 设备参数查询
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/electro/query", method = RequestMethod.GET)
-	public String spmiQuery() {
-		return "spmi/electro/query/index";
 	}
 }

@@ -51,6 +51,10 @@ public class ResourceUseRecord extends IDEntity {
 	 */
 	private String remark;
 
+	public Date getMaintenanceTime() {
+		return maintenanceTime;
+	}
+
 	@Lob
 	public String getRemark() {
 		return remark;
@@ -73,6 +77,14 @@ public class ResourceUseRecord extends IDEntity {
 		return useAmount;
 	}
 
+	public Date getUseTime() {
+		return useTime;
+	}
+
+	public void setMaintenanceTime(Date maintenanceTime) {
+		this.maintenanceTime = maintenanceTime;
+	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
@@ -93,20 +105,8 @@ public class ResourceUseRecord extends IDEntity {
 		this.useAmount = useAmount;
 	}
 
-	public Date getUseTime() {
-		return useTime;
-	}
-
 	public void setUseTime(Date useTime) {
 		this.useTime = useTime;
-	}
-
-	public Date getMaintenanceTime() {
-		return maintenanceTime;
-	}
-
-	public void setMaintenanceTime(Date maintenanceTime) {
-		this.maintenanceTime = maintenanceTime;
 	}
 
 }

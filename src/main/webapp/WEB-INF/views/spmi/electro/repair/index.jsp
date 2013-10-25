@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -27,9 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon"> <input id="nav-search-input"
-							name="search" type="text" placeholder="输入检修人/设备名称..."
-							class="input-small nav-search-input" autocomplete="off">
+						<span class="input-icon">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入检修人/设备名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -52,22 +50,19 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="principal">检修地点</label>
 							<div class="controls">
 								<input id="address" name="address" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">检修人</label>
 							<div class="controls">
 								<input id="name" name="name" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">设备名称</label>
 							<div class="controls">
@@ -83,28 +78,28 @@
 						<div class="input-append">
 							<label class="control-label" for="principal">开工时间</label>
 							<div class="controls">
-								<input name="startTime" type="datetime" placeholder="开工时间"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="startTime" type="datetime" placeholder="开工时间" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
 						</div>
 						<div class="input-append">
 							<label class="control-label" for="principal">完工时间</label>
 							<div class="controls">
-								<input name="endTime" type="datetime" placeholder="完工时间"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="endTime" type="datetime" placeholder="完工时间" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
-
 						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -130,22 +125,19 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="principal">检修地点</label>
 							<div class="controls">
 								<select id="address" name="address"></select>
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">检修人</label>
 							<div class="controls">
 								<input id="name" name="name" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="principal">设备名称</label>
 							<div class="controls">
@@ -161,29 +153,28 @@
 						<div class="input-append">
 							<label class="control-label" for="principal">开工时间</label>
 							<div class="controls">
-								<input name="startTime" type="datetime" placeholder="开工时间"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="startTime" type="datetime" placeholder="开工时间" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
-
 						</div>
 						<div class="input-append">
 							<label class="control-label" for="principal">完工时间</label>
 							<div class="controls">
-								<input name="endTime" type="datetime" placeholder="完工时间"
-									class="input-small" autocomplete="off"> <span
-									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								<input name="endTime" type="datetime" placeholder="完工时间" class="input-small" autocomplete="off">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
 								</span>
 							</div>
-
 						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -214,7 +205,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -232,8 +224,7 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/electro/repair/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100"
-		height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -243,9 +234,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
-				<iframe id="showDocument" src="" width="100%" height=355 border=0
-					margin=0 frameborder="no" border="0" marginwidth="0"
-					marginheight="0" scrolling="no"></iframe>
+				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</div>
 		</div>
 		<div class="modal-footer">

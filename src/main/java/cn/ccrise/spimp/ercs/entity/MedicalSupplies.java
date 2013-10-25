@@ -56,68 +56,68 @@ public class MedicalSupplies extends IDEntity {
 	 */
 	private String remark;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Integer getAmount() {
 		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
 	}
 
 	public Date getBuyTime() {
 		return buyTime;
 	}
 
-	public void setBuyTime(Date buyTime) {
-		this.buyTime = buyTime;
-	}
-
 	public String getExpiration() {
 		return expiration;
 	}
 
-	public void setExpiration(String expiration) {
-		this.expiration = expiration;
+	public String getModel() {
+		return model;
 	}
 
-	public String getSituation() {
-		return situation;
+	public String getName() {
+		return name;
 	}
 
-	public void setSituation(String situation) {
-		this.situation = situation;
+	public String getOrigin() {
+		return origin;
 	}
 
 	public String getRemark() {
 		return remark;
 	}
 
+	public String getSituation() {
+		return situation;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setBuyTime(Date buyTime) {
+		this.buyTime = buyTime;
+	}
+
+	public void setExpiration(String expiration) {
+		this.expiration = expiration;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setSituation(String situation) {
+		this.situation = situation;
 	}
 
 }

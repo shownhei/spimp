@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -14,16 +14,16 @@ define(function(require, exports, module) {
 	}, {
 		header : '机电型号',
 		name : 'electroVersion'
-	},{
+	}, {
 		header : '额定电流',
 		name : 'electricity'
 	}, {
 		header : '额定电压',
 		name : 'voltage'
-	},  {
+	}, {
 		header : '额定功率',
 		name : 'power'
-	},  {
+	}, {
 		header : '额定频率',
 		name : 'frequency'
 	}, {
@@ -46,12 +46,12 @@ define(function(require, exports, module) {
 		name : 'size'
 	}, {
 		header : '详细信息',
-		render:function(value){
-			return '<a href="#" data-name=' + value + '>'+"图文详情"+'</a>';
+		render : function(value) {
+			return '<a href="#" data-name=' + value + '>' + "图文详情" + '</a>';
 		}
 	} ];
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height()+$('#query-form').height() + 150);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + $('#query-form').height() + 150);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -86,7 +86,7 @@ define(function(require, exports, module) {
 	/**
 	 * grid行内点击事件
 	 */
-	$("#material-table").delegate('a[data-name]', 'click', function () {
+	$("#material-table").delegate('a[data-name]', 'click', function() {
 		var selectId = grid.selectedData('id');
 		$.get('/spmi/electro/electro-queries/' + selectId, function(data) {
 			var object = data.data;
@@ -170,15 +170,17 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-	//查询
-	$('#submit').click(function(){
-		grid.set({
-			url : '/spmi/electro/multi-query?'+'startTime='+$('#startTime').val()+'&endTime='+$('#endTime').val() + Utils.form.buildParams('query-form')
-		});
-		
-	});
-	//查询条件重置
-	$('#reset').click(function(){
+	// 查询
+	$('#submit').click(
+			function() {
+				grid.set({
+					url : '/spmi/electro/multi-query?' + 'startTime=' + $('#startTime').val() + '&endTime=' + $('#endTime').val()
+							+ Utils.form.buildParams('query-form')
+				});
+
+			});
+	// 查询条件重置
+	$('#reset').click(function() {
 		$('#query-form')[0].reset();
 		$('#startTime').val("");
 		$('#endTime').val("");
