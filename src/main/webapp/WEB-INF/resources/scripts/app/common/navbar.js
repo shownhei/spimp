@@ -1,7 +1,10 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Handlebars = require('handlebars'), Utils = require('../common/utils');
 
-	var url = requestURI.replace('/WEB-INF/views', '').replace('/index.jsp', '');
+	$('#settings').click(function() {
+		Utils.modal.reset('settings');
+		Utils.modal.show('settings');
+	});
 
 	$('#account-settings').click(function() {
 		Utils.modal.reset('account-settings');

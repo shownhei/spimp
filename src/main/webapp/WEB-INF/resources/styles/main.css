@@ -116,10 +116,21 @@ body {
 	min-height: 26px !important;
 }
 
-.modal-body form input,select {
+.modal-body form input,.modal-body form select {
 	height: 26px;
 	font-size: 13px;
 	min-height: 26px !important;
+}
+
+.modal-body form input[readonly],.modal-body form textarea[readonly] {
+	font-size: 14px;
+	color: #111;
+	background-color: #fff !important;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px #d5e4f1 dotted;
+	border-left: 0;
+	cursor: default;
 }
 
 .modal-body .alert {

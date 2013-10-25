@@ -70,6 +70,52 @@
 		</div>
 	</div>
 </div>
+<!-- 设置 -->
+<div id="settings-modal" class="modal modal-sm hide">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h5 class="blue">
+			<i class="icon-user"></i> 设置
+		</h5>
+	</div>
+	<div class="modal-body">
+		<div class="row-fluid">
+			<div class="span12">
+				<form id="settings-form" class="form-horizontal" onsubmit="return false;">
+					<div class="control-group">
+						<label class="control-label" for="principal">用户名</label>
+						<div class="controls">
+							<input name="principal" type="text" readonly="readonly" value="${account.principal}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="realName">姓名</label>
+						<div class="controls">
+							<input name="realName" type="text" readonly="readonly" value="${account.realName}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="telephone">电话</label>
+						<div class="controls">
+							<input name="telephone" type="text" readonly="readonly" value="${account.telephone}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="telephone">其他</label>
+						<div class="controls">
+							<textarea readonly="readonly">详细情况</textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i> 关闭
+		</button>
+	</div>
+</div>
 <!-- 账号 -->
 <div id="account-settings-modal" class="modal modal-sm hide">
 	<div class="modal-header">
