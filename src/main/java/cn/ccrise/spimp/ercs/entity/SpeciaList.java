@@ -6,6 +6,7 @@ package cn.ccrise.spimp.ercs.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -116,6 +117,7 @@ public class SpeciaList extends IDEntity {
 		this.address = address;
 	}
 
+	@Lob
 	public String getRemark() {
 		return remark;
 	}

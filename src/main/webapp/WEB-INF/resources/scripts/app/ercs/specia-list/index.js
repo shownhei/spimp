@@ -82,15 +82,15 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		if (object.name === '') {
-			Utils.modal.message('create', [ '请输专家名称' ]);
+			Utils.modal.message('create', [ '请输入专家名称' ]);
 			return;
 		}
 		if (object.specialty === '') {
-			Utils.modal.message('create', [ '请输专业类型' ]);
+			Utils.modal.message('create', [ '请输入专业类型' ]);
 			return;
 		}
 		if (object.mobile === '') {
-			Utils.modal.message('create', [ '请输联系方式' ]);
+			Utils.modal.message('create', [ '请输入联系方式' ]);
 			return;
 		}
 		$.post('/ercs/specia-lists', JSON.stringify(object), function(data) {
@@ -123,15 +123,15 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 		if (object.name === '') {
-			Utils.modal.message('edit', [ '请输专家名称' ]);
+			Utils.modal.message('edit', [ '请输入专家名称' ]);
 			return;
 		}
 		if (object.specialty === '') {
-			Utils.modal.message('edit', [ '请输专业类型' ]);
+			Utils.modal.message('edit', [ '请输入专业类型' ]);
 			return;
 		}
 		if (object.mobile === '') {
-			Utils.modal.message('edit', [ '请输联系方式' ]);
+			Utils.modal.message('edit', [ '请输入联系方式' ]);
 			return;
 		}
 		// 处理属性
@@ -167,8 +167,6 @@ define(function(require, exports, module) {
 	});
 	// 搜索
 	$('#nav-search-button').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('search-form')
-		});
+		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
 });

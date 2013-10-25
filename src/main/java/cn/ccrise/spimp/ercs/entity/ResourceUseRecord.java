@@ -6,6 +6,7 @@ package cn.ccrise.spimp.ercs.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ public class ResourceUseRecord extends IDEntity {
 	private EmergencyResource resource;
 
 	/**
-	 * 使用时间
+	 * 使用日期
 	 */
 	private Date useTime;
 	/**
@@ -32,7 +33,7 @@ public class ResourceUseRecord extends IDEntity {
 	private Integer useAmount;
 
 	/**
-	 * 检查维修时间
+	 * 检查维修日期
 	 */
 	private Date maintenanceTime;
 
@@ -50,6 +51,7 @@ public class ResourceUseRecord extends IDEntity {
 	 */
 	private String remark;
 
+	@Lob
 	public String getRemark() {
 		return remark;
 	}
