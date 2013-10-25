@@ -52,6 +52,11 @@ public class InitService extends DataInitAbstractService {
 		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("二维展示", "/ercs/indicate/2d", indicate, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("三维展示", "/ercs/indicate/3d", indicate, "", 2);
+
+		// 机电设备
+		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("设备参数查询", "/spmi/electro/query", electro, "", 2);
 	}
 
 	@Override
@@ -74,8 +79,9 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initSecondLevelMenu() {
 		String rootMenuIdentifier = resourceEntityServiceImpl.getRootMenu().getIdentifier();
-		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", 1);
-		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 2);
+		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-medkit", 1);
+		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", 2);
+		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 3);
 	}
 
 	@Override
@@ -84,6 +90,10 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initThirdLevelMenu() {
+		// 安全生产管理信息系统
+		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 1);
+
 		// 应急救援指挥
 		String ercs = resourceEntityServiceImpl.getDefaultIdentifier("/ercs", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("应急报警", "/ercs/alarm", ercs, "", 1);
