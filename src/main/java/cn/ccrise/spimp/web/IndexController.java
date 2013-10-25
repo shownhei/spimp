@@ -177,4 +177,23 @@ public class IndexController {
 	public String systemRole() {
 		return "system/role/index";
 	}
+
+	// 安全生产管理信息系统
+	/**
+	 * 机电故障维修跟踪
+	 */
+	@RequestMapping(value = "/spmi/electro/repair", method = RequestMethod.GET)
+	public String spmiRepair() {
+		return "spmi/electro/repair/index";
+	}
+
+	/**
+	 * 设备参数查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/electro/query", method = RequestMethod.GET)
+	public String spmiQuery() {
+		return "spmi/electro/query/index";
+	}
 }
