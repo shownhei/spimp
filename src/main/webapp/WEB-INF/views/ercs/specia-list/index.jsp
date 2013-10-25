@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急物资使用管理 - 安全生产综合管理平台</title>
+<title>救援专家型人才备案 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -26,8 +26,12 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
+					    <span class="input-icon">
+							<select id="specialtySelect" name="specialty" 
+							class="input-small" ></select>
+						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="name" type="text" placeholder="输入专家名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -35,7 +39,7 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="plan-table"></div>
+				<div class="row-fluid" id="refuge-table"></div>
 			</div>
 		</div>
 	</div>
@@ -44,64 +48,81 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 新增救援专家
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
+					<form id="create-form" class="form-horizontal">
+	        
 					    <div class="control-group">
-							<label class="control-label " for="resource">对应的物资</label>
+							<label class="control-label " for="name">人员名称</label>
 							<div class="controls">
-								<input id="resource" name="resource" type="text">
+								<input id="name" name="name" type="text" >
 							</div>
 						</div>
+	        
 						<div class="control-group">
-							<label class="control-label" for="useTime">使用日期</label>
+							<label class="control-label " for="gender">性别</label>
 							<div class="controls">
-								<input  type=datetime name="useTime" >
+								<select id="create-gender" name="gender" class="input-small ">
+									<option value="1">男</option>
+									<option value="0">女</option>
+								</select>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="useAmount">使用数量</label>
+					    <div class="control-group">
+							<label class="control-label " for="birthDay">出生日期</label>
 							<div class="controls">
-								<input  name="useAmount" type="text">
+								<input id="birthDay" name="birthDay" type=datetime>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="maintenanceTime">检查维修日期</label>
+	        
+					    <div class="control-group">
+							<label class="control-label " for="specialty">专业类型</label>
 							<div class="controls">
-								<input id="maintenanceTime" name="maintenanceTime" type=datetime>
+							    <select id="create-specialty" name="specialty[id]"></select>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="replacement">更换情况</label>
+	        
+					    <div class="control-group">
+							<label class="control-label " for="physicalCondition">健康状况</label>
 							<div class="controls">
-								<input id="replacement" name="replacement" type="text">
+								<input id="physicalCondition" name="physicalCondition" type="text" >
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="scrapped">报废情况</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="mobile">手机</label>
 							<div class="controls">
-								<input id="scrapped" name="scrapped" type="text">
+								<input id="mobile" name="mobile" type="text" >
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="remark">备注</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="address">住址</label>
 							<div class="controls">
-								<input  name="remark" type="text">
+								<input id="address" name="address" type="text" >
+							</div>
+						</div>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="remark">备注</label>
+							<div class="controls">
+								<input id="remark" name="remark" type="text" >
+							</div>
+						</div>
+						
+						<div id="create-message-alert" class="row-fluid hide">
+							<div class="span12">
+								<div class="alert alert-error">
+									<i class="icon-remove"></i>
+									<span id="create-message-content"></span>
+								</div>
 							</div>
 						</div>
 					</form>
-				</div>
-				<div id="create-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -115,7 +136,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal  modal-md hide">
+	<div id="edit-modal" class="modal modal-md  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -126,47 +147,63 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-					    <input  name="id" type="hidden">
-						<div class="control-group">
-							<label class="control-label " for="resource">对应的物资</label>
+						<input name="id" type="hidden" >
+	        
+					    <div class="control-group">
+							<label class="control-label" for="name">人员名称</label>
 							<div class="controls">
-								<input id="edit-resource" name="resource" type="text">
+								<input  name="name" type="text" >
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="useTime">使用日期</label>
+							<label class="control-label" for="gender">性别</label>
 							<div class="controls">
-								<input  type=datetime name="useTime" >
+							    <select id="edit-gender" name="gender" class="input-small ">
+									<option value="1">男</option>
+									<option value="0">女</option>
+								</select>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="useAmount">使用数量</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="birthDay">出生日期</label>
 							<div class="controls">
-								<input  name="useAmount" type="text">
+								<input  name="birthDay" type=datetime>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="maintenanceTime">检查维修日期</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="principal">专业类型</label>
 							<div class="controls">
-								<input  type=datetime name="maintenanceTime" >
+							     <select id="edit-specialty" name="specialty[id]"></select>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="replacement">更换情况</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="principal">健康状况</label>
 							<div class="controls">
-								<input  name="replacement" type="text">
+								<input  name="physicalCondition" type="text" >
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="scrapped">报废情况</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="principal">手机</label>
 							<div class="controls">
-								<input  name="scrapped" type="text">
+								<input  name="mobile" type="text" >
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="remark">备注</label>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="principal">住址</label>
 							<div class="controls">
-								<input  name="remark" type="text">
+								<input  name="address" type="text" >
+							</div>
+						</div>
+	        
+					    <div class="control-group">
+							<label class="control-label" for="principal">备注</label>
+							<div class="controls">
+								<input  name="remark" type="text" >
 							</div>
 						</div>
 					</form>
@@ -191,7 +228,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal modal-xs hide">
+	<div id="remove-modal" class="modal  modal-xs  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -201,7 +238,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<i class="icon-warning-sign"></i> 提示：确认删除选中的数据？
+					<i class="icon-warning-sign"></i> 提示：删除选中的数据？
 				</div>
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -223,7 +260,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/use-record/index');
+		seajs.use('${resources}/scripts/app/ercs/specia-list/index');
 	</script>
+	
 </body>
 </html>

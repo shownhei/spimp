@@ -3,8 +3,13 @@
  */
 package cn.ccrise.spimp.ercs.web;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.ercs.entity.EmergencyResource;
 import cn.ccrise.spimp.ercs.entity.ResourceUseRecord;
+import cn.ccrise.spimp.ercs.service.EmergencyResourceService;
 import cn.ccrise.spimp.ercs.service.ResourceUseRecordService;
 
 /**
@@ -31,6 +38,8 @@ public class ResourceUseRecordController {
 
 	@Autowired
 	private ResourceUseRecordService resourceUseRecordService;
+	@Autowired
+	private EmergencyResourceService emergencyResourceService;
 
 	@RequestMapping(value = "/ercs/resource-use-records/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -46,7 +55,14 @@ public class ResourceUseRecordController {
 
 	@RequestMapping(value = "/ercs/resource-use-records", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<ResourceUseRecord> page) {
+	public Response page(Page<ResourceUseRecord> page, String resourceName) {
+		if (!StringUtils.isBlank(resourceName)) {
+			List<EmergencyResource> list = emergencyResourceService.find(Restrictions.ilike("resourceName",
+					resourceName, MatchMode.ANYWHERE));
+			if (list != null && list.size() > 0) {
+				return new Response(resourceUseRecordService.getPage(page, Restrictions.in("resource", list)));
+			}
+		}
 		return new Response(resourceUseRecordService.getPage(page));
 	}
 
