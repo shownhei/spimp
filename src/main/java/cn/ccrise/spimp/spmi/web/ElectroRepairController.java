@@ -51,11 +51,6 @@ public class ElectroRepairController {
 		return new Response(electroRepairService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/electro/electro-repair", method = RequestMethod.GET)
-	public String index() {
-		return "spmi/electro/electro-repair/index";
-	}
-
 	@RequestMapping(value = "/spmi/electro/electro-repairs", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<ElectroRepair> page, String search) {

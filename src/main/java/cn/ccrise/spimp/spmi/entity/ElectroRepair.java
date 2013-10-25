@@ -5,7 +5,6 @@ package cn.ccrise.spimp.spmi.entity;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -51,7 +50,6 @@ public class ElectroRepair extends IDEntity {
 		this.deviceName = deviceName;
 	}
 
-	@Column(unique = true, nullable = false)
 	public String getVersion() {
 		return version;
 	}

@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	window.$=$;
-	window.Utils=Utils;
+	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -52,7 +51,7 @@ define(function(require, exports, module) {
 		}
 	} ];
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height()+$('#query-form').height() + 150);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -184,34 +183,4 @@ define(function(require, exports, module) {
 		$('#startTime').val("");
 		$('#endTime').val("");
 	});
-	// 搜索
-	$('#nav-search-button').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('search-form')
-		});
-	});
-	$('#file').bind('change',function(){
-		if($('#file').val()!==''){
-			$('#create-file-form').submit();
-			var process=new Utils.modal.showProcess('process');
-			window.process=process;
-		}
-	});
-	$('#create-file-delete').bind('click',function(){
-		$('#attachment').parent().parent().hide();
-		$('#create-file-form')[0].reset();
-		$('#create-file-form').show();
-	});
 });
-function callBack(data){
-	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id',data.data.id);
-	$('#create-file-form').hide();
-	window.process.stop();
-	window.process=null;
-	$('#attachment').parent().parent().show();
-}
-function showDocument(id){
-	$('#showDocument').attr('src','/ercs/view-pdf/'+id+"?t="+new Date().getTime());
-	Utils.modal.show('view');
-}

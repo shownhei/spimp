@@ -54,11 +54,6 @@ public class ElectroQueryController {
 		return new Response(electroQueryService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/electro/electro-query", method = RequestMethod.GET)
-	public String index() {
-		return "spmi/electro/electro-query/index";
-	}
-
 	@RequestMapping(value = "/spmi/electro/electro-queries", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<ElectroQuery> page) {
