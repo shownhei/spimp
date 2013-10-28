@@ -57,6 +57,10 @@ public class InitService extends DataInitAbstractService {
 		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("设备参数查询", "/spmi/electro/query", electro, "", 2);
+
+		// 质量标准化
+		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("调度专业", "/spmi/quality/dispatch", quality, "", 1);
 	}
 
 	@Override
@@ -92,7 +96,8 @@ public class InitService extends DataInitAbstractService {
 	public void initThirdLevelMenu() {
 		// 安全生产管理
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/quality", spmi, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 2);
 
 		// 应急救援指挥
 		String ercs = resourceEntityServiceImpl.getDefaultIdentifier("/ercs", HttpMethod.GET);
