@@ -5,8 +5,10 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
+
 	// 配置表格列
 	var fields = [ {
 		header : '设备型号',
@@ -14,18 +16,6 @@ define(function(require, exports, module) {
 	}, {
 		header : '机电型号',
 		name : 'electroVersion'
-	}, {
-		header : '额定电流',
-		name : 'electricity'
-	}, {
-		header : '额定电压',
-		name : 'voltage'
-	}, {
-		header : '额定功率',
-		name : 'power'
-	}, {
-		header : '额定频率',
-		name : 'frequency'
 	}, {
 		header : '防爆合格证信息',
 		name : 'explosion'
@@ -36,22 +26,23 @@ define(function(require, exports, module) {
 		header : '相数',
 		name : 'phase'
 	}, {
+		header : '尺寸',
+		name : 'size'
+	}, {
 		header : '出厂日期',
 		name : 'rolloutDate'
 	}, {
 		header : '出厂编号',
 		name : 'rolloutNum'
 	}, {
-		header : '尺寸',
-		name : 'size'
-	}, {
 		header : '详细信息',
 		render : function(value) {
 			return '<a href="#" data-name=' + value + '>' + "图文详情" + '</a>';
 		}
 	} ];
+
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + $('#query-form').height() + 150);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + $('#query-form').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -83,6 +74,7 @@ define(function(require, exports, module) {
 			changeButtonsStatus();
 		}
 	}).render();
+
 	/**
 	 * grid行内点击事件
 	 */
@@ -96,6 +88,7 @@ define(function(require, exports, module) {
 		});
 		return false;
 	});
+
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
@@ -108,9 +101,7 @@ define(function(require, exports, module) {
 		// 验证
 		$.post('/spmi/electro/electro-queries', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.set({
-					url : defaultUrl
-				});
+				grid.set('url', defaultUrl);
 				grid.refresh();
 				Utils.modal.hide('create');
 			} else {
@@ -144,6 +135,7 @@ define(function(require, exports, module) {
 		object.id = selectId;
 		$.put('/spmi/electro/electro-queries/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
+				grid.refresh();
 				Utils.modal.hide('edit');
 			} else {
 				Utils.modal.message('edit', data.errors);
@@ -163,26 +155,20 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/spmi/electro/electro-queries/' + selectId, function(data) {
-			grid.set({
-				url : defaultUrl
-			});
+			grid.set('url', defaultUrl);
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
 	});
-	// 查询
-	$('#submit').click(
-			function() {
-				grid.set({
-					url : '/spmi/electro/multi-query?' + 'startTime=' + $('#startTime').val() + '&endTime=' + $('#endTime').val()
-							+ Utils.form.buildParams('query-form')
-				});
 
-			});
+	// 查询
+	$('#submit').click(function() {
+		grid.set('url', defaultUrl + Utils.form.buildParams('query-form'));
+	});
+
 	// 查询条件重置
 	$('#reset').click(function() {
-		$('#query-form')[0].reset();
-		$('#startTime').val("");
-		$('#endTime').val("");
+		grid.set('url', defaultUrl);
+		grid.refresh();
 	});
 });

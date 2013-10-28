@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -26,9 +27,6 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.spmi.entity.ElectroQuery;
 import cn.ccrise.spimp.spmi.service.ElectroQueryService;
-import cn.ccrise.spimp.util.DateUtil;
-
-import com.google.common.base.Strings;
 
 /**
  * ElectroQuery Controller。
@@ -56,56 +54,20 @@ public class ElectroQueryController {
 
 	@RequestMapping(value = "/spmi/electro/electro-queries", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<ElectroQuery> page) {
-		return new Response(electroQueryService.getPage(page));
-	}
-
-	@RequestMapping(value = "/spmi/electro/multi-query", method = RequestMethod.GET)
-	@ResponseBody
-	public Response query(Page<ElectroQuery> page, ElectroQuery electroQuery, String startTime, String endTime) {
+	public Response page(Page<ElectroQuery> page, Date startDate, Date endDate, String deviceVersion,
+			String electroVersion) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		if (!Strings.isNullOrEmpty(startTime)) {
-			Date start = DateUtil.String2date(startTime, "yyyy-MM-dd");
-			criterions.add(Restrictions.ge("rolloutDate", start));
+		if (startDate != null) {
+			criterions.add(Restrictions.ge("rolloutDate", startDate));
 		}
-		if (!Strings.isNullOrEmpty(endTime)) {
-			Date end = DateUtil.String2date(endTime, "yyyy-MM-dd");
-			criterions.add(Restrictions.lt("rolloutDate", end));
+		if (endDate != null) {
+			criterions.add(Restrictions.le("rolloutDate", DateUtils.addSeconds(DateUtils.addDays(endDate, 1), -1)));
 		}
-		if (electroQuery.getDeviceVersion() != null) {
-			criterions.add(Restrictions.like("deviceVersion", electroQuery.getDeviceVersion(), MatchMode.ANYWHERE));
-
+		if (deviceVersion != null) {
+			criterions.add(Restrictions.like("deviceVersion", deviceVersion, MatchMode.ANYWHERE));
 		}
-		if (electroQuery.getElectroVersion() != null) {
-			criterions.add(Restrictions.like("electroVersion", electroQuery.getElectroVersion(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getElectricity() != null) {
-			criterions.add(Restrictions.like("electricity", electroQuery.getElectricity(), MatchMode.ANYWHERE));
-
-		}
-		if (electroQuery.getVoltage() != null) {
-			criterions.add(Restrictions.like("voltage", electroQuery.getVoltage(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getPower() != null) {
-			criterions.add(Restrictions.like("power", electroQuery.getPower(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getFrequency() != null) {
-			criterions.add(Restrictions.like("frequency", electroQuery.getFrequency(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getExplosion() != null) {
-			criterions.add(Restrictions.like("explosion", electroQuery.getExplosion(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getMineSecurity() != null) {
-			criterions.add(Restrictions.like("mineSecurity", electroQuery.getMineSecurity(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getPhase() != null) {
-			criterions.add(Restrictions.like("phase", electroQuery.getPhase(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getRolloutNum() != null) {
-			criterions.add(Restrictions.like("rolloutNum", electroQuery.getRolloutNum(), MatchMode.ANYWHERE));
-		}
-		if (electroQuery.getSize() != null) {
-			criterions.add(Restrictions.like("size", electroQuery.getSize(), MatchMode.ANYWHERE));
+		if (electroVersion != null) {
+			criterions.add(Restrictions.like("electroVersion", electroVersion, MatchMode.ANYWHERE));
 		}
 
 		return new Response(electroQueryService.getPage(page, criterions.toArray(new Criterion[0])));

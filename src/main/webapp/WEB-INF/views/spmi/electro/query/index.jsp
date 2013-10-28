@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>现场处置方案 - 安全生产综合管理平台</title>
+<title>设备参数查询 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -12,49 +12,8 @@
 	<div class="main-container container-fluid">
 		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="page-content">
-				<form id="query-form">
-					<div class="row-fluid">
-						<div class="span3">
-							<input type="text" name="deviceVersion" style="height: 20px;" placeholder="设备型号">
-						</div>
-						<div class="span3">
-							<input type="text" name="electroVersion" style="height: 20px;" placeholder="机电型号">
-						</div>
-						<div class="span3">
-							<input type="text" name="electricity" style="height: 20px;" placeholder="额定电流">
-						</div>
-						<div class="span3">
-							<input type="text" name="voltage" style="height: 20px;" placeholder="额定电压">
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span3">
-							<input type="text" name="power" style="height: 20px;" placeholder="额定功率">
-						</div>
-						<div class="span3">
-							<input type="text" name="frequency" style="height: 20px;" placeholder="额定频率">
-						</div>
-						<div class="span3">
-							<input type="text" name="explosion" style="height: 20px;" placeholder="防爆合格证信息">
-						</div>
-						<div class="span3">
-							<input type="text" name="mineSecurity" style="height: 20px;" placeholder="煤安标志信息">
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span3">
-							<input type="text" name="phase" style="height: 20px;" placeholder="相数">
-						</div>
-						<div class="span3">
-							<input type="text" name="rolloutNum" style="height: 20px;" placeholder="出厂编号">
-						</div>
-						<div class="span3">
-							<input type="text" name="size" style="height: 20px;" placeholder="外形尺寸">
-						</div>
-					</div>
-				</form>
-				<div class="btn-toolbar">
+			<div class="page-toolbar">
+				<div class="toolbar">
 					<button id="create" class="btn btn-small btn-success">
 						<i class="icon-plus-sign-alt"></i> 新建
 					</button>
@@ -64,20 +23,30 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
-					<button id="submit" type="button" class="btn btn-primary btn-small pull-right">查询</button>
-					<button id="reset" type="button" class="btn btn-primary btn-small pull-right">重置</button>
-					<div class="input-append pull-right">
-						<input id="endTime" name="endDate" type="datetime" placeholder="结束日期" class="input-small" autocomplete="off">
-						<span class="add-on nav-add-on">
-							<i class="icon-calendar"></i>
-						</span>
-					</div>
-					<div class="input-append pull-right">
-						<input id="startTime" name="startDate" type="datetime" placeholder="开始日期" class="input-small" autocomplete="off">
-						<span class="add-on nav-add-on">
-							<i class="icon-calendar"></i>
-						</span>
-					</div>
+				</div>
+			</div>
+			<div class="page-content">
+				<div class="multi-query">
+					<form id="query-form" class="form-inline" onsubmit="return false;">
+						<div class="controls">
+							<div class="input-append">
+								<input name="startDate" type="datetime" placeholder="开始日期" class="input-small">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
+								</span>
+							</div>
+							<div class="input-append">
+								<input name="endDate" type="datetime" placeholder="结束日期" class="input-small">
+								<span class="add-on nav-add-on">
+									<i class="icon-calendar"></i>
+								</span>
+							</div>
+							<input name="deviceVersion" type="text" class="span2" placeholder="设备型号">
+							<input name="electroVersion" type="text" class="span2" placeholder="机电型号">
+							<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
+							<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
+						</div>
+					</form>
 				</div>
 				<div class="row-fluid" id="material-table"></div>
 			</div>
@@ -96,90 +65,87 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="principal">设备型号</label>
+							<label class="control-label">设备型号</label>
 							<div class="controls">
-								<input id="deviceVersion" name="deviceVersion" type="text">
+								<input name="deviceVersion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">机电型号</label>
+							<label class="control-label">机电型号</label>
 							<div class="controls">
-								<input id="electroVersion" name="electroVersion" type="text">
+								<input name="electroVersion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电流</label>
+							<label class="control-label">额定电流</label>
 							<div class="controls">
-								<input id="electricity" name="electricity" type="text">
+								<input name="electricity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定功率</label>
+							<label class="control-label">额定功率</label>
 							<div class="controls">
-								<input id="power" name="power" type="text">
+								<input name="power" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定频率</label>
+							<label class="control-label">额定频率</label>
 							<div class="controls">
-								<input id="frequency" name="frequency" type="text">
+								<input name="frequency" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">防爆合格证信息</label>
+							<label class="control-label">防爆合格证信息</label>
 							<div class="controls">
-								<input id="explosion" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="explosion" type="text">
+								<input name="explosion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">煤安标志信息</label>
+							<label class="control-label">煤安标志信息</label>
 							<div class="controls">
-								<input id="mineSecurity" name="mineSecurity" type="text">
+								<input name="mineSecurity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">相数</label>
+							<label class="control-label">相数</label>
 							<div class="controls">
-								<input id="phase" name="phase" type="text">
+								<input name="phase" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">出厂编号</label>
+							<label class="control-label">出厂编号</label>
 							<div class="controls">
-								<input id="rolloutNum" name="rolloutNum" type="text">
+								<input name="rolloutNum" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">尺寸</label>
+							<label class="control-label">尺寸</label>
 							<div class="controls">
-								<input id="size" name="size" type="text">
+								<input name="size" type="text">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">出厂日期</label>
+						<div class="control-group">
+							<label class="control-label">出厂日期</label>
 							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="rolloutDate" type="datetime">
 							</div>
 						</div>
 					</form>
@@ -203,115 +169,6 @@
 			</button>
 		</div>
 	</div>
-	<!-- 查看 -->
-	<div id="view-modal" class="modal modal-md hide">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 查看
-			</h5>
-		</div>
-		<div class="modal-body">
-			<div class="row-fluid">
-				<div class="span12">
-					<form id="view-form" class="form-horizontal" style="margin-bottom: 0px;">
-						<div class="control-group">
-							<label class="control-label" for="principal">设备型号</label>
-							<div class="controls">
-								<input id="deviceVersion" name="deviceVersion" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">机电型号</label>
-							<div class="controls">
-								<input id="electroVersion" name="electroVersion" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定电流</label>
-							<div class="controls">
-								<input id="electricity" name="electricity" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
-							<div class="controls">
-								<input id="voltage" name="voltage" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定功率</label>
-							<div class="controls">
-								<input id="power" name="power" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定频率</label>
-							<div class="controls">
-								<input id="frequency" name="frequency" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">防爆合格证信息</label>
-							<div class="controls">
-								<input id="explosion" name="voltage" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
-							<div class="controls">
-								<input id="voltage" name="voltage" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
-							<div class="controls">
-								<input id="voltage" name="explosion" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">煤安标志信息</label>
-							<div class="controls">
-								<input id="mineSecurity" name="mineSecurity" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">相数</label>
-							<div class="controls">
-								<input id="phase" name="phase" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">出厂编号</label>
-							<div class="controls">
-								<input id="rolloutNum" name="rolloutNum" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="principal">尺寸</label>
-							<div class="controls">
-								<input id="size" name="size" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">出厂日期</label>
-							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期" readonly="readonly" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 关闭
-			</button>
-		</div>
-	</div>
 	<!-- 编辑 -->
 	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
@@ -325,90 +182,87 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="principal">设备型号</label>
+							<label class="control-label">设备型号</label>
 							<div class="controls">
-								<input id="deviceVersion" name="deviceVersion" type="text">
+								<input name="deviceVersion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">机电型号</label>
+							<label class="control-label">机电型号</label>
 							<div class="controls">
-								<input id="electroVersion" name="electroVersion" type="text">
+								<input name="electroVersion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电流</label>
+							<label class="control-label">额定电流</label>
 							<div class="controls">
-								<input id="electricity" name="electricity" type="text">
+								<input name="electricity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定功率</label>
+							<label class="control-label">额定功率</label>
 							<div class="controls">
-								<input id="power" name="power" type="text">
+								<input name="power" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定频率</label>
+							<label class="control-label">额定频率</label>
 							<div class="controls">
-								<input id="frequency" name="frequency" type="text">
+								<input name="frequency" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">防爆合格证信息</label>
+							<label class="control-label">防爆合格证信息</label>
 							<div class="controls">
-								<input id="explosion" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="voltage" type="text">
+								<input name="voltage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">额定电压</label>
+							<label class="control-label">额定电压</label>
 							<div class="controls">
-								<input id="voltage" name="explosion" type="text">
+								<input name="explosion" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">煤安标志信息</label>
+							<label class="control-label">煤安标志信息</label>
 							<div class="controls">
-								<input id="mineSecurity" name="mineSecurity" type="text">
+								<input name="mineSecurity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label"principal">相数</label>
+							<label class="control-label">相数</label>
 							<div class="controls">
-								<input id="phase" name="phase" type="text">
+								<input name="phase" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">出厂编号</label>
+							<label class="control-label">出厂编号</label>
 							<div class="controls">
-								<input id="rolloutNum" name="rolloutNum" type="text">
+								<input name="rolloutNum" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">尺寸</label>
+							<label class="control-label">尺寸</label>
 							<div class="controls">
-								<input id="size" name="size" type="text">
+								<input name="size" type="text">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">出厂日期</label>
+						<div class="control-group">
+							<label class="control-label">出厂日期</label>
 							<div class="controls">
-								<input name="rolloutDate" type="datetime" placeholder="出厂日期" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="rolloutDate" type="datetime">
 							</div>
 						</div>
 					</form>
@@ -432,8 +286,114 @@
 			</button>
 		</div>
 	</div>
+	<!-- 查看 -->
+	<div id="view-modal" class="modal modal-md hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="view-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label">设备型号</label>
+							<div class="controls">
+								<input name="deviceVersion" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">机电型号</label>
+							<div class="controls">
+								<input name="electroVersion" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定电流</label>
+							<div class="controls">
+								<input name="electricity" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定电压</label>
+							<div class="controls">
+								<input name="voltage" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定功率</label>
+							<div class="controls">
+								<input name="power" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定频率</label>
+							<div class="controls">
+								<input name="frequency" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">防爆合格证信息</label>
+							<div class="controls">
+								<input name="voltage" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定电压</label>
+							<div class="controls">
+								<input name="voltage" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">额定电压</label>
+							<div class="controls">
+								<input name="explosion" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">煤安标志信息</label>
+							<div class="controls">
+								<input name="mineSecurity" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">相数</label>
+							<div class="controls">
+								<input name="phase" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">出厂编号</label>
+							<div class="controls">
+								<input name="rolloutNum" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">尺寸</label>
+							<div class="controls">
+								<input name="size" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">出厂日期</label>
+							<div class="controls">
+								<input name="rolloutDate" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

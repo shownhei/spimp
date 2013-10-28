@@ -43,6 +43,22 @@ body {
 	line-height: 24px;
 }
 
+.multi-query {
+	height: 24px;margin-bottom: 8px;
+}
+
+.multi-query input {
+	line-height: 18px;
+	height: 14px;
+	padding: 4px 2px;
+	margin-bottom: 4px;
+	font-size: 12px;
+}
+
+.multi-query button {
+	margin-bottom: 4px;
+}
+
 @media only screen and (max-width:979px) {
 	.toolbar {
 		margin-left: 80px
@@ -99,6 +115,7 @@ body {
 }
 
 .modal-body {
+	max-height: 720px;
 	padding: 10px;
 }
 
