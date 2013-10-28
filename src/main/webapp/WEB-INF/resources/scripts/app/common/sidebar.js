@@ -23,7 +23,8 @@ define(function(require, exports, module) {
 	});
 
 	function handleSubmenuHeight() {
-		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li').outerHeight() * $('.nav-list>li').length;
+		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li:not(.active)').outerHeight()
+				* $('.nav-list>li').length;
 		$('.nav-list > li > .submenu').css({
 			'max-height' : height,
 			'overflow-y' : 'auto'
@@ -72,9 +73,10 @@ define(function(require, exports, module) {
 					return;
 				}
 				c.find('> .open > .submenu').each(function() {
-					//if (this !== d && !$(this.parentNode).hasClass('active')) {
-						$(this).slideUp(200).parent().removeClass('open');
-					//}
+					// if (this !== d && !$(this.parentNode).hasClass('active'))
+					// {
+					$(this).slideUp(200).parent().removeClass('open');
+					// }
 				});
 			}
 			if (isMin && $(d.parentNode.parentNode).hasClass('nav-list')) {
