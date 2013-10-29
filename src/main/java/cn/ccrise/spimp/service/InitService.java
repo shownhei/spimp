@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
 import cn.ccrise.spimp.entity.Account;
+import cn.ccrise.spimp.ercs.entity.ResponseTeam;
+import cn.ccrise.spimp.ercs.service.ResponseTeamService;
 
 /**
  * 系统基础数据初始化服务。
@@ -24,6 +26,8 @@ public class InitService extends DataInitAbstractService {
 
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private ResponseTeamService responseTeamService;
 
 	@Override
 	public void initAdmin() {
@@ -49,10 +53,28 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initFourthLevelOperate() {
 		// 应急指示
-		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate", HttpMethod.GET);
+		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("二维展示", "/ercs/indicate/2d", indicate, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("三维展示", "/ercs/indicate/3d", indicate, "", 2);
-
+		// 应急指示
+		String performRescue = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/perform-rescue", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("任务查看", "/ercs/task-view", performRescue, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("任务管理", "/ercs/task-manage", performRescue, "", 2);
+		// 应急资源管理
+		int i = 1;
+		String material = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/material-index", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material", material, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/use-record", material, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", material, "", i++);
+		// 应急预案管理
+		i = 1;
+		String plan = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/plan-index", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan", plan, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("救援措施模板", "/ercs/template", plan, "", i++);
+		// 应急救援人员
+		String staff = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/staff-index", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("救援人员", "/ercs/staff", staff, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/specia-list", staff, "", i++);
 		// 机电设备
 		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
@@ -86,6 +108,18 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initThirdLevelGroup() {
+		ResponseTeam root = new ResponseTeam();
+		root.setParentId(ResponseTeam.ROOT_ID);
+		root.setTeamName("王庄煤业");
+		responseTeamService.save(root);
+		String teamName[] = { "指挥部", "抢险救援", "医疗救护", "技术专家", "通信信息", "物资装备", "交通运输", "后勤服务", "财力保障", "治安保卫", "善后处置" };
+		ResponseTeam team = null;
+		for (int i = 0; i < teamName.length; i++) {
+			team = new ResponseTeam();
+			team.setParentId(root.getId());
+			team.setTeamName(teamName[i]);
+			responseTeamService.save(team);
+		}
 	}
 
 	@Override
@@ -96,21 +130,19 @@ public class InitService extends DataInitAbstractService {
 
 		// 应急救援指挥
 		String ercs = resourceEntityServiceImpl.getDefaultIdentifier("/ercs", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("应急报警", "/ercs/alarm", ercs, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("应急指示", "/ercs/indicate", ercs, "", 2);
-		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material", ercs, "", 3);
-		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan", ercs, "", 4);
-		resourceEntityServiceImpl.saveMenuResource("应急救援人员", "/ercs/staff", ercs, "", 5);
-		resourceEntityServiceImpl.saveMenuResource("避难场所", "/ercs/place", ercs, "", 6);
-		resourceEntityServiceImpl.saveMenuResource("应急法规", "/ercs/law", ercs, "", 7);
-		resourceEntityServiceImpl.saveMenuResource("现场处置方案", "/ercs/scheme", ercs, "", 8);
-		resourceEntityServiceImpl.saveMenuResource("应急机构", "/ercs/organization", ercs, "", 9);
-
-		resourceEntityServiceImpl.saveMenuResource("三维应急演练", "/ercs/3d", ercs, "", 10);
-		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", 11);
-		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/use-record", ercs, "", 12);
-		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", ercs, "", 13);
-		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/specia-list", ercs, "", 14);
+		int i = 1;
+		resourceEntityServiceImpl.saveMenuResource("应急报警", "/ercs/alarm", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急指示", "/ercs/indicate-index", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急处置", "/ercs/deal", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("执行救援", "/ercs/perform-rescue", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material-index", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan-index", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急救援人员", "/ercs/staff-index", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("避难场所", "/ercs/place", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("现场处置方案", "/ercs/scheme", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急法规", "/ercs/law", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急机构", "/ercs/organization", ercs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", i++);
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", 1);
