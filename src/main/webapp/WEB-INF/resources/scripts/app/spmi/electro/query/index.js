@@ -99,6 +99,10 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		// 验证
+		if (object.deviceVersion === ''&&object.electroVersion === '') {
+			Utils.modal.message('create', [ '设备型号与机电型号不能同时为空' ]);
+			return;
+		}
 		$.post('/spmi/electro/electro-queries', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.set('url', defaultUrl);
@@ -130,6 +134,10 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		if (object.deviceVersion === ''&&object.electroVersion === '') {
+			Utils.modal.message('edit', [ '设备型号与机电型号不能同时为空' ]);
+			return;
+		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
