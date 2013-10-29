@@ -138,8 +138,9 @@ public class IndexController {
 		return "ercs/specia-list/index";
 	}
 
+	// 安全生产管理信息系统
 	/**
-	 * 设备参数查询
+	 * 机电设备 设备参数查询
 	 * 
 	 * @return
 	 */
@@ -148,15 +149,45 @@ public class IndexController {
 		return "spmi/electro/query/index";
 	}
 
-	// 安全生产管理信息系统
 	/**
-	 * 机电故障维修跟踪
+	 * 机电设备 机电故障维修跟踪
 	 */
 	@RequestMapping(value = "/spmi/electro/repair", method = RequestMethod.GET)
 	public String spmiRepair() {
 		return "spmi/electro/repair/index";
 	}
 
+	/**
+	 * 调度管理 矿井原煤产量
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/schedule/output", method = RequestMethod.GET)
+	public String scheduleOutput() {
+		return "spmi/schedule/output/index";
+	}
+
+	/**
+	 * 调度系统 矿井掘进进尺
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/schedule/dig", method = RequestMethod.GET)
+	public String scheduleDig() {
+		return "spmi/schedule/dig/index";
+	}
+
+	/**
+	 * 调度系统 生产准备工作情况
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/schedule/prepare", method = RequestMethod.GET)
+	public String schedulePrepare() {
+		return "spmi/schedule/prepare/index";
+	}
+
+	// 系统管理
 	/**
 	 * 用户管理
 	 */
