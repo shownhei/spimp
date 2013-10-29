@@ -44,7 +44,8 @@ body {
 }
 
 .multi-query {
-	height: 24px;margin-bottom: 8px;
+	height: 24px;
+	margin-bottom: 8px;
 }
 
 .multi-query input {
@@ -165,7 +166,8 @@ body {
 	box-sizing: border-box;
 }
 
-.modal-xs form input,.modal-xs form select,.modal-xs form textarea {
+.modal-xs form .control-group input,.modal-xs form .control-group select,.modal-xs form .control-group textarea
+	{
 	width: 130px;
 	box-sizing: border-box;
 }
@@ -184,7 +186,8 @@ body {
 	box-sizing: border-box;
 }
 
-.modal-sm form input,.modal-sm form select,.modal-sm form textarea {
+.modal-sm form .control-group input,.modal-sm form .control-group select,.modal-sm form .control-group textarea
+	{
 	width: 270px;
 	box-sizing: border-box;
 }
@@ -202,7 +205,8 @@ body {
 	box-sizing: border-box;
 }
 
-.modal-md form input,.modal-md form select,.modal-md form textarea {
+.modal-md form .control-group input,.modal-md form .control-group select,.modal-md form .control-group textarea
+	{
 	width: 400px;
 	box-sizing: border-box;
 }
@@ -220,7 +224,8 @@ body {
 	box-sizing: border-box;
 }
 
-.modal-lg form input,.modal-lg form select,.modal-lg form textarea {
+.modal-lg form .control-group input,.modal-lg form .control-group select,.modal-lg form .control-group textarea
+	{
 	width: 560px;
 	box-sizing: border-box;
 }
@@ -233,18 +238,60 @@ body {
 	width: 880px;
 }
 
-.modal-xl form label {
+.modal-xl form .control-group label {
 	width: 110px !important;
 	box-sizing: border-box;
 }
 
-.modal-xl form input,.modal-xl form select,.modal-xl form textarea {
+.modal-xl form .control-group input,.modal-xl form .control-group select,.modal-xl form .control-group textarea
+	{
 	width: 720px;
 	box-sizing: border-box;
 }
 
 .modal-xl .controls {
 	margin-left: 130px;
+}
+
+/* 四列表格布局 */
+.modal-xl .table-col-4 {
+	width: 100%;
+}
+
+.modal-xl .table-col-4 td {
+	width: 215px;
+}
+
+.modal-xl .table-col-4 label {
+	width: 70px;
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.modal-xl .table-col-4 select,.modal-xl .table-col-4 input {
+	width: 130px;
+}
+
+/* 评分表格 */
+.grade-table {
+	table-layout: fixed;
+	width: 100%;
+	font-size: 12px;
+}
+
+.grade-table th{
+	font-size: 13px;
+}
+
+.grade-table th,.grade-table td {
+	border: 1px #ccc solid;
+}
+
+.widthTd {
+	border-bottom: 0 !important;
+	border-top: 0 !important;
+	padding-bottom: 0;
+	padding-top: 0;
 }
 
 .modal-footer {
@@ -342,6 +389,11 @@ body {
 
 .toolbar-ft {
 	border-top: 1px solid #ddd;
+}
+
+/* 表格 */
+.panel-mod {
+	margin-bottom: 0 !important;
 }
 
 .grid-cell {
