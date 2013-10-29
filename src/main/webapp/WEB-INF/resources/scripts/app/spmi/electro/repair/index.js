@@ -73,6 +73,10 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		// 验证
+		if (object.name === ''&&object.deviceName === '') {
+			Utils.modal.message('create', [ '设备名称与检修人不能为空' ]);
+			return;
+		}
 		$.post('/spmi/electro/electro-repairs', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.set({
@@ -105,6 +109,11 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		// 验证
+		if (object.name === ''&&object.deviceName === '') {
+			Utils.modal.message('edit', [ '设备名称与检修人不能为空' ]);
+			return;
+		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
