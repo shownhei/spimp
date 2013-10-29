@@ -61,12 +61,12 @@ public class InstructionController {
 	@ResponseBody
 	public Response page(Page<Instruction> page, String search) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
-		if(StringUtils.isNotBlank(search)){
+		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.or(Restrictions.ilike("indicator", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("content", search, MatchMode.ANYWHERE)));
 		}
 		instructionService.getPage(page, criterions.toArray(new Criterion[0]));
-		
+
 		return new Response(page);
 	}
 

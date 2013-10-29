@@ -61,11 +61,11 @@ public class FocusController {
 	@ResponseBody
 	public Response page(Page<Focus> page, String search) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
-		if(StringUtils.isNotBlank(search)){
+		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.ilike("name", search, MatchMode.ANYWHERE));
 		}
 		focusService.getPage(page, criterions.toArray(new Criterion[0]));
-		
+
 		return new Response(page);
 	}
 

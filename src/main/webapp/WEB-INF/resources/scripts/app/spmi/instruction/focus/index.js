@@ -1,58 +1,47 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/spmi/instruction/focuses';
-	
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	
+
 	// 配置表格列
-	var fields = [
-		{
-			header : '工作名称',
-			name : 'name'
-		},
-		{
-			header : '开始时间',
-			name : 'startTime'
-		},
-		{
-			header : '结束时间',
-			name : 'endTime'
-		},
-		{
-			header : '地点',
-			name : 'positon'
-		},
-		{
-			header : '现场负责人',
-			name : 'responser'
-		},
-		{
-			header : '工作人员',
-			name : 'workers'
-		},
-		{
-			header : '工作进度',
-			name : 'process'
-		},
-		{
-			header : '工作总结情况',
-			name : 'summary'
-		},
-		{
-			header : '工作简述',
-			name : 'description'
-		},
-		{
-			header : '记录人',
-			name : 'recorder'
-		}
-	];
+	var fields = [ {
+		header : '工作名称',
+		name : 'name'
+	}, {
+		header : '开始时间',
+		name : 'startTime'
+	}, {
+		header : '结束时间',
+		name : 'endTime'
+	}, {
+		header : '地点',
+		name : 'positon'
+	}, {
+		header : '现场负责人',
+		name : 'responser'
+	}, {
+		header : '工作人员',
+		name : 'workers'
+	}, {
+		header : '工作进度',
+		name : 'process'
+	}, {
+		header : '工作总结情况',
+		name : 'summary'
+	}, {
+		header : '工作简述',
+		name : 'description'
+	}, {
+		header : '记录人',
+		name : 'recorder'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -95,9 +84,9 @@ define(function(require, exports, module) {
 	});
 
 	// 验证
-	function validate(showType, model){
-		var errorMsg = new Array();
-		
+	function validate(showType, model) {
+		var errorMsg = [];
+
 		if (model.name === '') {
 			errorMsg.push('请输入工作名称');
 		}
@@ -114,23 +103,23 @@ define(function(require, exports, module) {
 			errorMsg.push('请输入记录人');
 		}
 
-		if(errorMsg.length > 0){
+		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-		
+
 		// 验证
-		if(!validate('create', object)){
+		if (!validate('create', object)) {
 			return false;
 		}
-		
+
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -161,12 +150,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		
+
 		// 验证
-		if(!validate('edit', object)){
+		if (!validate('edit', object)) {
 			return false;
 		}
-		
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;

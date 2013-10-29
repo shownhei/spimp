@@ -1,15 +1,15 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/spmi/instruction/instructions';
-	
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	
+
 	// 配置表格列
 	var fields = [ {
 		header : '时间',
@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '指示内容',
 		name : 'content'
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -73,47 +73,46 @@ define(function(require, exports, module) {
 	});
 
 	// 验证
-	function validate(showType, model){
-//		$.isNumeric( "-10" );
-		var errorMsg = new Array();
-		
+	function validate(showType, model) {
+		var errorMsg = [];
+
 		if (model.time === '') {
 			errorMsg.push('请输入时间');
 		}
-		
-		if(model.indicator === ''){
+
+		if (model.indicator === '') {
 			errorMsg.push('请输入指示人');
 		}
-		
-		if(model.undertaker === ''){
+
+		if (model.undertaker === '') {
 			errorMsg.push('请输入承办人');
 		}
-		
-		if(model.receiver === ''){
+
+		if (model.receiver === '') {
 			errorMsg.push('请输入接收人');
 		}
-		
-		if(model.content === ''){
+
+		if (model.content === '') {
 			errorMsg.push('请输入指示内容');
 		}
-		
-		if(errorMsg.length > 0){
+
+		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-		
+
 		// 验证
-		if(!validate('create', object)){
+		if (!validate('create', object)) {
 			return false;
 		}
-		
+
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -144,12 +143,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		
+
 		// 验证
-		if(!validate('edit', object)){
+		if (!validate('edit', object)) {
 			return false;
 		}
-		
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
