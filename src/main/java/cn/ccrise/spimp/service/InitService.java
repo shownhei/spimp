@@ -57,6 +57,12 @@ public class InitService extends DataInitAbstractService {
 		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("设备参数查询", "/spmi/electro/query", electro, "", 2);
+
+		// 重点工作和领导指示
+		String instruction = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/instruction", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("重点工作", "/spmi/instruction/focus", instruction, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("领导指示", "/spmi/instruction/instruction", instruction, "", 2);
+
 		// 调度管理
 		String schedule = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/schedule", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("矿井原煤产量", "/spmi/schedule/output", schedule, "", 1);
@@ -99,6 +105,7 @@ public class InitService extends DataInitAbstractService {
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule", spmi, "", 2);
+		resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示", "/spmi/instruction", spmi, "", 3);
 
 		// 应急救援指挥
 		String ercs = resourceEntityServiceImpl.getDefaultIdentifier("/ercs", HttpMethod.GET);
