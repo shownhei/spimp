@@ -14,7 +14,7 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
  */
 public class CodeGenerator {
 	protected final String packageName = "cn.ccrise.spimp.spmi.instruction";
-	
+
 	protected final String uriPrefix = "spmi/instruction";
 	protected final String entityName = "Focus";
 
