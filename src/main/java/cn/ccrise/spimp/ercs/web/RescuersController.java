@@ -53,10 +53,13 @@ public class RescuersController {
 
 	@RequestMapping(value = "/ercs/rescuers", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Rescuers> page, String staffName) {
+	public Response page(Page<Rescuers> page, String staffName, String q) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (StringUtils.isNotBlank(staffName)) {
 			param.add(Restrictions.like("staffName", staffName, MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(q)) {
+			param.add(Restrictions.like("staffName", q, MatchMode.ANYWHERE));
 		}
 		return new Response(rescuersService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
