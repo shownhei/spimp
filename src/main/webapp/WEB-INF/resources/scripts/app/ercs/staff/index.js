@@ -5,15 +5,38 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
+	Utils.input.date('input[type=datetime]');
 	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ,'create-education'], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
 
 	// 配置表格列
-	var fields = [ {
-		header : '姓名',
-		width:100,
-		name : 'staffName'
+	var fields = [  {
+		header : "队员名称",
+		name : "staffName"
+	}, {
+		header : "出生年月",
+		name : "birthDay"
+	}, {
+		header : "文化程度",
+		name : "education"
+	}, {
+		header : "整治面貌",
+		name : "policitalStatus"
+	}, {
+		header : "参加工作时间",
+		name : "workDate"
+	}, {
+		header : "入队时间",
+		name : "enqueueDate"
+	}, {
+		header : "住址",
+		name : "address"
+	}, {
+		header : "手机",
+		name : "telephone"
+	}, {
+		header : "身份证号码",
+		name : "iDNumber"
 	}, {
 		header : '专业领域',
 		name : 'expertiseArea',
@@ -40,23 +63,12 @@ define(function(require, exports, module) {
 		},
 		name : 'department'
 	},{
-		header : '员工类型',
-		width:100,
-		name : 'staffType'
-	},  {
-		header : '职称',
-		name : 'title'
-	}, {
-		header : '经验',
-		name : 'experience'
-	}, {
-		header : '联系方式',
-		name : 'phone'
-	}, {
-		header : '创建时间',
-		width:150,
-		name : 'addTime'
-	} ];
+		header : "备注",
+		name : "remark"
+	},{
+		header : "账户关联",
+		name : "account"
+	}];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
