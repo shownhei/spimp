@@ -117,6 +117,11 @@ public class IndexController {
 		return "ercs/scheme/index";
 	}
 
+	@RequestMapping(value = "/ercs/specia-list", method = RequestMethod.GET)
+	public String ercsSpeciaList() {
+		return "ercs/specia-list/index";
+	}
+
 	/**
 	 * 应急救援人员
 	 */
@@ -127,15 +132,10 @@ public class IndexController {
 
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView get(@PathVariable long id) {
+	public ModelAndView ercsViewPdf(@PathVariable long id) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("file", uploadedFileService.findUniqueBy("id", id));
 		return new ModelAndView("/ercs/view-pdf", root);
-	}
-
-	@RequestMapping(value = "/ercs/specia-list", method = RequestMethod.GET)
-	public String index() {
-		return "ercs/specia-list/index";
 	}
 
 	/**
@@ -170,21 +170,27 @@ public class IndexController {
 
 	// 安全生产管理信息系统
 	/**
-	 * 机电设备 设备参数查询
-	 * 
-	 * @return
+	 * 设备参数查询
 	 */
 	@RequestMapping(value = "/spmi/electro/query", method = RequestMethod.GET)
-	public String spmiQuery() {
+	public String spmiElectroQuery() {
 		return "spmi/electro/query/index";
 	}
 
 	/**
-	 * 机电设备 机电故障维修跟踪
+	 * 机电故障维修跟踪
 	 */
 	@RequestMapping(value = "/spmi/electro/repair", method = RequestMethod.GET)
-	public String spmiRepair() {
+	public String spmiElectroRepair() {
 		return "spmi/electro/repair/index";
+	}
+
+	/**
+	 * 质量标准化-调度专业
+	 */
+	@RequestMapping(value = "/spmi/quality/dispatch", method = RequestMethod.GET)
+	public String spmiQualityDispatch() {
+		return "spmi/quality/dispatch/index";
 	}
 
 	// 系统管理
