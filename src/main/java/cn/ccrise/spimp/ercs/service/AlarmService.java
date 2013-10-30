@@ -16,6 +16,7 @@ import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.spimp.ercs.access.AlarmDAO;
 import cn.ccrise.spimp.ercs.entity.Alarm;
+import cn.ccrise.spimp.ercs.entity.EmergencyPlanInstance;
+import cn.ccrise.spimp.ercs.entity.EmergencyPlanTemplate;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.AlarmWaiterTimeOutHandler;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
@@ -55,10 +58,37 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 
 	@Autowired
 	private AlarmReadRecordService alarmReadRecordService;
+	/**
+	 * 任务模板
+	 */
+	@Autowired
+	private EmergencyPlanTemplateService emergencyPlanTemplateService;
+	/**
+	 * 任务实例
+	 */
+	@Autowired
+	private EmergencyPlanInstanceService emergencyPlanInstanceService;
 
 	@Override
 	public HibernateDAO<Alarm, Long> getDAO() {
 		return alarmDAO;
+	}
+
+	/**
+	 * 删除一条报警记录 会级联删除 该报警记录对应的救援措施
+	 * 
+	 * @param alarmId
+	 * @return
+	 */
+	public boolean deleteAlarm(Long alarmId) {
+		Alarm alarm = findUniqueBy("id", alarmId);
+		List<EmergencyPlanInstance> planList = emergencyPlanInstanceService.findBy("alarm", alarm);
+		Iterator<EmergencyPlanInstance> it = planList.iterator();
+		while (it.hasNext()) {
+			emergencyPlanInstanceService.delete(it.next());
+		}
+		delete(alarmId);
+		return true;
 	}
 
 	/**
@@ -140,6 +170,32 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	 * @return
 	 */
 	public boolean updateAlarm(Alarm entity) {
+		if (entity.getDealFlag() == 0) {// 未处理
+
+			// 发短信
+			// 根据应急救援模板，创建救援任务实例
+			List<EmergencyPlanTemplate> templateList = emergencyPlanTemplateService.find(
+					Restrictions.eq("emergencyCategory", entity.getAccidentType()),
+					Restrictions.eq("emergencyLevel", entity.getAccidentLevel()));
+			if (templateList != null && templateList.size() > 0) {
+				EmergencyPlanTemplate template = null;
+				EmergencyPlanInstance instance = null;
+				Iterator<EmergencyPlanTemplate> it = templateList.iterator();
+				while (it.hasNext()) {
+					template = it.next();
+					instance = new EmergencyPlanInstance();
+					instance.setAlarm(entity);
+					instance.setEmergencyCategory(template.getEmergencyCategory());
+					instance.setEmergencyLevel(template.getEmergencyLevel());
+					instance.setTeam(template.getTeam());
+					instance.setTaskContent(template.getTaskContent());
+
+					emergencyPlanInstanceService.save(instance);// 保存实例
+				}
+			}
+			// 报警状态,修改为已经处理
+			entity.setDealFlag(Alarm.DEAL_FLAG_DEALED);
+		}
 		update(entity);
 		notifyAlarmProcessed(entity.getId());
 		return true;

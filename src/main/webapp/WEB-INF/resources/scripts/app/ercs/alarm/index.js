@@ -18,6 +18,10 @@ define(function(require, exports, module) {
 		var val = $(this).children('option:selected').val();
 		$('#nav-search-button').trigger('click');
 	});
+	$('#dealFlagSelect').bind('change', function() {
+		var val = $(this).children('option:selected').val();
+		$('#nav-search-button').trigger('click');
+	});
 	// 配置表格列
 	var fields = [ {
 		header : '事故地点',
@@ -74,10 +78,16 @@ define(function(require, exports, module) {
 	 */
 
 	function changeButtonsStatus(selected, data) {
+		Utils.button.disable([ 'edit' ]);
+		if (data) {
+			if (data.dealFlag === 0) {
+				Utils.button.enable([ 'edit' ]);
+			}
+		}
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove', 'view' ]);
+			Utils.button.enable([ 'remove', 'view' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove', 'view' ]);
+			Utils.button.disable([ 'remove', 'view' ]);
 		}
 
 	}
@@ -106,7 +116,7 @@ define(function(require, exports, module) {
 	function renderRowColor() {
 		var records = grid.data.result;
 		var rows = grid.$('.grid-row');
-		for (var i = 0; i < rows.length; i++) {
+		for ( var i = 0; i < rows.length; i++) {
 			var raw = records[i];
 			$(rows[i]).removeClass('grid-row-alt');
 			if (raw.accidentLevel.itemValue === '1') {
@@ -128,12 +138,12 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get('/ercs/alarms/' + selectId, function(data) {
 			var object = data.data;
-			var raw=object;
-			if(!raw.accidentType){
-				raw.accidentType={};
+			var raw = object;
+			if (!raw.accidentType) {
+				raw.accidentType = {};
 			}
-			if(!raw.accidentLevel){
-				raw.accidentLevel={};
+			if (!raw.accidentLevel) {
+				raw.accidentLevel = {};
 			}
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
@@ -146,7 +156,7 @@ define(function(require, exports, module) {
 			return;
 		}
 		var selectId = grid.selectedData('id');
-		
+
 		$.get('/ercs/alarms/' + selectId, function(data) {
 			var object = data.data;
 			var template = Handlebars.compile($('#viewwindow-template').html());
@@ -166,7 +176,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入事故等级' ]);
 			return;
 		}
-		$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {alert(1);
+		$.put('/ercs/alarms/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -181,9 +191,9 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-		//未处理的记录不能删除
+		// 未处理的记录不能删除
 		var row = grid.selectedData();
-		if(row.dealFlag===0){
+		if (row.dealFlag === 0) {
 			Utils.modal.show('warning');
 			return false;
 		}
@@ -224,11 +234,11 @@ define(function(require, exports, module) {
 				var template = Handlebars.compile($('#alarmwindow-template').html());
 				var html = template(raw);
 				$(html).appendTo($('body'));
-				if(!raw.accidentType){
-					raw.accidentType={};
+				if (!raw.accidentType) {
+					raw.accidentType = {};
 				}
-				if(!raw.accidentLevel){
-					raw.accidentLevel={};
+				if (!raw.accidentLevel) {
+					raw.accidentLevel = {};
 				}
 				Utils.modal.show('edit' + raw.id);
 				Utils.select.remote([ 'edit' + raw.id + '-accidentType' ], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
@@ -251,7 +261,7 @@ define(function(require, exports, module) {
 							Utils.modal.message('edit' + event.data.alarmId, data.errors);
 						}
 					});
-				});//edit-save
+				});// edit-save
 				$('#edit' + raw.id + '-miss').bind('click', {
 					alarmId : raw.id
 				}, function(event) {
@@ -260,7 +270,7 @@ define(function(require, exports, module) {
 						Utils.modal.message('edit' + event.data.alarmId, [ "事故地点不能为空" ]);
 						return false;
 					}
-					object.dealFlag=2;
+					object.dealFlag = 2;
 					delete object.accidentLevel;
 					delete object.accidentType;
 					var selectId = event.data.alarmId;
@@ -272,7 +282,7 @@ define(function(require, exports, module) {
 							Utils.modal.message('edit' + event.data.alarmId, data.errors);
 						}
 					});
-				});//edit-save
+				});// edit-save
 				Utils.form.fill('edit' + raw.id, raw);
 			}
 		});
@@ -289,7 +299,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				var newIdArray = data.alarmList;
 				var len = idarray.length;
-				for (var i = 0; i < newIdArray.length; i++) {
+				for ( var i = 0; i < newIdArray.length; i++) {
 					idarray.push(newIdArray[i]);
 					openDialog(newIdArray[i]);
 				}
