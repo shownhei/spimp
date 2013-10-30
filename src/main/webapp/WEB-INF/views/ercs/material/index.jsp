@@ -44,7 +44,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 添加应急资源
 			</h5>
 		</div>
 		<div class="modal-body ">
@@ -57,17 +57,17 @@
 								<input id="resourceName" name="resourceName" type="text" >
 							</div>
 						</div>
-                        <div class="row-fluid span12">
+                        <div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text"   >
+									<input id="resourceNo" name="resourceNo" type="text"   class="span12" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text"  >
+									<input id="amount" name="amount" type="text"  class="span11">
 								</div>
 							</div>
 						</div>	        
@@ -81,13 +81,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text" >
+									<input id="model" name="model" type="text"  class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"  >
+									<input id="origin" name="origin" type="text"   class="span11">
 								</div>
 							</div>
 						</div>	 	
@@ -95,13 +95,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="butTime">购置时间</label>
 								<div class="controls">
-									<input id="butTime" name="butTime" type="datetime"   class="span9">
+									<input id="butTime" name="butTime" type="datetime"   class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="expiration">使用期限</label>
 								<div class="controls">
-									<input id="expiration" name="expiration" type="text"  class="span9">
+									<input id="expiration" name="expiration" type="text"  class="span11">
 								</div>
 							</div>
 						</div>	
@@ -116,13 +116,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="manager">管理人员</label>
 								<div class="controls">
-									<input id="manager" name="manager" type="text"  class="span9">
+									<input id="manager" name="manager" type="text"  class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="telephone">手机</label>
 								<div class="controls">
-									<input id="telephone" name="telephone" type="text"  class="span9">
+									<input id="telephone" name="telephone" type="text"  class="span11">
 								</div>
 							</div>
 						</div>	
@@ -158,7 +158,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
-				<i class="icon-edit"></i> 编辑
+				<i class="icon-edit"></i> 编辑应急资源
 			</h5>
 		</div>
 		<div class="modal-body">
@@ -176,13 +176,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text" >
+									<input id="resourceNo" name="resourceNo" type="text"  class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text">
+									<input id="amount" name="amount" type="text" class="span11">
 								</div>
 							</div>
 						</div>	        
@@ -196,13 +196,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text"  >
+									<input id="model" name="model" type="text"  class="span12" >
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"  >
+									<input id="origin" name="origin" type="text"   class="span11">
 								</div>
 							</div>
 						</div>	 	
@@ -210,13 +210,13 @@
 							<div class="control-group span6">
 								<label class="control-label " for="butTime">购置时间</label>
 								<div class="controls">
-									<input id="butTime" name="butTime" type="datetime" >
+									<input id="butTime" name="butTime" type="datetime"  class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="expiration">使用期限</label>
 								<div class="controls">
-									<input id="expiration" name="expiration" type="text" >
+									<input id="expiration" name="expiration" type="text"  class="span11">
 								</div>
 							</div>
 						</div>	
@@ -231,13 +231,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="manager">管理人员</label>
 								<div class="controls">
-									<input id="manager" name="manager" type="text" >
+									<input id="manager" name="manager" type="text"  class="span12">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="telephone">手机</label>
 								<div class="controls">
-									<input id="telephone" name="telephone" type="text" >
+									<input id="telephone" name="telephone" type="text"  class="span11">
 								</div>
 							</div>
 						</div>	

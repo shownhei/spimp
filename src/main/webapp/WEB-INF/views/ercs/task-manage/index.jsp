@@ -23,6 +23,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="view" class="btn btn-small disabled">
+						<i class="icon-th-list"></i> 查看
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
@@ -149,6 +152,53 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 查看 -->
+	<div id="view-modal" class="modal modal-md  hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-th-list"></i> 查看救援措施模板
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="view-form" class="form-horizontal">
+						<input name="id" type="hidden" >
+						<div class="control-group">
+							<label class="control-label span2" for="emergencyCategory">事故类型</label>
+							<div class="controls">
+								<input id="view-emergencyCategory" readOnly>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="emergencyLevel">事故严重程度</label>
+							<div class="controls">
+								<input id="view-emergencyLevel" readOnly>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="team">专业组</label>
+							<div class="controls">
+								<input id="view-team" readOnly >
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label span2" for="taskContent">救援措施内容</label>
+							<div class="controls">
+								<textarea  name="taskContent" readOnly  rows=5></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

@@ -1,4 +1,3 @@
-
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 	window.$=$;
@@ -8,7 +7,7 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	$("#resource,#edit-resource").autocomplete('/ercs/emergency-resources', {
+	$("#resource").autocomplete('/ercs/emergency-resources', {
 		dataType : "json",
 		mustMatch:true,
 		cacheLength:0,
@@ -25,7 +24,26 @@ define(function(require, exports, module) {
 			return item.resourceName;
 		}
 	}).result(function(e, item) {
-		$(e).attr('data-id',item.id);
+		$('#resource').attr('data-id',item.id);
+	});
+	$("#edit-resource").autocomplete('/ercs/emergency-resources', {
+		dataType : "json",
+		mustMatch:true,
+		cacheLength:0,
+		parse : function(data) {
+			return $.map(data.data.result, function(row) {
+				return {
+					data : row,
+					value : row.resourceName,
+					result : row.resourceName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.resourceName;
+		}
+	}).result(function(e, item) {
+		$('#edit-resource').attr('data-id',item.id);
 	});
 	// 配置表格列
 	var fields = [ {

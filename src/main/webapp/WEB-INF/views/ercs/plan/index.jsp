@@ -70,8 +70,8 @@
 						<div class="control-group" style="display:none;">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" >
-								<input value="删除" type="button" id="create-file-delete">
+								<input id="attachment" readonly name="attachment" type="text" class="span10">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2">
 							</div>
 						</div>
 					</form>

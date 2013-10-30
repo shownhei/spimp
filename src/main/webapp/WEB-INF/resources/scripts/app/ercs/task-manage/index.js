@@ -6,9 +6,9 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory','emergencyCategorySelect'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'create-team', 'edit-team'], '/ercs/response-team/tree', 'id', 'teamName');
+	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory','view-emergencyCategory','emergencyCategorySelect'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel','view-emergencyLevel'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-team', 'edit-team','view-team'], '/ercs/response-team/tree', 'id', 'teamName');
 
 	// 配置表格列
 	var fields = [ {
@@ -44,10 +44,6 @@ define(function(require, exports, module) {
 	},{
 		header : '救援措施内容',
 		name : 'taskContent'
-	},{
-		header : '添加时间',
-		width:150,
-		name : 'addTime'
 	}];
 
 	// 计算表格高度和行数
@@ -59,9 +55,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			Utils.button.enable([ 'edit', 'remove','view' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove' ]);
+			Utils.button.disable([ 'edit', 'remove','view'  ]);
 		}
 	}
 
@@ -138,7 +134,28 @@ define(function(require, exports, module) {
 			Utils.modal.show('edit');
 		});
 	});
+	$('#view').click(function() {
+		if (Utils.button.isDisable('view')) {
+			return;
+		}
 
+		Utils.modal.reset('view');
+		var selectId = grid.selectedData('id');
+		$.get('/ercs/emergency-plan-instances/' + selectId, function(data) {
+			var object = data.data;
+			Utils.form.fill('view', object);
+			if(object.emergencyCategory){
+				$('#view-emergencyCategory').val(object.emergencyCategory.itemName);
+			}
+			if(object.emergencyLevel){
+				$('#view-emergencyLevel').val(object.emergencyLevel.itemName);
+			}
+			if(object.team){
+				$('#view-team').val(object.team.teamName);
+			}
+			Utils.modal.show('view');
+		});
+	});
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');

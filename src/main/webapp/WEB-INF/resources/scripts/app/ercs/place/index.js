@@ -155,6 +155,7 @@ define(function(require, exports, module) {
 				$('#edit_department').attr('data-id',object.department.id);
 			}
 			Utils.modal.show('edit');
+			$('#edit_selectGroup').val('选择');
 		});
 	});
 

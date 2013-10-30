@@ -44,6 +44,15 @@ define(function(require, exports, module) {
 	},{
 		header : '救援措施内容',
 		name : 'taskContent'
+	},{
+		header : '添加时间',
+		width:150,
+		render:function(v){
+			if(v){
+				return v.processingTime;
+			}
+		},
+		name : 'alarm'
 	}];
 
 	// 计算表格高度和行数
