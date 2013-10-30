@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急法规管理 - 安全生产综合管理平台</title>
+<title>应急机构管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -13,21 +13,11 @@
 		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
-				<div class="toolbar">
-					<button id="create" class="btn btn-small btn-success">
-						<i class="icon-plus-sign-alt"></i> 新建
-					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled">
-						<i class="icon-edit"></i> 编辑
-					</button>
-					<button id="remove" class="btn btn-small btn-danger disabled">
-						<i class="icon-trash"></i> 删除
-					</button>
-				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="teamName" type="text" placeholder="输入机构名称..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入机构名称或机构编号..." class="input-small nav-search-input nav-search-input210"
+								autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -35,68 +25,114 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="team-table"></div>
+				<div class="row-fluid">
+					<div class="span3">
+						<div class="widget-box tree-widget-box">
+							<div class="widget-body tree-widget-body">
+								<div class="widget-main padding-8 tree-widget-main">
+									<div id="groups-tree" class="ztree"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="span9">
+						<div class="tabbable">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#normal">
+										<i class="green icon-user"></i> 人员组成
+									</a>
+								</li>
+							</ul>
+							<div id="tab-content" class="tab-content" style="padding-top:0px;padding-left:2px;">
+								<div id="normal" class="tab-pane in active" >
+								    <div class="row-fluid page-toolbar span12" >
+									     <div class=" toolbar " >
+											<button id="normal-create" class="btn btn-small btn-success " >
+												<i class="icon-plus-sign-alt"></i>
+												<span class="hidden-phone">新建</span>
+											</button>
+											<button id="normal-remove" class="btn btn-small btn-danger disabled" >
+												<i class="icon-trash"></i>
+												<span class="hidden-phone">删除</span>
+											</button>
+										</div>
+									</div>
+									<div class="row-fluid" style="margin-top:5px;">
+									   <div class="span12" id="normal-table" >
+									   </div>
+									</div>
+								</div>
+								<div id="expert" class="tab-pane in ">
+								    <div class="row-fluid page-toolbar span12" >
+									     <div class="toolbar " >
+											<button id="expert-create" class="btn btn-small btn-success " >
+												<i class="icon-plus-sign-alt"></i>
+												<span class="hidden-phone">新建</span>
+											</button>
+											<button id="expert-remove" class="btn btn-small btn-danger disabled" >
+												<i class="icon-trash"></i>
+												<span class="hidden-phone">删除</span>
+											</button>
+										</div>
+									</div>
+									<div class="row-fluid" style="margin-top:5px;">
+									   <div class="span12" id="expert-table" >
+									   </div>
+									</div>
+								</div>
+							</div>
+						</div><!-- end1 -->
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-normal-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 添加人员
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal">
-	        
-					    <div class="control-group">
-							<label class="control-label span2" for="teamName">机构名称</label>
-							<div class="controls">
-								<input id="teamName" name="teamName" type="text" class="span11">
-							</div>
-						</div>
+					<form id="create-normal-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="commander">总指挥</label>
+						    <input name="memberType" type="hidden" value="normal">
+						    <input name="memberLevel" type="hidden" value="1">
+						    <input name="team" type="hidden" id="normal_team">
+						    <div class="control-group">
+							<label class="control-label" for="memberLevel">人员类别</label>
 							<div class="controls">
-								<input id="commander" name="commander" type="text" class="span11">
+								<select id="memberLevel" name="memberLevel" class="input-small">
+									<option value="1">总指挥</option>
+									<option value="2">副总指挥</option>
+									<option value="3">成员</option>
+								</select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label span2" for="deputyCommander">副总指挥</label>
+							<label class="control-label" for="normalMember">人员名称</label>
 							<div class="controls">
-								<input id="deputyCommander" name="deputyCommander" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="members">下属成员</label>
-							<div class="controls">
-								<textarea id="members" name="members"  class="span11"></textarea>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="responseLevel">响应级别</label>
-							<div class="controls">
-								<select id="create-responseLevel" name="responseLevel[id]"  class="span11"></select>
+								<input id="create-normal-name" name="normalMember" type="text">
 							</div>
 						</div>
 					</form>
 				</div>
-				<div id="create-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
-						</div>
+			</div>
+			<div id="create-normal-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="create-normal-message-content"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="create-save" class="btn btn-small btn-success">
+			<button id="create-normal-save" class="btn btn-small btn-success">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
@@ -104,64 +140,41 @@
 			</button>
 		</div>
 	</div>
-	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<!-- 新建专家 -->
+	<div id="create-expert-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="blue">
-				<i class="icon-edit"></i> 编辑
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 添加专家
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" class="span11">
-					    <div class="control-group">
-							<label class="control-label span2" for="teamName">机构名称</label>
-							<div class="controls">
-								<input id="teamName" name="teamName" readOnly type="text" class="span11">
-							</div>
-						</div>
+					<form id="create-expert-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label span2" for="commander">总指挥</label>
+						    <input name="memberType" type="hidden" value="expert">
+						    <input name="memberLevel" type="hidden" value="1">
+						    <input name="team" type="hidden" id="expert_team">
+							<label class="control-label" for="name">专家名称</label>
 							<div class="controls">
-								<input id="commander" name="commander" readOnly type="text" class="span11">
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label span2" for="deputyCommander">副总指挥</label>
-							<div class="controls">
-								<input id="deputyCommander" name="deputyCommander" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="members">下属成员</label>
-							<div class="controls">
-								<input id="members" name="members" type="text" class="span11">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label span2" for="responseLevel">响应级别</label>
-							<div class="controls">
-								<select id="edit-responseLevel" name="responseLevel[id]"  class="span11"></select>
+								<input id="create-expert-name" name="expertMember" type="text">
 							</div>
 						</div>
 					</form>
 				</div>
-				<div id="edit-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="edit-message-content"></span>
-						</div>
+			</div>
+			<div id="create-expert-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="create-expert-message-content"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="edit-save" class="btn btn-small btn-primary">
+			<button id="create-expert-save" class="btn btn-small btn-success">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
@@ -170,7 +183,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-normal-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -180,20 +193,52 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<i class="icon-warning-sign"></i> 提示：删除选中的数据？
+					<i class="icon-warning-sign"></i> 提示：确认删除选中的机构？
 				</div>
-				<div id="remove-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="remove-message-content"></span>
-						</div>
+			</div>
+			<div id="remove-normal-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="remove-normal-message-content"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="remove-save" class="btn btn-small btn-danger">
+			<button id="normal-remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 删除 -->
+	<div id="remove-expert-modal" class="modal modal-xs hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：确认删除选中的机构？
+				</div>
+			</div>
+			<div id="remove-expert-message-alert" class="row-fluid hide">
+				<div class="span12">
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="remove-expert-message-content"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="expert-remove-save" class="btn btn-small btn-danger">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

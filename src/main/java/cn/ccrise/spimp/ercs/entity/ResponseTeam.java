@@ -4,7 +4,6 @@
 package cn.ccrise.spimp.ercs.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
@@ -16,65 +15,52 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 @Entity
 @Table(name = "ercs_response_teams")
 public class ResponseTeam extends IDEntity {
+	public static final Long ROOT_ID = -1L;
 	/**
 	 * 机构名称、小组名称
 	 */
 	private String teamName;
-	/**
-	 * 总指挥
-	 */
-	private String commander;
-	/**
-	 * 副总指挥
-	 */
-	private String deputyCommander;
-	/**
-	 * 下属成员
-	 */
-	private String members;
-	/**
-	 * 事故响应级别
-	 */
-	private Dictionary responseLevel;
+	private Boolean isParent = true;
 
-	public String getCommander() {
-		return commander;
+	/**
+	 * 上级id
+	 */
+	private Long parentId;
+	/**
+	 * 队组类型
+	 */
+	private String teamType;
+
+	public Boolean getIsParent() {
+		return isParent;
 	}
 
-	public String getDeputyCommander() {
-		return deputyCommander;
-	}
-
-	public String getMembers() {
-		return members;
-	}
-
-	@ManyToOne
-	public Dictionary getResponseLevel() {
-		return responseLevel;
+	public void setIsParent(Boolean isParent) {
+		this.isParent = isParent;
 	}
 
 	public String getTeamName() {
 		return teamName;
 	}
 
-	public void setCommander(String commander) {
-		this.commander = commander;
-	}
-
-	public void setDeputyCommander(String deputyCommander) {
-		this.deputyCommander = deputyCommander;
-	}
-
-	public void setMembers(String members) {
-		this.members = members;
-	}
-
-	public void setResponseLevel(Dictionary responseLevel) {
-		this.responseLevel = responseLevel;
-	}
-
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getTeamType() {
+		return teamType;
+	}
+
+	public void setTeamType(String teamType) {
+		this.teamType = teamType;
+	}
+
 }

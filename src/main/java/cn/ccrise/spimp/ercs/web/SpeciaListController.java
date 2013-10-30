@@ -63,6 +63,7 @@ public class SpeciaListController {
 		if (specialty != null) {
 			param.add(Restrictions.eq("specialty", dictionaryService.findUniqueBy("id", specialty)));
 		}
+
 		return new Response(speciaListService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 
