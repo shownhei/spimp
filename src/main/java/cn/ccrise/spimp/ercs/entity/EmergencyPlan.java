@@ -18,9 +18,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 
 /**
- * EmergencyPlan。
- * 
- * @author Xiong Shuhong(shelltea@gmail.com)
+ * EmergencyPlan。 应急预案
  */
 @Entity
 @Table(name = "ercs_emergency_plans")

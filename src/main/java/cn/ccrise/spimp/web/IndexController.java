@@ -130,6 +130,30 @@ public class IndexController {
 		return "ercs/specia-list/index";
 	}
 
+	/**
+	 * 应急预案救援措施模板
+	 */
+	@RequestMapping(value = "/ercs/template", method = RequestMethod.GET)
+	public String indexTemplate() {
+		return "ercs/template/index";
+	}
+
+	/**
+	 * 应急预案救援任务查看
+	 */
+	@RequestMapping(value = "/ercs/task-view", method = RequestMethod.GET)
+	public String indexTaskView() {
+		return "ercs/task-view/index";
+	}
+
+	/**
+	 * 应急预案救援任务管理
+	 */
+	@RequestMapping(value = "/ercs/task-manage", method = RequestMethod.GET)
+	public String indexTaskManage() {
+		return "ercs/task-manage/index";
+	}
+
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView get(@PathVariable long id) {
