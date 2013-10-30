@@ -15,52 +15,27 @@ html,body {
 body {
 	margin: 0;
 	padding: 0;
-	
 	overflow: auto;
 }
-
 #flashContent {
 	display: none;
 }
 </style>
-
-<link rel="stylesheet" type="text/css" href="${resources}/flexpaper/css/flexpaper.css" />
-<script type="text/javascript" src="${resources}/flexpaper/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="${resources}/flexpaper/js/flexpaper.js"></script>
-<script type="text/javascript" src="${resources}/flexpaper/js/flexpaper_handlers_debug.js"></script>
+<script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
 </head>
 <body >
 	<div style="padding:0px;margin:0px;border:opx solid white;">
 		<div id="documentViewer" class="flexpaper_viewer" style="width: 100%; height: 345px"></div>
-
 		<script type="text/javascript">
-			$('#documentViewer').FlexPaperViewer({
-				config : {
-					SWFFile : '${file.swfPath}?t='+new Date().getTime(),
-					Scale : 0.5,
-					ZoomTransition : 'easeOut',
-					ZoomTime : 0.5,
-					ZoomInterval : 0.2,
-					FitPageOnLoad : true,
-					FitWidthOnLoad : true,
-					FullScreenAsMaxWindow : false,
-					ProgressiveLoading : false,
-					MinZoomSize : 0.2,
-					MaxZoomSize : 5,
-					SearchMatchAll : false,
-					InitViewMode : 'Portrait',
-					RenderingOrder : 'flash',
-					StartAtPage : '',
-
-					ViewModeToolsVisible : true,
-					ZoomToolsVisible : true,
-					NavToolsVisible : true,
-					CursorToolsVisible : true,
-					SearchToolsVisible : true,
-					WMode : 'window',
-					localeChain : 'en_US'
-				}
-			});
+		var flexPaperViewer = "${resources}/scripts/sea-modules/ikj/flexpaper/1.0.0/FlexPaperViewer.swf";
+		var swfFile='${file.swfPath}?t=' + new Date().getTime();
+		seajs.config({
+	        alias: {
+	          $: 'jquery/jquery/1.10.1/jquery',
+	          flexpaper : 'ikj/flexpaper/1.0.0/flexpaper'
+	        }
+	      });
+		seajs.use('${resources}/scripts/app/ercs/view-pdf');
 		</script>
 	</div>
 </body>
