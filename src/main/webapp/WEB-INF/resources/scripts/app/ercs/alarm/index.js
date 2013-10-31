@@ -5,10 +5,10 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	Utils.select.remote([ 'accidentTypeSelect', 'edit-accidentType', 'view-accidentType' ], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id',
+	Utils.select.remote([ 'accidentTypeSelect', 'edit-accidentType', 'view-accidentType' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id',
 			'itemName', true, "请选择事故类型...");
-	Utils.select.remote([ 'accidentLevelSelect' ], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName', true, "请选择严重程度...");
-	Utils.select.remote([ 'edit-accidentLevel', 'view-accidentLevel' ], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'accidentLevelSelect' ], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName', true, "请选择严重程度...");
+	Utils.select.remote([ 'edit-accidentLevel', 'view-accidentLevel' ], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
 
 	$('#accidentTypeSelect').bind('change', function() {
 		var val = $(this).children('option:selected').val();
@@ -241,8 +241,8 @@ define(function(require, exports, module) {
 					raw.accidentLevel = {};
 				}
 				Utils.modal.show('edit' + raw.id);
-				Utils.select.remote([ 'edit' + raw.id + '-accidentType' ], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-				Utils.select.remote([ 'edit' + raw.id + '-accidentLevel' ], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
+				Utils.select.remote([ 'edit' + raw.id + '-accidentType' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+				Utils.select.remote([ 'edit' + raw.id + '-accidentLevel' ], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
 				// 事件绑定
 				$('#edit' + raw.id + '-save').bind('click', {
 					alarmId : raw.id

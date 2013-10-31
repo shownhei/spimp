@@ -6,8 +6,8 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory','emergencyCategorySelect'], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel'], '/ercs/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory','emergencyCategorySelect'], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel'], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
 	Utils.select.remote([ 'create-team', 'edit-team'], '/ercs/response-team/tree', 'id', 'teamName');
 
 	// 配置表格列

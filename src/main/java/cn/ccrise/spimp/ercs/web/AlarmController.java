@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.Alarm;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
 import cn.ccrise.spimp.ercs.service.AlarmService;
-import cn.ccrise.spimp.ercs.service.DictionaryService;
+import cn.ccrise.spimp.service.DictionaryService;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 

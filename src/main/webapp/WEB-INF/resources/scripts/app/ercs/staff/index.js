@@ -6,8 +6,8 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	Utils.input.date('input[type=datetime]');
-	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ,'create-education'], '/ercs/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ,'create-education'], '/system/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [  {

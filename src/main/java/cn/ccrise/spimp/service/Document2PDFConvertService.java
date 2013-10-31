@@ -1,8 +1,12 @@
 package cn.ccrise.spimp.service;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.spimp.util.ErcsDocumentFormatRegistry;
@@ -14,14 +18,7 @@ import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConv
 
 @Service
 public class Document2PDFConvertService {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private OpenOfficeConnection connection;
 	private Process process;
@@ -86,6 +83,11 @@ public class Document2PDFConvertService {
 				+ "program\\soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
 		try {
 			process = Runtime.getRuntime().exec(command);
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String temp = null;
+			while ((temp = bufferedReader.readLine()) != null) {
+				logger.debug(temp);
+			}
 			connection = new SocketOpenOfficeConnection("127.0.0.1", 8100);
 			connection.connect();
 		} catch (IOException e) {
