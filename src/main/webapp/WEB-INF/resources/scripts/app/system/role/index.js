@@ -120,9 +120,11 @@ define(function(require, exports, module) {
 	if ($(window).width() >= 768) {
 		$('#roles-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
+		$('#resources-tree').parent().parent().height(treeHeight - 30);
 	} else {
 		$('#roles-tree').height(150);
 		$('#tab-content').height(treeHeight - 170);
+		$('#resources-tree').parent().parent().height(treeHeight - 230);
 		gridHeight = treeHeight - 245;
 	}
 

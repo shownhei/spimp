@@ -77,7 +77,7 @@
 											<div id="alert-message" class="alert alert-message pull-right hide"></div>
 										</div>
 									</div>
-									<div class="row-fluid">
+									<div class="row-fluid" style="overflow: auto;">
 										<div class="span12">
 											<div id="resources-tree" class="ztree"></div>
 										</div>
