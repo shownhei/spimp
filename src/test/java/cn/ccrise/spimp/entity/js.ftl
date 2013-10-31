@@ -46,6 +46,13 @@ ${jsFields}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
+			
+			// 改变导出按钮状态
+			if (this.data.totalCount > 0) {
+				Utils.button.enable([ 'export' ]);
+			} else {
+				Utils.button.disable([ 'export' ]);
+			}
 		}
 	}).render();
 
@@ -141,9 +148,14 @@ ${validateCode}		if(errorMsg.length > 0){
 			Utils.modal.hide('remove');
 		});
 	});
+	
+	// 导出
+	$('#export').click(function() {
+		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
+	});
 
 	// 搜索
-	$('#nav-search-button').click(function() {
+	$('#submit').click(function() {
 		grid.set({
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
