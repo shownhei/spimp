@@ -24,10 +24,11 @@ import freemarker.template.TemplateException;
 /**
  * 前端代码生成器，包括JS代码及JSP代码;
  * 使用说明：在开发一个新模块时，
- * 1、首先使用CodeGenerator生成后端服务代码框架；
- * 2、打开生成的实体类，增加属性，并增加用于生成前端代码的注解；
- * 3、使用PageGenerator的generateWebPages方法生成前端代码；
- * 4、完成；
+ * 1、配置关键路径(packageName,uriPrefix,entityName)；
+ * 2、首先使用generateEntityFile()生成实体类；
+ * 3、打开生成的实体类，增加属性，并增加用于生成前端代码的注解；
+ * 4、使用generateOtherFiles()方法生成其余代码；
+ * 5、完成；
  *
  * <p>
  *
@@ -70,6 +71,9 @@ public class PageGenerator {
 	
 	private static final String ENCODING = "UTF-8";
 	
+	/**
+	 * 第一步:配置源码路径。
+	 */
 	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
 	protected final String uriPrefix = "spmi/schedule";
 	protected final String entityName = "Output";
@@ -77,29 +81,31 @@ public class PageGenerator {
 	/**
 	 * 页面名称（用于生成前端代码）
 	 */
-	protected static final String PAGE_TITLE = "矿井原煤产量 - 安全生产综合管理平台";
+	protected static final String PAGE_TITLE = "重点工作 - 安全生产综合管理平台";
 	
 	/**
-	 * 1、生成后台DAO及ENTITY代码。
+	 * 第二步:生成后台DAO及ENTITY代码。
 	 */
 	@Test
-	public void generateEntityAndDao() {
+	public void generateEntityFile() {
 		generateEntity(entityName, packageName, uriPrefix);
-		generateDAO(entityName, packageName, uriPrefix);
 	}
+	
 	/**
-	 * 2、代开刚生成的实体类，添加属性及注解。
+	 * 第三步:打开刚生成的实体类，添加属性及注解。
 	 */
 	
 	/**
-	 * 3、生成前端代码，包括JS,jsp,controller,service。
+	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
 	 */
 	@Test
-	public void generateWebPages() {
+	public void generateOtherFiles() {
 		generateJs(entityName, packageName, uriPrefix);
 		generateJsp(entityName, packageName, uriPrefix);
-		generateController(entityName, packageName, uriPrefix);
+		
+		generateDAO(entityName, packageName, uriPrefix);
 		generateService(entityName, packageName, uriPrefix);
+		generateController(entityName, packageName, uriPrefix);
 	}
 	
 	@Test
