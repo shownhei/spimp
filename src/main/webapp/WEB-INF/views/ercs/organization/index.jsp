@@ -13,10 +13,6 @@
 		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
-				<div class="nav-search">
-					<form id="search-form" class="form-search" onsubmit="return false;">
-					</form>
-				</div>
 			</div>
 			<div class="page-content">
 				<div class="row-fluid">

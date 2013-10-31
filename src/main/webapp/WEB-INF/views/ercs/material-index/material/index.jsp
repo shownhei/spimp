@@ -44,7 +44,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 添加应急资源1
+				<i class="icon-plus-sign-alt"></i> 添加应急资源
 			</h5>
 		</div>
 		<div class="modal-body ">

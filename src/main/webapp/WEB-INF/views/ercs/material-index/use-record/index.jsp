@@ -27,7 +27,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="resourceName" type="text" placeholder="输入物资名称" class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
