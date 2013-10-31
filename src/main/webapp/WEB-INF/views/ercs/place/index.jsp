@@ -30,7 +30,7 @@
 							<select id="refugeTypeSelect" name="refugeType" class="input-small span2"></select>
 						</span>
 						<span class="input-icon">
-							<input id="nav-search-input" name="refugeName" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="refugeName" type="text" placeholder="输入场所名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -62,15 +62,15 @@
 						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
-								<label class="control-label span4" for="principal">种类</label>
+								<label class="control-label " for="refugeType" >种类</label>
 								<div class="controls">
-									<select id="create-refugeType" name="refugeType[id]" class="span12"></select>
+									<select id="create-refugeType" name="refugeType[id]" class="span2" style="width:130px;"></select>
 								</div>
 							</div>
 							<div class="control-group span6">
-								<label class="control-label span4" for="principal">数量</label>
+								<label class="control-label " for="quantity" >数量</label>
 								<div class="controls">
-									<input id="quantity" name="quantity" type="text" value="1" class="span11">
+									<input id="quantity" name="quantity" type="text" value="1" class="span2" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -91,13 +91,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">面积</label>
 								<div class="controls">
-									<input id="refugeArea" type="text"  name="refugeArea"  class="span12">
+									<input id="refugeArea" type="text"  name="refugeArea"  class="span12" style="width:130px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">可容纳人数</label>
 								<div class="controls">
-									<input id="capacity" name="capacity" type="text" value="10" class="span11">
+									<input id="capacity" name="capacity" type="text" value="10" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -116,8 +116,8 @@
 						<div class="control-group">
 							<label class="control-label span2" for="principal">隶属单位</label>
 							<div class="controls">
-								<input name="department"  id="create_department" type="text" class="span10">
-								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success span2" >
+								<input name="department"  id="create_department" type="text" class="span10" style="width:340px;">
+								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success span2" style="width:50px;">
 							</div>
 						</div>
 						
@@ -125,13 +125,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">管理人</label>
 								<div class="controls">
-									<input id="manager" type="text" name="manager"  class="span12">
+									<input id="manager" type="text" name="manager"  class="span12" style="width:130px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">联系方式</label>
 								<div class="controls">
-									<input id="telepone" name="telepone" type="text" class="span11">
+									<input id="telepone" name="telepone" type="text" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -180,13 +180,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">种类</label>
 								<div class="controls">
-									<select id="edit-refugeType" name="refugeType[id]" class="span12"></select>
+									<select id="edit-refugeType" name="refugeType[id]" class="span12" style="width:122px;"></select>
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">数量</label>
 								<div class="controls">
-									<input name="quantity" type="text" value="1" class="span11">
+									<input name="quantity" type="text" value="1" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -207,13 +207,13 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">面积</label>
 								<div class="controls">
-									<input type="text"  name="refugeArea" class="span12">
+									<input type="text"  name="refugeArea" class="span12" style="width:122px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">可容纳人数</label>
 								<div class="controls">
-									<input name="capacity" type="text" value="10" class="span11">
+									<input name="capacity" type="text" value="10" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -232,21 +232,21 @@
 						<div class="control-group">
 							<label class="control-label " for="principal">隶属单位</label>
 							<div class="controls">
-								<input name="department"  id="edit_department" type="text" class="span10">
-								<input type="button" value="选择1" id="edit_selectGroup" class="btn btn-small btn-success span2" >
+								<input name="department"  id="edit_department" type="text" class="span10"  style="width:340px;">
+								<input type="button" value="选择1" id="edit_selectGroup" class="btn btn-small btn-success span2"  style="width:50px;">
 							</div>
 						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">管理人</label>
 								<div class="controls">
-									<input  name="manager" type="text"  class="span12">
+									<input  name="manager" type="text"  class="span12" style="width:122px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">联系方式</label>
 								<div class="controls">
-									<input name="telepone" type="text" class="span11">
+									<input name="telepone" type="text" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>

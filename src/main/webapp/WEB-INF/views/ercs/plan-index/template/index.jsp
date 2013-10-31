@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急法规管理 - 安全生产综合管理平台</title>
-<%@ include file="../../common/head.jsp"%>
-<%@ include file="../../common/template.jsp"%>
+<title>救援措施模板管理 - 安全生产综合管理平台</title>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -27,15 +27,14 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入文件号或文件名称..." class="input-small nav-search-input" autocomplete="off">
-							<i class="icon-search nav-search-icon"></i>
+							<select id="emergencyCategorySelect" name="emergencyCategory" class="input-small span2"></select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="law-table"></div>
+				<div class="row-fluid" id="refuge-table"></div>
 			</div>
 		</div>
 	</div>
@@ -44,46 +43,35 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 新增救援措施模板
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"  style="margin-bottom:0px;">
-	        
-					    <div class="control-group">
-							<label class="control-label" for="fileName">文件名</label>
+					<form id="create-form" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label span2" for="emergencyCategory">事故类型</label>
 							<div class="controls">
-								<input id="fileName" name="fileName" type="text">
+								<select id="create-emergencyCategory" name="emergencyCategory[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="fileNo">文件号</label>
+							<label class="control-label span2" for="emergencyLevel">事故严重程度</label>
 							<div class="controls">
-								<input id="fileNo" name="fileNo" type="text">
-							</div>
-						</div>
-					    <div class="control-group">
-							<label class="control-label " for="department">发布单位</label>
-							<div class="controls">
-								<input id="create-department" name="department" type="text" class="span10" style="width:350px;">
-	                            <input  type="button" id="create-selectGroup" value="选择"  class="btn btn-small btn-success span2"  style="width:45px;">
+								<select id="create-emergencyLevel" name="emergencyLevel[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="fileNo">附件</label>
+							<label class="control-label span2" for="team">专业组</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10 " style="width:350px;">
-								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width:48px;">
+								<select id="create-team" name="team[id]"></select>
 							</div>
 						</div>
-					</form>
-					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame"  style="margin-bottom:0px;">
 						<div class="control-group">
-							<label class="control-label" for="credential">附件</label>
+							<label class="control-label span2" for="taskContent">救援措施内容</label>
 							<div class="controls">
-								<input  name="file" id="file" type="file">
+								<textarea  name="taskContent" rows=5></textarea>
 							</div>
 						</div>
 					</form>
@@ -91,8 +79,7 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
+							<i class="icon-remove"></i> <span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -108,41 +95,40 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal modal-md hide">
+	<div id="edit-modal" class="modal modal-md  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
-				<i class="icon-edit"></i> 编辑
+				<i class="icon-edit"></i> 编辑救援措施模板
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden">
-					    <div class="control-group">
-							<label class="control-label" for="fileName">文件名</label>
+						<input name="id" type="hidden" >
+						<div class="control-group">
+							<label class="control-label span2" for="emergencyCategory">事故类型</label>
 							<div class="controls">
-								<input  name="fileName" type="text">
+								<select id="edit-emergencyCategory" name="emergencyCategory[id]"></select>
 							</div>
 						</div>
-					    <div class="control-group">
-							<label class="control-label" for="fileNo">文件号</label>
+						<div class="control-group">
+							<label class="control-label span2" for="emergencyLevel">事故严重程度</label>
 							<div class="controls">
-								<input  name="fileNo" type="text">
+								<select id="edit-emergencyLevel" name="emergencyLevel[id]"></select>
 							</div>
 						</div>
-	                    <div class="control-group">
-							<label class="control-label" for="fileNo">附件</label>
+						<div class="control-group">
+							<label class="control-label span2" for="team">专业组</label>
 							<div class="controls">
-								<input  readonly name="attachment" id="edit_attachment" type="text">
+								<select id="edit-team" name="team[id]"></select>
 							</div>
 						</div>
-						
-					    <div class="control-group">
-							<label class="control-label" for="department">发布单位</label>
+						<div class="control-group">
+							<label class="control-label span2" for="taskContent">救援措施内容</label>
 							<div class="controls">
-								<input id="edit-department" name="department" readonly  type="text" >
+								<textarea  name="taskContent" rows=5></textarea>
 							</div>
 						</div>
 					</form>
@@ -167,7 +153,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal modal-xs hide">
+	<div id="remove-modal" class="modal  modal-xs  hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -199,26 +185,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/law/index');
+		seajs.use('${resources}/scripts/app/ercs/plan-index/template/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
-	<div id="view-modal" class="modal modal-xl hide" >
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="green">
-				<i class="icon-th-list"></i> 查看
-			</h5>
-		</div>
-		<div class="modal-body">
-			<div class="row-fluid">
-			<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 关闭
-			</button>
-		</div>
-	</div>
+	
 </body>
 </html>

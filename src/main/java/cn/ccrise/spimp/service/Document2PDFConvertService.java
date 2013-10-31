@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.util.ErcsDocumentFormatRegistry;
 
 import com.artofsolving.jodconverter.DocumentConverter;
@@ -23,7 +24,8 @@ public class Document2PDFConvertService {
 	private OpenOfficeConnection connection;
 	private Process process;
 
-	private String OpenOffice_HOME = "E:\\Program Files (x86)\\OpenOffice 4";// 这里是OpenOffice的安装目录,
+	private String OpenOffice_HOME = PropertiesUtils.getString("document_convert_openoffice");// "E:\\Program Files (x86)\\OpenOffice 4";//
+																								// 这里是OpenOffice的安装目录,
 
 	/**
 	 * 关闭服务
