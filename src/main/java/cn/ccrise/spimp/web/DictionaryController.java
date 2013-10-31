@@ -77,6 +77,8 @@ public class DictionaryController {
 		if (StringUtils.isNotBlank(itemName)) {
 			param.add(Restrictions.like("itemName", itemName, MatchMode.ANYWHERE));
 		}
+		page.setOrder("asc");
+		page.setOrderBy("sortIndex");
 		page = dictionaryService.getPage(page, param.toArray(new SimpleExpression[0]));
 
 		if (list != null && list.booleanValue()) {
