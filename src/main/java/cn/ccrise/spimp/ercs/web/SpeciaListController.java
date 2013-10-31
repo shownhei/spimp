@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.ercs.entity.SpeciaList;
-import cn.ccrise.spimp.ercs.service.DictionaryService;
 import cn.ccrise.spimp.ercs.service.SpeciaListService;
+import cn.ccrise.spimp.service.DictionaryService;
 
 /**
  * SpeciaList Controller。
@@ -63,6 +63,7 @@ public class SpeciaListController {
 		if (specialty != null) {
 			param.add(Restrictions.eq("specialty", dictionaryService.findUniqueBy("id", specialty)));
 		}
+
 		return new Response(speciaListService.getPage(page, param.toArray(new SimpleExpression[0])));
 	}
 

@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/ercs/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/system/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {
@@ -155,6 +155,7 @@ define(function(require, exports, module) {
 				$('#edit_department').attr('data-id',object.department.id);
 			}
 			Utils.modal.show('edit');
+			$('#edit_selectGroup').val('选择');
 		});
 	});
 

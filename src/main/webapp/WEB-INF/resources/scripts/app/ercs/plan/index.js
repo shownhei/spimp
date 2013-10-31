@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-planType', 'edit-planType', 'planTypeSelect' ], '/ercs/dictionaries?typeCode=plan_type&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-planType', 'edit-planType', 'planTypeSelect' ], '/system/dictionaries?typeCode=plan_type&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {

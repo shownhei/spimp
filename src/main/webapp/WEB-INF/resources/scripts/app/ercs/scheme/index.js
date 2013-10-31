@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-type', 'edit-type' ], '/ercs/dictionaries?typeCode=accident_category&list=true', 'id',
+	Utils.select.remote([ 'create-type', 'edit-type' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id',
 			'itemName');
 	// 配置表格列
 	var fields = [ {

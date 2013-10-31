@@ -47,7 +47,7 @@ public class PDF2SwfService {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(pro.getInputStream()));
 		String temp = null;
 		while ((temp = bufferedReader.readLine()) != null) {
-			System.out.println(temp);
+			logger.debug(temp);
 		}
 		try {
 			pro.waitFor();

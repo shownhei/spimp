@@ -40,9 +40,9 @@ public class IndexController {
 	/**
 	 * 字典管理
 	 */
-	@RequestMapping(value = "/ercs/dictionary", method = RequestMethod.GET)
+	@RequestMapping(value = "/system/dictionary", method = RequestMethod.GET)
 	public String ercsDictionary() {
-		return "ercs/dictionary/index";
+		return "system/dictionary/index";
 	}
 
 	/**
@@ -128,6 +128,30 @@ public class IndexController {
 	@RequestMapping(value = "/ercs/staff", method = RequestMethod.GET)
 	public String ercsStaff() {
 		return "ercs/staff/index";
+	}
+
+	/**
+	 * 应急预案救援措施模板
+	 */
+	@RequestMapping(value = "/ercs/template", method = RequestMethod.GET)
+	public String indexTemplate() {
+		return "ercs/template/index";
+	}
+
+	/**
+	 * 应急预案救援任务查看
+	 */
+	@RequestMapping(value = "/ercs/task-view", method = RequestMethod.GET)
+	public String indexTaskView() {
+		return "ercs/task-view/index";
+	}
+
+	/**
+	 * 应急预案救援任务管理
+	 */
+	@RequestMapping(value = "/ercs/task-manage", method = RequestMethod.GET)
+	public String indexTaskManage() {
+		return "ercs/task-manage/index";
 	}
 
 	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)

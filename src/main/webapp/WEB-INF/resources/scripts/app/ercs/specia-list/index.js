@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	Utils.input.date('input[type=datetime]');
-	Utils.select.remote([ 'create-specialty', 'edit-specialty', 'specialtySelect' ], '/ercs/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-specialty', 'edit-specialty', 'specialtySelect' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {

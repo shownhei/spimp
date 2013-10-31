@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.entity.Dictionary;
 
 /**
  * 接警表
@@ -98,6 +99,9 @@ public class Alarm extends IDEntity {
 		return alarmTime;
 	}
 
+	/**
+	 * 操作标记 是否已处理 1 ：已处理0：未处理
+	 */
 	public Integer getDealFlag() {
 		return dealFlag;
 	}

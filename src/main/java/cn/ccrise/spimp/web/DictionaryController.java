@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.ercs.web;
+package cn.ccrise.spimp.web;
 
 import java.util.ArrayList;
 
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.security.service.impl.LogEntityServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
-import cn.ccrise.spimp.ercs.service.DictionaryService;
+import cn.ccrise.spimp.entity.Dictionary;
+import cn.ccrise.spimp.service.DictionaryService;
 
 /**
  * Dictionary Controller。
@@ -47,13 +47,13 @@ public class DictionaryController {
 	@Autowired
 	private MessageSource messageSource;
 
-	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/system/dictionaries/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(dictionaryService.delete(id));
 	}
 
-	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/system/dictionaries/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(dictionaryService.get(id));
@@ -67,7 +67,7 @@ public class DictionaryController {
 		return tResponse;
 	}
 
-	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.GET)
+	@RequestMapping(value = "/system/dictionaries", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Dictionary> page, String typeCode, Boolean list, String itemName) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
@@ -85,13 +85,13 @@ public class DictionaryController {
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/ercs/dictionaries", method = RequestMethod.POST)
+	@RequestMapping(value = "/system/dictionaries", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@RequestBody Dictionary dictionary) {
 		return new Response(dictionaryService.save(dictionary));
 	}
 
-	@RequestMapping(value = "/ercs/dictionaries/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/system/dictionaries/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Dictionary dictionary, @PathVariable long id) {
 		return new Response(dictionaryService.update(dictionary));

@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.Alarm;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
 import cn.ccrise.spimp.ercs.service.AlarmService;
-import cn.ccrise.spimp.ercs.service.DictionaryService;
+import cn.ccrise.spimp.service.DictionaryService;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 
@@ -76,7 +76,7 @@ public class AlarmController {
 	@RequestMapping(value = "/ercs/alarms/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
-		return new Response(alarmService.delete(id));
+		return new Response(alarmService.deleteAlarm(id));
 	}
 
 	@RequestMapping(value = "/ercs/alarms/{id}", method = RequestMethod.GET)
@@ -87,7 +87,8 @@ public class AlarmController {
 
 	@RequestMapping(value = "/ercs/alarms", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, HttpServletRequest httpServletRequest) {
+	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, Integer dealFlag,
+			HttpServletRequest httpServletRequest) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (accidentType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", accidentType));
@@ -100,6 +101,9 @@ public class AlarmController {
 			if (result != null && result.size() > 0) {
 				param.add(Restrictions.eq("accidentLevel", result.iterator().next()));
 			}
+		}
+		if (dealFlag != null) {
+			param.add(Restrictions.eq("dealFlag", dealFlag));
 		}
 		page.setOrder("desc");
 		page.setOrderBy("alarmTime");

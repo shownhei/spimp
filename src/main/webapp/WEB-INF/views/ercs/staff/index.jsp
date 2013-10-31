@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -27,10 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon"> <input id="nav-search-input"
-							name="staffName" type="text" placeholder="输入人员名称"
-							class="input-small nav-search-input" autocomplete="off">
-							<i class="icon-search nav-search-icon"></i>
+						<span class="input-icon"> <input id="nav-search-input" name="staffName" type="text" placeholder="输入人员名称" class="input-small nav-search-input"
+							autocomplete="off"> <i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
@@ -54,62 +51,81 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
 						<div class="control-group">
-							<label class="control-label" for="principal">姓名</label>
+							<label class="control-label " for="staffName">姓名</label>
 							<div class="controls">
-								<input id="staffName" name="staffName" type="text"
-									>
+								<input name="staffName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">员工类型</label>
+							<label class="control-label " for="birthDay">出生日期</label>
 							<div class="controls">
-								<input id="staffType" name="staffType" type="text"
-									>
+								<input name="birthDay" type="datetime">
 							</div>
 						</div>
-
-
 						<div class="control-group">
-							<label class="control-label" for="principal">部门</label>
+							<label class="control-label " for="education">文化程度</label>
 							<div class="controls">
-								<input type='text'  readonly id="create-department" name="department" class="span10">
-								<input type="button" value="选择" id="create_selectGroup">
+								<select id="create-education" name="education[id]"></select>
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">专业领域</label>
+							<label class="control-label " for="policitalStatus">政治面貌</label>
 							<div class="controls">
-								<select id="create-expertiseArea" name="expertiseArea[id]" ></select>
+								<input name="policitalStatus" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">职称</label>
+							<label class="control-label " for="workDate">工作时间</label>
 							<div class="controls">
-								<input id="title" name="title" type="text" >
+								<input name="workDate" type="datetime">
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">经验</label>
+							<label class="control-label " for="enqueueDate">入队时间</label>
 							<div class="controls">
-								<input id="experience" name="experience" type="text"
-									>
+								<input name="enqueueDate" type="datetime">
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">联系方式</label>
+							<label class="control-label " for="address">住址</label>
 							<div class="controls">
-								<input id="phone" name="phone" type="text" >
+								<input name="address" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">事故响应级别</label>
+							<label class="control-label " for="telephone">电话</label>
 							<div class="controls">
-									<select id="create-responseLevel" name="responseLevel[id]" ></select>
+								<input name="telephone" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="iDNumber">身份证号</label>
+							<div class="controls">
+								<input name="iDNumber" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="remark">备注</label>
+							<div class="controls">
+								<input name="remark" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="department">部门</label>
+							<div class="controls">
+								<input type='text' readonly id="create-department" name="department" class="span10"> <input type="button" value="选择" id="create_selectGroup">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="expertiseArea">专业领域</label>
+							<div class="controls">
+								<select id="create-expertiseArea" name="expertiseArea[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="responseLevel">事故响应级别</label>
+							<div class="controls">
+								<select id="create-responseLevel" name="responseLevel[id]"></select>
 							</div>
 						</div>
 					</form>
@@ -144,27 +160,25 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden" >
+						<input name="id" type="hidden">
 						<div class="control-group">
 							<label class="control-label" for="principal">员工类型</label>
 							<div class="controls">
-								<input  name="staffType" type="text"
-									>
+								<input name="staffType" type="text">
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">姓名</label>
 							<div class="controls">
-								<input  name="staffName" type="text"
-									>
+								<input name="staffName" type="text">
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">部门</label>
 							<div class="controls">
-							    <input type='text' readonly id="edit-department" name="department" class="span10">
+								<input type='text' readonly id="edit-department" name="department" class="span10">
 								<button type="button" id="edit_selectGroup">选择</button>
 							</div>
 						</div>
@@ -172,36 +186,35 @@
 						<div class="control-group">
 							<label class="control-label" for="principal">专业领域</label>
 							<div class="controls">
-								<select id="edit-expertiseArea" name="expertiseArea[id]" ></select>
+								<select id="edit-expertiseArea" name="expertiseArea[id]"></select>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">职称</label>
 							<div class="controls">
-								<input  name="title" type="text" >
+								<input name="title" type="text">
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">经验</label>
 							<div class="controls">
-								<input  name="experience" type="text"
-									>
+								<input name="experience" type="text">
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">联系方式</label>
 							<div class="controls">
-								<input  name="phone" type="text" >
+								<input name="phone" type="text">
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="principal">事故响应级别</label>
 							<div class="controls">
-								<select id="edit-responseLevel" name="responseLevel[id]" ></select>
+								<select id="edit-responseLevel" name="responseLevel[id]"></select>
 							</div>
 						</div>
 

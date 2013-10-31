@@ -17,6 +17,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.entity.Dictionary;
 
 /**
  * 避难场所

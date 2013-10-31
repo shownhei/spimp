@@ -16,11 +16,10 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.entity.Dictionary;
 
 /**
- * EmergencyPlan。
- * 
- * @author Xiong Shuhong(shelltea@gmail.com)
+ * EmergencyPlan。 应急预案
  */
 @Entity
 @Table(name = "ercs_emergency_plans")

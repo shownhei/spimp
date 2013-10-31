@@ -3,6 +3,8 @@
  */
 package cn.ccrise.spimp.ercs.web;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +57,26 @@ public class ResponseTeamController {
 					Restrictions.ilike("teamName", teamName, MatchMode.ANYWHERE)));
 		}
 		return new Response(responseTeamService.getPage(page));
+	}
+
+	@RequestMapping(value = "/ercs/response-team/tree", method = RequestMethod.GET)
+	@ResponseBody
+	public Response teamtree() {
+		Page<ResponseTeam> page = new Page<ResponseTeam>();
+		return new Response(responseTeamService.getPage(page, Restrictions.ne("parentId", ResponseTeam.ROOT_ID))
+				.getResult());
+	}
+
+	@RequestMapping(value = "/ercs/response-team-tree", method = RequestMethod.GET)
+	@ResponseBody
+	public Response tree(Long id) {
+		if (id == null) {
+			ResponseTeam root = responseTeamService.findUniqueBy("parentId", ResponseTeam.ROOT_ID);
+			return new Response(root);
+		} else {
+			List<ResponseTeam> children = responseTeamService.find(Restrictions.eq("parentId", id));
+			return new Response(children);
+		}
 	}
 
 	@RequestMapping(value = "/ercs/response-teams", method = RequestMethod.POST)

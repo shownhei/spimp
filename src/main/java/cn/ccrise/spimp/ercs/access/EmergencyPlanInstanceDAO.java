@@ -5,14 +5,14 @@ package cn.ccrise.spimp.ercs.access;
 
 import org.springframework.stereotype.Repository;
 
+import cn.ccrise.spimp.ercs.entity.EmergencyPlanInstance;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
 
 /**
- * Dictionary DAO。
+ * EmergencyPlanInstance DAO。
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Repository
-public class DictionaryDAO extends HibernateDAOImpl<Dictionary, Long> {
+public class EmergencyPlanInstanceDAO extends HibernateDAOImpl<EmergencyPlanInstance, Long> {
 }
