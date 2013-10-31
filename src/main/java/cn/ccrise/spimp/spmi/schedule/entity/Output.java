@@ -6,12 +6,15 @@ package cn.ccrise.spimp.spmi.schedule.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
+ * 矿井原煤产量
  * Output。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
@@ -19,137 +22,177 @@ import cn.ccrise.spimp.util.PageFields;
 @Entity
 @Table(name = "schedule_outputs")
 public class Output extends IDEntity {
-	// 日期
-	@PageFields(describtion = "日期", allowedNull = false, search = true)
-	private Date operateDate;
+	
+	//	开采日期
+	@PageFields(describtion="开采日期", allowedNull=false, search=true)
+	private Date digDate;
+	
+	//	班次
+	@PageFields(describtion="班次", search=true, allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField="itemName")
+	private Dictionary duty;
+	
+	//	队组
+	@PageFields(describtion="队组", allowedNull=false, type="select", selectDataUri="/spmi/schedule/teams?list=true", selectShowField="teamName")
+	private Team team;
+	
+	//	开采方式
+	@PageFields(describtion="开采方式", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_exploit_type&list=true", selectShowField="itemName")
+	private Dictionary exploitType;
+	
+	//	工作面
+	@PageFields(describtion="工作面", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_working_face&list=true", selectShowField="itemName")
+	private Dictionary workingFace;
+	
+	//	工作地点
+	@PageFields(describtion="工作地点", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField="itemName")
+	private Dictionary workingPlace;
+	
+	//	跟班队干
+	@PageFields(describtion="跟班队干", allowedNull=false)
+	private String teamLeader;
+	
+	//	当班班长
+	@PageFields(describtion="当班班长", allowedNull=false)
+	private String monitor;
+	
+	//	安全员
+	@PageFields(describtion="安全员")
+	private String safeChecker;
+	
+	//	计划出勤人数
+	@PageFields(describtion="计划出勤人数")
+	private Integer planMen;
+	
+	//	实际出勤人数
+	@PageFields(describtion="实际出勤人数")
+	private Integer infactMen;
+	
+	//	产量计划吨数
+	@PageFields(describtion="产量计划吨数")
+	private Double planTons;
+	
+	//	产量实际吨数
+	@PageFields(describtion="产量实际吨数")
+	private Double infactTons;
+	
+	//	开机时间
+	@PageFields(describtion="开机时间")
+	private Date powerOnTime;
 
-	// 煤种
-
-	// 铁路运输车数
-	@PageFields(describtion = "铁路运输车数")
-	private Integer railwayTrans;
-
-	// 铁路运输吨数
-	@PageFields(describtion = "铁路运输吨数")
-	private Double railwayTons;
-
-	// 铁路运输装车时间
-	@PageFields(describtion = "铁路装车时间")
-	private Date railwayLoadStartTime;
-
-	// 铁路运输装完时间
-	@PageFields(describtion = "铁路装完时间")
-	private Date railwayLoadEndTime;
-
-	// 铁路运输备注
-	@PageFields(describtion = "铁路运输备注", type = "textarea")
-	private String railwayRemark;
-
-	// 公路运输车数
-	@PageFields(describtion = "公路运输车数")
-	private Integer roadTrans;
-
-	// 公路运输吨数
-	@PageFields(describtion = "公路运输吨数")
-	private Double roadTons;
-
-	// 公路运输外运合计
-	@PageFields(describtion = "公路外运合计")
-	private Double roadTonsTotal;
-
-	// 公路运输库存
-	@PageFields(describtion = "公路运输库存")
-	private Double roadStorage;
-
-	// 公路运输备注
-	@PageFields(describtion = "公路运输备注", type = "textarea")
-	private Double roadRemark;
-
-	public Date getOperateDate() {
-		return operateDate;
+	public Date getDigDate() {
+		return digDate;
 	}
 
-	public Date getRailwayLoadEndTime() {
-		return railwayLoadEndTime;
+	public void setDigDate(Date digDate) {
+		this.digDate = digDate;
 	}
 
-	public Date getRailwayLoadStartTime() {
-		return railwayLoadStartTime;
+	@ManyToOne
+	public Dictionary getDuty() {
+		return duty;
 	}
 
-	public String getRailwayRemark() {
-		return railwayRemark;
+	public void setDuty(Dictionary duty) {
+		this.duty = duty;
 	}
 
-	public Double getRailwayTons() {
-		return railwayTons;
+	@ManyToOne
+	public Team getTeam() {
+		return team;
 	}
 
-	public Integer getRailwayTrans() {
-		return railwayTrans;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
-	public Double getRoadRemark() {
-		return roadRemark;
+	@ManyToOne
+	public Dictionary getExploitType() {
+		return exploitType;
 	}
 
-	public Double getRoadStorage() {
-		return roadStorage;
+	public void setExploitType(Dictionary exploitType) {
+		this.exploitType = exploitType;
 	}
 
-	public Double getRoadTons() {
-		return roadTons;
+	@ManyToOne
+	public Dictionary getWorkingFace() {
+		return workingFace;
 	}
 
-	public Double getRoadTonsTotal() {
-		return roadTonsTotal;
+	public void setWorkingFace(Dictionary workingFace) {
+		this.workingFace = workingFace;
 	}
 
-	public Integer getRoadTrans() {
-		return roadTrans;
+	@ManyToOne
+	public Dictionary getWorkingPlace() {
+		return workingPlace;
 	}
 
-	public void setOperateDate(Date operateDate) {
-		this.operateDate = operateDate;
+	public void setWorkingPlace(Dictionary workingPlace) {
+		this.workingPlace = workingPlace;
 	}
 
-	public void setRailwayLoadEndTime(Date railwayLoadEndTime) {
-		this.railwayLoadEndTime = railwayLoadEndTime;
+	public String getTeamLeader() {
+		return teamLeader;
 	}
 
-	public void setRailwayLoadStartTime(Date railwayLoadStartTime) {
-		this.railwayLoadStartTime = railwayLoadStartTime;
+	public void setTeamLeader(String teamLeader) {
+		this.teamLeader = teamLeader;
 	}
 
-	public void setRailwayRemark(String railwayRemark) {
-		this.railwayRemark = railwayRemark;
+	public String getMonitor() {
+		return monitor;
 	}
 
-	public void setRailwayTons(Double railwayTons) {
-		this.railwayTons = railwayTons;
+	public void setMonitor(String monitor) {
+		this.monitor = monitor;
 	}
 
-	public void setRailwayTrans(Integer railwayTrans) {
-		this.railwayTrans = railwayTrans;
+	public String getSafeChecker() {
+		return safeChecker;
 	}
 
-	public void setRoadRemark(Double roadRemark) {
-		this.roadRemark = roadRemark;
+	public void setSafeChecker(String safeChecker) {
+		this.safeChecker = safeChecker;
 	}
 
-	public void setRoadStorage(Double roadStorage) {
-		this.roadStorage = roadStorage;
+	public Integer getPlanMen() {
+		return planMen;
 	}
 
-	public void setRoadTons(Double roadTons) {
-		this.roadTons = roadTons;
+	public void setPlanMen(Integer planMen) {
+		this.planMen = planMen;
 	}
 
-	public void setRoadTonsTotal(Double roadTonsTotal) {
-		this.roadTonsTotal = roadTonsTotal;
+	public Integer getInfactMen() {
+		return infactMen;
 	}
 
-	public void setRoadTrans(Integer roadTrans) {
-		this.roadTrans = roadTrans;
+	public void setInfactMen(Integer infactMen) {
+		this.infactMen = infactMen;
+	}
+
+	public Double getPlanTons() {
+		return planTons;
+	}
+
+	public void setPlanTons(Double planTons) {
+		this.planTons = planTons;
+	}
+
+	public Double getInfactTons() {
+		return infactTons;
+	}
+
+	public void setInfactTons(Double infactTons) {
+		this.infactTons = infactTons;
+	}
+
+	public Date getPowerOnTime() {
+		return powerOnTime;
+	}
+
+	public void setPowerOnTime(Date powerOnTime) {
+		this.powerOnTime = powerOnTime;
 	}
 }

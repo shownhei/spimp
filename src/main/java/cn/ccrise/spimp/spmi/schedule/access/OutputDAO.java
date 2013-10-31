@@ -5,8 +5,8 @@ package cn.ccrise.spimp.spmi.schedule.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
 import cn.ccrise.spimp.spmi.schedule.entity.Output;
+import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
 
 /**
  * Output DAO。
