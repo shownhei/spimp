@@ -17,7 +17,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
-@Table(name = "instruction_focus")
+@Table(name = "spmi_instruction_focus")
 public class Focus extends IDEntity {
 
 	// 工作名称

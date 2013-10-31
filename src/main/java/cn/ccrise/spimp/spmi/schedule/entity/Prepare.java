@@ -14,7 +14,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "schedule_prepares")
+@Table(name = "spmi_schedule_prepares")
 public class Prepare extends IDEntity {
-	
+
 }

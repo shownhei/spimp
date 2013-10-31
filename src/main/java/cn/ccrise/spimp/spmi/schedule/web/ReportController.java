@@ -45,6 +45,28 @@ public class ReportController {
 		return new Response(reportService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/reports/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long duty, String search)
+			throws Exception {
+		Page<Report> page = new Page<Report>();
+		page.setPageSize(100000);
+		page = reportService.pageQuery(page, startDate, endDate, duty, search);
+
+		String[] headers = { "日期", "班次", "姓名", "职务", "汇报时间", "汇报地点", "班前汇报", "班中汇报", "班后汇报" };
+
+		HSSFWorkbook wb = new ExcelHelper<Report>().genExcel("安全生产三汇报 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("安全生产三汇报 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/reports/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +80,7 @@ public class ReportController {
 
 	@RequestMapping(value = "/spmi/schedule/reports", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Report> page, Date startDate, Date endDate,Long duty,String search) {
+	public Response page(Page<Report> page, Date startDate, Date endDate, Long duty, String search) {
 		page = reportService.pageQuery(page, startDate, endDate, duty, search);
 		return new Response(page);
 	}
@@ -73,25 +95,5 @@ public class ReportController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Report report, @PathVariable long id) {
 		return new Response(reportService.update(report));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/reports/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long duty,String search) throws Exception {
-		Page<Report> page = new Page<Report>();
-		page.setPageSize(100000);
-		page = reportService.pageQuery(page, startDate, endDate, duty, search);
-		
-		String[] headers = {"日期","班次","姓名","职务","汇报时间","汇报地点","班前汇报","班中汇报","班后汇报"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Report>().genExcel("安全生产三汇报 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("安全生产三汇报 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

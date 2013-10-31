@@ -45,6 +45,27 @@ public class WorkController {
 		return new Response(workService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/works/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
+		Page<Work> page = new Page<Work>();
+		page.setPageSize(100000);
+		page = workService.pageQuery(page, startDate, endDate, search);
+
+		String[] headers = { "日期", "领导名称", "发现问题", "问题处理" };
+
+		HSSFWorkbook wb = new ExcelHelper<Work>().genExcel("矿值班情况 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("矿值班情况 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/works/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +79,7 @@ public class WorkController {
 
 	@RequestMapping(value = "/spmi/schedule/works", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Work> page, Date startDate, Date endDate,String search) {
+	public Response page(Page<Work> page, Date startDate, Date endDate, String search) {
 		page = workService.pageQuery(page, startDate, endDate, search);
 		return new Response(page);
 	}
@@ -73,25 +94,5 @@ public class WorkController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Work work, @PathVariable long id) {
 		return new Response(workService.update(work));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/works/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,String search) throws Exception {
-		Page<Work> page = new Page<Work>();
-		page.setPageSize(100000);
-		page = workService.pageQuery(page, startDate, endDate, search);
-		
-		String[] headers = {"日期","领导名称","发现问题","问题处理"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Work>().genExcel("矿值班情况 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("矿值班情况 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

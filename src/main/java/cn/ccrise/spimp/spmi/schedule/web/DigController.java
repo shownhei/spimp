@@ -45,6 +45,29 @@ public class DigController {
 		return new Response(digService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/digs/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long duty, Long team)
+			throws Exception {
+		Page<Dig> page = new Page<Dig>();
+		page.setPageSize(100000);
+		page = digService.pageQuery(page, startDate, endDate, duty, team);
+
+		String[] headers = { "日期", "班次", "队组", "巷道类型", "工作地点", "跟班队干", "当班班长", "安全员", "计划出勤人数", "实际出勤人数", "产量计划吨数",
+				"产量实际吨数" };
+
+		HSSFWorkbook wb = new ExcelHelper<Dig>().genExcel("矿井掘进进尺 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("矿井掘进进尺 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/digs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +81,7 @@ public class DigController {
 
 	@RequestMapping(value = "/spmi/schedule/digs", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Dig> page, Date startDate, Date endDate,Long duty,Long team) {
+	public Response page(Page<Dig> page, Date startDate, Date endDate, Long duty, Long team) {
 		page = digService.pageQuery(page, startDate, endDate, duty, team);
 		return new Response(page);
 	}
@@ -73,25 +96,5 @@ public class DigController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Dig dig, @PathVariable long id) {
 		return new Response(digService.update(dig));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/digs/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long duty,Long team) throws Exception {
-		Page<Dig> page = new Page<Dig>();
-		page.setPageSize(100000);
-		page = digService.pageQuery(page, startDate, endDate, duty, team);
-		
-		String[] headers = {"日期","班次","队组","巷道类型","工作地点","跟班队干","当班班长","安全员","计划出勤人数","实际出勤人数","产量计划吨数","产量实际吨数"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Dig>().genExcel("矿井掘进进尺 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("矿井掘进进尺 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

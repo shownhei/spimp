@@ -45,6 +45,28 @@ public class TransportController {
 		return new Response(transportService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/transports/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long coalType) throws Exception {
+		Page<Transport> page = new Page<Transport>();
+		page.setPageSize(100000);
+		page = transportService.pageQuery(page, startDate, endDate, coalType);
+
+		String[] headers = { "日期", "煤种", "铁路运输车数", "铁路运输吨数", "铁路装车时间", "铁路装完时间", "铁路运输备注", "公路运输车数", "公路运输吨数",
+				"公路外运合计", "公路运输库存", "公路运输备注" };
+
+		HSSFWorkbook wb = new ExcelHelper<Transport>().genExcel("煤炭外运情况 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("煤炭外运情况 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/transports/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +80,7 @@ public class TransportController {
 
 	@RequestMapping(value = "/spmi/schedule/transports", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Transport> page, Date startDate, Date endDate,Long coalType) {
+	public Response page(Page<Transport> page, Date startDate, Date endDate, Long coalType) {
 		page = transportService.pageQuery(page, startDate, endDate, coalType);
 		return new Response(page);
 	}
@@ -73,25 +95,5 @@ public class TransportController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Transport transport, @PathVariable long id) {
 		return new Response(transportService.update(transport));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/transports/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long coalType) throws Exception {
-		Page<Transport> page = new Page<Transport>();
-		page.setPageSize(100000);
-		page = transportService.pageQuery(page, startDate, endDate, coalType);
-		
-		String[] headers = {"日期","煤种","铁路运输车数","铁路运输吨数","铁路装车时间","铁路装完时间","铁路运输备注","公路运输车数","公路运输吨数","公路外运合计","公路运输库存","公路运输备注"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Transport>().genExcel("煤炭外运情况 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("煤炭外运情况 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

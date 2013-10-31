@@ -45,6 +45,28 @@ public class RecordController {
 		return new Response(recordService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/records/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long team, Long duty)
+			throws Exception {
+		Page<Record> page = new Page<Record>();
+		page.setPageSize(100000);
+		page = recordService.pageQuery(page, startDate, endDate, team, duty);
+
+		String[] headers = { "日期", "时间", "队组", "班次", "地点", "汇报人", "接收人", "事故问题详情", "处理意见", "处理结果", "验收人" };
+
+		HSSFWorkbook wb = new ExcelHelper<Record>().genExcel("调度记录 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("调度记录 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/records/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +80,7 @@ public class RecordController {
 
 	@RequestMapping(value = "/spmi/schedule/records", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Record> page, Date startDate, Date endDate,Long team,Long duty) {
+	public Response page(Page<Record> page, Date startDate, Date endDate, Long team, Long duty) {
 		page = recordService.pageQuery(page, startDate, endDate, team, duty);
 		return new Response(page);
 	}
@@ -73,25 +95,5 @@ public class RecordController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Record record, @PathVariable long id) {
 		return new Response(recordService.update(record));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/records/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long team,Long duty) throws Exception {
-		Page<Record> page = new Page<Record>();
-		page.setPageSize(100000);
-		page = recordService.pageQuery(page, startDate, endDate, team, duty);
-		
-		String[] headers = {"日期","时间","队组","班次","地点","汇报人","接收人","事故问题详情","处理意见","处理结果","验收人"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Record>().genExcel("调度记录 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("调度记录 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

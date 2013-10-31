@@ -72,7 +72,7 @@ ${jsFields}
 
 	// 验证
 	function validate(showType, model){
-		var errorMsg = new Array();
+		var errorMsg = [];
 		
 ${validateCode}		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);

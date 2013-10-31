@@ -152,7 +152,7 @@ public class ExcelHelper<T> {
 						anchor.setAnchorType(2);
 						patriarch.createPicture(anchor, workbook.addPicture(bsValue, Workbook.PICTURE_TYPE_JPEG));
 					} else {
-						if(value == null){
+						if (value == null) {
 							textValue = "";
 						} else {
 							textValue = value.toString();

@@ -45,6 +45,28 @@ public class OutputController {
 		return new Response(outputService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/outputs/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long duty) throws Exception {
+		Page<Output> page = new Page<Output>();
+		page.setPageSize(100000);
+		page = outputService.pageQuery(page, startDate, endDate, duty);
+
+		String[] headers = { "开采日期", "班次", "队组", "开采方式", "工作面", "工作地点", "跟班队干", "当班班长", "安全员", "计划出勤人数", "实际出勤人数",
+				"产量计划吨数", "产量实际吨数", "开机时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Output>().genExcel("矿井原煤产量 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("矿井原煤产量 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/outputs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +80,7 @@ public class OutputController {
 
 	@RequestMapping(value = "/spmi/schedule/outputs", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Output> page, Date startDate, Date endDate,Long duty) {
+	public Response page(Page<Output> page, Date startDate, Date endDate, Long duty) {
 		page = outputService.pageQuery(page, startDate, endDate, duty);
 		return new Response(page);
 	}
@@ -73,25 +95,5 @@ public class OutputController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Output output, @PathVariable long id) {
 		return new Response(outputService.update(output));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/outputs/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long duty) throws Exception {
-		Page<Output> page = new Page<Output>();
-		page.setPageSize(100000);
-		page = outputService.pageQuery(page, startDate, endDate, duty);
-		
-		String[] headers = {"开采日期","班次","队组","开采方式","工作面","工作地点","跟班队干","当班班长","安全员","计划出勤人数","实际出勤人数","产量计划吨数","产量实际吨数","开机时间"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Output>().genExcel("矿井原煤产量 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("矿井原煤产量 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

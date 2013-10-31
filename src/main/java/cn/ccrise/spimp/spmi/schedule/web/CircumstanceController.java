@@ -45,6 +45,28 @@ public class CircumstanceController {
 		return new Response(circumstanceService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/circumstances/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long duty, String search)
+			throws Exception {
+		Page<Circumstance> page = new Page<Circumstance>();
+		page.setPageSize(100000);
+		page = circumstanceService.pageQuery(page, startDate, endDate, duty, search);
+
+		String[] headers = { "日期", "班次", "姓名", "职务", "下井时间", "升井时间", "汇报地点", "内容", "发现问题", "处理意见" };
+
+		HSSFWorkbook wb = new ExcelHelper<Circumstance>().genExcel("基层单位干部跟班情况 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("基层单位干部跟班情况 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/circumstances/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +80,7 @@ public class CircumstanceController {
 
 	@RequestMapping(value = "/spmi/schedule/circumstances", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Circumstance> page, Date startDate, Date endDate,Long duty,String search) {
+	public Response page(Page<Circumstance> page, Date startDate, Date endDate, Long duty, String search) {
 		page = circumstanceService.pageQuery(page, startDate, endDate, duty, search);
 		return new Response(page);
 	}
@@ -73,25 +95,5 @@ public class CircumstanceController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Circumstance circumstance, @PathVariable long id) {
 		return new Response(circumstanceService.update(circumstance));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/circumstances/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,Long duty,String search) throws Exception {
-		Page<Circumstance> page = new Page<Circumstance>();
-		page.setPageSize(100000);
-		page = circumstanceService.pageQuery(page, startDate, endDate, duty, search);
-		
-		String[] headers = {"日期","班次","姓名","职务","下井时间","升井时间","汇报地点","内容","发现问题","处理意见"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Circumstance>().genExcel("基层单位干部跟班情况 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("基层单位干部跟班情况 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

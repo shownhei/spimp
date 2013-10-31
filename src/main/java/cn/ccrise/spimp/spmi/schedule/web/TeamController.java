@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,27 @@ public class TeamController {
 		return new Response(teamService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/teams/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Long teamType) throws Exception {
+		Page<Team> page = new Page<Team>();
+		page.setPageSize(100000);
+		page = teamService.pageQuery(page, search, teamType);
+
+		String[] headers = { "队组名称", "队组类型", "人数", "排列顺序" };
+
+		HSSFWorkbook wb = new ExcelHelper<Team>()
+				.genExcel("队组管理 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("队组管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/teams/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -57,13 +79,13 @@ public class TeamController {
 
 	@RequestMapping(value = "/spmi/schedule/teams", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Team> page,String search,Long teamType,Boolean list) {
+	public Response page(Page<Team> page, String search, Long teamType, Boolean list) {
 		page = teamService.pageQuery(page, search, teamType);
-		
-		if(list){
+
+		if (BooleanUtils.isTrue(list)) {
 			return new Response(page.getResult());
 		}
-		
+
 		return new Response(page);
 	}
 
@@ -77,25 +99,5 @@ public class TeamController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Team team, @PathVariable long id) {
 		return new Response(teamService.update(team));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/teams/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,String search,Long teamType) throws Exception {
-		Page<Team> page = new Page<Team>();
-		page.setPageSize(100000);
-		page = teamService.pageQuery(page, search, teamType);
-		
-		String[] headers = {"队组名称","队组类型","人数","排列顺序"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Team>().genExcel("队组管理 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("队组管理 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

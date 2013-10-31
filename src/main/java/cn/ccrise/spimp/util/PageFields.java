@@ -52,21 +52,23 @@ public @interface PageFields {
 	public abstract boolean search() default false;
 
 	/**
+	 * 下拉属性对应的数据源
+	 * 
+	 * @return
+	 */
+	public abstract String selectDataUri() default "";
+
+	/**
+	 * 下拉属性显示的属性
+	 * 
+	 * @return
+	 */
+	public abstract String selectShowField() default "";
+
+	/**
 	 * 字段类型:text,textarea,select
 	 * 
 	 * @return
 	 */
 	public abstract String type() default "";
-	
-	/**
-	 * 下拉属性对应的数据源
-	 * @return
-	 */
-	public abstract String selectDataUri() default "";
-	
-	/**
-	 * 下拉属性显示的属性
-	 * @return
-	 */
-	public abstract String selectShowField() default "";
 }

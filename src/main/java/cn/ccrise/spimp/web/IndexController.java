@@ -21,6 +21,14 @@ public class IndexController {
 	@Autowired
 	private UploadedFileService uploadedFileService;
 
+	/**
+	 * 字典管理
+	 */
+	@RequestMapping(value = "/system/dictionary", method = RequestMethod.GET)
+	public String ercsDictionary() {
+		return "system/dictionary/index";
+	}
+
 	// 安全生产管理信息系统
 	/**
 	 * 设备参数查询
@@ -69,14 +77,6 @@ public class IndexController {
 	@RequestMapping(value = "/system/log", method = RequestMethod.GET)
 	public String systemLog() {
 		return "system/log/index";
-	}
-
-	/**
-	 * 字典管理
-	 */
-	@RequestMapping(value = "/system/dictionary", method = RequestMethod.GET)
-	public String ercsDictionary() {
-		return "system/dictionary/index";
 	}
 
 	/**

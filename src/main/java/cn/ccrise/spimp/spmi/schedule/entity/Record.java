@@ -19,75 +19,58 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "schedule_records")
+@Table(name = "spmi_schedule_records")
 public class Record extends IDEntity {
 	// 日期
-	@PageFields(describtion="日期", allowedNull=false, search=true)
+	@PageFields(describtion = "日期", allowedNull = false, search = true)
 	private Date recordDate;
-	
+
 	// 时间
-	@PageFields(describtion="时间")
+	@PageFields(describtion = "时间")
 	private String recordTime;
-	
+
 	// 队组
-	@PageFields(describtion="队组", allowedNull=false, search=true, type="select", selectDataUri="/spmi/schedule/teams?list=true", selectShowField="teamName")
+	@PageFields(describtion = "队组", allowedNull = false, search = true, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
 	private Team team;
-	
+
 	// 班次
-	@PageFields(describtion="班次", search=true, allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField="itemName")
+	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
-	
+
 	// 地点
-	@PageFields(describtion="地点")
+	@PageFields(describtion = "地点")
 	private String positon;
-	
+
 	// 汇报人
-	@PageFields(describtion="汇报人")
+	@PageFields(describtion = "汇报人")
 	private String reporter;
-	
+
 	// 接收人
-	@PageFields(describtion="接收人")
+	@PageFields(describtion = "接收人")
 	private String receiver;
-	
+
 	// 事故问题详情
-	@PageFields(describtion="事故问题详情", type="textarea")
+	@PageFields(describtion = "事故问题详情", type = "textarea")
 	private String problems;
-	
+
 	// 处理意见
-	@PageFields(describtion="处理意见", type="textarea")
+	@PageFields(describtion = "处理意见", type = "textarea")
 	private String opinion;
-	
+
 	// 处理结果
-	@PageFields(describtion="处理结果", type="textarea")
+	@PageFields(describtion = "处理结果", type = "textarea")
 	private String dealResults;
-	
+
 	// 验收人
-	@PageFields(describtion="验收人")
+	@PageFields(describtion = "验收人")
 	private String acceptancer;
 
-	public Date getRecordDate() {
-		return recordDate;
+	public String getAcceptancer() {
+		return acceptancer;
 	}
 
-	public void setRecordDate(Date recordDate) {
-		this.recordDate = recordDate;
-	}
-
-	public String getRecordTime() {
-		return recordTime;
-	}
-
-	public void setRecordTime(String recordTime) {
-		this.recordTime = recordTime;
-	}
-
-	@ManyToOne
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
+	public String getDealResults() {
+		return dealResults;
 	}
 
 	@ManyToOne
@@ -95,63 +78,80 @@ public class Record extends IDEntity {
 		return duty;
 	}
 
-	public void setDuty(Dictionary duty) {
-		this.duty = duty;
+	public String getOpinion() {
+		return opinion;
 	}
 
 	public String getPositon() {
 		return positon;
 	}
 
-	public void setPositon(String positon) {
-		this.positon = positon;
-	}
-
-	public String getReporter() {
-		return reporter;
-	}
-
-	public void setReporter(String reporter) {
-		this.reporter = reporter;
+	public String getProblems() {
+		return problems;
 	}
 
 	public String getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+	public Date getRecordDate() {
+		return recordDate;
 	}
 
-	public String getProblems() {
-		return problems;
+	public String getRecordTime() {
+		return recordTime;
 	}
 
-	public void setProblems(String problems) {
-		this.problems = problems;
+	public String getReporter() {
+		return reporter;
 	}
 
-	public String getOpinion() {
-		return opinion;
+	@ManyToOne
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setOpinion(String opinion) {
-		this.opinion = opinion;
-	}
-
-	public String getDealResults() {
-		return dealResults;
+	public void setAcceptancer(String acceptancer) {
+		this.acceptancer = acceptancer;
 	}
 
 	public void setDealResults(String dealResults) {
 		this.dealResults = dealResults;
 	}
 
-	public String getAcceptancer() {
-		return acceptancer;
+	public void setDuty(Dictionary duty) {
+		this.duty = duty;
 	}
 
-	public void setAcceptancer(String acceptancer) {
-		this.acceptancer = acceptancer;
+	public void setOpinion(String opinion) {
+		this.opinion = opinion;
+	}
+
+	public void setPositon(String positon) {
+		this.positon = positon;
+	}
+
+	public void setProblems(String problems) {
+		this.problems = problems;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+
+	public void setRecordTime(String recordTime) {
+		this.recordTime = recordTime;
+	}
+
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 }

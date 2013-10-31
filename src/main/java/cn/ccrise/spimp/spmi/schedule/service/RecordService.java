@@ -3,14 +3,15 @@
  */
 package cn.ccrise.spimp.spmi.schedule.service;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Criterion;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -31,24 +32,24 @@ public class RecordService extends HibernateDataServiceImpl<Record, Long> {
 	public HibernateDAO<Record, Long> getDAO() {
 		return recordDAO;
 	}
-	
-	public Page<Record> pageQuery(Page<Record> page, Date startDate, Date endDate,Long team,Long duty) {
+
+	public Page<Record> pageQuery(Page<Record> page, Date startDate, Date endDate, Long team, Long duty) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (startDate != null) {
 			criterions.add(Restrictions.ge("recordDate", startDate));
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("recordDate", endDate));
 		}
-		
-		if (team != null){
+
+		if (team != null) {
 			criterions.add(Restrictions.eq("team.id", team));
 		}
-		if (duty != null){
+		if (duty != null) {
 			criterions.add(Restrictions.eq("duty.id", duty));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

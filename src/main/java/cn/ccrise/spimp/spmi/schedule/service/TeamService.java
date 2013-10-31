@@ -3,15 +3,16 @@
  */
 package cn.ccrise.spimp.spmi.schedule.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -32,18 +33,18 @@ public class TeamService extends HibernateDataServiceImpl<Team, Long> {
 	public HibernateDAO<Team, Long> getDAO() {
 		return teamDAO;
 	}
-	
-	public Page<Team> pageQuery(Page<Team> page,String search,Long teamType) {
+
+	public Page<Team> pageQuery(Page<Team> page, String search, Long teamType) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.or(Restrictions.ilike("teamName", search, MatchMode.ANYWHERE)));
 		}
-		
-		if (teamType != null){
+
+		if (teamType != null) {
 			criterions.add(Restrictions.eq("teamType.id", teamType));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }
