@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal hide">
+	<div id="create-modal" class="modal  modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -54,14 +54,14 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故类别</label>
+							<label class="control-label " for="principal">事故类别</label>
 							<div class="controls">
-								<select id="create-type" name="type[id]"  class="span11" ></select>
+								<select id="create-type" name="type[id]"   ></select>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故现场</label>
+							<label class="control-label " for="principal">事故现场</label>
 							<div class="controls">
 								<input id="address" name="address" type="text"
 									class="span11">
@@ -69,24 +69,22 @@
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">方案制定人</label>
+							<label class="control-label " for="principal">方案制定人</label>
 							<div class="controls">
-								<input id="decide" name="decide" type="text"
-									class="span11">
+								<input id="decide" name="decide" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故发生时间</label>
+							<label class="control-label " for="principal">事故发生时间</label>
 							<div class="controls">
-								<input id="startTime" name="startTime" type="text"
-									class="span11">
+								<input id="startTime" name="startTime" type="text">
 							</div>
 						</div>
                         <div class="control-group" style="display:none;">
 							<label class="control-label span2" for="credential">处置方案</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10">
-								<input value="删除" type="button" id="create-file-delete">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width:350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success" style="width:50px;">
 							</div>
 						</div>
 					</form>
@@ -118,7 +116,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal hide">
+	<div id="edit-modal" class="modal  modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -132,38 +130,38 @@
 						<input name="id" type="hidden" class="span11">
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故类别</label>
+							<label class="control-label " for="principal">事故类别</label>
 							<div class="controls">
-								<select id="edit-type" name="type[id]"  class="span11" ></select>
+								<select id="edit-type" name="type[id]"  ></select>
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故现场</label>
+							<label class="control-label " for="principal">事故现场</label>
 							<div class="controls">
-								<input name="address" type="text" class="span11">
+								<input name="address" type="text" >
 							</div>
 						</div>
 
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">方案指定人</label>
+							<label class="control-label " for="principal">方案指定人</label>
 							<div class="controls">
-								<input name="decide" type="text" class="span11">
+								<input name="decide" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">事故发生时间</label>
+							<label class="control-label " for="principal">事故发生时间</label>
 							<div class="controls">
-								<input name="startTime" type="text" class="span11">
+								<input name="startTime" type="text" >
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label span2" for="principal">处置方案</label>
+							<label class="control-label " for="principal">处置方案</label>
 							<div class="controls">
-								<input name="attachment" id="edit_attachment" readonly type="text" class="span11">
+								<input name="attachment" id="edit_attachment" readonly type="text" >
 							</div>
 						</div>
 
