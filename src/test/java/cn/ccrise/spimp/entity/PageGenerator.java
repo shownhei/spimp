@@ -66,6 +66,72 @@ public class PageGenerator {
 	private static final String ENTITY = "entity";
 
 	private static final String ENCODING = "UTF-8";
+	
+	/**
+	 * 第一步:配置源码路径。
+	 */
+	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+
+	protected final String uriPrefix = "spmi/schedule";
+
+	protected final String entityName = "Output";
+
+	protected static final String PAGE_TITLE = "矿井原煤产量 - 安全生产综合管理平台";
+	
+	/**
+	 * 第二步:生成后台DAO及ENTITY代码。
+	 */
+	@Test
+	public void generateEntityFile() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+	
+	/**
+	 * 第三步:打开刚生成的实体类，添加属性及注解。
+	 */
+	
+	/**
+	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
+	 */
+	@Test
+	public void generateOtherFiles() {
+		generateJs(entityName, packageName, uriPrefix);
+		generateJsp(entityName, packageName, uriPrefix);
+
+		generateDAO(entityName, packageName, uriPrefix);
+		generateService(entityName, packageName, uriPrefix);
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateController() {
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateDao() {
+		generateDAO(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateEntity() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateJs() {
+		generateJs(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateJsp() {
+		generateJsp(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateService() {
+		generateService(entityName, packageName, uriPrefix);
+	}
 
 	public static void generateController(final String entityName, final String packageName, final String uriPrefix) {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + CONTROLLER + "/";
@@ -112,10 +178,6 @@ public class PageGenerator {
 			System.err.println("模板文件异常");
 		}
 	}
-
-	/**
-	 * 第三步:打开刚生成的实体类，添加属性及注解。
-	 */
 
 	private static String getColumnType(Class<?> fieldType) {
 		if (String.class == fieldType) {
@@ -196,9 +258,15 @@ public class PageGenerator {
 		StringBuffer queryParams = new StringBuffer();
 		StringBuffer queryParamsWithType = new StringBuffer();
 		StringBuffer dbQuery = new StringBuffer();
+		StringBuffer selectQuery = new StringBuffer();
+		StringBuffer selectInitJS = new StringBuffer();
+		StringBuffer selectChangeJS = new StringBuffer();
+		StringBuffer selectQueryHtml = new StringBuffer();
 
 		boolean dateQuery = false;
 		boolean hasTextSearch = false;
+		boolean hasSelect = false;
+		boolean hasSelectSearch = false;
 		String dateQueryField = null;
 		Class clazz = null;
 		try {
@@ -215,9 +283,12 @@ public class PageGenerator {
 					continue;
 				}
 				PageFields column = field.getAnnotation(PageFields.class);
+				StringBuffer selectFields = new StringBuffer();
 
 				String columnDescription = column.describtion();
 				String columnName = field.getName();
+				String selectDataUri = column.selectDataUri();
+				String selectShowField = column.selectShowField();
 				boolean columnShow = column.columnShow();
 				boolean allowedNull = column.allowedNull();
 				boolean query = column.search();
@@ -227,14 +298,14 @@ public class PageGenerator {
 				} else {
 					columnType = column.type();
 				}
-
+				
 				if (query) {
 					if ("date".equalsIgnoreCase(columnType) && !dateQuery) {
 						queryParamsWithType.append(", Date startDate, Date endDate");
 						queryParams.append(", startDate, endDate");
 						dateQuery = true;
 						dateQueryField = columnName;
-					} else {
+					} else if("text".equalsIgnoreCase(columnType) || "textarea".equalsIgnoreCase(columnType)){
 						if (!hasTextSearch) {
 							queryParamsWithType.append(",String search");
 							queryParams.append(", search");
@@ -243,12 +314,47 @@ public class PageGenerator {
 						queryPlaceHolder.append(columnDescription).append("/");
 						dbQuery.append(",Restrictions.ilike(\"").append(columnName)
 								.append("\", search, MatchMode.ANYWHERE)");
+					} else if("select".equalsIgnoreCase(columnType)){
+						hasSelectSearch = true;
+						queryParamsWithType.append(",Long ").append(columnName);
+						queryParams.append(", ").append(columnName);
+						
+						selectFields.append(",'search_").append(columnName).append("'");
+
+						selectQuery.append("\t\tif (").append(columnName).append(" != null){\n")
+						.append("\t\t\tcriterions.add(Restrictions.eq(\"").append(columnName).append(".id\", ").append(columnName).append("));\n")
+						.append("\t\t}\n");
+						
+						selectChangeJS.append("\t$('#search_").append(columnName).append("').bind('change',function(){\n")
+						.append("\t\t$('#submit').trigger('click');\n")
+						.append("\t});\n");
+						
+						selectQueryHtml.append("\t\t\t\t\t\t<select id=\"search_").append(columnName).append("\" name=\"").append(columnName).append("\" style=\"height:25px;width:120px;font-size:12px;\"></select>\n");
 					}
+				}
+				
+				if("select".equalsIgnoreCase(columnType)){
+					hasSelect = true;
+					selectFields.append(",'create_").append(columnName).append("'");
+					selectFields.append(",'edit_").append(columnName).append("'");
+					
+					selectInitJS.append("\tUtils.select.remote([ ").append(selectFields.toString().replaceFirst(",", "")).append(" ], '").append(selectDataUri).append("', 'id', '").append(selectShowField).append("',true,'").append(columnDescription).append("');\n");
 				}
 
 				if (columnShow) {
 					jsFields.append("\t\t{\n").append("\t\t\theader : '").append(columnDescription).append("',\n")
 							.append("\t\t\tname : '").append(columnName).append("'\n");
+					
+					if("select".equalsIgnoreCase(columnType)){
+						jsFields.append("\t\t\t,render : function(value) {\n")
+						.append("\t\t\t\tif(value != null){\n")
+						.append("\t\t\t\t\treturn value.").append(selectShowField).append(";\n")
+						.append("\t\t\t\t} else {\n")
+						.append("\t\t\t\t\treturn '';\n")
+						.append("\t\t\t\t}\n")
+						.append("\t\t\t}\n");
+					}
+					
 					if (loop != fields.length - 1) {
 						jsFields.append("\t\t},\n");
 					} else {
@@ -257,13 +363,19 @@ public class PageGenerator {
 				}
 
 				if (!allowedNull) {
-					validateCode.append("\t\tif (model.").append(columnName).append(" === '') {\n")
+					validateCode.append("\t\tif (model.").append(columnName);
+					
+					if("select".equalsIgnoreCase(columnType)){
+						validateCode.append(".id");
+					}
+					
+					validateCode.append(" === '') {\n")
 							.append("\t\t\terrorMsg.push('请输入").append(columnDescription).append("');\n")
 							.append("\t\t}\n\n");
 				}
-
+				
 				if ("NUMBER".equals(columnType)) {
-					validateCode.append("\t\tif (!$.isNumeric(model.").append(columnName).append(")) {\n")
+					validateCode.append("\t\tif (model.").append(columnName).append(" !== '' && !$.isNumeric(model.").append(columnName).append(")) {\n")
 							.append("\t\t\terrorMsg.push('").append(columnDescription).append("为数字格式');\n")
 							.append("\t\t}\n\n");
 				}
@@ -274,15 +386,18 @@ public class PageGenerator {
 						.append("\t\t\t\t\t\t\t<div class=\"controls\">\n");
 
 				if ("text".equalsIgnoreCase(columnType) || "number".equalsIgnoreCase(columnType)) {
-					formFields.append("\t\t\t\t\t\t\t\t<input id=\"").append(columnName).append("\" name=\"")
+					formFields.append("\t\t\t\t\t\t\t\t<input id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("\" type=\"text\">\n");
 				} else if ("textarea".equalsIgnoreCase(columnType)) {
-					formFields.append("\t\t\t\t\t\t\t\t<textarea id=\"").append(columnName).append("\" name=\"")
+					formFields.append("\t\t\t\t\t\t\t\t<textarea id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("\" rows=3></textarea>\n");
 				} else if ("date".equalsIgnoreCase(columnType)) {
 					formFields
-							.append("\t\t\t\t\t\t\t\t<input type=\"datetime\" placeholder=\"请选择\" class=\"input-small\" autocomplete=\"off\" id=\"")
+							.append("\t\t\t\t\t\t\t\t<input type=\"datetime\" placeholder=\"请选择\" class=\"input-small\" autocomplete=\"off\" id=\"xxxx_")
 							.append(columnName).append("\" name=\"").append(columnName).append("\">\n");
+				} else if ("select".equalsIgnoreCase(columnType)){
+					formFields.append("\t\t\t\t\t\t\t\t<select id=\"xxxx_").append(columnName).append("\" name=\"")
+					.append(columnName).append("[id]\"></select>\n");
 				}
 
 				formFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
@@ -294,13 +409,20 @@ public class PageGenerator {
 		}
 
 		dataMap.put("queryParam", queryParams.toString());
+		dataMap.put("selectQueryHtml", selectQueryHtml.toString());
 		dataMap.put("dateQuery", dateQuery);
+		dataMap.put("selectQuery", selectQuery.toString());
 		dataMap.put("hasTextSearch", hasTextSearch);
+		dataMap.put("selectChangeJS", selectChangeJS.toString());
+		dataMap.put("hasSelectSearch", hasSelectSearch);
+		dataMap.put("selectInitJS", selectInitJS.toString());
+		dataMap.put("hasSelect", hasSelect);
 		dataMap.put("dateQueryField", dateQueryField);
 		dataMap.put("queryParamsWithType", queryParamsWithType.toString());
 		dataMap.put("jsFields", jsFields.toString());
 		dataMap.put("validateCode", validateCode.toString());
-		dataMap.put("formFields", formFields.toString());
+		dataMap.put("createFormFields", formFields.toString().replaceAll("xxxx", "create"));
+		dataMap.put("editFormFields", formFields.toString().replaceAll("xxxx", "edit"));
 		dataMap.put("pageTitle", PAGE_TITLE);
 		if (queryPlaceHolder.toString().length() > 1) {
 			dataMap.put(
@@ -321,71 +443,6 @@ public class PageGenerator {
 		dataMap.put("dbQuery", dbQuery.toString().replaceFirst(",", ""));
 
 		return dataMap;
-	}
-
-	/**
-	 * 第一步:配置源码路径。
-	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
-
-	protected final String uriPrefix = "spmi/schedule";
-
-	protected final String entityName = "Output";
-
-	/**
-	 * 页面名称（用于生成前端代码）
-	 */
-	protected static final String PAGE_TITLE = "重点工作 - 安全生产综合管理平台";
-
-	@Test
-	public void generateController() {
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateDao() {
-		generateDAO(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateEntity() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-
-	/**
-	 * 第二步:生成后台DAO及ENTITY代码。
-	 */
-	@Test
-	public void generateEntityFile() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJs() {
-		generateJs(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJsp() {
-		generateJsp(entityName, packageName, uriPrefix);
-	}
-
-	/**
-	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
-	 */
-	@Test
-	public void generateOtherFiles() {
-		generateJs(entityName, packageName, uriPrefix);
-		generateJsp(entityName, packageName, uriPrefix);
-
-		generateDAO(entityName, packageName, uriPrefix);
-		generateService(entityName, packageName, uriPrefix);
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateService() {
-		generateService(entityName, packageName, uriPrefix);
 	}
 
 	private void generateJs(final String entityName, final String packageName, final String uriPrefix) {

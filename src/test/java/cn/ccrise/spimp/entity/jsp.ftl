@@ -28,7 +28,7 @@
 					</button>
 				</div>
 				
-				<#if dateQuery || hasTextSearch>
+				<#if dateQuery || hasTextSearch || hasSelectSearch>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<#if dateQuery>
@@ -47,6 +47,9 @@
 						</#if>
 						<#if hasTextSearch>
 						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="${queryPlaceHolder}">
+						</#if>
+						<#if hasSelectSearch>
+${selectQueryHtml}
 						</#if>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -71,7 +74,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
-${formFields}					</form>
+${createFormFields}					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -104,7 +107,7 @@ ${formFields}					</form>
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-${formFields}					</form>
+${editFormFields}					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">

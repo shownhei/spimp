@@ -7,6 +7,14 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	
+	<#if hasSelect>
+	// 下拉列表初始化
+${selectInitJS}
+	</#if>	
+	<#if hasSelectSearch>
+	// 下拉列表change事件
+${selectChangeJS}
+	</#if>
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
