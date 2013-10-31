@@ -46,42 +46,6 @@ public class EmergencyPlanTemplate extends IDEntity {
 	 */
 	private Timestamp addTime;
 
-	@ManyToOne
-	public Dictionary getEmergencyCategory() {
-		return emergencyCategory;
-	}
-
-	public void setEmergencyCategory(Dictionary emergencyCategory) {
-		this.emergencyCategory = emergencyCategory;
-	}
-
-	@ManyToOne
-	public Dictionary getEmergencyLevel() {
-		return emergencyLevel;
-	}
-
-	public void setEmergencyLevel(Dictionary emergencyLevel) {
-		this.emergencyLevel = emergencyLevel;
-	}
-
-	@ManyToOne
-	public ResponseTeam getTeam() {
-		return team;
-	}
-
-	public void setTeam(ResponseTeam team) {
-		this.team = team;
-	}
-
-	@Lob
-	public String getTaskContent() {
-		return taskContent;
-	}
-
-	public void setTaskContent(String taskContent) {
-		this.taskContent = taskContent;
-	}
-
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
@@ -89,8 +53,44 @@ public class EmergencyPlanTemplate extends IDEntity {
 		return addTime;
 	}
 
+	@ManyToOne
+	public Dictionary getEmergencyCategory() {
+		return emergencyCategory;
+	}
+
+	@ManyToOne
+	public Dictionary getEmergencyLevel() {
+		return emergencyLevel;
+	}
+
+	@Lob
+	public String getTaskContent() {
+		return taskContent;
+	}
+
+	@ManyToOne
+	public ResponseTeam getTeam() {
+		return team;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setEmergencyCategory(Dictionary emergencyCategory) {
+		this.emergencyCategory = emergencyCategory;
+	}
+
+	public void setEmergencyLevel(Dictionary emergencyLevel) {
+		this.emergencyLevel = emergencyLevel;
+	}
+
+	public void setTaskContent(String taskContent) {
+		this.taskContent = taskContent;
+	}
+
+	public void setTeam(ResponseTeam team) {
+		this.team = team;
 	}
 
 }

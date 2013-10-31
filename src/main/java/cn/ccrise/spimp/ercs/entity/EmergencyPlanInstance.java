@@ -37,39 +37,6 @@ public class EmergencyPlanInstance extends IDEntity {
 	 */
 	private String taskContent;
 
-	@ManyToOne
-	public ResponseTeam getTeam() {
-		return team;
-	}
-
-	public void setTeam(ResponseTeam team) {
-		this.team = team;
-	}
-
-	/**
-	 * 事故类型
-	 */
-	@ManyToOne
-	public Dictionary getEmergencyCategory() {
-		return emergencyCategory;
-	}
-
-	public void setEmergencyCategory(Dictionary emergencyCategory) {
-		this.emergencyCategory = emergencyCategory;
-	}
-
-	/**
-	 * 事故严重程度
-	 */
-	@ManyToOne
-	public Dictionary getEmergencyLevel() {
-		return emergencyLevel;
-	}
-
-	public void setEmergencyLevel(Dictionary emergencyLevel) {
-		this.emergencyLevel = emergencyLevel;
-	}
-
 	/**
 	 * 对应的事故案例
 	 * 
@@ -80,8 +47,20 @@ public class EmergencyPlanInstance extends IDEntity {
 		return alarm;
 	}
 
-	public void setAlarm(Alarm alarm) {
-		this.alarm = alarm;
+	/**
+	 * 事故类型
+	 */
+	@ManyToOne
+	public Dictionary getEmergencyCategory() {
+		return emergencyCategory;
+	}
+
+	/**
+	 * 事故严重程度
+	 */
+	@ManyToOne
+	public Dictionary getEmergencyLevel() {
+		return emergencyLevel;
 	}
 
 	/**
@@ -93,8 +72,29 @@ public class EmergencyPlanInstance extends IDEntity {
 		return taskContent;
 	}
 
+	@ManyToOne
+	public ResponseTeam getTeam() {
+		return team;
+	}
+
+	public void setAlarm(Alarm alarm) {
+		this.alarm = alarm;
+	}
+
+	public void setEmergencyCategory(Dictionary emergencyCategory) {
+		this.emergencyCategory = emergencyCategory;
+	}
+
+	public void setEmergencyLevel(Dictionary emergencyLevel) {
+		this.emergencyLevel = emergencyLevel;
+	}
+
 	public void setTaskContent(String taskContent) {
 		this.taskContent = taskContent;
+	}
+
+	public void setTeam(ResponseTeam team) {
+		this.team = team;
 	}
 
 }

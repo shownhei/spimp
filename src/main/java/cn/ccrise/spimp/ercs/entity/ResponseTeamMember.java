@@ -47,12 +47,8 @@ public class ResponseTeamMember extends IDEntity {
 	private ResponseTeam team;
 
 	@ManyToOne
-	public ResponseTeam getTeam() {
-		return team;
-	}
-
-	public void setTeam(ResponseTeam team) {
-		this.team = team;
+	public SpeciaList getExpertMember() {
+		return expertMember;
 	}
 
 	/**
@@ -62,19 +58,8 @@ public class ResponseTeamMember extends IDEntity {
 		return memberLevel;
 	}
 
-	/**
-	 * 成员等级:总指挥（1）、副总指挥（2）、普通（3）
-	 */
-	public void setMemberLevel(Integer memberLevel) {
-		this.memberLevel = memberLevel;
-	}
-
 	public String getMemberType() {
 		return memberType;
-	}
-
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
 	}
 
 	@ManyToOne
@@ -82,17 +67,32 @@ public class ResponseTeamMember extends IDEntity {
 		return normalMember;
 	}
 
-	public void setNormalMember(Rescuers normalMember) {
-		this.normalMember = normalMember;
-	}
-
 	@ManyToOne
-	public SpeciaList getExpertMember() {
-		return expertMember;
+	public ResponseTeam getTeam() {
+		return team;
 	}
 
 	public void setExpertMember(SpeciaList expertMember) {
 		this.expertMember = expertMember;
+	}
+
+	/**
+	 * 成员等级:总指挥（1）、副总指挥（2）、普通（3）
+	 */
+	public void setMemberLevel(Integer memberLevel) {
+		this.memberLevel = memberLevel;
+	}
+
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+
+	public void setNormalMember(Rescuers normalMember) {
+		this.normalMember = normalMember;
+	}
+
+	public void setTeam(ResponseTeam team) {
+		this.team = team;
 	}
 
 }

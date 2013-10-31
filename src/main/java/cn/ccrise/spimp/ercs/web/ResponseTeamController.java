@@ -59,6 +59,12 @@ public class ResponseTeamController {
 		return new Response(responseTeamService.getPage(page));
 	}
 
+	@RequestMapping(value = "/ercs/response-teams", method = RequestMethod.POST)
+	@ResponseBody
+	public Response save(@Valid @RequestBody ResponseTeam responseTeam) {
+		return new Response(responseTeamService.save(responseTeam));
+	}
+
 	@RequestMapping(value = "/ercs/response-team/tree", method = RequestMethod.GET)
 	@ResponseBody
 	public Response teamtree() {
@@ -77,12 +83,6 @@ public class ResponseTeamController {
 			List<ResponseTeam> children = responseTeamService.find(Restrictions.eq("parentId", id));
 			return new Response(children);
 		}
-	}
-
-	@RequestMapping(value = "/ercs/response-teams", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody ResponseTeam responseTeam) {
-		return new Response(responseTeamService.save(responseTeam));
 	}
 
 	@RequestMapping(value = "/ercs/response-teams/{id}", method = RequestMethod.PUT)

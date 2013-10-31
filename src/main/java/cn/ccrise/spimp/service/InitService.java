@@ -56,30 +56,30 @@ public class InitService extends DataInitAbstractService {
 		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("二维展示", "/ercs/indicate/2d", indicate, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("三维展示", "/ercs/indicate/3d", indicate, "", 2);
-		
+
 		// 执行救援
 		String performRescue = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/perform-rescue", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("任务查看", "/ercs/task-view", performRescue, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("任务管理", "/ercs/task-manage", performRescue, "", 2);
-		
+
 		// 应急资源管理
 		int i = 1;
 		String material = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/material-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material", material, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/use-record", material, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/medical-supply", material, "", i++);
-		
+
 		// 应急预案管理
 		i = 1;
 		String plan = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/plan-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan", plan, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援措施模板", "/ercs/template", plan, "", i++);
-		
+
 		// 应急救援人员
 		String staff = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/staff-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("救援人员", "/ercs/staff", staff, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/specia-list", staff, "", i++);
-		
+
 		// 机电设备
 		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
@@ -144,10 +144,10 @@ public class InitService extends DataInitAbstractService {
 		responseTeamService.save(root);
 		String teamName[] = { "指挥部", "抢险救援", "医疗救护", "技术专家", "通信信息", "物资装备", "交通运输", "后勤服务", "财力保障", "治安保卫", "善后处置" };
 		ResponseTeam team = null;
-		for (int i = 0; i < teamName.length; i++) {
+		for (String element : teamName) {
 			team = new ResponseTeam();
 			team.setParentId(root.getId());
-			team.setTeamName(teamName[i]);
+			team.setTeamName(element);
 			responseTeamService.save(team);
 		}
 	}

@@ -33,16 +33,16 @@ public class Dictionary extends IDEntity {
 		return itemName;
 	}
 
+	public Integer getSortIndex() {
+		return sortIndex;
+	}
+
 	public String getTypeCode() {
 		return typeCode;
 	}
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
-	}
-
-	public Integer getSortIndex() {
-		return sortIndex;
 	}
 
 	public void setSortIndex(Integer sortIndex) {

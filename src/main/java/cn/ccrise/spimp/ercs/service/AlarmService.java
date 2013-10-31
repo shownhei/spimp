@@ -69,11 +69,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	@Autowired
 	private EmergencyPlanInstanceService emergencyPlanInstanceService;
 
-	@Override
-	public HibernateDAO<Alarm, Long> getDAO() {
-		return alarmDAO;
-	}
-
 	/**
 	 * 删除一条报警记录 会级联删除 该报警记录对应的救援措施
 	 * 
@@ -89,6 +84,11 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		}
 		delete(alarmId);
 		return true;
+	}
+
+	@Override
+	public HibernateDAO<Alarm, Long> getDAO() {
+		return alarmDAO;
 	}
 
 	/**

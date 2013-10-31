@@ -130,12 +130,20 @@ public class IndexController {
 		return "ercs/staff/index";
 	}
 
+	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView ercsViewPdf(@PathVariable long id) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("file", uploadedFileService.findUniqueBy("id", id));
+		return new ModelAndView("/ercs/view-pdf", root);
+	}
+
 	/**
-	 * 应急预案救援措施模板
+	 * 应急预案救援任务管理
 	 */
-	@RequestMapping(value = "/ercs/template", method = RequestMethod.GET)
-	public String indexTemplate() {
-		return "ercs/template/index";
+	@RequestMapping(value = "/ercs/task-manage", method = RequestMethod.GET)
+	public String indexTaskManage() {
+		return "ercs/task-manage/index";
 	}
 
 	/**
@@ -147,19 +155,11 @@ public class IndexController {
 	}
 
 	/**
-	 * 应急预案救援任务管理
+	 * 应急预案救援措施模板
 	 */
-	@RequestMapping(value = "/ercs/task-manage", method = RequestMethod.GET)
-	public String indexTaskManage() {
-		return "ercs/task-manage/index";
-	}
-
-	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView ercsViewPdf(@PathVariable long id) {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("file", uploadedFileService.findUniqueBy("id", id));
-		return new ModelAndView("/ercs/view-pdf", root);
+	@RequestMapping(value = "/ercs/template", method = RequestMethod.GET)
+	public String indexTemplate() {
+		return "ercs/template/index";
 	}
 
 	/**

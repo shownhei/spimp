@@ -35,28 +35,28 @@ public class ResponseTeam extends IDEntity {
 		return isParent;
 	}
 
-	public void setIsParent(Boolean isParent) {
-		this.isParent = isParent;
+	public Long getParentId() {
+		return parentId;
 	}
 
 	public String getTeamName() {
 		return teamName;
 	}
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public String getTeamType() {
+		return teamType;
 	}
 
-	public Long getParentId() {
-		return parentId;
+	public void setIsParent(Boolean isParent) {
+		this.isParent = isParent;
 	}
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
-	public String getTeamType() {
-		return teamType;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 
 	public void setTeamType(String teamType) {

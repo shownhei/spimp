@@ -29,6 +29,15 @@ import cn.ccrise.spimp.entity.Dictionary;
 @Entity
 @Table(name = "ercs_rescuers")
 public class Rescuers extends IDEntity {
+	public static void main(String a[]) {
+		Rescuers t = new Rescuers();
+
+		Field[] fs = t.getClass().getDeclaredFields();
+		for (Field element : fs) {
+			System.out.print("'" + element.getName() + "',");
+		}
+	}
+
 	/**
 	 * 姓名
 	 */
@@ -82,6 +91,7 @@ public class Rescuers extends IDEntity {
 	 */
 	private Dictionary responseLevel;
 	private Account account;
+
 	/**
 	 * 添加时间
 	 */
@@ -97,8 +107,8 @@ public class Rescuers extends IDEntity {
 		return account;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public String getAddress() {
+		return address;
 	}
 
 	@Column(updatable = false)
@@ -108,14 +118,39 @@ public class Rescuers extends IDEntity {
 		return addTime;
 	}
 
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
 	@ManyToOne
 	public GroupEntity getDepartment() {
 		return department;
 	}
 
 	@ManyToOne
+	public Dictionary getEducation() {
+		return education;
+	}
+
+	public Date getEnqueueDate() {
+		return enqueueDate;
+	}
+
+	@ManyToOne
 	public Dictionary getExpertiseArea() {
 		return expertiseArea;
+	}
+
+	public String getiDNumber() {
+		return iDNumber;
+	}
+
+	public String getPolicitalStatus() {
+		return policitalStatus;
+	}
+
+	public String getRemark() {
+		return remark;
 	}
 
 	@ManyToOne
@@ -127,16 +162,56 @@ public class Rescuers extends IDEntity {
 		return staffName;
 	}
 
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public Date getWorkDate() {
+		return workDate;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
 	}
 
 	public void setDepartment(GroupEntity department) {
 		this.department = department;
 	}
 
+	public void setEducation(Dictionary education) {
+		this.education = education;
+	}
+
+	public void setEnqueueDate(Date enqueueDate) {
+		this.enqueueDate = enqueueDate;
+	}
+
 	public void setExpertiseArea(Dictionary expertiseArea) {
 		this.expertiseArea = expertiseArea;
+	}
+
+	public void setiDNumber(String iDNumber) {
+		this.iDNumber = iDNumber;
+	}
+
+	public void setPolicitalStatus(String policitalStatus) {
+		this.policitalStatus = policitalStatus;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public void setResponseLevel(Dictionary responseLevel) {
@@ -147,86 +222,12 @@ public class Rescuers extends IDEntity {
 		this.staffName = staffName;
 	}
 
-	public Date getBirthDay() {
-		return birthDay;
-	}
-
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
-	}
-
-	@ManyToOne
-	public Dictionary getEducation() {
-		return education;
-	}
-
-	public void setEducation(Dictionary education) {
-		this.education = education;
-	}
-
-	public String getPolicitalStatus() {
-		return policitalStatus;
-	}
-
-	public void setPolicitalStatus(String policitalStatus) {
-		this.policitalStatus = policitalStatus;
-	}
-
-	public Date getWorkDate() {
-		return workDate;
-	}
-
-	public void setWorkDate(Date workDate) {
-		this.workDate = workDate;
-	}
-
-	public Date getEnqueueDate() {
-		return enqueueDate;
-	}
-
-	public void setEnqueueDate(Date enqueueDate) {
-		this.enqueueDate = enqueueDate;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getTelephone() {
-		return telephone;
-	}
-
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
-	public String getiDNumber() {
-		return iDNumber;
-	}
-
-	public void setiDNumber(String iDNumber) {
-		this.iDNumber = iDNumber;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public static void main(String a[]) {
-		Rescuers t = new Rescuers();
-
-		Field[] fs = t.getClass().getDeclaredFields();
-		for (int i = 0; i < fs.length; i++) {
-			System.out.print("'" + fs[i].getName() + "',");
-		}
+	public void setWorkDate(Date workDate) {
+		this.workDate = workDate;
 	}
 
 }
