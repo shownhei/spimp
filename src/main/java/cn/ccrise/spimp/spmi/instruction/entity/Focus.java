@@ -12,132 +12,131 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
- * 重点工作
- * Focus。
+ * 重点工作 Focus。
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
 @Table(name = "instruction_focus")
 public class Focus extends IDEntity {
-	
-	//	工作名称
-	@PageFields(describtion="工作名称", allowedNull=false, search=true)
+
+	// 工作名称
+	@PageFields(describtion = "工作名称", allowedNull = false, search = true)
 	private String name;
-	
-	//	开始时间
-	@PageFields(describtion="开始时间", search=true)
+
+	// 开始时间
+	@PageFields(describtion = "开始时间", search = true)
 	private Date startTime;
-	
-	//	结束时间
-	@PageFields(describtion="结束时间")
+
+	// 结束时间
+	@PageFields(describtion = "结束时间")
 	private Date endTime;
-	
-	//	地点
-	@PageFields(describtion="地点", allowedNull=false)
+
+	// 地点
+	@PageFields(describtion = "地点", allowedNull = false)
 	private String positon;
-	
-	//	现场负责人
-	@PageFields(describtion="现场负责人")
+
+	// 现场负责人
+	@PageFields(describtion = "现场负责人")
 	private String responser;
-	
-	//	工作人员
-	@PageFields(describtion="工作人员")
+
+	// 工作人员
+	@PageFields(describtion = "工作人员")
 	private String workers;
-	
-	//	工作进度
-	@PageFields(describtion="工作进度")
+
+	// 工作进度
+	@PageFields(describtion = "工作进度")
 	private String process;
-	
-	//	工作总结情况
-	@PageFields(describtion="工作总结情况")
+
+	// 工作总结情况
+	@PageFields(describtion = "工作总结情况")
 	private String summary;
-	
-	//	工作简述
-	@PageFields(describtion="工作简述", allowedNull=false, type="textarea")
+
+	// 工作简述
+	@PageFields(describtion = "工作简述", allowedNull = false, type = "textarea")
 	private String description;
-	
-	//	记录人
-	@PageFields(describtion="记录人", allowedNull=false, search=true)
+
+	// 记录人
+	@PageFields(describtion = "记录人", allowedNull = false, search = true)
 	private String recorder;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public String getDescription() {
+		return description;
 	}
 
 	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public String getName() {
+		return name;
 	}
 
 	public String getPositon() {
 		return positon;
 	}
 
-	public void setPositon(String positon) {
-		this.positon = positon;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getResponser() {
-		return responser;
-	}
-
-	public void setResponser(String responser) {
-		this.responser = responser;
-	}
-
-	public String getWorkers() {
-		return workers;
-	}
-
-	public void setWorkers(String workers) {
-		this.workers = workers;
-	}
-
 	public String getProcess() {
 		return process;
-	}
-
-	public void setProcess(String process) {
-		this.process = process;
-	}
-
-	public String getSummary() {
-		return summary;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
 	}
 
 	public String getRecorder() {
 		return recorder;
 	}
 
+	public String getResponser() {
+		return responser;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public String getWorkers() {
+		return workers;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPositon(String positon) {
+		this.positon = positon;
+	}
+
+	public void setProcess(String process) {
+		this.process = process;
+	}
+
 	public void setRecorder(String recorder) {
 		this.recorder = recorder;
+	}
+
+	public void setResponser(String responser) {
+		this.responser = responser;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public void setWorkers(String workers) {
+		this.workers = workers;
 	}
 }

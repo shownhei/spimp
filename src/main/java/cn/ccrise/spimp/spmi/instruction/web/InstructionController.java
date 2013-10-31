@@ -45,6 +45,25 @@ public class InstructionController {
 		return new Response(instructionService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/instruction/instructions/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
+		Page<Instruction> page = new Page<Instruction>();
+		page.setPageSize(100000);
+		page = instructionService.pageQuery(page, startDate, endDate, search);
+
+		String[] headers = { "时间", "指示人", "承办人", "接收人", "指示内容" };
+
+		HSSFWorkbook wb = new ExcelHelper<Instruction>().genExcel("title", headers, page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件名称", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/instruction/instructions/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -74,25 +93,5 @@ public class InstructionController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Instruction instruction, @PathVariable long id) {
 		return new Response(instructionService.update(instruction));
-	}
-	
-	@RequestMapping(value = "/spmi/instruction/instructions/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
-		Page<Instruction> page = new Page<Instruction>();
-		page.setPageSize(100000);
-		page = instructionService.pageQuery(page, startDate, endDate, search);
-		
-		String[] headers = { "时间", "指示人", "承办人", "接收人", "指示内容" };
-		
-		HSSFWorkbook wb = new ExcelHelper<Instruction>().genExcel("title", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件名称", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

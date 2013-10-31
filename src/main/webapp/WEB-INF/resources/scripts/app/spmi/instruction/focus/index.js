@@ -103,7 +103,7 @@ define(function(require, exports, module) {
 
 	// 验证
 	function validate(showType, model){
-		var errorMsg = new Array();
+		var errorMsg = [];
 		
 		if (model.name === '') {
 			errorMsg.push('请输入工作名称');

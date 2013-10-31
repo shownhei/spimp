@@ -45,6 +45,27 @@ public class FocusController {
 		return new Response(focusService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/instruction/focuses/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate) throws Exception {
+		Page<Focus> page = new Page<Focus>();
+		page.setPageSize(100000);
+		page = focusService.pageQuery(page, search, startDate, endDate);
+
+		String[] headers = { "工作名称", "开始时间", "结束时间", "地点", "现场负责人", "工作人员", "工作进度", "工作总结情况", "工作简述", "记录人" };
+
+		HSSFWorkbook wb = new ExcelHelper<Focus>().genExcel("重点工作 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("重点工作 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/instruction/focuses/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +79,7 @@ public class FocusController {
 
 	@RequestMapping(value = "/spmi/instruction/focuses", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Focus> page,String search, Date startDate, Date endDate) {
+	public Response page(Page<Focus> page, String search, Date startDate, Date endDate) {
 		page = focusService.pageQuery(page, search, startDate, endDate);
 		return new Response(page);
 	}
@@ -73,25 +94,5 @@ public class FocusController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Focus focus, @PathVariable long id) {
 		return new Response(focusService.update(focus));
-	}
-	
-	@RequestMapping(value = "/spmi/instruction/focuses/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,String search, Date startDate, Date endDate) throws Exception {
-		Page<Focus> page = new Page<Focus>();
-		page.setPageSize(100000);
-		page = focusService.pageQuery(page, search, startDate, endDate);
-		
-		String[] headers = {"工作名称","开始时间","结束时间","地点","现场负责人","工作人员","工作进度","工作总结情况","工作简述","记录人"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Focus>().genExcel("重点工作 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("重点工作 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

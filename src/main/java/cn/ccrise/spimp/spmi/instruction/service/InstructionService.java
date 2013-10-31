@@ -34,22 +34,22 @@ public class InstructionService extends HibernateDataServiceImpl<Instruction, Lo
 	public HibernateDAO<Instruction, Long> getDAO() {
 		return instructionDAO;
 	}
-	
+
 	public Page<Instruction> pageQuery(Page<Instruction> page, Date startDate, Date endDate, String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.or(Restrictions.ilike("indicator", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("content", search, MatchMode.ANYWHERE)));
 		}
-		
+
 		if (startDate != null) {
 			criterions.add(Restrictions.ge("time", startDate));
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("time", endDate));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

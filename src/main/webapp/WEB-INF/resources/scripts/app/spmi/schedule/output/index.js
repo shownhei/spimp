@@ -79,7 +79,7 @@ define(function(require, exports, module) {
 
 	// 验证
 	function validate(showType, model){
-		var errorMsg = new Array();
+		var errorMsg = [];
 		
 		if (!$.isNumeric(model.railwayTrans)) {
 			errorMsg.push('铁路运输车数为数字格式');

@@ -21,90 +21,93 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Excel导出通用工具
- *
+ * 
  * <p>
- *
+ * 
  * @author David(david.kosoon@gmail.com)
  */
 public class ExcelHelper<T> {
-	
+
 	/**
 	 * 普通表格导出
+	 * 
 	 * @param title
-	 *         Excel文件title
+	 *            Excel文件title
 	 * @param headers
-	 * 		   表头，eg.: String[] headers = {"日期","铁路运输车数","铁路运输吨数","铁路运输备注"};
+	 *            表头，eg.: String[] headers = {"日期","铁路运输车数","铁路运输吨数","铁路运输备注"};
 	 * @param dataset
-	 * 		   导出的数据集合，为Collection<T>的派生类，如常用的List<T>
+	 *            导出的数据集合，为Collection<T>的派生类，如常用的List<T>
 	 * @param datePattern
-	 *         表格中日期显示格式，eg.: "yyyy-MM-dd"
+	 *            表格中日期显示格式，eg.: "yyyy-MM-dd"
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public HSSFWorkbook genExcel(String title, String[] headers,
-			Collection<T> dataset, String datePattern) {
-		
-		if(StringUtils.isBlank(datePattern)){
+	public HSSFWorkbook genExcel(String title, String[] headers, Collection<T> dataset, String datePattern) {
+
+		if (StringUtils.isBlank(datePattern)) {
 			datePattern = "yyyy-MM-dd";
 		}
-		
+
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet(title);
 		sheet.setDefaultColumnWidth(15);
-		
+
 		// 标题样式
 		HSSFCellStyle headerStyle = workbook.createCellStyle();
 		headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
-		headerStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-		headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		headerStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		headerStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		headerStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		headerStyle.setBorderRight(CellStyle.BORDER_THIN);
+		headerStyle.setBorderTop(CellStyle.BORDER_THIN);
+		headerStyle.setAlignment(CellStyle.ALIGN_CENTER);
 		HSSFFont headerFont = workbook.createFont();
 		headerFont.setColor(HSSFColor.WHITE.index);
 		headerFont.setFontHeightInPoints((short) 11);
-		headerFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
 		headerStyle.setFont(headerFont);
 
 		// 数据样式
 		HSSFCellStyle dataStyle = workbook.createCellStyle();
 		dataStyle.setFillForegroundColor(HSSFColor.WHITE.index);
-		dataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-		dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setAlignment(HSSFCellStyle.ALIGN_LEFT);
-		dataStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+		dataStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		dataStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		dataStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		dataStyle.setBorderRight(CellStyle.BORDER_THIN);
+		dataStyle.setBorderTop(CellStyle.BORDER_THIN);
+		dataStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		dataStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		HSSFFont dataFont = workbook.createFont();
 		dataFont.setColor(HSSFColor.GREY_80_PERCENT.index);
-		dataFont.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
+		dataFont.setBoldweight(Font.BOLDWEIGHT_NORMAL);
 		dataStyle.setFont(dataFont);
-		
+
 		// 数字样式
 		HSSFCellStyle numberStyle = workbook.createCellStyle();
 		numberStyle.setFillForegroundColor(HSSFColor.WHITE.index);
-		numberStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-		numberStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		numberStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		numberStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		numberStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		numberStyle.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-		numberStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+		numberStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		numberStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		numberStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		numberStyle.setBorderRight(CellStyle.BORDER_THIN);
+		numberStyle.setBorderTop(CellStyle.BORDER_THIN);
+		numberStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		numberStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		numberStyle.setFont(dataFont);
 
 		// 定义注释
 		HSSFPatriarch patriarch = sheet.createDrawingPatriarch();
-		/*HSSFComment comment = patriarch.createComment(new HSSFClientAnchor(0,
-				0, 0, 0, (short) 4, 2, (short) 6, 5));
-		comment.setString(new HSSFRichTextString("注释内容"));
-		comment.setAuthor("煤炭科学研究总院");
-		*/
+		/*
+		 * HSSFComment comment = patriarch.createComment(new HSSFClientAnchor(0,
+		 * 0, 0, 0, (short) 4, 2, (short) 6, 5)); comment.setString(new
+		 * HSSFRichTextString("注释内容")); comment.setAuthor("煤炭科学研究总院");
+		 */
 
 		// 生成表格标题
 		HSSFRow row = sheet.createRow(0);
@@ -121,7 +124,7 @@ public class ExcelHelper<T> {
 		while (it.hasNext()) {
 			index++;
 			row = sheet.createRow(index);
-			T t = (T) it.next();
+			T t = it.next();
 
 			Field[] fields = t.getClass().getDeclaredFields();
 			for (int i = 0; i < fields.length; i++) {
@@ -129,12 +132,10 @@ public class ExcelHelper<T> {
 				cell.setCellStyle(dataStyle);
 				Field field = fields[i];
 				String fieldName = field.getName();
-				String getMethodName = "get"
-						+ fieldName.substring(0, 1).toUpperCase()
-						+ fieldName.substring(1);
+				String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 				try {
 					Class clazz = t.getClass();
-					Method getMethod = clazz.getMethod(getMethodName,new Class[] {});
+					Method getMethod = clazz.getMethod(getMethodName, new Class[] {});
 					Object value = getMethod.invoke(t, new Object[] {});
 
 					String textValue = null;
@@ -146,11 +147,10 @@ public class ExcelHelper<T> {
 						row.setHeightInPoints(60);
 						sheet.setColumnWidth(i, (short) (35.7 * 80));
 						byte[] bsValue = (byte[]) value;
-						HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0,
-								1023, 255, (short) 6, index, (short) 6, index);
+						HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 255, (short) 6, index, (short) 6,
+								index);
 						anchor.setAnchorType(2);
-						patriarch.createPicture(anchor, workbook.addPicture(
-								bsValue, HSSFWorkbook.PICTURE_TYPE_JPEG));
+						patriarch.createPicture(anchor, workbook.addPicture(bsValue, Workbook.PICTURE_TYPE_JPEG));
 					} else {
 						textValue = value.toString();
 					}

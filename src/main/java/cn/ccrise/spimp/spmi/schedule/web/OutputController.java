@@ -45,6 +45,27 @@ public class OutputController {
 		return new Response(outputService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/schedule/outputs/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
+		Page<Output> page = new Page<Output>();
+		page.setPageSize(100000);
+		page = outputService.pageQuery(page, startDate, endDate, search);
+
+		String[] headers = { "日期", "铁路运输车数", "铁路运输吨数", "铁路运输备注" };
+
+		HSSFWorkbook wb = new ExcelHelper<Output>().genExcel("矿井原煤产量 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("矿井原煤产量 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/schedule/outputs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -58,7 +79,7 @@ public class OutputController {
 
 	@RequestMapping(value = "/spmi/schedule/outputs", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Output> page, Date startDate, Date endDate,String search) {
+	public Response page(Page<Output> page, Date startDate, Date endDate, String search) {
 		page = outputService.pageQuery(page, startDate, endDate, search);
 		return new Response(page);
 	}
@@ -73,25 +94,5 @@ public class OutputController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Output output, @PathVariable long id) {
 		return new Response(outputService.update(output));
-	}
-	
-	@RequestMapping(value = "/spmi/schedule/outputs/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate,String search) throws Exception {
-		Page<Output> page = new Page<Output>();
-		page.setPageSize(100000);
-		page = outputService.pageQuery(page, startDate, endDate, search);
-		
-		String[] headers = {"日期","铁路运输车数","铁路运输吨数","铁路运输备注"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Output>().genExcel("矿井原煤产量 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("矿井原煤产量 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }
