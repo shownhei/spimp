@@ -14,7 +14,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
-@Table(name = "ercs_dictionaries")
+@Table(name = "spimp_dictionaries")
 public class Dictionary extends IDEntity {
 	/**
 	 * 字典类型
