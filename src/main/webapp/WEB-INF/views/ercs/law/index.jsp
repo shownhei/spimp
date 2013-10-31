@@ -67,15 +67,15 @@
 					    <div class="control-group">
 							<label class="control-label " for="department">发布单位</label>
 							<div class="controls">
-								<input id="create-department" name="department" type="text" class="span10">
-	                            <input  type="button" id="create-selectGroup" value="选择"  class="btn btn-small btn-success span2">
+								<input id="create-department" name="department" type="text" class="span10" style="width:350px;">
+	                            <input  type="button" id="create-selectGroup" value="选择"  class="btn btn-small btn-success span2"  style="width:45px;">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10 ">
-								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2">
+								<input id="attachment" readonly name="attachment" type="text" class="span10 " style="width:350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width:48px;">
 							</div>
 						</div>
 					</form>
