@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.ercs.service;
+package cn.ccrise.spimp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
-import cn.ccrise.spimp.ercs.access.DictionaryDAO;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
+import cn.ccrise.spimp.access.DictionaryDAO;
+import cn.ccrise.spimp.entity.Dictionary;
 
 /**
  * Dictionary Service。

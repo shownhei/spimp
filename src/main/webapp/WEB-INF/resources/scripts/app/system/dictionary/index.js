@@ -6,13 +6,29 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
+	var map={
+			plan_type:'应急预案种类',
+			personal_category:'人员类别',
+			expertise_area:'专业领域',
+			accident_category:'事故类别',
+			accident_level:'事故严重程度',
+			response_level:'事故响应级别',
+			refuge_type:'避险场所种类',
+			resource_type:'应急资源种类'
+	};
 	// 配置表格列
-	var fields = [ {
+	var fields = [{
+		header : '字典分类',
+		render:function(v){
+			return v?map[v]:'';
+		},
+		name : 'typeCode'
+	}, {
 		header : '字典名称',
 		name : 'itemName'
 	}, {
 		header : '字典值',
-		name : 'itemValue'
+		name : 'sortIndex'
 	} ];
 
 	// 计算表格高度和行数
@@ -35,7 +51,7 @@ define(function(require, exports, module) {
 	});
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/dictionaries?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/system/dictionaries?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#dictionary-table',
 		url : defaultUrl,
@@ -68,7 +84,7 @@ define(function(require, exports, module) {
 			return;
 		}
 
-		$.post('/ercs/dictionaries', JSON.stringify(object), function(data) {
+		$.post('/system/dictionaries', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -87,7 +103,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('/ercs/dictionaries/' + selectId, function(data) {
+		$.get('/system/dictionaries/' + selectId, function(data) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
@@ -106,7 +122,7 @@ define(function(require, exports, module) {
 
 		// 处理属性
 		var selectId = grid.selectedData('id');
-		$.put('/ercs/dictionaries/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/system/dictionaries/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -127,7 +143,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/ercs/dictionaries/' + selectId, function(data) {
+		$.del('/system/dictionaries/' + selectId, function(data) {
 		    Utils.modal.hide('remove');
 			if (data.success) {
 				grid.refresh();

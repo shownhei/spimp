@@ -142,13 +142,13 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("现场处置方案", "/ercs/scheme", ercs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急法规", "/ercs/law", ercs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急机构", "/ercs/organization", ercs, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("字典管理", "/ercs/dictionary", ercs, "", i++);
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("角色管理", "/system/role", system, "", 2);
 		resourceEntityServiceImpl.saveMenuResource("机构管理", "/system/group", system, "", 3);
 		resourceEntityServiceImpl.saveMenuResource("菜单管理", "/system/resource", system, "", 4);
-		resourceEntityServiceImpl.saveMenuResource("日志查询", "/system/log", system, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("字典管理", "/system/dictionary", system, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("日志查询", "/system/log", system, "", 6);
 	}
 }

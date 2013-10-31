@@ -40,9 +40,9 @@ public class IndexController {
 	/**
 	 * 字典管理
 	 */
-	@RequestMapping(value = "/ercs/dictionary", method = RequestMethod.GET)
+	@RequestMapping(value = "/system/dictionary", method = RequestMethod.GET)
 	public String ercsDictionary() {
-		return "ercs/dictionary/index";
+		return "system/dictionary/index";
 	}
 
 	/**

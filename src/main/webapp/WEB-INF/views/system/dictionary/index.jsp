@@ -83,9 +83,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="itemName">字典值</label>
+							<label class="control-label" for="sortIndex">排序</label>
 							<div class="controls">
-								<input id="itemValue" name="itemValue" type="text">
+								<input id="sortIndex" name="sortIndex" type="text" value="1">
 							</div>
 						</div>
 					</form>
@@ -141,9 +141,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="itemName">字典值</label>
+							<label class="control-label" for="sortIndex">排序</label>
 							<div class="controls">
-								<input id="itemValue" name="itemValue" type="text">
+								<input id="sortIndex" name="sortIndex" type="text"  value="1">
 							</div>
 						</div>
 					</form>
@@ -228,7 +228,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/dictionary/index');
+		seajs.use('${resources}/scripts/app/system/dictionary/index');
 	</script>
 </body>
 </html>

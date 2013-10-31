@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.ercs.entity;
+package cn.ccrise.spimp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,14 +27,10 @@ public class Dictionary extends IDEntity {
 	/**
 	 * 字典值，权重
 	 */
-	private String itemValue;
+	private Integer sortIndex;
 
 	public String getItemName() {
 		return itemName;
-	}
-
-	public String getItemValue() {
-		return itemValue;
 	}
 
 	public String getTypeCode() {
@@ -45,8 +41,12 @@ public class Dictionary extends IDEntity {
 		this.itemName = itemName;
 	}
 
-	public void setItemValue(String itemValue) {
-		this.itemValue = itemValue;
+	public Integer getSortIndex() {
+		return sortIndex;
+	}
+
+	public void setSortIndex(Integer sortIndex) {
+		this.sortIndex = sortIndex;
 	}
 
 	public void setTypeCode(String typeCode) {

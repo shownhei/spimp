@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.ercs.access;
+package cn.ccrise.spimp.access;
 
 import org.springframework.stereotype.Repository;
 
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
-import cn.ccrise.spimp.ercs.entity.Dictionary;
+import cn.ccrise.spimp.entity.Dictionary;
 
 /**
  * Dictionary DAO。
