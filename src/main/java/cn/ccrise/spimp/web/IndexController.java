@@ -72,6 +72,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 字典管理
+	 */
+	@RequestMapping(value = "/system/dictionary", method = RequestMethod.GET)
+	public String ercsDictionary() {
+		return "system/dictionary/index";
+	}
+
+	/**
 	 * 菜单管理
 	 */
 	@RequestMapping(value = "/system/resource", method = RequestMethod.GET)

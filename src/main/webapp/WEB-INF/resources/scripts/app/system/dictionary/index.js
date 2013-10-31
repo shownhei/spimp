@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 		header : '字典名称',
 		name : 'itemName'
 	}, {
-		header : '字典值',
+		header : '排序值',
 		name : 'sortIndex'
 	} ];
 
