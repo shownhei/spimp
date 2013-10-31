@@ -52,4 +52,9 @@ public class Dictionary extends IDEntity {
 	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
 	}
+	
+	@Override
+	public String toString(){
+		return this.itemName;
+	}
 }
