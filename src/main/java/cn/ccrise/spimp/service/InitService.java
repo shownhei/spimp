@@ -101,6 +101,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("调度记录", "/spmi/schedule/record", schedule, "", 7);
 		resourceEntityServiceImpl.saveMenuResource("安全生产三汇报", "/spmi/schedule/report", schedule, "", 8);
 		resourceEntityServiceImpl.saveMenuResource("煤炭外运情况", "/spmi/schedule/transport", schedule, "", 9);
+		resourceEntityServiceImpl.saveMenuResource("队组管理", "/spmi/schedule/team", schedule, "", 100);
 
 		// 质量标准化
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
