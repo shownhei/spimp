@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>应急法规管理 - 安全生产综合管理平台</title>
+<title>字典管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -151,6 +151,7 @@
 									<option value="response_level">事故响应级别</option>
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
+									<option value="education_level" >文化程度</option>
 								</select>
 							</div>
 						</div>
