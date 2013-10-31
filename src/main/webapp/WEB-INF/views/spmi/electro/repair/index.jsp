@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>现场处置方案 - 安全生产综合管理平台</title>
+<title>设备检修跟踪 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -27,7 +27,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入检修人/设备名称..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入检修人或设备名称..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -52,45 +52,39 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="principal">检修地点</label>
+							<label class="control-label">检修地点</label>
 							<div class="controls">
-								<input id="address" name="address" type="text">
+								<input name="address" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">检修人</label>
+							<label class="control-label">检修人</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">设备名称</label>
+							<label class="control-label">设备名称</label>
 							<div class="controls">
-								<input id="deviceName" name="deviceName" type="text">
+								<input name="deviceName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">设备型号</label>
+							<label class="control-label">设备型号</label>
 							<div class="controls">
-								<input id="version" name="version" type="text">
+								<input name="version" type="text">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">开工时间</label>
+						<div class="control-group">
+							<label class="control-label">开工时间</label>
 							<div class="controls">
-								<input name="startTime" type="datetime" placeholder="开工时间" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="startTime" type="datetime">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">完工时间</label>
+						<div class="control-group">
+							<label class="control-label">完工时间</label>
 							<div class="controls">
-								<input name="endTime" type="datetime" placeholder="完工时间" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="endTime" type="datetime">
 							</div>
 						</div>
 					</form>
@@ -127,45 +121,39 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="principal">检修地点</label>
+							<label class="control-label">检修地点</label>
 							<div class="controls">
-								<select id="address" name="address"></select>
+								<input name="address" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">检修人</label>
+							<label class="control-label">检修人</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">设备名称</label>
+							<label class="control-label">设备名称</label>
 							<div class="controls">
-								<input id="deviceName" name="deviceName" type="text">
+								<input name="deviceName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">设备型号</label>
+							<label class="control-label">设备型号</label>
 							<div class="controls">
-								<input id="version" name="version" type="text">
+								<input name="version" type="text">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">开工时间</label>
+						<div class="control-group">
+							<label class="control-label">开工时间</label>
 							<div class="controls">
-								<input name="startTime" type="datetime" placeholder="开工时间" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="startTime" type="datetime">
 							</div>
 						</div>
-						<div class="input-append">
-							<label class="control-label" for="principal">完工时间</label>
+						<div class="control-group">
+							<label class="control-label">完工时间</label>
 							<div class="controls">
-								<input name="endTime" type="datetime" placeholder="完工时间" class="input-small" autocomplete="off">
-								<span class="add-on nav-add-on">
-									<i class="icon-calendar"></i>
-								</span>
+								<input name="endTime" type="datetime">
 							</div>
 						</div>
 					</form>
@@ -190,7 +178,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal hide">
+	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -224,24 +212,5 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/electro/repair/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
-	<div id="view-modal" class="modal hide" style="width: 800px;">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
-			</h5>
-		</div>
-		<div class="modal-body">
-			<div class="row-fluid">
-				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 关闭
-			</button>
-		</div>
-	</div>
 </body>
 </html>

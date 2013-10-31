@@ -1,11 +1,14 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
+
 	// 配置表格列
 	var fields = [ {
 		header : '检修地点',
@@ -26,7 +29,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '完工时间',
 		width : 145,
-		name : 'uploadTime'
+		name : 'endTime'
 	} ];
 
 	// 计算表格高度和行数
@@ -72,16 +75,16 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
+
 		// 验证
-		if (object.name === ''&&object.deviceName === '') {
+		if (object.name === '' && object.deviceName === '') {
 			Utils.modal.message('create', [ '设备名称与检修人不能为空' ]);
 			return;
 		}
+
 		$.post('/spmi/electro/electro-repairs', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.set({
-					url : defaultUrl
-				});
+				grid.refresh();
 				Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
@@ -109,11 +112,13 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+
 		// 验证
-		if (object.name === ''&&object.deviceName === '') {
+		if (object.name === '' && object.deviceName === '') {
 			Utils.modal.message('edit', [ '设备名称与检修人不能为空' ]);
 			return;
 		}
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -139,17 +144,13 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/spmi/electro/electro-repairs/' + selectId, function(data) {
-			grid.set({
-				url : defaultUrl
-			});
+			grid.refresh();
 			Utils.modal.hide('remove');
 		});
 	});
 
 	// 搜索
 	$('#nav-search-button').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('search-form')
-		});
+		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
 });

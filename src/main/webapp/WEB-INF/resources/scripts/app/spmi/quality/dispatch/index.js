@@ -30,12 +30,12 @@ define(function(require, exports, module) {
 				if (k === tds.length - 2) {
 					$(v).html(
 							'<textarea name="grade-record-' + (key + 1) + '-' + (k + (8 - tds.length + 1))
-									+ '" style="width: 146px; height: 100%;resize: none"></textarea>');
+									+ '" style="width: 146px; height: 100%;resize: none;border: 0"></textarea>');
 				}
 				if (k === tds.length - 1) {
 					$(v).html(
 							'<input name="grade-record-' + (key + 1) + '-' + (k + (8 - tds.length + 1))
-									+ '" type="text" style="width: 26px; height: 100%" value="' + $(v).prev().prev().html() + '">');
+									+ '" type="text" style="width: 26px; height: 100%;border: 0" value="' + $(v).prev().prev().html() + '">');
 				}
 			}
 		});
