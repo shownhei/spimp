@@ -74,9 +74,9 @@ public class PageGenerator {
 
 	protected final String uriPrefix = "spmi/schedule";
 
-	protected final String entityName = "Circumstance";
+	protected final String entityName = "Record";
 
-	protected static final String PAGE_TITLE = "基层单位干部跟班情况 - 安全生产综合管理平台";
+	protected static final String PAGE_TITLE = "调度记录 - 安全生产综合管理平台";
 	
 	/**
 	 * 第二步:生成后台DAO及ENTITY代码。
