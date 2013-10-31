@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
@@ -22,10 +23,35 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
+/**
+ * Excel导出通用工具
+ *
+ * <p>
+ *
+ * @author David(david.kosoon@gmail.com)
+ */
 public class ExcelHelper<T> {
+	
+	/**
+	 * 普通表格导出
+	 * @param title
+	 *         Excel文件title
+	 * @param headers
+	 * 		   表头，eg.: String[] headers = {"日期","铁路运输车数","铁路运输吨数","铁路运输备注"};
+	 * @param dataset
+	 * 		   导出的数据集合，为Collection<T>的派生类，如常用的List<T>
+	 * @param datePattern
+	 *         表格中日期显示格式，eg.: "yyyy-MM-dd"
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public HSSFWorkbook genExcel(String title, String[] headers,
 			Collection<T> dataset, String datePattern) {
+		
+		if(StringUtils.isBlank(datePattern)){
+			datePattern = "yyyy-MM-dd";
+		}
+		
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet(title);
 		sheet.setDefaultColumnWidth(15);
