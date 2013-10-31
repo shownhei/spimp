@@ -14,7 +14,8 @@ define(function(require, exports, module) {
 			accident_level:'事故严重程度',
 			response_level:'事故响应级别',
 			refuge_type:'避险场所种类',
-			resource_type:'应急资源种类'
+			resource_type:'应急资源种类',
+			education_level:'文化程度'
 	};
 	// 配置表格列
 	var fields = [{

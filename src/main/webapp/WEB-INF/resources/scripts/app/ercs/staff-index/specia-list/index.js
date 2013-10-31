@@ -14,6 +14,9 @@ define(function(require, exports, module) {
         name : 'name'
     },{
         header : '性别',
+        render:function(v){
+            return v?(v===1?'男':'女'):'--';
+        },
         name : 'gender'
     },{
         header : '出生日期',

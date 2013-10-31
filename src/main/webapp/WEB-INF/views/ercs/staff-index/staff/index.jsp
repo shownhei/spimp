@@ -62,28 +62,34 @@
 								<input name="birthDay" type="datetime">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="education">文化程度</label>
-							<div class="controls">
-								<select id="create-education" name="education[id]"></select>
+						
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="education">文化程度</label>
+								<div class="controls">
+									<select id="create-education" name="education[id]" class="span12" style="width:130px;"></select>
+								</div>
+							</div>
+							<div class="control-group  span6">
+								<label class="control-label span4" for="enqueueDate">政治面貌</label>
+								<div class="controls">
+									<input id="policitalStatus" name="policitalStatus" class="span11" style="width:122px;">
+								</div>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="policitalStatus">政治面貌</label>
-							<div class="controls">
-								<input name="policitalStatus" type="text">
+						
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="principal">工作时间</label>
+								<div class="controls">
+									<input id="workDate" type="datetime" name="workDate"  class="span12" style="width:130px;">
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label " for="workDate">工作时间</label>
-							<div class="controls">
-								<input name="workDate" type="datetime">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label " for="enqueueDate">入队时间</label>
-							<div class="controls">
-								<input name="enqueueDate" type="datetime">
+							<div class="control-group  span6">
+								<label class="control-label span4" for="enqueueDate">入队时间</label>
+								<div class="controls">
+									<input id="enqueueDate" name="enqueueDate" type="datetime" class="span11" style="width:122px;">
+								</div>
 							</div>
 						</div>
 						<div class="control-group">
@@ -104,16 +110,12 @@
 								<input name="iDNumber" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="remark">备注</label>
-							<div class="controls">
-								<input name="remark" type="text">
-							</div>
-						</div>
+						
 						<div class="control-group">
 							<label class="control-label " for="department">部门</label>
 							<div class="controls">
-								<input type='text' readonly id="create-department" name="department" class="span10"> <input type="button" value="选择" id="create_selectGroup">
+								<input type='text'  id="create-department" name="department" class="span10" style="width:350px;">
+								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success" style="width:48px;">
 							</div>
 						</div>
 						<div class="control-group">
@@ -126,6 +128,12 @@
 							<label class="control-label " for="responseLevel">事故响应级别</label>
 							<div class="controls">
 								<select id="create-responseLevel" name="responseLevel[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="remark">备注</label>
+							<div class="controls">
+								<input name="remark" type="text">
 							</div>
 						</div>
 					</form>
@@ -162,62 +170,91 @@
 					<form id="edit-form" class="form-horizontal">
 						<input name="id" type="hidden">
 						<div class="control-group">
-							<label class="control-label" for="principal">员工类型</label>
-							<div class="controls">
-								<input name="staffType" type="text">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="principal">姓名</label>
+							<label class="control-label " for="staffName">姓名</label>
 							<div class="controls">
 								<input name="staffName" type="text">
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">部门</label>
+							<label class="control-label " for="birthDay">出生日期</label>
 							<div class="controls">
-								<input type='text' readonly id="edit-department" name="department" class="span10">
-								<button type="button" id="edit_selectGroup">选择</button>
+								<input name="birthDay" type="datetime">
 							</div>
 						</div>
-
+						
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="education">文化程度</label>
+								<div class="controls">
+									<select id="edit-education" name="education[id]" class="span12" style="width:130px;"></select>
+								</div>
+							</div>
+							<div class="control-group  span6">
+								<label class="control-label span4" for="enqueueDate">政治面貌</label>
+								<div class="controls">
+									<input  name="policitalStatus" class="span11" style="width:122px;">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="principal">工作时间</label>
+								<div class="controls">
+									<input  type="datetime" name="workDate"  class="span12" style="width:130px;">
+								</div>
+							</div>
+							<div class="control-group  span6">
+								<label class="control-label span4" for="enqueueDate">入队时间</label>
+								<div class="controls">
+									<input  name="enqueueDate" type="datetime" class="span11" style="width:122px;">
+								</div>
+							</div>
+						</div>
 						<div class="control-group">
-							<label class="control-label" for="principal">专业领域</label>
+							<label class="control-label " for="address">住址</label>
+							<div class="controls">
+								<input name="address" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="telephone">电话</label>
+							<div class="controls">
+								<input name="telephone" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="iDNumber">身份证号</label>
+							<div class="controls">
+								<input name="iDNumber" type="text">
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label " for="department">部门</label>
+							<div class="controls">
+								<input type='text'  id="edit-department" name="department" class="span10" style="width:350px;">
+								<input type="button" value="选择" id="edit_selectGroup" class="btn btn-small btn-success" style="width:48px;">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="expertiseArea">专业领域</label>
 							<div class="controls">
 								<select id="edit-expertiseArea" name="expertiseArea[id]"></select>
 							</div>
 						</div>
-
 						<div class="control-group">
-							<label class="control-label" for="principal">职称</label>
-							<div class="controls">
-								<input name="title" type="text">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="principal">经验</label>
-							<div class="controls">
-								<input name="experience" type="text">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="principal">联系方式</label>
-							<div class="controls">
-								<input name="phone" type="text">
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="principal">事故响应级别</label>
+							<label class="control-label " for="responseLevel">事故响应级别</label>
 							<div class="controls">
 								<select id="edit-responseLevel" name="responseLevel[id]"></select>
 							</div>
 						</div>
-
+						<div class="control-group">
+							<label class="control-label " for="remark">备注</label>
+							<div class="controls">
+								<input name="remark" type="text">
+							</div>
+						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">

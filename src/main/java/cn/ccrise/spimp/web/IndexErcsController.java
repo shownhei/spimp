@@ -93,7 +93,7 @@ public class IndexErcsController {
 	/**
 	 * 应急方案管理
 	 */
-	@RequestMapping(value = "/plan-index/ercs/plan", method = RequestMethod.GET)
+	@RequestMapping(value = "/ercs/plan-index/plan", method = RequestMethod.GET)
 	public String ercsPlan() {
 		return "ercs/plan-index/plan/index";
 	}

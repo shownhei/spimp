@@ -100,7 +100,7 @@ define(function(require, exports, module) {
 		var attachment={id:$('#attachment').attr('data-id'),name:object.filePath};
 		delete object.filePath;
 		object.attachment=attachment;
-		$.post('plans', JSON.stringify(object), function(data) {
+		$.post('/ercs/plans', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -119,7 +119,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('plans/' + selectId, function(data) {
+		$.get('/ercs/plans/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			$('#edit_attachment').val(object.attachment.filePath);
@@ -142,7 +142,7 @@ define(function(require, exports, module) {
 		object.attachment=attachment;
 		// 处理属性
 		var selectId = grid.selectedData('id');
-		$.put('plans/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/ercs/plans/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -164,7 +164,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('plans/' + selectId, function(data) {
+		$.del('/ercs/plans/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});

@@ -139,7 +139,7 @@ define(function(require, exports, module) {
 		}
 		var resource={resourceName:object.resource,id:$('#resource').attr('data-id')};
 		object.resource=resource;
-		$.post('resource-use-records', JSON.stringify(object), function(data) {
+		$.post('/ercs/resource-use-records', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -158,7 +158,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('resource-use-records/' + selectId, function(data) {
+		$.get('/ercs/resource-use-records/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			$('#edit-resource').val(object.resource.resourceName);
@@ -176,7 +176,7 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		var resource={resourceName:object.resource,id:$('#edit-resource').attr('data-id')};
 		object.resource=resource;
-		$.put('resource-use-records/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/ercs/resource-use-records/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -198,7 +198,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('resource-use-records/' + selectId, function(data) {
+		$.del('/ercs/resource-use-records/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});

@@ -7,8 +7,9 @@ define(function(require, exports, module) {
 	});
 	Utils.input.date('input[type=datetime]');
 	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ,'create-education'], '/system/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
-
+	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ], '/system/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'edit-education', 'create-education'], '/system/dictionaries?typeCode=education_level&list=true', 'id', 'itemName');
+	
 	// 配置表格列
 	var fields = [  {
 		header : "队员名称",
@@ -18,6 +19,12 @@ define(function(require, exports, module) {
 		name : "birthDay"
 	}, {
 		header : "文化程度",
+		render:function(val){
+			if (val) {
+				return val.itemName;
+			}
+			return '';
+		},
 		name : "education"
 	}, {
 		header : "整治面貌",
@@ -156,6 +163,7 @@ define(function(require, exports, module) {
 			$('#edit-department').val(object.department.name);
 			$('#edit-department').attr('data-id',object.department.id);
 			Utils.modal.show('edit');
+			$('#edit_selectGroup').val('选择');
 		});
 	});
 
