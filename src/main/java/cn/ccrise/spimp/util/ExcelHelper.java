@@ -152,11 +152,15 @@ public class ExcelHelper<T> {
 						anchor.setAnchorType(2);
 						patriarch.createPicture(anchor, workbook.addPicture(bsValue, Workbook.PICTURE_TYPE_JPEG));
 					} else {
-						textValue = value.toString();
+						if(value == null){
+							textValue = "";
+						} else {
+							textValue = value.toString();
+						}
 					}
 
 					if (textValue != null) {
-						Pattern p = Pattern.compile("^//d+(//.//d+)?$");
+						Pattern p = Pattern.compile("^[+\\-]?\\d+(.\\d+)?$");
 						Matcher matcher = p.matcher(textValue);
 						if (matcher.matches()) {
 							cell.setCellStyle(numberStyle);
