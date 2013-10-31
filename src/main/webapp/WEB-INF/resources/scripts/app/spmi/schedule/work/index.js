@@ -1,26 +1,33 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('${parentDir}common/utils');
-	var operateUri = '${restPath}';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var operateUri = '/spmi/schedule/works';
 	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 	
-	<#if hasSelect>
-	// 下拉列表初始化
-${selectInitJS}
-	</#if>	
-	<#if hasSelectSearch>
-	// 下拉列表change事件
-${selectChangeJS}
-	</#if>
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
 	// 配置表格列
 	var fields = [
-${jsFields}
+		{
+			header : '日期',
+			name : 'workDate'
+		},
+		{
+			header : '领导名称',
+			name : 'leaderName'
+		},
+		{
+			header : '发现问题',
+			name : 'problems'
+		},
+		{
+			header : '问题处理',
+			name : 'problemsDeal'
+		}
 	];
 
 	// 计算表格高度和行数
@@ -74,7 +81,15 @@ ${jsFields}
 	function validate(showType, model){
 		var errorMsg = new Array();
 		
-${validateCode}		if(errorMsg.length > 0){
+		if (model.workDate === '') {
+			errorMsg.push('请输入日期');
+		}
+
+		if (model.leaderName === '') {
+			errorMsg.push('请输入领导名称');
+		}
+
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}

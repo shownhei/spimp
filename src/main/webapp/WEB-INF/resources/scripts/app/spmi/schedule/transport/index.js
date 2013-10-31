@@ -1,26 +1,80 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('${parentDir}common/utils');
-	var operateUri = '${restPath}';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var operateUri = '/spmi/schedule/transports';
 	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 	
-	<#if hasSelect>
 	// 下拉列表初始化
-${selectInitJS}
-	</#if>	
-	<#if hasSelectSearch>
+	Utils.select.remote([ 'search_coalType','create_coalType','edit_coalType' ], '/system/dictionaries?typeCode=schedule_coal_type&list=true', 'id', 'itemName',true,'煤种');
+
 	// 下拉列表change事件
-${selectChangeJS}
-	</#if>
+	$('#search_coalType').bind('change',function(){
+		$('#submit').trigger('click');
+	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
 	// 配置表格列
 	var fields = [
-${jsFields}
+		{
+			header : '日期',
+			name : 'operateDate'
+		},
+		{
+			header : '煤种',
+			name : 'coalType'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '铁路运输车数',
+			name : 'railwayTrans'
+		},
+		{
+			header : '铁路运输吨数',
+			name : 'railwayTons'
+		},
+		{
+			header : '铁路装车时间',
+			name : 'railwayLoadStartTime'
+		},
+		{
+			header : '铁路装完时间',
+			name : 'railwayLoadEndTime'
+		},
+		{
+			header : '铁路运输备注',
+			name : 'railwayRemark'
+		},
+		{
+			header : '公路运输车数',
+			name : 'roadTrans'
+		},
+		{
+			header : '公路运输吨数',
+			name : 'roadTons'
+		},
+		{
+			header : '公路外运合计',
+			name : 'roadTonsTotal'
+		},
+		{
+			header : '公路运输库存',
+			name : 'roadStorage'
+		},
+		{
+			header : '公路运输备注',
+			name : 'roadRemark'
+		}
 	];
 
 	// 计算表格高度和行数
@@ -74,7 +128,39 @@ ${jsFields}
 	function validate(showType, model){
 		var errorMsg = new Array();
 		
-${validateCode}		if(errorMsg.length > 0){
+		if (model.operateDate === '') {
+			errorMsg.push('请输入日期');
+		}
+
+		if (model.coalType.id === '') {
+			errorMsg.push('请输入煤种');
+		}
+
+		if (model.railwayTrans !== '' && !$.isNumeric(model.railwayTrans)) {
+			errorMsg.push('铁路运输车数为数字格式');
+		}
+
+		if (model.railwayTons !== '' && !$.isNumeric(model.railwayTons)) {
+			errorMsg.push('铁路运输吨数为数字格式');
+		}
+
+		if (model.roadTrans !== '' && !$.isNumeric(model.roadTrans)) {
+			errorMsg.push('公路运输车数为数字格式');
+		}
+
+		if (model.roadTons !== '' && !$.isNumeric(model.roadTons)) {
+			errorMsg.push('公路运输吨数为数字格式');
+		}
+
+		if (model.roadTonsTotal !== '' && !$.isNumeric(model.roadTonsTotal)) {
+			errorMsg.push('公路外运合计为数字格式');
+		}
+
+		if (model.roadStorage !== '' && !$.isNumeric(model.roadStorage)) {
+			errorMsg.push('公路运输库存为数字格式');
+		}
+
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}

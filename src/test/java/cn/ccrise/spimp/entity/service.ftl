@@ -58,6 +58,9 @@ public class ${entityName}Service extends HibernateDataServiceImpl<${entityName}
 		}
 		
 		</#if>
+		<#if hasSelectSearch>
+${selectQuery}		
+		</#if>
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

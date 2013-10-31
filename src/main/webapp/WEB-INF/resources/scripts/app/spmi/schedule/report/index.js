@@ -1,26 +1,68 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('${parentDir}common/utils');
-	var operateUri = '${restPath}';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var operateUri = '/spmi/schedule/reports';
 	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 	
-	<#if hasSelect>
 	// 下拉列表初始化
-${selectInitJS}
-	</#if>	
-	<#if hasSelectSearch>
+	Utils.select.remote([ 'search_duty','create_duty','edit_duty' ], '/system/dictionaries?typeCode=schedule_duty&list=true', 'id', 'itemName',true,'班次');
+
 	// 下拉列表change事件
-${selectChangeJS}
-	</#if>
+	$('#search_duty').bind('change',function(){
+		$('#submit').trigger('click');
+	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
 	// 配置表格列
 	var fields = [
-${jsFields}
+		{
+			header : '日期',
+			name : 'reportDate'
+		},
+		{
+			header : '班次',
+			name : 'duty'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '姓名',
+			name : 'name'
+		},
+		{
+			header : '职务',
+			name : 'business'
+		},
+		{
+			header : '汇报时间',
+			name : 'reportDoDate'
+		},
+		{
+			header : '汇报地点',
+			name : 'reportPositon'
+		},
+		{
+			header : '班前汇报',
+			name : 'beforeDutyReprot'
+		},
+		{
+			header : '班中汇报',
+			name : 'onDutyReport'
+		},
+		{
+			header : '班后汇报',
+			name : 'afterDutyReport'
+		}
 	];
 
 	// 计算表格高度和行数
@@ -74,7 +116,19 @@ ${jsFields}
 	function validate(showType, model){
 		var errorMsg = new Array();
 		
-${validateCode}		if(errorMsg.length > 0){
+		if (model.reportDate === '') {
+			errorMsg.push('请输入日期');
+		}
+
+		if (model.duty.id === '') {
+			errorMsg.push('请输入班次');
+		}
+
+		if (model.name === '') {
+			errorMsg.push('请输入姓名');
+		}
+
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}

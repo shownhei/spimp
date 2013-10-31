@@ -5,14 +5,14 @@ package cn.ccrise.spimp.spmi.schedule.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.spmi.schedule.entity.Output;
+import cn.ccrise.spimp.spmi.schedule.entity.Transport;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
 
 /**
- * Output DAO。
+ * Transport DAO。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Repository
-public class OutputDAO extends HibernateDAOImpl<Output, Long> {
+public class TransportDAO extends HibernateDAOImpl<Transport, Long> {
 }

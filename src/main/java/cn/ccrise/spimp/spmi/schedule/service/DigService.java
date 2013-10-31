@@ -14,25 +14,25 @@ import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
-import cn.ccrise.spimp.spmi.schedule.access.OutputDAO;
-import cn.ccrise.spimp.spmi.schedule.entity.Output;
+import cn.ccrise.spimp.spmi.schedule.access.DigDAO;
+import cn.ccrise.spimp.spmi.schedule.entity.Dig;
 
 /**
- * Output Service。
+ * Dig Service。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Service
-public class OutputService extends HibernateDataServiceImpl<Output, Long> {
+public class DigService extends HibernateDataServiceImpl<Dig, Long> {
 	@Autowired
-	private OutputDAO outputDAO;
+	private DigDAO digDAO;
 
 	@Override
-	public HibernateDAO<Output, Long> getDAO() {
-		return outputDAO;
+	public HibernateDAO<Dig, Long> getDAO() {
+		return digDAO;
 	}
 	
-	public Page<Output> pageQuery(Page<Output> page, Date startDate, Date endDate,Long duty) {
+	public Page<Dig> pageQuery(Page<Dig> page, Date startDate, Date endDate,Long duty,Long team) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		
 		if (startDate != null) {
@@ -44,6 +44,9 @@ public class OutputService extends HibernateDataServiceImpl<Output, Long> {
 		
 		if (duty != null){
 			criterions.add(Restrictions.eq("duty.id", duty));
+		}
+		if (team != null){
+			criterions.add(Restrictions.eq("team.id", team));
 		}
 		
 		return getPage(page, criterions.toArray(new Criterion[0]));

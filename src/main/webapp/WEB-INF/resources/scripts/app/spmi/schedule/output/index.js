@@ -7,26 +7,113 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	
+	// 下拉列表初始化
+	Utils.select.remote([ 'search_duty','create_duty','edit_duty' ], '/system/dictionaries?typeCode=schedule_duty&list=true', 'id', 'itemName',true,'班次');
+	Utils.select.remote([ 'create_team','edit_team' ], '/spmi/schedule/teams?list=true', 'id', 'teamName',true,'队组');
+	Utils.select.remote([ 'create_exploitType','edit_exploitType' ], '/system/dictionaries?typeCode=schedule_exploit_type&list=true', 'id', 'itemName',true,'开采方式');
+	Utils.select.remote([ 'create_workingFace','edit_workingFace' ], '/system/dictionaries?typeCode=schedule_working_face&list=true', 'id', 'itemName',true,'工作面');
+	Utils.select.remote([ 'create_workingPlace','edit_workingPlace' ], '/system/dictionaries?typeCode=schedule_working_place&list=true', 'id', 'itemName',true,'工作地点');
+
+	// 下拉列表change事件
+	$('#search_duty').bind('change',function(){
+		$('#submit').trigger('click');
+	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
 	// 配置表格列
 	var fields = [
 		{
-			header : '日期',
-			name : 'operateDate'
+			header : '开采日期',
+			name : 'digDate'
 		},
 		{
-			header : '铁路运输车数',
-			name : 'railwayTrans'
+			header : '班次',
+			name : 'duty'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
 		},
 		{
-			header : '铁路运输吨数',
-			name : 'railwayTons'
+			header : '队组',
+			name : 'team'
+			,render : function(value) {
+				if(value != null){
+					return value.teamName;
+				} else {
+					return '';
+				}
+			}
 		},
 		{
-			header : '铁路运输备注',
-			name : 'railwayRemark'
+			header : '开采方式',
+			name : 'exploitType'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '工作面',
+			name : 'workingFace'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '工作地点',
+			name : 'workingPlace'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '跟班队干',
+			name : 'teamLeader'
+		},
+		{
+			header : '当班班长',
+			name : 'monitor'
+		},
+		{
+			header : '安全员',
+			name : 'safeChecker'
+		},
+		{
+			header : '计划出勤人数',
+			name : 'planMen'
+		},
+		{
+			header : '实际出勤人数',
+			name : 'infactMen'
+		},
+		{
+			header : '产量计划吨数',
+			name : 'planTons'
+		},
+		{
+			header : '产量实际吨数',
+			name : 'infactTons'
+		},
+		{
+			header : '开机时间',
+			name : 'powerOnTime'
 		}
 	];
 
@@ -79,14 +166,46 @@ define(function(require, exports, module) {
 
 	// 验证
 	function validate(showType, model){
-		var errorMsg = [];
+		var errorMsg = new Array();
 		
-		if (!$.isNumeric(model.railwayTrans)) {
-			errorMsg.push('铁路运输车数为数字格式');
+		if (model.digDate === '') {
+			errorMsg.push('请输入开采日期');
 		}
 
-		if (!$.isNumeric(model.railwayTons)) {
-			errorMsg.push('铁路运输吨数为数字格式');
+		if (model.duty.id === '') {
+			errorMsg.push('请输入班次');
+		}
+
+		if (model.team.id === '') {
+			errorMsg.push('请输入队组');
+		}
+
+		if (model.exploitType.id === '') {
+			errorMsg.push('请输入开采方式');
+		}
+
+		if (model.workingFace.id === '') {
+			errorMsg.push('请输入工作面');
+		}
+
+		if (model.workingPlace.id === '') {
+			errorMsg.push('请输入工作地点');
+		}
+
+		if (model.planMen !== '' && !$.isNumeric(model.planMen)) {
+			errorMsg.push('计划出勤人数为数字格式');
+		}
+
+		if (model.infactMen !== '' && !$.isNumeric(model.infactMen)) {
+			errorMsg.push('实际出勤人数为数字格式');
+		}
+
+		if (model.planTons !== '' && !$.isNumeric(model.planTons)) {
+			errorMsg.push('产量计划吨数为数字格式');
+		}
+
+		if (model.infactTons !== '' && !$.isNumeric(model.infactTons)) {
+			errorMsg.push('产量实际吨数为数字格式');
 		}
 
 		if(errorMsg.length > 0){
@@ -174,6 +293,10 @@ define(function(require, exports, module) {
 	
 	// 导出
 	$('#export').click(function() {
+		if (Utils.button.isDisable('export')) {
+			return;
+		}
+		
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 

@@ -93,6 +93,23 @@
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 									<option value="education_level">文化程度</option>
+									<optgroup label="调度系统">
+				                        <option value="schedule_coal_type" title="引用标记：schedule_coal_type">煤种</option>
+				                        <option value="schedule_coal_series" title="引用标记：schedule_coal_series">煤系</option>
+				                        <option value="schedule_duty" title="引用标记：schedule_duty">班次</option>
+				                        <option value="schedule_team_type" title="引用标记：schedule_team_type">队组类型</option>
+				                        <option value="schedule_injury_type" title="引用标记：schedule_injury_type">受伤类型</option>
+				                        <option value="schedule_working_face" title="引用标记：schedule_working_face">工作面</option>
+				                        <option value="schedule_exploit_type" title="引用标记：schedule_exploit_type">开采方式</option>
+				                        <option value="schedule_tunnel_type" title="引用标记：schedule_tunnel_type">巷道类型</option>
+				                        <option value="schedule_working_place" title="引用标记：schedule_working_place">工作地点</option>
+				                        <option value="schedule_meeting_type" title="引用标记：schedule_meeting_type">会议类型</option>
+				                        <option value="schedule_gas_emissions_type" title="引用标记：schedule_gas_emissions_type">瓦斯排放类型</option>
+				                        <option value="schedule_hidden_type" title="引用标记：schedule_hidden_type">隐患类型</option>
+				                        <option value="schedule_wellheads" title="引用标记：schedule_wellheads">井口</option>
+				                        <option value="schedule_alarm_type" title="引用标记：schedule_alarm_type">报警类型</option>
+				                        <option value="schedule_hidden_type" title="引用标记：schedule_hidden_type">隐患类型</option>
+				                	</optgroup>
 								</select>
 							</div>
 						</div>
@@ -152,6 +169,23 @@
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
 									<option value="education_level" >文化程度</option>
+									<optgroup label="调度系统">
+				                        <option value="schedule_coal_type" title="引用标记：schedule_coal_type">煤种</option>
+				                        <option value="schedule_coal_series" title="引用标记：schedule_coal_series">煤系</option>
+				                        <option value="schedule_duty" title="引用标记：schedule_duty">班次</option>
+				                        <option value="schedule_team_type" title="引用标记：schedule_team_type">队组类型</option>
+				                        <option value="schedule_injury_type" title="引用标记：schedule_injury_type">受伤类型</option>
+				                        <option value="schedule_working_face" title="引用标记：schedule_working_face">工作面</option>
+				                        <option value="schedule_exploit_type" title="引用标记：schedule_exploit_type">开采方式</option>
+				                        <option value="schedule_tunnel_type" title="引用标记：schedule_tunnel_type">巷道类型</option>
+				                        <option value="schedule_working_place" title="引用标记：schedule_working_place">工作地点</option>
+				                        <option value="schedule_meeting_type" title="引用标记：schedule_meeting_type">会议类型</option>
+				                        <option value="schedule_gas_emissions_type" title="引用标记：schedule_gas_emissions_type">瓦斯排放类型</option>
+				                        <option value="schedule_hidden_type" title="引用标记：schedule_hidden_type">隐患类型</option>
+				                        <option value="schedule_wellheads" title="引用标记：schedule_wellheads">井口</option>
+				                        <option value="schedule_alarm_type" title="引用标记：schedule_alarm_type">报警类型</option>
+				                        <option value="schedule_hidden_type" title="引用标记：schedule_hidden_type">隐患类型</option>
+				                	</optgroup>
 								</select>
 							</div>
 						</div>

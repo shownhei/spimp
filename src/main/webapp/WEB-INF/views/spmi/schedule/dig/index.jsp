@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>矿井原煤产量 - 安全生产综合管理平台</title>
+<title>矿井掘进进尺 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -43,6 +43,7 @@
 							</span>
 						</div>
 						<select id="search_duty" name="duty" style="height:25px;width:120px;font-size:12px;"></select>
+						<select id="search_team" name="team" style="height:25px;width:120px;font-size:12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -67,7 +68,7 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="digDate">日期</label>
 							<div class="controls">
 								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_digDate" name="digDate">
 							</div>
@@ -85,15 +86,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="tunnelType">巷道类型</label>
 							<div class="controls">
-								<select id="create_exploitType" name="exploitType[id]"></select>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
-							<div class="controls">
-								<select id="create_workingFace" name="workingFace[id]"></select>
+								<select id="create_tunnelType" name="tunnelType[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -144,12 +139,6 @@
 								<input id="create_infactTons" name="infactTons" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_powerOnTime" name="powerOnTime">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -184,7 +173,7 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="digDate">日期</label>
 							<div class="controls">
 								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_digDate" name="digDate">
 							</div>
@@ -202,15 +191,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="tunnelType">巷道类型</label>
 							<div class="controls">
-								<select id="edit_exploitType" name="exploitType[id]"></select>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
-							<div class="controls">
-								<select id="edit_workingFace" name="workingFace[id]"></select>
+								<select id="edit_tunnelType" name="tunnelType[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -259,12 +242,6 @@
 							<label class="control-label" for="infactTons">产量实际吨数</label>
 							<div class="controls">
 								<input id="edit_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_powerOnTime" name="powerOnTime">
 							</div>
 						</div>
 					</form>
@@ -321,7 +298,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/schedule/output/index');
+		seajs.use('${resources}/scripts/app/spmi/schedule/dig/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

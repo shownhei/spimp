@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>${pageTitle}</title>
-<%@ include file="${parentDir}common/head.jsp"%>
-<%@ include file="${parentDir}common/template.jsp"%>
+<title>队组管理 - 安全生产综合管理平台</title>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="${parentDir}common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="${parentDir}common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -28,34 +28,15 @@
 					</button>
 				</div>
 				
-				<#if dateQuery || hasTextSearch || hasSelectSearch>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<#if dateQuery>
-						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始日期" class="input-small">
-							<span class="add-on nav-add-on">
-								<i class="icon-calendar"></i>
-							</span>
-						</div>
-						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束日期" class="input-small">
-							<span class="add-on nav-add-on">
-								<i class="icon-calendar"></i>
-							</span>
-						</div>
-						</#if>
-						<#if hasTextSearch>
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="${queryPlaceHolder}">
-						</#if>
-						<#if hasSelectSearch>
-${selectQueryHtml}
-						</#if>
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入队组名称...">
+						<select id="search_teamType" name="teamType" style="height:25px;width:120px;font-size:12px;"></select>
+
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
-				</#if>
 			</div>
 			<div class="page-content">
 				<div class="row-fluid" id="material-table"></div>
@@ -74,7 +55,31 @@ ${selectQueryHtml}
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
-${createFormFields}					</form>
+						<div class="control-group">
+							<label class="control-label" for="teamName">队组名称</label>
+							<div class="controls">
+								<input id="create_teamName" name="teamName" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teamType">队组类型</label>
+							<div class="controls">
+								<select id="create_teamType" name="teamType[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teammates">人数</label>
+							<div class="controls">
+								<input id="create_teammates" name="teammates" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="sortNumber">排列顺序</label>
+							<div class="controls">
+								<input id="create_sortNumber" name="sortNumber" type="text">
+							</div>
+						</div>
+					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -107,7 +112,31 @@ ${createFormFields}					</form>
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-${editFormFields}					</form>
+						<div class="control-group">
+							<label class="control-label" for="teamName">队组名称</label>
+							<div class="controls">
+								<input id="edit_teamName" name="teamName" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teamType">队组类型</label>
+							<div class="controls">
+								<select id="edit_teamType" name="teamType[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teammates">人数</label>
+							<div class="controls">
+								<input id="edit_teammates" name="teammates" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="sortNumber">排列顺序</label>
+							<div class="controls">
+								<input id="edit_sortNumber" name="sortNumber" type="text">
+							</div>
+						</div>
+					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -161,7 +190,7 @@ ${editFormFields}					</form>
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${jsPath}');
+		seajs.use('${resources}/scripts/app/spmi/schedule/team/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

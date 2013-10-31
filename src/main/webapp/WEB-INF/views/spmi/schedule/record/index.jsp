@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>矿井原煤产量 - 安全生产综合管理平台</title>
+<title>调度记录 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -42,6 +42,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
+						<select id="search_team" name="team" style="height:25px;width:120px;font-size:12px;"></select>
 						<select id="search_duty" name="duty" style="height:25px;width:120px;font-size:12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
@@ -67,15 +68,15 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="recordDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_recordDate" name="recordDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="duty">班次</label>
+							<label class="control-label" for="recordTime">时间</label>
 							<div class="controls">
-								<select id="create_duty" name="duty[id]"></select>
+								<input id="create_recordTime" name="recordTime" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -85,69 +86,51 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="duty">班次</label>
 							<div class="controls">
-								<select id="create_exploitType" name="exploitType[id]"></select>
+								<select id="create_duty" name="duty[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="positon">地点</label>
 							<div class="controls">
-								<select id="create_workingFace" name="workingFace[id]"></select>
+								<input id="create_positon" name="positon" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="reporter">汇报人</label>
 							<div class="controls">
-								<select id="create_workingPlace" name="workingPlace[id]"></select>
+								<input id="create_reporter" name="reporter" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="receiver">接收人</label>
 							<div class="controls">
-								<input id="create_teamLeader" name="teamLeader" type="text">
+								<input id="create_receiver" name="receiver" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="problems">事故问题详情</label>
 							<div class="controls">
-								<input id="create_monitor" name="monitor" type="text">
+								<textarea id="create_problems" name="problems" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="opinion">处理意见</label>
 							<div class="controls">
-								<input id="create_safeChecker" name="safeChecker" type="text">
+								<textarea id="create_opinion" name="opinion" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="dealResults">处理结果</label>
 							<div class="controls">
-								<input id="create_planMen" name="planMen" type="text">
+								<textarea id="create_dealResults" name="dealResults" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
+							<label class="control-label" for="acceptancer">验收人</label>
 							<div class="controls">
-								<input id="create_infactMen" name="infactMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
-							<div class="controls">
-								<input id="create_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="create_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_powerOnTime" name="powerOnTime">
+								<input id="create_acceptancer" name="acceptancer" type="text">
 							</div>
 						</div>
 					</form>
@@ -184,15 +167,15 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="recordDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_recordDate" name="recordDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="duty">班次</label>
+							<label class="control-label" for="recordTime">时间</label>
 							<div class="controls">
-								<select id="edit_duty" name="duty[id]"></select>
+								<input id="edit_recordTime" name="recordTime" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -202,69 +185,51 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="duty">班次</label>
 							<div class="controls">
-								<select id="edit_exploitType" name="exploitType[id]"></select>
+								<select id="edit_duty" name="duty[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="positon">地点</label>
 							<div class="controls">
-								<select id="edit_workingFace" name="workingFace[id]"></select>
+								<input id="edit_positon" name="positon" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="reporter">汇报人</label>
 							<div class="controls">
-								<select id="edit_workingPlace" name="workingPlace[id]"></select>
+								<input id="edit_reporter" name="reporter" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="receiver">接收人</label>
 							<div class="controls">
-								<input id="edit_teamLeader" name="teamLeader" type="text">
+								<input id="edit_receiver" name="receiver" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="problems">事故问题详情</label>
 							<div class="controls">
-								<input id="edit_monitor" name="monitor" type="text">
+								<textarea id="edit_problems" name="problems" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="opinion">处理意见</label>
 							<div class="controls">
-								<input id="edit_safeChecker" name="safeChecker" type="text">
+								<textarea id="edit_opinion" name="opinion" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="dealResults">处理结果</label>
 							<div class="controls">
-								<input id="edit_planMen" name="planMen" type="text">
+								<textarea id="edit_dealResults" name="dealResults" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
+							<label class="control-label" for="acceptancer">验收人</label>
 							<div class="controls">
-								<input id="edit_infactMen" name="infactMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
-							<div class="controls">
-								<input id="edit_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="edit_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_powerOnTime" name="powerOnTime">
+								<input id="edit_acceptancer" name="acceptancer" type="text">
 							</div>
 						</div>
 					</form>
@@ -321,7 +286,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/schedule/output/index');
+		seajs.use('${resources}/scripts/app/spmi/schedule/record/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

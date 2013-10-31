@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>矿井原煤产量 - 安全生产综合管理平台</title>
+<title>煤炭外运情况 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -42,7 +42,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<select id="search_duty" name="duty" style="height:25px;width:120px;font-size:12px;"></select>
+						<select id="search_coalType" name="coalType" style="height:25px;width:120px;font-size:12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -67,87 +67,75 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="operateDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_operateDate" name="operateDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="duty">班次</label>
+							<label class="control-label" for="coalType">煤种</label>
 							<div class="controls">
-								<select id="create_duty" name="duty[id]"></select>
+								<select id="create_coalType" name="coalType[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="team">队组</label>
+							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<select id="create_team" name="team[id]"></select>
+								<input id="create_railwayTrans" name="railwayTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<select id="create_exploitType" name="exploitType[id]"></select>
+								<input id="create_railwayTons" name="railwayTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="railwayLoadStartTime">铁路装车时间</label>
 							<div class="controls">
-								<select id="create_workingFace" name="workingFace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_railwayLoadStartTime" name="railwayLoadStartTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="railwayLoadEndTime">铁路装完时间</label>
 							<div class="controls">
-								<select id="create_workingPlace" name="workingPlace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_railwayLoadEndTime" name="railwayLoadEndTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="railwayRemark">铁路运输备注</label>
 							<div class="controls">
-								<input id="create_teamLeader" name="teamLeader" type="text">
+								<textarea id="create_railwayRemark" name="railwayRemark" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="roadTrans">公路运输车数</label>
 							<div class="controls">
-								<input id="create_monitor" name="monitor" type="text">
+								<input id="create_roadTrans" name="roadTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="roadTons">公路运输吨数</label>
 							<div class="controls">
-								<input id="create_safeChecker" name="safeChecker" type="text">
+								<input id="create_roadTons" name="roadTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="roadTonsTotal">公路外运合计</label>
 							<div class="controls">
-								<input id="create_planMen" name="planMen" type="text">
+								<input id="create_roadTonsTotal" name="roadTonsTotal" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
+							<label class="control-label" for="roadStorage">公路运输库存</label>
 							<div class="controls">
-								<input id="create_infactMen" name="infactMen" type="text">
+								<input id="create_roadStorage" name="roadStorage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
+							<label class="control-label" for="roadRemark">公路运输备注</label>
 							<div class="controls">
-								<input id="create_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="create_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_powerOnTime" name="powerOnTime">
+								<textarea id="create_roadRemark" name="roadRemark" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -184,87 +172,75 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="operateDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_operateDate" name="operateDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="duty">班次</label>
+							<label class="control-label" for="coalType">煤种</label>
 							<div class="controls">
-								<select id="edit_duty" name="duty[id]"></select>
+								<select id="edit_coalType" name="coalType[id]"></select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="team">队组</label>
+							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<select id="edit_team" name="team[id]"></select>
+								<input id="edit_railwayTrans" name="railwayTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<select id="edit_exploitType" name="exploitType[id]"></select>
+								<input id="edit_railwayTons" name="railwayTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="railwayLoadStartTime">铁路装车时间</label>
 							<div class="controls">
-								<select id="edit_workingFace" name="workingFace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_railwayLoadStartTime" name="railwayLoadStartTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="railwayLoadEndTime">铁路装完时间</label>
 							<div class="controls">
-								<select id="edit_workingPlace" name="workingPlace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_railwayLoadEndTime" name="railwayLoadEndTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="railwayRemark">铁路运输备注</label>
 							<div class="controls">
-								<input id="edit_teamLeader" name="teamLeader" type="text">
+								<textarea id="edit_railwayRemark" name="railwayRemark" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="roadTrans">公路运输车数</label>
 							<div class="controls">
-								<input id="edit_monitor" name="monitor" type="text">
+								<input id="edit_roadTrans" name="roadTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="roadTons">公路运输吨数</label>
 							<div class="controls">
-								<input id="edit_safeChecker" name="safeChecker" type="text">
+								<input id="edit_roadTons" name="roadTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="roadTonsTotal">公路外运合计</label>
 							<div class="controls">
-								<input id="edit_planMen" name="planMen" type="text">
+								<input id="edit_roadTonsTotal" name="roadTonsTotal" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
+							<label class="control-label" for="roadStorage">公路运输库存</label>
 							<div class="controls">
-								<input id="edit_infactMen" name="infactMen" type="text">
+								<input id="edit_roadStorage" name="roadStorage" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
+							<label class="control-label" for="roadRemark">公路运输备注</label>
 							<div class="controls">
-								<input id="edit_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="edit_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_powerOnTime" name="powerOnTime">
+								<textarea id="edit_roadRemark" name="roadRemark" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -321,7 +297,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/schedule/output/index');
+		seajs.use('${resources}/scripts/app/spmi/schedule/transport/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

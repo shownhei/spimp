@@ -3,6 +3,8 @@
  */
 package cn.ccrise.spimp.spmi.schedule.service;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,36 +16,36 @@ import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
-import cn.ccrise.spimp.spmi.schedule.access.OutputDAO;
-import cn.ccrise.spimp.spmi.schedule.entity.Output;
+import cn.ccrise.spimp.spmi.schedule.access.WorkDAO;
+import cn.ccrise.spimp.spmi.schedule.entity.Work;
 
 /**
- * Output Service。
+ * Work Service。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Service
-public class OutputService extends HibernateDataServiceImpl<Output, Long> {
+public class WorkService extends HibernateDataServiceImpl<Work, Long> {
 	@Autowired
-	private OutputDAO outputDAO;
+	private WorkDAO workDAO;
 
 	@Override
-	public HibernateDAO<Output, Long> getDAO() {
-		return outputDAO;
+	public HibernateDAO<Work, Long> getDAO() {
+		return workDAO;
 	}
 	
-	public Page<Output> pageQuery(Page<Output> page, Date startDate, Date endDate,Long duty) {
+	public Page<Work> pageQuery(Page<Work> page, Date startDate, Date endDate,String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		
-		if (startDate != null) {
-			criterions.add(Restrictions.ge("digDate", startDate));
-		}
-		if (endDate != null) {
-			criterions.add(Restrictions.le("digDate", endDate));
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("leaderName", search, MatchMode.ANYWHERE)));
 		}
 		
-		if (duty != null){
-			criterions.add(Restrictions.eq("duty.id", duty));
+		if (startDate != null) {
+			criterions.add(Restrictions.ge("workDate", startDate));
+		}
+		if (endDate != null) {
+			criterions.add(Restrictions.le("workDate", endDate));
 		}
 		
 		return getPage(page, criterions.toArray(new Criterion[0]));

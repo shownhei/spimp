@@ -1,26 +1,48 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('${parentDir}common/utils');
-	var operateUri = '${restPath}';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var operateUri = '/spmi/schedule/teams';
 	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 	
-	<#if hasSelect>
 	// 下拉列表初始化
-${selectInitJS}
-	</#if>	
-	<#if hasSelectSearch>
+	Utils.select.remote([ 'search_teamType','create_teamType','edit_teamType' ], '/system/dictionaries?typeCode=schedule_team_type&list=true', 'id', 'itemName',true,'队组类型');
+
 	// 下拉列表change事件
-${selectChangeJS}
-	</#if>
+	$('#search_teamType').bind('change',function(){
+		$('#submit').trigger('click');
+	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	
 	// 配置表格列
 	var fields = [
-${jsFields}
+		{
+			header : '队组名称',
+			name : 'teamName'
+		},
+		{
+			header : '队组类型',
+			name : 'teamType'
+			,render : function(value) {
+				if(value != null){
+					return value.itemName;
+				} else {
+					return '';
+				}
+			}
+		},
+		{
+			header : '人数',
+			name : 'teammates'
+		},
+		{
+			header : '排列顺序',
+			name : 'sortNumber'
+		}
 	];
 
 	// 计算表格高度和行数
@@ -74,7 +96,31 @@ ${jsFields}
 	function validate(showType, model){
 		var errorMsg = new Array();
 		
-${validateCode}		if(errorMsg.length > 0){
+		if (model.teamName === '') {
+			errorMsg.push('请输入队组名称');
+		}
+
+		if (model.teamType.id === '') {
+			errorMsg.push('请输入队组类型');
+		}
+
+		if (model.teammates === '') {
+			errorMsg.push('请输入人数');
+		}
+
+		if (!$.isNumeric(model.teammates)) {
+			errorMsg.push('人数为数字格式');
+		}
+
+		if (model.sortNumber === '') {
+			errorMsg.push('请输入排列顺序');
+		}
+
+		if (!$.isNumeric(model.sortNumber)) {
+			errorMsg.push('排列顺序为数字格式');
+		}
+
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}

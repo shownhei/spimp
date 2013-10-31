@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>矿井原煤产量 - 安全生产综合管理平台</title>
+<title>基层单位干部跟班情况 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -42,6 +42,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入姓名...">
 						<select id="search_duty" name="duty" style="height:25px;width:120px;font-size:12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
@@ -67,9 +68,9 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="workDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_workDate" name="workDate">
 							</div>
 						</div>
 						<div class="control-group">
@@ -79,75 +80,51 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="team">队组</label>
+							<label class="control-label" for="name">姓名</label>
 							<div class="controls">
-								<select id="create_team" name="team[id]"></select>
+								<input id="create_name" name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="business">职务</label>
 							<div class="controls">
-								<select id="create_exploitType" name="exploitType[id]"></select>
+								<input id="create_business" name="business" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="downWellTime">下井时间</label>
 							<div class="controls">
-								<select id="create_workingFace" name="workingFace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_downWellTime" name="downWellTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="upWellTime">升井时间</label>
 							<div class="controls">
-								<select id="create_workingPlace" name="workingPlace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_upWellTime" name="upWellTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="reportPosition">汇报地点</label>
 							<div class="controls">
-								<input id="create_teamLeader" name="teamLeader" type="text">
+								<input id="create_reportPosition" name="reportPosition" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="contents">内容</label>
 							<div class="controls">
-								<input id="create_monitor" name="monitor" type="text">
+								<textarea id="create_contents" name="contents" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="problems">发现问题</label>
 							<div class="controls">
-								<input id="create_safeChecker" name="safeChecker" type="text">
+								<textarea id="create_problems" name="problems" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="problemsDeal">处理意见</label>
 							<div class="controls">
-								<input id="create_planMen" name="planMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
-							<div class="controls">
-								<input id="create_infactMen" name="infactMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
-							<div class="controls">
-								<input id="create_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="create_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_powerOnTime" name="powerOnTime">
+								<textarea id="create_problemsDeal" name="problemsDeal" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -184,9 +161,9 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="digDate">开采日期</label>
+							<label class="control-label" for="workDate">日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_digDate" name="digDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_workDate" name="workDate">
 							</div>
 						</div>
 						<div class="control-group">
@@ -196,75 +173,51 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="team">队组</label>
+							<label class="control-label" for="name">姓名</label>
 							<div class="controls">
-								<select id="edit_team" name="team[id]"></select>
+								<input id="edit_name" name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="exploitType">开采方式</label>
+							<label class="control-label" for="business">职务</label>
 							<div class="controls">
-								<select id="edit_exploitType" name="exploitType[id]"></select>
+								<input id="edit_business" name="business" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingFace">工作面</label>
+							<label class="control-label" for="downWellTime">下井时间</label>
 							<div class="controls">
-								<select id="edit_workingFace" name="workingFace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_downWellTime" name="downWellTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="workingPlace">工作地点</label>
+							<label class="control-label" for="upWellTime">升井时间</label>
 							<div class="controls">
-								<select id="edit_workingPlace" name="workingPlace[id]"></select>
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_upWellTime" name="upWellTime">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="teamLeader">跟班队干</label>
+							<label class="control-label" for="reportPosition">汇报地点</label>
 							<div class="controls">
-								<input id="edit_teamLeader" name="teamLeader" type="text">
+								<input id="edit_reportPosition" name="reportPosition" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="monitor">当班班长</label>
+							<label class="control-label" for="contents">内容</label>
 							<div class="controls">
-								<input id="edit_monitor" name="monitor" type="text">
+								<textarea id="edit_contents" name="contents" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="safeChecker">安全员</label>
+							<label class="control-label" for="problems">发现问题</label>
 							<div class="controls">
-								<input id="edit_safeChecker" name="safeChecker" type="text">
+								<textarea id="edit_problems" name="problems" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planMen">计划出勤人数</label>
+							<label class="control-label" for="problemsDeal">处理意见</label>
 							<div class="controls">
-								<input id="edit_planMen" name="planMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactMen">实际出勤人数</label>
-							<div class="controls">
-								<input id="edit_infactMen" name="infactMen" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="planTons">产量计划吨数</label>
-							<div class="controls">
-								<input id="edit_planTons" name="planTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="infactTons">产量实际吨数</label>
-							<div class="controls">
-								<input id="edit_infactTons" name="infactTons" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="powerOnTime">开机时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_powerOnTime" name="powerOnTime">
+								<textarea id="edit_problemsDeal" name="problemsDeal" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -321,7 +274,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/schedule/output/index');
+		seajs.use('${resources}/scripts/app/spmi/schedule/circumstance/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

@@ -14,17 +14,15 @@ import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
- * 矿井原煤产量
- * Output。
+ * Dig。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "schedule_outputs")
-public class Output extends IDEntity {
-	
-	//	开采日期
-	@PageFields(describtion="开采日期", allowedNull=false, search=true)
+@Table(name = "schedule_digs")
+public class Dig extends IDEntity {
+//	开采日期
+	@PageFields(describtion="日期", allowedNull=false, search=true)
 	private Date digDate;
 	
 	//	班次
@@ -32,16 +30,12 @@ public class Output extends IDEntity {
 	private Dictionary duty;
 	
 	//	队组
-	@PageFields(describtion="队组", allowedNull=false, type="select", selectDataUri="/spmi/schedule/teams?list=true", selectShowField="teamName")
+	@PageFields(describtion="队组", search=true, allowedNull=false, type="select", selectDataUri="/spmi/schedule/teams?list=true", selectShowField="teamName")
 	private Team team;
 	
-	//	开采方式
-	@PageFields(describtion="开采方式", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_exploit_type&list=true", selectShowField="itemName")
-	private Dictionary exploitType;
-	
-	//	工作面
-	@PageFields(describtion="工作面", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_working_face&list=true", selectShowField="itemName")
-	private Dictionary workingFace;
+	//	巷道类型
+	@PageFields(describtion="巷道类型", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_tunnel_type&list=true", selectShowField="itemName")
+	private Dictionary tunnelType;
 	
 	//	工作地点
 	@PageFields(describtion="工作地点", allowedNull=false, type="select", selectDataUri="/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField="itemName")
@@ -74,10 +68,6 @@ public class Output extends IDEntity {
 	//	产量实际吨数
 	@PageFields(describtion="产量实际吨数")
 	private Double infactTons;
-	
-	//	开机时间
-	@PageFields(describtion="开机时间")
-	private Date powerOnTime;
 
 	public Date getDigDate() {
 		return digDate;
@@ -103,24 +93,6 @@ public class Output extends IDEntity {
 
 	public void setTeam(Team team) {
 		this.team = team;
-	}
-
-	@ManyToOne
-	public Dictionary getExploitType() {
-		return exploitType;
-	}
-
-	public void setExploitType(Dictionary exploitType) {
-		this.exploitType = exploitType;
-	}
-
-	@ManyToOne
-	public Dictionary getWorkingFace() {
-		return workingFace;
-	}
-
-	public void setWorkingFace(Dictionary workingFace) {
-		this.workingFace = workingFace;
 	}
 
 	@ManyToOne
@@ -188,11 +160,13 @@ public class Output extends IDEntity {
 		this.infactTons = infactTons;
 	}
 
-	public Date getPowerOnTime() {
-		return powerOnTime;
+	@ManyToOne
+	public Dictionary getTunnelType() {
+		return tunnelType;
 	}
 
-	public void setPowerOnTime(Date powerOnTime) {
-		this.powerOnTime = powerOnTime;
+	public void setTunnelType(Dictionary tunnelType) {
+		this.tunnelType = tunnelType;
 	}
+
 }
