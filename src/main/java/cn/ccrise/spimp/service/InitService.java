@@ -71,7 +71,17 @@ public class InitService extends DataInitAbstractService {
 
 		// 质量标准化
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("调度专业", "/spmi/quality/dispatch", quality, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("通风专业", "/spmi/quality/wind", quality, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("地测防治水专业", "/spmi/quality/water", quality, "", 2);
+		resourceEntityServiceImpl.saveMenuResource("采煤专业", "/spmi/quality/mining", quality, "", 3);
+		resourceEntityServiceImpl.saveMenuResource("掘进专业", "/spmi/quality/tunnelling", quality, "", 4);
+		resourceEntityServiceImpl.saveMenuResource("机电专业", "/spmi/quality/electro", quality, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("运输专业", "/spmi/quality/transportation", quality, "", 6);
+		resourceEntityServiceImpl.saveMenuResource("安全管理专业", "/spmi/quality/safety", quality, "", 7);
+		resourceEntityServiceImpl.saveMenuResource("职业卫生专业", "/spmi/quality/health", quality, "", 8);
+		resourceEntityServiceImpl.saveMenuResource("应急救援专业", "/spmi/quality/rescue", quality, "", 9);
+		resourceEntityServiceImpl.saveMenuResource("调度专业", "/spmi/quality/dispatch", quality, "", 10);
+		resourceEntityServiceImpl.saveMenuResource("地面设施专业", "/spmi/quality/facilities", quality, "", 11);
 	}
 
 	@Override
