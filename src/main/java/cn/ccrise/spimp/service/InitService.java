@@ -53,7 +53,7 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initFourthLevelOperate() {
 		// 应急指示
-		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate", HttpMethod.GET);
+		String indicate = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("二维展示", "/ercs/indicate/2d", indicate, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("三维展示", "/ercs/indicate/3d", indicate, "", 2);
 
