@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
 
 /**
@@ -26,8 +25,6 @@ public class IndexController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private UploadedFileService uploadedFileService;
-	@Autowired
-	private ResourceEntityServiceImpl resourceEntityServiceImpl;
 
 	/**
 	 * 接警处理
