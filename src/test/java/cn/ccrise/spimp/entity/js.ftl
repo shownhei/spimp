@@ -151,6 +151,10 @@ ${validateCode}		if(errorMsg.length > 0){
 	
 	// 导出
 	$('#export').click(function() {
+		if (Utils.button.isDisable('export')) {
+			return;
+		}
+		
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
