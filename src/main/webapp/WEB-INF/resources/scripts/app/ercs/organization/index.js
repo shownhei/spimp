@@ -137,7 +137,6 @@ define(function(require, exports, module) {
 		mustMatch:true,
 		cacheLength:0,
 		parse : function(data) {
-			$("#create-normal-name").attr('data-id','');
 			return $.map(data.data.result, function(row) {
 				return {
 					data : row,
@@ -246,7 +245,6 @@ define(function(require, exports, module) {
 		mustMatch:true,
 		cacheLength:0,
 		parse : function(data) {
-			$("#create-expert-name").attr('data-id','');
 			return $.map(data.data.result, function(row) {
 				return {
 					data : row,
