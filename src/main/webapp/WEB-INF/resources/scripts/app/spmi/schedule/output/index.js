@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	var operateUri = '/spmi/instruction/focuses';
+	var operateUri = '/spmi/schedule/outputs';
 	
 	// 提示信息
 	$('button[title]').tooltip({
@@ -13,44 +13,20 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields = [
 		{
-			header : '工作名称',
-			name : 'name'
+			header : '日期',
+			name : 'operateDate'
 		},
 		{
-			header : '开始时间',
-			name : 'startTime'
+			header : '铁路运输车数',
+			name : 'railwayTrans'
 		},
 		{
-			header : '结束时间',
-			name : 'endTime'
+			header : '铁路运输吨数',
+			name : 'railwayTons'
 		},
 		{
-			header : '地点',
-			name : 'positon'
-		},
-		{
-			header : '现场负责人',
-			name : 'responser'
-		},
-		{
-			header : '工作人员',
-			name : 'workers'
-		},
-		{
-			header : '工作进度',
-			name : 'process'
-		},
-		{
-			header : '工作总结情况',
-			name : 'summary'
-		},
-		{
-			header : '工作简述',
-			name : 'description'
-		},
-		{
-			header : '记录人',
-			name : 'recorder'
+			header : '铁路运输备注',
+			name : 'railwayRemark'
 		}
 	];
 
@@ -105,20 +81,12 @@ define(function(require, exports, module) {
 	function validate(showType, model){
 		var errorMsg = new Array();
 		
-		if (model.name === '') {
-			errorMsg.push('请输入工作名称');
+		if (!$.isNumeric(model.railwayTrans)) {
+			errorMsg.push('铁路运输车数为数字格式');
 		}
 
-		if (model.positon === '') {
-			errorMsg.push('请输入地点');
-		}
-
-		if (model.description === '') {
-			errorMsg.push('请输入工作简述');
-		}
-
-		if (model.recorder === '') {
-			errorMsg.push('请输入记录人');
+		if (!$.isNumeric(model.railwayTons)) {
+			errorMsg.push('铁路运输吨数为数字格式');
 		}
 
 		if(errorMsg.length > 0){
@@ -206,10 +174,6 @@ define(function(require, exports, module) {
 	
 	// 导出
 	$('#export').click(function() {
-		if (Utils.button.isDisable('export')) {
-			return;
-		}
-		
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 

@@ -95,6 +95,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("矿井原煤产量", "/spmi/schedule/output", schedule, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("矿井掘进进尺", "/spmi/schedule/dig", schedule, "", 2);
 		resourceEntityServiceImpl.saveMenuResource("生产准备情况", "/spmi/schedule/prepare", schedule, "", 3);
+		resourceEntityServiceImpl.saveMenuResource("班出勤情况", "/spmi/schedule/attendance", schedule, "", 4);
+		resourceEntityServiceImpl.saveMenuResource("矿值班情况", "/spmi/schedule/work", schedule, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("基层单位干部跟班情况", "/spmi/schedule/circumstance", schedule, "", 6);
+		resourceEntityServiceImpl.saveMenuResource("调度记录", "/spmi/schedule/record", schedule, "", 7);
+		resourceEntityServiceImpl.saveMenuResource("安全生产三汇报", "/spmi/schedule/report", schedule, "", 8);
+		resourceEntityServiceImpl.saveMenuResource("煤炭外运情况", "/spmi/schedule/transport", schedule, "", 9);
 
 		// 质量标准化
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);

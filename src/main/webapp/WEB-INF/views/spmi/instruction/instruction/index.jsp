@@ -23,14 +23,27 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="export" class="btn btn-small btn-pink disabled">
+						<i class="icon-download-alt"></i> 导出
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入指示人/指示内容..." class="input-small nav-search-input" autocomplete="off">
-							<i class="icon-search nav-search-icon"></i>
-						</span>
-						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始日期" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束日期" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入指示人/指示内容...">
+						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
+						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
 			</div>
@@ -54,7 +67,7 @@
 						<div class="input-append">
 							<label class="control-label" for="time">时间</label>
 							<div class="controls">
-								<input name="time" type="datetime" placeholder="时间" class="input-small" autocomplete="off">
+								<input name="time" type="datetime" placeholder="请选择" class="input-small" autocomplete="off">
 							</div>
 						</div>
 						<div class="control-group">

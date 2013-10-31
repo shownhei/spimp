@@ -1,53 +1,63 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.spmi.instruction.service;
+package ${packageName}.service;
 
+<#if hasTextSearch>
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.MatchMode;
+</#if>
+<#if hasTextSearch || dateQuery>
 import org.hibernate.criterion.Restrictions;
+</#if>
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<#if dateQuery>
 import java.sql.Date;
+</#if>
 import java.util.ArrayList;
 import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
-import cn.ccrise.spimp.spmi.instruction.access.FocusDAO;
-import cn.ccrise.spimp.spmi.instruction.entity.Focus;
+import ${packageName}.access.${entityName}DAO;
+import ${packageName}.entity.${entityName};
 
 /**
- * Focus Service。
+ * ${entityName} Service。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Service
-public class FocusService extends HibernateDataServiceImpl<Focus, Long> {
+public class ${entityName}Service extends HibernateDataServiceImpl<${entityName}, Long> {
 	@Autowired
-	private FocusDAO focusDAO;
+	private ${entityName}DAO ${entityName?uncap_first}DAO;
 
 	@Override
-	public HibernateDAO<Focus, Long> getDAO() {
-		return focusDAO;
+	public HibernateDAO<${entityName}, Long> getDAO() {
+		return ${entityName?uncap_first}DAO;
 	}
 	
-	public Page<Focus> pageQuery(Page<Focus> page,String search, Date startDate, Date endDate) {
+	public Page<${entityName}> pageQuery(Page<${entityName}> page${queryParamsWithType}) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		
+		<#if hasTextSearch>
 		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("name", search, MatchMode.ANYWHERE),Restrictions.ilike("recorder", search, MatchMode.ANYWHERE)));
+			criterions.add(Restrictions.or(${dbQuery}));
 		}
 		
+		</#if>
+		<#if dateQuery>
 		if (startDate != null) {
-			criterions.add(Restrictions.ge("startTime", startDate));
+			criterions.add(Restrictions.ge("${dateQueryField}", startDate));
 		}
 		if (endDate != null) {
-			criterions.add(Restrictions.le("startTime", endDate));
+			criterions.add(Restrictions.le("${dateQueryField}", endDate));
 		}
 		
+		</#if>
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

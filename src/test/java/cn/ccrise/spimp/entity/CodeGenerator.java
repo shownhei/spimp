@@ -13,15 +13,10 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class CodeGenerator {
-	protected final String packageName = "cn.ccrise.spimp.spmi.instruction";
+	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
 
-	protected final String uriPrefix = "spmi/instruction";
-	protected final String entityName = "Focus";
-
-	/**
-	 * 页面名称（用于生成前端代码）
-	 */
-	protected static final String PAGE_TITLE = "领导指示 - 安全生产综合管理平台";
+	protected final String uriPrefix = "spmi/schedule";
+	protected final String entityName = "Output";
 
 	@Test
 	public void generateController() {

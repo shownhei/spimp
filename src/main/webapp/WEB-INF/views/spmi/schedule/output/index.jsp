@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>重点工作 - 安全生产综合管理平台</title>
+<title>矿井原煤产量 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -42,7 +42,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入工作名称/记录人...">
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入铁路运输备注...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -66,63 +66,27 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="name">工作名称</label>
+							<label class="control-label" for="operateDate">日期</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="operateDate" name="operateDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="startTime">开始时间</label>
+							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="startTime" name="startTime">
+								<input id="railwayTrans" name="railwayTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="endTime">结束时间</label>
+							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="endTime" name="endTime">
+								<input id="railwayTons" name="railwayTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="positon">地点</label>
+							<label class="control-label" for="railwayRemark">铁路运输备注</label>
 							<div class="controls">
-								<input id="positon" name="positon" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="responser">现场负责人</label>
-							<div class="controls">
-								<input id="responser" name="responser" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="workers">工作人员</label>
-							<div class="controls">
-								<input id="workers" name="workers" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="process">工作进度</label>
-							<div class="controls">
-								<input id="process" name="process" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="summary">工作总结情况</label>
-							<div class="controls">
-								<input id="summary" name="summary" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="description">工作简述</label>
-							<div class="controls">
-								<textarea id="description" name="description" rows=3></textarea>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="recorder">记录人</label>
-							<div class="controls">
-								<input id="recorder" name="recorder" type="text">
+								<input id="railwayRemark" name="railwayRemark" type="text">
 							</div>
 						</div>
 					</form>
@@ -159,63 +123,27 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="name">工作名称</label>
+							<label class="control-label" for="operateDate">日期</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="operateDate" name="operateDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="startTime">开始时间</label>
+							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="startTime" name="startTime">
+								<input id="railwayTrans" name="railwayTrans" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="endTime">结束时间</label>
+							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="endTime" name="endTime">
+								<input id="railwayTons" name="railwayTons" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="positon">地点</label>
+							<label class="control-label" for="railwayRemark">铁路运输备注</label>
 							<div class="controls">
-								<input id="positon" name="positon" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="responser">现场负责人</label>
-							<div class="controls">
-								<input id="responser" name="responser" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="workers">工作人员</label>
-							<div class="controls">
-								<input id="workers" name="workers" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="process">工作进度</label>
-							<div class="controls">
-								<input id="process" name="process" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="summary">工作总结情况</label>
-							<div class="controls">
-								<input id="summary" name="summary" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="description">工作简述</label>
-							<div class="controls">
-								<textarea id="description" name="description" rows=3></textarea>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="recorder">记录人</label>
-							<div class="controls">
-								<input id="recorder" name="recorder" type="text">
+								<input id="railwayRemark" name="railwayRemark" type="text">
 							</div>
 						</div>
 					</form>
@@ -272,7 +200,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/instruction/focus/index');
+		seajs.use('${resources}/scripts/app/spmi/schedule/output/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

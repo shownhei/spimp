@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.spmi.instruction.service;
+package cn.ccrise.spimp.spmi.schedule.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.MatchMode;
@@ -16,36 +16,36 @@ import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
-import cn.ccrise.spimp.spmi.instruction.access.FocusDAO;
-import cn.ccrise.spimp.spmi.instruction.entity.Focus;
+import cn.ccrise.spimp.spmi.schedule.access.OutputDAO;
+import cn.ccrise.spimp.spmi.schedule.entity.Output;
 
 /**
- * Focus Service。
+ * Output Service。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Service
-public class FocusService extends HibernateDataServiceImpl<Focus, Long> {
+public class OutputService extends HibernateDataServiceImpl<Output, Long> {
 	@Autowired
-	private FocusDAO focusDAO;
+	private OutputDAO outputDAO;
 
 	@Override
-	public HibernateDAO<Focus, Long> getDAO() {
-		return focusDAO;
+	public HibernateDAO<Output, Long> getDAO() {
+		return outputDAO;
 	}
 	
-	public Page<Focus> pageQuery(Page<Focus> page,String search, Date startDate, Date endDate) {
+	public Page<Output> pageQuery(Page<Output> page, Date startDate, Date endDate,String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		
 		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("name", search, MatchMode.ANYWHERE),Restrictions.ilike("recorder", search, MatchMode.ANYWHERE)));
+			criterions.add(Restrictions.or(Restrictions.ilike("railwayRemark", search, MatchMode.ANYWHERE)));
 		}
 		
 		if (startDate != null) {
-			criterions.add(Restrictions.ge("startTime", startDate));
+			criterions.add(Restrictions.ge("operateDate", startDate));
 		}
 		if (endDate != null) {
-			criterions.add(Restrictions.le("startTime", endDate));
+			criterions.add(Restrictions.le("operateDate", endDate));
 		}
 		
 		return getPage(page, criterions.toArray(new Criterion[0]));
