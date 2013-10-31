@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
+
 @Service
 public class PDF2SwfService {
 
@@ -17,7 +19,7 @@ public class PDF2SwfService {
 	/**
 	 * SWFTools的环境安装路径
 	 */
-	public String SWFTOOLS_PATH = "F:\\Program Files (x86)\\SWFTools\\";
+	public String SWFTOOLS_PATH = PropertiesUtils.getString("document_convert_swftools");// "F:\\Program Files (x86)\\SWFTools\\";
 
 	public int convertPDF2SWF(String sourcePath, String destPath, String fileName) throws IOException {
 

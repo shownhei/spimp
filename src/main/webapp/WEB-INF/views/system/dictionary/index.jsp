@@ -36,6 +36,8 @@
 							<option value="response_level" title="引用标记：response_level">事故响应级别</option>
 							<option value="refuge_type" title="引用标记：refuge_type">避险场所种类</option>
 							<option value="resource_type" title="引用标记：resource_type">应急资源种类</option>
+							<option value="education_level" title="引用标记：education_level">文化程度</option>
+							
 							<optgroup label="调度系统">
 		                        <option value="schedule_coal_type" title="引用标记：schedule_coal_type">煤种</option>
 		                        <option value="schedule_coal_series" title="引用标记：schedule_coal_series">煤系</option>
@@ -90,6 +92,7 @@
 									<option value="response_level">事故响应级别</option>
 									<option value="refuge_type">避险场所种类</option>
 									<option value="resource_type">应急资源种类</option>
+									<option value="education_level">文化程度</option>
 								</select>
 							</div>
 						</div>

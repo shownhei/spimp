@@ -1,36 +1,54 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	Utils.input.date('input[type=datetime]');
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 
-	var map={
-			plan_type:'应急预案种类',
-			personal_category:'人员类别',
-			expertise_area:'专业领域',
-			accident_category:'事故类别',
-			accident_level:'事故严重程度',
-			response_level:'事故响应级别',
-			refuge_type:'避险场所种类',
-			resource_type:'应急资源种类',
-			education_level:'文化程度'
-	};
+
 	// 配置表格列
-	var fields = [{
-		header : '字典分类',
-		render:function(v){
-			return v?map[v]:'';
-		},
-		name : 'typeCode'
+	var fields = [ {
+		header : '资源名称',
+		name : 'resourceName'
 	}, {
-		header : '字典名称',
-		name : 'itemName'
+		header : '编号',
+		name : 'resourceNo'
 	}, {
-		header : '排序值',
-		name : 'sortIndex'
-	} ];
+		header : '数量',
+		width:50,
+		name : 'amount'
+	}, {
+		header : '用途',
+		name : 'function'
+	},{
+		header : '型号',
+		name : 'model'
+	},{
+		header : '产地',
+		name : 'origin'
+	}, {
+		header : '购买时间',
+		width:70,
+		name : 'butTime'
+	}, {
+		header : '有效使用时间',
+		name : 'expiration'
+	},{
+		header : '存放位置',
+		width:70,
+		name : 'location'
+	}, {
+		header : '管理人员',
+		width:70,
+		name : 'manager'
+	}, {
+		header : '手机',
+		name : 'telephone'
+	},{
+		header : '备注',
+		name : 'remark'
+	}];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -47,14 +65,10 @@ define(function(require, exports, module) {
 		}
 	}
 
-	$('#typeCodeSelect').bind('change', function() {
-		$('#nav-search-button').trigger('click');
-	});
-
 	// 配置表格
-	var defaultUrl = contextPath + '/system/dictionaries?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/emergency-resources?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
-		parentNode : '#dictionary-table',
+		parentNode : '#material-table',
 		url : defaultUrl,
 		model : {
 			fields : fields,
@@ -80,12 +94,15 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		// 验证
-		if (object.itemName === '') {
-			Utils.modal.message('create', [ '请输入字典值' ]);
+		if (object.resourceName === '') {
+			Utils.modal.message('create', [ '请输入资源名称' ]);
 			return;
 		}
-
-		$.post('/system/dictionaries', JSON.stringify(object), function(data) {
+		if (object.resourceNo === '') {
+			Utils.modal.message('create', [ '请输入资源编号' ]);
+			return;
+		}
+		$.post('/ercs/emergency-resources', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -104,26 +121,32 @@ define(function(require, exports, module) {
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
-		$.get('/system/dictionaries/' + selectId, function(data) {
+		$.get('/ercs/emergency-resources/' + selectId, function(data) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
+			if(object.department.name){
+				$('#edit_department').val(object.department.name);
+				$('#edit_department').attr('data-id',object.department.id);
+			}
 		});
 	});
 
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		// 验证
-		if (object.itemName === '') {
-			Utils.modal.message('edit', [ '请输入字典值' ]);
+		if (object.resourceName === '') {
+			Utils.modal.message('edit', [ '请输入资源名称' ]);
 			return;
 		}
-
+		if (object.resourceNo === '') {
+			Utils.modal.message('edit', [ '请输入资源编号' ]);
+			return;
+		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
-		$.put('/system/dictionaries/' + selectId, JSON.stringify(object), function(data) {
+		$.put('/ercs/emergency-resources/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -144,13 +167,9 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/system/dictionaries/' + selectId, function(data) {
-		    Utils.modal.hide('remove');
-			if (data.success) {
-				grid.refresh();
-			}else{
-				Utils.modal.show('remove_error');
-			}
+		$.del('/ercs/emergency-resources/' + selectId, function(data) {
+			grid.refresh();
+			Utils.modal.hide('remove');
 		});
 	});
 

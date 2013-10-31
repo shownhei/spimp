@@ -21,7 +21,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * 
  */
 @Entity
-@Table(name = "ercs_k_nodes")
+@Table(name = "k_nodes")
 public class KNode extends IDEntity {
 	// [SysId] [varchar](50) NOT NULL,
 	private String sysId;
