@@ -128,6 +128,28 @@ ${editFormFields}					</form>
 			</button>
 		</div>
 	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+${detailFormFields}					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal hide">
 		<div class="modal-header">

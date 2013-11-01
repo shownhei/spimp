@@ -70,13 +70,13 @@
 						<div class="control-group">
 							<label class="control-label" for="teammates">人数</label>
 							<div class="controls">
-								<input id="create_teammates" name="teammates" type="text">
+								<input id="create_teammates" name="teammates" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="sortNumber">排列顺序</label>
 							<div class="controls">
-								<input id="create_sortNumber" name="sortNumber" type="text">
+								<input id="create_sortNumber" name="sortNumber" type="number">
 							</div>
 						</div>
 					</form>
@@ -127,13 +127,13 @@
 						<div class="control-group">
 							<label class="control-label" for="teammates">人数</label>
 							<div class="controls">
-								<input id="edit_teammates" name="teammates" type="text">
+								<input id="edit_teammates" name="teammates" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="sortNumber">排列顺序</label>
 							<div class="controls">
-								<input id="edit_sortNumber" name="sortNumber" type="text">
+								<input id="edit_sortNumber" name="sortNumber" type="number">
 							</div>
 						</div>
 					</form>
@@ -154,6 +154,52 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="teamName">队组名称</label>
+							<div class="controls">
+								<input id="detail_teamName" name="teamName" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teamType">队组类型</label>
+							<div class="controls">
+								<input id="detail_teamType" name="teamType" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teammates">人数</label>
+							<div class="controls">
+								<input id="detail_teammates" name="teammates" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="sortNumber">排列顺序</label>
+							<div class="controls">
+								<input id="detail_sortNumber" name="sortNumber" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

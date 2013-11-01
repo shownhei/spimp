@@ -18,10 +18,12 @@ define(function(require, exports, module) {
 		},
 		{
 			header : '开始时间',
+			width : 90,
 			name : 'startTime'
 		},
 		{
 			header : '结束时间',
+			width : 90,
 			name : 'endTime'
 		},
 		{
@@ -29,28 +31,22 @@ define(function(require, exports, module) {
 			name : 'positon'
 		},
 		{
-			header : '现场负责人',
-			name : 'responser'
-		},
-		{
-			header : '工作人员',
-			name : 'workers'
-		},
-		{
-			header : '工作进度',
-			name : 'process'
-		},
-		{
-			header : '工作总结情况',
-			name : 'summary'
-		},
-		{
 			header : '工作简述',
 			name : 'description'
 		},
 		{
 			header : '记录人',
+			width : 80,
 			name : 'recorder'
+		},
+		{
+			header : '查看',
+			name : 'id',
+			width : 50,
+			align : 'center',
+			render : function(value) {
+				return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
+			}
 		}
 	];
 
@@ -82,6 +78,10 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+			
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
@@ -127,6 +127,17 @@ define(function(require, exports, module) {
 		}
 		
 		return true;
+	}
+	
+	// 查看
+	function showDetail(data){
+		Utils.modal.reset('detail');
+		
+		var object = $.extend({},data);
+
+
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
 	}
 	
 	// 保存

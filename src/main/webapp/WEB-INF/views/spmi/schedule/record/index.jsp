@@ -253,6 +253,94 @@
 			</button>
 		</div>
 	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="recordDate">日期</label>
+							<div class="controls">
+								<input id="detail_recordDate" name="recordDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="recordTime">时间</label>
+							<div class="controls">
+								<input id="detail_recordTime" name="recordTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="team">队组</label>
+							<div class="controls">
+								<input id="detail_team" name="team" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="duty">班次</label>
+							<div class="controls">
+								<input id="detail_duty" name="duty" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="positon">地点</label>
+							<div class="controls">
+								<input id="detail_positon" name="positon" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="reporter">汇报人</label>
+							<div class="controls">
+								<input id="detail_reporter" name="reporter" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="receiver">接收人</label>
+							<div class="controls">
+								<input id="detail_receiver" name="receiver" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="problems">事故问题详情</label>
+							<div class="controls">
+								<textarea id="detail_problems" name="problems" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="opinion">处理意见</label>
+							<div class="controls">
+								<textarea id="detail_opinion" name="opinion" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dealResults">处理结果</label>
+							<div class="controls">
+								<textarea id="detail_dealResults" name="dealResults" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="acceptancer">验收人</label>
+							<div class="controls">
+								<input id="detail_acceptancer" name="acceptancer" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal hide">
 		<div class="modal-header">

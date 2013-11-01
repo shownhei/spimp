@@ -123,25 +123,25 @@
 						<div class="control-group">
 							<label class="control-label" for="planMen">计划出勤人数</label>
 							<div class="controls">
-								<input id="create_planMen" name="planMen" type="text">
+								<input id="create_planMen" name="planMen" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="infactMen">实际出勤人数</label>
 							<div class="controls">
-								<input id="create_infactMen" name="infactMen" type="text">
+								<input id="create_infactMen" name="infactMen" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="planTons">产量计划吨数</label>
 							<div class="controls">
-								<input id="create_planTons" name="planTons" type="text">
+								<input id="create_planTons" name="planTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="infactTons">产量实际吨数</label>
 							<div class="controls">
-								<input id="create_infactTons" name="infactTons" type="text">
+								<input id="create_infactTons" name="infactTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -240,25 +240,25 @@
 						<div class="control-group">
 							<label class="control-label" for="planMen">计划出勤人数</label>
 							<div class="controls">
-								<input id="edit_planMen" name="planMen" type="text">
+								<input id="edit_planMen" name="planMen" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="infactMen">实际出勤人数</label>
 							<div class="controls">
-								<input id="edit_infactMen" name="infactMen" type="text">
+								<input id="edit_infactMen" name="infactMen" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="planTons">产量计划吨数</label>
 							<div class="controls">
-								<input id="edit_planTons" name="planTons" type="text">
+								<input id="edit_planTons" name="planTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="infactTons">产量实际吨数</label>
 							<div class="controls">
-								<input id="edit_infactTons" name="infactTons" type="text">
+								<input id="edit_infactTons" name="infactTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -285,6 +285,112 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="digDate">开采日期</label>
+							<div class="controls">
+								<input id="detail_digDate" name="digDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="duty">班次</label>
+							<div class="controls">
+								<input id="detail_duty" name="duty" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="team">队组</label>
+							<div class="controls">
+								<input id="detail_team" name="team" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="exploitType">开采方式</label>
+							<div class="controls">
+								<input id="detail_exploitType" name="exploitType" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="workingFace">工作面</label>
+							<div class="controls">
+								<input id="detail_workingFace" name="workingFace" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="workingPlace">工作地点</label>
+							<div class="controls">
+								<input id="detail_workingPlace" name="workingPlace" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="teamLeader">跟班队干</label>
+							<div class="controls">
+								<input id="detail_teamLeader" name="teamLeader" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="monitor">当班班长</label>
+							<div class="controls">
+								<input id="detail_monitor" name="monitor" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="safeChecker">安全员</label>
+							<div class="controls">
+								<input id="detail_safeChecker" name="safeChecker" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="planMen">计划出勤人数</label>
+							<div class="controls">
+								<input id="detail_planMen" name="planMen" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="infactMen">实际出勤人数</label>
+							<div class="controls">
+								<input id="detail_infactMen" name="infactMen" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="planTons">产量计划吨数</label>
+							<div class="controls">
+								<input id="detail_planTons" name="planTons" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="infactTons">产量实际吨数</label>
+							<div class="controls">
+								<input id="detail_infactTons" name="infactTons" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="powerOnTime">开机时间</label>
+							<div class="controls">
+								<input id="detail_powerOnTime" name="powerOnTime" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

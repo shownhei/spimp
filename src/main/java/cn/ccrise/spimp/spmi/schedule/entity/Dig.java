@@ -26,39 +26,39 @@ public class Dig extends IDEntity {
 	private Date digDate;
 
 	// 班次
-	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "班次", columnWidth = 60, search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
 
 	// 队组
-	@PageFields(describtion = "队组", search = true, allowedNull = false, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
+	@PageFields(describtion = "队组", columnWidth = 80, search = true, allowedNull = false, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
 	private Team team;
 
 	// 巷道类型
-	@PageFields(describtion = "巷道类型", allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_tunnel_type&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "巷道类型", columnShow = false, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_tunnel_type&list=true", selectShowField = "itemName")
 	private Dictionary tunnelType;
 
 	// 工作地点
-	@PageFields(describtion = "工作地点", allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "工作地点", columnShow = false, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField = "itemName")
 	private Dictionary workingPlace;
 
 	// 跟班队干
-	@PageFields(describtion = "跟班队干", allowedNull = false)
+	@PageFields(describtion = "跟班队干", columnShow = false, allowedNull = false)
 	private String teamLeader;
 
 	// 当班班长
-	@PageFields(describtion = "当班班长", allowedNull = false)
+	@PageFields(describtion = "当班班长", allowedNull = false, columnWidth = 80)
 	private String monitor;
 
 	// 安全员
-	@PageFields(describtion = "安全员")
+	@PageFields(describtion = "安全员", columnShow = false)
 	private String safeChecker;
 
 	// 计划出勤人数
-	@PageFields(describtion = "计划出勤人数")
+	@PageFields(describtion = "计划出勤人数", columnWidth = 100)
 	private Integer planMen;
 
 	// 实际出勤人数
-	@PageFields(describtion = "实际出勤人数")
+	@PageFields(describtion = "实际出勤人数", columnWidth = 100)
 	private Integer infactMen;
 
 	// 产量计划吨数

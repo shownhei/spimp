@@ -29,6 +29,13 @@ public @interface PageFields {
 	 * @return
 	 */
 	public abstract boolean columnShow() default true;
+	
+	/**
+	 * 表格中显示的宽度
+	 * 
+	 * @return
+	 */
+	public abstract int columnWidth() default 0;
 
 	/**
 	 * 属性描述

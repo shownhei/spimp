@@ -26,19 +26,19 @@ public class Record extends IDEntity {
 	private Date recordDate;
 
 	// 时间
-	@PageFields(describtion = "时间")
+	@PageFields(describtion = "时间", columnWidth = 80)
 	private String recordTime;
 
 	// 队组
-	@PageFields(describtion = "队组", allowedNull = false, search = true, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
+	@PageFields(describtion = "队组", allowedNull = false, columnWidth = 120,search = true, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
 	private Team team;
 
 	// 班次
-	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "班次", columnWidth = 60, search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
 
 	// 地点
-	@PageFields(describtion = "地点")
+	@PageFields(describtion = "地点", columnShow = false)
 	private String positon;
 
 	// 汇报人
@@ -46,7 +46,7 @@ public class Record extends IDEntity {
 	private String reporter;
 
 	// 接收人
-	@PageFields(describtion = "接收人")
+	@PageFields(describtion = "接收人", columnShow = false)
 	private String receiver;
 
 	// 事故问题详情
@@ -62,7 +62,7 @@ public class Record extends IDEntity {
 	private String dealResults;
 
 	// 验收人
-	@PageFields(describtion = "验收人")
+	@PageFields(describtion = "验收人", columnShow = false)
 	private String acceptancer;
 
 	public String getAcceptancer() {

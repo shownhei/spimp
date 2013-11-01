@@ -26,7 +26,7 @@ public class Circumstance extends IDEntity {
 	private Date workDate;
 
 	// 班次
-	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "班次", columnWidth = 60, search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
 
 	// 姓名
@@ -34,7 +34,7 @@ public class Circumstance extends IDEntity {
 	private String name;
 
 	// 职务
-	@PageFields(describtion = "职务")
+	@PageFields(describtion = "职务",columnWidth = 90)
 	private String business;
 
 	// 下井时间
@@ -46,7 +46,7 @@ public class Circumstance extends IDEntity {
 	private Date upWellTime;
 
 	// 汇报地点
-	@PageFields(describtion = "汇报地点")
+	@PageFields(describtion = "汇报地点", columnShow = false)
 	private String reportPosition;
 
 	// 内容

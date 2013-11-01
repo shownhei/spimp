@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.util.PageFields;
 
 /**
  * 领导指示
@@ -21,26 +22,31 @@ public class Instruction extends IDEntity {
 	/**
 	 * 时间
 	 */
+	@PageFields(describtion = "时间", search = true)
 	public Date time;
 
 	/**
 	 * 指示人
 	 */
+	@PageFields(describtion = "指示人", allowedNull = false, search = true)
 	public String indicator;
 
 	/**
 	 * 承办人
 	 */
+	@PageFields(describtion = "承办人")
 	public String undertaker;
 
 	/**
 	 * 接收人
 	 */
+	@PageFields(describtion = "接收人")
 	public String receiver;
 
 	/**
 	 * 指示内容
 	 */
+	@PageFields(describtion = "指示内容", type="textarea")
 	public String content;
 
 	public String getContent() {

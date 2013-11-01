@@ -51,6 +51,10 @@ ${jsFields}
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+			
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
@@ -80,6 +84,17 @@ ${validateCode}		if(errorMsg.length > 0){
 		}
 		
 		return true;
+	}
+	
+	// 查看
+	function showDetail(data){
+		Utils.modal.reset('detail');
+		
+		var object = $.extend({},data);
+${detailShowJs}
+
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
 	}
 	
 	// 保存

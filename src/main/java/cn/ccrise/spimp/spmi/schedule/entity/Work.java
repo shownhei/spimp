@@ -24,7 +24,7 @@ public class Work extends IDEntity {
 	private Date workDate;
 
 	// 领导名称
-	@PageFields(describtion = "领导名称", allowedNull = false, search = true)
+	@PageFields(describtion = "领导名称", columnWidth = 80, allowedNull = false, search = true)
 	private String leaderName;
 
 	// 发现问题

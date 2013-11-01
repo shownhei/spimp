@@ -38,15 +38,15 @@ public class Transport extends IDEntity {
 	private Double railwayTons;
 
 	// 铁路运输装车时间
-	@PageFields(describtion = "铁路装车时间")
+	@PageFields(describtion = "铁路装车时间", columnShow = false)
 	private Date railwayLoadStartTime;
 
 	// 铁路运输装完时间
-	@PageFields(describtion = "铁路装完时间")
+	@PageFields(describtion = "铁路装完时间", columnShow = false)
 	private Date railwayLoadEndTime;
 
 	// 铁路运输备注
-	@PageFields(describtion = "铁路运输备注", type = "textarea")
+	@PageFields(describtion = "铁路运输备注", type = "textarea", columnShow = false)
 	private String railwayRemark;
 
 	// 公路运输车数
@@ -66,8 +66,8 @@ public class Transport extends IDEntity {
 	private Double roadStorage;
 
 	// 公路运输备注
-	@PageFields(describtion = "公路运输备注", type = "textarea")
-	private Double roadRemark;
+	@PageFields(describtion = "公路运输备注", type = "textarea", columnShow = false)
+	private String roadRemark;
 
 	@ManyToOne
 	public Dictionary getCoalType() {
@@ -96,10 +96,6 @@ public class Transport extends IDEntity {
 
 	public Integer getRailwayTrans() {
 		return railwayTrans;
-	}
-
-	public Double getRoadRemark() {
-		return roadRemark;
 	}
 
 	public Double getRoadStorage() {
@@ -146,10 +142,6 @@ public class Transport extends IDEntity {
 		this.railwayTrans = railwayTrans;
 	}
 
-	public void setRoadRemark(Double roadRemark) {
-		this.roadRemark = roadRemark;
-	}
-
 	public void setRoadStorage(Double roadStorage) {
 		this.roadStorage = roadStorage;
 	}
@@ -164,5 +156,13 @@ public class Transport extends IDEntity {
 
 	public void setRoadTrans(Integer roadTrans) {
 		this.roadTrans = roadTrans;
+	}
+
+	public String getRoadRemark() {
+		return roadRemark;
+	}
+
+	public void setRoadRemark(String roadRemark) {
+		this.roadRemark = roadRemark;
 	}
 }
