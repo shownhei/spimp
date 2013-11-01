@@ -81,13 +81,13 @@
 						<div class="control-group">
 							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<input id="create_railwayTrans" name="railwayTrans" type="text">
+								<input id="create_railwayTrans" name="railwayTrans" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<input id="create_railwayTons" name="railwayTons" type="text">
+								<input id="create_railwayTons" name="railwayTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -111,25 +111,25 @@
 						<div class="control-group">
 							<label class="control-label" for="roadTrans">公路运输车数</label>
 							<div class="controls">
-								<input id="create_roadTrans" name="roadTrans" type="text">
+								<input id="create_roadTrans" name="roadTrans" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadTons">公路运输吨数</label>
 							<div class="controls">
-								<input id="create_roadTons" name="roadTons" type="text">
+								<input id="create_roadTons" name="roadTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadTonsTotal">公路外运合计</label>
 							<div class="controls">
-								<input id="create_roadTonsTotal" name="roadTonsTotal" type="text">
+								<input id="create_roadTonsTotal" name="roadTonsTotal" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadStorage">公路运输库存</label>
 							<div class="controls">
-								<input id="create_roadStorage" name="roadStorage" type="text">
+								<input id="create_roadStorage" name="roadStorage" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -186,13 +186,13 @@
 						<div class="control-group">
 							<label class="control-label" for="railwayTrans">铁路运输车数</label>
 							<div class="controls">
-								<input id="edit_railwayTrans" name="railwayTrans" type="text">
+								<input id="edit_railwayTrans" name="railwayTrans" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="railwayTons">铁路运输吨数</label>
 							<div class="controls">
-								<input id="edit_railwayTons" name="railwayTons" type="text">
+								<input id="edit_railwayTons" name="railwayTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -216,25 +216,25 @@
 						<div class="control-group">
 							<label class="control-label" for="roadTrans">公路运输车数</label>
 							<div class="controls">
-								<input id="edit_roadTrans" name="roadTrans" type="text">
+								<input id="edit_roadTrans" name="roadTrans" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadTons">公路运输吨数</label>
 							<div class="controls">
-								<input id="edit_roadTons" name="roadTons" type="text">
+								<input id="edit_roadTons" name="roadTons" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadTonsTotal">公路外运合计</label>
 							<div class="controls">
-								<input id="edit_roadTonsTotal" name="roadTonsTotal" type="text">
+								<input id="edit_roadTonsTotal" name="roadTonsTotal" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="roadStorage">公路运输库存</label>
 							<div class="controls">
-								<input id="edit_roadStorage" name="roadStorage" type="text">
+								<input id="edit_roadStorage" name="roadStorage" type="number">
 							</div>
 						</div>
 						<div class="control-group">
@@ -261,6 +261,100 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="operateDate">日期</label>
+							<div class="controls">
+								<input id="detail_operateDate" name="operateDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="coalType">煤种</label>
+							<div class="controls">
+								<input id="detail_coalType" name="coalType" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="railwayTrans">铁路运输车数</label>
+							<div class="controls">
+								<input id="detail_railwayTrans" name="railwayTrans" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="railwayTons">铁路运输吨数</label>
+							<div class="controls">
+								<input id="detail_railwayTons" name="railwayTons" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="railwayLoadStartTime">铁路装车时间</label>
+							<div class="controls">
+								<input id="detail_railwayLoadStartTime" name="railwayLoadStartTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="railwayLoadEndTime">铁路装完时间</label>
+							<div class="controls">
+								<input id="detail_railwayLoadEndTime" name="railwayLoadEndTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="railwayRemark">铁路运输备注</label>
+							<div class="controls">
+								<textarea id="detail_railwayRemark" name="railwayRemark" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="roadTrans">公路运输车数</label>
+							<div class="controls">
+								<input id="detail_roadTrans" name="roadTrans" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="roadTons">公路运输吨数</label>
+							<div class="controls">
+								<input id="detail_roadTons" name="roadTons" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="roadTonsTotal">公路外运合计</label>
+							<div class="controls">
+								<input id="detail_roadTonsTotal" name="roadTonsTotal" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="roadStorage">公路运输库存</label>
+							<div class="controls">
+								<input id="detail_roadStorage" name="roadStorage" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="roadRemark">公路运输备注</label>
+							<div class="controls">
+								<textarea id="detail_roadRemark" name="roadRemark" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

@@ -27,43 +27,43 @@ public class Output extends IDEntity {
 	private Date digDate;
 
 	// 班次
-	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "班次", search = true, columnWidth = 60, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
 
 	// 队组
-	@PageFields(describtion = "队组", allowedNull = false, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
+	@PageFields(describtion = "队组", columnWidth = 80, allowedNull = false, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
 	private Team team;
 
 	// 开采方式
-	@PageFields(describtion = "开采方式", allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_exploit_type&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "开采方式", columnWidth = 80, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_exploit_type&list=true", selectShowField = "itemName")
 	private Dictionary exploitType;
 
 	// 工作面
-	@PageFields(describtion = "工作面", allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_face&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "工作面", columnShow = false, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_face&list=true", selectShowField = "itemName")
 	private Dictionary workingFace;
 
 	// 工作地点
-	@PageFields(describtion = "工作地点", allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "工作地点", columnShow = false, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_working_place&list=true", selectShowField = "itemName")
 	private Dictionary workingPlace;
 
 	// 跟班队干
-	@PageFields(describtion = "跟班队干", allowedNull = false)
+	@PageFields(describtion = "跟班队干", columnShow = false, columnWidth = 80, allowedNull = false)
 	private String teamLeader;
 
 	// 当班班长
-	@PageFields(describtion = "当班班长", allowedNull = false)
+	@PageFields(describtion = "当班班长", columnWidth = 80, allowedNull = false)
 	private String monitor;
 
 	// 安全员
-	@PageFields(describtion = "安全员")
+	@PageFields(describtion = "安全员", columnShow = false, columnWidth = 80)
 	private String safeChecker;
 
 	// 计划出勤人数
-	@PageFields(describtion = "计划出勤人数")
+	@PageFields(describtion = "计划出勤人数", columnWidth = 100)
 	private Integer planMen;
 
 	// 实际出勤人数
-	@PageFields(describtion = "实际出勤人数")
+	@PageFields(describtion = "实际出勤人数", columnWidth = 100)
 	private Integer infactMen;
 
 	// 产量计划吨数
@@ -75,7 +75,7 @@ public class Output extends IDEntity {
 	private Double infactTons;
 
 	// 开机时间
-	@PageFields(describtion = "开机时间")
+	@PageFields(describtion = "开机时间", columnShow = false)
 	private Date powerOnTime;
 
 	public Date getDigDate() {

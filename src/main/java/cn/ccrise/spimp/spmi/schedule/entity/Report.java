@@ -27,7 +27,7 @@ public class Report extends IDEntity {
 	private Date reportDate;
 
 	// 班次
-	@PageFields(describtion = "班次", search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
+	@PageFields(describtion = "班次", columnWidth = 60, search = true, allowedNull = false, type = "select", selectDataUri = "/system/dictionaries?typeCode=schedule_duty&list=true", selectShowField = "itemName")
 	private Dictionary duty;
 
 	// 姓名
@@ -35,13 +35,13 @@ public class Report extends IDEntity {
 	private String name;
 
 	// 职务
-	@PageFields(describtion = "职务")
+	@PageFields(describtion = "职务", columnShow = false)
 	private String business;
 
 	@PageFields(describtion = "汇报时间")
 	private Date reportDoDate;
 
-	@PageFields(describtion = "汇报地点")
+	@PageFields(describtion = "汇报地点", columnShow = false)
 	private String reportPositon;
 
 	@PageFields(describtion = "班前汇报", type = "textarea")

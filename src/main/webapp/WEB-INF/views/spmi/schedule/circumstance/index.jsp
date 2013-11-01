@@ -241,6 +241,88 @@
 			</button>
 		</div>
 	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="workDate">日期</label>
+							<div class="controls">
+								<input id="detail_workDate" name="workDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="duty">班次</label>
+							<div class="controls">
+								<input id="detail_duty" name="duty" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="name">姓名</label>
+							<div class="controls">
+								<input id="detail_name" name="name" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="business">职务</label>
+							<div class="controls">
+								<input id="detail_business" name="business" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="downWellTime">下井时间</label>
+							<div class="controls">
+								<input id="detail_downWellTime" name="downWellTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="upWellTime">升井时间</label>
+							<div class="controls">
+								<input id="detail_upWellTime" name="upWellTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="reportPosition">汇报地点</label>
+							<div class="controls">
+								<input id="detail_reportPosition" name="reportPosition" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contents">内容</label>
+							<div class="controls">
+								<textarea id="detail_contents" name="contents" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="problems">发现问题</label>
+							<div class="controls">
+								<textarea id="detail_problems" name="problems" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="problemsDeal">处理意见</label>
+							<div class="controls">
+								<textarea id="detail_problemsDeal" name="problemsDeal" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal hide">
 		<div class="modal-header">

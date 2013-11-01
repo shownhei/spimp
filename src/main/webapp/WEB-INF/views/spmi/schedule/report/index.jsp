@@ -229,6 +229,82 @@
 			</button>
 		</div>
 	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="reportDate">日期</label>
+							<div class="controls">
+								<input id="detail_reportDate" name="reportDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="duty">班次</label>
+							<div class="controls">
+								<input id="detail_duty" name="duty" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="name">姓名</label>
+							<div class="controls">
+								<input id="detail_name" name="name" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="business">职务</label>
+							<div class="controls">
+								<input id="detail_business" name="business" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="reportDoDate">汇报时间</label>
+							<div class="controls">
+								<input id="detail_reportDoDate" name="reportDoDate" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="reportPositon">汇报地点</label>
+							<div class="controls">
+								<input id="detail_reportPositon" name="reportPositon" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="beforeDutyReprot">班前汇报</label>
+							<div class="controls">
+								<textarea id="detail_beforeDutyReprot" name="beforeDutyReprot" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="onDutyReport">班中汇报</label>
+							<div class="controls">
+								<textarea id="detail_onDutyReport" name="onDutyReport" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="afterDutyReport">班后汇报</label>
+							<div class="controls">
+								<textarea id="detail_afterDutyReport" name="afterDutyReport" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal hide">
 		<div class="modal-header">

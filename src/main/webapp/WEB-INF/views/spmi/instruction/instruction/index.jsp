@@ -27,6 +27,7 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
+				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
@@ -41,7 +42,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入指示人/指示内容...">
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入指示人...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -64,34 +65,34 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
-						<div class="input-append">
+						<div class="control-group">
 							<label class="control-label" for="time">时间</label>
 							<div class="controls">
-								<input name="time" type="datetime" placeholder="请选择" class="input-small" autocomplete="off">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_time" name="time">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="indicator">指示人</label>
 							<div class="controls">
-								<input id="indicator" name="indicator" type="text">
+								<input id="create_indicator" name="indicator" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="undertaker">承办人</label>
 							<div class="controls">
-								<input id="undertaker" name="undertaker" type="text">
+								<input id="create_undertaker" name="undertaker" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="receiver">接收人</label>
 							<div class="controls">
-								<input id="receiver" name="receiver" type="text">
+								<input id="create_receiver" name="receiver" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="content">指示内容</label>
 							<div class="controls">
-								 <textarea name="content" rows=5></textarea>
+								<textarea id="create_content" name="content" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -127,34 +128,34 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-						<div class="input-append">
+						<div class="control-group">
 							<label class="control-label" for="time">时间</label>
 							<div class="controls">
-								<input name="time" type="datetime" placeholder="时间" class="input-small" autocomplete="off">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_time" name="time">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="indicator">指示人</label>
 							<div class="controls">
-								<input id="indicator" name="indicator" type="text">
+								<input id="edit_indicator" name="indicator" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="undertaker">承办人</label>
 							<div class="controls">
-								<input id="undertaker" name="undertaker" type="text">
+								<input id="edit_undertaker" name="undertaker" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="receiver">接收人</label>
 							<div class="controls">
-								<input id="receiver" name="receiver" type="text">
+								<input id="edit_receiver" name="receiver" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="content">指示内容</label>
 							<div class="controls">
-								<textarea name="content" rows=5></textarea>
+								<textarea id="edit_content" name="content" rows=3></textarea>
 							</div>
 						</div>
 					</form>
@@ -175,6 +176,58 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="time">时间</label>
+							<div class="controls">
+								<input id="detail_time" name="time" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="indicator">指示人</label>
+							<div class="controls">
+								<input id="detail_indicator" name="indicator" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="undertaker">承办人</label>
+							<div class="controls">
+								<input id="detail_undertaker" name="undertaker" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="receiver">接收人</label>
+							<div class="controls">
+								<input id="detail_receiver" name="receiver" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="content">指示内容</label>
+							<div class="controls">
+								<textarea id="detail_content" name="content" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

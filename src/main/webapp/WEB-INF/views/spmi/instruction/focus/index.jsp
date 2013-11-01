@@ -68,61 +68,61 @@
 						<div class="control-group">
 							<label class="control-label" for="name">工作名称</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input id="create_name" name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="startTime">开始时间</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="startTime" name="startTime">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_startTime" name="startTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="endTime">结束时间</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="endTime" name="endTime">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_endTime" name="endTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="positon">地点</label>
 							<div class="controls">
-								<input id="positon" name="positon" type="text">
+								<input id="create_positon" name="positon" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="responser">现场负责人</label>
 							<div class="controls">
-								<input id="responser" name="responser" type="text">
+								<input id="create_responser" name="responser" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="workers">工作人员</label>
 							<div class="controls">
-								<input id="workers" name="workers" type="text">
+								<input id="create_workers" name="workers" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="process">工作进度</label>
 							<div class="controls">
-								<input id="process" name="process" type="text">
+								<input id="create_process" name="process" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="summary">工作总结情况</label>
 							<div class="controls">
-								<input id="summary" name="summary" type="text">
+								<input id="create_summary" name="summary" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="description">工作简述</label>
 							<div class="controls">
-								<textarea id="description" name="description" rows=3></textarea>
+								<textarea id="create_description" name="description" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="recorder">记录人</label>
 							<div class="controls">
-								<input id="recorder" name="recorder" type="text">
+								<input id="create_recorder" name="recorder" type="text">
 							</div>
 						</div>
 					</form>
@@ -161,61 +161,61 @@
 						<div class="control-group">
 							<label class="control-label" for="name">工作名称</label>
 							<div class="controls">
-								<input id="name" name="name" type="text">
+								<input id="edit_name" name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="startTime">开始时间</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="startTime" name="startTime">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_startTime" name="startTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="endTime">结束时间</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="endTime" name="endTime">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_endTime" name="endTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="positon">地点</label>
 							<div class="controls">
-								<input id="positon" name="positon" type="text">
+								<input id="edit_positon" name="positon" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="responser">现场负责人</label>
 							<div class="controls">
-								<input id="responser" name="responser" type="text">
+								<input id="edit_responser" name="responser" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="workers">工作人员</label>
 							<div class="controls">
-								<input id="workers" name="workers" type="text">
+								<input id="edit_workers" name="workers" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="process">工作进度</label>
 							<div class="controls">
-								<input id="process" name="process" type="text">
+								<input id="edit_process" name="process" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="summary">工作总结情况</label>
 							<div class="controls">
-								<input id="summary" name="summary" type="text">
+								<input id="edit_summary" name="summary" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="description">工作简述</label>
 							<div class="controls">
-								<textarea id="description" name="description" rows=3></textarea>
+								<textarea id="edit_description" name="description" rows=3></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="recorder">记录人</label>
 							<div class="controls">
-								<input id="recorder" name="recorder" type="text">
+								<input id="edit_recorder" name="recorder" type="text">
 							</div>
 						</div>
 					</form>
@@ -236,6 +236,88 @@
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="name">工作名称</label>
+							<div class="controls">
+								<input id="detail_name" name="name" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="startTime">开始时间</label>
+							<div class="controls">
+								<input id="detail_startTime" name="startTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="endTime">结束时间</label>
+							<div class="controls">
+								<input id="detail_endTime" name="endTime" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="positon">地点</label>
+							<div class="controls">
+								<input id="detail_positon" name="positon" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="responser">现场负责人</label>
+							<div class="controls">
+								<input id="detail_responser" name="responser" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="workers">工作人员</label>
+							<div class="controls">
+								<input id="detail_workers" name="workers" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="process">工作进度</label>
+							<div class="controls">
+								<input id="detail_process" name="process" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="summary">工作总结情况</label>
+							<div class="controls">
+								<input id="detail_summary" name="summary" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="description">工作简述</label>
+							<div class="controls">
+								<textarea id="detail_description" name="description" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="recorder">记录人</label>
+							<div class="controls">
+								<input id="detail_recorder" name="recorder" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

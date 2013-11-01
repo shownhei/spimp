@@ -1,76 +1,82 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/spmi/schedule/records';
-
+	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
+	
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_team', 'create_team', 'edit_team' ], '/spmi/schedule/teams?list=true', 'id', 'teamName', true, '队组');
-	Utils.select.remote([ 'search_duty', 'create_duty', 'edit_duty' ], '/system/dictionaries?typeCode=schedule_duty&list=true', 'id', 'itemName', true, '班次');
+	Utils.select.remote([ 'search_team','create_team','edit_team' ], '/spmi/schedule/teams?list=true', 'id', 'teamName',true,'队组');
+	Utils.select.remote([ 'search_duty','create_duty','edit_duty' ], '/system/dictionaries?typeCode=schedule_duty&list=true', 'id', 'itemName',true,'班次');
 
 	// 下拉列表change事件
-	$('#search_team').bind('change', function() {
+	$('#search_team').bind('change',function(){
 		$('#submit').trigger('click');
 	});
-	$('#search_duty').bind('change', function() {
+	$('#search_duty').bind('change',function(){
 		$('#submit').trigger('click');
 	});
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-
+	
 	// 配置表格列
-	var fields = [ {
-		header : '日期',
-		name : 'recordDate'
-	}, {
-		header : '时间',
-		name : 'recordTime'
-	}, {
-		header : '队组',
-		name : 'team',
-		render : function(value) {
-			if (value !== null) {
-				return value.teamName;
-			} else {
-				return '';
+	var fields = [
+		{
+			header : '日期',
+			width : 90,
+			name : 'recordDate'
+		},
+		{
+			header : '时间',
+			width : 80,
+			name : 'recordTime'
+		},
+		{
+			header : '队组',
+			width : 120,
+			name : 'team'
+			,render : function(value) {
+				return value === null ? '' : value.teamName;
+			}
+		},
+		{
+			header : '班次',
+			width : 60,
+			name : 'duty'
+			,render : function(value) {
+				return value === null ? '' : value.itemName;
+			}
+		},
+		{
+			header : '汇报人',
+			width : 80,
+			name : 'reporter'
+		},
+		{
+			header : '事故问题详情',
+			name : 'problems'
+		},
+		{
+			header : '处理意见',
+			name : 'opinion'
+		},
+		{
+			header : '处理结果',
+			name : 'dealResults'
+		},
+		{
+			header : '查看',
+			name : 'id',
+			width : 50,
+			align : 'center',
+			render : function(value) {
+				return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
 			}
 		}
-	}, {
-		header : '班次',
-		name : 'duty',
-		render : function(value) {
-			if (value !== null) {
-				return value.itemName;
-			} else {
-				return '';
-			}
-		}
-	}, {
-		header : '地点',
-		name : 'positon'
-	}, {
-		header : '汇报人',
-		name : 'reporter'
-	}, {
-		header : '接收人',
-		name : 'receiver'
-	}, {
-		header : '事故问题详情',
-		name : 'problems'
-	}, {
-		header : '处理意见',
-		name : 'opinion'
-	}, {
-		header : '处理结果',
-		name : 'dealResults'
-	}, {
-		header : '验收人',
-		name : 'acceptancer'
-	} ];
+	];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -100,10 +106,14 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+			
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
-
+			
 			// 改变导出按钮状态
 			if (this.data.totalCount > 0) {
 				Utils.button.enable([ 'export' ]);
@@ -120,9 +130,9 @@ define(function(require, exports, module) {
 	});
 
 	// 验证
-	function validate(showType, model) {
+	function validate(showType, model){
 		var errorMsg = [];
-
+		
 		if (model.recordDate === '') {
 			errorMsg.push('请输入日期');
 		}
@@ -135,23 +145,36 @@ define(function(require, exports, module) {
 			errorMsg.push('请输入班次');
 		}
 
-		if (errorMsg.length > 0) {
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
-
+		
 		return true;
 	}
+	
+	// 查看
+	function showDetail(data){
+		Utils.modal.reset('detail');
+		
+		var object = $.extend({},data);
+		object.team = object.team.teamName;
+		object.duty = object.duty.itemName;
 
+
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
+	}
+	
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-
+		
 		// 验证
-		if (!validate('create', object)) {
+		if(!validate('create', object)){
 			return false;
 		}
-
+		
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -182,12 +205,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-
+		
 		// 验证
-		if (!validate('edit', object)) {
+		if(!validate('edit', object)){
 			return false;
 		}
-
+		
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -217,13 +240,13 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
+	
 	// 导出
 	$('#export').click(function() {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-
+		
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
