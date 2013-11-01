@@ -86,6 +86,68 @@ public class PageGenerator {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + SERVICE + "/";
 		generateFiles(path, entityName, packageName, "service.ftl", entityName + "Service.java", suffix);
 	}
+	
+	@Test
+	public void generateController() {
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateDao() {
+		generateDAO(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateEntity() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+	
+	/**
+	 * 第一步:配置源码路径。
+	 */
+	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+
+	protected final String uriPrefix = "spmi/schedule";
+
+	protected final String entityName = "Dig";
+
+	protected static final String PAGE_TITLE = "矿井掘进进尺 - 安全生产综合管理平台";
+
+	/**
+	 * 第二步:生成后台DAO及ENTITY代码。
+	 */
+	@Test
+	public void generateEntityFile() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateJs() {
+		generateJs(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateJsp() {
+		generateJsp(entityName, packageName, uriPrefix);
+	}
+
+	/**
+	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
+	 */
+	@Test
+	public void generateOtherFiles() {
+		generateJs(entityName, packageName, uriPrefix);
+		generateJsp(entityName, packageName, uriPrefix);
+
+		generateDAO(entityName, packageName, uriPrefix);
+		generateService(entityName, packageName, uriPrefix);
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateService() {
+		generateService(entityName, packageName, uriPrefix);
+	}
 
 	/**
 	 * 生成控制器.
@@ -130,17 +192,6 @@ public class PageGenerator {
 		return cfg;
 	}
 
-	/**
-	 * 第一步:配置源码路径。
-	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
-
-	protected final String uriPrefix = "spmi/schedule";
-
-	protected final String entityName = "Report";
-
-	protected static final String PAGE_TITLE = "安全生产三汇报 - 安全生产综合管理平台";
-
 	private static String getColumnType(Class<?> fieldType) {
 		if (String.class == fieldType) {
 			return "TEXT";
@@ -167,7 +218,7 @@ public class PageGenerator {
 			return "BLOB";
 		}
 
-		return "TEXT";
+		return "ENTITY";
 	}
 
 	/**
@@ -201,6 +252,8 @@ public class PageGenerator {
 		StringBuffer jsFields = new StringBuffer();
 		StringBuffer validateCode = new StringBuffer();
 		StringBuffer formFields = new StringBuffer();
+		StringBuffer detailFormFields = new StringBuffer();
+		StringBuffer detailShowJs = new StringBuffer();
 		StringBuffer queryPlaceHolder = new StringBuffer();
 
 		StringBuffer headers = new StringBuffer();
@@ -216,6 +269,7 @@ public class PageGenerator {
 		boolean hasTextSearch = false;
 		boolean hasSelect = false;
 		boolean hasSelectSearch = false;
+		boolean hasEntity = false;
 		String dateQueryField = null;
 		Class clazz = null;
 		try {
@@ -226,7 +280,6 @@ public class PageGenerator {
 
 		if (clazz != null) {
 			Field[] fields = clazz.getDeclaredFields();
-			int loop = 0;
 			for (Field field : fields) {
 				if (!field.isAnnotationPresent(PageFields.class)) {
 					continue;
@@ -238,6 +291,7 @@ public class PageGenerator {
 				String columnName = field.getName();
 				String selectDataUri = column.selectDataUri();
 				String selectShowField = column.selectShowField();
+				int columnWidth = column.columnWidth();
 				boolean columnShow = column.columnShow();
 				boolean allowedNull = column.allowedNull();
 				boolean query = column.search();
@@ -248,6 +302,7 @@ public class PageGenerator {
 					columnType = column.type();
 				}
 
+				// 查询相关的Java代码及JS代码
 				if (query) {
 					if ("date".equalsIgnoreCase(columnType) && !dateQuery) {
 						queryParamsWithType.append(", Date startDate, Date endDate");
@@ -284,8 +339,10 @@ public class PageGenerator {
 					}
 				}
 
+				// 初始化select的JS代码
 				if ("select".equalsIgnoreCase(columnType)) {
 					hasSelect = true;
+					hasEntity = true;
 					selectFields.append(",'create_").append(columnName).append("'");
 					selectFields.append(",'edit_").append(columnName).append("'");
 
@@ -295,24 +352,40 @@ public class PageGenerator {
 							.append(columnDescription).append("');\n");
 				}
 
+				// Grid的options的JS代码
 				if (columnShow) {
-					jsFields.append("\t\t{\n").append("\t\t\theader : '").append(columnDescription).append("',\n")
-							.append("\t\t\tname : '").append(columnName).append("'\n");
+					jsFields.append("\t\t{\n").append("\t\t\theader : '").append(columnDescription).append("',\n");
+
+					if ("number".equalsIgnoreCase(columnType)) {
+						jsFields.append("\t\t\talign : 'right',\n");
+					}
+					
+					if(columnWidth == 0){
+						if ("date".equalsIgnoreCase(columnType)) {
+							columnWidth = 90;
+						}
+						
+						if(columnDescription.indexOf("人") != -1 || columnDescription.indexOf("姓名") != -1){
+							columnWidth = 80;
+						}
+					}
+					
+					if(columnWidth != 0){
+						jsFields.append("\t\t\twidth : ").append(columnWidth).append(",\n");
+					}
+					
+					jsFields.append("\t\t\tname : '").append(columnName).append("'\n");
 
 					if ("select".equalsIgnoreCase(columnType)) {
-						jsFields.append("\t\t\t,render : function(value) {\n").append("\t\t\t\tif(value != null){\n")
-								.append("\t\t\t\t\treturn value.").append(selectShowField).append(";\n")
-								.append("\t\t\t\t} else {\n").append("\t\t\t\t\treturn '';\n").append("\t\t\t\t}\n")
-								.append("\t\t\t}\n");
+						jsFields.append("\t\t\t,render : function(value) {\n")
+							.append("\t\t\t\treturn value === null ? '' : value.").append(selectShowField).append(";\n")
+							.append("\t\t\t}\n");
 					}
 
-					if (loop != fields.length - 1) {
-						jsFields.append("\t\t},\n");
-					} else {
-						jsFields.append("\t\t}");
-					}
+					jsFields.append("\t\t},\n");
 				}
 
+				// 验证的JS代码
 				if (!allowedNull) {
 					validateCode.append("\t\tif (model.").append(columnName);
 
@@ -324,12 +397,22 @@ public class PageGenerator {
 							.append("');\n").append("\t\t}\n\n");
 				}
 
-				if ("NUMBER".equals(columnType)) {
+				if ("number".equalsIgnoreCase(columnType)) {
 					validateCode.append("\t\tif (model.").append(columnName).append(" !== '' && !$.isNumeric(model.")
 							.append(columnName).append(")) {\n").append("\t\t\terrorMsg.push('")
 							.append(columnDescription).append("为数字格式');\n").append("\t\t}\n\n");
 				}
+				
+				// 查看详情的JS代码
+				if("entity".equalsIgnoreCase(columnType)){
+					hasEntity = true;
+				}
+				
+				if ("select".equalsIgnoreCase(columnType) || "entity".equalsIgnoreCase(columnType)) {
+					detailShowJs.append("\t\tobject.").append(columnName).append(" = object.").append(columnName).append(".").append(selectShowField).append(";\n");
+				}
 
+				// 新建和编辑表单元素
 				formFields.append("\t\t\t\t\t\t<div class=\"control-group\">\n")
 						.append("\t\t\t\t\t\t\t<label class=\"control-label\" for=\"").append(columnName).append("\">")
 						.append(columnDescription).append("</label>\n")
@@ -337,7 +420,7 @@ public class PageGenerator {
 
 				if ("text".equalsIgnoreCase(columnType) || "number".equalsIgnoreCase(columnType)) {
 					formFields.append("\t\t\t\t\t\t\t\t<input id=\"xxxx_").append(columnName).append("\" name=\"")
-							.append(columnName).append("\" type=\"text\">\n");
+							.append(columnName).append("\" type=\"").append(columnType.toLowerCase()).append("\">\n");
 				} else if ("textarea".equalsIgnoreCase(columnType)) {
 					formFields.append("\t\t\t\t\t\t\t\t<textarea id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("\" rows=3></textarea>\n");
@@ -349,13 +432,34 @@ public class PageGenerator {
 					formFields.append("\t\t\t\t\t\t\t\t<select id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("[id]\"></select>\n");
 				}
-
 				formFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
+				
+				// 查看详情表单元素
+				detailFormFields.append("\t\t\t\t\t\t<div class=\"control-group\">\n")
+				.append("\t\t\t\t\t\t\t<label class=\"control-label\" for=\"").append(columnName).append("\">")
+				.append(columnDescription).append("</label>\n")
+				.append("\t\t\t\t\t\t\t<div class=\"controls\">\n");
+				if (!"textarea".equalsIgnoreCase(columnType)) {
+					detailFormFields.append("\t\t\t\t\t\t\t\t<input id=\"detail_").append(columnName).append("\" name=\"")
+							.append(columnName).append("\" type=\"text\" readonly=\"readonly\">\n");
+				} else {
+					detailFormFields.append("\t\t\t\t\t\t\t\t<textarea id=\"detail_").append(columnName).append("\" name=\"")
+							.append(columnName).append("\" rows=3 readonly=\"readonly\"></textarea>\n");
+				}
+				detailFormFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
 
 				headers.append(",\"").append(columnDescription).append("\"");
-
-				loop++;
 			}
+			
+			jsFields.append("\t\t{\n")
+			.append("\t\t\theader : '查看',\n")
+			.append("\t\t\tname : 'id',\n")
+			.append("\t\t\twidth : 50,\n")
+			.append("\t\t\talign : 'center',\n")
+			.append("\t\t\trender : function(value) {\n")
+			.append("\t\t\t\treturn '<i data-role=\"detail\" class=\"icon-list\" style=\"cursor:pointer;\"></i>';\n")
+			.append("\t\t\t}\n")
+			.append("\t\t}");
 		}
 
 		dataMap.put("queryParam", queryParams.toString());
@@ -367,12 +471,15 @@ public class PageGenerator {
 		dataMap.put("hasSelectSearch", hasSelectSearch);
 		dataMap.put("selectInitJS", selectInitJS.toString());
 		dataMap.put("hasSelect", hasSelect);
+		dataMap.put("hasEntity", hasEntity);
 		dataMap.put("dateQueryField", dateQueryField);
 		dataMap.put("queryParamsWithType", queryParamsWithType.toString());
 		dataMap.put("jsFields", jsFields.toString());
 		dataMap.put("validateCode", validateCode.toString());
+		dataMap.put("detailShowJs", detailShowJs.toString());
 		dataMap.put("createFormFields", formFields.toString().replaceAll("xxxx", "create"));
 		dataMap.put("editFormFields", formFields.toString().replaceAll("xxxx", "edit"));
+		dataMap.put("detailFormFields", detailFormFields.toString());
 		dataMap.put("pageTitle", PAGE_TITLE);
 		if (queryPlaceHolder.toString().length() > 1) {
 			dataMap.put(
@@ -393,57 +500,6 @@ public class PageGenerator {
 		dataMap.put("dbQuery", dbQuery.toString().replaceFirst(",", ""));
 
 		return dataMap;
-	}
-
-	@Test
-	public void generateController() {
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateDao() {
-		generateDAO(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateEntity() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-
-	/**
-	 * 第二步:生成后台DAO及ENTITY代码。
-	 */
-	@Test
-	public void generateEntityFile() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJs() {
-		generateJs(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJsp() {
-		generateJsp(entityName, packageName, uriPrefix);
-	}
-
-	/**
-	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
-	 */
-	@Test
-	public void generateOtherFiles() {
-		generateJs(entityName, packageName, uriPrefix);
-		generateJsp(entityName, packageName, uriPrefix);
-
-		generateDAO(entityName, packageName, uriPrefix);
-		generateService(entityName, packageName, uriPrefix);
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateService() {
-		generateService(entityName, packageName, uriPrefix);
 	}
 
 	private void generateJs(final String entityName, final String packageName, final String uriPrefix) {
