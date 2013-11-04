@@ -57,11 +57,11 @@
 										<input name="category" readonly="readonly" value="调度">
 									</td>
 									<td>
-										<label>年份</label> <select id="yearSelect" name="year">
+										<label>年份</label> <select id="create-yearSelect" name="year">
 										</select>
 									</td>
 									<td>
-										<label>月份</label> <select id="monthSelect" name="month">
+										<label>月份</label> <select id="create-monthSelect" name="month">
 										</select>
 									</td>
 									<td></td>
@@ -70,7 +70,7 @@
 						</table>
 						<%@ include file="head-table.jsp"%>
 						<div style="height: 500px; overflow: auto;">
-							<table id="grade-record-table" class="grade-table">
+							<table id="create-grade-record-table" class="grade-table">
 								<%@ include file="tbody.jsp"%>
 							</table>
 						</div>
@@ -96,7 +96,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal modal-sm hide">
+	<div id="edit-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -106,7 +106,36 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal" onsubmit="return false;"></form>
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
+						<table class="table-col-4">
+							<tbody>
+								<tr>
+									<td>
+										<label>专业</label>
+										<input name="category" readonly="readonly" value="调度">
+									</td>
+									<td>
+										<label>年份</label> <select id="edit-yearSelect" name="year">
+										</select>
+									</td>
+									<td>
+										<label>月份</label> <select id="edit-monthSelect" name="month">
+										</select>
+									</td>
+									<td>
+										<label>合计</label>
+										<input name="score" readonly="readonly">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<%@ include file="head-table.jsp"%>
+						<div style="height: 500px; overflow: auto;">
+							<table id="edit-grade-record-table" class="grade-table">
+								<%@ include file="tbody.jsp"%>
+							</table>
+						</div>
+					</form>
 				</div>
 			</div>
 			<div id="edit-message-alert" class="row-fluid hide">
@@ -195,7 +224,7 @@
 						</table>
 						<%@ include file="head-table.jsp"%>
 						<div style="height: 500px; overflow: auto;">
-							<table id="grade-record-view-table" class="grade-table">
+							<table id="view-grade-record-table" class="grade-table">
 								<%@ include file="tbody.jsp"%>
 							</table>
 						</div>

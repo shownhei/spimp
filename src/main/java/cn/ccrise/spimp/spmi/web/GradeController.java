@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.spmi.entity.Grade;
-import cn.ccrise.spimp.spmi.entity.GradeRecord;
 import cn.ccrise.spimp.spmi.service.GradeRecordService;
 import cn.ccrise.spimp.spmi.service.GradeService;
 
@@ -57,16 +56,17 @@ public class GradeController {
 	@RequestMapping(value = "/spmi/quality/grades", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Grade grade) {
-		for (GradeRecord gradeRecord : grade.getGradeRecords()) {
-			gradeRecordService.save(gradeRecord);
-		}
-
 		return new Response(gradeService.save(grade));
 	}
 
 	@RequestMapping(value = "/spmi/quality/grades/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Grade grade, @PathVariable long id) {
-		return new Response(gradeService.update(grade));
+		Grade gradeInDb = gradeService.get(id);
+
+		gradeInDb.getGradeRecords().clear();
+		gradeService.update(gradeInDb);
+
+		return new Response(gradeService.merge(grade));
 	}
 }

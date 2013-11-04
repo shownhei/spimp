@@ -79,7 +79,7 @@ public class Grade extends IDEntity {
 		return gradedTime;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
 	@Fetch(FetchMode.SUBSELECT)
 	public List<GradeRecord> getGradeRecords() {
 		return gradeRecords;
