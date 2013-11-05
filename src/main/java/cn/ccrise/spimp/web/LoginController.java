@@ -50,7 +50,7 @@ public class LoginController {
 	private static final String EXPIRE = "软件已过试用期，请与供应商联系";
 	private static final int MAX_INACTIVE_INTERVAL = 3600;
 
-	private static final String KEY = "ercs-------1.0.0";
+	public static final String KEY = "ercs-------1.0.0";
 
 	public static void main(String[] args) {
 		String day = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils.addDays(new Date(System.currentTimeMillis()),
