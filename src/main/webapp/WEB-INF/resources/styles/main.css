@@ -15,6 +15,13 @@ body {
 	border-width: 0px !important;
 }
 
+.btn.btn-app {
+	width: 120px;
+	height: 120px;
+	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica,
+		"Lucida Grande", "Luxi Sans", Arial, sans-serif;
+}
+
 .page-toolbar {
 	position: relative;
 	border-bottom: 1px solid #e5e5e5;
