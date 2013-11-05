@@ -253,6 +253,25 @@ body {
 	margin-left: 130px;
 }
 
+.modal-el {
+	width: 1040px;
+}
+
+.modal-el form .control-group label {
+	width: 110px !important;
+	box-sizing: border-box;
+}
+
+.modal-el form .control-group input,.modal-el form .control-group select,.modal-el form .control-group textarea
+	{
+	width: 880px;
+	box-sizing: border-box;
+}
+
+.modal-el .controls {
+	margin-left: 130px;
+}
+
 /* 四列表格布局 */
 .modal-xl .table-col-4 {
 	width: 100%;
