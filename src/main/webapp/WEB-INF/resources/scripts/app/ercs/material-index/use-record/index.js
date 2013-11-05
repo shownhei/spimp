@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	window.$=$;
-	window.Utils=Utils;
+	window.$ = $;
+	window.Utils = Utils;
 	Utils.input.date('input[type=datetime]');
 	// 提示信息
 	$('button[title]').tooltip({
@@ -9,8 +9,8 @@ define(function(require, exports, module) {
 	});
 	$("#resource").autocomplete('/ercs/emergency-resources', {
 		dataType : "json",
-		mustMatch:true,
-		cacheLength:0,
+		mustMatch : true,
+		cacheLength : 0,
 		parse : function(data) {
 			return $.map(data.data.result, function(row) {
 				return {
@@ -24,12 +24,12 @@ define(function(require, exports, module) {
 			return item.resourceName;
 		}
 	}).result(function(e, item) {
-		$('#resource').attr('data-id',item.id);
+		$('#resource').attr('data-id', item.id);
 	});
 	$("#edit-resource").autocomplete('/ercs/emergency-resources', {
 		dataType : "json",
-		mustMatch:true,
-		cacheLength:0,
+		mustMatch : true,
+		cacheLength : 0,
 		parse : function(data) {
 			return $.map(data.data.result, function(row) {
 				return {
@@ -43,28 +43,28 @@ define(function(require, exports, module) {
 			return item.resourceName;
 		}
 	}).result(function(e, item) {
-		$('#edit-resource').attr('data-id',item.id);
+		$('#edit-resource').attr('data-id', item.id);
 	});
 	// 配置表格列
 	var fields = [ {
 		header : '物资名称',
 		name : 'resource',
-		render:function(v){
+		render : function(v) {
 			return v.resourceName;
 		}
 	}, {
 		header : '物资编号',
 		name : 'resource',
-		width:80,
-		render:function(v){
+		width : 80,
+		render : function(v) {
 			return v.resourceNo;
 		}
-	},{
+	}, {
 		header : '使用时间',
 		name : 'useTime'
-	},{
+	}, {
 		header : '使用数量',
-		width:70,
+		width : 70,
 		name : 'useAmount'
 	}, {
 		header : '检查维修时间',
@@ -72,10 +72,10 @@ define(function(require, exports, module) {
 	}, {
 		header : '更换情况',
 		name : 'replacement'
-	} ,{
+	}, {
 		header : '报废情况',
 		name : 'scrapped'
-	},{
+	}, {
 		header : '备注',
 		name : 'remark',
 		width : 80
@@ -124,8 +124,8 @@ define(function(require, exports, module) {
 
 	// 保存
 	$('#create-save').click(function() {
-		if($('#create-save').hasClass('disabled')){
-			return ;
+		if ($('#create-save').hasClass('disabled')) {
+			return;
 		}
 		var object = Utils.form.serialize('create');
 		// 验证
@@ -137,8 +137,11 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请选择物资名称' ]);
 			return;
 		}
-		var resource={resourceName:object.resource,id:$('#resource').attr('data-id')};
-		object.resource=resource;
+		var resource = {
+			resourceName : object.resource,
+			id : $('#resource').attr('data-id')
+		};
+		object.resource = resource;
 		$.post('/ercs/resource-use-records', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -162,7 +165,7 @@ define(function(require, exports, module) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			$('#edit-resource').val(object.resource.resourceName);
-			$('#edit-resource').attr("data-id",object.resource.id);
+			$('#edit-resource').attr("data-id", object.resource.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -170,12 +173,15 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		
+
 		// 验证
 		// 处理属性
 		var selectId = grid.selectedData('id');
-		var resource={resourceName:object.resource,id:$('#edit-resource').attr('data-id')};
-		object.resource=resource;
+		var resource = {
+			resourceName : object.resource,
+			id : $('#edit-resource').attr('data-id')
+		};
+		object.resource = resource;
 		$.put('/ercs/resource-use-records/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

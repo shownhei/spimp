@@ -67,6 +67,8 @@ public class PageGenerator {
 
 	private static final String ENCODING = "UTF-8";
 
+	protected static final String PAGE_TITLE = "矿井掘进进尺 - 安全生产综合管理平台";
+
 	public static void generateController(final String entityName, final String packageName, final String uriPrefix) {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + CONTROLLER + "/";
 		generateFiles(path, entityName, packageName, "controller.ftl", entityName + "Controller.java", uriPrefix);
@@ -85,68 +87,6 @@ public class PageGenerator {
 	public static void generateService(final String entityName, final String packageName, final String suffix) {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + SERVICE + "/";
 		generateFiles(path, entityName, packageName, "service.ftl", entityName + "Service.java", suffix);
-	}
-	
-	@Test
-	public void generateController() {
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateDao() {
-		generateDAO(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateEntity() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-	
-	/**
-	 * 第一步:配置源码路径。
-	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
-
-	protected final String uriPrefix = "spmi/schedule";
-
-	protected final String entityName = "Dig";
-
-	protected static final String PAGE_TITLE = "矿井掘进进尺 - 安全生产综合管理平台";
-
-	/**
-	 * 第二步:生成后台DAO及ENTITY代码。
-	 */
-	@Test
-	public void generateEntityFile() {
-		generateEntity(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJs() {
-		generateJs(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateJsp() {
-		generateJsp(entityName, packageName, uriPrefix);
-	}
-
-	/**
-	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
-	 */
-	@Test
-	public void generateOtherFiles() {
-		generateJs(entityName, packageName, uriPrefix);
-		generateJsp(entityName, packageName, uriPrefix);
-
-		generateDAO(entityName, packageName, uriPrefix);
-		generateService(entityName, packageName, uriPrefix);
-		generateController(entityName, packageName, uriPrefix);
-	}
-
-	@Test
-	public void generateService() {
-		generateService(entityName, packageName, uriPrefix);
 	}
 
 	/**
@@ -173,23 +113,6 @@ public class PageGenerator {
 		} catch (TemplateException e) {
 			System.err.println("模板文件异常");
 		}
-	}
-
-	/**
-	 * 第三步:打开刚生成的实体类，添加属性及注解。
-	 */
-
-	/**
-	 * 获取默认配置.
-	 * 
-	 * @return 模板配置
-	 */
-	private static Configuration getConfiguration() {
-		Configuration cfg = new Configuration();
-		cfg.setClassForTemplateLoading(PageGenerator.class, "");
-		cfg.setCacheStorage(new NullCacheStorage());
-		cfg.setObjectWrapper(new DefaultObjectWrapper());
-		return cfg;
 	}
 
 	private static String getColumnType(Class<?> fieldType) {
@@ -219,6 +142,19 @@ public class PageGenerator {
 		}
 
 		return "ENTITY";
+	}
+
+	/**
+	 * 获取默认配置.
+	 * 
+	 * @return 模板配置
+	 */
+	private static Configuration getConfiguration() {
+		Configuration cfg = new Configuration();
+		cfg.setClassForTemplateLoading(PageGenerator.class, "");
+		cfg.setCacheStorage(new NullCacheStorage());
+		cfg.setObjectWrapper(new DefaultObjectWrapper());
+		return cfg;
 	}
 
 	/**
@@ -359,27 +295,27 @@ public class PageGenerator {
 					if ("number".equalsIgnoreCase(columnType)) {
 						jsFields.append("\t\t\talign : 'right',\n");
 					}
-					
-					if(columnWidth == 0){
+
+					if (columnWidth == 0) {
 						if ("date".equalsIgnoreCase(columnType)) {
 							columnWidth = 90;
 						}
-						
-						if(columnDescription.indexOf("人") != -1 || columnDescription.indexOf("姓名") != -1){
+
+						if (columnDescription.indexOf("人") != -1 || columnDescription.indexOf("姓名") != -1) {
 							columnWidth = 80;
 						}
 					}
-					
-					if(columnWidth != 0){
+
+					if (columnWidth != 0) {
 						jsFields.append("\t\t\twidth : ").append(columnWidth).append(",\n");
 					}
-					
+
 					jsFields.append("\t\t\tname : '").append(columnName).append("'\n");
 
 					if ("select".equalsIgnoreCase(columnType)) {
 						jsFields.append("\t\t\t,render : function(value) {\n")
-							.append("\t\t\t\treturn value === null ? '' : value.").append(selectShowField).append(";\n")
-							.append("\t\t\t}\n");
+								.append("\t\t\t\treturn value === null ? '' : value.").append(selectShowField)
+								.append(";\n").append("\t\t\t}\n");
 					}
 
 					jsFields.append("\t\t},\n");
@@ -402,14 +338,15 @@ public class PageGenerator {
 							.append(columnName).append(")) {\n").append("\t\t\terrorMsg.push('")
 							.append(columnDescription).append("为数字格式');\n").append("\t\t}\n\n");
 				}
-				
+
 				// 查看详情的JS代码
-				if("entity".equalsIgnoreCase(columnType)){
+				if ("entity".equalsIgnoreCase(columnType)) {
 					hasEntity = true;
 				}
-				
+
 				if ("select".equalsIgnoreCase(columnType) || "entity".equalsIgnoreCase(columnType)) {
-					detailShowJs.append("\t\tobject.").append(columnName).append(" = object.").append(columnName).append(".").append(selectShowField).append(";\n");
+					detailShowJs.append("\t\tobject.").append(columnName).append(" = object.").append(columnName)
+							.append(".").append(selectShowField).append(";\n");
 				}
 
 				// 新建和编辑表单元素
@@ -433,33 +370,34 @@ public class PageGenerator {
 							.append(columnName).append("[id]\"></select>\n");
 				}
 				formFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
-				
+
 				// 查看详情表单元素
 				detailFormFields.append("\t\t\t\t\t\t<div class=\"control-group\">\n")
-				.append("\t\t\t\t\t\t\t<label class=\"control-label\" for=\"").append(columnName).append("\">")
-				.append(columnDescription).append("</label>\n")
-				.append("\t\t\t\t\t\t\t<div class=\"controls\">\n");
+						.append("\t\t\t\t\t\t\t<label class=\"control-label\" for=\"").append(columnName).append("\">")
+						.append(columnDescription).append("</label>\n")
+						.append("\t\t\t\t\t\t\t<div class=\"controls\">\n");
 				if (!"textarea".equalsIgnoreCase(columnType)) {
-					detailFormFields.append("\t\t\t\t\t\t\t\t<input id=\"detail_").append(columnName).append("\" name=\"")
-							.append(columnName).append("\" type=\"text\" readonly=\"readonly\">\n");
+					detailFormFields.append("\t\t\t\t\t\t\t\t<input id=\"detail_").append(columnName)
+							.append("\" name=\"").append(columnName)
+							.append("\" type=\"text\" readonly=\"readonly\">\n");
 				} else {
-					detailFormFields.append("\t\t\t\t\t\t\t\t<textarea id=\"detail_").append(columnName).append("\" name=\"")
-							.append(columnName).append("\" rows=3 readonly=\"readonly\"></textarea>\n");
+					detailFormFields.append("\t\t\t\t\t\t\t\t<textarea id=\"detail_").append(columnName)
+							.append("\" name=\"").append(columnName)
+							.append("\" rows=3 readonly=\"readonly\"></textarea>\n");
 				}
 				detailFormFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
 
 				headers.append(",\"").append(columnDescription).append("\"");
 			}
-			
+
 			jsFields.append("\t\t{\n")
-			.append("\t\t\theader : '查看',\n")
-			.append("\t\t\tname : 'id',\n")
-			.append("\t\t\twidth : 50,\n")
-			.append("\t\t\talign : 'center',\n")
-			.append("\t\t\trender : function(value) {\n")
-			.append("\t\t\t\treturn '<i data-role=\"detail\" class=\"icon-list\" style=\"cursor:pointer;\"></i>';\n")
-			.append("\t\t\t}\n")
-			.append("\t\t}");
+					.append("\t\t\theader : '查看',\n")
+					.append("\t\t\tname : 'id',\n")
+					.append("\t\t\twidth : 50,\n")
+					.append("\t\t\talign : 'center',\n")
+					.append("\t\t\trender : function(value) {\n")
+					.append("\t\t\t\treturn '<i data-role=\"detail\" class=\"icon-list\" style=\"cursor:pointer;\"></i>';\n")
+					.append("\t\t\t}\n").append("\t\t}");
 		}
 
 		dataMap.put("queryParam", queryParams.toString());
@@ -500,6 +438,70 @@ public class PageGenerator {
 		dataMap.put("dbQuery", dbQuery.toString().replaceFirst(",", ""));
 
 		return dataMap;
+	}
+
+	/**
+	 * 第一步:配置源码路径。
+	 */
+	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+
+	protected final String uriPrefix = "spmi/schedule";
+
+	protected final String entityName = "Dig";
+
+	@Test
+	public void generateController() {
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateDao() {
+		generateDAO(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateEntity() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+
+	/**
+	 * 第二步:生成后台DAO及ENTITY代码。
+	 */
+	@Test
+	public void generateEntityFile() {
+		generateEntity(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateJs() {
+		generateJs(entityName, packageName, uriPrefix);
+	}
+
+	/**
+	 * 第三步:打开刚生成的实体类，添加属性及注解。
+	 */
+
+	@Test
+	public void generateJsp() {
+		generateJsp(entityName, packageName, uriPrefix);
+	}
+
+	/**
+	 * 第四步:生成前端代码，包括js,jsp,controller,service,dao。
+	 */
+	@Test
+	public void generateOtherFiles() {
+		generateJs(entityName, packageName, uriPrefix);
+		generateJsp(entityName, packageName, uriPrefix);
+
+		generateDAO(entityName, packageName, uriPrefix);
+		generateService(entityName, packageName, uriPrefix);
+		generateController(entityName, packageName, uriPrefix);
+	}
+
+	@Test
+	public void generateService() {
+		generateService(entityName, packageName, uriPrefix);
 	}
 
 	private void generateJs(final String entityName, final String packageName, final String uriPrefix) {

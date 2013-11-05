@@ -6,36 +6,36 @@ define(function(require, exports, module) {
 	});
 	Utils.input.date('input[type=datetime]');
 	// 配置表格列
-	var fields = [{
-	            header : '器材/药品名称',
-	            name : 'name'
-	        },{
-	            header : '数量',
-	            width:80,
-	            name : 'amount'
-	        },{
-	            header : '型号',
-	            width:100,
-	            name : 'model'
-	        },{
-	            header : '产地',
-	            width:80,
-	            name : 'origin'
-	        },{
-	            header : '购置时间',
-	            width:80,
-	            name : 'buyTime'
-	        },{
-	            header : '有效使用期限',
-	            width:100,
-	            name : 'expiration'
-	        },{
-	            header : '使用、更换、报废情况',
-	            name : 'situation'
-	        },{
-	            header : '备注',
-	            name : 'remark'
-	        }];
+	var fields = [ {
+		header : '器材/药品名称',
+		name : 'name'
+	}, {
+		header : '数量',
+		width : 80,
+		name : 'amount'
+	}, {
+		header : '型号',
+		width : 100,
+		name : 'model'
+	}, {
+		header : '产地',
+		width : 80,
+		name : 'origin'
+	}, {
+		header : '购置时间',
+		width : 80,
+		name : 'buyTime'
+	}, {
+		header : '有效使用期限',
+		width : 100,
+		name : 'expiration'
+	}, {
+		header : '使用、更换、报废情况',
+		name : 'situation'
+	}, {
+		header : '备注',
+		name : 'remark'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -45,21 +45,21 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(selected, data) {
-	    if (selected ) {
-		   Utils.button.enable([ 'edit', 'remove' ]);
-		}else{
-		   Utils.button.disable([ 'edit', 'remove' ]);
+		if (selected) {
+			Utils.button.enable([ 'edit', 'remove' ]);
+		} else {
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
-		
+
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/medical-supplies?orderBy=id&order=desc&pageSize='+pageSize;
+	var defaultUrl = contextPath + '/ercs/medical-supplies?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#medicalSupplies-table',
 		url : defaultUrl,
 		model : {
-			needOrder:true,
+			needOrder : true,
 			fields : fields,
 			height : gridHeight
 		},
@@ -185,5 +185,5 @@ define(function(require, exports, module) {
 			url : defaultUrl + '&' + $('#search-form').serialize()
 		});
 	});
-	
+
 });

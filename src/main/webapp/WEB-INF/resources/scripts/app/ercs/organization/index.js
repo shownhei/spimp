@@ -16,52 +16,53 @@ define(function(require, exports, module) {
 			enable : true,
 			url : contextPath + '/ercs/response-team-tree',
 			type : "get",
-			autoParam:["id"],
+			autoParam : [ "id" ],
 			dataFilter : function(treeId, parentNode, responseData) {
 				return responseData.data;
 			}
 		},
 		data : {
 			key : {
-				name:'teamName'
+				name : 'teamName'
 			},
-			simpleData: {
-				pIdKey: "parentId"
+			simpleData : {
+				pIdKey : "parentId"
 			}
 		},
 		callback : {
 			onClick : function(event, treeId, treeNode, clickFlag) {
 				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-				var teamName=treeNode.teamName;
-				if(teamName==="技术专家"){
+				var teamName = treeNode.teamName;
+				if (teamName === "技术专家") {
 					$('#normal').hide();
 					$('#expert').show();
 					$('#expert_team').val(treeNode.id);
-				}else{
+				} else {
 					$('#normal').show();
 					$('#expert').hide();
 					normal_grid.set({
-						url : contextPath + '/ercs/response-team-members?teamId='+treeNode.id+'&memberType=normal&orderBy=id&order=desc&pageSize=' + pageSize
+						url : contextPath + '/ercs/response-team-members?teamId=' + treeNode.id + '&memberType=normal&orderBy=id&order=desc&pageSize='
+								+ pageSize
 					});
 					$('#normal_team').val(treeNode.id);
 				}
 			},
 			onAsyncSuccess : function(event, treeId, msg) {
 				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-				try {  
-	                 //调用默认展开第一个结点  
-	                 var selectedNode = groupTree.getSelectedNodes();  
-	                 var nodes = groupTree.getNodes();  
-	                 groupTree.expandNode(nodes[0], true);  
-	              
-	                 var childNodes = groupTree.transformToArray(nodes[0]);  
-	                 groupTree.expandNode(childNodes[1], true);  
-	                 groupTree.selectNode(childNodes[1]);  
-	                 var childNodes1 = groupTree.transformToArray(childNodes[1]);  
-	                 groupTree.checkNode(childNodes1[1], true, true);  
-	                 firstAsyncSuccessFlag = 1;  
-	           } catch (err) {  
-	           }  
+				try {
+					// 调用默认展开第一个结点
+					var selectedNode = groupTree.getSelectedNodes();
+					var nodes = groupTree.getNodes();
+					groupTree.expandNode(nodes[0], true);
+
+					var childNodes = groupTree.transformToArray(nodes[0]);
+					groupTree.expandNode(childNodes[1], true);
+					groupTree.selectNode(childNodes[1]);
+					var childNodes1 = groupTree.transformToArray(childNodes[1]);
+					groupTree.checkNode(childNodes1[1], true, true);
+					firstAsyncSuccessFlag = 1;
+				} catch (err) {
+				}
 			}
 		}
 	};
@@ -86,7 +87,7 @@ define(function(require, exports, module) {
 	});
 	// 保存
 	$('#create-normal-save').click(function() {
-		if($("#create-normal-name").attr('data-id')===''){
+		if ($("#create-normal-name").attr('data-id') === '') {
 			$("#create-normal-name").val('');
 			$("#create-normal-name")[0].focus();
 		}
@@ -97,14 +98,20 @@ define(function(require, exports, module) {
 			return;
 		}
 		// 处理属性
-		var normalMember= {id:$('#create-normal-name').attr('data-id')};
-		delete object.normalMember ;
-		object.normalMember = {id:$('#create-normal-name').attr('data-id')};
-		
-		var team= {id:$('#normal_team').val()};
-		delete object.team ;
+		var normalMember = {
+			id : $('#create-normal-name').attr('data-id')
+		};
+		delete object.normalMember;
+		object.normalMember = {
+			id : $('#create-normal-name').attr('data-id')
+		};
+
+		var team = {
+			id : $('#normal_team').val()
+		};
+		delete object.team;
 		object.team = team;
-		
+
 		$.post(contextPath + '/ercs/response-team-members', JSON.stringify(object), function(data) {
 			if (data.success) {
 				Utils.modal.hide('create-normal');
@@ -134,8 +141,8 @@ define(function(require, exports, module) {
 	});
 	$("#create-normal-name").autocomplete('/ercs/rescuers', {
 		dataType : "json",
-		mustMatch:true,
-		cacheLength:0,
+		mustMatch : true,
+		cacheLength : 0,
 		parse : function(data) {
 			return $.map(data.data.result, function(row) {
 				return {
@@ -149,70 +156,74 @@ define(function(require, exports, module) {
 			return item.staffName;
 		}
 	}).result(function(e, item) {
-		$('#create-normal-name').attr('data-id',item.id);
+		$('#create-normal-name').attr('data-id', item.id);
 	});
-	//==========普通成员==
+	// ==========普通成员==
 	var normal_fields = [ {
 		header : '名称',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.staffName:'';
+		render : function(v) {
+			return v ? v.staffName : '';
 		}
-	},{
+	}, {
 		header : '职务',
 		name : 'memberLevel',
-		width:65,
-		render:function(v){
-			switch(v){
-				case 1:return '总指挥';
-				case 2:return '副总指挥';
-				case 3:return '成员';
-				default:return '';
+		width : 65,
+		render : function(v) {
+			switch (v) {
+				case 1:
+					return '总指挥';
+				case 2:
+					return '副总指挥';
+				case 3:
+					return '成员';
+				default:
+					return '';
 			}
 		}
-	},{
+	}, {
 		header : '出生日期',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.birthDay:'';
+		render : function(v) {
+			return v ? v.birthDay : '';
 		}
-	},{
+	}, {
 		header : '文化程度',
 		name : 'normalMember',
-		width:60,
-		render:function(v){
-			return v?v.education.itemName:'';
+		width : 60,
+		render : function(v) {
+			return v ? v.education.itemName : '';
 		}
-	},{
+	}, {
 		header : '参加工作时间',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.workDate:'';
+		render : function(v) {
+			return v ? v.workDate : '';
 		}
-	},{
+	}, {
 		header : '入队时间',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.enqueueDate:'';
+		render : function(v) {
+			return v ? v.enqueueDate : '';
 		}
-	},{
+	}, {
 		header : '住址',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.address:'';
+		render : function(v) {
+			return v ? v.address : '';
 		}
-	},{
+	}, {
 		header : '手机号',
 		name : 'normalMember',
-		render:function(v){
-			return v?v.telephone:'';
+		render : function(v) {
+			return v ? v.telephone : '';
 		}
-	}];
+	} ];
 	function changeNormalButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable(['normal-remove' ]);
+			Utils.button.enable([ 'normal-remove' ]);
 		} else {
-			Utils.button.disable(['normal-remove' ]);
+			Utils.button.disable([ 'normal-remove' ]);
 		}
 	}
 	var normal_gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 220);
@@ -234,16 +245,15 @@ define(function(require, exports, module) {
 			changeNormalButtonsStatus();
 		}
 	}).render();
-	
-	
+
 	$('#expert-create').click(function() {
 		Utils.modal.reset('create-expert');
 		Utils.modal.show('create-expert');
 	});
 	$("#create-expert-name").autocomplete('/ercs/specia-lists', {
 		dataType : "json",
-		mustMatch:true,
-		cacheLength:0,
+		mustMatch : true,
+		cacheLength : 0,
 		parse : function(data) {
 			return $.map(data.data.result, function(row) {
 				return {
@@ -257,12 +267,12 @@ define(function(require, exports, module) {
 			return item.name;
 		}
 	}).result(function(e, item) {
-		$('#create-expert-name').attr('data-id',item.id);
+		$('#create-expert-name').attr('data-id', item.id);
 	});
 	// 保存
 	$('#create-expert-save').click(function() {
-		var expertNameEl=$("#create-expert-name");
-		if(expertNameEl.attr('data-id')===''){
+		var expertNameEl = $("#create-expert-name");
+		if (expertNameEl.attr('data-id') === '') {
 			expertNameEl.val('');
 			expertNameEl[0].focus();
 		}
@@ -273,11 +283,15 @@ define(function(require, exports, module) {
 			return;
 		}
 		// 处理属性
-		var expertMember= {id:$('#create-expert-name').attr('data-id')};
-		delete object.expertMember ;
+		var expertMember = {
+			id : $('#create-expert-name').attr('data-id')
+		};
+		delete object.expertMember;
 		object.expertMember = expertMember;
-		var team= {id:$('#expert_team').val()};
-		delete object.team ;
+		var team = {
+			id : $('#expert_team').val()
+		};
+		delete object.team;
 		object.team = team;
 		$.post(contextPath + '/ercs/response-team-members', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -349,9 +363,9 @@ define(function(require, exports, module) {
 	});
 	function changeExpertButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable(['expert-remove' ]);
+			Utils.button.enable([ 'expert-remove' ]);
 		} else {
-			Utils.button.disable(['expert-remove' ]);
+			Utils.button.disable([ 'expert-remove' ]);
 		}
 	}
 	// 删除确认
@@ -362,45 +376,45 @@ define(function(require, exports, module) {
 			expertGrid.refresh();
 		});
 	});
-	var expertFields = [{
-        header : '人员名称',
-        render:function(v){
-            return v?v.name:'';
-        },
-        name : 'expertMember'
-    },{
-        header : '性别',
-        width:60,
-        render:function(v){
-            return v?(v.gender===1?'男':'女'):'';
-        },
-        name : 'expertMember'
-    },{
-        header : '出生日期',
-        render:function(v){
-            return v?v.birthDay:'';
-        },
-        name : 'expertMember'
-    },{
-        header : '专业类型',
-        render:function(v){
-            return v?v.specialty.itemName:'';
-        },
-        name : 'expertMember'
-    },{
-        header : '住址',
-        name : 'expertMember',
-        render:function(v){
-            return v?v.address:'';
-        }
-    },{
-        header : '手机',
-        name : 'expertMember',
-        render:function(v){
-            return v?v.mobile:'';
-        }
-    }];
-	
+	var expertFields = [ {
+		header : '人员名称',
+		render : function(v) {
+			return v ? v.name : '';
+		},
+		name : 'expertMember'
+	}, {
+		header : '性别',
+		width : 60,
+		render : function(v) {
+			return v ? (v.gender === 1 ? '男' : '女') : '';
+		},
+		name : 'expertMember'
+	}, {
+		header : '出生日期',
+		render : function(v) {
+			return v ? v.birthDay : '';
+		},
+		name : 'expertMember'
+	}, {
+		header : '专业类型',
+		render : function(v) {
+			return v ? v.specialty.itemName : '';
+		},
+		name : 'expertMember'
+	}, {
+		header : '住址',
+		name : 'expertMember',
+		render : function(v) {
+			return v ? v.address : '';
+		}
+	}, {
+		header : '手机',
+		name : 'expertMember',
+		render : function(v) {
+			return v ? v.mobile : '';
+		}
+	} ];
+
 	var expertGridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 220);
 	var expertPageSize = Math.floor(expertGridHeight / 21);
 	var expertUrl = contextPath + '/ercs/response-team-members?memberType=expert&orderBy=id&order=desc&pageSize=' + expertPageSize;
@@ -420,5 +434,5 @@ define(function(require, exports, module) {
 			changeExpertButtonsStatus();
 		}
 	}).render();
-	
+
 });

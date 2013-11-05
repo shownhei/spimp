@@ -6,14 +6,15 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory','emergencyCategorySelect'], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel'], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'create-team', 'edit-team'], '/ercs/response-team/tree', 'id', 'teamName');
+	Utils.select.remote([ 'create-emergencyCategory', 'edit-emergencyCategory', 'emergencyCategorySelect' ],
+			'/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel' ], '/system/dictionaries?typeCode=accident_level&list=true', 'id', 'itemName');
+	Utils.select.remote([ 'create-team', 'edit-team' ], '/ercs/response-team/tree', 'id', 'teamName');
 
 	// 配置表格列
 	var fields = [ {
 		header : '事故类型',
-		width:100,
+		width : 100,
 		name : 'emergencyCategory',
 		render : function(val) {
 			if (val) {
@@ -21,34 +22,34 @@ define(function(require, exports, module) {
 			}
 			return '';
 		}
-	},{
+	}, {
 		header : '严重程度',
 		name : 'emergencyLevel',
-		width:100,
+		width : 100,
 		render : function(val) {
 			if (val) {
 				return val.itemName;
 			}
 			return '';
 		}
-	},{
+	}, {
 		header : '专业组',
 		name : 'team',
-		width:100,
+		width : 100,
 		render : function(val) {
 			if (val) {
 				return val.teamName;
 			}
 			return '';
 		}
-	},{
+	}, {
 		header : '救援措施内容',
 		name : 'taskContent'
-	},{
+	}, {
 		header : '添加时间',
-		width:150,
+		width : 150,
 		name : 'addTime'
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -131,9 +132,9 @@ define(function(require, exports, module) {
 		$.get('/ercs/emergency-plan-templates/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
-			if(object.department){
+			if (object.department) {
 				$('#edit_department').val(object.department.name);
-				$('#edit_department').attr('data-id',object.department.id);
+				$('#edit_department').attr('data-id', object.department.id);
 			}
 			Utils.modal.show('edit');
 		});
@@ -186,7 +187,7 @@ define(function(require, exports, module) {
 		});
 	});
 
-	$('#emergencyCategorySelect').bind('change',function(){
+	$('#emergencyCategorySelect').bind('change', function() {
 		$('#nav-search-button').trigger('click');
 	});
 	// 搜索

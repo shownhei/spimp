@@ -6,7 +6,6 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-
 	// 配置表格列
 	var fields = [ {
 		header : '资源名称',
@@ -16,39 +15,39 @@ define(function(require, exports, module) {
 		name : 'resourceNo'
 	}, {
 		header : '数量',
-		width:50,
+		width : 50,
 		name : 'amount'
 	}, {
 		header : '用途',
 		name : 'function'
-	},{
+	}, {
 		header : '型号',
 		name : 'model'
-	},{
+	}, {
 		header : '产地',
 		name : 'origin'
 	}, {
 		header : '购买时间',
-		width:70,
+		width : 70,
 		name : 'butTime'
 	}, {
 		header : '有效使用时间',
 		name : 'expiration'
-	},{
+	}, {
 		header : '存放位置',
-		width:70,
+		width : 70,
 		name : 'location'
 	}, {
 		header : '管理人员',
-		width:70,
+		width : 70,
 		name : 'manager'
 	}, {
 		header : '手机',
 		name : 'telephone'
-	},{
+	}, {
 		header : '备注',
 		name : 'remark'
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -126,9 +125,9 @@ define(function(require, exports, module) {
 
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
-			if(object.department.name){
+			if (object.department.name) {
 				$('#edit_department').val(object.department.name);
-				$('#edit_department').attr('data-id',object.department.id);
+				$('#edit_department').attr('data-id', object.department.id);
 			}
 		});
 	});

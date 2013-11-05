@@ -1,46 +1,45 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-	window.$=$;
-	window.Utils=Utils;
+	window.$ = $;
+	window.Utils = Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-type', 'edit-type' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id',
-			'itemName');
+	Utils.select.remote([ 'create-type', 'edit-type' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
 	// 配置表格列
 	var fields = [ {
 		header : '事故类别',
 		name : 'type',
-		width:100,
-		render:function(v){
-			return v?v.itemName:'';
+		width : 100,
+		render : function(v) {
+			return v ? v.itemName : '';
 		}
 	}, {
 		header : '事故现场',
 		name : 'address'
-	},{
+	}, {
 		header : '方案指定人',
-		width:100,
+		width : 100,
 		name : 'decide'
 	}, {
 		header : '附件',
 		name : 'attachment',
-		width:300,
-		render:function(v){
-			var name=v.simpleName;
-			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
-			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
-			return v?html:'';
+		width : 300,
+		render : function(v) {
+			var name = v.simpleName;
+			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
+			return v ? html : '';
 		}
-	},  {
+	}, {
 		header : '事故发生时间',
-		width:145,
+		width : 145,
 		name : 'startTime'
 	}, {
 		header : '事故上传时间',
-		width:145,
+		width : 145,
 		name : 'uploadTime'
 	} ];
 
@@ -102,9 +101,12 @@ define(function(require, exports, module) {
 		if (object.resourceType === '') {
 			delete object.resourceType;
 		}
-		var attachment={id:$('#attachment').attr('data-id'),name:object.filePath};
+		var attachment = {
+			id : $('#attachment').attr('data-id'),
+			name : object.filePath
+		};
 		delete object.filePath;
-		object.attachment=attachment;	
+		object.attachment = attachment;
 		$.post('/ercs/schemes', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -129,7 +131,7 @@ define(function(require, exports, module) {
 
 			Utils.form.fill('edit', object);
 			$('#edit_attachment').val(object.attachment.filePath);
-			$('#edit_attachment').attr('data-id',object.attachment.id);	
+			$('#edit_attachment').attr('data-id', object.attachment.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -145,9 +147,11 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入“事故现场”' ]);
 			return;
 		}
-		var attachment={id:$('#edit_attachment').attr('data-id')};
+		var attachment = {
+			id : $('#edit_attachment').attr('data-id')
+		};
 		delete object.attachment;
-		object.attachment=attachment;
+		object.attachment = attachment;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/schemes/' + selectId, JSON.stringify(object), function(data) {
@@ -183,31 +187,31 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	$('#file').bind('change',function(){
-		if($('#file').val()!==''){
+	$('#file').bind('change', function() {
+		if ($('#file').val() !== '') {
 			$('#create-file-form').submit();
-			var process=new Utils.modal.showProcess('process');
-			window.process=process;
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
 		}
 	});
-	$('#create-file-delete').bind('click',function(){
+	$('#create-file-delete').bind('click', function() {
 		$('#attachment').parent().parent().hide();
 		$('#create-file-form')[0].reset();
 		$('#create-file-form').show();
 	});
-	$(document).click(function(event){
-		var docId=$(event.target).attr('doc_id');
-		if(docId){
-			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+	$(document).click(function(event) {
+		var docId = $(event.target).attr('doc_id');
+		if (docId) {
+			$('#showDocument').attr('src', '/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
 			Utils.modal.show('view');
 		}
 	});
 });
-function callBack(data){
+function callBack(data) {
 	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id',data.data.id);
+	$('#attachment').attr('data-id', data.data.id);
 	$('#create-file-form').hide();
 	window.process.stop();
-	window.process=null;
+	window.process = null;
 	$('#attachment').parent().parent().show();
 }

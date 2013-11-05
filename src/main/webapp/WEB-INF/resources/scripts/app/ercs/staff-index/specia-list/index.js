@@ -6,40 +6,41 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	Utils.input.date('input[type=datetime]');
-	Utils.select.remote([ 'create-specialty', 'edit-specialty', 'specialtySelect' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
+	Utils.select
+			.remote([ 'create-specialty', 'edit-specialty', 'specialtySelect' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {
-        header : '人员名称',
-        name : 'name'
-    },{
-        header : '性别',
-        render:function(v){
-            return v?(v===1?'男':'女'):'--';
-        },
-        name : 'gender'
-    },{
-        header : '出生日期',
-        name : 'birthDay'
-    },{
-        header : '专业类型',
-        render:function(v){
-            return v?v.itemName:'';
-        },
-        name : 'specialty'
-    },{
-        header : '健康状况',
-        name : 'physicalCondition'
-    },{
-        header : '手机',
-        name : 'mobile'
-    },{
-        header : '住址',
-        name : 'address'
-    },{
-        header : '备注',
-        name : 'remark'
-    }];
+		header : '人员名称',
+		name : 'name'
+	}, {
+		header : '性别',
+		render : function(v) {
+			return v ? (v === 1 ? '男' : '女') : '--';
+		},
+		name : 'gender'
+	}, {
+		header : '出生日期',
+		name : 'birthDay'
+	}, {
+		header : '专业类型',
+		render : function(v) {
+			return v ? v.itemName : '';
+		},
+		name : 'specialty'
+	}, {
+		header : '健康状况',
+		name : 'physicalCondition'
+	}, {
+		header : '手机',
+		name : 'mobile'
+	}, {
+		header : '住址',
+		name : 'address'
+	}, {
+		header : '备注',
+		name : 'remark'
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);

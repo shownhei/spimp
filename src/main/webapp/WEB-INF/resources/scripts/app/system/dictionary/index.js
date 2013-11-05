@@ -6,22 +6,22 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	var map={
-			plan_type:'应急预案种类',
-			personal_category:'人员类别',
-			expertise_area:'专业领域',
-			accident_category:'事故类别',
-			accident_level:'事故严重程度',
-			response_level:'事故响应级别',
-			refuge_type:'避险场所种类',
-			resource_type:'应急资源种类',
-			education_level:'文化程度'
+	var map = {
+		plan_type : '应急预案种类',
+		personal_category : '人员类别',
+		expertise_area : '专业领域',
+		accident_category : '事故类别',
+		accident_level : '事故严重程度',
+		response_level : '事故响应级别',
+		refuge_type : '避险场所种类',
+		resource_type : '应急资源种类',
+		education_level : '文化程度'
 	};
 	// 配置表格列
-	var fields = [{
+	var fields = [ {
 		header : '字典分类',
-		render:function(v){
-			return v?map[v]:'';
+		render : function(v) {
+			return v ? map[v] : '';
 		},
 		name : 'typeCode'
 	}, {
@@ -145,10 +145,10 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/system/dictionaries/' + selectId, function(data) {
-		    Utils.modal.hide('remove');
+			Utils.modal.hide('remove');
 			if (data.success) {
 				grid.refresh();
-			}else{
+			} else {
 				Utils.modal.show('remove_error');
 			}
 		});

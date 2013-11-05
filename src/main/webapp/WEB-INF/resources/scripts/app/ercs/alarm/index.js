@@ -116,7 +116,7 @@ define(function(require, exports, module) {
 	function renderRowColor() {
 		var records = grid.data.result;
 		var rows = grid.$('.grid-row');
-		for ( var i = 0; i < rows.length; i++) {
+		for (var i = 0; i < rows.length; i++) {
 			var raw = records[i];
 			$(rows[i]).removeClass('grid-row-alt');
 			if (raw.accidentLevel.itemValue === '1') {
@@ -299,7 +299,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				var newIdArray = data.alarmList;
 				var len = idarray.length;
-				for ( var i = 0; i < newIdArray.length; i++) {
+				for (var i = 0; i < newIdArray.length; i++) {
 					idarray.push(newIdArray[i]);
 					openDialog(newIdArray[i]);
 				}

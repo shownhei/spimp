@@ -29,7 +29,7 @@ public @interface PageFields {
 	 * @return
 	 */
 	public abstract boolean columnShow() default true;
-	
+
 	/**
 	 * 表格中显示的宽度
 	 * 

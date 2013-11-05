@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-	window.$=$;
-	window.Utils=Utils;
+	window.$ = $;
+	window.Utils = Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -16,25 +16,25 @@ define(function(require, exports, module) {
 		name : 'fileNo'
 	}, {
 		header : '发布单位',
-		render:function(v){
-			return v?v.name:'';
+		render : function(v) {
+			return v ? v.name : '';
 		},
 		name : 'department',
-		width:100
+		width : 100
 	}, {
 		header : '附件',
 		name : 'attachment',
-		width:300,
-		render:function(v){
-			var name=v.simpleName;
-			var html='<a href="javascript:void(0);" doc_id='+v.id+' title='+name+'>'+name.substring(0,20)+'</a>&nbsp;&nbsp;';
-			html+='<a href="'+v.filePath+'" target="_blank" class="pull-right">下载</a>';
-			return v?html:'';
+		width : 300,
+		render : function(v) {
+			var name = v.simpleName;
+			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
+			return v ? html : '';
 		}
-	},{
+	}, {
 		header : '发布时间',
 		name : 'addTime',
-		width:150
+		width : 150
 	} ];
 
 	// 计算表格高度和行数
@@ -99,14 +99,19 @@ define(function(require, exports, module) {
 		if (object.department === '') {
 			delete object.department;
 		}
-		var department={id:$('#create-department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#create-department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
-		
-		var attachment={id:$('#attachment').attr('data-id')};
+		object.department = department;
+
+		var attachment = {
+			id : $('#attachment').attr('data-id')
+		};
 		delete object.filePath;
-		object.attachment=attachment;
-		
+		object.attachment = attachment;
+
 		$.post('/ercs/emergency-laws', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -130,15 +135,15 @@ define(function(require, exports, module) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
-			if(object.department.name){
+			if (object.department.name) {
 				$('#edit-department').val(object.department.name);
-				$('#edit-department').attr('data-id',object.department.id);
+				$('#edit-department').attr('data-id', object.department.id);
 			}
 			$('#edit_attachment').val(object.attachment.filePath);
-			$('#edit_attachment').attr('data-id',object.attachment.id);	
-			if(object.attachment){
+			$('#edit_attachment').attr('data-id', object.attachment.id);
+			if (object.attachment) {
 				$('#attachment').parent().parent().show();
-			}else{
+			} else {
 				$('#create-file-form').show();
 			}
 			Utils.modal.show('edit');
@@ -166,13 +171,18 @@ define(function(require, exports, module) {
 		if (object.department === '') {
 			delete object.department;
 		}
-		var department={id:$('#edit-department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#edit-department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
-		
-		var attachment={id:$('#edit_attachment').attr('data-id')};
+		object.department = department;
+
+		var attachment = {
+			id : $('#edit_attachment').attr('data-id')
+		};
 		delete object.attachment;
-		object.attachment=attachment;
+		object.attachment = attachment;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/emergency-laws/' + selectId, JSON.stringify(object), function(data) {
@@ -208,44 +218,44 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	$('#file').bind('change',function(){
-		var fileVal=$('#file').val();
-		if(fileVal!==''){
-			//待验证特定类型
+	$('#file').bind('change', function() {
+		var fileVal = $('#file').val();
+		if (fileVal !== '') {
+			// 待验证特定类型
 			$('#create-file-form').submit();
-			var process=new Utils.modal.showProcess('process');
-			window.process=process;
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
 		}
 	});
-	$('#create-file-delete').bind('click',function(){
-		var process=new Utils.modal.showProcess('process');
-		window.process=process;
-		$.del('/ercs/uploaded-files/'+$('#attachment').attr('data-id'), function(data) {
+	$('#create-file-delete').bind('click', function() {
+		var process = new Utils.modal.showProcess('process');
+		window.process = process;
+		$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
 			window.process.stop();
-			window.process=null;
+			window.process = null;
 		});
 		$('#attachment').parent().parent().hide();
 		$('#create-file-form')[0].reset();
 		$('#create-file-form').show();
 	});
-	
-	//创建
-	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create-selectGroup','create-department');
-	//编辑
-	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit-selectGroup','edit-department');
-	$(document).click(function(event){
-		var docId=$(event.target).attr('doc_id');
-		if(docId){
-			$('#showDocument').attr('src','/ercs/view-pdf/'+docId+"?t="+new Date().getTime());
+
+	// 创建
+	new Utils.form.groupTree('create_groupSelectTree', 'create_treeDemo', 'create-selectGroup', 'create-department');
+	// 编辑
+	new Utils.form.groupTree('edit_groupSelectTree', 'edit_treeDemo', 'edit-selectGroup', 'edit-department');
+	$(document).click(function(event) {
+		var docId = $(event.target).attr('doc_id');
+		if (docId) {
+			$('#showDocument').attr('src', '/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
 			Utils.modal.show('view');
 		}
 	});
 });
-function callBack(data){
+function callBack(data) {
 	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id',data.data.id);
+	$('#attachment').attr('data-id', data.data.id);
 	$('#create-file-form').hide();
 	window.process.stop();
-	window.process=null;
+	window.process = null;
 	$('#attachment').parent().parent().show();
 }

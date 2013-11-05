@@ -6,7 +6,8 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 
-	Utils.select.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/system/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
+	Utils.select
+			.remote([ 'create-refugeType', 'edit-refugeType', 'refugeTypeSelect' ], '/system/dictionaries?typeCode=refuge_type&list=true', 'id', 'itemName');
 
 	// 配置表格列
 	var fields = [ {
@@ -45,8 +46,8 @@ define(function(require, exports, module) {
 	}, {
 		header : '隶属单位',
 		name : 'department',
-		render:function(v){
-			return v?v.name:'';
+		render : function(v) {
+			return v ? v.name : '';
 		}
 	}, {
 		header : '管理人',
@@ -125,9 +126,12 @@ define(function(require, exports, module) {
 		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
-		var department={id:$('#create_department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#create_department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
+		object.department = department;
 		$.post('/ercs/refuges', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -150,9 +154,9 @@ define(function(require, exports, module) {
 		$.get('/ercs/refuges/' + selectId, function(data) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
-			if(object.department){
+			if (object.department) {
 				$('#edit_department').val(object.department.name);
-				$('#edit_department').attr('data-id',object.department.id);
+				$('#edit_department').attr('data-id', object.department.id);
 			}
 			Utils.modal.show('edit');
 			$('#edit_selectGroup').val('选择');
@@ -190,9 +194,12 @@ define(function(require, exports, module) {
 		if (object.refugeType === '') {
 			delete object.refugeType;
 		}
-		var department={id:$('#edit_department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#edit_department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
+		object.department = department;
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/refuges/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -227,6 +234,6 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create_selectGroup','create_department');
-	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit_selectGroup','edit_department');
+	new Utils.form.groupTree('create_groupSelectTree', 'create_treeDemo', 'create_selectGroup', 'create_department');
+	new Utils.form.groupTree('edit_groupSelectTree', 'edit_treeDemo', 'edit_selectGroup', 'edit_department');
 });

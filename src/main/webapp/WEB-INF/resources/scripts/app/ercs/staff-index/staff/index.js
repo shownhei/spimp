@@ -8,10 +8,10 @@ define(function(require, exports, module) {
 	Utils.input.date('input[type=datetime]');
 	Utils.select.remote([ 'edit-expertiseArea', 'create-expertiseArea' ], '/system/dictionaries?typeCode=expertise_area&list=true', 'id', 'itemName');
 	Utils.select.remote([ 'edit-responseLevel', 'create-responseLevel' ], '/system/dictionaries?typeCode=response_level&list=true', 'id', 'itemName');
-	Utils.select.remote([ 'edit-education', 'create-education'], '/system/dictionaries?typeCode=education_level&list=true', 'id', 'itemName');
-	
+	Utils.select.remote([ 'edit-education', 'create-education' ], '/system/dictionaries?typeCode=education_level&list=true', 'id', 'itemName');
+
 	// 配置表格列
-	var fields = [  {
+	var fields = [ {
 		header : "队员名称",
 		name : "staffName"
 	}, {
@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 		name : "birthDay"
 	}, {
 		header : "文化程度",
-		render:function(val){
+		render : function(val) {
 			if (val) {
 				return val.itemName;
 			}
@@ -53,29 +53,29 @@ define(function(require, exports, module) {
 			}
 			return '';
 		}
-	},{
+	}, {
 		header : '事故响应级别',
 		name : 'responseLevel',
-		width:100,
+		width : 100,
 		render : function(val) {
 			if (val) {
 				return val.itemName;
 			}
 			return '';
 		}
-	},  {
+	}, {
 		header : '部门',
-		render:function(v){
-			return v?v.name:'';
+		render : function(v) {
+			return v ? v.name : '';
 		},
 		name : 'department'
-	},{
+	}, {
 		header : "备注",
 		name : "remark"
-	},{
+	}, {
 		header : "账户关联",
 		name : "account"
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -134,9 +134,12 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入联系方式' ]);
 			return;
 		}
-		var department={id:$('#create-department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#create-department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
+		object.department = department;
 		Utils.button.disable([ 'create-save' ]);
 		$.post('/ercs/rescuers', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -161,7 +164,7 @@ define(function(require, exports, module) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			$('#edit-department').val(object.department.name);
-			$('#edit-department').attr('data-id',object.department.id);
+			$('#edit-department').attr('data-id', object.department.id);
 			Utils.modal.show('edit');
 			$('#edit_selectGroup').val('选择');
 		});
@@ -183,9 +186,12 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入联系方式' ]);
 			return;
 		}
-		var department={id:$('#edit-department').attr('data-id'),name:object.department};
+		var department = {
+			id : $('#edit-department').attr('data-id'),
+			name : object.department
+		};
 		delete object.department;
-		object.department=department;
+		object.department = department;
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/rescuers/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -221,8 +227,8 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	//创建
-	new Utils.form.groupTree('create_groupSelectTree','create_treeDemo','create_selectGroup','create-department');
-	//编辑
-	new Utils.form.groupTree('edit_groupSelectTree','edit_treeDemo','edit_selectGroup','edit-department');
+	// 创建
+	new Utils.form.groupTree('create_groupSelectTree', 'create_treeDemo', 'create_selectGroup', 'create-department');
+	// 编辑
+	new Utils.form.groupTree('edit_groupSelectTree', 'edit_treeDemo', 'edit_selectGroup', 'edit-department');
 });

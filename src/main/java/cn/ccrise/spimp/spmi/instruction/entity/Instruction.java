@@ -46,7 +46,7 @@ public class Instruction extends IDEntity {
 	/**
 	 * 指示内容
 	 */
-	@PageFields(describtion = "指示内容", type="textarea")
+	@PageFields(describtion = "指示内容", type = "textarea")
 	public String content;
 
 	public String getContent() {

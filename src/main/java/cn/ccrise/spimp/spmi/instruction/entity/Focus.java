@@ -37,19 +37,19 @@ public class Focus extends IDEntity {
 	private String positon;
 
 	// 现场负责人
-	@PageFields(describtion = "现场负责人", columnShow=false)
+	@PageFields(describtion = "现场负责人", columnShow = false)
 	private String responser;
 
 	// 工作人员
-	@PageFields(describtion = "工作人员", columnShow=false)
+	@PageFields(describtion = "工作人员", columnShow = false)
 	private String workers;
 
 	// 工作进度
-	@PageFields(describtion = "工作进度", columnShow=false)
+	@PageFields(describtion = "工作进度", columnShow = false)
 	private String process;
 
 	// 工作总结情况
-	@PageFields(describtion = "工作总结情况", columnShow=false)
+	@PageFields(describtion = "工作总结情况", columnShow = false)
 	private String summary;
 
 	// 工作简述

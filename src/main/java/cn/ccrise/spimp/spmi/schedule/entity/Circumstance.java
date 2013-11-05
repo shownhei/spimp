@@ -34,7 +34,7 @@ public class Circumstance extends IDEntity {
 	private String name;
 
 	// 职务
-	@PageFields(describtion = "职务",columnWidth = 90)
+	@PageFields(describtion = "职务", columnWidth = 90)
 	private String business;
 
 	// 下井时间

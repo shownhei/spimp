@@ -30,7 +30,7 @@ public class Record extends IDEntity {
 	private String recordTime;
 
 	// 队组
-	@PageFields(describtion = "队组", allowedNull = false, columnWidth = 120,search = true, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
+	@PageFields(describtion = "队组", allowedNull = false, columnWidth = 120, search = true, type = "select", selectDataUri = "/spmi/schedule/teams?list=true", selectShowField = "teamName")
 	private Team team;
 
 	// 班次

@@ -98,6 +98,10 @@ public class Transport extends IDEntity {
 		return railwayTrans;
 	}
 
+	public String getRoadRemark() {
+		return roadRemark;
+	}
+
 	public Double getRoadStorage() {
 		return roadStorage;
 	}
@@ -142,6 +146,10 @@ public class Transport extends IDEntity {
 		this.railwayTrans = railwayTrans;
 	}
 
+	public void setRoadRemark(String roadRemark) {
+		this.roadRemark = roadRemark;
+	}
+
 	public void setRoadStorage(Double roadStorage) {
 		this.roadStorage = roadStorage;
 	}
@@ -156,13 +164,5 @@ public class Transport extends IDEntity {
 
 	public void setRoadTrans(Integer roadTrans) {
 		this.roadTrans = roadTrans;
-	}
-
-	public String getRoadRemark() {
-		return roadRemark;
-	}
-
-	public void setRoadRemark(String roadRemark) {
-		this.roadRemark = roadRemark;
 	}
 }
