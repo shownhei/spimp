@@ -54,7 +54,7 @@ define(function(require, exports, module) {
 		});
 
 		// 完全居中
-		var screenWidth = $(document).width(), screenHeight = $(document).height();
+		var screenWidth = $(window).width(), screenHeight = $(window).height();
 		var modalWidth = $modal.width(), modalHeight = $modal.height();
 		var modalTop = 0, modalLeft = 0;
 
@@ -95,42 +95,23 @@ define(function(require, exports, module) {
 		$('#' + prefix + '-message-content').html(message);
 		$('#' + prefix + '-message-alert').show();
 	};
-	
-	utils.modal.showProcess=function(processId){
-		var _html=[
-		    '<div id="'+processId+'-modal" class="modal hide" style="z-index:1052;">',
-				'<div class="modal-header">',
-					'<h5 class="red">',
-						'<i class="icon-trash"></i> 请稍后',
-					'</h5>',
-				'</div>',
-				'<div class="modal-body">',
-					'<div class="row-fluid">',
-					      '<div class="control-group" id="processParent">',
-						    '<label class="control-label" ></label>',
-						    '<div class="controls">',
-								'<div class="progress progress-striped active span12" >',
-		                            '<div class="bar" id="'+processId+'" style="width: 1px;"></div>',
-		                        '</div>',
-							'</div>',
-		                  '</div>',
-					'</div>',
-				'</div>',
-				'<div class="modal-footer">',
-					'<button class="btn btn-small" data-dismiss="modal">',
-					'</button>',
-				'</div>',
-			'</div>'
-		           ];
-		if($('#process-modal').length===0){
+
+	utils.modal.showProcess = function(processId) {
+		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1052;">', '<div class="modal-header">', '<h5 class="red">',
+				'<i class="icon-trash"></i> 请稍后', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
+				'<div class="control-group" id="processParent">', '<label class="control-label" ></label>', '<div class="controls">',
+				'<div class="progress progress-striped active span12" >', '<div class="bar" id="' + processId + '" style="width: 1px;"></div>', '</div>',
+				'</div>', '</div>', '</div>', '</div>', '<div class="modal-footer">', '<button class="btn btn-small" data-dismiss="modal">', '</button>',
+				'</div>', '</div>' ];
+		if ($('#process-modal').length === 0) {
 			$(_html.join('')).appendTo($("body"));
-			$('<div class="modal-backdrop  in" id="'+processId+'-modal-black" style="z-index:1051;"></div>').appendTo($("body"));
-		}else{
-			$('#'+processId+'-modal').show();
-			$('#'+processId+'-modal-black').show();
+			$('<div class="modal-backdrop  in" id="' + processId + '-modal-black" style="z-index:1051;"></div>').appendTo($("body"));
+		} else {
+			$('#' + processId + '-modal').show();
+			$('#' + processId + '-modal-black').show();
 		}
 		// 完全居中
-		var $modal=$('#'+processId+'-modal');
+		var $modal = $('#' + processId + '-modal');
 		var screenWidth = $(document).width(), screenHeight = $(document).height();
 		var modalWidth = $modal.width(), modalHeight = $modal.height();
 		var modalTop = 0, modalLeft = 0;
@@ -141,32 +122,32 @@ define(function(require, exports, module) {
 		$modal.offset({
 			top : modalTop
 		});
-		this.count=1;
-		var me =this;
-		this.process=$('#'+processId);
-		this.reset=function(){
-			me.count=1;
-			me.process.css("width",1+"px");
+		this.count = 1;
+		var me = this;
+		this.process = $('#' + processId);
+		this.reset = function() {
+			me.count = 1;
+			me.process.css("width", 1 + "px");
 		};
-		this.loopFunc=function(){
-			me.count+=2;
+		this.loopFunc = function() {
+			me.count += 2;
 			console.log(me.count);
-			me.process.css("width",me.count+"px");
+			me.process.css("width", me.count + "px");
 		};
-		this.intervalReference=setInterval(me.loopFunc, 200);
-		this.stop=function(){
+		this.intervalReference = setInterval(me.loopFunc, 200);
+		this.stop = function() {
 			clearInterval(me.intervalReference);
 			this.reset();
 			this.close();
 		};
 		this.reset();
-		this.close=function(){
-			$('#'+processId+'-modal').hide();
-			$('#'+processId+'-modal-black').hide();
+		this.close = function() {
+			$('#' + processId + '-modal').hide();
+			$('#' + processId + '-modal-black').hide();
 		};
-		$('#'+processId+'-modal').show();
+		$('#' + processId + '-modal').show();
 	};
-	
+
 	/**
 	 * 下拉列表。
 	 */
@@ -267,73 +248,75 @@ define(function(require, exports, module) {
 		return encodeURI(urlParams);
 	};
 
-	utils.form.groupTree=function(treewindow,_treePanel,_triggerName,aimElm){
+	utils.form.groupTree = function(treewindow, _treePanel, _triggerName, aimElm) {
 		var me = this;
-		if($('#'+treewindow).length===0){
-			var _html='<div id="'+treewindow+'" class="menuContent " style="display: none; position: absolute;">';
-			_html+='    <ul id="'+_treePanel+'" class="ztree" style="margin-top: 0; width: 160px;"></ul>';
-			_html+='   </div>';
+		if ($('#' + treewindow).length === 0) {
+			var _html = '<div id="' + treewindow + '" class="menuContent " style="display: none; position: absolute;">';
+			_html += '    <ul id="' + _treePanel + '" class="ztree" style="margin-top: 0; width: 160px;"></ul>';
+			_html += '   </div>';
 			$('body').append($(_html));
 		}
-		this.beforeClick=function(treeId, treeNode){
+		this.beforeClick = function(treeId, treeNode) {
 			return true;
 		};
-		this.onClick=function(e, treeId, treeNode){
-			var zTree = $.fn.zTree.getZTreeObj(_treePanel),
-			nodes = zTree.getSelectedNodes();
-			var cityObj = $("#"+aimElm);
+		this.onClick = function(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj(_treePanel), nodes = zTree.getSelectedNodes();
+			var cityObj = $("#" + aimElm);
 			cityObj.val(nodes[0].name);
 			cityObj.attr("data-id", nodes[0].id);
 		};
-		this.setting={
-				view: {
-					dblClickExpand: false
-				},
-				async : {
-					enable : true,
-					url : contextPath + '/system/groups',
-					type : "get",
-					dataFilter : function(treeId, parentNode, responseData) {
-						return responseData.data[0].groupEntities;
-					}
-				},
-				data : {
-					key : {
-						children : 'groupEntities'
-					}
-				},
-				callback: {
-					beforeClick: me.beforeClick,
-					onClick: me.onClick
+		this.setting = {
+			view : {
+				dblClickExpand : false
+			},
+			async : {
+				enable : true,
+				url : contextPath + '/system/groups',
+				type : "get",
+				dataFilter : function(treeId, parentNode, responseData) {
+					return responseData.data[0].groupEntities;
 				}
+			},
+			data : {
+				key : {
+					children : 'groupEntities'
+				}
+			},
+			callback : {
+				beforeClick : me.beforeClick,
+				onClick : me.onClick
+			}
 		};
-		
-		this.onKeyDown=function(event){
-			if (!(event.target.id === "menuBtn" || event.target.id === treewindow || $(event.target).parents("#"+treewindow).length>0)) {
+
+		this.onKeyDown = function(event) {
+			if (!(event.target.id === "menuBtn" || event.target.id === treewindow || $(event.target).parents("#" + treewindow).length > 0)) {
 				me.hideTree();
 			}
 		};
-		this.showTree=function(){
-			var cityObj = $("#"+aimElm);
+		this.showTree = function() {
+			var cityObj = $("#" + aimElm);
 			var cityOffset = cityObj.offset();
-			$("#"+treewindow).css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-			$("#"+treewindow).css('z-index',1090);
-			$("#"+treewindow).css("background-color",'white');
-			$("#"+treewindow).css("-webkit-box-shadow",'0 3px 7px rgba(0, 0, 0, 0.3)');
-			$("#"+treewindow).css("border",'1px solid rgba(0, 0, 0, 0.3)');
+			$("#" + treewindow).css({
+				left : cityOffset.left + "px",
+				top : cityOffset.top + cityObj.outerHeight() + "px"
+			}).slideDown("fast");
+			$("#" + treewindow).css('z-index', 1090);
+			$("#" + treewindow).css("background-color", 'white');
+			$("#" + treewindow).css("-webkit-box-shadow", '0 3px 7px rgba(0, 0, 0, 0.3)');
+			$("#" + treewindow).css("border", '1px solid rgba(0, 0, 0, 0.3)');
 			$("body").bind("mousedown", me.onKeyDown);
 		};
-		this.hideTree=function(){
-			$("#"+treewindow).fadeOut("fast");
+		this.hideTree = function() {
+			$("#" + treewindow).fadeOut("fast");
 			$("body").unbind("mousedown", me.onKeyDown);
 		};
-		var currentTree = $.fn.zTree.init($('#'+_treePanel), me.setting);
-		$('#'+_triggerName).bind('click',function(){
+		var currentTree = $.fn.zTree.init($('#' + _treePanel), me.setting);
+		$('#' + _triggerName).bind('click', function() {
 			me.showTree();
 		});
 		return currentTree;
 	};
-	
+
 	/**
 	 * 日期控件
 	 */
