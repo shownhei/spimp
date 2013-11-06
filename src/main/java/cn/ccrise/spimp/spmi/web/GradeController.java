@@ -4,9 +4,12 @@
 package cn.ccrise.spimp.spmi.web;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.spmi.entity.Grade;
 import cn.ccrise.spimp.spmi.service.GradeRecordService;
 import cn.ccrise.spimp.spmi.service.GradeService;
+
+import com.google.common.collect.Lists;
 
 /**
  * Grade Controller。
@@ -51,8 +56,15 @@ public class GradeController {
 
 	@RequestMapping(value = "/spmi/quality/grades", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Grade> page) {
-		return new Response(gradeService.getPage(page));
+	public Response page(Page<Grade> page, Integer year, Integer month) {
+		ArrayList<Criterion> criterions = Lists.newArrayList();
+		if (year != null) {
+			criterions.add(Restrictions.eq("year", year));
+		}
+		if (month != null) {
+			criterions.add(Restrictions.eq("month", month));
+		}
+		return new Response(gradeService.getPage(page, criterions.toArray(new Criterion[0])));
 	}
 
 	@RequestMapping(value = "/spmi/quality/grades", method = RequestMethod.POST)

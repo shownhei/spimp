@@ -105,6 +105,13 @@ body {
 	padding: 1px;
 }
 
+.nav-search select {
+	height: 24px;
+	line-height: 24px;
+	font-size: 12px;
+	padding: 1px;
+}
+
 .page-header {
 	padding-bottom: 5px;
 }

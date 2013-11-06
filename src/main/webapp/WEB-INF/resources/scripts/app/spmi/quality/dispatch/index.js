@@ -15,6 +15,7 @@ define(function(require, exports, module) {
 	}
 	$('#create-yearSelect').html(yearOptionsHtml);
 	$('#edit-yearSelect').html(yearOptionsHtml);
+	$('#query-yearSelect').append(yearOptionsHtml);
 
 	// 月份
 	var monthOptionsHtml = '';
@@ -23,6 +24,12 @@ define(function(require, exports, module) {
 	}
 	$('#create-monthSelect').html(monthOptionsHtml);
 	$('#edit-monthSelect').html(monthOptionsHtml);
+	$('#query-monthSelect').append(monthOptionsHtml);
+
+	// 选择触发查询
+	$('#query-yearSelect,#query-monthSelect').change(function() {
+		grid.set('url', defaultUrl + Utils.form.buildParams('query-form'));
+	});
 
 	// 配置表格列
 	var fields = [ {
@@ -48,6 +55,14 @@ define(function(require, exports, module) {
 		header : '最后更新时间',
 		name : 'updateTime',
 		width : 150
+	}, {
+		header : '查看',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="view" class="icon-list" style="cursor:pointer;"></i>';
+		}
 	} ];
 
 	// 计算表格高度和行数
@@ -59,9 +74,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove', 'view' ]);
+			Utils.button.enable([ 'edit', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove', 'view' ]);
+			Utils.button.disable([ 'edit', 'remove' ]);
 		}
 	}
 
@@ -78,6 +93,15 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+
+			if (target.data('role') === 'view') {
+				Utils.form.fill('view', data);
+				$.each(data.gradeRecords, function(k, v) {
+					$('#view-grade-record-table td[id=view-grade-record-' + v.row + '-' + v.col + ']').html(v.content);
+				});
+				Utils.modal.show('view');
+				$('#view-grade-record-table').parent().scrollTop(0);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
@@ -117,6 +141,18 @@ define(function(require, exports, module) {
 					$(v).html(
 							'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
 									+ '" value="' + standardScore + '">');
+				}
+			}
+		});
+	});
+	// 给查看表格添加行列id
+	$.each($('#view-grade-record-table tr:not(:first)'), function(key, value) {
+		var tds = $(value).find('td');
+		$.each(tds, function(k, v) {
+			if (tds.length >= 5) {
+				if (k + (8 - tds.length + 1) > 6) {
+					var rank = (key + 1) + '-' + (k + (8 - tds.length + 1));
+					$(v).attr('id', 'view-grade-record-' + rank);
 				}
 			}
 		});
@@ -353,37 +389,5 @@ define(function(require, exports, module) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
-	});
-
-	// 给查看表格添加行列id
-	$.each($('#view-grade-record-table tr:not(:first)'), function(key, value) {
-		var tds = $(value).find('td');
-		$.each(tds, function(k, v) {
-			if (tds.length >= 5) {
-				if (k + (8 - tds.length + 1) > 6) {
-					var rank = (key + 1) + '-' + (k + (8 - tds.length + 1));
-					$(v).attr('id', 'view-grade-record-' + rank);
-				}
-			}
-		});
-	});
-
-	// 查看
-	$('#view').click(function() {
-		if (Utils.button.isDisable('view')) {
-			return;
-		}
-
-		Utils.form.fill('view', grid.selectedData());
-		$.each(grid.selectedData('gradeRecords'), function(k, v) {
-			$('#view-grade-record-table td[id=view-grade-record-' + v.row + '-' + v.col + ']').html(v.content);
-		});
-		Utils.modal.show('view');
-		$('#view-grade-record-table').parent().scrollTop(0);
-	});
-
-	// 搜索
-	$('#nav-search-button').click(function() {
-		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
 });

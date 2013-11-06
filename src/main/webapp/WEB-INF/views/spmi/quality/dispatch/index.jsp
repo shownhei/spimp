@@ -14,7 +14,7 @@
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
-					<button id="create" class="btn btn-small btn-success" title="新建检查">
+					<button id="create" class="btn btn-small btn-success" title="新建评分表">
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">新建</span>
 					</button>
@@ -26,10 +26,16 @@
 						<i class="icon-trash"></i>
 						<span class="hidden-phone">删除</span>
 					</button>
-					<button id="view" class="btn btn-small btn-info disabled">
-						<i class="icon-file-alt"></i>
-						<span class="hidden-phone">查看</span>
-					</button>
+				</div>
+				<div class="nav-search">
+					<form id="query-form" class="form-inline" onsubmit="return false;">
+						<select id="query-yearSelect" name="year" class="input-small">
+							<option value="" class="light-grey">选择年份</option>
+						</select>
+						<select id="query-monthSelect" name="month" class="input-small">
+							<option value="" class="light-grey">选择月份</option>
+						</select>
+					</form>
 				</div>
 			</div>
 			<div class="page-content">
@@ -57,11 +63,13 @@
 										<input name="category" readonly="readonly" value="调度">
 									</td>
 									<td>
-										<label>年份</label> <select id="create-yearSelect" name="year">
+										<label>年份</label>
+										<select id="create-yearSelect" name="year">
 										</select>
 									</td>
 									<td>
-										<label>月份</label> <select id="create-monthSelect" name="month">
+										<label>月份</label>
+										<select id="create-monthSelect" name="month">
 										</select>
 									</td>
 									<td></td>
@@ -115,11 +123,13 @@
 										<input name="category" readonly="readonly" value="调度">
 									</td>
 									<td>
-										<label>年份</label> <select id="edit-yearSelect" name="year">
+										<label>年份</label>
+										<select id="edit-yearSelect" name="year">
 										</select>
 									</td>
 									<td>
-										<label>月份</label> <select id="edit-monthSelect" name="month">
+										<label>月份</label>
+										<select id="edit-monthSelect" name="month">
 										</select>
 									</td>
 									<td>
@@ -192,8 +202,8 @@
 	<div id="view-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="light-blue">
-				<i class="icon-file-alt"></i> 查看
+			<h5 class="blue">
+				<i class="icon-list"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">
