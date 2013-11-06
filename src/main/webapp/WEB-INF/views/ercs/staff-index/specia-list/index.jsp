@@ -26,9 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-					    <span class="input-icon">
-							<select id="specialtySelect" name="specialty" 
-							class="input-small" ></select>
+						<span class="input-icon">
+							<select id="specialtySelect" name="specialty" class="input-small"></select>
 						</span>
 						<span class="input-icon">
 							<input id="nav-search-input" name="name" type="text" placeholder="输入专家名称..." class="input-small nav-search-input" autocomplete="off">
@@ -55,14 +54,12 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="name">人员名称</label>
 							<div class="controls">
-								<input id="name" name="name" type="text" >
+								<input id="name" name="name" type="text">
 							</div>
 						</div>
-	        
 						<div class="control-group">
 							<label class="control-label " for="gender">性别</label>
 							<div class="controls">
@@ -72,48 +69,42 @@
 								</select>
 							</div>
 						</div>
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="birthDay">出生日期</label>
 							<div class="controls">
 								<input id="birthDay" name="birthDay" type=datetime>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="specialty">专业类型</label>
 							<div class="controls">
-							    <select id="create-specialty" name="specialty[id]"></select>
+								<select id="create-specialty" name="specialty[id]"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="physicalCondition">健康状况</label>
 							<div class="controls">
-								<input id="physicalCondition" name="physicalCondition" type="text" >
+								<input id="physicalCondition" name="physicalCondition" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="mobile">手机</label>
 							<div class="controls">
-								<input id="mobile" name="mobile" type="text" >
+								<input id="mobile" name="mobile" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="address">住址</label>
 							<div class="controls">
-								<input id="address" name="address" type="text" >
+								<input id="address" name="address" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" >
+								<input id="remark" name="remark" type="text">
 							</div>
 						</div>
-						
 						<div id="create-message-alert" class="row-fluid hide">
 							<div class="span12">
 								<div class="alert alert-error">
@@ -147,63 +138,56 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden" >
-	        
-					    <div class="control-group">
+						<input name="id" type="hidden">
+						<div class="control-group">
 							<label class="control-label" for="name">人员名称</label>
 							<div class="controls">
-								<input  name="name" type="text" >
+								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="gender">性别</label>
 							<div class="controls">
-							    <select id="edit-gender" name="gender" class="input-small ">
+								<select id="edit-gender" name="gender" class="input-small ">
 									<option value="1">男</option>
 									<option value="0">女</option>
 								</select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="birthDay">出生日期</label>
 							<div class="controls">
-								<input  name="birthDay" type=datetime>
+								<input name="birthDay" type=datetime>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="principal">专业类型</label>
 							<div class="controls">
-							     <select id="edit-specialty" name="specialty[id]"></select>
+								<select id="edit-specialty" name="specialty[id]"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="principal">健康状况</label>
 							<div class="controls">
-								<input  name="physicalCondition" type="text" >
+								<input name="physicalCondition" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="principal">手机</label>
 							<div class="controls">
-								<input  name="mobile" type="text" >
+								<input name="mobile" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="principal">住址</label>
 							<div class="controls">
-								<input  name="address" type="text" >
+								<input name="address" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="principal">备注</label>
 							<div class="controls">
-								<input  name="remark" type="text" >
+								<input name="remark" type="text">
 							</div>
 						</div>
 					</form>
@@ -262,6 +246,5 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/staff-index/specia-list/index');
 	</script>
-	
 </body>
 </html>

@@ -71,7 +71,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="taskContent">救援措施内容</label>
 							<div class="controls">
-								<textarea  name="taskContent" rows=5></textarea>
+								<textarea name="taskContent" rows=5></textarea>
 							</div>
 						</div>
 					</form>
@@ -79,7 +79,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -106,7 +107,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden" >
+						<input name="id" type="hidden">
 						<div class="control-group">
 							<label class="control-label span2" for="emergencyCategory">事故类型</label>
 							<div class="controls">
@@ -128,7 +129,7 @@
 						<div class="control-group">
 							<label class="control-label span2" for="taskContent">救援措施内容</label>
 							<div class="controls">
-								<textarea  name="taskContent" rows=5></textarea>
+								<textarea name="taskContent" rows=5></textarea>
 							</div>
 						</div>
 					</form>
@@ -187,6 +188,5 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/plan-index/template/index');
 	</script>
-	
 </body>
 </html>

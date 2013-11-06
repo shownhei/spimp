@@ -26,8 +26,9 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon"> <input id="nav-search-input" name="staffName" type="text" placeholder="输入人员名称" class="input-small nav-search-input"
-							autocomplete="off"> <i class="icon-search nav-search-icon"></i>
+						<span class="input-icon">
+							<input id="nav-search-input" name="staffName" type="text" placeholder="输入人员名称" class="input-small nav-search-input" autocomplete="off">
+							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
@@ -62,33 +63,31 @@
 								<input name="birthDay" type="datetime">
 							</div>
 						</div>
-						
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="education">文化程度</label>
 								<div class="controls">
-									<select id="create-education" name="education[id]" class="span12" style="width:130px;"></select>
+									<select id="create-education" name="education[id]" class="span12" style="width: 130px;"></select>
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="enqueueDate">政治面貌</label>
 								<div class="controls">
-									<input id="policitalStatus" name="policitalStatus" class="span11" style="width:122px;">
+									<input id="policitalStatus" name="policitalStatus" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>
-						
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">工作时间</label>
 								<div class="controls">
-									<input id="workDate" type="datetime" name="workDate"  class="span12" style="width:130px;">
+									<input id="workDate" type="datetime" name="workDate" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="enqueueDate">入队时间</label>
 								<div class="controls">
-									<input id="enqueueDate" name="enqueueDate" type="datetime" class="span11" style="width:122px;">
+									<input id="enqueueDate" name="enqueueDate" type="datetime" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -110,12 +109,11 @@
 								<input name="iDNumber" type="text">
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label " for="department">部门</label>
 							<div class="controls">
-								<input type='text'  id="create-department" name="department" class="span10" style="width:350px;">
-								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success" style="width:48px;">
+								<input type='text' id="create-department" name="department" class="span10" style="width: 350px;">
+								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success" style="width: 48px;">
 							</div>
 						</div>
 						<div class="control-group">
@@ -141,7 +139,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -181,33 +180,31 @@
 								<input name="birthDay" type="datetime">
 							</div>
 						</div>
-						
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="education">文化程度</label>
 								<div class="controls">
-									<select id="edit-education" name="education[id]" class="span12" style="width:130px;"></select>
+									<select id="edit-education" name="education[id]" class="span12" style="width: 130px;"></select>
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="enqueueDate">政治面貌</label>
 								<div class="controls">
-									<input  name="policitalStatus" class="span11" style="width:122px;">
+									<input name="policitalStatus" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>
-						
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">工作时间</label>
 								<div class="controls">
-									<input  type="datetime" name="workDate"  class="span12" style="width:130px;">
+									<input type="datetime" name="workDate" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group  span6">
 								<label class="control-label span4" for="enqueueDate">入队时间</label>
 								<div class="controls">
-									<input  name="enqueueDate" type="datetime" class="span11" style="width:122px;">
+									<input name="enqueueDate" type="datetime" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -229,12 +226,11 @@
 								<input name="iDNumber" type="text">
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label " for="department">部门</label>
 							<div class="controls">
-								<input type='text'  id="edit-department" name="department" class="span10" style="width:350px;">
-								<input type="button" value="选择" id="edit_selectGroup" class="btn btn-small btn-success" style="width:48px;">
+								<input type='text' id="edit-department" name="department" class="span10" style="width: 350px;">
+								<input type="button" value="选择" id="edit_selectGroup" class="btn btn-small btn-success" style="width: 48px;">
 							</div>
 						</div>
 						<div class="control-group">
@@ -260,7 +256,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -291,7 +288,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

@@ -172,21 +172,18 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<select id="accidentTypeSelect" name="accidentType"
-							class="input-small" style="width:150px;"></select>
+							<select id="accidentTypeSelect" name="accidentType" class="input-small" style="width: 150px;"></select>
 						</span>
 						<span class="input-icon">
-							<select id="accidentLevelSelect" name="accidentLevel"
-							class="input-small" style="width:150px;">
+							<select id="accidentLevelSelect" name="accidentLevel" class="input-small" style="width: 150px;">
 							</select>
 						</span>
 						<span class="input-icon">
-							<select id="dealFlagSelect" name="dealFlag"
-							class="input-small" style="width:150px;">
-							<option value=''>请选择事故状态</option>
-							<option value='0'>未处理</option>
-							<option value='1'>已处理</option>
-							<option value='2'>误报</option>
+							<select id="dealFlagSelect" name="dealFlag" class="input-small" style="width: 150px;">
+								<option value=''>请选择事故状态</option>
+								<option value='0'>未处理</option>
+								<option value='1'>已处理</option>
+								<option value='2'>误报</option>
 							</select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -211,50 +208,44 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" >
-						
-					    <div class="control-group">
+						<input name="id" type="hidden">
+						<div class="control-group">
 							<label class="control-label " for="principal">事故地点</label>
 							<div class="controls">
-								<input  name="accidentLocation" type="text">
+								<input name="accidentLocation" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="edit-accidentType">事故类型</label>
 							<div class="controls">
-								<select id="edit-accidentType" name="accidentType[id]"  ></select>
+								<select id="edit-accidentType" name="accidentType[id]"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="accidentLevel">严重程度</label>
 							<div class="controls">
-								<select id="edit-accidentLevel" name="accidentLevel[id]"  ></select>
+								<select id="edit-accidentLevel" name="accidentLevel[id]"></select>
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="alarmPeople">报警人</label>
 							<div class="controls">
-								<input  name="alarmPeople" type="text">
+								<input name="alarmPeople" type="text">
 							</div>
 						</div>
-	        
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="detail">事故描述</label>
 							<div class="controls">
-							   <textarea  name="detail"  rows=5></textarea>
+								<textarea name="detail" rows=5></textarea>
 							</div>
 						</div>
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="alarmTime">报警时间</label>
 							<div class="controls">
-								<input  name="alarmTime" readOnly disabled type="text">
+								<input name="alarmTime" readOnly disabled type="text">
 							</div>
 						</div>
-						<input  name="dealFlag" type="hidden">
+						<input name="dealFlag" type="hidden">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
@@ -277,7 +268,6 @@
 		</div>
 	</div>
 	<!-- 编辑end -->
-	
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">

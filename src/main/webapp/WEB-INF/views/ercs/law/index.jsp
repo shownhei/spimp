@@ -50,9 +50,8 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"  style="margin-bottom:0px;">
-	        
-					    <div class="control-group">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
 							<label class="control-label" for="fileName">文件名</label>
 							<div class="controls">
 								<input id="fileName" name="fileName" type="text">
@@ -64,26 +63,27 @@
 								<input id="fileNo" name="fileNo" type="text">
 							</div>
 						</div>
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="department">发布单位</label>
 							<div class="controls">
-								<input id="create-department" name="department" type="text" class="span10" style="width:350px;">
-	                            <input  type="button" id="create-selectGroup" value="选择"  class="btn btn-small btn-success span2"  style="width:45px;">
+								<input id="create-department" name="department" type="text" class="span10" style="width: 350px;">
+								<input type="button" id="create-selectGroup" value="选择" class="btn btn-small btn-success span2" style="width: 45px;">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10 " style="width:350px;">
-								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width:48px;">
+								<input id="attachment" readonly name="attachment" type="text" class="span10 " style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
 							</div>
 						</div>
 					</form>
-					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame"  style="margin-bottom:0px;">
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame"
+						style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input  name="file" id="file" type="file">
+								<input name="file" id="file" type="file">
 							</div>
 						</div>
 					</form>
@@ -119,30 +119,29 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden">
-					    <div class="control-group">
+						<input name="id" type="hidden">
+						<div class="control-group">
 							<label class="control-label" for="fileName">文件名</label>
 							<div class="controls">
-								<input  name="fileName" type="text">
+								<input name="fileName" type="text">
 							</div>
 						</div>
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="fileNo">文件号</label>
 							<div class="controls">
-								<input  name="fileNo" type="text">
+								<input name="fileNo" type="text">
 							</div>
 						</div>
-	                    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input  readonly name="attachment" id="edit_attachment" type="text">
+								<input readonly name="attachment" id="edit_attachment" type="text">
 							</div>
 						</div>
-						
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="department">发布单位</label>
 							<div class="controls">
-								<input id="edit-department" name="department" readonly  type="text" >
+								<input id="edit-department" name="department" readonly type="text">
 							</div>
 						</div>
 					</form>
@@ -201,8 +200,8 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/law/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
-	<div id="view-modal" class="modal modal-xl hide" >
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<div id="view-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -211,7 +210,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
-			<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</div>
 		</div>
 		<div class="modal-footer">

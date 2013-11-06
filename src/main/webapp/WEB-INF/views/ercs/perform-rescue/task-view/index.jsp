@@ -13,8 +13,7 @@
 		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
-				<div class="toolbar">
-				</div>
+				<div class="toolbar"></div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">

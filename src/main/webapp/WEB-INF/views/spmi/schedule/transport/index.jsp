@@ -27,7 +27,6 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
@@ -42,8 +41,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<select id="search_coalType" name="coalType" style="height:25px;width:120px;font-size:12px;"></select>
-
+						<select id="search_coalType" name="coalType" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>

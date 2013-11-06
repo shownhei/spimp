@@ -26,9 +26,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-					    <span class="input-icon">
-							<select id="planTypeSelect" name="planType" 
-							class="input-small" ></select>
+						<span class="input-icon">
+							<select id="planTypeSelect" name="planType" class="input-small"></select>
 						</span>
 						<span class="input-icon">
 							<input id="nav-search-input" name="planName" type="text" placeholder="输入预案名称" class="input-small nav-search-input" autocomplete="off">
@@ -54,8 +53,8 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
-					    <div class="control-group">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
 							<label class="control-label " for="principal">预案名称</label>
 							<div class="controls">
 								<input id="planName" name="planName" type="text">
@@ -67,11 +66,11 @@
 								<select id="create-planType" name="planType[id]"></select>
 							</div>
 						</div>
-						<div class="control-group" style="display:none;">
+						<div class="control-group" style="display: none;">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width:350px;">
-								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width:48px;">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
 							</div>
 						</div>
 					</form>
@@ -79,7 +78,7 @@
 						<div class="control-group">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input  name="file" id="file" type="file">
+								<input name="file" id="file" type="file">
 							</div>
 						</div>
 					</form>
@@ -115,11 +114,11 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-					    <input  name="id" type="hidden">
+						<input name="id" type="hidden">
 						<div class="control-group">
 							<label class="control-label" for="principal">预案名称</label>
 							<div class="controls">
-								<input  name="planName" type="text">
+								<input name="planName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -131,10 +130,9 @@
 						<div class="control-group">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input  name="attachment" id="edit_attachment" readonly type="text">
+								<input name="attachment" id="edit_attachment" readonly type="text">
 							</div>
 						</div>
-
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
@@ -188,11 +186,11 @@
 			</button>
 		</div>
 	</div>
-	<iframe name="acceptFrame" border="1" frameborder= "1" width="100" height="100" style= "display:none"></iframe>
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/plan-index/plan/index');
 	</script>
-	<div id="view-modal" class="modal modal-xl hide" >
+	<div id="view-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -201,7 +199,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
-			<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -210,6 +208,5 @@
 			</button>
 		</div>
 	</div>
-	
 </body>
 </html>

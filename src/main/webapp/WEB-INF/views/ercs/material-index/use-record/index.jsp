@@ -50,8 +50,8 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
-					    <div class="control-group">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
 							<label class="control-label " for="resource">对应的物资</label>
 							<div class="controls">
 								<input id="resource" name="resource" type="text">
@@ -60,13 +60,13 @@
 						<div class="control-group">
 							<label class="control-label" for="useTime">使用日期</label>
 							<div class="controls">
-								<input  type=datetime name="useTime" >
+								<input type=datetime name="useTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="useAmount">使用数量</label>
 							<div class="controls">
-								<input  name="useAmount" type="text">
+								<input name="useAmount" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -90,7 +90,7 @@
 						<div class="control-group">
 							<label class="control-label " for="remark">备注</label>
 							<div class="controls">
-								<input  name="remark" type="text">
+								<input name="remark" type="text">
 							</div>
 						</div>
 					</form>
@@ -126,7 +126,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-					    <input  name="id" type="hidden">
+						<input name="id" type="hidden">
 						<div class="control-group">
 							<label class="control-label " for="resource">对应的物资</label>
 							<div class="controls">
@@ -136,37 +136,37 @@
 						<div class="control-group">
 							<label class="control-label" for="useTime">使用日期</label>
 							<div class="controls">
-								<input  type=datetime name="useTime" >
+								<input type=datetime name="useTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="useAmount">使用数量</label>
 							<div class="controls">
-								<input  name="useAmount" type="text">
+								<input name="useAmount" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="maintenanceTime">检查维修日期</label>
 							<div class="controls">
-								<input  type=datetime name="maintenanceTime" >
+								<input type=datetime name="maintenanceTime">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="replacement">更换情况</label>
 							<div class="controls">
-								<input  name="replacement" type="text">
+								<input name="replacement" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="scrapped">报废情况</label>
 							<div class="controls">
-								<input  name="scrapped" type="text">
+								<input name="scrapped" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label " for="remark">备注</label>
 							<div class="controls">
-								<input  name="remark" type="text">
+								<input name="remark" type="text">
 							</div>
 						</div>
 					</form>

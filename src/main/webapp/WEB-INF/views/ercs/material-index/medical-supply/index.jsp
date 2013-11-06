@@ -50,57 +50,50 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
-					    <div class="control-group">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
 							<label class="control-label " for="principal">器材/药品名称</label>
 							<div class="controls">
 								<input id="name" name="name" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">数量</label>
 							<div class="controls">
 								<input id="amount" name="amount" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">型号</label>
 							<div class="controls">
 								<input id="model" name="model" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">产地</label>
 							<div class="controls">
 								<input id="origin" name="origin" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">购置时间</label>
 							<div class="controls">
 								<input id="buyTime" name="buyTime" type="datetime">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">有效使用期限</label>
 							<div class="controls">
 								<input id="expiration" name="expiration" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">使用、更换、报废情况</label>
 							<div class="controls">
 								<input id="situation" name="situation" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">备注</label>
 							<div class="controls">
 								<input id="remark" name="remark" type="text">
@@ -139,63 +132,55 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-					    <input  name="id" type="hidden">
+						<input name="id" type="hidden">
 						<div class="control-group">
 							<label class="control-label " for="principal">器材/药品名称</label>
 							<div class="controls">
-								<input  name="name" type="text">
+								<input name="name" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">数量</label>
 							<div class="controls">
-								<input  name="amount" type="text">
+								<input name="amount" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">型号</label>
 							<div class="controls">
-								<input  name="model" type="text">
+								<input name="model" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">产地</label>
 							<div class="controls">
-								<input  name="origin" type="text">
+								<input name="origin" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">购置时间</label>
 							<div class="controls">
-								<input  name="buyTime" type="text"  readonly type="datetime">
+								<input name="buyTime" type="text" readonly type="datetime">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">有效使用期限</label>
 							<div class="controls">
-								<input  name="expiration" type="text">
+								<input name="expiration" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">使用、更换、报废情况</label>
 							<div class="controls">
-								<input  name="situation" type="text">
+								<input name="situation" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label " for="principal">备注</label>
 							<div class="controls">
-								<input  name="remark" type="text">
+								<input name="remark" type="text">
 							</div>
 						</div>
-
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">

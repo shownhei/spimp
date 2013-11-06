@@ -54,84 +54,83 @@
 						<div class="control-group">
 							<label class="control-label " for="principal">资源名称</label>
 							<div class="controls">
-								<input id="resourceName" name="resourceName" type="text" >
+								<input id="resourceName" name="resourceName" type="text">
 							</div>
 						</div>
-                        <div class="row-fluid ">
+						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text"   class="span12" style="width:130px;">
+									<input id="resourceNo" name="resourceNo" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text"  class="span11"  style="width:122px;">
+									<input id="amount" name="amount" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	        
-	        			<div class="control-group">
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="function">用途</label>
 							<div class="controls">
-								<input id="function" name="function" type="text" >
+								<input id="function" name="function" type="text">
 							</div>
-						</div>	
-					    <div class="row-fluid ">
+						</div>
+						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text"  class="span12"  style="width:130px;">
+									<input id="model" name="model" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"   class="span11"  style="width:122px;">
+									<input id="origin" name="origin" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	 	
+						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="butTime">购置时间</label>
 								<div class="controls">
-									<input id="butTime" name="butTime" type="datetime"   class="span12"  style="width:130px;">
+									<input id="butTime" name="butTime" type="datetime" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="expiration">使用期限</label>
 								<div class="controls">
-									<input id="expiration" name="expiration" type="text"  class="span11"  style="width:122px;">
+									<input id="expiration" name="expiration" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	
-						
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="location">存放位置</label>
 							<div class="controls">
-								<input id="location" name="location" type="text" >
+								<input id="location" name="location" type="text">
 							</div>
-						</div>	
+						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="manager">管理人员</label>
 								<div class="controls">
-									<input id="manager" name="manager" type="text"  class="span12"  style="width:130px;">
+									<input id="manager" name="manager" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="telephone">手机</label>
 								<div class="controls">
-									<input id="telephone" name="telephone" type="text"  class="span11"  style="width:122px;">
+									<input id="telephone" name="telephone" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" >
+								<input id="remark" name="remark" type="text">
 							</div>
-						</div>						
+						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -165,95 +164,93 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input  name="id" type="hidden" >
-					    <div class="control-group">
+						<input name="id" type="hidden">
+						<div class="control-group">
 							<label class="control-label" for="principal">资源名称</label>
 							<div class="controls">
-								<input id="resourceName" name="resourceName" type="text" >
+								<input id="resourceName" name="resourceName" type="text">
 							</div>
 						</div>
-                        <div class="row-fluid ">
+						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="resourceNo">编号</label>
 								<div class="controls">
-									<input id="resourceNo" name="resourceNo" type="text"  class="span12"  style="width:130px;">
+									<input id="resourceNo" name="resourceNo" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text" class="span11"  style="width:122px;">
+									<input id="amount" name="amount" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	        
-	        			<div class="control-group">
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="function">用途</label>
 							<div class="controls">
-								<input id="function" name="function" type="text" >
+								<input id="function" name="function" type="text">
 							</div>
-						</div>	
-					    <div class="row-fluid ">
+						</div>
+						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="model">型号</label>
 								<div class="controls">
-									<input id="model" name="model" type="text"  class="span12"  style="width:130px;">
+									<input id="model" name="model" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="origin">原产地</label>
 								<div class="controls">
-									<input id="origin" name="origin" type="text"   class="span11"  style="width:122px;">
+									<input id="origin" name="origin" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	 	
+						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="butTime">购置时间</label>
 								<div class="controls">
-									<input id="butTime" name="butTime" type="datetime"  class="span12"  style="width:130px;">
+									<input id="butTime" name="butTime" type="datetime" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="expiration">使用期限</label>
 								<div class="controls">
-									<input id="expiration" name="expiration" type="text"  class="span11"  style="width:122px;">
+									<input id="expiration" name="expiration" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	
-						
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="location">存放位置</label>
 							<div class="controls">
-								<input id="location" name="location" type="text" >
+								<input id="location" name="location" type="text">
 							</div>
-						</div>	
+						</div>
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label span4" for="manager">管理人员</label>
 								<div class="controls">
-									<input id="manager" name="manager" type="text"  class="span12"  style="width:130px;">
+									<input id="manager" name="manager" type="text" class="span12" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label span4" for="telephone">手机</label>
 								<div class="controls">
-									<input id="telephone" name="telephone" type="text"  class="span11"  style="width:122px;">
+									<input id="telephone" name="telephone" type="text" class="span11" style="width: 122px;">
 								</div>
 							</div>
-						</div>	
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="remark" name="remark" type="text" >
+								<input id="remark" name="remark" type="text">
 							</div>
-						</div>	
-	        
+						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
-						<div class="alert alert-error">s
-							<i class="icon-remove"></i>
+						<div class="alert alert-error">
+							s <i class="icon-remove"></i>
 							<span id="edit-message-content"></span>
 						</div>
 					</div>

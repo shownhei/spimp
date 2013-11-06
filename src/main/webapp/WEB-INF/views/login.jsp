@@ -50,11 +50,14 @@
 											<div class="space-6"></div>
 											<form>
 												<fieldset>
-													<label> <span class="block input-icon input-icon-right">
+													<label>
+														<span class="block input-icon input-icon-right">
 															<input id="principal" type="text" class="span12" placeholder="用户名">
 															<i class="icon-user"></i>
 														</span>
-													</label> <label> <span class="block input-icon input-icon-right">
+													</label>
+													<label>
+														<span class="block input-icon input-icon-right">
 															<input id="credential" type="password" class="span12" placeholder="密码">
 															<i class="icon-lock"></i>
 														</span>

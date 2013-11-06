@@ -12,19 +12,21 @@
 html,body {
 	height: 100%;
 }
+
 body {
 	margin: 0;
 	padding: 0;
 	overflow: auto;
 }
+
 #flashContent {
 	display: none;
 }
 </style>
 <script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
 </head>
-<body >
-	<div style="padding:0px;margin:0px;border:opx solid white;">
+<body>
+	<div style="padding: 0px; margin: 0px; border: opx solid white;">
 		<div id="documentViewer" class="flexpaper_viewer" style="width: 100%; height: 345px"></div>
 		<script type="text/javascript">
 		var flexPaperViewer = "${resources}/scripts/sea-modules/ikj/flexpaper/1.0.0/FlexPaperViewer.swf";

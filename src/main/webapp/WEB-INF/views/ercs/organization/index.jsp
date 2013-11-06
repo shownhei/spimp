@@ -12,8 +12,7 @@
 	<div class="main-container container-fluid">
 		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="page-toolbar">
-			</div>
+			<div class="page-toolbar"></div>
 			<div class="page-content">
 				<div class="row-fluid">
 					<div class="span3">
@@ -34,45 +33,44 @@
 									</a>
 								</li>
 							</ul>
-							<div id="tab-content" class="tab-content" style="padding-top:0px;padding-left:2px;">
-								<div id="normal" class="tab-pane in active" >
-								    <div class="row-fluid page-toolbar span12" >
-									     <div class=" toolbar " >
-											<button id="normal-create" class="btn btn-small btn-success " >
+							<div id="tab-content" class="tab-content" style="padding-top: 0px; padding-left: 2px;">
+								<div id="normal" class="tab-pane in active">
+									<div class="row-fluid page-toolbar span12">
+										<div class=" toolbar ">
+											<button id="normal-create" class="btn btn-small btn-success ">
 												<i class="icon-plus-sign-alt"></i>
 												<span class="hidden-phone">新建</span>
 											</button>
-											<button id="normal-remove" class="btn btn-small btn-danger disabled" >
+											<button id="normal-remove" class="btn btn-small btn-danger disabled">
 												<i class="icon-trash"></i>
 												<span class="hidden-phone">删除</span>
 											</button>
 										</div>
 									</div>
-									<div class="row-fluid" style="margin-top:5px;">
-									   <div class="span12" id="normal-table" >
-									   </div>
+									<div class="row-fluid" style="margin-top: 5px;">
+										<div class="span12" id="normal-table"></div>
 									</div>
 								</div>
 								<div id="expert" class="tab-pane in ">
-								    <div class="row-fluid page-toolbar span12" >
-									     <div class="toolbar " >
-											<button id="expert-create" class="btn btn-small btn-success " >
+									<div class="row-fluid page-toolbar span12">
+										<div class="toolbar ">
+											<button id="expert-create" class="btn btn-small btn-success ">
 												<i class="icon-plus-sign-alt"></i>
 												<span class="hidden-phone">新建</span>
 											</button>
-											<button id="expert-remove" class="btn btn-small btn-danger disabled" >
+											<button id="expert-remove" class="btn btn-small btn-danger disabled">
 												<i class="icon-trash"></i>
 												<span class="hidden-phone">删除</span>
 											</button>
 										</div>
 									</div>
-									<div class="row-fluid" style="margin-top:5px;">
-									   <div class="span12" id="expert-table" >
-									   </div>
+									<div class="row-fluid" style="margin-top: 5px;">
+										<div class="span12" id="expert-table"></div>
 									</div>
 								</div>
 							</div>
-						</div><!-- end1 -->
+						</div>
+						<!-- end1 -->
 					</div>
 				</div>
 			</div>
@@ -91,19 +89,19 @@
 				<div class="span12">
 					<form id="create-normal-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-						    <input name="memberType" type="hidden" value="normal">
-						    <input name="memberLevel" type="hidden" value="1">
-						    <input name="team" type="hidden" id="normal_team">
-						    <div class="control-group">
-							<label class="control-label" for="memberLevel">人员类别</label>
-							<div class="controls">
-								<select id="memberLevel" name="memberLevel" class="input-small">
-									<option value="1">总指挥</option>
-									<option value="2">副总指挥</option>
-									<option value="3">成员</option>
-								</select>
+							<input name="memberType" type="hidden" value="normal">
+							<input name="memberLevel" type="hidden" value="1">
+							<input name="team" type="hidden" id="normal_team">
+							<div class="control-group">
+								<label class="control-label" for="memberLevel">人员类别</label>
+								<div class="controls">
+									<select id="memberLevel" name="memberLevel" class="input-small">
+										<option value="1">总指挥</option>
+										<option value="2">副总指挥</option>
+										<option value="3">成员</option>
+									</select>
+								</div>
 							</div>
-						</div>
 							<label class="control-label" for="normalMember">人员名称</label>
 							<div class="controls">
 								<input id="create-normal-name" name="normalMember" type="text">
@@ -143,9 +141,9 @@
 				<div class="span12">
 					<form id="create-expert-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-						    <input name="memberType" type="hidden" value="expert">
-						    <input name="memberLevel" type="hidden" value="1">
-						    <input name="team" type="hidden" id="expert_team">
+							<input name="memberType" type="hidden" value="expert">
+							<input name="memberLevel" type="hidden" value="1">
+							<input name="team" type="hidden" id="expert_team">
 							<label class="control-label" for="name">专家名称</label>
 							<div class="controls">
 								<input id="create-expert-name" name="expertMember" type="text">

@@ -111,7 +111,9 @@
 						<div class="control-group">
 							<label class="control-label" for="locked"></label>
 							<div class="controls">
-								<label> <input name="locked" type="checkbox" class="ace"> <span class="lbl"> 锁定</span>
+								<label>
+									<input name="locked" type="checkbox" class="ace">
+									<span class="lbl"> 锁定</span>
 								</label>
 							</div>
 						</div>
