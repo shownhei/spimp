@@ -87,16 +87,21 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		// 验证
-		if (object.resourceName === '') {
-			Utils.modal.message('create', [ '请输入资源名称' ]);
+		if (object.type === '') {
+			Utils.modal.message('create', [ '请输入事故类别' ]);
 			return;
 		}
-		if (object.resourceNo === '') {
-			Utils.modal.message('create', [ '请输入资源编号' ]);
+		if (object.address === '') {
+			Utils.modal.message('create', [ '请输入事故现场' ]);
 			return;
 		}
-		if (object.department === '') {
-			delete object.department;
+		if (object.decide === '') {
+			Utils.modal.message('create', [ '请输入方案指定人' ]);
+			return;
+		}
+		if (object.startTime === '') {
+			Utils.modal.message('create', [ '请输入事故发生时间' ]);
+			return;
 		}
 		if (object.resourceType === '') {
 			delete object.resourceType;
@@ -139,12 +144,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		if (object.decide === '') {
-			Utils.modal.message('edit', [ '请输入“方案指定人”' ]);
-			return;
-		}
 		if (object.address === '') {
 			Utils.modal.message('edit', [ '请输入“事故现场”' ]);
+			return;
+		}
+		if (object.decide === '') {
+			Utils.modal.message('edit', [ '请输入“方案指定人”' ]);
 			return;
 		}
 		var attachment = {
