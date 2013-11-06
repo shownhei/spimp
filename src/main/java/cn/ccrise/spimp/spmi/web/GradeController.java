@@ -3,6 +3,8 @@
  */
 package cn.ccrise.spimp.spmi.web;
 
+import java.sql.Timestamp;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -67,6 +69,8 @@ public class GradeController {
 		gradeInDb.getGradeRecords().clear();
 		gradeService.update(gradeInDb);
 
+		grade.setGradedTime(gradeInDb.getGradedTime());
+		grade.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(gradeService.merge(grade));
 	}
 }

@@ -66,7 +66,7 @@ public class Grade extends IDEntity {
 	/**
 	 * 最后更新时间。
 	 */
-	private Timestamp updateTime;
+	private Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 
 	@Column(nullable = false)
 	public String getCategory() {
