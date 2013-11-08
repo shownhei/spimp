@@ -15,6 +15,7 @@
   "spm": {
     "alias": {
       "$": "$",
+      "jquery-migrate": "ikj/jquery-migrate/1.2.1/jquery-migrate",
       "jquery-ui": "ikj/jquery-ui/1.10.3/jquery-ui",
       "ztree": "ikj/ztree/3.5.14/ztree",
       "rest": "ikj/rest/1.0.0/rest",
@@ -23,7 +24,8 @@
       "bootstrap": "ikj/bootstrap/2.3.2/bootstrap",
       "autocomplete": "ikj/autocomplete/1.2.3/autocomplete",
       "datepicker": "ikj/datepicker/1.2.0/datepicker",
-      "daterangepicker": "ikj/daterangepicker/1.2.0/daterangepicker"
+      "datetimepicker": "ikj/datetimepicker/2.0.0/datetimepicker",
+      "xheditor": "ikj/xheditor/1.2.1/xheditor"
     },
     "output": ["kjquery.js"]
   }

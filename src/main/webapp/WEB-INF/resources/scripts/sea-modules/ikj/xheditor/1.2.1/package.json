@@ -1,0 +1,21 @@
+{
+  "name": "xheditor",
+  "family": "ikj",
+  "version": "1.2.1",
+  "description": "富文本编辑",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-xheditor.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-xheditor/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["xheditor.js"]
+  }
+}

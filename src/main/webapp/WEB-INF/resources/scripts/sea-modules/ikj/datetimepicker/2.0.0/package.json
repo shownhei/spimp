@@ -1,0 +1,21 @@
+{
+  "name": "datetimepicker",
+  "family": "ikj",
+  "version": "2.0.0",
+  "description": "Both Date and Time picker widget based on twitter bootstrap (supports Bootstrap v2 and v3)",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-datetimepicker.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-datetimepicker/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["datetimepicker.js"]
+  }
+}
