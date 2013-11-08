@@ -125,7 +125,7 @@ define(function(require, exports, module) {
 
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
-			if (object.department.name) {
+			if (object.department && object.department.name) {
 				$('#edit_department').val(object.department.name);
 				$('#edit_department').attr('data-id', object.department.id);
 			}

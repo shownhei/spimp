@@ -218,7 +218,12 @@ define(function(require, exports, module) {
 			} else if (value.tagName === 'TEXTAREA') {
 				$(value).html(model[$(value).attr('name')]);
 			} else {
-				$(value).val(model[$(value).attr('name')]);
+				// 处理日期控件赋值问题
+				if ($(value).attr('type') === 'datetime') {
+					$(value).datepicker('update', model[$(value).attr('name')]);
+				} else {
+					$(value).val(model[$(value).attr('name')]);
+				}
 			}
 		});
 	};
