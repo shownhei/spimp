@@ -118,18 +118,23 @@
 								<input type="button" value="选择" id="create_selectGroup" class="btn btn-small btn-success" style="width:48px;">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="expertiseArea">专业领域</label>
-							<div class="controls">
-								<select id="create-expertiseArea" name="expertiseArea[id]"></select>
+						
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="expertiseArea">专业领域</label>
+								<div class="controls">
+								    <select id="create-expertiseArea" name="expertiseArea[id]"  class="span12"  style="width:130px;"></select>
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="responseLevel">事故响应级别</label>
+								<div class="controls">
+								    <select id="create-responseLevel" name="responseLevel[id]"  class="span11"  style="width:122px;"></select>
+								</div>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="responseLevel">事故响应级别</label>
-							<div class="controls">
-								<select id="create-responseLevel" name="responseLevel[id]"></select>
-							</div>
-						</div>
+						
+						
 						<div class="control-group">
 							<label class="control-label " for="remark">备注</label>
 							<div class="controls">
@@ -237,16 +242,18 @@
 								<input type="button" value="选择" id="edit_selectGroup" class="btn btn-small btn-success" style="width:48px;">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="expertiseArea">专业领域</label>
-							<div class="controls">
-								<select id="edit-expertiseArea" name="expertiseArea[id]"></select>
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="expertiseArea">专业领域</label>
+								<div class="controls">
+								    <select id="edit-expertiseArea" name="expertiseArea[id]"  class="span12"  style="width:130px;"></select>
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label " for="responseLevel">事故响应级别</label>
-							<div class="controls">
-								<select id="edit-responseLevel" name="responseLevel[id]"></select>
+							<div class="control-group span6">
+								<label class="control-label span4" for="responseLevel">事故响应级别</label>
+								<div class="controls">
+								    <select id="edit-responseLevel" name="responseLevel[id]"  class="span11"  style="width:122px;"></select>
+								</div>
 							</div>
 						</div>
 						<div class="control-group">

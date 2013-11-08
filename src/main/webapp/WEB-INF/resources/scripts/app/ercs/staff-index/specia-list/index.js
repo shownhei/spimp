@@ -16,7 +16,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '性别',
 		render : function(v) {
-			return v ? (v === 1 ? '男' : '女') : '--';
+			return v!==null ? (v === 1 ? '男' : '女') : '--';
 		},
 		name : 'gender'
 	}, {

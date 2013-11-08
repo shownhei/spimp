@@ -52,56 +52,56 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom:0px;">
 					    <div class="control-group">
-							<label class="control-label " for="principal">器材/药品名称</label>
+							<label class="control-label " for="name">器材/药品名称</label>
 							<div class="controls">
 								<input id="name" name="name" type="text">
 							</div>
 						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">数量</label>
-							<div class="controls">
-								<input id="amount" name="amount" type="text">
+	                   <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="model">型号</label>
+								<div class="controls">
+									<input  name="model" type="text"  class="span12"  style="width:130px;">
+								</div>
 							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">型号</label>
-							<div class="controls">
-								<input id="model" name="model" type="text">
+							<div class="control-group span6">
+								<label class="control-label span4" for="amount">数量</label>
+								<div class="controls">
+									<input  name="amount" type="number" class="span11"  style="width:122px;">
+								</div>
 							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">产地</label>
-							<div class="controls">
-								<input id="origin" name="origin" type="text">
+						</div>	
+	                    <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="origin">产地</label>
+								<div class="controls">
+									<input  name="origin" type="text"  class="span12"  style="width:130px;">
+								</div>
 							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">购置时间</label>
-							<div class="controls">
-								<input id="buyTime" name="buyTime" type="datetime">
+							<div class="control-group span6">
+								<label class="control-label span4" for="buyTime">购置时间</label>
+								<div class="controls">
+									<input  name="buyTime" type="datetime" class="span11"  style="width:122px;">
+								</div>
 							</div>
-						</div>
+						</div>	
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">有效使用期限</label>
+							<label class="control-label " for="expiration">有效使用期限</label>
 							<div class="controls">
 								<input id="expiration" name="expiration" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">使用、更换、报废情况</label>
+							<label class="control-label " for="situation">使用、更换、报废情况</label>
 							<div class="controls">
 								<input id="situation" name="situation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">备注</label>
+							<label class="control-label " for="remark">备注</label>
 							<div class="controls">
 								<input id="remark" name="remark" type="text">
 							</div>
@@ -141,56 +141,57 @@
 					<form id="edit-form" class="form-horizontal">
 					    <input  name="id" type="hidden">
 						<div class="control-group">
-							<label class="control-label " for="principal">器材/药品名称</label>
+							<label class="control-label " for="name">器材/药品名称</label>
 							<div class="controls">
 								<input  name="name" type="text">
 							</div>
 						</div>
 	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">数量</label>
-							<div class="controls">
-								<input  name="amount" type="text">
+					    <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="model">型号</label>
+								<div class="controls">
+									<input  name="model" type="text"  class="span12"  style="width:130px;">
+								</div>
 							</div>
-						</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="amount">数量</label>
+								<div class="controls">
+									<input  name="amount" type="number" class="span11"  style="width:122px;">
+								</div>
+							</div>
+						</div>	
+	                    <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="origin">产地</label>
+								<div class="controls">
+									<input  name="origin" type="text"  class="span12"  style="width:130px;">
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="amount">购置时间</label>
+								<div class="controls">
+									<input  name="buyTime" type="datetime" class="span11"  style="width:122px;">
+								</div>
+							</div>
+						</div>	
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">型号</label>
-							<div class="controls">
-								<input  name="model" type="text">
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">产地</label>
-							<div class="controls">
-								<input  name="origin" type="text">
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">购置时间</label>
-							<div class="controls">
-								<input  name="buyTime" type="text"  readonly type="datetime">
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="principal">有效使用期限</label>
+							<label class="control-label " for="expiration">有效使用期限</label>
 							<div class="controls">
 								<input  name="expiration" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">使用、更换、报废情况</label>
+							<label class="control-label " for="situation">使用、更换、报废情况</label>
 							<div class="controls">
 								<input  name="situation" type="text">
 							</div>
 						</div>
 	        
 					    <div class="control-group">
-							<label class="control-label " for="principal">备注</label>
+							<label class="control-label " for="remark">备注</label>
 							<div class="controls">
 								<input  name="remark" type="text">
 							</div>

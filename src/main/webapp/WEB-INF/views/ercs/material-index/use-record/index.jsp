@@ -57,18 +57,20 @@
 								<input id="resource" name="resource" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="useTime">使用日期</label>
-							<div class="controls">
-								<input  type=datetime name="useTime" >
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="useTime">使用日期</label>
+								<div class="controls">
+									<input id="useTime" name="useTime" type=datetime  class="span12"  style="width:130px;">
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label " for="useAmount">使用数量</label>
-							<div class="controls">
-								<input  name="useAmount" type="text">
+							<div class="control-group span6">
+								<label class="control-label span4" for="useAmount">数量</label>
+								<div class="controls">
+									<input id="useAmount" name="useAmount" type="number" class="span11"  style="width:122px;">
+								</div>
 							</div>
-						</div>
+						</div>	        
 						<div class="control-group">
 							<label class="control-label " for="maintenanceTime">检查维修日期</label>
 							<div class="controls">
@@ -133,18 +135,20 @@
 								<input id="edit-resource" name="resource" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="useTime">使用日期</label>
-							<div class="controls">
-								<input  type=datetime name="useTime" >
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="useTime">使用日期</label>
+								<div class="controls">
+									<input  name="useTime" type=datetime  class="span12"  style="width:130px;">
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label " for="useAmount">使用数量</label>
-							<div class="controls">
-								<input  name="useAmount" type="text">
+							<div class="control-group span6">
+								<label class="control-label span4" for="useAmount">使用数量</label>
+								<div class="controls">
+									<input  name="useAmount" type="number" class="span11"  style="width:122px;">
+								</div>
 							</div>
-						</div>
+						</div>	
 						<div class="control-group">
 							<label class="control-label " for="maintenanceTime">检查维修日期</label>
 							<div class="controls">

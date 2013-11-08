@@ -70,7 +70,7 @@
 							<div class="control-group span6">
 								<label class="control-label " for="quantity" >数量</label>
 								<div class="controls">
-									<input id="quantity" name="quantity" type="text" value="1" class="span2" style="width:122px;">
+									<input id="quantity" name="quantity" type="number" value="1" class="span2" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 						
 						<div class="row-fluid ">
 							<div class="control-group span6">
-								<label class="control-label span4" for="principal">面积</label>
+								<label class="control-label span4" for="principal">面积(平米)</label>
 								<div class="controls">
 									<input id="refugeArea" type="text"  name="refugeArea"  class="span12" style="width:130px;">
 								</div>
@@ -97,7 +97,7 @@
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">可容纳人数</label>
 								<div class="controls">
-									<input id="capacity" name="capacity" type="text" value="10" class="span11" style="width:122px;">
+									<input id="capacity" name="capacity" type="number" value="10" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -186,7 +186,7 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="principal">数量</label>
 								<div class="controls">
-									<input name="quantity" type="text" value="1" class="span11" style="width:122px;">
+									<input name="quantity" type="number" value="1" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>
@@ -205,7 +205,7 @@
 						
 						<div class="row-fluid ">
 							<div class="control-group span6">
-								<label class="control-label span4" for="principal">面积</label>
+								<label class="control-label span4" for="principal">面积(平米)</label>
 								<div class="controls">
 									<input type="text"  name="refugeArea" class="span12" style="width:122px;">
 								</div>
@@ -213,7 +213,7 @@
 							<div class="control-group  span6">
 								<label class="control-label span4" for="principal">可容纳人数</label>
 								<div class="controls">
-									<input name="capacity" type="text" value="10" class="span11" style="width:122px;">
+									<input name="capacity" type="number" value="10" class="span11" style="width:122px;">
 								</div>
 							</div>
 						</div>

@@ -62,34 +62,37 @@
 								<input id="name" name="name" type="text" >
 							</div>
 						</div>
-	        
-						<div class="control-group">
-							<label class="control-label " for="gender">性别</label>
-							<div class="controls">
-								<select id="create-gender" name="gender" class="input-small ">
-									<option value="1">男</option>
-									<option value="0">女</option>
-								</select>
+	        			<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="gender">性别</label>
+								<div class="controls">
+								    <select id="create-gender" name="gender"  class="span12"  style="width:130px;">
+									    <option value="1">男</option>
+									    <option value="0">女</option>
+								    </select>
+								</div>
 							</div>
-						</div>
-					    <div class="control-group">
-							<label class="control-label " for="birthDay">出生日期</label>
-							<div class="controls">
-								<input id="birthDay" name="birthDay" type=datetime>
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label " for="specialty">专业类型</label>
-							<div class="controls">
-							    <select id="create-specialty" name="specialty[id]"></select>
+							<div class="control-group span6">
+								<label class="control-label span4" for="birthDay">出生日期</label>
+								<div class="controls">
+								    <input id="birthDay" name="birthDay" type=datetime class="span11"  style="width:122px;">
+								</div>
 							</div>
 						</div>
 	        
-					    <div class="control-group">
-							<label class="control-label " for="physicalCondition">健康状况</label>
-							<div class="controls">
-								<input id="physicalCondition" name="physicalCondition" type="text" >
+	                    <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="specialty">专业类型</label>
+								<div class="controls">
+								    <select id="create-specialty" name="specialty[id]"  class="span12"  style="width:130px;">
+								    </select>
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="physicalCondition">健康状况</label>
+								<div class="controls">
+								    <input id="physicalCondition" name="physicalCondition" type="text"  class="span11"  style="width:122px;">
+								</div>
 							</div>
 						</div>
 	        
@@ -155,34 +158,37 @@
 								<input  name="name" type="text" >
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="gender">性别</label>
-							<div class="controls">
-							    <select id="edit-gender" name="gender" class="input-small ">
-									<option value="1">男</option>
-									<option value="0">女</option>
-								</select>
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="gender">性别</label>
+								<div class="controls">
+								    <select id="edit-gender" name="gender"  class="span12"  style="width:130px;">
+									    <option value="1">男</option>
+									    <option value="0">女</option>
+								    </select>
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="birthDay">出生日期</label>
+								<div class="controls">
+								    <input  name="birthDay" type=datetime class="span11"  style="width:122px;">
+								</div>
 							</div>
 						</div>
 	        
-					    <div class="control-group">
-							<label class="control-label" for="birthDay">出生日期</label>
-							<div class="controls">
-								<input  name="birthDay" type=datetime>
+	                    <div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="specialty">专业类型</label>
+								<div class="controls">
+								    <select id="edit-specialty" name="specialty[id]"  class="span12"  style="width:130px;">
+								    </select>
+								</div>
 							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label" for="principal">专业类型</label>
-							<div class="controls">
-							     <select id="edit-specialty" name="specialty[id]"></select>
-							</div>
-						</div>
-	        
-					    <div class="control-group">
-							<label class="control-label" for="principal">健康状况</label>
-							<div class="controls">
-								<input  name="physicalCondition" type="text" >
+							<div class="control-group span6">
+								<label class="control-label span4" for="physicalCondition">健康状况</label>
+								<div class="controls">
+								    <input  name="physicalCondition" type="text"  class="span11"  style="width:122px;">
+								</div>
 							</div>
 						</div>
 	        
