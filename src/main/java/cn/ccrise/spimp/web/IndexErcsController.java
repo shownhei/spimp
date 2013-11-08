@@ -133,6 +133,14 @@ public class IndexErcsController {
 	}
 
 	/**
+	 * 应急救援保障机构
+	 */
+	@RequestMapping(value = "/ercs/staff-index/safegard-org", method = RequestMethod.GET)
+	public String ercsSafegardOrganization() {
+		return "ercs/staff-index/safegard-org/index";
+	}
+
+	/**
 	 * pdf 查看
 	 * 
 	 * @param id
