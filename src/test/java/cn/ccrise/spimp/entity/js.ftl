@@ -187,4 +187,10 @@ ${detailShowJs}
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
+	
+	// 查询条件重置
+    $('#reset').click(function() {
+        grid.set('url', defaultUrl);
+        grid.refresh();
+    });
 });
