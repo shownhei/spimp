@@ -16,7 +16,7 @@
 				<div class="toolbar">
 					<button id="create" class="btn btn-small btn-success" title="新建评分表">
 						<i class="icon-plus-sign-alt"></i>
-						<span class="hidden-phone">新建</span>
+						<span class="hidden-phone">评分</span>
 					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i>
@@ -77,10 +77,8 @@
 							</tbody>
 						</table>
 						<%@ include file="head-table.jsp"%>
-						<div style="height: 500px; overflow: auto;">
-							<table id="create-grade-record-table" class="grade-table">
-								<%@ include file="tbody.jsp"%>
-							</table>
+						<div id="create-grade-record-table" style="height: 500px; overflow: auto;">
+							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
 				</div>
@@ -140,10 +138,8 @@
 							</tbody>
 						</table>
 						<%@ include file="head-table.jsp"%>
-						<div style="height: 500px; overflow: auto;">
-							<table id="edit-grade-record-table" class="grade-table">
-								<%@ include file="tbody.jsp"%>
-							</table>
+						<div id="edit-grade-record-table" style="height: 500px; overflow: auto;">
+							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
 				</div>
@@ -232,11 +228,10 @@
 								</tr>
 							</tbody>
 						</table>
+						<%@ include file="collect-table.jsp"%>
 						<%@ include file="head-table.jsp"%>
-						<div style="height: 500px; overflow: auto;">
-							<table id="view-grade-record-table" class="grade-table">
-								<%@ include file="tbody.jsp"%>
-							</table>
+						<div id="view-grade-record-table" style="height: 200px; overflow: auto;">
+							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
 				</div>
@@ -245,6 +240,74 @@
 		<div class="modal-footer">
 			<button class="btn btn-small" data-dismiss="modal">
 				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
+	<!-- 新建总表 -->
+	<div id="collect-create-modal" class="modal modal-xl hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="collect-create-form" class="form-horizontal" onsubmit="return false;">
+						<%@ include file="collect-table.jsp"%>
+					</form>
+				</div>
+				<div id="collect-create-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="collect-create-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="collect-create-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 编辑总表 -->
+	<div id="collect-edit-modal" class="modal modal-xl hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-edit"></i> 编辑
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="collect-edit-form" class="form-horizontal" onsubmit="return false;">
+						<%@ include file="collect-table.jsp"%>
+					</form>
+				</div>
+				<div id="collect-edit-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="collect-edit-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="collect-edit-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
 			</button>
 		</div>
 	</div>

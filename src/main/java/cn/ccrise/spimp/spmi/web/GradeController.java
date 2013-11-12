@@ -75,14 +75,26 @@ public class GradeController {
 
 	@RequestMapping(value = "/spmi/quality/grades/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Grade grade, @PathVariable long id) {
+	public Response update(@RequestBody Grade grade, @PathVariable long id) {
 		Grade gradeInDb = gradeService.get(id);
 
-		gradeInDb.getGradeRecords().clear();
-		gradeService.update(gradeInDb);
+		if (grade.getCollectRecords().isEmpty()) { // 更新评分表
+			gradeInDb.getGradeRecords().clear();
+			gradeService.update(gradeInDb);
 
-		grade.setGradedTime(gradeInDb.getGradedTime());
-		grade.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		return new Response(gradeService.merge(grade));
+			grade.setGradedTime(gradeInDb.getGradedTime());
+			grade.setCollectRecords(gradeInDb.getCollectRecords());
+			grade.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+			return new Response(gradeService.merge(grade));
+		} else { // 更新总表
+			if (!gradeInDb.getCollectRecords().isEmpty()) {
+				gradeInDb.getCollectRecords().clear();
+				gradeService.update(gradeInDb);
+			}
+
+			gradeInDb.getCollectRecords().addAll(grade.getCollectRecords());
+			gradeInDb.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+			return new Response(gradeService.save(gradeInDb));
+		}
 	}
 }

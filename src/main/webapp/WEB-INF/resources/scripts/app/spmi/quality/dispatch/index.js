@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var selectedId; // 选中的行
 
 	// 提示信息
 	$('button[title]').tooltip({
@@ -56,6 +57,14 @@ define(function(require, exports, module) {
 		name : 'updateTime',
 		width : 150
 	}, {
+		header : '总表',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="collect" class="icon-table" title="编辑总表" style="cursor:pointer;"></i>';
+		}
+	}, {
 		header : '查看',
 		name : 'id',
 		width : 50,
@@ -94,17 +103,41 @@ define(function(require, exports, module) {
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
 
+			// 查看
 			if (target.data('role') === 'view') {
+				Utils.modal.reset('view');
 				Utils.form.fill('view', data);
 				$.each(data.gradeRecords, function(k, v) {
 					$('#view-grade-record-table td[id=view-grade-record-' + v.row + '-' + v.col + ']').html(v.content);
 				});
+				$.each(data.collectRecords, function(k, v) {
+					$('#view-form input[name=collect-record-' + v.row + '-' + v.col + ']').val(v.content).attr('readonly', 'readonly');
+				});
 				Utils.modal.show('view');
-				$('#view-grade-record-table').parent().scrollTop(0);
+				$('#view-grade-record-table').scrollTop(0);
+			}
+
+			// 总表
+			if (target.data('role') === 'collect') {
+				selectedId = data.id;
+				if (data.collectRecords.length === 0) { // 新建
+					Utils.modal.reset('collect-create');
+					Utils.modal.show('collect-create');
+				} else { // 编辑
+					Utils.modal.reset('collect-edit');
+					$.each(data.collectRecords, function(k, v) {
+						$('#collect-edit-form input[name=collect-record-' + v.row + '-' + v.col + ']').val(v.content);
+					});
+					Utils.modal.show('collect-edit');
+				}
 			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
+
+			$('i[title]').tooltip({
+				placement : 'bottom'
+			});
 		}
 	}).render();
 
@@ -166,7 +199,7 @@ define(function(require, exports, module) {
 			'background-color' : '#fff'
 		});
 		Utils.modal.show('create');
-		$('#create-grade-record-table').parent().scrollTop(0);
+		$('#create-grade-record-table').scrollTop(0);
 	});
 
 	// 保存
@@ -279,7 +312,7 @@ define(function(require, exports, module) {
 				$('#edit-grade-record-table textarea[name=grade-record-' + v.row + '-' + v.col + ']').val(v.content);
 			});
 			Utils.modal.show('edit');
-			$('#edit-grade-record-table').parent().scrollTop(0);
+			$('#edit-grade-record-table').scrollTop(0);
 		});
 	});
 
@@ -388,6 +421,58 @@ define(function(require, exports, module) {
 		$.del(contextPath + '/spmi/quality/grades/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
+		});
+	});
+
+	// 保存总表
+	$('#collect-create-save').click(function() {
+		var object = Utils.form.serialize('collect-create');
+		object.collectRecords = [];
+
+		$.each($('#collect-create-form input[name^=collect-record-]'), function(key, value) {
+			var inputName = $(value).attr('name');
+			var inputValue = $(value).val();
+
+			object.collectRecords.push({
+				row : inputName.split('-')[2],
+				col : inputName.split('-')[3],
+				content : inputValue
+			});
+		});
+
+		$.put(contextPath + '/spmi/quality/grades/' + selectedId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('collect-create');
+			} else {
+				Utils.modal.message('collect-create', data.errors);
+			}
+		});
+	});
+
+	// 更新总表
+	$('#collect-edit-save').click(function() {
+		var object = Utils.form.serialize('collect-edit');
+		object.collectRecords = [];
+
+		$.each($('#collect-edit-form input[name^=collect-record-]'), function(key, value) {
+			var inputName = $(value).attr('name');
+			var inputValue = $(value).val();
+
+			object.collectRecords.push({
+				row : inputName.split('-')[2],
+				col : inputName.split('-')[3],
+				content : inputValue
+			});
+		});
+
+		$.put(contextPath + '/spmi/quality/grades/' + selectedId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('collect-edit');
+			} else {
+				Utils.modal.message('collect-edit', data.errors);
+			}
 		});
 	});
 });

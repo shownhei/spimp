@@ -323,8 +323,10 @@ body {
 }
 
 .grade-table input,.grade-table textarea {
-	font-size: 12px;
+	font-size: 12px !important;
 	color: #111;
+	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica,
+		"Lucida Grande", "Luxi Sans", Arial, sans-serif;
 }
 
 .widthTd {

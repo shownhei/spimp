@@ -60,6 +60,10 @@ public class Grade extends IDEntity {
 	 */
 	private List<GradeRecord> gradeRecords = Lists.newArrayList();
 	/**
+	 * 总表详细记录。
+	 */
+	private List<GradeRecord> collectRecords = Lists.newArrayList();
+	/**
 	 * 评分时间。
 	 */
 	private Timestamp gradedTime = new Timestamp(System.currentTimeMillis());
@@ -71,6 +75,12 @@ public class Grade extends IDEntity {
 	@Column(nullable = false)
 	public String getCategory() {
 		return category;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
+	public List<GradeRecord> getCollectRecords() {
+		return collectRecords;
 	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
@@ -107,6 +117,10 @@ public class Grade extends IDEntity {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public void setCollectRecords(List<GradeRecord> collectRecords) {
+		this.collectRecords = collectRecords;
 	}
 
 	public void setGradedTime(Timestamp gradedTime) {
