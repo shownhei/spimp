@@ -255,10 +255,15 @@ define(function(require, exports, module) {
 	});
 });
 function callBack(data) {
-	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id', data.data.id);
-	$('#create-file-form').hide();
 	window.process.stop();
 	window.process = null;
-	$('#attachment').parent().parent().show();
+	if(!data.success){
+		alert("上传失败..."+data.data);
+		return false;
+	}else{
+		$('#attachment').val(data.data.filePath);
+		$('#attachment').attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		$('#attachment').parent().parent().show();
+	}
 }

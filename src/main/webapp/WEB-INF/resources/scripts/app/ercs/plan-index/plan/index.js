@@ -216,13 +216,17 @@ define(function(require, exports, module) {
 });
 // 文件上传回调
 function callBack(data) {
-	console.log(data.data);
-	var attachment = $('#attachment');
-	attachment.val(data.data.filePath);
-	attachment.attr('data-id', data.data.id);
-	$('#create-file-form').hide();
-	attachment.parent().parent().show();
-	$('#create-save').removeClass('disabled');
 	window.process.stop();
 	window.process = null;
+	if(!data.success){
+		alert("上传失败..."+data.data);
+		return false;
+	}else{
+		var attachment = $('#attachment');
+		attachment.val(data.data.filePath);
+		attachment.attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		attachment.parent().parent().show();
+		$('#create-save').removeClass('disabled');
+	}
 }

@@ -200,9 +200,15 @@ define(function(require, exports, module) {
 		}
 	});
 	$('#create-file-delete').bind('click', function() {
-		$('#attachment').parent().parent().hide();
-		$('#create-file-form')[0].reset();
-		$('#create-file-form').show();
+		var process = new Utils.modal.showProcess('process');
+		window.process = process;
+		$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
+			window.process.stop();
+			window.process = null;
+			$('#attachment').parent().parent().hide();
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		});
 	});
 	$(document).click(function(event) {
 		var docId = $(event.target).attr('doc_id');
@@ -213,10 +219,15 @@ define(function(require, exports, module) {
 	});
 });
 function callBack(data) {
-	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id', data.data.id);
-	$('#create-file-form').hide();
 	window.process.stop();
 	window.process = null;
-	$('#attachment').parent().parent().show();
+	if(!data.success){
+		alert("上传失败..."+data.data);
+		return false;
+	}else{
+		$('#attachment').val(data.data.filePath);
+		$('#attachment').attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		$('#attachment').parent().parent().show();
+	}
 }
