@@ -97,8 +97,8 @@ define(function(require, exports, module) {
 	};
 
 	utils.modal.showProcess = function(processId) {
-		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1052;">', '<div class="modal-header">', '<h5 class="red">',
-				'<i class="icon-trash"></i> 请稍后', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
+		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1052;">', '<div class="modal-header">', '<h5 class="green">',
+				'<i class="icon-upload"></i> 上传中请稍后...', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
 				'<div class="control-group" id="processParent">', '<label class="control-label" ></label>', '<div class="controls">',
 				'<div class="progress progress-striped active span12" >', '<div class="bar" id="' + processId + '" style="width: 1px;"></div>', '</div>',
 				'</div>', '</div>', '</div>', '</div>', '<div class="modal-footer">', '<button class="btn btn-small" data-dismiss="modal">', '</button>',

@@ -86,12 +86,15 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入文件号' ]);
 			return;
 		}
-		// 验证
 		if (object.fileName === '') {
 			Utils.modal.message('create', [ '请输入文件名' ]);
 			return;
 		}
-		// 验证
+		
+		if (object.department === '') {
+			Utils.modal.message('create', [ '发布单位不能为空' ]);
+			return;
+		}
 		if (object.attachment === '') {
 			Utils.modal.message('create', [ '附件不能为空' ]);
 			return;
@@ -252,10 +255,15 @@ define(function(require, exports, module) {
 	});
 });
 function callBack(data) {
-	$('#attachment').val(data.data.filePath);
-	$('#attachment').attr('data-id', data.data.id);
-	$('#create-file-form').hide();
 	window.process.stop();
 	window.process = null;
-	$('#attachment').parent().parent().show();
+	if(!data.success){
+		alert("上传失败..."+data.data);
+		return false;
+	}else{
+		$('#attachment').val(data.data.filePath);
+		$('#attachment').attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		$('#attachment').parent().parent().show();
+	}
 }

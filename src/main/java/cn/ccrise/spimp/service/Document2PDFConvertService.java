@@ -58,7 +58,7 @@ public class Document2PDFConvertService {
 		return process;
 	}
 
-	public void service(String sourceFile, String destFile) {
+	public void service(String sourceFile, String destFile) throws IOException {
 		startService();
 		convert(sourceFile, destFile);
 		closeService();
@@ -74,8 +74,10 @@ public class Document2PDFConvertService {
 
 	/**
 	 * 启动服务
+	 * 
+	 * @throws IOException
 	 */
-	public void startService() {
+	public void startService() throws IOException {
 		// 如果从文件中读取的URL地址最后一个字符不是 '\'，则添加'\'
 		if (OpenOffice_HOME.charAt(OpenOffice_HOME.length() - 1) != '\\') {
 			OpenOffice_HOME += "\\";
@@ -93,7 +95,7 @@ public class Document2PDFConvertService {
 			connection = new SocketOpenOfficeConnection("127.0.0.1", 8100);
 			connection.connect();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 

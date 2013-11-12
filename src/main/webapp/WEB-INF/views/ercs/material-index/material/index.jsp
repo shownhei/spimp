@@ -67,7 +67,7 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text" class="span11" style="width: 122px;">
+									<input id="amount" name="amount" type="number" value="1" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -181,7 +181,7 @@
 							<div class="control-group span6">
 								<label class="control-label span4" for="amount">数量</label>
 								<div class="controls">
-									<input id="amount" name="amount" type="text" class="span11" style="width: 122px;">
+									<input id="amount" name="amount" type="number" class="span11" style="width: 122px;">
 								</div>
 							</div>
 						</div>

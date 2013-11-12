@@ -116,12 +116,13 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入管理人员名称' ]);
 			return;
 		}
+		if (object.department === '') {
+			Utils.modal.message('create', [ '请输入隶属单位' ]);
+			return;
+		}
 		if (object.telepone === '') {
 			Utils.modal.message('create', [ '请输入管理人联系方式' ]);
 			return;
-		}
-		if (object.department === '') {
-			delete object.department;
 		}
 		if (object.refugeType === '') {
 			delete object.refugeType;

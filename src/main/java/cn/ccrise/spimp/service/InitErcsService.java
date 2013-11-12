@@ -57,6 +57,7 @@ public class InitErcsService {
 		String staff = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/staff-index", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("救援人员", "/ercs/staff-index/staff", staff, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/staff-index/specia-list", staff, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急保障机构", "/ercs/staff-index/safegard-org", staff, "", i++);
 
 	}
 

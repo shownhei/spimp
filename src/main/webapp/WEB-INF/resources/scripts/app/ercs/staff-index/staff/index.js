@@ -122,16 +122,32 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
-		if (object.staffType === '') {
-			Utils.modal.message('create', [ '请输入员工类型' ]);
-			return;
-		}
 		if (object.staffName === '') {
 			Utils.modal.message('create', [ '请输入姓名' ]);
 			return;
 		}
-		if (object.phone === '') {
-			Utils.modal.message('create', [ '请输入联系方式' ]);
+		if (object.birthDay === '') {
+			Utils.modal.message('create', [ '请输入出生日期' ]);
+			return;
+		}
+		if (object.telephone === '') {
+			Utils.modal.message('create', [ '请输入电话' ]);
+			return;
+		}
+		if (object.telephone === '') {
+			Utils.modal.message('create', [ '请输入电话' ]);
+			return;
+		}
+		if (object.department === '') {
+			Utils.modal.message('create', [ '请输入部门' ]);
+			return;
+		}
+		if ($('#create-expertiseArea').val() === null) {
+			Utils.modal.message('create', [ '请输入专业领域' ]);
+			return;
+		}
+		if ($('#create-responseLevel').val() ===  null) {
+			Utils.modal.message('create', [ '请输入事故响应级别' ]);
 			return;
 		}
 		var department = {
@@ -174,16 +190,32 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 
-		if (object.staffType === '') {
-			Utils.modal.message('edit', [ '请输入员工类型' ]);
-			return;
-		}
 		if (object.staffName === '') {
 			Utils.modal.message('edit', [ '请输入姓名' ]);
 			return;
 		}
-		if (object.phone === '') {
-			Utils.modal.message('edit', [ '请输入联系方式' ]);
+		if (object.birthDay === '') {
+			Utils.modal.message('edit', [ '请输入出生日期' ]);
+			return;
+		}
+		if (object.telephone === '') {
+			Utils.modal.message('edit', [ '请输入电话' ]);
+			return;
+		}
+		if (object.telephone === '') {
+			Utils.modal.message('edit', [ '请输入电话' ]);
+			return;
+		}
+		if (object.department === '') {
+			Utils.modal.message('edit', [ '请输入部门' ]);
+			return;
+		}
+		if ($('#edit-expertiseArea').val() === null) {
+			Utils.modal.message('edit', [ '请输入专业领域' ]);
+			return;
+		}
+		if ($('#edit-responseLevel').val() ===  null) {
+			Utils.modal.message('edit', [ '请输入事故响应级别' ]);
 			return;
 		}
 		var department = {

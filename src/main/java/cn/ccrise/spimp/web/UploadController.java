@@ -74,11 +74,21 @@ public class UploadController {
 		// 写入文件
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
-
-		UploadedFile instance = fileUploadFilter(file.getOriginalFilename(), filePath, newFile);
+		UploadedFile instance = null;
+		try {
+			instance = fileUploadFilter(file.getOriginalFilename(), filePath, newFile);
+		} catch (Exception e) {
+			// 设置响应
+			response.setContentType("text/html");
+			Response falseResponse = new Response();
+			falseResponse.setSuccess(false);
+			falseResponse.setData(e.getMessage());
+			response.getWriter().write("<script>parent.callBack(" + JSON.toJSONString(falseResponse) + ")</script>");
+			response.flushBuffer();
+			return;
+		}
 		// 记录日志
 		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
-
 		// 设置响应
 		response.setContentType("text/html");
 
@@ -110,7 +120,6 @@ public class UploadController {
 		// 写入文件
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
-
 		// 记录日志
 		logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
 
@@ -130,7 +139,7 @@ public class UploadController {
 	 * @return
 	 * @throws IOException
 	 */
-	private UploadedFile fileUploadFilter(String sourceName, String filePath, final File newFile) throws IOException {
+	private UploadedFile fileUploadFilter(String sourceName, String filePath, final File newFile) throws Exception {
 		String uploadFolder = getUploadFolder();
 		String fullName = newFile.getAbsolutePath();
 		String pdfRealPath = null;
@@ -148,17 +157,21 @@ public class UploadController {
 		instance.setAddTime(new Timestamp(System.currentTimeMillis()));
 		uploadedFileService.save(instance);
 		instance.setSimpleName(sourceName);
-		if (!fullName.endsWith(".pdf")) {
+		try {
+			if (!fullName.endsWith(".pdf")) {
+				/**
+				 * 转化pdf
+				 */
+				document2PDFConvertService.service(fullName, pdfRealPath);
+			}
 			/**
-			 * 转化pdf
+			 * 转化swf
 			 */
-			document2PDFConvertService.service(fullName, pdfRealPath);
+			pDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\",
+					instance.getId() + ".swf");
+		} catch (Exception e) {
+			throw new Exception("服务启动失败" + e.getMessage());
 		}
-		/**
-		 * 转化swf
-		 */
-		pDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\", instance.getId()
-				+ ".swf");
 		instance.setSwfPath(uploadFolder + "/" + instance.getId() + ".swf");
 		uploadedFileService.save(instance);
 		return instance;

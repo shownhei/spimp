@@ -61,9 +61,7 @@ public class SchemeController {
 			criterions.add(Restrictions.or(Restrictions.ilike("type", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("decide", search, MatchMode.ANYWHERE)));
 		}
-
-		schemeService.getPage(page, criterions.toArray(new Criterion[0]));
-		return new Response(page);
+		return new Response(schemeService.getPage(page, criterions.toArray(new Criterion[0])));
 	}
 
 	@RequestMapping(value = "/ercs/schemes", method = RequestMethod.POST)
