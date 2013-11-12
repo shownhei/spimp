@@ -221,10 +221,10 @@ define(function(require, exports, module) {
 function callBack(data) {
 	window.process.stop();
 	window.process = null;
-	if(!data.success){
-		alert("上传失败..."+data.data);
+	if (!data.success) {
+		alert("上传失败..." + data.data);
 		return false;
-	}else{
+	} else {
 		$('#attachment').val(data.data.filePath);
 		$('#attachment').attr('data-id', data.data.id);
 		$('#create-file-form').hide();

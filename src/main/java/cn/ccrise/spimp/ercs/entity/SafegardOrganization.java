@@ -54,12 +54,16 @@ public class SafegardOrganization extends IDEntity {
 	 */
 	private String remark;
 
-	public String getOrganizationName() {
-		return organizationName;
+	public String getAdministrativeDivision() {
+		return administrativeDivision;
 	}
 
-	public void setOrganizationName(String organizationName) {
-		this.organizationName = organizationName;
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
 	}
 
 	@ManyToOne
@@ -67,56 +71,52 @@ public class SafegardOrganization extends IDEntity {
 		return organizationType;
 	}
 
-	public void setOrganizationType(Dictionary organizationType) {
-		this.organizationType = organizationType;
-	}
-
-	public String getAdministrativeDivision() {
-		return administrativeDivision;
-	}
-
-	public void setAdministrativeDivision(String administrativeDivision) {
-		this.administrativeDivision = administrativeDivision;
+	public String getPersonInCharge() {
+		return personInCharge;
 	}
 
 	public String getQualification() {
 		return qualification;
 	}
 
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-
-	public String getPersonInCharge() {
-		return personInCharge;
-	}
-
-	public void setPersonInCharge(String personInCharge) {
-		this.personInCharge = personInCharge;
+	public String getRemark() {
+		return remark;
 	}
 
 	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	public String getMobilePhone() {
-		return mobilePhone;
+	public void setAdministrativeDivision(String administrativeDivision) {
+		this.administrativeDivision = administrativeDivision;
 	}
 
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
 
-	public String getRemark() {
-		return remark;
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public void setOrganizationType(Dictionary organizationType) {
+		this.organizationType = organizationType;
+	}
+
+	public void setPersonInCharge(String personInCharge) {
+		this.personInCharge = personInCharge;
+	}
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 }

@@ -107,6 +107,14 @@ public class IndexErcsController {
 	}
 
 	/**
+	 * 应急救援保障机构
+	 */
+	@RequestMapping(value = "/ercs/staff-index/safegard-org", method = RequestMethod.GET)
+	public String ercsSafegardOrganization() {
+		return "ercs/staff-index/safegard-org/index";
+	}
+
+	/**
 	 * 现场处置方案
 	 */
 	@RequestMapping(value = "/ercs/scheme", method = RequestMethod.GET)
@@ -130,14 +138,6 @@ public class IndexErcsController {
 	@RequestMapping(value = "/ercs/staff-index/staff", method = RequestMethod.GET)
 	public String ercsStaff() {
 		return "ercs/staff-index/staff/index";
-	}
-
-	/**
-	 * 应急救援保障机构
-	 */
-	@RequestMapping(value = "/ercs/staff-index/safegard-org", method = RequestMethod.GET)
-	public String ercsSafegardOrganization() {
-		return "ercs/staff-index/safegard-org/index";
 	}
 
 	/**

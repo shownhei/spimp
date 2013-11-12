@@ -146,7 +146,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入专业领域' ]);
 			return;
 		}
-		if ($('#create-responseLevel').val() ===  null) {
+		if ($('#create-responseLevel').val() === null) {
 			Utils.modal.message('create', [ '请输入事故响应级别' ]);
 			return;
 		}
@@ -214,7 +214,7 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入专业领域' ]);
 			return;
 		}
-		if ($('#edit-responseLevel').val() ===  null) {
+		if ($('#edit-responseLevel').val() === null) {
 			Utils.modal.message('edit', [ '请输入事故响应级别' ]);
 			return;
 		}

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	Utils.input.date('input[type=datetime]');
-	window.$=$;
+	window.$ = $;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -96,7 +96,7 @@ define(function(require, exports, module) {
 		// 验证
 		if (object.resourceName === '') {
 			Utils.modal.message('create', [ '请输入资源名称' ]);
-			
+
 			return;
 		}
 		if (object.resourceNo === '') {
