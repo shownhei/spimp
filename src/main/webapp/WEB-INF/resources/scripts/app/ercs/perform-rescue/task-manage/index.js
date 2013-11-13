@@ -66,7 +66,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/emergency-plan-instances?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/emergency-plan-instances?isManage=true&orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#refuge-table',
 		url : defaultUrl,

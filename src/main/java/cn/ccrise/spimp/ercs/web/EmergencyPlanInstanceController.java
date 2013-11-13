@@ -72,15 +72,15 @@ public class EmergencyPlanInstanceController {
 		return new Response(emergencyPlanInstanceService.get(id));
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/ercs/emergency-plan-instances", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<EmergencyPlanInstance> page, Long accidentType, HttpSession httpSession,
-			HttpServletRequest request) {
+			Boolean isManage, HttpServletRequest request) {
 		Object obj = httpSession.getAttribute(PropertiesUtils.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		Account loginAccount = null;
 		HashMap<Long, ResponseTeam> map = new HashMap<Long, ResponseTeam>();
-		if (obj != null) {
+		if ((isManage == null || !isManage.booleanValue()) && obj != null) {
+
 			loginAccount = (Account) obj;
 			List<Rescuers> rescuersList = rescuersService.find(Restrictions.eq("account", loginAccount));
 			if (rescuersList != null && rescuersList.size() > 0) {
@@ -117,6 +117,7 @@ public class EmergencyPlanInstanceController {
 				}
 			}//
 				// 当前登录账户所属的队组查询完毕
+
 		}
 
 		ArrayList<Criterion> queryCondition = new ArrayList<Criterion>();
