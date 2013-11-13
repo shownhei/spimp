@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
 import cn.ccrise.spimp.entity.Account;
-import cn.ccrise.spimp.ercs.service.ResponseTeamService;
 
 /**
  * 系统基础数据初始化服务。
@@ -25,8 +24,6 @@ public class InitService extends DataInitAbstractService {
 
 	@Autowired
 	private AccountService accountService;
-	@Autowired
-	private ResponseTeamService responseTeamService;
 	@Autowired
 	private InitErcsService initErcsService;
 
@@ -90,6 +87,19 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("应急救援专业", "/spmi/quality/rescue", quality, "", 9);
 		resourceEntityServiceImpl.saveMenuResource("调度专业", "/spmi/quality/dispatch", quality, "", 10);
 		resourceEntityServiceImpl.saveMenuResource("地面设施专业", "/spmi/quality/facilities", quality, "", 11);
+
+		// 文档管理
+		String document = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/document", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("文档综合查询", "/spmi/document/query", document, "", 1);
+		resourceEntityServiceImpl.saveMenuResource("调度室录入", "/spmi/document/schedule", document, "", 2);
+		resourceEntityServiceImpl.saveMenuResource("安全科录入", "/spmi/document/safe", document, "", 3);
+		resourceEntityServiceImpl.saveMenuResource("机电科录入", "/spmi/document/machine", document, "", 4);
+		resourceEntityServiceImpl.saveMenuResource("通风科录入", "/spmi/document/wind", document, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("生产技术科录入", "/spmi/document/produce", document, "", 6);
+		resourceEntityServiceImpl.saveMenuResource("防治水科录入", "/spmi/document/water", document, "", 7);
+		resourceEntityServiceImpl.saveMenuResource("综掘队录入", "/spmi/document/dig", document, "", 8);
+		resourceEntityServiceImpl.saveMenuResource("综采队录入", "/spmi/document/exploit", document, "", 9);
+		resourceEntityServiceImpl.saveMenuResource("开拓队录入", "/spmi/document/develop", document, "", 10);
 	}
 
 	@Override
@@ -130,6 +140,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 2);
 		resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule", spmi, "", 3);
 		resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示", "/spmi/instruction", spmi, "", 4);
+		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/document", spmi, "", 5);
 
 		initErcsService.initThirdLevelMenu();
 		// 系统管理

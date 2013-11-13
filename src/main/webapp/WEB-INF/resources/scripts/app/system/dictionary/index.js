@@ -16,7 +16,22 @@ define(function(require, exports, module) {
 		refuge_type : '避险场所种类',
 		resource_type : '应急资源种类',
 		education_level : '文化程度',
-		organization_type : '应急保障机构类型'
+		organization_type : '应急保障机构类型',
+		schedule_coal_type : '煤种',
+		schedule_coal_series : '煤系',
+		schedule_duty : '班次',
+		schedule_team_type : '队组类型',
+		schedule_injury_type : '受伤类型',
+		schedule_working_face : '工作面',
+		schedule_exploit_type : '开采方式',
+		schedule_tunnel_type : '巷道类型',
+		schedule_working_place : '工作地点',
+		schedule_meeting_type : '会议类型',
+		schedule_gas_emissions_type : '瓦斯排放类型',
+		schedule_hidden_type : '隐患类型',
+		schedule_wellheads : '井口',
+		schedule_alarm_type : '报警类型',
+		document_project_type : '工程分类'
 	};
 	// 配置表格列
 	var fields = [ {

@@ -443,11 +443,11 @@ public class PageGenerator {
 	/**
 	 * 第一步:配置源码路径。
 	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+	protected final String packageName = "cn.ccrise.spimp.spmi.document";
 
-	protected final String uriPrefix = "spmi/schedule";
+	protected final String uriPrefix = "spmi/document";
 
-	protected final String entityName = "Dig";
+	protected final String entityName = "Document";
 
 	@Test
 	public void generateController() {
