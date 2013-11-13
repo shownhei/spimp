@@ -172,7 +172,36 @@ define(function(require, exports, module) {
 			});
 		});
 	};
+	utils.select.remoteMutiField = function(ids, url, value, display, blank, blankText) {
+		$.get(url, function(data) {
+			var html = '';
+			if (blank) {
+				if (blankText !== undefined) {
+					html += '<option value="">' + blankText + '</option>';
+				} else {
+					html += '<option value=""></option>';
+				}
+			}
+			$.each(data.data, function(entryIndex, entry) {
+				var showText='';
+				var itemName='';
+				for(var i=0;i<display.length;i++){
+					console.log(display[i],entry[display[i]]);
+					if(entry[display[i]] && typeof entry[display[i]]==='object'){
+						showText+=utils.html.encode(entry[display[i]].itemName);
+					}else{
+						showText+=utils.html.encode(entry[display[i]]);
+					}
+					showText+="&nbsp;";
+				}
+				html += '<option value="' + entry[value] + '">' + showText + '</option>';
+			});
 
+			$.each(ids, function(key, value) {
+				$('#' + value).html(html);
+			});
+		});
+	};
 	utils.select.setOption = function(selectId, optionValue) {
 		/**
 		 * 移除已选择的option，在非IE浏览器可使用： $('#' + id + ' >

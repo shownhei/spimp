@@ -17,7 +17,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<select id="emergencyCategorySelect" name="emergencyCategory" class="input-small span2"></select>
+							<select id="emergencyCategorySelect" name="accidentType" class="input-small span2"></select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>

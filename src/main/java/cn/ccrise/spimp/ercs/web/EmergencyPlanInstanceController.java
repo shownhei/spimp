@@ -3,8 +3,13 @@
  */
 package cn.ccrise.spimp.ercs.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.EmergencyPlanInstance;
 import cn.ccrise.spimp.ercs.service.EmergencyPlanInstanceService;
+import cn.ccrise.spimp.service.DictionaryService;
 
 /**
  * EmergencyPlanInstance Controller。 应急预案的实例
@@ -26,7 +33,8 @@ import cn.ccrise.spimp.ercs.service.EmergencyPlanInstanceService;
 @Controller
 public class EmergencyPlanInstanceController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+	@Autowired
+	private DictionaryService dictionaryService;
 	@Autowired
 	private EmergencyPlanInstanceService emergencyPlanInstanceService;
 
@@ -44,8 +52,16 @@ public class EmergencyPlanInstanceController {
 
 	@RequestMapping(value = "/ercs/emergency-plan-instances", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EmergencyPlanInstance> page) {
-		return new Response(emergencyPlanInstanceService.getPage(page));
+	public Response page(Page<EmergencyPlanInstance> page, Long accidentType) {
+		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
+		if (accidentType != null) {
+			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", accidentType));
+			if (result != null && result.size() > 0) {
+				param.add(Restrictions.eq("emergencyCategory", result.iterator().next()));
+			}
+		}
+		page = emergencyPlanInstanceService.getPage(page, param.toArray(new SimpleExpression[0]));
+		return new Response(page);
 	}
 
 	@RequestMapping(value = "/ercs/emergency-plan-instances", method = RequestMethod.POST)

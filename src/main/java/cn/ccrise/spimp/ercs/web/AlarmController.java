@@ -87,7 +87,7 @@ public class AlarmController {
 
 	@RequestMapping(value = "/ercs/alarms", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, Integer dealFlag,
+	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, Integer dealFlag, Boolean isList,
 			HttpServletRequest httpServletRequest) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (accidentType != null) {
@@ -107,7 +107,18 @@ public class AlarmController {
 		}
 		page.setOrder("desc");
 		page.setOrderBy("alarmTime");
-		return new Response(alarmService.getPage(page, param.toArray(new SimpleExpression[0])));
+		page = alarmService.getPage(page, param.toArray(new SimpleExpression[0]));
+		if (isList != null && isList.booleanValue()) {
+			if (dealFlag != null) {
+				param.add(Restrictions.eq("dealFlag", Alarm.DEAL_FLAG_DEALED));
+			}
+			param.add(Restrictions.gt("alarmTime", new Timestamp(System.currentTimeMillis() - 1000 * 60 * 60 * 24)));
+			page = alarmService.getPage(page, param.toArray(new SimpleExpression[0]));
+			return new Response(page.getResult());
+		} else {
+			page = alarmService.getPage(page, param.toArray(new SimpleExpression[0]));
+			return new Response(page);
+		}
 	}
 
 	/**
