@@ -133,6 +133,10 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入出生日期' ]);
 			return;
 		}
+		if(!object.education){
+			Utils.modal.message('create', [ '请输入文化程度' ]);
+			return;
+		}
 		if (object.telephone === '') {
 			Utils.modal.message('create', [ '请输入电话' ]);
 			return;
@@ -279,7 +283,6 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
@@ -287,8 +290,13 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/ercs/rescuers/' + selectId, function(data) {
-			grid.refresh();
 			Utils.modal.hide('remove');
+			if(!data.success){
+				alert("已经被关联到应急机构，请先解除关联");
+				return ;
+			}else{
+				grid.refresh();
+			}
 		});
 	});
 

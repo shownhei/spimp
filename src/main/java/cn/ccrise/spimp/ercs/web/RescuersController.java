@@ -5,6 +5,7 @@ package cn.ccrise.spimp.ercs.web;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -26,7 +27,9 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.entity.Account;
 import cn.ccrise.spimp.ercs.entity.Rescuers;
+import cn.ccrise.spimp.ercs.entity.ResponseTeamMember;
 import cn.ccrise.spimp.ercs.service.RescuersService;
+import cn.ccrise.spimp.ercs.service.ResponseTeamMemberService;
 import cn.ccrise.spimp.service.AccountService;
 
 /**
@@ -42,11 +45,19 @@ public class RescuersController {
 	private RescuersService rescuersService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private ResponseTeamMemberService responseTeamMemberService;
 
 	@RequestMapping(value = "/ercs/rescuers/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
-		return new Response(rescuersService.delete(id));
+		List<ResponseTeamMember> list = responseTeamMemberService.find(Restrictions.eq("normalMember",
+				rescuersService.get(id)));
+		if (list != null && list.size() > 0) {
+			return new Response(false);// 已经被关联到应急机构，需先解除关联
+		} else {
+			return new Response(rescuersService.delete(id));
+		}
 	}
 
 	@RequestMapping(value = "/ercs/rescuers/{id}", method = RequestMethod.GET)
