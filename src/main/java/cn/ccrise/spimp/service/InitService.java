@@ -95,7 +95,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("安全科录入", "/spmi/document/safe", document, "", 3);
 		resourceEntityServiceImpl.saveMenuResource("机电科录入", "/spmi/document/machine", document, "", 4);
 		resourceEntityServiceImpl.saveMenuResource("通风科录入", "/spmi/document/wind", document, "", 5);
-		resourceEntityServiceImpl.saveMenuResource("生产技术科", "/spmi/document/produce", document, "", 6);
+		resourceEntityServiceImpl.saveMenuResource("生产技术科录入", "/spmi/document/produce", document, "", 6);
 		resourceEntityServiceImpl.saveMenuResource("防治水科录入", "/spmi/document/water", document, "", 7);
 		resourceEntityServiceImpl.saveMenuResource("综掘队录入", "/spmi/document/dig", document, "", 8);
 		resourceEntityServiceImpl.saveMenuResource("综采队录入", "/spmi/document/exploit", document, "", 9);
