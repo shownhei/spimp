@@ -74,6 +74,9 @@ define(function(require, exports, module) {
 		name : "remark"
 	}, {
 		header : "账户关联",
+		render:function(v){
+			return v?v.realName:'';
+		},
 		name : "account"
 	} ];
 
@@ -86,9 +89,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			Utils.button.enable([ 'edit', 'remove' ,'associate']);
 		} else {
-			Utils.button.disable([ 'edit', 'remove' ]);
+			Utils.button.disable([ 'edit', 'remove' ,'associate']);
 		}
 	}
 
@@ -128,6 +131,10 @@ define(function(require, exports, module) {
 		}
 		if (object.birthDay === '') {
 			Utils.modal.message('create', [ '请输入出生日期' ]);
+			return;
+		}
+		if(!object.education){
+			Utils.modal.message('create', [ '请输入文化程度' ]);
 			return;
 		}
 		if (object.telephone === '') {
@@ -234,13 +241,48 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
+	$('#associate').click(function() {
+		if (Utils.button.isDisable('associate')) {
+			return;
+		}
+		Utils.modal.reset('associate');
+		Utils.modal.show('associate');
+		var selectId = grid.selectedData('id');
+		$('#staffId').val(selectId);
+	});
+	$("#associate-account").autocomplete('/system/accounts', {
+		dataType : "json",
+		mustMatch : true,
+		cacheLength : 0,
+		parse : function(data) {
+			return $.map(data.data, function(row) {
+				return {
+					data : row,
+					value : row.realName,
+					result : row.realName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.realName;
+		}
+	}).result(function(e, item) {
+		$('#associate-account').attr('data-id', item.id);
+	});
+	$('#associate-save').click(function(){
+		var staffId=$('#staffId').val();
+		var accountId=$('#associate-account').attr('data-id');
+		var object={staffId:staffId,accountId:accountId};
+		$.post('/ercs/rescuers/associate?staffId='+staffId+'&accountId='+accountId,function(data){
+			grid.refresh();
+			Utils.modal.hide('associate');
+		});
+	});
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {
 			return;
 		}
-
 		Utils.modal.show('remove');
 	});
 
@@ -248,8 +290,13 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del('/ercs/rescuers/' + selectId, function(data) {
-			grid.refresh();
 			Utils.modal.hide('remove');
+			if(!data.success){
+				alert("已经被关联到应急机构，请先解除关联");
+				return ;
+			}else{
+				grid.refresh();
+			}
 		});
 	});
 

@@ -11,6 +11,8 @@ define(function(require, exports, module) {
 	Utils.select.remote([ 'create-emergencyLevel', 'edit-emergencyLevel', 'view-emergencyLevel' ], '/system/dictionaries?typeCode=accident_level&list=true',
 			'id', 'itemName');
 	Utils.select.remote([ 'create-team', 'edit-team', 'view-team' ], '/ercs/response-team/tree', 'id', 'teamName');
+	
+	Utils.select.remoteMutiField([ 'create-alarm' ], '/ercs/alarms?isList=true', 'id', ['accidentLocation','accidentType','accidentLevel','alarmTime']);
 
 	// 配置表格列
 	var fields = [ {
@@ -64,7 +66,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/ercs/emergency-plan-instances?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/ercs/emergency-plan-instances?isManage=true&orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#refuge-table',
 		url : defaultUrl,
@@ -207,6 +209,14 @@ define(function(require, exports, module) {
 
 	$('#emergencyCategorySelect').bind('change', function() {
 		$('#nav-search-button').trigger('click');
+	});
+	$('#create-alarm').bind('change',function(){
+		$.get('/ercs/alarms/' + $('#create-alarm').val(), function(data) {
+			var object = data.data;
+			
+			$('#create-emergencyCategory').val(object.accidentType.id);
+			$('#create-emergencyLevel').val(object.accidentLevel.id);
+		});
 	});
 	// 搜索
 	$('#nav-search-button').click(function() {

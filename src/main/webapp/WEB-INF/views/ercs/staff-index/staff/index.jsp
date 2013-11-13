@@ -23,6 +23,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="associate" class="btn btn-small btn-info disabled">
+						<i class="icon-upload"></i> 账户关联
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
@@ -269,6 +272,46 @@
 		</div>
 		<div class="modal-footer">
 			<button id="edit-save" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 关联账户 -->
+	<div id="associate-modal" class="modal modal-md hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 关联到账户
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="associate-form" class="form-horizontal">
+					    <input id="staffId" name="staffId" type="hidden">
+						<div class="control-group">
+							<label class="control-label " for="account">账户选择</label>
+							<div class="controls">
+								<input id="associate-account" name="account" type="text">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="associate-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="associate-save" class="btn btn-small btn-success">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

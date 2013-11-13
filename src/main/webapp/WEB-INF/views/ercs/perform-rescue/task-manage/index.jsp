@@ -30,7 +30,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<select id="emergencyCategorySelect" name="emergencyCategory" class="input-small span2"></select>
+							<select id="emergencyCategorySelect" name="accidentType" class="input-small span2"></select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
@@ -46,13 +46,19 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新增救援措施模板
+				<i class="icon-plus-sign-alt"></i> 新增救援任务
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
+					    <div class="control-group">
+							<label class="control-label span2" for="alarm">事故选择</label>
+							<div class="controls">
+								<select id="create-alarm" name="alarm[id]"></select>
+							</div>
+						</div>
 						<div class="control-group">
 							<label class="control-label span2" for="emergencyCategory">事故类型</label>
 							<div class="controls">
@@ -103,7 +109,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
-				<i class="icon-edit"></i> 编辑救援措施模板
+				<i class="icon-edit"></i> 编辑救援任务
 			</h5>
 		</div>
 		<div class="modal-body">
