@@ -40,6 +40,12 @@ define(function(require, exports, module) {
 	}, {
 		header : '备注',
 		name : 'remark'
+	}, {
+		header : '关联账户',
+		render:function(v){
+			return v?v.realName:'';
+		},
+		name : 'account'
 	} ];
 
 	// 计算表格高度和行数
@@ -51,9 +57,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			Utils.button.enable([ 'edit', 'remove','associate' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove' ]);
+			Utils.button.disable([ 'edit', 'remove','associate' ]);
 		}
 	}
 
@@ -149,7 +155,43 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-
+	$('#associate').click(function() {
+		if (Utils.button.isDisable('associate')) {
+			return;
+		}
+		Utils.modal.reset('associate');
+		Utils.modal.show('associate');
+		var selectId = grid.selectedData('id');
+		$('#staffId').val(selectId);
+	});
+	$("#associate-account").autocomplete('/system/accounts', {
+		dataType : "json",
+		mustMatch : true,
+		cacheLength : 0,
+		parse : function(data) {
+			return $.map(data.data, function(row) {
+				return {
+					data : row,
+					value : row.realName,
+					result : row.realName
+				};
+			});
+		},
+		formatItem : function(item) {
+			return item.realName;
+		}
+	}).result(function(e, item) {
+		$('#associate-account').attr('data-id', item.id);
+	});
+	$('#associate-save').click(function(){
+		var staffId=$('#staffId').val();
+		var accountId=$('#associate-account').attr('data-id');
+		var object={staffId:staffId,accountId:accountId};
+		$.post('/ercs/specia-lists/associate?staffId='+staffId+'&accountId='+accountId,function(data){
+			grid.refresh();
+			Utils.modal.hide('associate');
+		});
+	});
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {

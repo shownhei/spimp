@@ -90,6 +90,9 @@ public class Rescuers extends IDEntity {
 	 * 事故响应级别
 	 */
 	private Dictionary responseLevel;
+	/**
+	 * 关联账户
+	 */
 	private Account account;
 
 	/**

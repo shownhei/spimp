@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.entity.Account;
 import cn.ccrise.spimp.ercs.entity.Rescuers;
 import cn.ccrise.spimp.ercs.service.RescuersService;
+import cn.ccrise.spimp.service.AccountService;
 
 /**
  * Rescuers Controller。
@@ -38,6 +40,8 @@ public class RescuersController {
 
 	@Autowired
 	private RescuersService rescuersService;
+	@Autowired
+	private AccountService accountService;
 
 	@RequestMapping(value = "/ercs/rescuers/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -69,6 +73,16 @@ public class RescuersController {
 	public Response save(@Valid @RequestBody Rescuers rescuers) {
 		rescuers.setAddTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(rescuersService.save(rescuers));
+	}
+
+	@RequestMapping(value = "/ercs/rescuers/associate", method = RequestMethod.POST)
+	@ResponseBody
+	public Response associate(Long staffId, Long accountId) {
+		Rescuers rescuer = rescuersService.findUniqueBy("id", staffId);
+		Account account = accountService.findUniqueBy("id", accountId);
+		rescuer.setAccount(account);
+		rescuersService.update(rescuer);
+		return new Response(true);
 	}
 
 	@RequestMapping(value = "/ercs/rescuers/{id}", method = RequestMethod.PUT)
