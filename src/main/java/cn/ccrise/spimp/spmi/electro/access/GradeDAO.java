@@ -1,18 +1,18 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.spmi.access;
+package cn.ccrise.spimp.spmi.electro.access;
 
 import org.springframework.stereotype.Repository;
 
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
-import cn.ccrise.spimp.spmi.entity.ElectroQuery;
+import cn.ccrise.spimp.spmi.electro.entity.Grade;
 
 /**
- * ElectroQuery DAO。
+ * Grade DAO。
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Repository
-public class ElectroQueryDAO extends HibernateDAOImpl<ElectroQuery, Long> {
+public class GradeDAO extends HibernateDAOImpl<Grade, Long> {
 }

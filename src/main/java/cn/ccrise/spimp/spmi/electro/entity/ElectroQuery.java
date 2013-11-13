@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.spmi.entity;
+package cn.ccrise.spimp.spmi.electro.entity;
 
 import java.sql.Date;
 

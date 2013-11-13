@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010-2020 CCRISE.
  */
-package cn.ccrise.spimp.spmi.web;
+package cn.ccrise.spimp.spmi.electro.web;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.spmi.entity.Grade;
-import cn.ccrise.spimp.spmi.service.GradeRecordService;
-import cn.ccrise.spimp.spmi.service.GradeService;
+import cn.ccrise.spimp.spmi.electro.entity.Grade;
+import cn.ccrise.spimp.spmi.electro.service.GradeService;
 
 import com.google.common.collect.Lists;
 
@@ -39,8 +38,6 @@ public class GradeController {
 
 	@Autowired
 	private GradeService gradeService;
-	@Autowired
-	private GradeRecordService gradeRecordService;
 
 	@RequestMapping(value = "/spmi/quality/grades/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
