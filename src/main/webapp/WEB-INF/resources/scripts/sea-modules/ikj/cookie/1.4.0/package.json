@@ -1,0 +1,21 @@
+{
+  "name": "cookie",
+  "family": "ikj",
+  "version": "1.4.0",
+  "description": "https://github.com/carhartl/jquery-cookie",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-cookie.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-cookie/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["cookie.js"]
+  }
+}
