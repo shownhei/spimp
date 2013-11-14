@@ -203,6 +203,7 @@
 								<input name="remark" type="text">
 							</div>
 						</div>
+						<input type="hidden" name="account" id="edit-account">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
