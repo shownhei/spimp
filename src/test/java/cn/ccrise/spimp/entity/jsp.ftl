@@ -31,15 +31,15 @@
 				<#if dateQuery || hasTextSearch || hasSelectSearch>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<#if dateQuery>
+						<#if dateQuery || dateTimeQuery>
 						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始日期" class="input-small">
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
 							<span class="add-on nav-add-on">
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束日期" class="input-small">
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
 							<span class="add-on nav-add-on">
 								<i class="icon-calendar"></i>
 							</span>

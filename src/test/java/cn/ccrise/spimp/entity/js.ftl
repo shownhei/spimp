@@ -15,9 +15,13 @@ ${selectInitJS}
 	// 下拉列表change事件
 ${selectChangeJS}
 	</#if>
+	<#if hasDateTime>
+	// 日期时间选择控件
+${dateTimeInitJS}
+	</#if>
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	
+
 	// 配置表格列
 	var fields = [
 ${jsFields}
