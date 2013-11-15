@@ -3,6 +3,7 @@ package cn.ccrise.spimp.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -50,10 +51,6 @@ public class ExcelHelper<T> {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public HSSFWorkbook genExcel(String title, String[] headers, Collection<T> dataset, String datePattern) {
-
-		if (StringUtils.isBlank(datePattern)) {
-			datePattern = "yyyy-MM-dd";
-		}
 
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet(title);
@@ -137,13 +134,14 @@ public class ExcelHelper<T> {
 					Class clazz = t.getClass();
 					Method getMethod = clazz.getMethod(getMethodName, new Class[] {});
 					Object value = getMethod.invoke(t, new Object[] {});
-
 					String textValue = null;
-					if (value instanceof Date) {
+					if (value instanceof Timestamp) {
+						textValue = String.valueOf(value);
+					} else if (value instanceof Date) {
 						Date date = (Date) value;
-						SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+						SimpleDateFormat sdf = new SimpleDateFormat(StringUtils.isBlank(datePattern) ? "yyyy-MM-dd" : datePattern);
 						textValue = sdf.format(date);
-					} else if (value instanceof byte[]) {
+					}  else if (value instanceof byte[]) {
 						row.setHeightInPoints(60);
 						sheet.setColumnWidth(i, (short) (35.7 * 80));
 						byte[] bsValue = (byte[]) value;
