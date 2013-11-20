@@ -43,8 +43,7 @@ public class PDF2SwfService {
 
 		String[] envp = new String[1];
 		envp[0] = "PATH=" + SWFTOOLS_PATH;
-		String command = "cmd /c \"" + SWFTOOLS_PATH + "pdf2swf\" -z -s flashversion=9 " + sourcePath + " -o "
-				+ destPath + fileName;
+		String command = "pdf2swf -z -s flashversion=9 \"" + sourcePath + "\" -o \"" + destPath + fileName + "\"";
 		Process pro = Runtime.getRuntime().exec(command, envp);
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(pro.getInputStream()));
 		String temp = null;

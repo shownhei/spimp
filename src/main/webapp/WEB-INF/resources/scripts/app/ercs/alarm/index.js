@@ -289,6 +289,7 @@ define(function(require, exports, module) {
 	}
 
 	function asynGet() {
+		window.atAlarmPage=true;
 		$.ajax({
 			type : 'GET',
 			url : '/ercs/alarm/waitalarm',
@@ -300,14 +301,18 @@ define(function(require, exports, module) {
 				var newIdArray = data.alarmList;
 				var len = idarray.length;
 				for (var i = 0; i < newIdArray.length; i++) {
-					idarray.push(newIdArray[i]);
-					openDialog(newIdArray[i]);
+					if(idarray.indexOf(newIdArray[i])===-1){
+						idarray.push(newIdArray[i]);
+						openDialog(newIdArray[i]);
+					}
 				}
 				asynGet();
 			},
 			error : function(data, textStatus) {
+				//alert(textStatus);
 				if (textStatus !== 'error') {
 					asynGet();
+					//setTimeout(asynGet,50000);
 				}
 			}
 		});
@@ -331,7 +336,6 @@ define(function(require, exports, module) {
 			}
 		});
 	};
-
 	asynGet();
 	asynClose();
 });

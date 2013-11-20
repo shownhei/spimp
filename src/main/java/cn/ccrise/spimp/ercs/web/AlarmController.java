@@ -57,6 +57,14 @@ public class AlarmController {
 		return deferredResult;
 	}
 
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@ResponseBody
+	public Response test(HttpServletRequest request) {
+		System.out.print(request.getRequestURL() + request.getRequestedSessionId());
+		System.out.print(request.getRequestURI());
+		return new Response("");
+	}
+
 	/**
 	 * 等待报警
 	 * 
@@ -65,6 +73,23 @@ public class AlarmController {
 	@RequestMapping(value = "/ercs/alarm/waitalarm", method = RequestMethod.GET)
 	@ResponseBody
 	public ErcsDeferredResult<AlarmMessage> asynGet(Long[] idArray, HttpServletRequest request) {
+		ErcsDeferredResult<AlarmMessage> deferredResult = new ErcsDeferredResult<AlarmMessage>();
+		AlarmMessage message = new AlarmMessage();
+		message.setSessionId(request.getRequestURI() + request.getSession().getId());
+		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
+		alarmService.waitAlarm(deferredResult, request, message, idArray);
+		return deferredResult;
+	}
+
+	/**
+	 * 等待报警 top数字
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/alarm/waitalarmtop", method = RequestMethod.GET)
+	@ResponseBody
+	public ErcsDeferredResult<AlarmMessage> alarmTop(Long[] idArray, HttpServletRequest request) {
+
 		ErcsDeferredResult<AlarmMessage> deferredResult = new ErcsDeferredResult<AlarmMessage>();
 		AlarmMessage message = new AlarmMessage();
 		message.setSessionId(request.getSession().getId());

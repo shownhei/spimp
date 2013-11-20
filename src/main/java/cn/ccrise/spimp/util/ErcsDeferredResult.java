@@ -8,6 +8,18 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 
 	public static final Long TIME_LIMIT = 1000 * 60 * 4L;
 	private String sessionId;
+	/**
+	 * 请求key
+	 */
+	private String requestKey;
+
+	public String getRequestKey() {
+		return requestKey;
+	}
+
+	public void setRequestKey(String requestKey) {
+		this.requestKey = requestKey;
+	}
 
 	/**
 	 * 记录时间，判断是否超时的时候使用

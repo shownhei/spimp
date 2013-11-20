@@ -10,17 +10,13 @@ import java.util.Vector;
  */
 public class AlarmWaiterTimeOutHandler implements Runnable {
 
-	private String sessionId;
+	private String requestKey;
 	private Vector<ErcsDeferredResult<AlarmMessage>> waitAlarmQueue;
 
-	public AlarmWaiterTimeOutHandler(String sessionId, Vector<ErcsDeferredResult<AlarmMessage>> waitAlarmQueue) {
+	public AlarmWaiterTimeOutHandler(String requestKey, Vector<ErcsDeferredResult<AlarmMessage>> waitAlarmQueue) {
 		super();
-		this.sessionId = sessionId;
+		this.requestKey = requestKey;
 		this.waitAlarmQueue = waitAlarmQueue;
-	}
-
-	public String getSessionId() {
-		return sessionId;
 	}
 
 	public Vector<ErcsDeferredResult<AlarmMessage>> getWaitAlarmQueue() {
@@ -34,15 +30,19 @@ public class AlarmWaiterTimeOutHandler implements Runnable {
 			ErcsDeferredResult<AlarmMessage> waiter = null;
 			while (it.hasNext()) {
 				waiter = it.next();
-				if (waiter.getSessionId().equals(getSessionId())) {
+				if (waiter.getRequestKey().equals(getRequestKey())) {
 					it.remove();
 				}
 			}
 		}
 	}
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public String getRequestKey() {
+		return requestKey;
+	}
+
+	public void setRequestKey(String requestKey) {
+		this.requestKey = requestKey;
 	}
 
 	public void setWaitAlarmQueue(Vector<ErcsDeferredResult<AlarmMessage>> waitAlarmQueue) {
