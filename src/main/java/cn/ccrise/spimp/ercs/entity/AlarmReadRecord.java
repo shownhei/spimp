@@ -14,9 +14,18 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 @Entity
 @Table(name = "ercs_alarm_read_records")
 public class AlarmReadRecord extends IDEntity {
+	private String sessionKey;
 	private String sessionId;
 	private Long alarmId;
 	private Long recordTime;
+
+	public String getSessionKey() {
+		return sessionKey;
+	}
+
+	public void setSessionKey(String sessionKey) {
+		this.sessionKey = sessionKey;
+	}
 
 	public Long getAlarmId() {
 		return alarmId;

@@ -23,13 +23,20 @@ public class AlarmReadRecordService extends HibernateDataServiceImpl<AlarmReadRe
 	 * 添加已读取
 	 */
 
-	public void addReadRecord(String sessionId, Long alarmId[]) {
+	public void addReadRecord(String sessionId, String sessionKey, Long alarmId[]) {
 		if (alarmId != null && alarmId.length > 0) {
 			for (Long element : alarmId) {
 				AlarmReadRecord record = new AlarmReadRecord();
 				record.setAlarmId(element);
 				record.setRecordTime(System.currentTimeMillis());
 				record.setSessionId(sessionId);
+				record.setSessionKey(sessionKey);
+
+				this.getDAO()
+						.getSession()
+						.createQuery(
+								" delete from AlarmReadRecord a where a.sessionKey='" + record.getSessionKey()
+										+ "' and a.alarmId=" + record.getAlarmId()).executeUpdate();
 				save(record);
 			}
 		}

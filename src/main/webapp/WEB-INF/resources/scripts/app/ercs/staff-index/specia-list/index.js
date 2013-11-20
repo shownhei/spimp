@@ -126,6 +126,9 @@ define(function(require, exports, module) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
+			if(object.account!==null){
+				$('#edit-account').val(object.account.id);
+			}
 		});
 	});
 
@@ -145,6 +148,13 @@ define(function(require, exports, module) {
 			return;
 		}
 		// 处理属性
+		if(object.account!==''){
+			var account={id:object.account};
+			delete object.account;
+			object.account=account;
+		}else{
+			object.account=null;
+		}
 		var selectId = grid.selectedData('id');
 		$.put('/ercs/specia-lists/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {

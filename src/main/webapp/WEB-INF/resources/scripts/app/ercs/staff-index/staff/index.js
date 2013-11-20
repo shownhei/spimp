@@ -189,6 +189,9 @@ define(function(require, exports, module) {
 			$('#edit-department').val(object.department.name);
 			$('#edit-department').attr('data-id', object.department.id);
 			Utils.modal.show('edit');
+			if(object.account!==null){
+				$('#edit-account').val(object.account.id);
+			}
 			$('#edit_selectGroup').val('选择');
 		});
 	});
@@ -232,6 +235,13 @@ define(function(require, exports, module) {
 		delete object.department;
 		object.department = department;
 		var selectId = grid.selectedData('id');
+		if(object.account!==''){
+			var account={id:object.account};
+			delete object.account;
+			object.account=account;
+		}else{
+			object.account=null;
+		}
 		$.put('/ercs/rescuers/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

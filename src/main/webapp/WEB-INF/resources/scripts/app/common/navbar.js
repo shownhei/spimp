@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Handlebars = require('handlebars'), Utils = require('../common/utils');
 
+	window.$=$;
 	$('#settings').click(function() {
 		Utils.modal.reset('settings');
 		Utils.modal.show('settings');
@@ -49,4 +50,67 @@ define(function(require, exports, module) {
 	$('#logout-save').click(function() {
 		window.location = contextPath + '/logout';
 	});
+	//报警同步
+	var showResult=function(len,operation){
+		var bell=$("#header_bell");
+		bell.removeClass('icon-animated-bell');
+		bell.addClass('icon-animated-bell');
+		if(operation==='start'){
+			bell.css("-webkit-animation","ringing 2.0s 10000 ease 1.0s");
+		}else{
+			bell.css("-webkit-animation",null);
+		}
+		bell.parent().find('span').html(len);
+		$('.purple').find('li.nav-header').html(len+"个报警");
+	};
+	var idarray=[];
+	function asynGetAlarm() {
+		$.ajax({
+			type : 'GET',
+			url : '/ercs/alarm/waitalarmtop',
+			cache : false,
+			dataType : "json",
+			data : 'idArray=' + idarray.join(','),
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				var newIdArray = data.alarmList;
+				for (var i = 0; i < newIdArray.length; i++) {
+					if(idarray.indexOf(newIdArray[i])===-1){
+						idarray.push(newIdArray[i]);
+					}
+				}
+				showResult(idarray.length,'start');
+				asynGetAlarm();
+			},
+			error : function(data, textStatus) {
+				showResult('0','end');
+				idarray=[];
+				asynGetAlarm();
+			}
+		});
+	}
+	//邮件同步
+	function asynGetTask() {
+		$.ajax({
+			type : 'GET',
+			url : '/ercs/emergency-plan-instances',
+			cache : false,
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				var bell=$("#header_mail");
+				bell.removeClass('icon-animated-vertical');
+				bell.addClass('icon-animated-vertical');
+				bell.css("-webkit-animation","vertical 2.0s 10000 ease 2.0s");
+				bell.parent().find('span').html(data.data.result.length);
+			},
+			error : function(data, textStatus) {
+				if (textStatus !== 'error') {
+					asynGetTask();
+				}
+			}
+		});
+	}
+	asynGetAlarm();
+	asynGetTask();
 });
