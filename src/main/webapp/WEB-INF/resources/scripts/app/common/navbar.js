@@ -51,12 +51,17 @@ define(function(require, exports, module) {
 		window.location = contextPath + '/logout';
 	});
 	//报警同步
-	var showResult=function(len){
+	var showResult=function(len,operation){
 		var bell=$("#header_bell");
 		bell.removeClass('icon-animated-bell');
 		bell.addClass('icon-animated-bell');
-		bell.css("-webkit-animation","ringing 2.0s 10000 ease 1.0s");
+		if(operation==='start'){
+			bell.css("-webkit-animation","ringing 2.0s 10000 ease 1.0s");
+		}else{
+			bell.css("-webkit-animation",null);
+		}
 		bell.parent().find('span').html(len);
+		$('.purple').find('li.nav-header').html(len+"个报警");
 	};
 	var idarray=[];
 	function asynGetAlarm() {
@@ -74,11 +79,11 @@ define(function(require, exports, module) {
 						idarray.push(newIdArray[i]);
 					}
 				}
-				showResult(idarray.length);
+				showResult(idarray.length,'start');
 				asynGetAlarm();
 			},
 			error : function(data, textStatus) {
-				showResult('0');
+				showResult('0','end');
 				idarray=[];
 				asynGetAlarm();
 			}

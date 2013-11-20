@@ -17,7 +17,7 @@
 							<i class="icon-warning-sign"></i> 0 个报警
 						</li>
 						<li>
-							<a href="elements">
+							<a href="/ercs/alarm">
 								查看所有报警 <i class="icon-arrow-right"></i>
 							</a>
 						</li>
@@ -33,7 +33,7 @@
 							<i class="icon-envelope-alt"></i> 0 条消息
 						</li>
 						<li>
-							<a href="#">
+							<a href="/ercs/perform-rescue/task-view">
 								查看所有消息 <i class="icon-arrow-right"></i>
 							</a>
 						</li>
