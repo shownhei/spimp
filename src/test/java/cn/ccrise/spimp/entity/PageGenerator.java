@@ -7,10 +7,12 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import cn.ccrise.ikjp.core.util.Inflector;
@@ -67,7 +69,7 @@ public class PageGenerator {
 
 	private static final String ENCODING = "UTF-8";
 
-	protected static final String PAGE_TITLE = "矿井掘进进尺 - 安全生产综合管理平台";
+	protected static final String PAGE_TITLE = "防治水信息管理 - 安全生产综合管理平台";
 
 	public static void generateController(final String entityName, final String packageName, final String uriPrefix) {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + CONTROLLER + "/";
@@ -137,6 +139,9 @@ public class PageGenerator {
 		if (Date.class == fieldType) {
 			return "DATE";
 		}
+		if (Timestamp.class == fieldType) {
+			return "TIMESTAMP";
+		}
 		if (Blob.class == fieldType) {
 			return "BLOB";
 		}
@@ -196,12 +201,15 @@ public class PageGenerator {
 		StringBuffer queryParams = new StringBuffer();
 		StringBuffer queryParamsWithType = new StringBuffer();
 		StringBuffer dbQuery = new StringBuffer();
+		StringBuffer dateTimeInitJS = new StringBuffer();
 		StringBuffer selectQuery = new StringBuffer();
 		StringBuffer selectInitJS = new StringBuffer();
 		StringBuffer selectChangeJS = new StringBuffer();
 		StringBuffer selectQueryHtml = new StringBuffer();
 
 		boolean dateQuery = false;
+		boolean hasDateTime = false;
+		boolean dateTimeQuery = false;
 		boolean hasTextSearch = false;
 		boolean hasSelect = false;
 		boolean hasSelectSearch = false;
@@ -232,7 +240,7 @@ public class PageGenerator {
 				boolean allowedNull = column.allowedNull();
 				boolean query = column.search();
 				String columnType = "";
-				if (column.type().equals("")) {
+				if (StringUtils.isBlank(column.type())) {
 					columnType = getColumnType(field.getType());
 				} else {
 					columnType = column.type();
@@ -240,10 +248,15 @@ public class PageGenerator {
 
 				// 查询相关的Java代码及JS代码
 				if (query) {
-					if ("date".equalsIgnoreCase(columnType) && !dateQuery) {
+					if ("date".equalsIgnoreCase(columnType) && !dateQuery && !dateTimeQuery) {
 						queryParamsWithType.append(", Date startDate, Date endDate");
 						queryParams.append(", startDate, endDate");
 						dateQuery = true;
+						dateQueryField = columnName;
+					} else if("timestamp".equalsIgnoreCase(columnType) && !dateTimeQuery && !dateQuery){
+						queryParamsWithType.append(", String startDate, String endDate");
+						queryParams.append(", startDate, endDate");
+						dateTimeQuery = true;
 						dateQueryField = columnName;
 					} else if ("text".equalsIgnoreCase(columnType) || "textarea".equalsIgnoreCase(columnType)) {
 						if (!hasTextSearch) {
@@ -287,6 +300,19 @@ public class PageGenerator {
 							.append(selectDataUri).append("', 'id', '").append(selectShowField).append("',true,'")
 							.append(columnDescription).append("');\n");
 				}
+				
+				// 初始化日期时间选择控件的JS代码
+				if ("timestamp".equalsIgnoreCase(columnType)) {
+					hasDateTime = true;
+					
+					dateTimeInitJS.append("\t$('#create_").append(columnName).append("').datetimepicker({\n")
+					.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n")
+					.append("\t});\n\n");
+					
+					dateTimeInitJS.append("\t$('#edit_").append(columnName).append("').datetimepicker({\n")
+					.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n")
+					.append("\t});\n");
+				}
 
 				// Grid的options的JS代码
 				if (columnShow) {
@@ -299,7 +325,11 @@ public class PageGenerator {
 					if (columnWidth == 0) {
 						if ("date".equalsIgnoreCase(columnType)) {
 							columnWidth = 90;
-						}
+						} else if ("timestamp".equalsIgnoreCase(columnType)) {
+							columnWidth = 145;
+						} else if ("number".equalsIgnoreCase(columnType)) {
+							columnWidth = 80;
+						} 
 
 						if (columnDescription.indexOf("人") != -1 || columnDescription.indexOf("姓名") != -1) {
 							columnWidth = 80;
@@ -368,6 +398,9 @@ public class PageGenerator {
 				} else if ("select".equalsIgnoreCase(columnType)) {
 					formFields.append("\t\t\t\t\t\t\t\t<select id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("[id]\"></select>\n");
+				} else { //提供未知类型的默认值
+					formFields.append("\t\t\t\t\t\t\t\t<input id=\"xxxx_").append(columnName).append("\" name=\"")
+					.append(columnName).append("\" type=\"text\">\n");
 				}
 				formFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
 
@@ -403,6 +436,9 @@ public class PageGenerator {
 		dataMap.put("queryParam", queryParams.toString());
 		dataMap.put("selectQueryHtml", selectQueryHtml.toString());
 		dataMap.put("dateQuery", dateQuery);
+		dataMap.put("dateTimeQuery", dateTimeQuery);
+		dataMap.put("hasDateTime", hasDateTime);
+		dataMap.put("dateTimeInitJS", dateTimeInitJS.toString());
 		dataMap.put("selectQuery", selectQuery.toString());
 		dataMap.put("hasTextSearch", hasTextSearch);
 		dataMap.put("selectChangeJS", selectChangeJS.toString());
@@ -443,11 +479,11 @@ public class PageGenerator {
 	/**
 	 * 第一步:配置源码路径。
 	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.document";
+	protected final String packageName = "cn.ccrise.spimp.spmi.water";
 
-	protected final String uriPrefix = "spmi/document";
+	protected final String uriPrefix = "spmi/water";
 
-	protected final String entityName = "Document";
+	protected final String entityName = "Water";
 
 	@Test
 	public void generateController() {

@@ -1,30 +1,58 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('${parentDir}common/utils');
-	var operateUri = '${restPath}';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
+	var operateUri = '/spmi/waters';
 	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 	
-	<#if hasSelect>
-	// 下拉列表初始化
-${selectInitJS}
-	</#if>	
-	<#if hasSelectSearch>
-	// 下拉列表change事件
-${selectChangeJS}
-	</#if>
-	<#if hasDateTime>
 	// 日期时间选择控件
-${dateTimeInitJS}
-	</#if>
+	$('#create_time').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss'
+	});
+
+	$('#edit_time').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss'
+	});
+
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 
 	// 配置表格列
 	var fields = [
-${jsFields}
+		{
+			header : '时间',
+			name : 'time',
+			width : 145
+		},
+		{
+			header : '地点',
+			name : 'position'
+		},
+		{
+			header : '涌出量',
+			align : 'right',
+			name : 'flux',
+			width : 80
+		},
+		{
+			header : '状况',
+			name : 'status'
+		},
+		{
+			header : '组织处理情况',
+			name : 'dealing'
+		},
+		{
+			header : '查看',
+			name : 'id',
+			width : 50,
+			align : 'center',
+			render : function(value) {
+				return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
+			}
+		}
 	];
 
 	// 计算表格高度和行数
@@ -82,7 +110,15 @@ ${jsFields}
 	function validate(showType, model){
 		var errorMsg = [];
 		
-${validateCode}		if(errorMsg.length > 0){
+		if (model.time === '') {
+			errorMsg.push('请输入时间');
+		}
+
+		if (model.flux !== '' && !$.isNumeric(model.flux)) {
+			errorMsg.push('涌出量为数字格式');
+		}
+
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
@@ -95,7 +131,7 @@ ${validateCode}		if(errorMsg.length > 0){
 		Utils.modal.reset('detail');
 		
 		var object = $.extend({},data);
-${detailShowJs}
+
 
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');

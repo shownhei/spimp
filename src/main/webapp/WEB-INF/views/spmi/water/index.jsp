@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>${pageTitle}</title>
-<%@ include file="${parentDir}common/head.jsp"%>
-<%@ include file="${parentDir}common/template.jsp"%>
+<title>矿井掘进进尺 - 安全生产综合管理平台</title>
+<%@ include file="../../common/head.jsp"%>
+<%@ include file="../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="${parentDir}common/navbar.jsp"%>
+	<%@ include file="../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="${parentDir}common/sidebar.jsp"%>
+		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -28,10 +28,8 @@
 					</button>
 				</div>
 				
-				<#if dateQuery || hasTextSearch || hasSelectSearch>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<#if dateQuery || dateTimeQuery>
 						<div class="input-append">
 							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
 							<span class="add-on nav-add-on">
@@ -44,18 +42,11 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						</#if>
-						<#if hasTextSearch>
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="${queryPlaceHolder}">
-						</#if>
-						<#if hasSelectSearch>
-${selectQueryHtml}
-						</#if>
+						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入地点...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
-				</#if>
 			</div>
 			<div class="page-content">
 				<div class="row-fluid" id="material-table"></div>
@@ -74,7 +65,37 @@ ${selectQueryHtml}
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
-${createFormFields}					</form>
+						<div class="control-group">
+							<label class="control-label" for="time">时间</label>
+							<div class="controls">
+								<input id="create_time" name="time" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="position">地点</label>
+							<div class="controls">
+								<input id="create_position" name="position" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="flux">涌出量</label>
+							<div class="controls">
+								<input id="create_flux" name="flux" type="number">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="status">状况</label>
+							<div class="controls">
+								<textarea id="create_status" name="status" rows=3></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dealing">组织处理情况</label>
+							<div class="controls">
+								<textarea id="create_dealing" name="dealing" rows=3></textarea>
+							</div>
+						</div>
+					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -107,7 +128,37 @@ ${createFormFields}					</form>
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-${editFormFields}					</form>
+						<div class="control-group">
+							<label class="control-label" for="time">时间</label>
+							<div class="controls">
+								<input id="edit_time" name="time" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="position">地点</label>
+							<div class="controls">
+								<input id="edit_position" name="position" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="flux">涌出量</label>
+							<div class="controls">
+								<input id="edit_flux" name="flux" type="number">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="status">状况</label>
+							<div class="controls">
+								<textarea id="edit_status" name="status" rows=3></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dealing">组织处理情况</label>
+							<div class="controls">
+								<textarea id="edit_dealing" name="dealing" rows=3></textarea>
+							</div>
+						</div>
+					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
@@ -140,7 +191,37 @@ ${editFormFields}					</form>
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
-${detailFormFields}					</form>
+						<div class="control-group">
+							<label class="control-label" for="time">时间</label>
+							<div class="controls">
+								<input id="detail_time" name="time" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="position">地点</label>
+							<div class="controls">
+								<input id="detail_position" name="position" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="flux">涌出量</label>
+							<div class="controls">
+								<input id="detail_flux" name="flux" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="status">状况</label>
+							<div class="controls">
+								<textarea id="detail_status" name="status" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dealing">组织处理情况</label>
+							<div class="controls">
+								<textarea id="detail_dealing" name="dealing" rows=3 readonly="readonly"></textarea>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -183,7 +264,7 @@ ${detailFormFields}					</form>
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${jsPath}');
+		seajs.use('${resources}/scripts/app/spmi/water/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

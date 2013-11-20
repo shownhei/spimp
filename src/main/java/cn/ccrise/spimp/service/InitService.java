@@ -138,9 +138,10 @@ public class InitService extends DataInitAbstractService {
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/quality", spmi, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 2);
-		resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule", spmi, "", 3);
-		resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示", "/spmi/instruction", spmi, "", 4);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/document", spmi, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("防治水信息管理", "/spmi/water", spmi, "", 3);
+		resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule", spmi, "", 4);
+		resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示", "/spmi/instruction", spmi, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/document", spmi, "", 6);
 
 		initErcsService.initThirdLevelMenu();
 		// 系统管理

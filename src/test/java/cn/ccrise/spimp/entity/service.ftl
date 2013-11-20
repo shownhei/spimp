@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 <#if dateQuery>
 import java.sql.Date;
 </#if>
+<#if dateTimeQuery>
+import java.sql.Timestamp;
+</#if>
 import java.util.ArrayList;
 import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
@@ -55,6 +58,15 @@ public class ${entityName}Service extends HibernateDataServiceImpl<${entityName}
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("${dateQueryField}", endDate));
+		}
+		
+		</#if>
+		<#if dateTimeQuery>
+		if (StringUtils.isNotBlank(startDate)) {
+			criterions.add(Restrictions.ge("${dateQueryField}", Timestamp.valueOf(startDate + " 00:00:00")));
+		}
+		if (StringUtils.isNotBlank(endDate)) {
+			criterions.add(Restrictions.le("${dateQueryField}", Timestamp.valueOf(endDate + " 23:59:59")));
 		}
 		
 		</#if>
