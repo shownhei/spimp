@@ -5,13 +5,6 @@
 <html>
 <head>
 <title>安全生产综合管理平台</title>
-<link href="${resources}/styles/ui/bootstrap.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/bootstrap-responsive.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/font-awesome.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/ace.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/ace-responsive.min.css" rel="stylesheet">
-<link href="${resources}/styles/ui/ace-skins.min.css" rel="stylesheet">
-<link href="${resources}/styles/main.css" rel="stylesheet">
 <script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
 <script type="text/javascript">
 	seajs.config({
@@ -21,66 +14,79 @@
 	});
 	seajs.use('${resources}/scripts/app/login');
 </script>
+<style type="text/css">
+.login_text {
+	width: 220px;
+	height: 26px;
+	line-height: 24px;
+	vertical-align: middle;
+	border: 1px solid #BDBDBD;
+	background: url("${resources}/images/inputbg.min.jpg") repeat
+		transparent;
+}
+
+.login_text_onfocus {
+	width: 218px;
+	height: 24px;
+	line-height: 24px;
+	vertical-align: middle;
+	border: 2px solid #85C026;
+	background: url("${resources}/images/inputbg.min.jpg") repeat
+		transparent;
+}
+
+.login_btn {
+	display: block;
+	width: 220px;
+	line-height: 35px;
+	border: 1px solid #4C5576;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	background: url("${resources}/images/btn_bg.gif") repeat transparent;
+}
+</style>
+<script type="text/javascript">
+	var resourcesPath = '${resources}';
+</script>
 </head>
-<body class="login-layout">
-	<div class="main-container container-fluid">
-		<div class="main-content">
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="login-container">
-						<div class="row-fluid">
-							<div class="center">
-								<h1>
-									<i class="icon-leaf green"></i>
-									<span class="red">SPIMP</span>
-									<span class="white">临时登录页</span>
-								</h1>
-								<h5 class="blue">© CCRISE</h5>
-							</div>
-						</div>
-						<div class="space-6"></div>
-						<div class="row-fluid">
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
-												<i class="icon-coffee green"></i> 请输入你的账户信息
-											</h4>
-											<div class="space-6"></div>
-											<form>
-												<fieldset>
-													<label>
-														<span class="block input-icon input-icon-right">
-															<input id="principal" type="text" class="span12" placeholder="用户名">
-															<i class="icon-user"></i>
-														</span>
-													</label>
-													<label>
-														<span class="block input-icon input-icon-right">
-															<input id="credential" type="password" class="span12" placeholder="密码">
-															<i class="icon-lock"></i>
-														</span>
-													</label>
-													<div class="space"></div>
-													<div class="clearfix">
-														<button id="login" type="button" class="width-35 pull-right btn btn-small btn-primary">
-															<i class="icon-key"></i> 登录
-														</button>
-													</div>
-													<div class="space-4"></div>
-													<div id="message" class="alert alert-error" style="display: none;"></div>
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+<body style="display: none; overflow: hidden;">
+	<div style="top: 0px; left: 0px; position: absolute; z-index: -2;">
+		<img id="bg" src="${resources}/images/loginbg.min.jpg" width="960" height="600" alt="背景">
+	</div>
+	<div style="position: absolute; z-index: -1;">
+		<img id="loginBg" src="${resources}/images/login.png" width="622" height="403" alt="登录背景框">
+	</div>
+	<div id="loginForm" style="position: absolute; z-index: 0; color: #747B95; margin: auto;">
+		<table style="margin-top: 20px;">
+			<tr height="45">
+				<td align="right" valign="middle" style="font-size: 12px; color: #4C5576;">账&nbsp;&nbsp;号：</td>
+				<td>
+					<input id="principal" name="loginName" class="login_text" onfocus="this.className='login_text_onfocus'" onblur="this.className='login_text'" type="text"
+						autofocus="autofocus">
+				</td>
+			</tr>
+			<tr height="45">
+				<td align="right" valign="middle" style="font-size: 12px; color: #4C5576;">密&nbsp;&nbsp;码：</td>
+				<td>
+					<input id="credential" name="password" class="login_text" onfocus="this.className='login_text_onfocus'" onblur="this.className='login_text'"
+						type="password">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right">
+					<a class="login_btn" id="login">登&nbsp;录</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center" style="color: #B10000; font-size: 12px;">
+					<span id="message"></span>
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

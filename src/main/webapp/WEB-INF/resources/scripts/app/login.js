@@ -21,25 +21,62 @@ define(function(require, exports, module) {
 				$.each(data.errors, function(key, value) {
 					message = value;
 				});
-				$('#message').replaceWith('<div id="message" class="alert alert-error">' + message + '</div>').show();
-				$('#message').fadeOut(5000);
+				var html = '<div id="message" style="height:20px"><img style="margin-top:2px;float:left" src="' + resourcesPath
+						+ '/images/icons/exclamation.png" width="16"><div style="margin-top:2px;float:left;height:20px">' + message + '</div></div>';
+				$('#message').replaceWith(html);
+				$('#message').fadeOut(8000);
 			}
 		});
 	}
 
-	$(function() {
-		$('#principal').focus();
+	// 背景及登录框自适应
+	var loginBgWidth = 631;
+	var loginBgHeight = 434;
+	window.onresize = window.onload = function() {
+		var w, h;
+		if (!!(window.attachEvent && !window.opera)) {
+			h = document.documentElement.clientHeight;
+			w = document.documentElement.clientWidth;
+		} else {
+			h = window.innerHeight;
+			w = window.innerWidth;
+		}
+		var bgImg = $('#bg');
+		bgImg.width(w);
+		bgImg.height(h);
 
-		// 点击登录按钮登录
-		$('#login').click(function() {
+		var offsetTop = (h - loginBgHeight) / 2;
+		var offsetLeft = (w - loginBgWidth) / 2;
+
+		if (offsetTop < 0) {
+			offsetTop = 0;
+		}
+		if (offsetLeft < 0) {
+			offsetLeft = 0;
+		}
+		$('#loginForm').offset({
+			top : offsetTop + 140,
+			left : offsetLeft + 320
+		});
+		$('#loginBg').offset({
+			top : offsetTop,
+			left : offsetLeft
+		});
+
+		$('body').show();
+	};
+
+	$('#principal').focus();
+
+	// 点击登录按钮登录
+	$('#login').click(function() {
+		login();
+	});
+
+	// 点击回车登录
+	$("body").bind('keyup', function(event) {
+		if (event.keyCode === 13) {
 			login();
-		});
-
-		// 点击回车登录
-		$("body").bind('keyup', function(event) {
-			if (event.keyCode === 13) {
-				login();
-			}
-		});
+		}
 	});
 });
