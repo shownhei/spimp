@@ -57,14 +57,6 @@ public class AlarmController {
 		return deferredResult;
 	}
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	@ResponseBody
-	public Response test(HttpServletRequest request) {
-		System.out.print(request.getRequestURL() + request.getRequestedSessionId());
-		System.out.print(request.getRequestURI());
-		return new Response("");
-	}
-
 	/**
 	 * 等待报警
 	 * 

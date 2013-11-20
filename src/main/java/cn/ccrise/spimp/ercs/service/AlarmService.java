@@ -112,7 +112,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				try {
 
 					if (timePassed > ErcsDeferredResult.TIME_LIMIT) {
-						deferredResult.setErrorResult("{'messge':'be disconnected ...'}");
+						deferredResult.setErrorResult("refreshed");
 					} else {
 						deferredResult.setResult(message);
 						closeAlarm(alarmId);
@@ -144,7 +144,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			ErcsDeferredResult<AlarmMessage> waiter = null;
 			while (it.hasNext()) {
 				waiter = it.next();
-				waiter.setErrorResult("{'messge':'reconnect'}");
+				waiter.setErrorResult("refreshed");
 				it.remove();
 			}
 		}
@@ -159,24 +159,11 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				while (it.hasNext()) {
 					waiter = it.next();
 					logger.debug(waiter.getRequestKey());
-					waiter.setErrorResult("{'message':'refreshed'}");
+					waiter.setErrorResult("refreshed");
 					it.remove();
 				}
 			}
 		}
-
-		// synchronized (requestMap) {
-		// Iterator<String> it = requestMap.keySet().iterator();
-		// String sessionId = null;
-		// ArrayList<String> sessionKeyList = null;
-		// while (it.hasNext()) {
-		// sessionId = it.next();
-		// sessionKeyList = requestMap.get(sessionId);
-		// for (int i = 0; i < sessionKeyList.size(); i++) {
-		// notifyAlarmWaiters(sessionId, sessionKeyList.get(i));
-		// }
-		// }
-		// }
 	}
 
 	/**
@@ -188,9 +175,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	public void setRequestRecord(String requestKey, Long ids[]) {
 		HashSet<Long> arrayList = null;
 		synchronized (readRecord) {
-			this.logger.debug("设置读取记录");
 			if (!readRecord.keySet().contains(requestKey)) {
-				this.logger.debug("首次设置记录");
 				arrayList = new HashSet<Long>();
 				readRecord.put(requestKey, arrayList);
 			}
@@ -201,7 +186,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			for (Long id : ids) {
 				arrayList.add(id);
 			}
-			this.logger.debug("{}", arrayList, "设置的读取记录");
 		}
 	}
 
@@ -261,7 +245,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		getterInstance.setSessionId(sessionId);
 		getterInstance.setRequestKey(requestKey);
 		reasePreRequest(request, sessionId);
-		this.logger.debug("进入等待队列之前：个数：{}", waitAlarmQueue.size());
 		synchronized (waitAlarmQueue) {
 			waitAlarmQueue.add(getterInstance);
 		}
@@ -299,9 +282,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		Calendar rightNow = Calendar.getInstance();
 		rightNow.setTime(currentDate);
 		rightNow.add(Calendar.DAY_OF_YEAR, -maxAlarmValiteTime);
-		logger.debug("{}", "从数据库加载未处理的报警信息");
 		if (alarmIdOfRequest.size() == 0) {
-			logger.debug("{}", "请求中附带的读取列表为空,从数据库读取");
 			/**
 			 * 请求中附带的事件id为空 表明可能是第一次进入 或者浏览器刷新过
 			 */
@@ -312,7 +293,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			buff.append("  and alarm.alarmTime>:maxTime");
 
 		} else {
-			logger.debug("{}", "请求中附带的读取列表非空，参考读取列表");
 			buff.append("  from Alarm alarm where not exists  (select record.id from AlarmReadRecord record ");
 			buff.append(" where alarm.id=record.alarmId ");
 			buff.append(" and record.sessionKey='" + requestKey);
@@ -323,8 +303,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		query.setDate("maxTime", rightNow.getTime());
 		List<?> currentList = query.list();
 		List<Alarm> returnList = new ArrayList<Alarm>();
-		logger.debug("读取到列表");
-		logger.debug("{}", currentList);
 		if (currentList != null && currentList.size() > 0) {
 			Iterator<?> it = currentList.iterator();
 			while (it.hasNext()) {
@@ -338,7 +316,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 	 * 通知所有的客户端进行接警处理:弹出对话框
 	 */
 	private void notifyAlarmWaiters(String sessionId, String sessionKey) {
-		printCurrentStatus();
 		synchronized (waitAlarmQueue) {
 			Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
 			ErcsDeferredResult<AlarmMessage> waiter = null;
@@ -377,25 +354,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		}
 	}
 
-	private void printCurrentStatus() {
-		synchronized (waitAlarmQueue) {
-			Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
-			ErcsDeferredResult<AlarmMessage> waiter = null;
-			int i = 0;
-			logger.debug("===========current status===============");
-			while (it.hasNext()) {
-				waiter = it.next();
-				logger.debug("sessionId:" + waiter.getSessionId());
-				logger.debug("SetOrExpired:" + waiter.isSetOrExpired());
-				logger.debug("SetOrExpired:" + waiter.isSetOrExpired());
-				logger.debug("RecordTime:" + waiter.getRecordTime());
-				logger.debug("TimePassed:" + waiter.getTimePassed());
-				i++;
-			}
-			logger.debug("当前队列共有:" + i + "个连接");
-		}
-	}
-
 	/**
 	 * 主动释放上一个连接
 	 * 
@@ -408,9 +366,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			while (it.hasNext()) {
 				waiter = it.next();
 				if (waiter.getRequestKey().equals(this.getRequestKey(request))) {
-					waiter.setErrorResult("{'message':'refreshed....'}");
-					logger.debug("{}", "释放", waiter.getRequestKey(), "连接");
-					logger.debug("{}", waiter);
+					waiter.setErrorResult("refreshed");
 					it.remove();
 				}
 			}
