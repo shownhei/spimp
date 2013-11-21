@@ -52,29 +52,49 @@ public class InitService extends DataInitAbstractService {
 	public void initFourthLevelOperate() {
 		initErcsService.initFourthLevelOperate();
 		// 机电设备
-		String electro = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("设备检修跟踪", "/spmi/electro/repair", electro, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("设备参数查询", "/spmi/electro/query", electro, "", 2);
+		// String electro =
+		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro",
+		// HttpMethod.GET);
+		// resourceEntityServiceImpl.saveMenuResource("设备检修跟踪",
+		// "/spmi/electro/repair", electro, "", 1);
+		// resourceEntityServiceImpl.saveMenuResource("设备参数查询",
+		// "/spmi/electro/query", electro, "", 2);
+		//
+		// // 重点工作和领导指示
+		// String instruction =
+		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/instruction",
+		// HttpMethod.GET);
+		// resourceEntityServiceImpl.saveMenuResource("重点工作",
+		// "/spmi/instruction/focus", instruction, "", 1);
+		// resourceEntityServiceImpl.saveMenuResource("领导指示",
+		// "/spmi/instruction/instruction", instruction, "", 2);
+		//
+		// // 调度管理
+		// String schedule =
+		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/schedule",
+		// HttpMethod.GET);
+		// resourceEntityServiceImpl.saveMenuResource("矿井原煤产量",
+		// "/spmi/schedule/output", schedule, "", 1);
+		// resourceEntityServiceImpl.saveMenuResource("矿井掘进进尺",
+		// "/spmi/schedule/dig", schedule, "", 2);
+		// resourceEntityServiceImpl.saveMenuResource("生产准备情况",
+		// "/spmi/schedule/prepare", schedule, "", 3);
+		// resourceEntityServiceImpl.saveMenuResource("班出勤情况",
+		// "/spmi/schedule/attendance", schedule, "", 4);
+		// resourceEntityServiceImpl.saveMenuResource("矿值班情况",
+		// "/spmi/schedule/work", schedule, "", 5);
+		// resourceEntityServiceImpl.saveMenuResource("基层单位干部跟班情况",
+		// "/spmi/schedule/circumstance", schedule, "", 6);
+		// resourceEntityServiceImpl.saveMenuResource("调度记录",
+		// "/spmi/schedule/record", schedule, "", 7);
+		// resourceEntityServiceImpl.saveMenuResource("安全生产三汇报",
+		// "/spmi/schedule/report", schedule, "", 8);
+		// resourceEntityServiceImpl.saveMenuResource("煤炭外运情况",
+		// "/spmi/schedule/transport", schedule, "", 9);
+		// resourceEntityServiceImpl.saveMenuResource("队组管理",
+		// "/spmi/schedule/team", schedule, "", 10);
 
-		// 重点工作和领导指示
-		String instruction = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/instruction", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("重点工作", "/spmi/instruction/focus", instruction, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("领导指示", "/spmi/instruction/instruction", instruction, "", 2);
-
-		// 调度管理
-		String schedule = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/schedule", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("矿井原煤产量", "/spmi/schedule/output", schedule, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("矿井掘进进尺", "/spmi/schedule/dig", schedule, "", 2);
-		resourceEntityServiceImpl.saveMenuResource("生产准备情况", "/spmi/schedule/prepare", schedule, "", 3);
-		resourceEntityServiceImpl.saveMenuResource("班出勤情况", "/spmi/schedule/attendance", schedule, "", 4);
-		resourceEntityServiceImpl.saveMenuResource("矿值班情况", "/spmi/schedule/work", schedule, "", 5);
-		resourceEntityServiceImpl.saveMenuResource("基层单位干部跟班情况", "/spmi/schedule/circumstance", schedule, "", 6);
-		resourceEntityServiceImpl.saveMenuResource("调度记录", "/spmi/schedule/record", schedule, "", 7);
-		resourceEntityServiceImpl.saveMenuResource("安全生产三汇报", "/spmi/schedule/report", schedule, "", 8);
-		resourceEntityServiceImpl.saveMenuResource("煤炭外运情况", "/spmi/schedule/transport", schedule, "", 9);
-		resourceEntityServiceImpl.saveMenuResource("队组管理", "/spmi/schedule/team", schedule, "", 10);
-
-		// 质量标准化
+		// 质量标准化评分
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("通风专业", "/spmi/quality/wind", quality, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("地测防治水专业", "/spmi/quality/water", quality, "", 2);
@@ -88,7 +108,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("调度专业", "/spmi/quality/dispatch", quality, "", 10);
 		resourceEntityServiceImpl.saveMenuResource("地面设施专业", "/spmi/quality/facilities", quality, "", 11);
 
-		// 文档管理
+		// 质量标准化管理
 		String document = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/document", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("文档综合查询", "/spmi/document/query", document, "", 1);
 		resourceEntityServiceImpl.saveMenuResource("调度室录入", "/spmi/document/schedule", document, "", 2);
@@ -136,12 +156,16 @@ public class InitService extends DataInitAbstractService {
 	public void initThirdLevelMenu() {
 		// 安全生产管理
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/quality", spmi, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro", spmi, "", 2);
-		resourceEntityServiceImpl.saveMenuResource("防治水信息管理", "/spmi/water", spmi, "", 3);
-		resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule", spmi, "", 4);
-		resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示", "/spmi/instruction", spmi, "", 5);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/document", spmi, "", 6);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化评分", "/spmi/quality", spmi, "", 1);
+		// resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro",
+		// spmi, "", 2);
+		// resourceEntityServiceImpl.saveMenuResource("防治水信息管理", "/spmi/water",
+		// spmi, "", 3);
+		// resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule",
+		// spmi, "", 4);
+		// resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示",
+		// "/spmi/instruction", spmi, "", 5);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化管理", "/spmi/document", spmi, "", 6);
 
 		initErcsService.initThirdLevelMenu();
 		// 系统管理
