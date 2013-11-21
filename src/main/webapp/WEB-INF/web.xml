@@ -95,4 +95,10 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<!-- 出错页面定义 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/common/404.jsp</location>
+	</error-page>
 </web-app>
