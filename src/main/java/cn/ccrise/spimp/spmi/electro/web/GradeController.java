@@ -53,13 +53,16 @@ public class GradeController {
 
 	@RequestMapping(value = "/spmi/quality/grades", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Grade> page, Integer year, Integer month) {
+	public Response page(Page<Grade> page, Integer year, Integer month, String category) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (year != null) {
 			criterions.add(Restrictions.eq("year", year));
 		}
 		if (month != null) {
 			criterions.add(Restrictions.eq("month", month));
+		}
+		if (category != null) {
+			criterions.add(Restrictions.eq("category", category));
 		}
 		return new Response(gradeService.getPage(page, criterions.toArray(new Criterion[0])));
 	}

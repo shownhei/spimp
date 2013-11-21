@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="category" value="调度" />
+<c:set var="category" value="运输" />
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -313,7 +313,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/quality/dispatch/index');
+		seajs.use('${resources}/scripts/app/spmi/quality/transportation/index');
 	</script>
 </body>
 </html>

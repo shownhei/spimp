@@ -54,6 +54,14 @@ public class IndexController {
 		return "spmi/quality/dispatch/index";
 	}
 
+	/**
+	 * 质量标准化-运输专业
+	 */
+	@RequestMapping(value = "/spmi/quality/transportation", method = RequestMethod.GET)
+	public String spmiQualityTransportation() {
+		return "spmi/quality/transportation/index";
+	}
+
 	// 系统管理
 	/**
 	 * 用户管理

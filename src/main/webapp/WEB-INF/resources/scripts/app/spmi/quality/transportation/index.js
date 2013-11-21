@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var selectedId; // 选中的行
-	var category = '调度';
+	var category = '运输';
 
 	// 提示信息
 	$('button[title]').tooltip({

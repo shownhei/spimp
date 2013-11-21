@@ -34,7 +34,7 @@ public class Repackage {
 		webxml(version);
 		applicationContextmvcxml();
 		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31",
-				"D:\\Program Files\\OpenOffice 4\\");
+				"D:\\\\Program Files\\\\OpenOffice 4\\\\");
 		log4jxml("WARN");
 		wroproperties();
 		headjsp(version);
