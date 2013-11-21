@@ -9,17 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import cn.ccrise.ikjp.core.util.PropertiesUtils;
-
 @Service
 public class PDF2SwfService {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-	/**
-	 * SWFTools的环境安装路径
-	 */
-	public String SWFTOOLS_PATH = PropertiesUtils.getString("document_convert_swftools");// "F:\\Program Files (x86)\\SWFTools\\";
 
 	public int convertPDF2SWF(String sourcePath, String destPath, String fileName) throws IOException {
 
@@ -41,10 +34,9 @@ public class PDF2SwfService {
 
 		}
 
-		String[] envp = new String[1];
-		envp[0] = "PATH=" + SWFTOOLS_PATH;
 		String command = "pdf2swf -z -s flashversion=9 \"" + sourcePath + "\" -o \"" + destPath + fileName + "\"";
-		Process pro = Runtime.getRuntime().exec(command, envp);
+		logger.debug(command);
+		Process pro = Runtime.getRuntime().exec(command);
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(pro.getInputStream()));
 		String temp = null;
 		while ((temp = bufferedReader.readLine()) != null) {

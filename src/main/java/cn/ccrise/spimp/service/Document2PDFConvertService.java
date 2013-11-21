@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.util.ErcsDocumentFormatRegistry;
 
 import com.artofsolving.jodconverter.DocumentConverter;
@@ -24,8 +23,7 @@ public class Document2PDFConvertService {
 	private OpenOfficeConnection connection;
 	private Process process;
 
-	private String OpenOffice_HOME = PropertiesUtils.getString("document_convert_openoffice");// "E:\\Program Files (x86)\\OpenOffice 4";//
-																								// 这里是OpenOffice的安装目录,
+	// 这里是OpenOffice的安装目录,
 
 	/**
 	 * 关闭服务
@@ -79,13 +77,10 @@ public class Document2PDFConvertService {
 	 */
 	public void startService() throws IOException {
 		// 如果从文件中读取的URL地址最后一个字符不是 '\'，则添加'\'
-		if (OpenOffice_HOME.charAt(OpenOffice_HOME.length() - 1) != '\\') {
-			OpenOffice_HOME += "\\";
-		}
 		// 启动OpenOffice的服务
-		String command = OpenOffice_HOME
-				+ "program\\soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
+		String command = "soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
 		try {
+			logger.debug(command);
 			process = Runtime.getRuntime().exec(command);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String temp = null;
@@ -95,6 +90,7 @@ public class Document2PDFConvertService {
 			connection = new SocketOpenOfficeConnection("127.0.0.1", 8100);
 			connection.connect();
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw e;
 		}
 	}

@@ -27,21 +27,23 @@ public class UploadedFileService extends HibernateDataServiceImpl<UploadedFile, 
 
 	public boolean deleteFile(HttpSession httpSession, Long id) {
 		UploadedFile temp = findUniqueBy("id", id);
-		String uploadRealPath = httpSession.getServletContext().getRealPath("/WEB-INF/");
-		File file = new File(uploadRealPath + "/" + temp.getPdfPath());
-		if (file.exists()) {
-			file.delete();
-		}
-		file = new File(uploadRealPath + "/" + temp.getSwfPath());
-		if (file.exists()) {
-			file.delete();
-		}
-		file = new File(uploadRealPath + "/" + temp.getFilePath());
-		if (file.exists()) {
-			file.delete();
-		}
+		deleteFile(temp.getPdfPath(), httpSession);
+		deleteFile(temp.getSwfPath(), httpSession);
+		deleteFile(temp.getFilePath(), httpSession);
 		this.delete(temp);
 		return true;
+	}
+
+	private void deleteFile(String deleteFilePath, HttpSession httpSession) {
+		if (deleteFilePath.indexOf("/uploads/") == 0) {
+			String uploadRealPath = httpSession.getServletContext().getRealPath("/WEB-INF" + deleteFilePath);
+			File file = new File(uploadRealPath);
+			// 删除记录和文档，并移除共享中的记录
+			// 批量删除共享文档中的记录
+			if (file.exists()) {
+				file.delete();
+			}
+		}
 	}
 
 	@Override
