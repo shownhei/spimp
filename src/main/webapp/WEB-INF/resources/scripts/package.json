@@ -10,6 +10,7 @@
       "$-debug": "jquery/jquery/1.10.1/jquery-debug",
       "seajs": "seajs/seajs/2.0.0/sea",
 
+      "handlebars": "gallery/handlebars/1.0.0/handlebars",
       "kjquery": "ikj/kjquery/1.0.0/kjquery",
       "bootbox": "ikj/bootbox/3.3.0/bootbox",
       "grid": "ikj/grid/1.4.0/grid"
