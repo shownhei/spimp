@@ -100,6 +100,7 @@ public class EmergencyResource extends IDEntity {
 		return expiration;
 	}
 
+	@Column(name = "function_role")
 	public String getFunction() {
 		return function;
 	}
