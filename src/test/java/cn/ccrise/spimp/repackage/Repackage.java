@@ -34,7 +34,7 @@ public class Repackage {
 		webxml(version);
 		applicationContextmvcxml();
 		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31",
-				"F:\\Program Files (x86)\\SWFTools\\", "E:\\Program Files (x86)\\OpenOffice 4\\");
+				"D:\\Program Files\\OpenOffice 4\\");
 		log4jxml("WARN");
 		wroproperties();
 		headjsp(version);
@@ -52,7 +52,7 @@ public class Repackage {
 	}
 
 	private static void applicationserverproperties(String username, String password, String url, String day,
-			String swfToolsPath, String openOfficePath) {
+			String openOfficePath) {
 		String fileName = "target/ROOT/WEB-INF/classes/application.server.properties";
 		List<String> lines = readLines(fileName);
 
@@ -63,8 +63,7 @@ public class Repackage {
 		String license = AES.encodeAes128(LoginController.KEY, day);
 		lines.set(38 - 1, "app.license=" + license);
 
-		lines.set(40 - 1, "document_convert_swftools=" + swfToolsPath);
-		lines.set(41 - 1, "document_convert_openoffice=" + openOfficePath);
+		lines.set(40 - 1, "document_convert_openoffice=" + openOfficePath);
 
 		writeLinesToFile(fileName, lines);
 	}
