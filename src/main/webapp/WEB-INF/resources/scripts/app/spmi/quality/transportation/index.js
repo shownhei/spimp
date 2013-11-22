@@ -148,6 +148,9 @@ define(function(require, exports, module) {
 
 		// 如果是小计行，则跳过
 		if ($(tds[0]).html() === '小计' || $(tds[0]).html() === '合计') {
+			// 处理小计居中
+			$(tds[0]).attr('align', 'center');
+			$(tds[1]).attr('align', 'center');
 			return;
 		}
 
@@ -168,6 +171,10 @@ define(function(require, exports, module) {
 						$(v).html(
 								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
 										+ '" value="' + standardScore + '">');
+
+						// 处理数字居中
+						$(v).attr('align', 'center');
+						$(v).prev().prev().attr('align', 'center');
 					}
 				}
 			}
@@ -178,6 +185,9 @@ define(function(require, exports, module) {
 
 		// 如果是小计行，则跳过
 		if ($(tds[0]).html() === '小计' || $(tds[0]).html() === '合计') {
+			// 处理小计居中
+			$(tds[0]).attr('align', 'center');
+			$(tds[1]).attr('align', 'center');
 			return;
 		}
 
@@ -198,6 +208,10 @@ define(function(require, exports, module) {
 						$(v).html(
 								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
 										+ '" value="' + standardScore + '">');
+
+						// 处理数字居中
+						$(v).attr('align', 'center');
+						$(v).prev().prev().attr('align', 'center');
 					}
 				}
 			}
@@ -209,6 +223,9 @@ define(function(require, exports, module) {
 
 		// 如果是小计行，则跳过
 		if ($(tds[0]).html() === '小计' || $(tds[0]).html() === '合计') {
+			// 处理小计居中
+			$(tds[0]).attr('align', 'center');
+			$(tds[1]).attr('align', 'center');
 			return;
 		}
 
@@ -221,7 +238,8 @@ define(function(require, exports, module) {
 				} else {
 					if (k + (8 - tds.length + 1) > 6) {
 						rank = (key + 1) + '-' + (k + (8 - tds.length + 1));
-						$(v).attr('id', 'view-grade-record-' + rank);
+						$(v).attr('id', 'view-grade-record-' + rank).attr('align', 'center');
+						$(v).prev().prev().attr('align', 'center');
 					}
 				}
 			}

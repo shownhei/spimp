@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var selectedId; // 选中的行
-	var category = '信息调度';
+	var category = '一通三防';
 
 	// 提示信息
 	$('button[title]').tooltip({
@@ -143,6 +143,7 @@ define(function(require, exports, module) {
 	}).render();
 
 	// 评分表文本框
+	var gradeGroup = 1;
 	$.each($('#create-grade-record-table tr:not(:first)'), function(key, value) {
 		var tds = $(value).find('td');
 
@@ -151,6 +152,9 @@ define(function(require, exports, module) {
 			// 处理小计居中
 			$(tds[0]).attr('align', 'center');
 			$(tds[1]).attr('align', 'center');
+
+			// 遇到小计，评分组加1
+			gradeGroup++;
 			return;
 		}
 
@@ -170,7 +174,7 @@ define(function(require, exports, module) {
 					if (k === tds.length - 1) {
 						$(v).html(
 								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
-										+ '" value="' + standardScore + '">');
+										+ '" data-group="' + gradeGroup + '" value="' + standardScore + '">');
 
 						// 处理数字居中
 						$(v).attr('align', 'center');
@@ -180,6 +184,7 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+	gradeGroup = 1;
 	$.each($('#edit-grade-record-table tr:not(:first)'), function(key, value) {
 		var tds = $(value).find('td');
 
@@ -188,6 +193,9 @@ define(function(require, exports, module) {
 			// 处理小计居中
 			$(tds[0]).attr('align', 'center');
 			$(tds[1]).attr('align', 'center');
+
+			// 遇到小计，评分组加1
+			gradeGroup++;
 			return;
 		}
 
@@ -207,7 +215,7 @@ define(function(require, exports, module) {
 					if (k === tds.length - 1) {
 						$(v).html(
 								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
-										+ '" value="' + standardScore + '">');
+										+ '" data-group="' + gradeGroup + '" value="' + standardScore + '">');
 
 						// 处理数字居中
 						$(v).attr('align', 'center');
@@ -263,6 +271,9 @@ define(function(require, exports, module) {
 		object.gradeRecords = [];
 		object.score = 0;
 
+		// 分组评分
+		var groupScores = [];
+
 		// 验证
 		// 实得分
 		var validateResult1 = true;
@@ -303,8 +314,20 @@ define(function(require, exports, module) {
 				content : inputValue
 			});
 
-			object.score += parseFloat(inputValue);
+			if (groupScores[$(value).data('group')] === undefined) {
+				groupScores[$(value).data('group')] = parseFloat(inputValue);
+			} else {
+				groupScores[$(value).data('group')] += parseFloat(inputValue);
+			}
 		});
+
+		// 大项最低得分为专业最终得分
+		object.score = groupScores[1];
+		for (var i = 2; i < groupScores.length; i++) {
+			if (groupScores[i] < object.score) {
+				object.score = groupScores[i];
+			}
+		}
 
 		// 高亮错误的input
 		$.each(errorInputNames, function(k, v) {
@@ -377,6 +400,9 @@ define(function(require, exports, module) {
 		object.gradeRecords = [];
 		object.score = 0;
 
+		// 分组评分
+		var groupScores = [];
+
 		// 验证
 		// 实得分
 		var validateResult1 = true;
@@ -417,8 +443,20 @@ define(function(require, exports, module) {
 				content : inputValue
 			});
 
-			object.score += parseFloat(inputValue);
+			if (groupScores[$(value).data('group')] === undefined) {
+				groupScores[$(value).data('group')] = parseFloat(inputValue);
+			} else {
+				groupScores[$(value).data('group')] += parseFloat(inputValue);
+			}
 		});
+
+		// 大项最低得分为专业最终得分
+		object.score = groupScores[1];
+		for (var i = 2; i < groupScores.length; i++) {
+			if (groupScores[i] < object.score) {
+				object.score = groupScores[i];
+			}
+		}
 
 		// 高亮错误的input
 		$.each(errorInputNames, function(k, v) {

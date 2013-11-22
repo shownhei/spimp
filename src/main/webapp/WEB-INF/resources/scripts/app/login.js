@@ -32,7 +32,8 @@ define(function(require, exports, module) {
 	// 背景及登录框自适应
 	var loginBgWidth = 631;
 	var loginBgHeight = 434;
-	window.onresize = window.onload = function() {
+
+	function showPage() {
 		var w, h;
 		if (!!(window.attachEvent && !window.opera)) {
 			h = document.documentElement.clientHeight;
@@ -64,7 +65,10 @@ define(function(require, exports, module) {
 		});
 
 		$('body').show();
-	};
+	}
+
+	showPage();
+	window.onresize = showPage;
 
 	$('#principal').focus();
 

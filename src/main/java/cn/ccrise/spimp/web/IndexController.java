@@ -47,7 +47,7 @@ public class IndexController {
 	}
 
 	/**
-	 * 质量标准化-调度专业
+	 * 质量标准化评分-信息调度专业
 	 */
 	@RequestMapping(value = "/spmi/quality/dispatch", method = RequestMethod.GET)
 	public String spmiQualityDispatch() {
@@ -55,11 +55,19 @@ public class IndexController {
 	}
 
 	/**
-	 * 质量标准化-运输专业
+	 * 质量标准化评分-运输专业
 	 */
 	@RequestMapping(value = "/spmi/quality/transportation", method = RequestMethod.GET)
 	public String spmiQualityTransportation() {
 		return "spmi/quality/transportation/index";
+	}
+
+	/**
+	 * 质量标准化评分-一通三防专业
+	 */
+	@RequestMapping(value = "/spmi/quality/wind", method = RequestMethod.GET)
+	public String spmiQualityWind() {
+		return "spmi/quality/wind/index";
 	}
 
 	// 系统管理
