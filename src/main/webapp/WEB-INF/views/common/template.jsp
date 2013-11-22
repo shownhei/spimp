@@ -14,7 +14,7 @@
 		{{#each resourceEntities}}
 		<li>
 			<a href="{{uri}}" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
-				<i class="icon-double-angle-right"></i> <i class="{{iconCls}}"></i> {{name}}
+				<i class="icon-double-angle-right"></i> <i class="icon-reorder"></i> {{name}}
 				{{#if resourceEntities}}
 				<b class="arrow icon-angle-down"></b>
 				{{/if}}
@@ -24,7 +24,7 @@
 				{{#each resourceEntities}}
 				<li>
 					<a href="{{uri}}">
-						<i class="{{iconCls}}"></i> {{name}}
+						<i class="icon-angle-right"></i>{{name}}
 					</a>
 				</li>
 				{{/each}}
