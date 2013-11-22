@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="category" value="调度" />
+<c:set var="category" value="信息调度" />
 <!DOCTYPE HTML>
 <html>
 <head>
