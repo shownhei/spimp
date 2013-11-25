@@ -95,6 +95,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 质量标准化评分-地测防治水专业
+	 */
+	@RequestMapping(value = "/spmi/quality/water", method = RequestMethod.GET)
+	public String spmiQualityWater() {
+		return "spmi/quality/water/index";
+	}
+
+	/**
 	 * 质量标准化评分-一通三防专业
 	 */
 	@RequestMapping(value = "/spmi/quality/wind", method = RequestMethod.GET)
