@@ -55,6 +55,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 质量标准化评分-地面设施专业
+	 */
+	@RequestMapping(value = "/spmi/quality/facilities", method = RequestMethod.GET)
+	public String spmiQualityFacilities() {
+		return "spmi/quality/facilities/index";
+	}
+
+	/**
 	 * 质量标准化评分-职业健康专业
 	 */
 	@RequestMapping(value = "/spmi/quality/health", method = RequestMethod.GET)
