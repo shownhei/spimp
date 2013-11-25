@@ -63,6 +63,14 @@ public class IndexController {
 	}
 
 	/**
+	 * 质量标准化评分-安全管理专业
+	 */
+	@RequestMapping(value = "/spmi/quality/safety", method = RequestMethod.GET)
+	public String spmiQualitySafety() {
+		return "spmi/quality/safety/index";
+	}
+
+	/**
 	 * 质量标准化评分-运输专业
 	 */
 	@RequestMapping(value = "/spmi/quality/transportation", method = RequestMethod.GET)
