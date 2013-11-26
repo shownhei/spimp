@@ -39,6 +39,7 @@ define(function(require, exports, module) {
 		name : 'uploadTime'
 	}, {
 		header : '上传者',
+		width : 100,
 		name : 'uploader'
 	}, {
 		header : '查看',
