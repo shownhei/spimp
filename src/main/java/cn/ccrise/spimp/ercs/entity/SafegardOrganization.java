@@ -11,7 +11,7 @@ import cn.ccrise.spimp.system.entity.Dictionary;
  * 应急保障机构
  */
 @Entity
-@Table(name = "ciis_SafegardOrganization")
+@Table(name = "ercs_SafegardOrganization")
 public class SafegardOrganization extends IDEntity {
 
 	/**
