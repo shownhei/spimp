@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Account;
-import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.EmergencyPlanInstance;
 import cn.ccrise.spimp.ercs.entity.Rescuers;
 import cn.ccrise.spimp.ercs.entity.ResponseTeam;
@@ -39,7 +37,9 @@ import cn.ccrise.spimp.ercs.service.EmergencyPlanInstanceService;
 import cn.ccrise.spimp.ercs.service.RescuersService;
 import cn.ccrise.spimp.ercs.service.ResponseTeamMemberService;
 import cn.ccrise.spimp.ercs.service.SpeciaListService;
-import cn.ccrise.spimp.service.DictionaryService;
+import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.entity.Dictionary;
+import cn.ccrise.spimp.system.service.DictionaryService;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 
@@ -59,6 +59,17 @@ public class EmergencyPlanInstanceController {
 	private SpeciaListService speciaListService;
 	@Autowired
 	private ResponseTeamMemberService responseTeamMemberService;
+
+	@RequestMapping(value = "/ercs/emergency-plan-instances/waitrefresh", method = RequestMethod.GET)
+	@ResponseBody
+	public ErcsDeferredResult<Object> asynGet(HttpServletRequest request) {
+		ErcsDeferredResult<Object> deferredResult = new ErcsDeferredResult<Object>();
+		AlarmMessage message = new AlarmMessage();
+		message.setSessionId(request.getSession().getId());
+		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
+		emergencyPlanInstanceService.wait(deferredResult);
+		return deferredResult;
+	}
 
 	@RequestMapping(value = "/ercs/emergency-plan-instances/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -140,17 +151,6 @@ public class EmergencyPlanInstanceController {
 		boolean result = emergencyPlanInstanceService.save(emergencyPlanInstance);
 		emergencyPlanInstanceService.notifyRefresh();
 		return new Response(result);
-	}
-
-	@RequestMapping(value = "/ercs/emergency-plan-instances/waitrefresh", method = RequestMethod.GET)
-	@ResponseBody
-	public ErcsDeferredResult<Object> asynGet(HttpServletRequest request) {
-		ErcsDeferredResult<Object> deferredResult = new ErcsDeferredResult<Object>();
-		AlarmMessage message = new AlarmMessage();
-		message.setSessionId(request.getSession().getId());
-		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
-		emergencyPlanInstanceService.wait(deferredResult);
-		return deferredResult;
 	}
 
 	@RequestMapping(value = "/ercs/emergency-plan-instances/{id}", method = RequestMethod.PUT)

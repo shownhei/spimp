@@ -93,6 +93,10 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		return alarmDAO;
 	}
 
+	public String getRequestKey(HttpServletRequest request) {
+		return request.getRequestURI() + request.getSession().getId();
+	}
+
 	/**
 	 * 通知客户端，事故已经处理
 	 * 
@@ -149,21 +153,6 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			}
 		}
 		refreshResult();
-	}
-
-	private void refreshResult() {
-		synchronized (waitAlarmQueue) {
-			synchronized (waitAlarmQueue) {
-				Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
-				ErcsDeferredResult<AlarmMessage> waiter = null;
-				while (it.hasNext()) {
-					waiter = it.next();
-					logger.debug(waiter.getRequestKey());
-					waiter.setErrorResult("refreshed");
-					it.remove();
-				}
-			}
-		}
 	}
 
 	/**
@@ -365,7 +354,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 			ErcsDeferredResult<AlarmMessage> waiter = null;
 			while (it.hasNext()) {
 				waiter = it.next();
-				if (waiter.getRequestKey().equals(this.getRequestKey(request))) {
+				if (waiter.getRequestKey().equals(getRequestKey(request))) {
 					waiter.setErrorResult("refreshed");
 					it.remove();
 				}
@@ -373,7 +362,18 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 		}
 	}
 
-	public String getRequestKey(HttpServletRequest request) {
-		return request.getRequestURI() + request.getSession().getId();
+	private void refreshResult() {
+		synchronized (waitAlarmQueue) {
+			synchronized (waitAlarmQueue) {
+				Iterator<ErcsDeferredResult<AlarmMessage>> it = waitAlarmQueue.iterator();
+				ErcsDeferredResult<AlarmMessage> waiter = null;
+				while (it.hasNext()) {
+					waiter = it.next();
+					logger.debug(waiter.getRequestKey());
+					waiter.setErrorResult("refreshed");
+					it.remove();
+				}
+			}
+		}
 	}
 }

@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
-import cn.ccrise.spimp.entity.Dictionary;
+import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**

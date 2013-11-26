@@ -253,7 +253,7 @@ public class PageGenerator {
 						queryParams.append(", startDate, endDate");
 						dateQuery = true;
 						dateQueryField = columnName;
-					} else if("timestamp".equalsIgnoreCase(columnType) && !dateTimeQuery && !dateQuery){
+					} else if ("timestamp".equalsIgnoreCase(columnType) && !dateTimeQuery && !dateQuery) {
 						queryParamsWithType.append(", String startDate, String endDate");
 						queryParams.append(", startDate, endDate");
 						dateTimeQuery = true;
@@ -300,18 +300,16 @@ public class PageGenerator {
 							.append(selectDataUri).append("', 'id', '").append(selectShowField).append("',true,'")
 							.append(columnDescription).append("');\n");
 				}
-				
+
 				// 初始化日期时间选择控件的JS代码
 				if ("timestamp".equalsIgnoreCase(columnType)) {
 					hasDateTime = true;
-					
+
 					dateTimeInitJS.append("\t$('#create_").append(columnName).append("').datetimepicker({\n")
-					.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n")
-					.append("\t});\n\n");
-					
+							.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n").append("\t});\n\n");
+
 					dateTimeInitJS.append("\t$('#edit_").append(columnName).append("').datetimepicker({\n")
-					.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n")
-					.append("\t});\n");
+							.append("\t\tformat: 'yyyy-mm-dd hh:ii:ss'\n").append("\t});\n");
 				}
 
 				// Grid的options的JS代码
@@ -329,7 +327,7 @@ public class PageGenerator {
 							columnWidth = 145;
 						} else if ("number".equalsIgnoreCase(columnType)) {
 							columnWidth = 80;
-						} 
+						}
 
 						if (columnDescription.indexOf("人") != -1 || columnDescription.indexOf("姓名") != -1) {
 							columnWidth = 80;
@@ -398,9 +396,9 @@ public class PageGenerator {
 				} else if ("select".equalsIgnoreCase(columnType)) {
 					formFields.append("\t\t\t\t\t\t\t\t<select id=\"xxxx_").append(columnName).append("\" name=\"")
 							.append(columnName).append("[id]\"></select>\n");
-				} else { //提供未知类型的默认值
+				} else { // 提供未知类型的默认值
 					formFields.append("\t\t\t\t\t\t\t\t<input id=\"xxxx_").append(columnName).append("\" name=\"")
-					.append(columnName).append("\" type=\"text\">\n");
+							.append(columnName).append("\" type=\"text\">\n");
 				}
 				formFields.append("\t\t\t\t\t\t\t</div>\n").append("\t\t\t\t\t\t</div>\n");
 

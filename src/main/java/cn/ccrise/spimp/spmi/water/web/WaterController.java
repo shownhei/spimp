@@ -44,6 +44,28 @@ public class WaterController {
 		return new Response(waterService.delete(id));
 	}
 
+	@RequestMapping(value = "/spmi/waters/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String startDate, String endDate, String search)
+			throws Exception {
+		Page<Water> page = new Page<Water>();
+		page.setPageSize(100000);
+		page = waterService.pageQuery(page, startDate, endDate, search);
+
+		String[] headers = { "时间", "地点", "涌出量", "状况", "组织处理情况" };
+
+		HSSFWorkbook wb = new ExcelHelper<Water>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/spmi/waters/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -57,7 +79,7 @@ public class WaterController {
 
 	@RequestMapping(value = "/spmi/waters", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Water> page, String startDate, String endDate,String search) {
+	public Response page(Page<Water> page, String startDate, String endDate, String search) {
 		page = waterService.pageQuery(page, startDate, endDate, search);
 		return new Response(page);
 	}
@@ -72,25 +94,5 @@ public class WaterController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Water water, @PathVariable long id) {
 		return new Response(waterService.update(water));
-	}
-	
-	@RequestMapping(value = "/spmi/waters/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String startDate, String endDate,String search) throws Exception {
-		Page<Water> page = new Page<Water>();
-		page.setPageSize(100000);
-		page = waterService.pageQuery(page, startDate, endDate, search);
-		
-		String[] headers = {"时间","地点","涌出量","状况","组织处理情况"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Water>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

@@ -27,22 +27,38 @@ public class Water extends IDEntity {
 	// 时间
 	@PageFields(describtion = "时间", allowedNull = false, search = true)
 	private Timestamp time;
-	
+
 	// 地点
 	@PageFields(describtion = "地点", search = true)
 	private String position;
-	
+
 	// 涌出量
 	@PageFields(describtion = "涌出量")
 	private Double flux;
-	
+
 	// 状况
 	@PageFields(describtion = "状况", type = "textarea")
 	private String status;
-	
+
 	// 组织处理情况
 	@PageFields(describtion = "组织处理情况", type = "textarea")
 	private String dealing;
+
+	public String getDealing() {
+		return dealing;
+	}
+
+	public Double getFlux() {
+		return flux;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public String getStatus() {
+		return status;
+	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
@@ -50,39 +66,23 @@ public class Water extends IDEntity {
 		return time;
 	}
 
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	public Double getFlux() {
-		return flux;
+	public void setDealing(String dealing) {
+		this.dealing = dealing;
 	}
 
 	public void setFlux(Double flux) {
 		this.flux = flux;
 	}
 
-	public String getStatus() {
-		return status;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getDealing() {
-		return dealing;
-	}
-
-	public void setDealing(String dealing) {
-		this.dealing = dealing;
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 }

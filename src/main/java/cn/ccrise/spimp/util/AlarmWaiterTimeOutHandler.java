@@ -19,6 +19,10 @@ public class AlarmWaiterTimeOutHandler implements Runnable {
 		this.waitAlarmQueue = waitAlarmQueue;
 	}
 
+	public String getRequestKey() {
+		return requestKey;
+	}
+
 	public Vector<ErcsDeferredResult<AlarmMessage>> getWaitAlarmQueue() {
 		return waitAlarmQueue;
 	}
@@ -35,10 +39,6 @@ public class AlarmWaiterTimeOutHandler implements Runnable {
 				}
 			}
 		}
-	}
-
-	public String getRequestKey() {
-		return requestKey;
 	}
 
 	public void setRequestKey(String requestKey) {

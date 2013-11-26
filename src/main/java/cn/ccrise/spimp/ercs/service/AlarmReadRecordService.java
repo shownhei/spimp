@@ -32,8 +32,7 @@ public class AlarmReadRecordService extends HibernateDataServiceImpl<AlarmReadRe
 				record.setSessionId(sessionId);
 				record.setSessionKey(sessionKey);
 
-				this.getDAO()
-						.getSession()
+				getDAO().getSession()
 						.createQuery(
 								" delete from AlarmReadRecord a where a.sessionKey='" + record.getSessionKey()
 										+ "' and a.alarmId=" + record.getAlarmId()).executeUpdate();

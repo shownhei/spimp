@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.Alarm;
 import cn.ccrise.spimp.ercs.service.AlarmService;
-import cn.ccrise.spimp.service.DictionaryService;
+import cn.ccrise.spimp.system.entity.Dictionary;
+import cn.ccrise.spimp.system.service.DictionaryService;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 
@@ -41,6 +41,23 @@ public class AlarmController {
 	private DictionaryService dictionaryService;
 	@Autowired
 	private AlarmService alarmService;
+
+	/**
+	 * 等待报警 top数字
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/ercs/alarm/waitalarmtop", method = RequestMethod.GET)
+	@ResponseBody
+	public ErcsDeferredResult<AlarmMessage> alarmTop(Long[] idArray, HttpServletRequest request) {
+
+		ErcsDeferredResult<AlarmMessage> deferredResult = new ErcsDeferredResult<AlarmMessage>();
+		AlarmMessage message = new AlarmMessage();
+		message.setSessionId(request.getSession().getId());
+		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
+		alarmService.waitAlarm(deferredResult, request, message, idArray);
+		return deferredResult;
+	}
 
 	/**
 	 * 关闭一个对话框 主要是测试使用
@@ -68,23 +85,6 @@ public class AlarmController {
 		ErcsDeferredResult<AlarmMessage> deferredResult = new ErcsDeferredResult<AlarmMessage>();
 		AlarmMessage message = new AlarmMessage();
 		message.setSessionId(request.getRequestURI() + request.getSession().getId());
-		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
-		alarmService.waitAlarm(deferredResult, request, message, idArray);
-		return deferredResult;
-	}
-
-	/**
-	 * 等待报警 top数字
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/ercs/alarm/waitalarmtop", method = RequestMethod.GET)
-	@ResponseBody
-	public ErcsDeferredResult<AlarmMessage> alarmTop(Long[] idArray, HttpServletRequest request) {
-
-		ErcsDeferredResult<AlarmMessage> deferredResult = new ErcsDeferredResult<AlarmMessage>();
-		AlarmMessage message = new AlarmMessage();
-		message.setSessionId(request.getSession().getId());
 		deferredResult.setRecordTime(new Timestamp(System.currentTimeMillis()));
 		alarmService.waitAlarm(deferredResult, request, message, idArray);
 		return deferredResult;

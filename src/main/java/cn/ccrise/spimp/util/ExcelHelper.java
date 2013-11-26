@@ -139,9 +139,10 @@ public class ExcelHelper<T> {
 						textValue = String.valueOf(value);
 					} else if (value instanceof Date) {
 						Date date = (Date) value;
-						SimpleDateFormat sdf = new SimpleDateFormat(StringUtils.isBlank(datePattern) ? "yyyy-MM-dd" : datePattern);
+						SimpleDateFormat sdf = new SimpleDateFormat(StringUtils.isBlank(datePattern) ? "yyyy-MM-dd"
+								: datePattern);
 						textValue = sdf.format(date);
-					}  else if (value instanceof byte[]) {
+					} else if (value instanceof byte[]) {
 						row.setHeightInPoints(60);
 						sheet.setColumnWidth(i, (short) (35.7 * 80));
 						byte[] bsValue = (byte[]) value;

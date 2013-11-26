@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Account;
 import cn.ccrise.spimp.ercs.entity.SpeciaList;
 import cn.ccrise.spimp.ercs.service.SpeciaListService;
-import cn.ccrise.spimp.service.AccountService;
-import cn.ccrise.spimp.service.DictionaryService;
+import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.service.AccountService;
+import cn.ccrise.spimp.system.service.DictionaryService;
 
 /**
  * SpeciaList Controller。
@@ -44,6 +44,16 @@ public class SpeciaListController {
 	private DictionaryService dictionaryService;
 	@Autowired
 	private AccountService accountService;
+
+	@RequestMapping(value = "/ercs/specia-lists/associate", method = RequestMethod.POST)
+	@ResponseBody
+	public Response associate(Long staffId, Long accountId) {
+		SpeciaList speciaList = speciaListService.findUniqueBy("id", staffId);
+		Account account = accountService.findUniqueBy("id", accountId);
+		speciaList.setAccount(account);
+		speciaListService.update(speciaList);
+		return new Response(true);
+	}
 
 	@RequestMapping(value = "/ercs/specia-lists/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -75,16 +85,6 @@ public class SpeciaListController {
 	@ResponseBody
 	public Response save(@Valid @RequestBody SpeciaList speciaList) {
 		return new Response(speciaListService.save(speciaList));
-	}
-
-	@RequestMapping(value = "/ercs/specia-lists/associate", method = RequestMethod.POST)
-	@ResponseBody
-	public Response associate(Long staffId, Long accountId) {
-		SpeciaList speciaList = speciaListService.findUniqueBy("id", staffId);
-		Account account = accountService.findUniqueBy("id", accountId);
-		speciaList.setAccount(account);
-		speciaListService.update(speciaList);
-		return new Response(true);
 	}
 
 	@RequestMapping(value = "/ercs/specia-lists/{id}", method = RequestMethod.PUT)

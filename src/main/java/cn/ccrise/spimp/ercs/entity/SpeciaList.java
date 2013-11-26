@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
-import cn.ccrise.spimp.entity.Account;
-import cn.ccrise.spimp.entity.Dictionary;
+import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
  * SpeciaList。
@@ -71,10 +71,6 @@ public class SpeciaList extends IDEntity {
 		return account;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -107,6 +103,10 @@ public class SpeciaList extends IDEntity {
 	@ManyToOne
 	public Dictionary getSpecialty() {
 		return specialty;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	public void setAddress(String address) {

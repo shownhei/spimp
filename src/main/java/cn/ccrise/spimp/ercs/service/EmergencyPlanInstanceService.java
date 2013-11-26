@@ -31,8 +31,9 @@ public class EmergencyPlanInstanceService extends HibernateDataServiceImpl<Emerg
 	 */
 	public final Queue<ErcsDeferredResult<Object>> waitNotifyQueue = Queues.newConcurrentLinkedQueue();
 
-	public void wait(ErcsDeferredResult<Object> ercsDeferredResult) {
-		waitNotifyQueue.add(ercsDeferredResult);
+	@Override
+	public HibernateDAO<EmergencyPlanInstance, Long> getDAO() {
+		return emergencyPlanInstanceDAO;
 	}
 
 	public void notifyRefresh() {
@@ -50,8 +51,7 @@ public class EmergencyPlanInstanceService extends HibernateDataServiceImpl<Emerg
 		}
 	}
 
-	@Override
-	public HibernateDAO<EmergencyPlanInstance, Long> getDAO() {
-		return emergencyPlanInstanceDAO;
+	public void wait(ErcsDeferredResult<Object> ercsDeferredResult) {
+		waitNotifyQueue.add(ercsDeferredResult);
 	}
 }

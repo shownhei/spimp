@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Dictionary;
 import cn.ccrise.spimp.ercs.entity.EmergencyPlanTemplate;
 import cn.ccrise.spimp.ercs.service.EmergencyPlanTemplateService;
-import cn.ccrise.spimp.service.DictionaryService;
+import cn.ccrise.spimp.system.entity.Dictionary;
+import cn.ccrise.spimp.system.service.DictionaryService;
 
 /**
  * EmergencyPlanTemplate Controller。

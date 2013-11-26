@@ -7,7 +7,7 @@ import java.util.List;
 
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.entity.ResourceEntity;
-import cn.ccrise.spimp.entity.Account;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * 返回数据过滤。

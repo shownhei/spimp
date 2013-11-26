@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import cn.ccrise.spimp.system.web.LoginController;
 import cn.ccrise.spimp.util.AES;
-import cn.ccrise.spimp.web.LoginController;
 
 import com.google.common.collect.Lists;
 

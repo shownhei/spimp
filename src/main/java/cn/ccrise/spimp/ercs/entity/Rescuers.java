@@ -19,8 +19,8 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
-import cn.ccrise.spimp.entity.Account;
-import cn.ccrise.spimp.entity.Dictionary;
+import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
  * 应急救援人员。总指挥 副总指挥 成员 等都存在此表之内

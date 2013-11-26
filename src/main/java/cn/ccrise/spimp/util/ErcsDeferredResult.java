@@ -13,14 +13,6 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 	 */
 	private String requestKey;
 
-	public String getRequestKey() {
-		return requestKey;
-	}
-
-	public void setRequestKey(String requestKey) {
-		this.requestKey = requestKey;
-	}
-
 	/**
 	 * 记录时间，判断是否超时的时候使用
 	 */
@@ -31,6 +23,10 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 	 */
 	public Timestamp getRecordTime() {
 		return recordTime;
+	}
+
+	public String getRequestKey() {
+		return requestKey;
 	}
 
 	public String getSessionId() {
@@ -50,6 +46,10 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setRequestKey(String requestKey) {
+		this.requestKey = requestKey;
 	}
 
 	public void setSessionId(String sessionId) {

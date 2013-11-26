@@ -22,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Account;
 import cn.ccrise.spimp.spmi.document.entity.Document;
 import cn.ccrise.spimp.spmi.document.service.DocumentService;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * Document Controller。
