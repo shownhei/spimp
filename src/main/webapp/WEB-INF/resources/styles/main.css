@@ -152,6 +152,7 @@ body {
 	height: 26px;
 	font-size: 13px;
 	min-height: 26px !important;
+	box-sizing: border-box;
 }
 
 .modal-body form input[readonly],.modal-body form textarea[readonly] {
@@ -303,6 +304,7 @@ body {
 
 .modal-xl .table-col-4 select,.modal-xl .table-col-4 input {
 	width: 130px;
+	padding: 0;
 }
 
 /* 评分表格 */

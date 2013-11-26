@@ -19,6 +19,10 @@
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">评分</span>
 					</button>
+					<button id="calculate" class="btn btn-small btn-success" title="统计月度平均得分">
+						<i class="icon-table"></i>
+						<span class="hidden-phone">统计</span>
+					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i>
 						<span class="hidden-phone">编辑</span>
@@ -75,10 +79,38 @@
 									</td>
 									<td></td>
 								</tr>
+								<tr>
+									<td colspan="2">
+										<label style="width: 100px">运输方式</label>
+										<input name="way" type="text" style="width: 310px">
+									</td>
+									<td colspan="2">
+										<label style="width: 100px">设备检测检验</label>
+										<input name="checkout" type="text" style="width: 310px">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label style="width: 100px">设备综合完好率</label>
+										<input name="synthesize" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">矿车完好率</label>
+										<input name="tramcar" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">专用车辆完好率</label>
+										<input name="specialCar" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">完全生产</label>
+										<input name="production" type="text" style="width: 95px">
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<%@ include file="head-table.jsp"%>
-						<div id="create-grade-record-table" style="height: 500px; overflow: auto;">
+						<div id="create-grade-record-table" style="height: 430px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
@@ -136,10 +168,38 @@
 										<input name="score" readonly="readonly">
 									</td>
 								</tr>
+								<tr>
+									<td colspan="2">
+										<label style="width: 100px">运输方式</label>
+										<input name="way" type="text" style="width: 310px">
+									</td>
+									<td colspan="2">
+										<label style="width: 100px">设备检测检验</label>
+										<input name="checkout" type="text" style="width: 310px">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label style="width: 100px">设备综合完好率</label>
+										<input name="synthesize" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">矿车完好率</label>
+										<input name="tramcar" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">专用车辆完好率</label>
+										<input name="specialCar" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">完全生产</label>
+										<input name="production" type="text" style="width: 95px">
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<%@ include file="head-table.jsp"%>
-						<div id="edit-grade-record-table" style="height: 500px; overflow: auto;">
+						<div id="edit-grade-record-table" style="height: 430px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
@@ -227,11 +287,38 @@
 										<input name="score" readonly="readonly">
 									</td>
 								</tr>
+								<tr>
+									<td colspan="2">
+										<label style="width: 100px">运输方式</label>
+										<input name="way" readonly="readonly" type="text" style="width: 310px">
+									</td>
+									<td colspan="2">
+										<label style="width: 100px">设备检测检验</label>
+										<input name="checkout" readonly="readonly" type="text" style="width: 310px">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label style="width: 100px">设备综合完好率</label>
+										<input name="synthesize" readonly="readonly" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">矿车完好率</label>
+										<input name="tramcar" readonly="readonly" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">专用车辆完好率</label>
+										<input name="specialCar" readonly="readonly" type="text" style="width: 95px">
+									</td>
+									<td>
+										<label style="width: 100px">完全生产</label>
+										<input name="production" readonly="readonly" type="text" style="width: 95px">
+									</td>
+								</tr>
 							</tbody>
 						</table>
-						<%@ include file="collect-table.jsp"%>
 						<%@ include file="head-table.jsp"%>
-						<div id="view-grade-record-table" style="height: 200px; overflow: auto;">
+						<div id="view-grade-record-table" style="height: 430px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
 					</form>
@@ -244,71 +331,85 @@
 			</button>
 		</div>
 	</div>
-	<!-- 新建总表 -->
-	<div id="collect-create-modal" class="modal modal-xl hide">
+	<!-- 统计 -->
+	<div id="calculate-modal" class="modal modal-el hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-table"></i> 统计
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="collect-create-form" class="form-horizontal" onsubmit="return false;">
-						<%@ include file="collect-table.jsp"%>
+					<form id="calculate-form" class="form-horizontal" onsubmit="return false;">
+						<div class="row-fluid">
+							<div class="span12">
+								<span>年份</span>
+								<select id="calculate-yearSelect" name="year">
+								</select>
+								<span>月份</span>
+								<select id="calculate-monthSelect" name="month">
+								</select>
+								<button id="calculate-query" class="btn btn-small btn-success">
+									<i class="icon-table"></i>
+									<span class="hidden-phone">统计</span>
+								</button>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<table class="grade-table" style="width: 1020px; margin-top: 5px; margin-bottom: 2px">
+									<thead>
+										<tr>
+											<th rowspan="3">序号</th>
+											<th rowspan="3">运输方式</th>
+											<th rowspan="3">设备检测检验</th>
+											<th colspan="3">运输三率</th>
+											<th rowspan="3">完全生产</th>
+											<th colspan="6">小项得分</th>
+											<th rowspan="2">总分</th>
+										</tr>
+										<tr>
+											<th rowspan="2">设备综合完好率</th>
+											<th rowspan="2">矿车完好率</th>
+											<th rowspan="2">专用车辆完好率</th>
+											<th>巷道硐室</th>
+											<th>运输线路</th>
+											<th>运输设备</th>
+											<th>运输安全设施</th>
+											<th>文明生产</th>
+											<th>运输管理</th>
+										</tr>
+										<tr>
+											<th>5</th>
+											<th>30</th>
+											<th>22</th>
+											<th>20</th>
+											<th>5</th>
+											<th>18</th>
+											<th>100</th>
+										</tr>
+									</thead>
+									<tbody id="calculate-result"></tbody>
+								</table>
+							</div>
+						</div>
 					</form>
 				</div>
-				<div id="collect-create-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="collect-create-message-content"></span>
-						</div>
-					</div>
-				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<button id="collect-create-save" class="btn btn-small btn-success">
-				<i class="icon-ok"></i> 确定
-			</button>
-			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 取消
-			</button>
-		</div>
-	</div>
-	<!-- 编辑总表 -->
-	<div id="collect-edit-modal" class="modal modal-xl hide">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="blue">
-				<i class="icon-edit"></i> 编辑
-			</h5>
-		</div>
-		<div class="modal-body">
-			<div class="row-fluid">
+			<div id="calculate-message-alert" class="row-fluid hide">
 				<div class="span12">
-					<form id="collect-edit-form" class="form-horizontal" onsubmit="return false;">
-						<%@ include file="collect-table.jsp"%>
-					</form>
-				</div>
-				<div id="collect-edit-message-alert" class="row-fluid hide">
-					<div class="span12">
-						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="collect-edit-message-content"></span>
-						</div>
+					<div class="alert alert-error">
+						<i class="icon-remove"></i>
+						<span id="calculate-message-content"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="collect-edit-save" class="btn btn-small btn-success">
-				<i class="icon-ok"></i> 确定
-			</button>
 			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 取消
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>

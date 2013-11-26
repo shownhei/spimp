@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -35,6 +37,7 @@ import com.google.common.collect.Lists;
  */
 @Entity
 @Table(name = "spmi_grades")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Grade extends IDEntity {
 	/**
 	 * 年份。

@@ -13,10 +13,14 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class CodeGenerator {
-	protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+	// protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
+	protected final String packageName = "cn.ccrise.spimp.spmi.quality";
 
-	protected final String uriPrefix = "spmi/schedule";
-	protected final String entityName = "Output";
+	// protected final String uriPrefix = "spmi/schedule";
+	protected final String uriPrefix = "spmi/quality";
+
+	// protected final String entityName = "Output";
+	protected final String entityName = "TransportationGrade";
 
 	@Test
 	public void generateController() {

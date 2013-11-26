@@ -17,6 +17,7 @@ define(function(require, exports, module) {
 	}
 	$('#create-yearSelect').html(yearOptionsHtml);
 	$('#edit-yearSelect').html(yearOptionsHtml);
+	$('#calculate-yearSelect').html(yearOptionsHtml);
 	$('#query-yearSelect').append(yearOptionsHtml);
 
 	// 月份
@@ -26,6 +27,7 @@ define(function(require, exports, module) {
 	}
 	$('#create-monthSelect').html(monthOptionsHtml);
 	$('#edit-monthSelect').html(monthOptionsHtml);
+	$('#calculate-monthSelect').html(monthOptionsHtml);
 	$('#query-monthSelect').append(monthOptionsHtml);
 
 	// 选择触发查询
@@ -43,8 +45,30 @@ define(function(require, exports, module) {
 		name : 'month',
 		align : 'right'
 	}, {
-		header : '专业',
-		name : 'category'
+		header : '运输方式',
+		name : 'way'
+	}, {
+		header : '设备检测检验',
+		name : 'checkout',
+		width : 100
+	}, {
+		header : '运输三率',
+		children : [ {
+			header : '设备综合完好率',
+			name : 'synthesize',
+			width : 100,
+			align : 'center'
+		}, {
+			header : '矿车完好率',
+			name : 'tramcar',
+			width : 100,
+			align : 'center'
+		}, {
+			header : '专用车辆完好率',
+			name : 'specialCar',
+			width : 100,
+			align : 'center'
+		} ]
 	}, {
 		header : '分数',
 		name : 'score',
@@ -58,14 +82,6 @@ define(function(require, exports, module) {
 		name : 'updateTime',
 		width : 150
 	}, {
-		header : '总表',
-		name : 'id',
-		width : 50,
-		align : 'center',
-		render : function(value) {
-			return '<i data-role="collect" class="icon-table" title="编辑总表" style="cursor:pointer;"></i>';
-		}
-	}, {
 		header : '查看',
 		name : 'id',
 		width : 50,
@@ -76,7 +92,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 96);
 	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
 	/**
@@ -91,7 +107,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/spmi/quality/grades?category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/spmi/quality/transportation-grades?category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#grade-table',
 		url : defaultUrl,
@@ -116,21 +132,6 @@ define(function(require, exports, module) {
 				});
 				Utils.modal.show('view');
 				$('#view-grade-record-table').scrollTop(0);
-			}
-
-			// 总表
-			if (target.data('role') === 'collect') {
-				selectedId = data.id;
-				if (data.collectRecords.length === 0) { // 新建
-					Utils.modal.reset('collect-create');
-					Utils.modal.show('collect-create');
-				} else { // 编辑
-					Utils.modal.reset('collect-edit');
-					$.each(data.collectRecords, function(k, v) {
-						$('#collect-edit-form input[name=collect-record-' + v.row + '-' + v.col + ']').val(v.content);
-					});
-					Utils.modal.show('collect-edit');
-				}
 			}
 		},
 		onLoaded : function() {
@@ -335,7 +336,7 @@ define(function(require, exports, module) {
 			});
 		});
 
-		$.post(contextPath + '/spmi/quality/grades', JSON.stringify(object), function(data) {
+		$.post(contextPath + '/spmi/quality/transportation-grades', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('create');
@@ -358,7 +359,7 @@ define(function(require, exports, module) {
 		});
 
 		var selectId = grid.selectedData('id');
-		$.get(contextPath + '/spmi/quality/grades/' + selectId, function(data) {
+		$.get(contextPath + '/spmi/quality/transportation-grades/' + selectId, function(data) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
@@ -451,7 +452,7 @@ define(function(require, exports, module) {
 
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
-		$.put(contextPath + '/spmi/quality/grades/' + selectId, JSON.stringify(object), function(data) {
+		$.put(contextPath + '/spmi/quality/transportation-grades/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
 				Utils.modal.hide('edit');
@@ -473,61 +474,96 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del(contextPath + '/spmi/quality/grades/' + selectId, function(data) {
+		$.del(contextPath + '/spmi/quality/transportation-grades/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
 	});
 
-	// 保存总表
-	$('#collect-create-save').click(function() {
-		var object = Utils.form.serialize('collect-create');
-		object.collectRecords = [];
+	// 统计
+	$('#calculate').click(function() {
+		if (Utils.button.isDisable('calculate')) {
+			return;
+		}
 
-		$.each($('#collect-create-form input[name^=collect-record-]'), function(key, value) {
-			var inputName = $(value).attr('name');
-			var inputValue = $(value).val();
+		$('#calculate-result').empty();
+		$('#calculate-message-alert').hide();
 
-			object.collectRecords.push({
-				row : inputName.split('-')[2],
-				col : inputName.split('-')[3],
-				content : inputValue
-			});
-		});
-
-		$.put(contextPath + '/spmi/quality/grades/' + selectedId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('collect-create');
-			} else {
-				Utils.modal.message('collect-create', data.errors);
-			}
-		});
+		Utils.modal.show('calculate');
 	});
 
-	// 更新总表
-	$('#collect-edit-save').click(function() {
-		var object = Utils.form.serialize('collect-edit');
-		object.collectRecords = [];
+	// 统计查询
+	$('#calculate-query').click(
+			function() {
+				var object = Utils.form.serialize('calculate');
 
-		$.each($('#collect-edit-form input[name^=collect-record-]'), function(key, value) {
-			var inputName = $(value).attr('name');
-			var inputValue = $(value).val();
+				var html = '';
+				$.get(contextPath + '/spmi/quality/transportation-grades?orderBy=year,month&order=desc,desc&pageSize=1000&year=' + object.year + '&month='
+						+ object.month, function(data) {
+					if (data.data.totalCount === 0) {
+						$('#calculate-result').empty();
+						Utils.modal.message('calculate', [ object.year + '年' + object.month + '月无评分记录' ]);
+						return;
+					} else {
+						$('#calculate-message-alert').hide();
+					}
 
-			object.collectRecords.push({
-				row : inputName.split('-')[2],
-				col : inputName.split('-')[3],
-				content : inputValue
+					var avgSumScore = 0;
+					var avgScores = [ 0, 0, 0, 0, 0, 0 ];
+					$.each(data.data.result, function(key, value) {
+						html += '<tr>';
+						html += '<td align="center">' + (key + 1) + '</td>';
+						html += '<td align="center">' + value.way + '</td>';
+						html += '<td align="center">' + value.checkout + '</td>';
+						html += '<td align="center">' + value.synthesize + '</td>';
+						html += '<td align="center">' + value.tramcar + '</td>';
+						html += '<td align="center">' + value.specialCar + '</td>';
+						html += '<td align="center">' + value.production + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 0, 0) + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 1, 9) + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 10, 14) + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 15, 20) + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 21, 23) + '</td>';
+						html += '<td align="center">' + sum(value.gradeRecords, 24, 28) + '</td>';
+						html += '<td align="center">' + value.score + '</td>';
+						html += '</tr>';
+
+						avgScores[0] += sum(value.gradeRecords, 0, 0);
+						avgScores[1] += sum(value.gradeRecords, 1, 9);
+						avgScores[2] += sum(value.gradeRecords, 10, 14);
+						avgScores[3] += sum(value.gradeRecords, 15, 20);
+						avgScores[4] += sum(value.gradeRecords, 21, 23);
+						avgScores[5] += sum(value.gradeRecords, 24, 28);
+						avgSumScore += value.score;
+					});
+
+					if (data.data.totalCount !== 0) {
+						html += '<tr>';
+						html += '<td align="center" colspan="7">平均得分</td>';
+						html += '<td align="center">' + (avgScores[0] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgScores[1] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgScores[2] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgScores[3] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgScores[4] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgScores[5] / data.data.totalCount).toFixed(1) + '</td>';
+						html += '<td align="center">' + (avgSumScore / data.data.totalCount).toFixed(1) + '</td>';
+						html += '</tr>';
+					}
+
+					$('#calculate-result').html(html);
+				});
 			});
-		});
 
-		$.put(contextPath + '/spmi/quality/grades/' + selectedId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('collect-edit');
-			} else {
-				Utils.modal.message('collect-edit', data.errors);
-			}
-		});
-	});
+	/**
+	 * 合计小项得分。
+	 */
+	function sum(records, startIndex, endIndex) {
+		var result = 0;
+
+		for (var i = startIndex; i <= endIndex; i++) {
+			result += parseFloat(records[i].content);
+		}
+
+		return result;
+	}
 });
