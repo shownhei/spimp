@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	var operateUri = '/spmi/car/regulations';
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
+	var operateUri = '/car/regulations';
 
 	window.$ = $;
 	// 提示信息
