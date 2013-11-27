@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>${category}专业- 安全生产综合管理平台</title>
+<title>${category}专业 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -13,32 +13,7 @@
 	<div class="main-container container-fluid">
 		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="page-toolbar">
-				<div class="toolbar">
-					<button id="create" class="btn btn-small btn-success" title="新建评分表">
-						<i class="icon-plus-sign-alt"></i>
-						<span class="hidden-phone">评分</span>
-					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled">
-						<i class="icon-edit"></i>
-						<span class="hidden-phone">编辑</span>
-					</button>
-					<button id="remove" class="btn btn-small btn-danger disabled">
-						<i class="icon-trash"></i>
-						<span class="hidden-phone">删除</span>
-					</button>
-				</div>
-				<div class="nav-search">
-					<form id="query-form" class="form-inline" onsubmit="return false;">
-						<select id="query-yearSelect" name="year" class="input-small">
-							<option value="" class="light-grey">选择年份</option>
-						</select>
-						<select id="query-monthSelect" name="month" class="input-small">
-							<option value="" class="light-grey">选择月份</option>
-						</select>
-					</form>
-				</div>
-			</div>
+			<%@ include file="../common/toolbar.jsp"%>
 			<div class="page-content">
 				<div class="row-fluid" id="grade-table"></div>
 			</div>
@@ -77,7 +52,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<%@ include file="head-table.jsp"%>
+						<%@ include file="../common/head-table.jsp"%>
 						<div id="create-grade-record-table" style="height: 500px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
@@ -138,7 +113,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<%@ include file="head-table.jsp"%>
+						<%@ include file="../common/head-table.jsp"%>
 						<div id="edit-grade-record-table" style="height: 500px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
@@ -230,7 +205,7 @@
 							</tbody>
 						</table>
 						<%@ include file="collect-table.jsp"%>
-						<%@ include file="head-table.jsp"%>
+						<%@ include file="../common/head-table.jsp"%>
 						<div id="view-grade-record-table" style="height: 200px; overflow: auto;">
 							<%@ include file="grade-table.jsp"%>
 						</div>
