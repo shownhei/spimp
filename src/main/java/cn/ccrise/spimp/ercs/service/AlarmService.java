@@ -326,6 +326,7 @@ public class AlarmService extends HibernateDataServiceImpl<Alarm, Long> {
 				// SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(waiter.getRecordTime()));
 				// 最新事件列表
 				List<Alarm> newAlarmList = getNoRecordAlarmList(sessionKey);
+				this.logger.debug(newAlarmList.size() + "," + waitAlarmQueue.size());
 				List<Long> newAlarmIdList = new ArrayList<Long>();
 				if (newAlarmList.size() == 0) {
 					// logger.debug("{}", waiter.getTimePassed());
