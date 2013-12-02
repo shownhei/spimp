@@ -61,8 +61,8 @@ public class MaterialsPlanController {
 		MaterialsPlan plan = materialsPlanService.findUniqueBy("planDate", year + "-" + month);
 		root.put("plan", plan);
 		root.put("result", materialsPlanDetailService.find(Restrictions.eq("plan", plan)));
-		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response,
-				"WEB-INF/template/car/material_plan.xls", root, "导出文档", new String[] { "第一个sheet" });
+		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response, "car/material_plan.xls", root, "导出文档",
+				new String[] { "材料计划" });
 	}
 
 	@RequestMapping(value = "/car/material/plans/{id}", method = RequestMethod.GET)

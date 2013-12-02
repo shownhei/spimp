@@ -218,7 +218,8 @@ public class ExcelHelper<T> {
 		InputStream ins = null;
 		OutputStream os = null;
 		try {
-			ins = new FileInputStream(new File(templateFoldPath + "/" + templatePath));
+			ins = new FileInputStream(new File(templateFoldPath + "/WEB-INF/resources/template/" + templatePath));
+
 			Workbook book = transformer.transformXLS(ins, root);
 			response.setContentType("application/force-download");
 			response.setContentType("application/vnd.ms-excel");
@@ -240,9 +241,6 @@ public class ExcelHelper<T> {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			ins = null;
-			os = null;
 		}
 	}
 }

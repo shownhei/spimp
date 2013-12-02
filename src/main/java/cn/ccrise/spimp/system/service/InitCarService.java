@@ -42,7 +42,7 @@ public class InitCarService {
 		for (int i = 0; i < carNo.length; i++) {
 			car = new Car();
 			car.setCarNo(carNo[i]);
-			car.setCarCategory(carCategory[i]);
+			car.setModels(carCategory[i]);
 			car.setAddDateTime(timestamp);
 			car.setCarStatus(Car.CAR_STATUS_NORMAL);
 			carService.save(car);
