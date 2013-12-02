@@ -15,12 +15,10 @@ import cn.ccrise.spimp.util.PageFields;
 /**
  * 保养的主记录。主要包括 日常保养 和定期保养
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
 @Table(name = "electr_maintenances")
 public class Maintenance extends IDEntity {
-	// 车牌号、保养类别、日期、保养人员、验收人
 	/**
 	 * 保养车辆
 	 */

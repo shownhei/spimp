@@ -3,13 +3,8 @@
  */
 package cn.ccrise.spimp.electr.web;
 
-import java.io.OutputStream;
-import java.net.URLEncoder;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +19,6 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.MaintenanceDetail;
 import cn.ccrise.spimp.electr.service.MaintenanceDetailService;
-import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
  * MaintenanceDetail Controller。
@@ -42,27 +36,6 @@ public class MaintenanceDetailController {
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(maintenanceDetailService.delete(id));
-	}
-
-	@RequestMapping(value = "/electr/maintenance/maintenance-details/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response) throws Exception {
-		Page<MaintenanceDetail> page = new Page<MaintenanceDetail>();
-		page.setPageSize(100000);
-		page = maintenanceDetailService.pageQuery(page);
-
-		String[] headers = { "检查维修项目", "保养方式", "检修处理情况", "备注" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaintenanceDetail>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 
 	@RequestMapping(value = "/electr/maintenance-details/{id}", method = RequestMethod.GET)

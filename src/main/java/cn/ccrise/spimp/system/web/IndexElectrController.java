@@ -69,4 +69,33 @@ public class IndexElectrController {
 		return "electr/car/runlog/index";
 	}
 
+	/**
+	 * 日常维修的界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/daily", method = RequestMethod.GET)
+	public String daily() {
+		return "electr/maintenance/daily/index";
+	}
+
+	/**
+	 * 定期维修的界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/schedule", method = RequestMethod.GET)
+	public String schedule() {
+		return "electr/maintenance/schedule/index";
+	}
+
+	/**
+	 * 事故管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/accident/record", method = RequestMethod.GET)
+	public String accidentRecord() {
+		return "electr/accident/record/index";
+	}
 }
