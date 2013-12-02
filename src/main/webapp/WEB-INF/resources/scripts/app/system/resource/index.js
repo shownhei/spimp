@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
 	// 计算fieldset宽度
-	var fieldsetWidth = $('#menus').width() / 4;
+	var fieldsetWidth = ($('#menus').width() / 4) - 10;
 
 	// 菜单样式
 	var fieldsetCss = {

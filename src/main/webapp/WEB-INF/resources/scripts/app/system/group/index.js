@@ -110,8 +110,8 @@ define(function(require, exports, module) {
 	var groupTree = $.fn.zTree.init($('#groups-tree'), groupTreeSetting);
 
 	// 计算树和表格高度
-	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 175);
+	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#groups-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);

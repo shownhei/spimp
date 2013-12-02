@@ -55,7 +55,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
 	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
 	/**

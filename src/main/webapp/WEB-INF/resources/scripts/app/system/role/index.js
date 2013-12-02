@@ -115,8 +115,8 @@ define(function(require, exports, module) {
 	var resourceTree = $.fn.zTree.init($('#resources-tree'), resourceTreeSetting);
 
 	// 计算树和表格高度
-	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 100);
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 175);
+	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#roles-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
