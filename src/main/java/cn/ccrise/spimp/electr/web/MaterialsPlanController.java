@@ -62,7 +62,7 @@ public class MaterialsPlanController {
 		root.put("plan", plan);
 		root.put("result", materialsPlanDetailService.find(Restrictions.eq("plan", plan)));
 		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response,
-				"WEB-INF/template/electr/material_plan.xls", root, "导出文档", new String[] { "第一个sheet" });
+				"WEB-INF/resources/template/electr/material_plan.xls", root, "导出文档", new String[] { "材料计划" });
 	}
 
 	@RequestMapping(value = "/electr/material/plans/{id}", method = RequestMethod.GET)

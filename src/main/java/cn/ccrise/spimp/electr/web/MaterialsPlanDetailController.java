@@ -3,13 +3,8 @@
  */
 package cn.ccrise.spimp.electr.web;
 
-import java.io.OutputStream;
-import java.net.URLEncoder;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +19,6 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.MaterialsPlanDetail;
 import cn.ccrise.spimp.electr.service.MaterialsPlanDetailService;
-import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
  * MaterialsPlanDetail Controller。
@@ -42,27 +36,6 @@ public class MaterialsPlanDetailController {
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(materialsPlanDetailService.delete(id));
-	}
-
-	@RequestMapping(value = "/electr/material/plan-details/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long plan, String search) throws Exception {
-		Page<MaterialsPlanDetail> page = new Page<MaterialsPlanDetail>();
-		page.setPageSize(100000);
-		page = materialsPlanDetailService.pageQuery(page, plan, search);
-
-		String[] headers = { "单位", "材料名称", "规格型号、设备号", "度量单位", "单价（元）", "单价（元）" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaterialsPlanDetail>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 
 	@RequestMapping(value = "/electr/material/plan-details/{id}", method = RequestMethod.GET)
