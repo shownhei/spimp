@@ -98,4 +98,15 @@ public class IndexElectrController {
 	public String accidentRecord() {
 		return "electr/accident/record/index";
 	}
+
+	/**
+	 * 制度文件管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/file", method = RequestMethod.GET)
+	public String regulationFile() {
+		return "electr/regulation/file/index";
+	}
+
 }

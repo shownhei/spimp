@@ -17,6 +17,7 @@ define(function(require, exports, module) {
 		resource_type : '应急资源种类',
 		education_level : '文化程度',
 		summary_type:'每月总结-总结类型',
+		regulationfile_type:'制度文件类型',
 		organization_type : '应急保障机构类型',
 		schedule_coal_type : '煤种',
 		schedule_coal_series : '煤系',
