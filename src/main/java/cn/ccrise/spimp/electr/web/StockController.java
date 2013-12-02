@@ -71,11 +71,6 @@ public class StockController {
 		return new Response(stockService.get(id));
 	}
 
-	@RequestMapping(value = "/electr/material/stock", method = RequestMethod.GET)
-	public String index() {
-		return "electr/material/stock/index";
-	}
-
 	@RequestMapping(value = "/electr/material/stocks", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Stock> page, String search) {
