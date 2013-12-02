@@ -69,7 +69,7 @@ public class PageGenerator {
 
 	private static final String ENCODING = "UTF-8";
 
-	protected static final String PAGE_TITLE = "防治水信息管理 - 安全生产综合管理平台";
+	protected static final String PAGE_TITLE = "故障管理 - 安全生产综合管理平台";
 
 	public static void generateController(final String entityName, final String packageName, final String uriPrefix) {
 		String path = SOURCE_PREFIX + packageName.replace(".", "/") + "/" + CONTROLLER + "/";
@@ -477,11 +477,11 @@ public class PageGenerator {
 	/**
 	 * 第一步:配置源码路径。
 	 */
-	protected final String packageName = "cn.ccrise.spimp.spmi.water";
+	protected final String packageName = "cn.ccrise.spimp.spmi.car";
 
-	protected final String uriPrefix = "spmi/water";
+	protected final String uriPrefix = "car/maintenance";
 
-	protected final String entityName = "Water";
+	protected final String entityName = "MaintenanceTesting";
 
 	@Test
 	public void generateController() {

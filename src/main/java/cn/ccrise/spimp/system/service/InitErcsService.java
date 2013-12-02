@@ -29,15 +29,6 @@ public class InitErcsService {
 	 * 应急救援指挥 三级菜单
 	 */
 	public void initFourthLevelOperate() {
-		// 应急指示
-		// String indicate =
-		// resourceEntityServiceImpl.getDefaultIdentifier("/ercs/indicate-index",
-		// HttpMethod.GET);
-		// resourceEntityServiceImpl.saveMenuResource("二维展示",
-		// "/ercs/indicate-index/2d", indicate, "", 1);
-		// resourceEntityServiceImpl.saveMenuResource("三维展示",
-		// "/ercs/indicate-index/3d", indicate, "", 2);
-
 		// 执行救援
 		String performRescue = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/perform-rescue", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("任务查看", "/ercs/perform-rescue/task-view", performRescue, "", 1);
@@ -90,10 +81,6 @@ public class InitErcsService {
 		String ercs = resourceEntityServiceImpl.getDefaultIdentifier("/ercs", HttpMethod.GET);
 		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("应急报警", "/ercs/alarm", ercs, "", i++);
-		// resourceEntityServiceImpl.saveMenuResource("应急指示",
-		// "/ercs/indicate-index", ercs, "", i++);
-		// resourceEntityServiceImpl.saveMenuResource("应急处置", "/ercs/deal",
-		// ercs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("执行救援", "/ercs/perform-rescue", ercs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material-index", ercs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan-index", ercs, "", i++);

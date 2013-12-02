@@ -33,8 +33,12 @@ public class Repackage {
 
 		webxml(version);
 		applicationContextmvcxml();
+<<<<<<< HEAD
 		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31",
 				"D:\\\\Program Files\\\\OpenOffice 4\\\\");
+=======
+		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
+>>>>>>> feature/modify
 		log4jxml("WARN");
 		wroproperties();
 		headjsp(version);
@@ -51,8 +55,7 @@ public class Repackage {
 		writeLinesToFile(fileName, lines);
 	}
 
-	private static void applicationserverproperties(String username, String password, String url, String day,
-			String openOfficePath) {
+	private static void applicationserverproperties(String username, String password, String url, String day) {
 		String fileName = "target/ROOT/WEB-INF/classes/application.server.properties";
 		List<String> lines = readLines(fileName);
 
@@ -62,8 +65,6 @@ public class Repackage {
 
 		String license = AES.encodeAes128(LoginController.KEY, day);
 		lines.set(38 - 1, "app.license=" + license);
-
-		lines.set(40 - 1, "document_convert_openoffice=" + openOfficePath);
 
 		writeLinesToFile(fileName, lines);
 	}

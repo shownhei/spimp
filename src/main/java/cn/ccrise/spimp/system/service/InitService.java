@@ -26,6 +26,11 @@ public class InitService extends DataInitAbstractService {
 	private AccountService accountService;
 	@Autowired
 	private InitErcsService initErcsService;
+	/**
+	 * 胶轮车管理
+	 */
+	@Autowired
+	private InitCarService initCarService;
 
 	@Override
 	public void initAdmin() {
@@ -36,12 +41,12 @@ public class InitService extends DataInitAbstractService {
 		admin.setRoleEntity(roleEntityServiceImpl.findUniqueBy("name", ROOT_ROLE_NAME));
 		admin.setGroupEntity(groupEntityServiceImpl.getRoot());
 		admin.setLocked(false);
-
 		accountService.save(admin);
 	}
 
 	@Override
 	public void initCustomData() {
+		initCarService.initCustomData();
 	}
 
 	@Override
@@ -51,49 +56,7 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initFourthLevelOperate() {
 		initErcsService.initFourthLevelOperate();
-		// 机电设备
-		// String electro =
-		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/electro",
-		// HttpMethod.GET);
-		// resourceEntityServiceImpl.saveMenuResource("设备检修跟踪",
-		// "/spmi/electro/repair", electro, "", 1);
-		// resourceEntityServiceImpl.saveMenuResource("设备参数查询",
-		// "/spmi/electro/query", electro, "", 2);
-		//
-		// // 重点工作和领导指示
-		// String instruction =
-		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/instruction",
-		// HttpMethod.GET);
-		// resourceEntityServiceImpl.saveMenuResource("重点工作",
-		// "/spmi/instruction/focus", instruction, "", 1);
-		// resourceEntityServiceImpl.saveMenuResource("领导指示",
-		// "/spmi/instruction/instruction", instruction, "", 2);
-		//
-		// // 调度管理
-		// String schedule =
-		// resourceEntityServiceImpl.getDefaultIdentifier("/spmi/schedule",
-		// HttpMethod.GET);
-		// resourceEntityServiceImpl.saveMenuResource("矿井原煤产量",
-		// "/spmi/schedule/output", schedule, "", 1);
-		// resourceEntityServiceImpl.saveMenuResource("矿井掘进进尺",
-		// "/spmi/schedule/dig", schedule, "", 2);
-		// resourceEntityServiceImpl.saveMenuResource("生产准备情况",
-		// "/spmi/schedule/prepare", schedule, "", 3);
-		// resourceEntityServiceImpl.saveMenuResource("班出勤情况",
-		// "/spmi/schedule/attendance", schedule, "", 4);
-		// resourceEntityServiceImpl.saveMenuResource("矿值班情况",
-		// "/spmi/schedule/work", schedule, "", 5);
-		// resourceEntityServiceImpl.saveMenuResource("基层单位干部跟班情况",
-		// "/spmi/schedule/circumstance", schedule, "", 6);
-		// resourceEntityServiceImpl.saveMenuResource("调度记录",
-		// "/spmi/schedule/record", schedule, "", 7);
-		// resourceEntityServiceImpl.saveMenuResource("安全生产三汇报",
-		// "/spmi/schedule/report", schedule, "", 8);
-		// resourceEntityServiceImpl.saveMenuResource("煤炭外运情况",
-		// "/spmi/schedule/transport", schedule, "", 9);
-		// resourceEntityServiceImpl.saveMenuResource("队组管理",
-		// "/spmi/schedule/team", schedule, "", 10);
-
+		initCarService.initFourthLevelOperate();
 		// 质量标准化评分
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("一通三防专业", "/spmi/quality/wind", quality, "", 1);
@@ -120,6 +83,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("综掘队录入", "/spmi/document/dig", document, "", 8);
 		resourceEntityServiceImpl.saveMenuResource("综采队录入", "/spmi/document/exploit", document, "", 9);
 		resourceEntityServiceImpl.saveMenuResource("开拓队录入", "/spmi/document/develop", document, "", 10);
+
 	}
 
 	@Override
@@ -144,7 +108,8 @@ public class InitService extends DataInitAbstractService {
 		String rootMenuIdentifier = resourceEntityServiceImpl.getRootMenu().getIdentifier();
 		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-wrench", 1);
 		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", 2);
-		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 3);
+		resourceEntityServiceImpl.saveMenuResource("胶轮车管理", "/car", rootMenuIdentifier, "icon-medkit", 3);
+		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", 4);
 	}
 
 	@Override
@@ -157,17 +122,11 @@ public class InitService extends DataInitAbstractService {
 		// 安全生产管理
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化评分", "/spmi/quality", spmi, "", 1);
-		// resourceEntityServiceImpl.saveMenuResource("机电设备", "/spmi/electro",
-		// spmi, "", 2);
-		// resourceEntityServiceImpl.saveMenuResource("防治水信息管理", "/spmi/water",
-		// spmi, "", 3);
-		// resourceEntityServiceImpl.saveMenuResource("调度管理", "/spmi/schedule",
-		// spmi, "", 4);
-		// resourceEntityServiceImpl.saveMenuResource("重点工作和领导指示",
-		// "/spmi/instruction", spmi, "", 5);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化管理", "/spmi/document", spmi, "", 6);
-
+		// 应急救援管理
 		initErcsService.initThirdLevelMenu();
+		// 胶轮车管理
+		initCarService.initThirdLevelMenu();
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", 1);
