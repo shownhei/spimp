@@ -51,18 +51,6 @@ public class MaintenanceController {
 	@Autowired
 	private MaintenanceDetailService maintenanceDetailService;
 
-	@RequestMapping(value = "/car/maintenance/maintenances/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(maintenanceService.deleteMaintenance(id));
-	}
-
-	@RequestMapping(value = "/car/maintenance/maintenances/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(maintenanceService.get(id));
-	}
-
 	/**
 	 * 日常维修的界面
 	 * 
@@ -71,6 +59,39 @@ public class MaintenanceController {
 	@RequestMapping(value = "/car/maintenance/daily", method = RequestMethod.GET)
 	public String daily() {
 		return "car/maintenance/daily/index";
+	}
+
+	@RequestMapping(value = "/car/maintenance/maintenances/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public Response delete(@PathVariable long id) {
+		return new Response(maintenanceService.deleteMaintenance(id));
+	}
+
+	@RequestMapping(value = "/car/maintenance/maintenances/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Long car, String search) throws Exception {
+		Page<Maintenance> page = new Page<Maintenance>();
+		page.setPageSize(100000);
+		page = maintenanceService.pageQuery(page, car, search);
+
+		String[] headers = { "车牌号", "保养类别", "保养日期", "保养人", "验收人" };
+
+		HSSFWorkbook wb = new ExcelHelper<Maintenance>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
+	@RequestMapping(value = "/car/maintenance/maintenances/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response get(@PathVariable long id) {
+		return new Response(maintenanceService.get(id));
 	}
 
 	/**
@@ -151,16 +172,6 @@ public class MaintenanceController {
 		return new ModelAndView("car/maintenance/schedule/maintenance", root);
 	}
 
-	/**
-	 * 定期维修的界面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/car/maintenance/schedule", method = RequestMethod.GET)
-	public String schedule() {
-		return "car/maintenance/schedule/index";
-	}
-
 	@RequestMapping(value = "/car/maintenance/maintenances", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Maintenance> page, Long car, String search) {
@@ -175,30 +186,19 @@ public class MaintenanceController {
 		return new Response(maintenance);
 	}
 
+	/**
+	 * 定期维修的界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/car/maintenance/schedule", method = RequestMethod.GET)
+	public String schedule() {
+		return "car/maintenance/schedule/index";
+	}
+
 	@RequestMapping(value = "/car/maintenance/maintenances/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Maintenance maintenance, @PathVariable long id) {
 		return new Response(maintenanceService.update(maintenance));
-	}
-
-	@RequestMapping(value = "/car/maintenance/maintenances/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long car, String search) throws Exception {
-		Page<Maintenance> page = new Page<Maintenance>();
-		page.setPageSize(100000);
-		page = maintenanceService.pageQuery(page, car, search);
-
-		String[] headers = { "车牌号", "保养类别", "保养日期", "保养人", "验收人" };
-
-		HSSFWorkbook wb = new ExcelHelper<Maintenance>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

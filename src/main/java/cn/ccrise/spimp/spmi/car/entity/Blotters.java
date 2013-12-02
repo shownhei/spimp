@@ -85,84 +85,36 @@ public class Blotters extends IDEntity {
 
 	private Long originalId;
 
-	public Long getOriginalId() {
-		return originalId;
-	}
-
-	public void setOriginalId(Long originalId) {
-		this.originalId = originalId;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public String getOperator() {
-		return operator;
-	}
-
-	public void setOperator(String operator) {
-		this.operator = operator;
+	public Integer getAmount() {
+		return amount;
 	}
 
 	public String getMaterialName() {
 		return materialName;
 	}
 
-	public void setMaterialName(String materialName) {
-		this.materialName = materialName;
+	public String getMeasureUnit() {
+		return measureUnit;
 	}
 
 	public String getModel() {
 		return model;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getMeasureUnit() {
-		return measureUnit;
-	}
-
-	public void setMeasureUnit(String measureUnit) {
-		this.measureUnit = measureUnit;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
+	public String getOperator() {
+		return operator;
 	}
 
 	public Integer getOpertionType() {
 		return opertionType;
 	}
 
-	public void setOpertionType(Integer opertionType) {
-		this.opertionType = opertionType;
+	public Long getOriginalId() {
+		return originalId;
 	}
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public String getPrice() {
+		return price;
 	}
 
 	@Column(updatable = false)
@@ -172,8 +124,56 @@ public class Blotters extends IDEntity {
 		return recordTime;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
+	}
+
+	public void setMeasureUnit(String measureUnit) {
+		this.measureUnit = measureUnit;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public void setOpertionType(Integer opertionType) {
+		this.opertionType = opertionType;
+	}
+
+	public void setOriginalId(Long originalId) {
+		this.originalId = originalId;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

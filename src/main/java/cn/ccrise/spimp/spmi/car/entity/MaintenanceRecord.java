@@ -56,45 +56,17 @@ public class MaintenanceRecord extends IDEntity {
 	@PageFields(describtion = "记录时间", allowedNull = true, search = false)
 	private Timestamp recordDateTime;
 
-	public Date getMaintenanceDate() {
-		return maintenanceDate;
-	}
-
-	public void setMaintenanceDate(Date maintenanceDate) {
-		this.maintenanceDate = maintenanceDate;
-	}
-
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
 	}
 
 	public String getCause() {
 		return cause;
 	}
 
-	public void setCause(String cause) {
-		this.cause = cause;
-	}
-
-	public String getTreatment() {
-		return treatment;
-	}
-
-	public void setTreatment(String treatment) {
-		this.treatment = treatment;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public Date getMaintenanceDate() {
+		return maintenanceDate;
 	}
 
 	@Column(updatable = false)
@@ -104,8 +76,36 @@ public class MaintenanceRecord extends IDEntity {
 		return recordDateTime;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public String getTreatment() {
+		return treatment;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public void setCause(String cause) {
+		this.cause = cause;
+	}
+
+	public void setMaintenanceDate(Date maintenanceDate) {
+		this.maintenanceDate = maintenanceDate;
+	}
+
 	public void setRecordDateTime(Timestamp recordDateTime) {
 		this.recordDateTime = recordDateTime;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setTreatment(String treatment) {
+		this.treatment = treatment;
 	}
 
 }

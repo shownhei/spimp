@@ -47,45 +47,45 @@ public class Maintenance extends IDEntity {
 	@PageFields(describtion = "验收人", allowedNull = true, search = false)
 	private String accepter;
 
+	public String getAccepter() {
+		return accepter;
+	}
+
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
-	}
-
-	public Integer getMaintenanceLevel() {
-		return maintenanceLevel;
-	}
-
-	public void setMaintenanceLevel(Integer maintenanceLevel) {
-		this.maintenanceLevel = maintenanceLevel;
 	}
 
 	public Date getMaintenanceDate() {
 		return maintenanceDate;
 	}
 
-	public void setMaintenanceDate(Date maintenanceDate) {
-		this.maintenanceDate = maintenanceDate;
+	public Integer getMaintenanceLevel() {
+		return maintenanceLevel;
 	}
 
 	public String getMaintenancePeople() {
 		return maintenancePeople;
 	}
 
-	public void setMaintenancePeople(String maintenancePeople) {
-		this.maintenancePeople = maintenancePeople;
-	}
-
-	public String getAccepter() {
-		return accepter;
-	}
-
 	public void setAccepter(String accepter) {
 		this.accepter = accepter;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public void setMaintenanceDate(Date maintenanceDate) {
+		this.maintenanceDate = maintenanceDate;
+	}
+
+	public void setMaintenanceLevel(Integer maintenanceLevel) {
+		this.maintenanceLevel = maintenanceLevel;
+	}
+
+	public void setMaintenancePeople(String maintenancePeople) {
+		this.maintenancePeople = maintenancePeople;
 	}
 
 }

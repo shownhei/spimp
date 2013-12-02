@@ -46,6 +46,28 @@ public class MaintenanceTestingController {
 		return new Response(maintenanceTestingService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/maintenance/maintenance-testings/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search)
+			throws Exception {
+		Page<MaintenanceTesting> page = new Page<MaintenanceTesting>();
+		page.setPageSize(100000);
+		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search);
+
+		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "维修工", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<MaintenanceTesting>().genExcel("故障管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/maintenance/maintenance-testings/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -75,27 +97,5 @@ public class MaintenanceTestingController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaintenanceTesting maintenanceTesting, @PathVariable long id) {
 		return new Response(maintenanceTestingService.update(maintenanceTesting));
-	}
-
-	@RequestMapping(value = "/car/maintenance/maintenance-testings/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search)
-			throws Exception {
-		Page<MaintenanceTesting> page = new Page<MaintenanceTesting>();
-		page.setPageSize(100000);
-		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search);
-
-		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "维修工", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaintenanceTesting>().genExcel("故障管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

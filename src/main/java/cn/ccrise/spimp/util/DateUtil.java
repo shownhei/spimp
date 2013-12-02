@@ -3,7 +3,6 @@ package cn.ccrise.spimp.util;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -67,6 +66,23 @@ public class DateUtil {
 		return sdf.format(date);
 	}
 
+	public static String getFutureDay(String appDate, String format, int days) {
+		String future = "";
+		try {
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+			Date date = (Date) simpleDateFormat.parse(appDate);
+			calendar.setTime(date);
+			calendar.add(Calendar.DATE, days);
+			date = (Date) calendar.getTime();
+			future = simpleDateFormat.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return future;
+	}
+
 	/**
 	 * 得到某日最后一毫秒。
 	 * 
@@ -79,6 +95,17 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, 1);
 		calendar.add(Calendar.MILLISECOND, -1);
 		return new Date(calendar.getTimeInMillis());
+	}
+
+	/**
+	 * 用于返回指定日期的下一天的日期
+	 * 
+	 * @param appDate
+	 *            指定日期
+	 * @return 指定日期的下一天的日期
+	 */
+	public static String getNextDay(String appDate) {
+		return getFutureDay(appDate, "yyyy-MM-dd", 1);
 	}
 
 	public static void main(String a[]) {
@@ -188,33 +215,5 @@ public class DateUtil {
 			}
 		}
 		return buff;
-	}
-
-	public static String getFutureDay(String appDate, String format, int days) {
-		String future = "";
-		try {
-			Calendar calendar = GregorianCalendar.getInstance();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-			Date date = (Date) simpleDateFormat.parse(appDate);
-			calendar.setTime(date);
-			calendar.add(Calendar.DATE, days);
-			date = (Date) calendar.getTime();
-			future = simpleDateFormat.format(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return future;
-	}
-
-	/**
-	 * 用于返回指定日期的下一天的日期
-	 * 
-	 * @param appDate
-	 *            指定日期
-	 * @return 指定日期的下一天的日期
-	 */
-	public static String getNextDay(String appDate) {
-		return getFutureDay(appDate, "yyyy-MM-dd", 1);
 	}
 }

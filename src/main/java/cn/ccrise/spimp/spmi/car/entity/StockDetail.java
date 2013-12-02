@@ -74,93 +74,93 @@ public class StockDetail extends IDEntity {
 		return materialId;
 	}
 
-	public void setMaterialId(Long materialId) {
-		this.materialId = materialId;
-	}
-
 	public String getMaterialName1() {
 		return materialName1;
-	}
-
-	public void setMaterialName1(String materialName1) {
-		this.materialName1 = materialName1;
-	}
-
-	public String getMeasureUnit1() {
-		return measureUnit1;
-	}
-
-	public void setMeasureUnit1(String measureUnit1) {
-		this.measureUnit1 = measureUnit1;
-	}
-
-	public Integer getQuantity1() {
-		return quantity1;
-	}
-
-	public void setQuantity1(Integer quantity1) {
-		this.quantity1 = quantity1;
 	}
 
 	public String getMaterialName2() {
 		return materialName2;
 	}
 
-	public void setMaterialName2(String materialName2) {
-		this.materialName2 = materialName2;
+	public String getMaterialName3() {
+		return materialName3;
+	}
+
+	public String getMeasureUnit1() {
+		return measureUnit1;
 	}
 
 	public String getMeasureUnit2() {
 		return measureUnit2;
 	}
 
-	public void setMeasureUnit2(String measureUnit2) {
-		this.measureUnit2 = measureUnit2;
-	}
-
-	public Integer getQuantity2() {
-		return quantity2;
-	}
-
-	public void setQuantity2(Integer quantity2) {
-		this.quantity2 = quantity2;
-	}
-
-	public String getMaterialName3() {
-		return materialName3;
-	}
-
-	public void setMaterialName3(String materialName3) {
-		this.materialName3 = materialName3;
-	}
-
 	public String getMeasureUnit3() {
 		return measureUnit3;
-	}
-
-	public void setMeasureUnit3(String measureUnit3) {
-		this.measureUnit3 = measureUnit3;
-	}
-
-	public Integer getQuantity3() {
-		return quantity3;
-	}
-
-	public void setQuantity3(Integer quantity3) {
-		this.quantity3 = quantity3;
 	}
 
 	public Integer getOpertionType() {
 		return opertionType;
 	}
 
-	public void setOpertionType(Integer opertionType) {
-		this.opertionType = opertionType;
+	public Integer getQuantity1() {
+		return quantity1;
+	}
+
+	public Integer getQuantity2() {
+		return quantity2;
+	}
+
+	public Integer getQuantity3() {
+		return quantity3;
 	}
 
 	@Column(name = "yearmonth")
 	public Date getYearMonth() {
 		return yearMonth;
+	}
+
+	public void setMaterialId(Long materialId) {
+		this.materialId = materialId;
+	}
+
+	public void setMaterialName1(String materialName1) {
+		this.materialName1 = materialName1;
+	}
+
+	public void setMaterialName2(String materialName2) {
+		this.materialName2 = materialName2;
+	}
+
+	public void setMaterialName3(String materialName3) {
+		this.materialName3 = materialName3;
+	}
+
+	public void setMeasureUnit1(String measureUnit1) {
+		this.measureUnit1 = measureUnit1;
+	}
+
+	public void setMeasureUnit2(String measureUnit2) {
+		this.measureUnit2 = measureUnit2;
+	}
+
+	public void setMeasureUnit3(String measureUnit3) {
+		this.measureUnit3 = measureUnit3;
+	}
+
+	public void setOpertionType(Integer opertionType) {
+		this.opertionType = opertionType;
+	}
+
+	public void setQuantity1(Integer quantity1) {
+		this.quantity1 = quantity1;
+	}
+
+	public void setQuantity2(Integer quantity2) {
+		this.quantity2 = quantity2;
+	}
+
+	public void setQuantity3(Integer quantity3) {
+		this.quantity3 = quantity3;
 	}
 
 	public void setYearMonth(Date yearMonth) {

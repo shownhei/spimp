@@ -60,62 +60,62 @@ public class Stock extends IDEntity {
 	@PageFields(describtion = "更新时间")
 	private Timestamp updateTime;
 
-	@JsonSerialize(using = JsonTimeSerializer.class)
-	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	public Timestamp getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Timestamp updateTime) {
-		this.updateTime = updateTime;
+	public Integer getAmount() {
+		return amount;
 	}
 
 	public String getMaterialName() {
 		return materialName;
 	}
 
-	public void setMaterialName(String materialName) {
-		this.materialName = materialName;
+	public String getMeasureUnit() {
+		return measureUnit;
 	}
 
 	public String getModel() {
 		return model;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getMeasureUnit() {
-		return measureUnit;
-	}
-
-	public void setMeasureUnit(String measureUnit) {
-		this.measureUnit = measureUnit;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
 	public String getPrice() {
 		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
 	}
 
 	public String getRemark() {
 		return remark;
 	}
 
+	@JsonSerialize(using = JsonTimeSerializer.class)
+	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
+	}
+
+	public void setMeasureUnit(String measureUnit) {
+		this.measureUnit = measureUnit;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }

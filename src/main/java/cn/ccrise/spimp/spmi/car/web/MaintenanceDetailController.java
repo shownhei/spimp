@@ -44,6 +44,27 @@ public class MaintenanceDetailController {
 		return new Response(maintenanceDetailService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/maintenance/maintenance-details/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response) throws Exception {
+		Page<MaintenanceDetail> page = new Page<MaintenanceDetail>();
+		page.setPageSize(100000);
+		page = maintenanceDetailService.pageQuery(page);
+
+		String[] headers = { "检查维修项目", "保养方式", "检修处理情况", "备注" };
+
+		HSSFWorkbook wb = new ExcelHelper<MaintenanceDetail>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/maintenance-details/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -72,26 +93,5 @@ public class MaintenanceDetailController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaintenanceDetail maintenanceDetail, @PathVariable long id) {
 		return new Response(maintenanceDetailService.update(maintenanceDetail));
-	}
-
-	@RequestMapping(value = "/car/maintenance/maintenance-details/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response) throws Exception {
-		Page<MaintenanceDetail> page = new Page<MaintenanceDetail>();
-		page.setPageSize(100000);
-		page = maintenanceDetailService.pageQuery(page);
-
-		String[] headers = { "检查维修项目", "保养方式", "检修处理情况", "备注" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaintenanceDetail>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

@@ -46,6 +46,28 @@ public class RunLogController {
 		return new Response(runLogService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/runlog/run-logs/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Long car, String search, Date startDate, Date endDate)
+			throws Exception {
+		Page<RunLog> page = new Page<RunLog>();
+		page.setPageSize(100000);
+		page = runLogService.pageQuery(page, car, search, startDate, endDate);
+
+		String[] headers = { "车号", "班次 ", "车次 ", "路程 ", "加油数 ", "备注 ", "记录日期 " };
+
+		HSSFWorkbook wb = new ExcelHelper<RunLog>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/runlog/run-logs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -75,27 +97,5 @@ public class RunLogController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody RunLog runLog, @PathVariable long id) {
 		return new Response(runLogService.update(runLog));
-	}
-
-	@RequestMapping(value = "/car/runlog/run-logs/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long car, String search, Date startDate, Date endDate)
-			throws Exception {
-		Page<RunLog> page = new Page<RunLog>();
-		page.setPageSize(100000);
-		page = runLogService.pageQuery(page, car, search, startDate, endDate);
-
-		String[] headers = { "车号", "班次 ", "车次 ", "路程 ", "加油数 ", "备注 ", "记录日期 " };
-
-		HSSFWorkbook wb = new ExcelHelper<RunLog>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

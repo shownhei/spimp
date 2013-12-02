@@ -57,24 +57,16 @@ public class MaterialsPlanDetail extends IDEntity {
 	@PageFields(describtion = "备注")
 	private String remark;
 
-	public Double getSumMoney() {
-		return sumMoney;
+	public String getMaterialName() {
+		return materialName;
 	}
 
-	public void setSumMoney(Double sumMoney) {
-		this.sumMoney = sumMoney;
+	public String getMeasureUnit() {
+		return measureUnit;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public String getModel() {
+		return model;
 	}
 
 	@ManyToOne
@@ -82,44 +74,52 @@ public class MaterialsPlanDetail extends IDEntity {
 		return plan;
 	}
 
-	public void setPlan(MaterialsPlan plan) {
-		this.plan = plan;
+	public Double getPrice() {
+		return price;
 	}
 
-	public String getMaterialName() {
-		return materialName;
-	}
-
-	public void setMaterialName(String materialName) {
-		this.materialName = materialName;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getMeasureUnit() {
-		return measureUnit;
-	}
-
-	public void setMeasureUnit(String measureUnit) {
-		this.measureUnit = measureUnit;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
 	public String getRemark() {
 		return remark;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Double getSumMoney() {
+		return sumMoney;
+	}
+
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
+	}
+
+	public void setMeasureUnit(String measureUnit) {
+		this.measureUnit = measureUnit;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setPlan(MaterialsPlan plan) {
+		this.plan = plan;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setSumMoney(Double sumMoney) {
+		this.sumMoney = sumMoney;
 	}
 
 }

@@ -53,15 +53,22 @@ public class MaterialsPlanController {
 		return new Response(materialsPlanService.deletePlan(id));
 	}
 
+	@RequestMapping(value = "/car/material/plans/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, String year, String month)
+			throws Exception {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("yearMonth", year + "年" + month + "月");
+		MaterialsPlan plan = materialsPlanService.findUniqueBy("planDate", year + "-" + month);
+		root.put("plan", plan);
+		root.put("result", materialsPlanDetailService.find(Restrictions.eq("plan", plan)));
+		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response,
+				"WEB-INF/template/car/material_plan.xls", root, "导出文档", new String[] { "第一个sheet" });
+	}
+
 	@RequestMapping(value = "/car/material/plans/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(materialsPlanService.get(id));
-	}
-
-	@RequestMapping(value = "/car/material/plan", method = RequestMethod.GET)
-	public String index() {
-		return "car/material/plan/index";
 	}
 
 	@RequestMapping(value = "/car/material/getplan", method = RequestMethod.GET)
@@ -82,6 +89,11 @@ public class MaterialsPlanController {
 		root.put("planId", mainId);
 		root.put("details", materialsPlanDetailService.find(Restrictions.eq("plan.id", mainId)));
 		return new ModelAndView("car/material/plan/plan", root);
+	}
+
+	@RequestMapping(value = "/car/material/plan", method = RequestMethod.GET)
+	public String index() {
+		return "car/material/plan/index";
 	}
 
 	@RequestMapping(value = "/car/material/plans", method = RequestMethod.GET)
@@ -109,17 +121,5 @@ public class MaterialsPlanController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaterialsPlan materialsPlan, @PathVariable long id) {
 		return new Response(materialsPlanService.update(materialsPlan));
-	}
-
-	@RequestMapping(value = "/car/material/plans/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpSession httpSession, HttpServletResponse response, String year, String month)
-			throws Exception {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("yearMonth", year + "年" + month + "月");
-		MaterialsPlan plan = materialsPlanService.findUniqueBy("planDate", year + "-" + month);
-		root.put("plan", plan);
-		root.put("result", materialsPlanDetailService.find(Restrictions.eq("plan", plan)));
-		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response,
-				"WEB-INF/template/car/material_plan.xls", root, "导出文档", new String[] { "第一个sheet" });
 	}
 }

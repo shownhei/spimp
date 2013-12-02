@@ -34,6 +34,11 @@ public class UploadedFileService extends HibernateDataServiceImpl<UploadedFile, 
 		return true;
 	}
 
+	@Override
+	public HibernateDAO<UploadedFile, Long> getDAO() {
+		return uploadedFileDAO;
+	}
+
 	private void deleteFile(String deleteFilePath, HttpSession httpSession) {
 		if (deleteFilePath.indexOf("/uploads/") == 0) {
 			String uploadRealPath = httpSession.getServletContext().getRealPath("/WEB-INF" + deleteFilePath);
@@ -44,10 +49,5 @@ public class UploadedFileService extends HibernateDataServiceImpl<UploadedFile, 
 				file.delete();
 			}
 		}
-	}
-
-	@Override
-	public HibernateDAO<UploadedFile, Long> getDAO() {
-		return uploadedFileDAO;
 	}
 }

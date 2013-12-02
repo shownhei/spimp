@@ -33,12 +33,7 @@ public class Repackage {
 
 		webxml(version);
 		applicationContextmvcxml();
-<<<<<<< HEAD
-		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31",
-				"D:\\\\Program Files\\\\OpenOffice 4\\\\");
-=======
 		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
->>>>>>> feature/modify
 		log4jxml("WARN");
 		wroproperties();
 		headjsp(version);
@@ -64,7 +59,7 @@ public class Repackage {
 		lines.set(9 - 1, "jdbc.url=" + url);
 
 		String license = AES.encodeAes128(LoginController.KEY, day);
-		lines.set(38 - 1, "app.license=" + license);
+		lines.set(35 - 1, "app.license=" + license);
 
 		writeLinesToFile(fileName, lines);
 	}

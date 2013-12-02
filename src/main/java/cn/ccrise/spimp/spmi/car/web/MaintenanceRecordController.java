@@ -46,6 +46,27 @@ public class MaintenanceRecordController {
 		return new Response(maintenanceRecordService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/maintenance/records/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car) throws Exception {
+		Page<MaintenanceRecord> page = new Page<MaintenanceRecord>();
+		page.setPageSize(100000);
+		page = maintenanceRecordService.pageQuery(page, startDate, endDate, car);
+
+		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<MaintenanceRecord>().genExcel("维修记录管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("维修记录管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/maintenance/records/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -70,26 +91,5 @@ public class MaintenanceRecordController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaintenanceRecord maintenanceRecord, @PathVariable long id) {
 		return new Response(maintenanceRecordService.update(maintenanceRecord));
-	}
-
-	@RequestMapping(value = "/car/maintenance/records/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car) throws Exception {
-		Page<MaintenanceRecord> page = new Page<MaintenanceRecord>();
-		page.setPageSize(100000);
-		page = maintenanceRecordService.pageQuery(page, startDate, endDate, car);
-
-		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaintenanceRecord>().genExcel("维修记录管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("维修记录管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

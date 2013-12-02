@@ -47,6 +47,27 @@ public class BlottersController {
 		return new Response(blottersService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/material/blotters/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+		Page<Blotters> page = new Page<Blotters>();
+		page.setPageSize(100000);
+		page = blottersService.pageQuery(page, search, 1);
+
+		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "操作类型", "经办人", "备注", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Blotters>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/material/blotters/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -68,6 +89,24 @@ public class BlottersController {
 		return "car/material/stock_putin/index";
 	}
 
+	@RequestMapping(value = "/car/material/putin", method = RequestMethod.GET)
+	@ResponseBody
+	public Response putinPage(Page<Blotters> page, String search) {
+		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_PUTIN);
+		return new Response(page);
+	}
+
+	@RequestMapping(value = "/car/material/blotters", method = RequestMethod.POST)
+	@ResponseBody
+	public Response save(@Valid @RequestBody Blotters blotters) {
+		blotters.setRecordTime(new Timestamp(System.currentTimeMillis()));
+		if (blotters.getOpertionType() == Blotters.OPERTION_TYPE_PUTIN) {
+			return new Response(blottersService.putIn(blotters));
+		} else {
+			return new Response(blottersService.sendOut(blotters));
+		}
+	}
+
 	/**
 	 * 出库
 	 * 
@@ -76,6 +115,13 @@ public class BlottersController {
 	@RequestMapping(value = "/car/material/stock_sendout", method = RequestMethod.GET)
 	public String sendOut() {
 		return "car/material/stock_sendout/index";
+	}
+
+	@RequestMapping(value = "/car/material/sendout", method = RequestMethod.GET)
+	@ResponseBody
+	public Response sendoutPage(Page<Blotters> page, String search) {
+		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_SENDOUT);
+		return new Response(page);
 	}
 
 	/**
@@ -97,55 +143,9 @@ public class BlottersController {
 		return new ModelAndView("car/material/statistics/result", root);
 	}
 
-	@RequestMapping(value = "/car/material/putin", method = RequestMethod.GET)
-	@ResponseBody
-	public Response putinPage(Page<Blotters> page, String search) {
-		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_PUTIN);
-		return new Response(page);
-	}
-
-	@RequestMapping(value = "/car/material/sendout", method = RequestMethod.GET)
-	@ResponseBody
-	public Response sendoutPage(Page<Blotters> page, String search) {
-		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_SENDOUT);
-		return new Response(page);
-	}
-
-	@RequestMapping(value = "/car/material/blotters", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody Blotters blotters) {
-		blotters.setRecordTime(new Timestamp(System.currentTimeMillis()));
-		if (blotters.getOpertionType() == Blotters.OPERTION_TYPE_PUTIN) {
-			return new Response(blottersService.putIn(blotters));
-		} else {
-			return new Response(blottersService.sendOut(blotters));
-		}
-	}
-
 	@RequestMapping(value = "/car/material/blotters/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Blotters blotters, @PathVariable long id) {
 		return new Response(blottersService.update(blotters));
-	}
-
-	@RequestMapping(value = "/car/material/blotters/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
-		Page<Blotters> page = new Page<Blotters>();
-		page.setPageSize(100000);
-		page = blottersService.pageQuery(page, search, 1);
-
-		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "操作类型", "经办人", "备注", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<Blotters>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

@@ -45,6 +45,27 @@ public class CarController {
 		return new Response(carService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/cars/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+		Page<Car> page = new Page<Car>();
+		page.setPageSize(100000);
+		page = carService.pageQuery(page, search);
+
+		String[] headers = { "车类", "车型", "车号", "购买日期", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Car>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/cars/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -81,26 +102,5 @@ public class CarController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Car car, @PathVariable long id) {
 		return new Response(carService.update(car));
-	}
-
-	@RequestMapping(value = "/car/cars/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
-		Page<Car> page = new Page<Car>();
-		page.setPageSize(100000);
-		page = carService.pageQuery(page, search);
-
-		String[] headers = { "车类", "车型", "车号", "购买日期", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<Car>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

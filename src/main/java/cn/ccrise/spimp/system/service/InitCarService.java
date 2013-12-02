@@ -1,7 +1,7 @@
 /*
  * Copyright (C) CCRISE.
  */
-package cn.ccrise.spimp.service;
+package cn.ccrise.spimp.system.service;
 
 import java.sql.Timestamp;
 

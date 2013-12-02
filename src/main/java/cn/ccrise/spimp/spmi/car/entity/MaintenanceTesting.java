@@ -63,53 +63,21 @@ public class MaintenanceTesting extends IDEntity {
 	@PageFields(describtion = "记录时间", allowedNull = true, search = false)
 	private Timestamp recordDateTime;
 
-	public String getMiantainer() {
-		return miantainer;
-	}
-
-	public void setMiantainer(String miantainer) {
-		this.miantainer = miantainer;
-	}
-
-	public Date getMaintenanceDate() {
-		return maintenanceDate;
-	}
-
-	public void setMaintenanceDate(Date maintenanceDate) {
-		this.maintenanceDate = maintenanceDate;
-	}
-
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
 	}
 
 	public String getCause() {
 		return cause;
 	}
 
-	public void setCause(String cause) {
-		this.cause = cause;
+	public Date getMaintenanceDate() {
+		return maintenanceDate;
 	}
 
-	public String getTreatment() {
-		return treatment;
-	}
-
-	public void setTreatment(String treatment) {
-		this.treatment = treatment;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public String getMiantainer() {
+		return miantainer;
 	}
 
 	@Column(updatable = false)
@@ -119,7 +87,39 @@ public class MaintenanceTesting extends IDEntity {
 		return recordDateTime;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public String getTreatment() {
+		return treatment;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public void setCause(String cause) {
+		this.cause = cause;
+	}
+
+	public void setMaintenanceDate(Date maintenanceDate) {
+		this.maintenanceDate = maintenanceDate;
+	}
+
+	public void setMiantainer(String miantainer) {
+		this.miantainer = miantainer;
+	}
+
 	public void setRecordDateTime(Timestamp recordDateTime) {
 		this.recordDateTime = recordDateTime;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setTreatment(String treatment) {
+		this.treatment = treatment;
 	}
 }

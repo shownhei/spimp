@@ -5,8 +5,8 @@ package cn.ccrise.spimp.spmi.car.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.spmi.car.entity.MaterialsPlan;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.spmi.car.entity.MaterialsPlan;
 
 /**
  * MaterialsPlan DAO。

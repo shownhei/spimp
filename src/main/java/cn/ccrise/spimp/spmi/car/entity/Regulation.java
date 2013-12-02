@@ -48,21 +48,17 @@ public class Regulation extends IDEntity {
 	@PageFields(describtion = "上传者", allowedNull = true, search = false)
 	private String uploader;
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@ManyToOne
 	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(UploadedFile attachment) {
-		this.attachment = attachment;
+	public String getTitle() {
+		return title;
+	}
+
+	public String getUploader() {
+		return uploader;
 	}
 
 	/**
@@ -77,16 +73,20 @@ public class Regulation extends IDEntity {
 		return uploadTime;
 	}
 
-	public void setUploadTime(Timestamp uploadTime) {
-		this.uploadTime = uploadTime;
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
 	}
 
-	public String getUploader() {
-		return uploader;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public void setUploader(String uploader) {
 		this.uploader = uploader;
+	}
+
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
 	}
 
 }

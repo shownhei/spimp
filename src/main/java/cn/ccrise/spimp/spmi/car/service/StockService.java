@@ -31,6 +31,22 @@ public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 	@Autowired
 	private StockDAO stockDAO;
 
+	@Override
+	public HibernateDAO<Stock, Long> getDAO() {
+		return stockDAO;
+	}
+
+	public Page<Stock> pageQuery(Page<Stock> page, String search) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
+		}
+
+		return getPage(page, criterions.toArray(new Criterion[0]));
+	}
+
 	/**
 	 * 入库
 	 * 
@@ -40,7 +56,7 @@ public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 													// Date(System.currentTimeMillis())
 		String sql = "update Stock a set a.amount=a.amount+" + count + ", a.updateTime=:updateTime" + " where a.id="
 				+ id;
-		this.logger.debug(sql);
+		logger.debug(sql);
 		Query query = getDAO().getSession().createQuery(sql);
 		query.setDate("updateTime", new Timestamp(System.currentTimeMillis()));
 		return query.executeUpdate() > 0 ? true : false;
@@ -57,21 +73,5 @@ public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 		Query tQuery = getDAO().getSession().createQuery(sql);
 		tQuery.setTimestamp("updateTime", new Timestamp(System.currentTimeMillis()));
 		return tQuery.executeUpdate() > 0 ? true : false;
-	}
-
-	@Override
-	public HibernateDAO<Stock, Long> getDAO() {
-		return stockDAO;
-	}
-
-	public Page<Stock> pageQuery(Page<Stock> page, String search) {
-		List<Criterion> criterions = new ArrayList<Criterion>();
-
-		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
-					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
-		}
-
-		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

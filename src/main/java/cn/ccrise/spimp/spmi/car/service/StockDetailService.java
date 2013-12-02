@@ -35,6 +35,21 @@ public class StockDetailService extends HibernateDataServiceImpl<StockDetail, Lo
 	@Autowired
 	private StockService stockService;
 
+	@Override
+	public HibernateDAO<StockDetail, Long> getDAO() {
+		return stockDetailDAO;
+	}
+
+	public Page<StockDetail> pageQuery(Page<StockDetail> page, String search) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE)));
+		}
+
+		return getPage(page, criterions.toArray(new Criterion[0]));
+	}
+
 	public void putIn(Blotters instance) {
 		Long originalId = instance.getOriginalId();
 		StringBuilder buff = new StringBuilder();
@@ -57,7 +72,7 @@ public class StockDetailService extends HibernateDataServiceImpl<StockDetail, Lo
 			temp.setMeasureUnit3(stock.getMeasureUnit());
 			temp.setQuantity3(stock.getAmount());
 			temp.setMaterialId(stock.getId());
-			this.save(temp);
+			save(temp);
 		}
 	}
 
@@ -88,22 +103,7 @@ public class StockDetailService extends HibernateDataServiceImpl<StockDetail, Lo
 			temp.setQuantity3(stock.getAmount());
 			temp.setQuantity2(instance.getAmount());
 			temp.setMaterialId(originalId);
-			this.save(temp);
+			save(temp);
 		}
-	}
-
-	@Override
-	public HibernateDAO<StockDetail, Long> getDAO() {
-		return stockDetailDAO;
-	}
-
-	public Page<StockDetail> pageQuery(Page<StockDetail> page, String search) {
-		List<Criterion> criterions = new ArrayList<Criterion>();
-
-		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE)));
-		}
-
-		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

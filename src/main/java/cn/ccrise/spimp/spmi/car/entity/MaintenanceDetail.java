@@ -43,6 +43,10 @@ public class MaintenanceDetail extends IDEntity {
 	@PageFields(describtion = "备注", allowedNull = false, search = false)
 	private String remark;
 
+	public String getCheckItem() {
+		return checkItem;
+	}
+
 	/**
 	 * 保养维修单子
 	 * 
@@ -53,40 +57,36 @@ public class MaintenanceDetail extends IDEntity {
 		return maintenance;
 	}
 
-	public void setMaintenance(Maintenance maintenance) {
-		this.maintenance = maintenance;
-	}
-
-	public String getCheckItem() {
-		return checkItem;
-	}
-
-	public void setCheckItem(String checkItem) {
-		this.checkItem = checkItem;
-	}
-
 	public String getMaintenanceWay() {
 		return maintenanceWay;
-	}
-
-	public void setMaintenanceWay(String maintenanceWay) {
-		this.maintenanceWay = maintenanceWay;
-	}
-
-	public String getTreatment() {
-		return treatment;
-	}
-
-	public void setTreatment(String treatment) {
-		this.treatment = treatment;
 	}
 
 	public String getRemark() {
 		return remark;
 	}
 
+	public String getTreatment() {
+		return treatment;
+	}
+
+	public void setCheckItem(String checkItem) {
+		this.checkItem = checkItem;
+	}
+
+	public void setMaintenance(Maintenance maintenance) {
+		this.maintenance = maintenance;
+	}
+
+	public void setMaintenanceWay(String maintenanceWay) {
+		this.maintenanceWay = maintenanceWay;
+	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public void setTreatment(String treatment) {
+		this.treatment = treatment;
 	}
 
 }

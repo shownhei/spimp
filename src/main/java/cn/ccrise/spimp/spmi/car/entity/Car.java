@@ -70,62 +70,6 @@ public class Car extends IDEntity {
 	@PageFields(describtion = "记录时间", allowedNull = true, search = false)
 	private Timestamp addDateTime;
 
-	public Integer getCarStatus() {
-		return carStatus;
-	}
-
-	public void setCarStatus(Integer carStatus) {
-		this.carStatus = carStatus;
-	}
-
-	public String getEngineSize() {
-		return engineSize;
-	}
-
-	public void setEngineSize(String engineSize) {
-		this.engineSize = engineSize;
-	}
-
-	public String getEngineNumber() {
-		return engineNumber;
-	}
-
-	public void setEngineNumber(String engineNumber) {
-		this.engineNumber = engineNumber;
-	}
-
-	public String getCarCategory() {
-		return carCategory;
-	}
-
-	public void setCarCategory(String carCategory) {
-		this.carCategory = carCategory;
-	}
-
-	public String getModels() {
-		return models;
-	}
-
-	public void setModels(String models) {
-		this.models = models;
-	}
-
-	public String getCarNo() {
-		return carNo;
-	}
-
-	public void setCarNo(String carNo) {
-		this.carNo = carNo;
-	}
-
-	public Date getBuyDate() {
-		return buyDate;
-	}
-
-	public void setBuyDate(Date buyDate) {
-		this.buyDate = buyDate;
-	}
-
 	@Column(updatable = false)
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
@@ -133,8 +77,64 @@ public class Car extends IDEntity {
 		return addDateTime;
 	}
 
+	public Date getBuyDate() {
+		return buyDate;
+	}
+
+	public String getCarCategory() {
+		return carCategory;
+	}
+
+	public String getCarNo() {
+		return carNo;
+	}
+
+	public Integer getCarStatus() {
+		return carStatus;
+	}
+
+	public String getEngineNumber() {
+		return engineNumber;
+	}
+
+	public String getEngineSize() {
+		return engineSize;
+	}
+
+	public String getModels() {
+		return models;
+	}
+
 	public void setAddDateTime(Timestamp addDateTime) {
 		this.addDateTime = addDateTime;
+	}
+
+	public void setBuyDate(Date buyDate) {
+		this.buyDate = buyDate;
+	}
+
+	public void setCarCategory(String carCategory) {
+		this.carCategory = carCategory;
+	}
+
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
+	}
+
+	public void setCarStatus(Integer carStatus) {
+		this.carStatus = carStatus;
+	}
+
+	public void setEngineNumber(String engineNumber) {
+		this.engineNumber = engineNumber;
+	}
+
+	public void setEngineSize(String engineSize) {
+		this.engineSize = engineSize;
+	}
+
+	public void setModels(String models) {
+		this.models = models;
 	}
 
 }

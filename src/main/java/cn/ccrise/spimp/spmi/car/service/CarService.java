@@ -3,15 +3,16 @@
  */
 package cn.ccrise.spimp.spmi.car.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -32,14 +33,16 @@ public class CarService extends HibernateDataServiceImpl<Car, Long> {
 	public HibernateDAO<Car, Long> getDAO() {
 		return carDAO;
 	}
-	
-	public Page<Car> pageQuery(Page<Car> page,String search) {
+
+	public Page<Car> pageQuery(Page<Car> page, String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("carCategory", search, MatchMode.ANYWHERE),Restrictions.ilike("models", search, MatchMode.ANYWHERE),Restrictions.ilike("carNo", search, MatchMode.ANYWHERE)));
+			criterions.add(Restrictions.or(Restrictions.ilike("carCategory", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("models", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("carNo", search, MatchMode.ANYWHERE)));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

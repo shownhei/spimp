@@ -44,6 +44,27 @@ public class MaterialsPlanDetailController {
 		return new Response(materialsPlanDetailService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/material/plan-details/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Long plan, String search) throws Exception {
+		Page<MaterialsPlanDetail> page = new Page<MaterialsPlanDetail>();
+		page.setPageSize(100000);
+		page = materialsPlanDetailService.pageQuery(page, plan, search);
+
+		String[] headers = { "单位", "材料名称", "规格型号、设备号", "度量单位", "单价（元）", "单价（元）" };
+
+		HSSFWorkbook wb = new ExcelHelper<MaterialsPlanDetail>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/material/plan-details/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -72,26 +93,5 @@ public class MaterialsPlanDetailController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaterialsPlanDetail materialsPlanDetail, @PathVariable long id) {
 		return new Response(materialsPlanDetailService.update(materialsPlanDetail));
-	}
-
-	@RequestMapping(value = "/car/material/plan-details/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long plan, String search) throws Exception {
-		Page<MaterialsPlanDetail> page = new Page<MaterialsPlanDetail>();
-		page.setPageSize(100000);
-		page = materialsPlanDetailService.pageQuery(page, plan, search);
-
-		String[] headers = { "单位", "材料名称", "规格型号、设备号", "度量单位", "单价（元）", "单价（元）" };
-
-		HSSFWorkbook wb = new ExcelHelper<MaterialsPlanDetail>().genExcel("防治水信息管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("防治水信息管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

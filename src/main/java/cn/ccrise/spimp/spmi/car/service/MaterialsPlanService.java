@@ -34,11 +34,6 @@ public class MaterialsPlanService extends HibernateDataServiceImpl<MaterialsPlan
 	@Autowired
 	private MaterialsPlanDetailService materialsPlanDetailService;
 
-	@Override
-	public HibernateDAO<MaterialsPlan, Long> getDAO() {
-		return materialsPlanDAO;
-	}
-
 	public boolean deletePlan(Long planId) {
 		MaterialsPlan plan = findUniqueBy("id", planId);
 		List<MaterialsPlanDetail> details = materialsPlanDetailService.findBy("plan", plan);
@@ -49,6 +44,11 @@ public class MaterialsPlanService extends HibernateDataServiceImpl<MaterialsPlan
 			}
 		}
 		return delete(plan);
+	}
+
+	@Override
+	public HibernateDAO<MaterialsPlan, Long> getDAO() {
+		return materialsPlanDAO;
 	}
 
 	public Page<MaterialsPlan> pageQuery(Page<MaterialsPlan> page, Date startDate, Date endDate, String search) {

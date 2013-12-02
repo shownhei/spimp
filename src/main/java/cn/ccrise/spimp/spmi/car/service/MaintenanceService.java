@@ -33,11 +33,6 @@ public class MaintenanceService extends HibernateDataServiceImpl<Maintenance, Lo
 	@Autowired
 	private MaintenanceDetailService maintenanceDetailService;
 
-	@Override
-	public HibernateDAO<Maintenance, Long> getDAO() {
-		return maintenanceDAO;
-	}
-
 	public boolean deleteMaintenance(Long id) {
 		Maintenance main = findUniqueBy("id", id);
 		Iterator<MaintenanceDetail> it = maintenanceDetailService.find(Restrictions.eq("maintenance", main)).iterator();
@@ -45,6 +40,11 @@ public class MaintenanceService extends HibernateDataServiceImpl<Maintenance, Lo
 			maintenanceDetailService.delete(it.next());
 		}
 		return this.delete(id);
+	}
+
+	@Override
+	public HibernateDAO<Maintenance, Long> getDAO() {
+		return maintenanceDAO;
 	}
 
 	public Page<Maintenance> pageQuery(Page<Maintenance> page, Long car, String search) {

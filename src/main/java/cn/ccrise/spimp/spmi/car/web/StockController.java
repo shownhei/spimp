@@ -44,6 +44,27 @@ public class StockController {
 		return new Response(stockService.delete(id));
 	}
 
+	@RequestMapping(value = "/car/material/stocks/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+		Page<Stock> page = new Page<Stock>();
+		page.setPageSize(100000);
+		page = stockService.pageQuery(page, search);
+
+		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "备注", "更新时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Stock>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/car/material/stocks/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -72,26 +93,5 @@ public class StockController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Stock stock, @PathVariable long id) {
 		return new Response(stockService.update(stock));
-	}
-
-	@RequestMapping(value = "/car/material/stocks/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
-		Page<Stock> page = new Page<Stock>();
-		page.setPageSize(100000);
-		page = stockService.pageQuery(page, search);
-
-		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "备注", "更新时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<Stock>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

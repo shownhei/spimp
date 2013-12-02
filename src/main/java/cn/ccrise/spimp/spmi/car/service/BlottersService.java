@@ -34,18 +34,20 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 	@Autowired
 	private StockDetailService stockDetailService;
 
-	/**
-	 * 统计当前年月的情况
-	 * 
-	 * @return
-	 */
-	public List<StockDetail> staticsCurrentYearMonth() {
-		return stockDetailService.find();
-	}
-
 	@Override
 	public HibernateDAO<Blotters, Long> getDAO() {
 		return blottersDAO;
+	}
+
+	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
+		}
+		criterions.add(Restrictions.eq("opertionType", operationType));
+		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 
 	public boolean putIn(Blotters instance) {
@@ -58,7 +60,7 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 			stock.setPrice(instance.getPrice());
 			stock.setRemark(instance.getRemark());
 			stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-			this.stockService.save(stock);
+			stockService.save(stock);
 			instance.setOriginalId(stock.getId());
 			stockDetailService.putIn(instance);
 		} else {
@@ -80,14 +82,12 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 		return result;
 	}
 
-	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType) {
-		List<Criterion> criterions = new ArrayList<Criterion>();
-
-		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
-					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
-		}
-		criterions.add(Restrictions.eq("opertionType", operationType));
-		return getPage(page, criterions.toArray(new Criterion[0]));
+	/**
+	 * 统计当前年月的情况
+	 * 
+	 * @return
+	 */
+	public List<StockDetail> staticsCurrentYearMonth() {
+		return stockDetailService.find();
 	}
 }

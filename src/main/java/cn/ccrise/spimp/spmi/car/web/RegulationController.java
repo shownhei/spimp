@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
-import cn.ccrise.spimp.entity.Account;
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
 import cn.ccrise.spimp.spmi.car.entity.Regulation;
 import cn.ccrise.spimp.spmi.car.service.RegulationService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -49,6 +49,27 @@ public class RegulationController {
 	@ResponseBody
 	public Response delete(HttpSession httpSession, @PathVariable Long id) {
 		return new Response(regulationService.deleteRegulation(httpSession, id));
+	}
+
+	@RequestMapping(value = "/car/regulations/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+		Page<Regulation> page = new Page<Regulation>();
+		page.setPageSize(100000);
+		page = regulationService.pageQuery(page, search);
+
+		String[] headers = { "文档名称", "附件", "上传时间", "上传者" };
+
+		HSSFWorkbook wb = new ExcelHelper<Regulation>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
 	}
 
 	@RequestMapping(value = "/car/regulations/{id}", method = RequestMethod.GET)
@@ -84,26 +105,5 @@ public class RegulationController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Regulation regulation, @PathVariable long id) {
 		return new Response(regulationService.update(regulation));
-	}
-
-	@RequestMapping(value = "/car/regulations/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
-		Page<Regulation> page = new Page<Regulation>();
-		page.setPageSize(100000);
-		page = regulationService.pageQuery(page, search);
-
-		String[] headers = { "文档名称", "附件", "上传时间", "上传者" };
-
-		HSSFWorkbook wb = new ExcelHelper<Regulation>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

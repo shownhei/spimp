@@ -42,33 +42,33 @@ public class Problem extends IDEntity {
 	@PageFields(describtion = "上报人", allowedNull = false, search = false)
 	private String reporter;
 
-	public Date getReportDate() {
-		return reportDate;
-	}
-
-	public void setReportDate(Date reportDate) {
-		this.reportDate = reportDate;
-	}
-
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
 	}
 
 	public String getProblem() {
 		return problem;
 	}
 
-	public void setProblem(String problem) {
-		this.problem = problem;
+	public Date getReportDate() {
+		return reportDate;
 	}
 
 	public String getReporter() {
 		return reporter;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public void setProblem(String problem) {
+		this.problem = problem;
+	}
+
+	public void setReportDate(Date reportDate) {
+		this.reportDate = reportDate;
 	}
 
 	public void setReporter(String reporter) {

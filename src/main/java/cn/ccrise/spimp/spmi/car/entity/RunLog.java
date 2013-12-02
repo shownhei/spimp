@@ -68,61 +68,21 @@ public class RunLog extends IDEntity {
 	 */
 	private Timestamp recordTime;
 
+	public Date getAddDate() {
+		return addDate;
+	}
+
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
 	}
 
 	public String getClassType() {
 		return classType;
 	}
 
-	public void setClassType(String classType) {
-		this.classType = classType;
-	}
-
-	public Integer getTrainNumber() {
-		return trainNumber;
-	}
-
-	public void setTrainNumber(Integer trainNumber) {
-		this.trainNumber = trainNumber;
-	}
-
 	public Integer getDistance() {
 		return distance;
-	}
-
-	public void setDistance(Integer distance) {
-		this.distance = distance;
-	}
-
-	public Integer getRefuelNumber() {
-		return refuelNumber;
-	}
-
-	public void setRefuelNumber(Integer refuelNumber) {
-		this.refuelNumber = refuelNumber;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Date getAddDate() {
-		return addDate;
-	}
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
 	}
 
 	@Column(updatable = false)
@@ -132,8 +92,48 @@ public class RunLog extends IDEntity {
 		return recordTime;
 	}
 
+	public Integer getRefuelNumber() {
+		return refuelNumber;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public Integer getTrainNumber() {
+		return trainNumber;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
+
+	public void setDistance(Integer distance) {
+		this.distance = distance;
+	}
+
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setRefuelNumber(Integer refuelNumber) {
+		this.refuelNumber = refuelNumber;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setTrainNumber(Integer trainNumber) {
+		this.trainNumber = trainNumber;
 	}
 
 }

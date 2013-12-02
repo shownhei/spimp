@@ -3,14 +3,15 @@
  */
 package cn.ccrise.spimp.spmi.car.service;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Criterion;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -31,17 +32,17 @@ public class ProblemService extends HibernateDataServiceImpl<Problem, Long> {
 	public HibernateDAO<Problem, Long> getDAO() {
 		return problemDAO;
 	}
-	
+
 	public Page<Problem> pageQuery(Page<Problem> page, Date startDate, Date endDate) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (startDate != null) {
 			criterions.add(Restrictions.ge("reportDate", startDate));
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("reportDate", endDate));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

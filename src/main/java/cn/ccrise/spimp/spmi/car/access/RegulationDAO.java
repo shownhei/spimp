@@ -5,8 +5,8 @@ package cn.ccrise.spimp.spmi.car.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.spmi.car.entity.Regulation;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.spmi.car.entity.Regulation;
 
 /**
  * Regulation DAO。

@@ -40,21 +40,21 @@ public class MaterialsPlan extends IDEntity {
 		return planDate;
 	}
 
-	public void setPlanDate(String planDate) {
-		this.planDate = planDate;
-	}
-
 	@ManyToOne
 	public GroupEntity getPlanGroup() {
 		return planGroup;
 	}
 
-	public void setPlanGroup(GroupEntity planGroup) {
-		this.planGroup = planGroup;
-	}
-
 	public String getPlanTitle() {
 		return planTitle;
+	}
+
+	public void setPlanDate(String planDate) {
+		this.planDate = planDate;
+	}
+
+	public void setPlanGroup(GroupEntity planGroup) {
+		this.planGroup = planGroup;
 	}
 
 	public void setPlanTitle(String planTitle) {
