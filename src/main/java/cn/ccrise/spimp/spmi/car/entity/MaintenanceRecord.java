@@ -33,7 +33,7 @@ public class MaintenanceRecord extends IDEntity {
 	/**
 	 * 维修车辆
 	 */
-	@PageFields(describtion = "维修车辆", allowedNull = false, search = true, type = "select", selectDataUri = "/spmi/car/carslist", selectShowField = "itemName")
+	@PageFields(describtion = "维修车辆", allowedNull = false, search = true, type = "select", selectDataUri = "/spmi/car/carslist", selectShowField = "carNo")
 	private Car car;
 	/**
 	 * 故障表现/原因

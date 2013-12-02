@@ -39,59 +39,60 @@ public class ProblemController {
 	@Autowired
 	private ProblemService problemService;
 
-	@RequestMapping(value = "/spmi/car/problems/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/car/maintenance/problems/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(problemService.delete(id));
 	}
 
-	@RequestMapping(value = "/spmi/car/problems/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/problems/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(problemService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/car/problem", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/problem", method = RequestMethod.GET)
 	public String index() {
-		return "spmi/car/problem/index";
+		return "car/maintenance/problem/index";
 	}
 
-	@RequestMapping(value = "/spmi/car/problems", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/problems", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Problem> page, Date startDate, Date endDate) {
 		page = problemService.pageQuery(page, startDate, endDate);
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/spmi/car/problems", method = RequestMethod.POST)
+	@RequestMapping(value = "/car/maintenance/problems", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Problem problem) {
 		return new Response(problemService.save(problem));
 	}
 
-	@RequestMapping(value = "/spmi/car/problems/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/car/maintenance/problems/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Problem problem, @PathVariable long id) {
 		return new Response(problemService.update(problem));
 	}
-	
-	@RequestMapping(value = "/spmi/car/problems/export-excel", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/car/maintenance/problems/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate) throws Exception {
 		Page<Problem> page = new Page<Problem>();
 		page.setPageSize(100000);
 		page = problemService.pageQuery(page, startDate, endDate);
-		
-		String[] headers = {"上报日期","故障车辆","故障说明","上报人"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Problem>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
+
+		String[] headers = { "上报日期", "故障车辆", "故障说明", "上报人" };
+
+		HSSFWorkbook wb = new ExcelHelper<Problem>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
 	}
 }

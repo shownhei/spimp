@@ -40,44 +40,39 @@ public class MaintenanceRecordController {
 	@Autowired
 	private MaintenanceRecordService maintenanceRecordService;
 
-	@RequestMapping(value = "/spmi/car/maintenance-records/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/car/maintenance/records/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(maintenanceRecordService.delete(id));
 	}
 
-	@RequestMapping(value = "/spmi/car/maintenance-records/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/records/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(maintenanceRecordService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/car/maintenance-record", method = RequestMethod.GET)
-	public String index() {
-		return "spmi/car/maintenancerecord/index";
-	}
-
-	@RequestMapping(value = "/spmi/car/maintenance-records", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/records", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<MaintenanceRecord> page, Date startDate, Date endDate, Long car) {
 		page = maintenanceRecordService.pageQuery(page, startDate, endDate, car);
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/spmi/car/maintenance-records", method = RequestMethod.POST)
+	@RequestMapping(value = "/car/maintenance/records", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody MaintenanceRecord maintenanceRecord) {
 		maintenanceRecord.setRecordDateTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(maintenanceRecordService.save(maintenanceRecord));
 	}
 
-	@RequestMapping(value = "/spmi/car/maintenance-records/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/car/maintenance/records/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody MaintenanceRecord maintenanceRecord, @PathVariable long id) {
 		return new Response(maintenanceRecordService.update(maintenanceRecord));
 	}
 
-	@RequestMapping(value = "/spmi/car/maintenance-records/export-excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/car/maintenance/records/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car) throws Exception {
 		Page<MaintenanceRecord> page = new Page<MaintenanceRecord>();
 		page.setPageSize(100000);

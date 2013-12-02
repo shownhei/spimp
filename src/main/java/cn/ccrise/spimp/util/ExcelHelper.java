@@ -1,15 +1,27 @@
 package cn.ccrise.spimp.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -35,6 +47,47 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author David(david.kosoon@gmail.com)
  */
 public class ExcelHelper<T> {
+	/**
+	 * 根据模板生成excel
+	 * 
+	 * @param response
+	 * @param templatePath
+	 * @param root
+	 */
+	public void genExcelWithTel(HttpSession httpSession, HttpServletResponse response, String templatePath,
+			HashMap<String, Object> root, String downloadFileName, String sheetNames[]) {
+		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
+		XLSTransformer transformer = new XLSTransformer();
+		InputStream ins = null;
+		OutputStream os = null;
+		try {
+			ins = new FileInputStream(new File(templateFoldPath + "/" + templatePath));
+			Workbook book = transformer.transformXLS(ins, root);
+			response.setContentType("application/force-download");
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-Disposition",
+					"attachment;filename=" + URLEncoder.encode(downloadFileName, "UTF-8") + ".xls");
+			os = response.getOutputStream();
+			if (sheetNames != null && sheetNames.length > 0) {
+
+				int len = sheetNames.length;
+				for (int i = 0; i < len; i++) {
+					book.setSheetName(i, sheetNames[i]);
+				}
+			}
+			book.write(os);
+			os.flush();
+			os.close();
+			ins.close();
+		} catch (ParsePropertyException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ins = null;
+			os = null;
+		}
+	}
 
 	/**
 	 * 普通表格导出
@@ -139,9 +192,10 @@ public class ExcelHelper<T> {
 						textValue = String.valueOf(value);
 					} else if (value instanceof Date) {
 						Date date = (Date) value;
-						SimpleDateFormat sdf = new SimpleDateFormat(StringUtils.isBlank(datePattern) ? "yyyy-MM-dd" : datePattern);
+						SimpleDateFormat sdf = new SimpleDateFormat(StringUtils.isBlank(datePattern) ? "yyyy-MM-dd"
+								: datePattern);
 						textValue = sdf.format(date);
-					}  else if (value instanceof byte[]) {
+					} else if (value instanceof byte[]) {
 						row.setHeightInPoints(60);
 						sheet.setColumnWidth(i, (short) (35.7 * 80));
 						byte[] bsValue = (byte[]) value;

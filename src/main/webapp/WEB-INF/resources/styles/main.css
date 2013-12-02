@@ -120,7 +120,7 @@ body {
 	padding: 8px 10px 10px;
 }
 
-/* 弹出框样式 */
+/* 寮瑰嚭妗嗘牱寮�*/
 .modal-header {
 	padding: 0px 15px;
 }
@@ -286,7 +286,7 @@ body {
 	margin-left: 130px;
 }
 
-/* 四列表格布局 */
+/* 鍥涘垪琛ㄦ牸甯冨眬 */
 .modal-xl .table-col-4 {
 	width: 100%;
 }
@@ -305,7 +305,7 @@ body {
 	width: 130px;
 }
 
-/* 评分表格 */
+/* 璇勫垎琛ㄦ牸 */
 .grade-table {
 	table-layout: fixed;
 	width: 100%;
@@ -345,7 +345,7 @@ body {
 	filter: alpha(opacity = 15);
 }
 
-/* 菜单 */
+/* 鑿滃崟 */
 .menu-toggler {
 	background-color: #888;
 }
@@ -433,7 +433,7 @@ body {
 	border-top: 1px solid #ddd;
 }
 
-/* 表格 */
+/* 琛ㄦ牸 */
 .panel-mod {
 	margin-bottom: 0 !important;
 }
@@ -463,4 +463,7 @@ body {
 
 .nav-add-on {
 	padding: 1px 5px !important;
+}
+.page_report_table_tr td{
+	padding:1px 0px 1px 4px
 }

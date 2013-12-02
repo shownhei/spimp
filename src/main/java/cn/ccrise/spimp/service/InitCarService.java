@@ -57,7 +57,9 @@ public class InitCarService {
 		String maintenance = resourceEntityServiceImpl.getDefaultIdentifier("/car/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/car/maintenance/daily", maintenance, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("定期保养", "/car/maintenance/regular", maintenance, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("定期保养", "/car/maintenance/schedule", maintenance, "", i++);
+		resourceEntityServiceImpl
+				.saveMenuResource("维修监测", "/car/maintenance/maintenance-testing", maintenance, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("故障记录", "/car/maintenance/problem", maintenance, "", i++);
 
 	}
@@ -70,11 +72,14 @@ public class InitCarService {
 		String carNo[] = { "FBR011", "FBR012", "FBR013", "FBR015", "FBR016", "FBR018", "FBR019", "FBR020", "FBR021",
 				"FBR022", "FBR002", "FBZ005", "FBL013", "FBL015", "FBL018", "FBL016", "FBL019", "FBL020", "FBZ001",
 				"FBZ002", "FBZ003", "铲板车" };
+		String carCategory[] = { "WC20R", "WC20R", "WC20R", "WC20R", "WC20R", "WC20R", "WC20R", "WC20R", "WC20R",
+				"WC20R", "", "", "WC5E", "WC5E", "WC5E", "WC5E", "", "", "", "", "", "" };
 		Car car = null;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		for (int i = 0; i < carNo.length; i++) {
 			car = new Car();
 			car.setCarNo(carNo[i]);
+			car.setCarCategory(carCategory[i]);
 			car.setAddDateTime(timestamp);
 			car.setCarStatus(Car.CAR_STATUS_NORMAL);
 			carService.save(car);

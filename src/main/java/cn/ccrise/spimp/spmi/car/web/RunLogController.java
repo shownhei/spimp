@@ -6,6 +6,7 @@ package cn.ccrise.spimp.spmi.car.web;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -66,6 +67,7 @@ public class RunLogController {
 	@RequestMapping(value = "/car/runlog/run-logs", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody RunLog runLog) {
+		runLog.setRecordTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(runLogService.save(runLog));
 	}
 
