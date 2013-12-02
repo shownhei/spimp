@@ -1,26 +1,28 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	var operateUri = '/electr/maintenance/maintenance-testings';
+	var operateUri = '/electr/regulation/summaries';
 
+	window.$ = $;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/car/carslist', 'id', 'carNo', true, '维修车辆');
+	Utils.select.remote([ 'search_summaryType', 'create_summaryType', 'edit_summaryType' ], '/system/dictionaries?typeCode=summary_type&list=true', 'id',
+			'itemName', true, '总结分类');
 
 	// 下拉列表change事件
-	$('#search_car').bind('change', function() {
+	$('#search_summaryType').bind('change', function() {
 		$('#submit').trigger('click');
 	});
 
 	// 日期时间选择控件
-	$('#create_recordDateTime').datetimepicker({
+	$('#create_recordTime').datetimepicker({
 		format : 'yyyy-mm-dd hh:ii:ss'
 	});
 
-	$('#edit_recordDateTime').datetimepicker({
+	$('#edit_recordTime').datetimepicker({
 		format : 'yyyy-mm-dd hh:ii:ss'
 	});
 
@@ -29,31 +31,28 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '维修日期',
-		width : 90,
-		name : 'maintenanceDate'
+		header : '材料名称',
+		name : 'summaryTitle'
 	}, {
-		header : '维修车辆',
-		name : 'car',
+		header : '上传日期',
+		width : 90,
+		name : 'uploadDate'
+	}, {
+		header : '总结分类',
+		name : 'summaryType',
 		render : function(value) {
-			return value === null ? '' : value.carNo;
+			return value === null ? '' : value.itemName;
 		}
 	}, {
-		header : '故障表现/原因',
-		name : 'cause'
-	}, {
-		header : '处理方法',
-		name : 'treatment'
-	}, {
-		header : '备注',
-		name : 'remark'
-	}, {
-		header : '维修工',
-		name : 'miantainer'
-	}, {
-		header : '记录时间',
-		width : 145,
-		name : 'recordDateTime'
+		header : '附件',
+		name : 'summary',
+		render : function(v) {
+			var name = v.simpleName;
+			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
+			return v ? html : '';
+		}
+
 	}, {
 		header : '查看',
 		name : 'id',
@@ -113,30 +112,29 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
+		$('#summary').parent().parent().hide();
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
 	});
 
 	// 验证
 	function validate(showType, model) {
 		var errorMsg = [];
 
-		if (model.maintenanceDate === '') {
-			errorMsg.push('请输入维修日期');
+		if (model.summaryTitle === '') {
+			errorMsg.push('请输入材料名称');
 		}
 
-		if (model.car.id === '') {
-			errorMsg.push('请输入维修车辆');
+		if (model.summary === '') {
+			errorMsg.push('请输入附件');
 		}
 
-		if (model.cause === '') {
-			errorMsg.push('请输入故障表现/原因');
+		if (model.summaryType.id === '') {
+			errorMsg.push('请输入总结分类');
 		}
 
-		if (model.treatment === '') {
-			errorMsg.push('请输入处理方法');
-		}
-
-		if (model.miantainer === '') {
-			errorMsg.push('请输入维修工');
+		if (model.uploadDate === '') {
+			errorMsg.push('请输入上传日期');
 		}
 
 		if (errorMsg.length > 0) {
@@ -150,10 +148,9 @@ define(function(require, exports, module) {
 	// 查看
 	function showDetail(data) {
 		Utils.modal.reset('detail');
-
 		var object = $.extend({}, data);
-		object.car = object.car.carNo;
-
+		object.summaryType = object.summaryType.itemName;
+		object.summary = object.summary.simpleName;
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}
@@ -167,6 +164,11 @@ define(function(require, exports, module) {
 			return false;
 		}
 
+		var summary = {
+			id : $('#summary').attr('data-id')
+		};
+		delete object.summary;
+		object.summary = summary;
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -191,6 +193,8 @@ define(function(require, exports, module) {
 
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
+			$('#edit_summary').val(object.summary.simpleName);
+			$('#edit_summary').attr('data-id', object.summary.id);
 		});
 	});
 
@@ -202,7 +206,11 @@ define(function(require, exports, module) {
 		if (!validate('edit', object)) {
 			return false;
 		}
-
+		var summary = {
+			id : $('#edit_summary').attr('data-id')
+		};
+		delete object.summary;
+		object.summary = summary;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -250,8 +258,42 @@ define(function(require, exports, module) {
 	});
 
 	// 查询条件重置
-	$('#reset').click(function() {
-		grid.set('url', defaultUrl);
-		grid.refresh();
+	$('#file').bind('change', function() {
+		if ($('#file').val() !== '') {
+			$('#create-file-form').submit();
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
+		}
+	});
+	$('#create-file-delete').bind('click', function() {
+		var process = new Utils.modal.showProcess('process');
+		window.process = process;
+		$.del('/ercs/uploaded-files/' + $('#summary').attr('data-id'), function(data) {
+			window.process.stop();
+			window.process = null;
+			$('#summary').parent().parent().hide();
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		});
+	});
+	$(document).click(function(event) {
+		var docId = $(event.target).attr('doc_id');
+		if (docId) {
+			$('#showDocument').attr('src', '/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
+			Utils.modal.show('view');
+		}
 	});
 });
+function callBack(data) {
+	window.process.stop();
+	window.process = null;
+	if (!data.success) {
+		alert("上传失败..." + data.data);
+		return false;
+	} else {
+		$('#summary').val(data.data.filePath);
+		$('#summary').attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		$('#summary').parent().parent().show();
+	}
+}

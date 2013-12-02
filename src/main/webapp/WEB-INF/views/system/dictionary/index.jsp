@@ -39,6 +39,7 @@
 								<option value="resource_type" title="引用标记：resource_type">应急资源种类</option>
 								<option value="education_level" title="引用标记：education_level">文化程度</option>
 								<option value="organization_type" title="引用标记：organization_type">应急保障机构类型</option>
+								<option value="summary_type" title="引用标记:summary_type">每月总结-总结类型</option>
 							</optgroup>
 							<optgroup label=应急救援指挥>
 								<option value="plan_type" title="引用标记：plan_type">应急预案种类</option>
@@ -109,6 +110,7 @@
 										<option value="resource_type">应急资源种类</option>
 										<option value="education_level">文化程度</option>
 										<option value="organization_type" title="引用标记：organization_type">应急保障机构类型</option>
+										<option value="summary_type" title="引用标记:summary_type">每月总结-总结类型</option>
 									</optgroup>
 									<optgroup label="安全生产管理">
 										<option value="schedule_coal_type" title="引用标记：schedule_coal_type">煤种</option>
@@ -189,6 +191,7 @@
 										<option value="resource_type">应急资源种类</option>
 										<option value="education_level">文化程度</option>
 										<option value="organization_type" title="引用标记：organization_type">应急保障机构类型</option>
+										<option value="summary_type" title="引用标记:summary_type">每月总结-总结类型</option>
 									</optgroup>
 									<optgroup label="安全生产管理">
 										<option value="schedule_coal_type" title="引用标记：schedule_coal_type">煤种</option>
