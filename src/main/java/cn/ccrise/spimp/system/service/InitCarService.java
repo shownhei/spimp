@@ -12,8 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
-import cn.ccrise.spimp.spmi.car.entity.Car;
-import cn.ccrise.spimp.spmi.car.service.CarService;
+import cn.ccrise.spimp.electr.entity.Car;
+import cn.ccrise.spimp.electr.service.CarService;
 
 /**
  * 应急救援系统基础数据初始化服务。
