@@ -4,13 +4,13 @@
 <html>
 <head>
 <title>车辆管理 - 安全生产综合管理平台</title>
-<%@ include file="../../common/head.jsp"%>
-<%@ include file="../../common/template.jsp"%>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -313,9 +313,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/car/index');
+		seajs.use('${resources}/scripts/app/electr/car/car/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>

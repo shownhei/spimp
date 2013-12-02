@@ -39,13 +39,13 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 
-	@RequestMapping(value = "/electr/electrs/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/electr/car/cars/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(carService.delete(id));
 	}
 
-	@RequestMapping(value = "/electr/electrs/export-excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/cars/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpServletResponse response, String search) throws Exception {
 		Page<Car> page = new Page<Car>();
 		page.setPageSize(100000);
@@ -66,39 +66,34 @@ public class CarController {
 		ouputStream.close();
 	}
 
-	@RequestMapping(value = "/electr/cars/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/cars/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(carService.get(id));
 	}
 
-	@RequestMapping(value = "/electr/car", method = RequestMethod.GET)
-	public String index() {
-		return "electr/car/index";
-	}
-
-	@RequestMapping(value = "/electr/cars", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/cars", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Car> page, String search) {
 		page = carService.pageQuery(page, search);
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/electr/carslist", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/carslist", method = RequestMethod.GET)
 	@ResponseBody
 	public Response pageList(Page<Car> page, String search) {
 		page = carService.pageQuery(page, search);
 		return new Response(page.getResult());
 	}
 
-	@RequestMapping(value = "/electr/cars", method = RequestMethod.POST)
+	@RequestMapping(value = "/electr/car/cars", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Car car) {
 		car.setAddDateTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(carService.save(car));
 	}
 
-	@RequestMapping(value = "/electr/cars/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/electr/car/cars/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Car car, @PathVariable long id) {
 		return new Response(carService.update(car));
