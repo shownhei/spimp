@@ -23,7 +23,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_blotters")
+@Table(name = "electr_blotters")
 public class Blotters extends IDEntity {
 	/**
 	 * 入库操作

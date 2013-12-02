@@ -18,7 +18,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_stock_details")
+@Table(name = "electr_stock_details")
 public class StockDetail extends IDEntity {
 	/**
 	 * 材料名称

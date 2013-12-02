@@ -23,7 +23,7 @@ import cn.ccrise.spimp.util.PageFields;
  * 车辆维修记录。
  */
 @Entity
-@Table(name = "car_maintenance_records")
+@Table(name = "electr_maintenance_records")
 public class MaintenanceRecord extends IDEntity {
 	/**
 	 * 维修日期

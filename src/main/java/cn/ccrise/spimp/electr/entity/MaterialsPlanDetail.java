@@ -15,7 +15,7 @@ import cn.ccrise.spimp.util.PageFields;
  * 
  */
 @Entity
-@Table(name = "car_materials_plan_details")
+@Table(name = "electr_materials_plan_details")
 public class MaterialsPlanDetail extends IDEntity {
 	/**
 	 * 材料计划

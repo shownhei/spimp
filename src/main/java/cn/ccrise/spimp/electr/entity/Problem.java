@@ -18,7 +18,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_problems")
+@Table(name = "electr_problems")
 public class Problem extends IDEntity {
 	/**
 	 * 故障上报日期

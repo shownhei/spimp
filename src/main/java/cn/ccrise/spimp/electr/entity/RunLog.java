@@ -25,7 +25,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_run_logs")
+@Table(name = "electr_run_logs")
 public class RunLog extends IDEntity {
 
 	/**

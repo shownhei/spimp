@@ -24,7 +24,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_cars")
+@Table(name = "electr_cars")
 public class Car extends IDEntity {
 	public static final Integer CAR_STATUS_NORMAL = 1;
 	public static final Integer CAR_STATUS_UNNORMAL = 0;

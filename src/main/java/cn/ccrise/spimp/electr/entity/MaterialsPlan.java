@@ -16,7 +16,7 @@ import cn.ccrise.spimp.util.PageFields;
  * 
  */
 @Entity
-@Table(name = "car_materials_plans")
+@Table(name = "electr_materials_plans")
 public class MaterialsPlan extends IDEntity {
 	// 材料名称 规格型号或备件号 单位 数量 单价（元） 金额（元） 备注
 

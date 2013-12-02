@@ -26,11 +26,8 @@ public class InitService extends DataInitAbstractService {
 	private AccountService accountService;
 	@Autowired
 	private InitErcsService initErcsService;
-	/**
-	 * 胶轮车管理
-	 */
 	@Autowired
-	private InitCarService initCarService;
+	private InitElectrService initElectrService;
 
 	@Override
 	public void initAdmin() {
@@ -46,7 +43,7 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initCustomData() {
-		initCarService.initCustomData();
+		initElectrService.initCustomData();
 	}
 
 	@Override
@@ -55,9 +52,7 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initFourthLevelOperate() {
-		initErcsService.initFourthLevelOperate();
-		initCarService.initFourthLevelOperate();
-
+		// 安全生产管理
 		// 质量标准化评分
 		int i = 1;
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
@@ -86,6 +81,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("综掘队录入", "/spmi/document/dig", document, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("综采队录入", "/spmi/document/exploit", document, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("开拓队录入", "/spmi/document/develop", document, "", i++);
+
+		// 应急救援指挥
+		initErcsService.initFourthLevelOperate();
+
+		// 机电管理
+		initElectrService.initFourthLevelOperate();
 	}
 
 	@Override
@@ -132,7 +133,7 @@ public class InitService extends DataInitAbstractService {
 		initErcsService.initThirdLevelMenu();
 
 		// 机电管理
-		initCarService.initThirdLevelMenu();
+		initElectrService.initThirdLevelMenu();
 
 		// 系统管理
 		i = 1;

@@ -25,7 +25,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "spimp_car_regulations")
+@Table(name = "spimp_electr_regulations")
 public class Regulation extends IDEntity {
 	/**
 	 * 文档名称

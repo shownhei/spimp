@@ -13,7 +13,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * 
  */
 @Entity
-@Table(name = "car_daily_maintenances")
+@Table(name = "electr_daily_maintenances")
 public class DailyMaintenance extends IDEntity {
 	// 车牌号、保养类别、日期、检查维修项目、保养方式、检修处理情况、备注、保养人员、验收人
 

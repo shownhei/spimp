@@ -25,7 +25,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_maintenance_testings")
+@Table(name = "electr_maintenance_testings")
 public class MaintenanceTesting extends IDEntity {
 	/**
 	 * 维修日期

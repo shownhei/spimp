@@ -22,7 +22,7 @@ import cn.ccrise.spimp.util.PageFields;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "car_stocks")
+@Table(name = "electr_stocks")
 public class Stock extends IDEntity {
 	/**
 	 * 材料名称
