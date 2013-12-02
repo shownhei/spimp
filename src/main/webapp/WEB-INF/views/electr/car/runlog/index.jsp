@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>故障管理 - 安全生产综合管理平台</title>
-<%@ include file="../../common/head.jsp"%>
-<%@ include file="../../common/template.jsp"%>
+<title>机电管理-车辆管理-运行日志管理 - 安全生产综合管理平台</title>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal modal-sm hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -90,19 +90,19 @@
 						<div class="control-group">
 							<label class="control-label" for="trainNumber">车次 </label>
 							<div class="controls">
-								<input id="create_trainNumber" name="trainNumber" type="number">
+								<input id="create_trainNumber" name="trainNumber" type="number"  value="1">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="distance">路程 </label>
 							<div class="controls">
-								<input id="create_distance" name="distance" type="number">
+								<input id="create_distance" name="distance" type="number"  value="0">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="refuelNumber">加油数 </label>
 							<div class="controls">
-								<input id="create_refuelNumber" name="refuelNumber" type="number">
+								<input id="create_refuelNumber" name="refuelNumber" type="number" value="0">
 							</div>
 						</div>
 						<div class="control-group">
@@ -139,7 +139,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal modal-sm hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -314,7 +314,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/runlog/index');
+		seajs.use('${resources}/scripts/app/electr/car/runlog/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

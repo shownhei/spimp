@@ -40,13 +40,13 @@ public class RunLogController {
 	@Autowired
 	private RunLogService runLogService;
 
-	@RequestMapping(value = "/electr/runlog/run-logs/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/electr/car/run-logs/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(runLogService.delete(id));
 	}
 
-	@RequestMapping(value = "/electr/runlog/run-logs/export-excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/run-logs/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpServletResponse response, Long car, String search, Date startDate, Date endDate)
 			throws Exception {
 		Page<RunLog> page = new Page<RunLog>();
@@ -68,32 +68,27 @@ public class RunLogController {
 		ouputStream.close();
 	}
 
-	@RequestMapping(value = "/electr/runlog/run-logs/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/run-logs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
 		return new Response(runLogService.get(id));
 	}
 
-	@RequestMapping(value = "/electr/runlog/runlog", method = RequestMethod.GET)
-	public String index() {
-		return "electr/runlog/index";
-	}
-
-	@RequestMapping(value = "/electr/runlog/run-logs", method = RequestMethod.GET)
+	@RequestMapping(value = "/electr/car/run-logs", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<RunLog> page, Long car, String search, Date startDate, Date endDate) {
 		page = runLogService.pageQuery(page, car, search, startDate, endDate);
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/electr/runlog/run-logs", method = RequestMethod.POST)
+	@RequestMapping(value = "/electr/car/run-logs", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody RunLog runLog) {
 		runLog.setRecordTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(runLogService.save(runLog));
 	}
 
-	@RequestMapping(value = "/electr/runlog/run-logs/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/electr/car/run-logs/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody RunLog runLog, @PathVariable long id) {
 		return new Response(runLogService.update(runLog));
