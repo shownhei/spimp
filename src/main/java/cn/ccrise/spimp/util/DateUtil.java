@@ -108,9 +108,26 @@ public class DateUtil {
 		return getFutureDay(appDate, "yyyy-MM-dd", 1);
 	}
 
-	public static void main(String a[]) {
-		StringBuffer buff = new StringBuffer();
-		System.out.println(buildString(10, buff, false).toString());
+	public static void main(String aa[]) {
+		Calendar a = Calendar.getInstance();
+		a.set(Calendar.DATE, 1);// 把日期设置为当月第一天
+		a.roll(Calendar.DATE, -1);// 日期回滚一天，也就是最后一天
+		int maxDate = a.get(Calendar.DATE);
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(a.getTime()));
+		System.out.println(maxDate);
+	}
+
+	/**
+	 * 取得当月最大天数
+	 * 
+	 * @return
+	 */
+	public static int getCurrentMonthLastDay() {
+		Calendar a = Calendar.getInstance();
+		a.set(Calendar.DATE, 1);// 把日期设置为当月第一天
+		a.roll(Calendar.DATE, -1);// 日期回滚一天，也就是最后一天
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
 	}
 
 	/**
