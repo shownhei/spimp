@@ -90,6 +90,14 @@ public class IndexSpmiController {
 	}
 
 	/**
+	 * 质量标准化评分-掘进专业
+	 */
+	@RequestMapping(value = "/spmi/quality/tunnelling", method = RequestMethod.GET)
+	public String spmiQualityTunnelling() {
+		return "spmi/quality/tunnelling/index";
+	}
+
+	/**
 	 * 质量标准化评分-地测防治水专业
 	 */
 	@RequestMapping(value = "/spmi/quality/water", method = RequestMethod.GET)
