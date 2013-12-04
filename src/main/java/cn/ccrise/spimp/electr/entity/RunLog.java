@@ -68,6 +68,7 @@ public class RunLog extends IDEntity {
 	 */
 	private Timestamp recordTime;
 
+	@Column(updatable = false)
 	public Date getAddDate() {
 		return addDate;
 	}

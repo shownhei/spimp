@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/carslist', 'id', 'carNo', true, '维修车辆');
+	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/car/carslist', 'id', 'carNo', true, '维修车辆');
 
 	// 下拉列表change事件
 	$('#search_car').bind('change', function() {

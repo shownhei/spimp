@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>故障管理 - 安全生产综合管理平台</title>
+<title>工作安排管理 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -15,7 +15,7 @@
 			<div class="page-toolbar">
 				<div class="toolbar">
 					<button id="create" class="btn btn-small btn-success">
-						<i class="icon-plus-sign-alt"></i> 入库
+						<i class="icon-plus-sign-alt"></i> 新建
 					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i> 编辑
@@ -27,10 +27,18 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
+
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入材料名称/规格型号/设备号...">
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入标题...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -41,12 +49,12 @@
 			</div>
 		</div>
 	</div>
-	<!-- 入库 -->
+	<!-- 新建 -->
 	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 入库
+				<i class="icon-plus-sign-alt"></i> 新建
 			</h5>
 		</div>
 		<div class="modal-body">
@@ -54,57 +62,33 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="materialName">材料名称</label>
+							<label class="control-label" for="fileTitle">标题</label>
 							<div class="controls">
-								<input id="create_materialName" name="materialName" type="text">
+								<input id="create_fileTitle" name="fileTitle" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="model">规格型号/设备号</label>
+							<label class="control-label" for="attachment">工作安排</label>
 							<div class="controls">
-								<input id="create_model" name="model" type="text">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;"> <input value="删除" type="button"
+									id="create-file-delete" class="btn btn-small btn-success" style="width: 50px;">
 							</div>
 						</div>
+					</form>
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" style="margin-bottom: 0px;" method="post" enctype="multipart/form-data"
+						target="acceptFrame">
 						<div class="control-group">
-							<label class="control-label" for="measureUnit">度量单位</label>
+							<label class="control-label span2" for="credential">工作安排</label>
 							<div class="controls">
-								<input id="create_measureUnit" name="measureUnit" type="text" value="个">
+								<input name="file" id="file" type="file" class="span11">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="amount">数量</label>
-							<div class="controls">
-								<input id="create_amount" name="amount" type="number" value=1>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="price">单价（元）</label>
-							<div class="controls">
-								<input id="create_price" name="price" type="text" value=0>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="operator">经办人</label>
-							<div class="controls">
-								<input id="create_operator" name="operator" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="remark">备注</label>
-							<div class="controls">
-								<input id="create_remark" name="remark" type="text">
-							</div>
-						</div>
-						<input name="opertionType" type="hidden" value=1>
-						<input id="create_originalId" name="originalId" type="hidden" >
-						
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
+							<i class="icon-remove"></i> <span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -132,51 +116,15 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="materialName">材料名称</label>
+							<label class="control-label" for="fileTitle">标题</label>
 							<div class="controls">
-								<input id="edit_materialName" name="materialName" type="text">
+								<input id="edit_fileTitle" name="fileTitle" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="model">规格型号/设备号</label>
+							<label class="control-label" for="attachment">工作安排</label>
 							<div class="controls">
-								<input id="edit_model" name="model" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="measureUnit">度量单位</label>
-							<div class="controls">
-								<input id="edit_measureUnit" name="measureUnit" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="amount">数量</label>
-							<div class="controls">
-								<input id="edit_amount" name="amount" type="number">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="price">单价（元）</label>
-							<div class="controls">
-								<input id="edit_price" name="price" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="opertionType">操作类型</label>
-							<div class="controls">
-								<input id="edit_opertionType" name="opertionType" type="number">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="operator">经办人</label>
-							<div class="controls">
-								<input id="edit_operator" name="operator" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="remark">备注</label>
-							<div class="controls">
-								<input id="edit_remark" name="remark" type="text">
+								<input id="edit_attachment" name="attachment" type="text">
 							</div>
 						</div>
 					</form>
@@ -184,8 +132,7 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="edit-message-content"></span>
+							<i class="icon-remove"></i> <span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -213,57 +160,21 @@
 				<div class="span12">
 					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="materialName">材料名称</label>
+							<label class="control-label" for="fileTitle">标题</label>
 							<div class="controls">
-								<input id="detail_materialName" name="materialName" type="text" readonly="readonly">
+								<input id="detail_fileTitle" name="fileTitle" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="model">规格型号/设备号</label>
+							<label class="control-label" for="attachment">工作安排</label>
 							<div class="controls">
-								<input id="detail_model" name="model" type="text" readonly="readonly">
+								<input id="detail_attachment" name="attachment" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="measureUnit">度量单位</label>
+							<label class="control-label" for="uploadDate">上传日期</label>
 							<div class="controls">
-								<input id="detail_measureUnit" name="measureUnit" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="amount">数量</label>
-							<div class="controls">
-								<input id="detail_amount" name="amount" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="price">单价（元）</label>
-							<div class="controls">
-								<input id="detail_price" name="price" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="opertionType">操作类型</label>
-							<div class="controls">
-								<input id="detail_opertionType" name="opertionType" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="operator">经办人</label>
-							<div class="controls">
-								<input id="detail_operator" name="operator" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="remark">备注</label>
-							<div class="controls">
-								<input id="detail_remark" name="remark" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="recordTime">记录时间</label>
-							<div class="controls">
-								<input id="detail_recordTime" name="recordTime" type="text" readonly="readonly">
+								<input id="detail_uploadDate" name="uploadDate" type="text" readonly="readonly">
 							</div>
 						</div>
 					</form>
@@ -292,8 +203,7 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="remove-message-content"></span>
+							<i class="icon-remove"></i> <span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -309,7 +219,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/material/stock_putin/index');
+		seajs.use('${resources}/scripts/app/electr/regulation/arrange/index');
 	</script>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">

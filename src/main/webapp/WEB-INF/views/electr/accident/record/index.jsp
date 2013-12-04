@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>车辆管理 - 安全生产综合管理平台</title>
-<%@ include file="../../common/head.jsp"%>
-<%@ include file="../../common/template.jsp"%>
+<title>事故管理 - 安全生产综合管理平台</title>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -27,10 +27,21 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
+				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入车类/车型/车号...">
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -54,56 +65,39 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="carCategory">车辆类型</label>
+							<label class="control-label" for="accidentAddress">事故地点</label>
 							<div class="controls">
-								<select id="create_carCategory" name="carCategory">
-								   <option>人车</option>
-								   <option>客货车</option>
-								   <option>洒水车</option>
-								   <option>两驱料车</option>
-								   <option>四驱料车</option>
-								   <option>铲运车</option>
-								   <option>支架搬运车</option>
-								</select>
+								<input id="create_accidentAddress" name="accidentAddress" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="models">车辆型号</label>
+							<label class="control-label" for="accidentDesc">事故描述</label>
 							<div class="controls">
-								<input id="create_models" name="models" type="text">
+								<input id="create_accidentDesc" name="accidentDesc" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carNo">车号</label>
+							<label class="control-label" for="reporter">上报人</label>
 							<div class="controls">
-								<input id="create_carNo" name="carNo" type="text">
+								<input id="create_reporter" name="reporter" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carStatus">车辆状态</label>
+							<label class="control-label" for="accident">事故类型</label>
 							<div class="controls">
-								<select id="create_carStatus" name="carCategory">
-								   <option value="1">正常</option>
-								   <option value="0">停用</option>
-								</select>
+								<input id="create_accident" name="accident" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="engineSize">排气量</label>
+							<label class="control-label" for="accedentDate">事故日期</label>
 							<div class="controls">
-								<input id="create_engineSize" name="engineSize" type="text">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_accedentDate" name="accedentDate">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="engineNumber">发动机号</label>
+							<label class="control-label" for="recordTime">记录时间</label>
 							<div class="controls">
-								<input id="create_engineNumber" name="engineNumber" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="buyDate">购买日期</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_buyDate" name="buyDate">
+								<input id="create_recordTime" name="recordTime" type="text">
 							</div>
 						</div>
 					</form>
@@ -111,7 +105,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -139,56 +134,33 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="carCategory">车辆类型</label>
+							<label class="control-label" for="accidentAddress">事故地点</label>
 							<div class="controls">
-								<select id="edit_carCategory" name="carCategory">
-								   <option>人车</option>
-								   <option>客货车</option>
-								   <option>洒水车</option>
-								   <option>两驱料车</option>
-								   <option>四驱料车</option>
-								   <option>铲运车</option>
-								   <option>支架搬运车</option>
-								</select>
+								<input id="edit_accidentAddress" name="accidentAddress" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="models">车辆型号</label>
+							<label class="control-label" for="accidentDesc">事故描述</label>
 							<div class="controls">
-								<input id="edit_models" name="models" type="text">
+								<input id="edit_accidentDesc" name="accidentDesc" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carNo">车号</label>
+							<label class="control-label" for="reporter">上报人</label>
 							<div class="controls">
-								<input id="edit_carNo" name="carNo" type="text">
+								<input id="edit_reporter" name="reporter" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carStatus">车辆状态</label>
+							<label class="control-label" for="accident">事故类型</label>
 							<div class="controls">
-								<select id="edit_carCategory" name="carCategory">
-								   <option value="1">正常</option>
-								   <option value="0">停用</option>
-								</select>
+								<input id="edit_accident" name="accident" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="engineSize">排气量</label>
+							<label class="control-label" for="accedentDate">事故日期</label>
 							<div class="controls">
-								<input id="edit_engineSize" name="engineSize" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="engineNumber">发动机号</label>
-							<div class="controls">
-								<input id="edit_engineNumber" name="engineNumber" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="buyDate">购买日期</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_buyDate" name="buyDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_accedentDate" name="accedentDate">
 							</div>
 						</div>
 					</form>
@@ -196,7 +168,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -224,51 +197,33 @@
 				<div class="span12">
 					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="carCategory">车辆类型</label>
+							<label class="control-label" for="accidentAddress">事故地点</label>
 							<div class="controls">
-								<input id="detail_carCategory" name="carCategory" type="text" readonly="readonly">
+								<input id="detail_accidentAddress" name="accidentAddress" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="models">车辆型号</label>
+							<label class="control-label" for="accidentDesc">事故描述</label>
 							<div class="controls">
-								<input id="detail_models" name="models" type="text" readonly="readonly">
+								<input id="detail_accidentDesc" name="accidentDesc" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carNo">车号</label>
+							<label class="control-label" for="reporter">上报人</label>
 							<div class="controls">
-								<input id="detail_carNo" name="carNo" type="text" readonly="readonly">
+								<input id="detail_reporter" name="reporter" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="carStatus">车辆状态</label>
+							<label class="control-label" for="accident">事故类型</label>
 							<div class="controls">
-								<input id="detail_carStatus" name="carStatus" type="text" readonly="readonly">
+								<input id="detail_accident" name="accident" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="engineSize">排气量</label>
+							<label class="control-label" for="accedentDate">事故日期</label>
 							<div class="controls">
-								<input id="detail_engineSize" name="engineSize" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="engineNumber">发动机号</label>
-							<div class="controls">
-								<input id="detail_engineNumber" name="engineNumber" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="buyDate">购买日期</label>
-							<div class="controls">
-								<input id="detail_buyDate" name="buyDate" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="addDateTime">记录时间</label>
-							<div class="controls">
-								<input id="detail_addDateTime" name="addDateTime" type="text" readonly="readonly">
+								<input id="detail_accedentDate" name="accedentDate" type="text" readonly="readonly">
 							</div>
 						</div>
 					</form>
@@ -297,7 +252,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -313,9 +269,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/car/index');
+		seajs.use('${resources}/scripts/app/electr/accident/record/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>

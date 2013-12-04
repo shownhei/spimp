@@ -3,17 +3,16 @@
  */
 package cn.ccrise.spimp.electr.web;
 
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -31,15 +30,16 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Maintenance;
+import cn.ccrise.spimp.electr.entity.MaintenanceDetail;
+import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.service.CarService;
 import cn.ccrise.spimp.electr.service.MaintenanceDetailService;
 import cn.ccrise.spimp.electr.service.MaintenanceService;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
- * Maintenance Controller。
+ * 定期维修、日常维修保养。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Controller
 public class MaintenanceController {
@@ -51,41 +51,33 @@ public class MaintenanceController {
 	@Autowired
 	private MaintenanceDetailService maintenanceDetailService;
 
-	/**
-	 * 日常维修的界面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/maintenance/daily", method = RequestMethod.GET)
-	public String daily() {
-		return "electr/maintenance/daily/index";
-	}
-
 	@RequestMapping(value = "/electr/maintenance/maintenances/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(maintenanceService.deleteMaintenance(id));
 	}
 
+	/**
+	 * 导出维修单
+	 * 
+	 * @param httpSession
+	 * @param response
+	 * @param id
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/electr/maintenance/maintenances/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long car, String search) throws Exception {
-		Page<Maintenance> page = new Page<Maintenance>();
-		page.setPageSize(100000);
-		page = maintenanceService.pageQuery(page, car, search);
-
-		String[] headers = { "车牌号", "保养类别", "保养日期", "保养人", "验收人" };
-
-		HSSFWorkbook wb = new ExcelHelper<Maintenance>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, Long id) throws Exception {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		Maintenance maintenance = maintenanceService.findUniqueBy("id", id);
+		root.put("maintenance", maintenance);
+		List<MaintenanceDetail> details = this.maintenanceDetailService.find(Restrictions
+				.eq("maintenance", maintenance));
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy年MM月dd日");
+		String maintenanceDate = formater.format(maintenance.getMaintenanceDate());
+		root.put("maintenanceDate", maintenanceDate);
+		root.put("details", details);
+		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response, "electr/maintenance.xls", root,
+				maintenance.getCar().getModels() + "无轨胶轮车定期保养记录", new String[] { "材料计划" });
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenances/{id}", method = RequestMethod.GET)
@@ -184,16 +176,6 @@ public class MaintenanceController {
 	public Response save(@Valid @RequestBody Maintenance maintenance) {
 		maintenanceService.save(maintenance);
 		return new Response(maintenance);
-	}
-
-	/**
-	 * 定期维修的界面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/maintenance/schedule", method = RequestMethod.GET)
-	public String schedule() {
-		return "electr/maintenance/schedule/index";
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenances/{id}", method = RequestMethod.PUT)
