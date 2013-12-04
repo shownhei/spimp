@@ -111,7 +111,7 @@ define(function(require, exports, module) {
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 162);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#groups-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
@@ -119,6 +119,30 @@ define(function(require, exports, module) {
 		$('#groups-tree').height(150);
 		$('#tab-content').height(treeHeight - 170);
 	}
+
+	// 配置表格列
+	var fields = [ {
+		header : '姓名',
+		name : 'name'
+	}, {
+		header : '性别',
+		name : 'gender'
+	}, {
+		header : '工种',
+		name : 'workType'
+	} ];
+
+	// 配置表格
+	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
+	var grid = new Grid({
+		parentNode : '#staff-table',
+		model : {
+			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
+			height : gridHeight
+		}
+	}).render();
 
 	// 新建
 	$('#create').click(function() {

@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>机构管理 - 安全生产综合管理平台</title>
+<title>人员管理 - 安全生产综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>
@@ -14,15 +14,15 @@
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
-					<button id="create" class="btn btn-small btn-success disabled" title="请先选择要添加到的机构">
+					<button id="create" class="btn btn-small btn-success">
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">新建</span>
 					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled" title="选择机构后可编辑机构信息">
+					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i>
 						<span class="hidden-phone">编辑</span>
 					</button>
-					<button id="remove" class="btn btn-small btn-danger disabled" title="如果机构包含其他机构或包含用户，此机构将不能删除">
+					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i>
 						<span class="hidden-phone">删除</span>
 					</button>
@@ -30,8 +30,7 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入机构名称或机构编号..." class="input-small nav-search-input nav-search-input210"
-								autocomplete="off">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入姓名..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -39,53 +38,7 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid">
-					<div class="span4">
-						<div class="widget-box tree-widget-box">
-							<div class="widget-body tree-widget-body">
-								<div class="widget-main padding-8 tree-widget-main">
-									<div id="groups-tree" class="ztree"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="span8">
-						<div class="tabbable">
-							<ul class="nav nav-tabs">
-								<li class="active">
-									<a data-toggle="tab" href="#basic">
-										<i class="green icon-home"></i> 基本信息
-									</a>
-								</li>
-							</ul>
-							<div id="tab-content" class="tab-content">
-								<div id="basic" class="tab-pane in active">
-									<div id="group-detail" class="profile-user-info">
-										<div class="profile-info-row">
-											<div class="profile-info-name">机构名称</div>
-											<div class="profile-info-value">
-												<span id="group-name">&nbsp;</span>
-											</div>
-										</div>
-										<div class="profile-info-row">
-											<div class="profile-info-name">机构编号</div>
-											<div class="profile-info-value">
-												<span id="group-number">&nbsp;</span>
-											</div>
-										</div>
-										<div class="profile-info-row">
-											<div class="profile-info-name">分类</div>
-											<div class="profile-info-value">
-												<span id="group-category">&nbsp;</span>
-											</div>
-										</div>
-									</div>
-									<div class="row-fluid" id="staff-table"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<div class="row-fluid" id="staff-table"></div>
 			</div>
 		</div>
 	</div>
@@ -102,36 +55,46 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label" for="name">机构名称</label>
+							<label class="control-label" for="name">姓名</label>
 							<div class="controls">
 								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="number">机构编号</label>
+							<label class="control-label" for="gender">性别</label>
 							<div class="controls">
-								<input name="number" type="text">
+								<select name="gender">
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="name">机构类别</label>
+							<label class="control-label" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select name="category">
-									<option value="公司-company">公司</option>
-									<option value="办公室-office">办公室</option>
-									<option value="煤矿-mine">煤矿</option>
-									<option value="其他-other">其他</option>
-								</select>
+								<select id="create-groupEntity" name="groupEntity[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="qualification">资格证号</label>
+							<div class="controls">
+								<input name="qualification" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="workType">工种</label>
+							<div class="controls">
+								<input name="workType" type="text">
 							</div>
 						</div>
 					</form>
 				</div>
-			</div>
-			<div id="create-message-alert" class="row-fluid hide">
-				<div class="span12">
-					<div class="alert alert-error">
-						<i class="icon-remove"></i>
-						<span id="create-message-content"></span>
+				<div id="create-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -158,26 +121,36 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
-							<label class="control-label" for="name">机构名称</label>
+							<label class="control-label" for="name">姓名</label>
 							<div class="controls">
 								<input name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="number">机构编号</label>
+							<label class="control-label" for="gender">性别</label>
 							<div class="controls">
-								<input name="number" type="text">
+								<select name="gender">
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="name">机构类别</label>
+							<label class="control-label" for="groupEntity">所属机构</label>
 							<div class="controls">
-								<select name="category">
-									<option value="公司-company">公司</option>
-									<option value="办公室-office">办公室</option>
-									<option value="煤矿-mine">煤矿</option>
-									<option value="其他-other">其他</option>
-								</select>
+								<select id="edit-groupEntity" name="groupEntity[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="qualification">资格证号</label>
+							<div class="controls">
+								<input name="qualification" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="workType">工种</label>
+							<div class="controls">
+								<input name="workType" type="text">
 							</div>
 						</div>
 					</form>
@@ -202,7 +175,7 @@
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal modal-xs hide">
+	<div id="remove-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
@@ -212,7 +185,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<i class="icon-warning-sign"></i> 提示：确认删除选中的机构？
+					<i class="icon-warning-sign"></i> 提示：删除人员将删除与此人员关联的所有数据，确认删除选中的人员？
 				</div>
 			</div>
 			<div id="remove-message-alert" class="row-fluid hide">
@@ -233,8 +206,35 @@
 			</button>
 		</div>
 	</div>
+	<!-- 查看 -->
+	<div id="view-modal" class="modal modal-xl hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 变更记录
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<div id="view-no-records" class="alert alert-info hide">
+						<i class="icon-exclamation-sign"></i>
+						<span>
+							<strong id="view-staff-name"></strong> 无变更记录。
+						</span>
+					</div>
+					<form id="view-form" class="form-horizontal" onsubmit="return false;"></form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/system/group/index');
+		seajs.use('${resources}/scripts/app/system/staff/index');
 	</script>
 </body>
 </html>

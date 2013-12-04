@@ -64,4 +64,12 @@ public class IndexController {
 	public String systemRole() {
 		return "system/role/index";
 	}
+
+	/**
+	 * 人员管理
+	 */
+	@RequestMapping(value = "/system/staff", method = RequestMethod.GET)
+	public String systemStaff() {
+		return "system/staff/index";
+	}
 }
