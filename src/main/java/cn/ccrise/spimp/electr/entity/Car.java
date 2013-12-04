@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -16,6 +17,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
@@ -32,7 +34,7 @@ public class Car extends IDEntity {
 	 * 车辆类型
 	 */
 	@PageFields(describtion = "车辆类型", allowedNull = false, search = true)
-	private String carCategory;
+	private Dictionary carCategory;
 	/**
 	 * 车辆型号
 	 */
@@ -81,7 +83,8 @@ public class Car extends IDEntity {
 		return buyDate;
 	}
 
-	public String getCarCategory() {
+	@ManyToOne
+	public Dictionary getCarCategory() {
 		return carCategory;
 	}
 
@@ -113,7 +116,7 @@ public class Car extends IDEntity {
 		this.buyDate = buyDate;
 	}
 
-	public void setCarCategory(String carCategory) {
+	public void setCarCategory(Dictionary carCategory) {
 		this.carCategory = carCategory;
 	}
 

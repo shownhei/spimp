@@ -57,13 +57,6 @@
 							<label class="control-label" for="carCategory">车辆类型</label>
 							<div class="controls">
 								<select id="create_carCategory" name="carCategory">
-								   <option>人车</option>
-								   <option>客货车</option>
-								   <option>洒水车</option>
-								   <option>两驱料车</option>
-								   <option>四驱料车</option>
-								   <option>铲运车</option>
-								   <option>支架搬运车</option>
 								</select>
 							</div>
 						</div>
@@ -82,9 +75,9 @@
 						<div class="control-group">
 							<label class="control-label" for="carStatus">车辆状态</label>
 							<div class="controls">
-								<select id="create_carStatus" name="carCategory">
-								   <option value="1">正常</option>
-								   <option value="0">停用</option>
+								<select id="create_carStatus" name="carStatus">
+								   <option value=1>正常</option>
+								   <option value=0>停用</option>
 								</select>
 							</div>
 						</div>
@@ -141,14 +134,7 @@
 						<div class="control-group">
 							<label class="control-label" for="carCategory">车辆类型</label>
 							<div class="controls">
-								<select id="edit_carCategory" name="carCategory">
-								   <option>人车</option>
-								   <option>客货车</option>
-								   <option>洒水车</option>
-								   <option>两驱料车</option>
-								   <option>四驱料车</option>
-								   <option>铲运车</option>
-								   <option>支架搬运车</option>
+								<select id="edit_carCategory" name="carCategory[id]">
 								</select>
 							</div>
 						</div>
@@ -167,7 +153,7 @@
 						<div class="control-group">
 							<label class="control-label" for="carStatus">车辆状态</label>
 							<div class="controls">
-								<select id="edit_carCategory" name="carCategory">
+								<select id="edit_carStatus" name="carStatus">
 								   <option value="1">正常</option>
 								   <option value="0">停用</option>
 								</select>

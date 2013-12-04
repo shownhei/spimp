@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
+	Utils.select.remote([ 'create_carCategory', 'edit_carCategory' ], '/system/dictionaries?list=true&typeCode=car_carCategory', 'id', 'itemName', true, '请选择分类');
 	// 日期时间选择控件
 	$('#create_addDateTime').datetimepicker({
 		format : 'yyyy-mm-dd hh:ii:ss'
@@ -21,6 +21,9 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields = [ {
 		header : '车辆类型',
+		render:function(v){
+			return v?v.itemName:'';
+		},
 		name : 'carCategory'
 	}, {
 		header : '车辆型号',
@@ -160,6 +163,9 @@ define(function(require, exports, module) {
 			return false;
 		}
 
+		var carCategory={id:$('#create_carCategory').val()};
+		delete object.carCategory;
+		object.carCategory=carCategory;
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -181,7 +187,6 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get(operateUri + '/' + selectId, function(data) {
 			var object = data.data;
-
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
@@ -195,7 +200,9 @@ define(function(require, exports, module) {
 		if (!validate('edit', object)) {
 			return false;
 		}
-
+		var carCategory={id:$('#edit_carCategory').val()};
+		delete object.carCategory;
+		object.carCategory=carCategory;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;

@@ -82,6 +82,7 @@ public class CarController {
 	@RequestMapping(value = "/electr/car/carslist", method = RequestMethod.GET)
 	@ResponseBody
 	public Response pageList(Page<Car> page, String search) {
+		page.setPageSize(100);
 		page = carService.pageQuery(page, search);
 		return new Response(page.getResult());
 	}
