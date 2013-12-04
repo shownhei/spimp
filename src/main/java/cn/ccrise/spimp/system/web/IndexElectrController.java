@@ -109,4 +109,53 @@ public class IndexElectrController {
 		return "electr/regulation/file/index";
 	}
 
+	/**
+	 * 奖惩记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/reward", method = RequestMethod.GET)
+	public String regulationReward() {
+		return "electr/regulation/reward/index";
+	}
+
+	/**
+	 * 工作安排
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/arrange", method = RequestMethod.GET)
+	public String workArrange() {
+		return "electr/regulation/arrange/index";
+	}
+
+	/**
+	 * 图纸管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/drawing", method = RequestMethod.GET)
+	public String drawing() {
+		return "electr/regulation/drawing/index";
+	}
+
+	/**
+	 * 年度油耗统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/annual-oil", method = RequestMethod.GET)
+	public String annualOil() {
+		return "electr/car/annual-oil/index";
+	}
+
+	/**
+	 * 月度油耗统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-oil", method = RequestMethod.GET)
+	public String monthlyOil() {
+		return "electr/car/monthly-oil/index";
+	}
 }

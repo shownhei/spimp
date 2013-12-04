@@ -4,7 +4,11 @@
 package cn.ccrise.spimp.system.service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
 import cn.ccrise.spimp.electr.entity.Car;
 import cn.ccrise.spimp.electr.service.CarService;
+import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
  * 应急救援系统基础数据初始化服务。
@@ -26,11 +31,38 @@ public class InitElectrService {
 	protected ResourceEntityServiceImpl resourceEntityServiceImpl;
 	@Autowired
 	private CarService carService;
+	@Autowired
+	private DictionaryService dictionaryService;
 
 	/**
 	 * 机电管理 --基础数据
 	 */
 	public void initCustomData() {
+		HashMap<String, String> carNo2carCategory = new HashMap<String, String>();
+		carNo2carCategory.put("FBR011", "人车");
+		carNo2carCategory.put("FBR012", "人车");
+		carNo2carCategory.put("FBR013", "人车");
+		carNo2carCategory.put("FBR015", "人车");
+		carNo2carCategory.put("FBR016", "人车");
+		carNo2carCategory.put("FBR018", "人车");
+		carNo2carCategory.put("FBR019", "人车");
+		carNo2carCategory.put("FBR020", "人车");
+		carNo2carCategory.put("FBR021", "人车");
+		carNo2carCategory.put("FBR022", "人车");
+		carNo2carCategory.put("FBR001", "客货车");
+		carNo2carCategory.put("FBR002", "客货车");
+		carNo2carCategory.put("FBL013", "两驱料车");
+		carNo2carCategory.put("FBL015", "两驱料车");
+		carNo2carCategory.put("FBL018", "两驱料车");
+		carNo2carCategory.put("FBL019", "两驱料车");
+		carNo2carCategory.put("FBL020", "其他未录入车型");
+		carNo2carCategory.put("FBL016", "四驱料车");
+		carNo2carCategory.put("FBL012", "支架搬运车");
+		carNo2carCategory.put("FBZ001", "铲运车");
+		carNo2carCategory.put("FBZ002", "铲运车");
+		carNo2carCategory.put("FBZ003", "铲运车");
+		carNo2carCategory.put("FBZ005", "洒水车");
+		carNo2carCategory.put("铲板车", "其他未录入车型");
 		String carNo[] = { "FBR011", "FBR012", "FBR013", "FBR015", "FBR016", "FBR018", "FBR019", "FBR020", "FBR021",
 				"FBR022", "FBR002", "FBZ005", "FBL013", "FBL015", "FBL018", "FBL016", "FBL019", "FBL020", "FBZ001",
 				"FBZ002", "FBZ003", "铲板车" };
@@ -38,8 +70,17 @@ public class InitElectrService {
 				"WC20R", "", "", "WC5E", "WC5E", "WC5E", "WC5E", "", "", "", "", "", "" };
 		Car car = null;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		List<Dictionary> list = dictionaryService.find(Restrictions.eq("typeCode", "car_carCategory"));
+		Iterator<Dictionary> dicTypeIt = list.iterator();
+		Dictionary temp = null;
+		HashMap<String, Dictionary> dicMap = new HashMap<String, Dictionary>();
+		while (dicTypeIt.hasNext()) {
+			temp = dicTypeIt.next();
+			dicMap.put(temp.getItemName(), temp);
+		}
 		for (int i = 0; i < carNo.length; i++) {
 			car = new Car();
+			car.setCarCategory(dicMap.get(carNo2carCategory.get(carNo[i])));
 			car.setCarNo(carNo[i]);
 			car.setModels(carCategory[i]);
 			car.setAddDateTime(timestamp);
@@ -70,8 +111,10 @@ public class InitElectrService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/electr/car/car", car, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("运行日志", "/electr/car/runlog", car, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("年度统计", "/electr/car/annual-statistics", car, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("月度统计", "/electr/car/monthly-statistics", car, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("年度油耗统计", "/electr/car/annual-oil", car, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("年度公里统计", "/electr/car/annual-kilometer", car, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("月度油耗统计", "/electr/car/monthly-oil", car, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("月度运行统计", "/electr/car/monthly-run", car, "", i++);
 
 		/**
 		 * 维修保养：日常保养 定期保养 维修检测 故障记录

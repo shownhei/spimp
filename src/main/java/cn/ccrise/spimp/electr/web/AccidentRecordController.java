@@ -29,7 +29,7 @@ import cn.ccrise.spimp.electr.service.AccidentRecordService;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
- * AccidentRecord Controller。
+ * 事故记录
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */

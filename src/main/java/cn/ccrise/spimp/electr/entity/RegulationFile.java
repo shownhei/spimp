@@ -5,7 +5,6 @@ package cn.ccrise.spimp.electr.entity;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -47,12 +46,12 @@ public class RegulationFile extends IDEntity {
 	/**
 	 * 上传人
 	 */
-	@PageFields(describtion = "上传日期", columnShow = true, search = false, allowedNull = true)
+	@PageFields(describtion = "上传人", columnShow = true, search = false, allowedNull = true)
 	private Account uploader;
 	/**
 	 * 上传组织
 	 */
-	@PageFields(describtion = "上传日期", columnShow = true, search = false, allowedNull = true)
+	@PageFields(describtion = "上传组织", columnShow = true, search = false, allowedNull = true)
 	private GroupEntity uploadGroup;
 
 	public String getFileTitle() {
@@ -89,7 +88,6 @@ public class RegulationFile extends IDEntity {
 		this.uploadDate = uploadDate;
 	}
 
-	@Column(updatable = false)
 	@ManyToOne
 	public Account getUploader() {
 		return uploader;
@@ -99,7 +97,6 @@ public class RegulationFile extends IDEntity {
 		this.uploader = uploader;
 	}
 
-	@Column(updatable = false)
 	@ManyToOne
 	public GroupEntity getUploadGroup() {
 		return uploadGroup;
