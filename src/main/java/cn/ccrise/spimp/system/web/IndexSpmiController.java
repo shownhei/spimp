@@ -42,6 +42,14 @@ public class IndexSpmiController {
 	}
 
 	/**
+	 * 质量标准化评分-机电专业
+	 */
+	@RequestMapping(value = "/spmi/quality/electro", method = RequestMethod.GET)
+	public String spmiQualityElectro() {
+		return "spmi/quality/electro/index";
+	}
+
+	/**
 	 * 质量标准化评分-地面设施专业
 	 */
 	@RequestMapping(value = "/spmi/quality/facilities", method = RequestMethod.GET)
