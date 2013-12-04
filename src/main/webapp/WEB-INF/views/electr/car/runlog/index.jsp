@@ -27,27 +27,22 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
+
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
-							<span class="add-on nav-add-on">
-								<i class="icon-calendar"></i>
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
 							</span>
 						</div>
 						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
-							<span class="add-on nav-add-on">
-								<i class="icon-calendar"></i>
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
 							</span>
 						</div>
-						<select id="search" name="search" style="width:120px;">
-							 <option>零点班</option>
-							 <option>四点班</option>
-							 <option>八点班</option>
-					    </select>
-						<select id="search_car" name="car" style="height:25px;width:120px;font-size:12px;"></select>
+						<select id="search" name="search" style="width: 120px;">
+							<option>零点班</option>
+							<option>四点班</option>
+							<option>八点班</option>
+						</select> <select id="search_car" name="car" style="height: 25px; width: 120px; font-size: 12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -80,23 +75,23 @@
 						<div class="control-group">
 							<label class="control-label" for="classType">班次 </label>
 							<div class="controls">
-							    <select id="create_classType" name="classType" >
-							       <option>零点班</option>
-							       <option>四点班</option>
-							       <option>八点班</option>
-							    </select>
+								<select id="create_classType" name="classType">
+									<option>零点班</option>
+									<option>四点班</option>
+									<option>八点班</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="trainNumber">车次 </label>
 							<div class="controls">
-								<input id="create_trainNumber" name="trainNumber" type="number"  value="1">
+								<input id="create_trainNumber" name="trainNumber" type="number" value="1">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="distance">路程 </label>
 							<div class="controls">
-								<input id="create_distance" name="distance" type="number"  value="0">
+								<input id="create_distance" name="distance" type="number" value="0">
 							</div>
 						</div>
 						<div class="control-group">
@@ -111,19 +106,12 @@
 								<input id="create_remark" name="remark" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="addDate">记录日期 </label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_addDate" name="addDate">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="create-message-content"></span>
+							<i class="icon-remove"></i> <span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -159,11 +147,11 @@
 						<div class="control-group">
 							<label class="control-label" for="classType">班次 </label>
 							<div class="controls">
-								<select id="edit_classType" name="classType" >
-							       <option>零点班</option>
-							       <option>四点班</option>
-							       <option>八点班</option>
-							    </select>
+								<select id="edit_classType" name="classType">
+									<option>零点班</option>
+									<option>四点班</option>
+									<option>八点班</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -190,19 +178,12 @@
 								<input id="edit_remark" name="remark" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="addDate">记录日期 </label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_addDate" name="addDate">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="edit-message-content"></span>
+							<i class="icon-remove"></i> <span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -297,8 +278,7 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i>
-							<span id="remove-message-content"></span>
+							<i class="icon-remove"></i> <span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

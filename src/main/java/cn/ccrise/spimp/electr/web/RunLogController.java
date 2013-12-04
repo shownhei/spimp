@@ -84,6 +84,7 @@ public class RunLogController {
 	@RequestMapping(value = "/electr/car/run-logs", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody RunLog runLog) {
+		runLog.setAddDate(new Date(System.currentTimeMillis()));
 		runLog.setRecordTime(new Timestamp(System.currentTimeMillis()));
 		return new Response(runLogService.save(runLog));
 	}
