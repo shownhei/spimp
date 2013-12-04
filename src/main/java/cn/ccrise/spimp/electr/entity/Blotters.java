@@ -20,7 +20,6 @@ import cn.ccrise.spimp.util.PageFields;
 /**
  * 流水账。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
 @Table(name = "electr_blotters")

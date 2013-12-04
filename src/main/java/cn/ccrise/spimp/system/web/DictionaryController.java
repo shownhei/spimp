@@ -87,6 +87,16 @@ public class DictionaryController {
 		return new Response(page);
 	}
 
+	@RequestMapping(value = "/system/dictionaries/all", method = RequestMethod.GET)
+	@ResponseBody
+	public Response pageAll(Page<Dictionary> page) {
+		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
+		page.setOrder("asc");
+		page.setOrderBy("sortIndex");
+		page = dictionaryService.getPage(page, param.toArray(new SimpleExpression[0]));
+		return new Response(page.getResult());
+	}
+
 	@RequestMapping(value = "/system/dictionaries", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@RequestBody Dictionary dictionary) {

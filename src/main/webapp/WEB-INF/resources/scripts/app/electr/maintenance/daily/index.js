@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	var operateUri = '/electr/maintenance/records';
+	var operateUri = '/electr/maintenance/maintenances';
 
 	// 提示信息
 	$('button[title]').tooltip({
@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'create_car', 'query_car' ], '/electr/carslist', 'id', 'carNo', true, '维修车辆');
+	Utils.select.remote([ 'create_car', 'query_car' ], '/electr/car/carslist', 'id', 'carNo', true, '维修车辆');
 
 	// 下拉列表change事件
 	$('#query_car,#query_maintenanceDate,#query_maintenanceLevel').bind('change', function() {
@@ -248,7 +248,7 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('export_maintenance')) {
 			return;
 		}
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
+		window.location.href = operateUri + '/export-excel?id='+$('#sample-table-1').attr('data-id');
 	});
 
 	// 搜索

@@ -295,9 +295,8 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/material/stock_sendout/index');
+		seajs.use('${resources}/scripts/app/electr/material/stock-sendout/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>

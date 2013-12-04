@@ -1,73 +1,49 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
-	var operateUri = '/electr/runlog/run-logs';
-	
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	var operateUri = '/electr/regulation/regulation-rewards';
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
-	});
-	
-	// 下拉列表初始化
-	Utils.select.remote([ 'search_car','create_car','edit_car' ], '/electr/carslist', 'id', 'carNo',true,'车号');
-
-	// 下拉列表change事件
-	$('#search_car').bind('change',function(){
-		$('#submit').trigger('click');
 	});
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 
 	// 配置表格列
-	var fields = [
-		{
-			header : '车号',
-			name : 'car'
-			,render : function(value) {
-				return value === null ? '' : value.carNo;
-			}
+	var fields = [ {
+		header : '受奖人',
+		width : 80,
+		name : 'awardedPeople'
+	}, {
+		header : '奖惩日期',
+		width : 90,
+		name : 'awardedDate'
+	}, {
+		header : '奖惩原因',
+		name : 'awardedReason'
+	}, {
+		header : '奖惩类型',
+		align : 'right',
+		render:function(v){
+			return v===1?'奖励':'罚款';
 		},
-		{
-			header : '班次 ',
-			name : 'classType'
-		},
-		{
-			header : '车次 ',
-			align : 'right',
-			width : 80,
-			name : 'trainNumber'
-		},
-		{
-			header : '路程 ',
-			align : 'right',
-			width : 80,
-			name : 'distance'
-		},
-		{
-			header : '加油数 ',
-			align : 'right',
-			width : 80,
-			name : 'refuelNumber'
-		},
-		{
-			header : '备注 ',
-			name : 'remark'
-		},
-		{
-			header : '记录日期 ',
-			width : 90,
-			name : 'addDate'
-		},
-		{
-			header : '查看',
-			name : 'id',
-			width : 50,
-			align : 'center',
-			render : function(value) {
-				return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
-			}
+		width : 80,
+		name : 'awardType'
+	}, {
+		header : '奖惩金额',
+		align : 'right',
+		width : 80,
+		name : 'awardedMoney'
+	}, {
+		header : '查看',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
 		}
-	];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -97,14 +73,14 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
-			
+
 			if (target.attr('data-role') === 'detail') {
 				showDetail(data);
 			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
-			
+
 			// 改变导出按钮状态
 			if (this.data.totalCount > 0) {
 				Utils.button.enable([ 'export' ]);
@@ -121,74 +97,56 @@ define(function(require, exports, module) {
 	});
 
 	// 验证
-	function validate(showType, model){
+	function validate(showType, model) {
 		var errorMsg = [];
-		
-		if (model.classType === '') {
-			errorMsg.push('请输入班次 ');
+
+		if (model.awardedPeople === '') {
+			errorMsg.push('请输入受奖人');
 		}
 
-		if (model.trainNumber === '') {
-			errorMsg.push('请输入车次 ');
+		if (model.awardedDate === '') {
+			errorMsg.push('请输入奖惩日期');
 		}
 
-		if (model.trainNumber !== '' && !$.isNumeric(model.trainNumber)) {
-			errorMsg.push('车次 为数字格式');
+		if (model.awardType === '') {
+			errorMsg.push('请输入奖惩类型');
 		}
 
-		if (model.distance === '') {
-			errorMsg.push('请输入路程 ');
+		if (model.awardType !== '' && !$.isNumeric(model.awardType)) {
+			errorMsg.push('奖惩类型为数字格式');
 		}
 
-		if (model.distance !== '' && !$.isNumeric(model.distance)) {
-			errorMsg.push('路程 为数字格式');
+		if (model.awardedMoney !== '' && !$.isNumeric(model.awardedMoney)) {
+			errorMsg.push('奖惩金额为数字格式');
 		}
 
-		if (model.refuelNumber === '') {
-			errorMsg.push('请输入加油数 ');
-		}
-
-		if (model.refuelNumber !== '' && !$.isNumeric(model.refuelNumber)) {
-			errorMsg.push('加油数 为数字格式');
-		}
-
-		if (model.remark === '') {
-			errorMsg.push('请输入备注 ');
-		}
-
-		if (model.addDate === '') {
-			errorMsg.push('请输入记录日期 ');
-		}
-
-		if(errorMsg.length > 0){
+		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
-		
+
 		return true;
 	}
-	
-	// 查看
-	function showDetail(data){
-		Utils.modal.reset('detail');
-		
-		var object = $.extend({},data);
-		object.car = object.car.carNo;
 
+	// 查看
+	function showDetail(data) {
+		Utils.modal.reset('detail');
+
+		var object = $.extend({}, data);
 
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}
-	
+
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-		
+
 		// 验证
-		if(!validate('create', object)){
+		if (!validate('create', object)) {
 			return false;
 		}
-		
+
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -219,12 +177,12 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		
+
 		// 验证
-		if(!validate('edit', object)){
+		if (!validate('edit', object)) {
 			return false;
 		}
-		
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -254,13 +212,13 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-	
+
 	// 导出
 	$('#export').click(function() {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-		
+
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
@@ -270,10 +228,10 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-	
+
 	// 查询条件重置
-    $('#reset').click(function() {
-        grid.set('url', defaultUrl);
-        grid.refresh();
-    });
+	$('#reset').click(function() {
+		grid.set('url', defaultUrl);
+		grid.refresh();
+	});
 });
