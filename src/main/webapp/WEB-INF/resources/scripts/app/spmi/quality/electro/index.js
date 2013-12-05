@@ -175,7 +175,7 @@ define(function(require, exports, module) {
 					}
 					if (k === tds.length - 1) {
 						$(v).html(
-								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
+								'<input name="grade-record-' + rank + '" type="text" style="width: 31px; height: 100%;border: 0" data-max="' + standardScore
 										+ '" value="' + standardScore + '">');
 
 						// 处理数字居中
@@ -212,7 +212,7 @@ define(function(require, exports, module) {
 					}
 					if (k === tds.length - 1) {
 						$(v).html(
-								'<input name="grade-record-' + rank + '" type="text" style="width: 26px; height: 100%;border: 0" data-max="' + standardScore
+								'<input name="grade-record-' + rank + '" type="text" style="width: 31px; height: 100%;border: 0" data-max="' + standardScore
 										+ '" value="' + standardScore + '">');
 
 						// 处理数字居中
