@@ -117,9 +117,9 @@
 							<label class="control-label" for="name">机构类别</label>
 							<div class="controls">
 								<select name="category">
-									<option value="公司-company">公司</option>
-									<option value="办公室-office">办公室</option>
 									<option value="煤矿-mine">煤矿</option>
+									<option value="科室-office">科室</option>
+									<option value="队组-team">队组</option>
 									<option value="其他-other">其他</option>
 								</select>
 							</div>
@@ -173,9 +173,9 @@
 							<label class="control-label" for="name">机构类别</label>
 							<div class="controls">
 								<select name="category">
-									<option value="公司-company">公司</option>
-									<option value="办公室-office">办公室</option>
 									<option value="煤矿-mine">煤矿</option>
+									<option value="科室-office">科室</option>
+									<option value="队组-team">队组</option>
 									<option value="其他-other">其他</option>
 								</select>
 							</div>

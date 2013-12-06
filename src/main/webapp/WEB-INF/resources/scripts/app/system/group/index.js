@@ -16,13 +16,13 @@ define(function(require, exports, module) {
 					handleIcon(item.groupEntities);
 				}
 				switch (item.queryLabel) {
-					case 'company':
+					case 'mine':
 						item.icon = resources + '/images/icons/building.png';
 						break;
 					case 'office':
 						item.icon = resources + '/images/icons/monitor.png';
 						break;
-					case 'mine':
+					case 'team':
 						item.icon = resources + '/images/icons/plugin_disabled.png';
 						break;
 					case 'other':

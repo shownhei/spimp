@@ -26,6 +26,8 @@ public class InitService extends DataInitAbstractService {
 	@Autowired
 	private AccountService accountService;
 	@Autowired
+	private GroupService groupService;
+	@Autowired
 	private InitErcsService initErcsService;
 	@Autowired
 	private InitElectrService initElectrService;
@@ -129,6 +131,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("综采队录入", "/spmi/document/exploit", document, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("开拓队录入", "/spmi/document/develop", document, "", i++);
 
+		// 日常工作
+		i = 1;
+		String daily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/daily", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/daily/plan", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/daily/reform", daily, "", i++);
+
 		// 应急救援指挥
 		initErcsService.initFourthLevelOperate();
 
@@ -146,11 +154,25 @@ public class InitService extends DataInitAbstractService {
 		g1.setCategory("煤矿");
 		g1.setParentId(rootGroupEntity.getId());
 		g1.setTopLevel(false);
-		g1.setNumber("wangzhuang");
+		g1.setNumber("WZMY");
 		groupEntityServiceImpl.save(g1);
 
 		rootGroupEntity.getGroupEntities().add(g1);
-		groupEntityServiceImpl.update(rootGroupEntity);
+		groupEntityServiceImpl.save(rootGroupEntity);
+
+		// 科室和队组
+		groupService.save("调度室", "DDS", "office", "科室", g1);
+		groupService.save("安全科", "AQK", "office", "科室", g1);
+		groupService.save("机电科", "JDK", "office", "科室", g1);
+		groupService.save("通风科", "TFK", "office", "科室", g1);
+		groupService.save("生产技术科", "SJK", "office", "科室", g1);
+		groupService.save("防治水科", "FZS", "office", "科室", g1);
+		groupService.save("综采队", "ZCD", "team", "队组", g1);
+		groupService.save("机电机运队", "JDD", "team", "队组", g1);
+		groupService.save("掘进一队", "JJY", "team", "队组", g1);
+		groupService.save("掘进二队", "JJE", "team", "队组", g1);
+		groupService.save("开拓一队", "KTY", "team", "队组", g1);
+		groupService.save("开拓二队", "KYE", "team", "队组", g1);
 	}
 
 	@Override
