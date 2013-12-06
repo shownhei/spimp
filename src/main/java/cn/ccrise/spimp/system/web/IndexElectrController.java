@@ -172,4 +172,19 @@ public class IndexElectrController {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		return new ModelAndView("electr/car/annual-kilometer/index", root);
 	}
+
+	/**
+	 * 月度运行公里统计情况
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-run", method = RequestMethod.GET)
+	public ModelAndView getMonthlyRun(Integer year, Integer month) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("year", year);
+		root.put("month", month);
+		return new ModelAndView("electr/car/monthly-run/index", root);
+	}
 }
