@@ -3,12 +3,13 @@
  */
 package cn.ccrise.spimp.system.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -29,10 +30,18 @@ public class DicitonaryTypeService extends HibernateDataServiceImpl<DicitonaryTy
 	public HibernateDAO<DicitonaryType, Long> getDAO() {
 		return dicitonaryTypeDAO;
 	}
-	
+
 	public Page<DicitonaryType> pageQuery(Page<DicitonaryType> page) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
+	}
+
+	public boolean save(String dicGroup, String dicType, String typeTitle) {
+		DicitonaryType dicitonaryType = new DicitonaryType();
+		dicitonaryType.setDicGroup(dicGroup);
+		dicitonaryType.setDicType(dicType);
+		dicitonaryType.setTypeTitle(typeTitle);
+		return save(dicitonaryType);
 	}
 }

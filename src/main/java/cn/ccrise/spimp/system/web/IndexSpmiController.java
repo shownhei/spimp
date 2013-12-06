@@ -66,6 +66,14 @@ public class IndexSpmiController {
 	}
 
 	/**
+	 * 质量标准化评分-采煤专业
+	 */
+	@RequestMapping(value = "/spmi/quality/mining", method = RequestMethod.GET)
+	public String spmiQualityMining() {
+		return "spmi/quality/mining/index";
+	}
+
+	/**
 	 * 质量标准化评分-应急救援专业
 	 */
 	@RequestMapping(value = "/spmi/quality/rescue", method = RequestMethod.GET)

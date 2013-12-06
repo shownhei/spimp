@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
 import cn.ccrise.spimp.system.entity.Account;
-import cn.ccrise.spimp.system.entity.DicitonaryType;
 import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
@@ -50,53 +49,48 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initCustomData() {
 		// 应急救援
-		saveDicitonaryType("应急救援", "plan_type", "应急预案种类");
-		saveDicitonaryType("应急救援", "personal_category", "人员类别");
-		saveDicitonaryType("应急救援", "expertise_area", "专业领域");
-		saveDicitonaryType("应急救援", "accident_category", "事故类别");
-		saveDicitonaryType("应急救援", "accident_level", "事故严重程度");
-		saveDicitonaryType("应急救援", "response_level", "事故响应级别");
-		saveDicitonaryType("应急救援", "refuge_type", "避险场所种类");
-		saveDicitonaryType("应急救援", "resource_type", "应急资源种类");
-		saveDicitonaryType("应急救援", "education_level", "文化程度");
-		saveDicitonaryType("应急救援", "organization_type", "应急保障机构类型");
+		dicitonaryTypeService.save("应急救援", "plan_type", "应急预案种类");
+		dicitonaryTypeService.save("应急救援", "personal_category", "人员类别");
+		dicitonaryTypeService.save("应急救援", "expertise_area", "专业领域");
+		dicitonaryTypeService.save("应急救援", "accident_category", "事故类别");
+		dicitonaryTypeService.save("应急救援", "accident_level", "事故严重程度");
+		dicitonaryTypeService.save("应急救援", "response_level", "事故响应级别");
+		dicitonaryTypeService.save("应急救援", "refuge_type", "避险场所种类");
+		dicitonaryTypeService.save("应急救援", "resource_type", "应急资源种类");
+		dicitonaryTypeService.save("应急救援", "education_level", "文化程度");
+		dicitonaryTypeService.save("应急救援", "organization_type", "应急保障机构类型");
+
 		// 机电管理
-		saveDicitonaryType("机电管理", "summary_type", "每月总结-总结类型");
-		saveDicitonaryType("机电管理", "regulationfile_type", "制度文件类型");
-		saveDicitonaryType("机电管理", "car_carCategory", "车辆分类");
+		dicitonaryTypeService.save("机电管理", "summary_type", "每月总结-总结类型");
+		dicitonaryTypeService.save("机电管理", "regulationfile_type", "制度文件类型");
+		dicitonaryTypeService.save("机电管理", "car_carCategory", "车辆分类");
+
 		// 安全生产管理
-		saveDicitonaryType("安全生产管理", "schedule_coal_type", "煤种");
-		saveDicitonaryType("安全生产管理", "schedule_coal_series", "煤系");
-		saveDicitonaryType("安全生产管理", "schedule_duty", "班次");
-		saveDicitonaryType("安全生产管理", "schedule_team_type", "队组类型");
-		saveDicitonaryType("安全生产管理", "schedule_injury_type", "受伤类型");
-		saveDicitonaryType("安全生产管理", "schedule_working_face", "工作面");
-		saveDicitonaryType("安全生产管理", "schedule_exploit_type", "开采方式");
-		saveDicitonaryType("安全生产管理", "schedule_tunnel_type", "巷道类型");
-		saveDicitonaryType("安全生产管理", "schedule_working_place", "工作地点");
-		saveDicitonaryType("安全生产管理", "schedule_meeting_type", "会议类型");
-		saveDicitonaryType("安全生产管理", "schedule_gas_emissions_type", "瓦斯排放类型");
-		saveDicitonaryType("安全生产管理", "schedule_hidden_type", ">隐患类型");
-		saveDicitonaryType("安全生产管理", "schedule_wellheads", "井口");
-		saveDicitonaryType("安全生产管理", "schedule_alarm_type", "报警类型");
-		saveDicitonaryType("安全生产管理", "document_project_type", "工程分类");
+		dicitonaryTypeService.save("安全生产管理", "schedule_coal_type", "煤种");
+		dicitonaryTypeService.save("安全生产管理", "schedule_coal_series", "煤系");
+		dicitonaryTypeService.save("安全生产管理", "schedule_duty", "班次");
+		dicitonaryTypeService.save("安全生产管理", "schedule_team_type", "队组类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_injury_type", "受伤类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_working_face", "工作面");
+		dicitonaryTypeService.save("安全生产管理", "schedule_exploit_type", "开采方式");
+		dicitonaryTypeService.save("安全生产管理", "schedule_tunnel_type", "巷道类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_working_place", "工作地点");
+		dicitonaryTypeService.save("安全生产管理", "schedule_meeting_type", "会议类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_gas_emissions_type", "瓦斯排放类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_hidden_type", "隐患类型");
+		dicitonaryTypeService.save("安全生产管理", "schedule_wellheads", "井口");
+		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
+		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
+
 		Dictionary dic = new Dictionary();
 		String carCategory[] = { "人车", "客货车", "洒水车", "两驱料车", "四驱料车", "铲运车", "支架搬运车", "其他未录入车型" };
-		for (int i = 0; i < carCategory.length; i++) {
+		for (String element : carCategory) {
 			dic = new Dictionary();
 			dic.setTypeCode("car_carCategory");
-			dic.setItemName(carCategory[i]);
+			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
 		initElectrService.initCustomData();
-	}
-
-	private void saveDicitonaryType(String dicGroup, String dicType, String typeTitle) {
-		DicitonaryType type = new DicitonaryType();
-		type.setDicGroup(dicGroup);
-		type.setDicType(dicType);
-		type.setTypeTitle(typeTitle);
-		dicitonaryTypeService.save(type);
 	}
 
 	@Override
@@ -181,6 +175,7 @@ public class InitService extends DataInitAbstractService {
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化评分", "/spmi/quality", spmi, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化管理", "/spmi/document", spmi, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/daily", spmi, "", i++);
 
 		// 应急救援管理
 		initErcsService.initThirdLevelMenu();
