@@ -49,7 +49,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="page-content" id="tablePanel"></div>
+			<div class="page-content" id="tablePanel" style="overflow-x:auto;"></div>
 		</div>
 	</div>
 	<!-- 新建 -->

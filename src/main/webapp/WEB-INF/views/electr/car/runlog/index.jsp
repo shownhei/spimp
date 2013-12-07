@@ -39,9 +39,9 @@
 							</span>
 						</div>
 						<select id="search" name="search" style="width: 120px;">
-							<option>零点班</option>
-							<option>四点班</option>
-							<option>八点班</option>
+							<option value=0>零点班</option>
+							<option value=4>四点班</option>
+							<option value=8>八点班</option>
 						</select> <select id="search_car" name="car" style="height: 25px; width: 120px; font-size: 12px;"></select>
 
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
@@ -76,9 +76,9 @@
 							<label class="control-label" for="classType">班次 </label>
 							<div class="controls">
 								<select id="create_classType" name="classType">
-									<option>零点班</option>
-									<option>四点班</option>
-									<option>八点班</option>
+									<option value=0>零点班</option>
+									<option value=4>四点班</option>
+									<option value=8>八点班</option>
 								</select>
 							</div>
 						</div>
@@ -148,9 +148,9 @@
 							<label class="control-label" for="classType">班次 </label>
 							<div class="controls">
 								<select id="edit_classType" name="classType">
-									<option>零点班</option>
-									<option>四点班</option>
-									<option>八点班</option>
+									<option value=0>零点班</option>
+									<option value=4>四点班</option>
+									<option value=8>八点班</option>
 								</select>
 							</div>
 						</div>

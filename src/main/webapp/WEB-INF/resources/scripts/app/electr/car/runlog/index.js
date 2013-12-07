@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/car/carslist', 'id', 'carNo', true, '车号');
 
 	// 下拉列表change事件
-	$('#search_car').bind('change', function() {
+	$('#search_car,#search').bind('change', function() {
 		$('#submit').trigger('click');
 	});
 
@@ -27,6 +27,14 @@ define(function(require, exports, module) {
 		}
 	}, {
 		header : '班次 ',
+		render:function(v){
+			switch(v){
+				case '0':return '零点班';
+				case '4':return '四点班';
+				case '8':return '八点班';
+				default :return '未知班次';
+			}
+		},
 		name : 'classType'
 	}, {
 		header : '车次 ',
