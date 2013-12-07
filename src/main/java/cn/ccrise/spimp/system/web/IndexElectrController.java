@@ -187,4 +187,14 @@ public class IndexElectrController {
 	public String workArrange() {
 		return "electr/regulation/arrange/index";
 	}
+
+	/**
+	 * 设备管理-检修计划
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/plan", method = RequestMethod.GET)
+	public String indexEquipmentPlan() {
+		return "electr/equipment/plan/index";
+	}
 }
