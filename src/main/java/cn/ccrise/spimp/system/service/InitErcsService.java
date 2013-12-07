@@ -31,29 +31,29 @@ public class InitErcsService {
 	public void initFourthLevelOperate() {
 		// 执行救援
 		String performRescue = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/perform-rescue", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("任务查看", "/ercs/perform-rescue/task-view", performRescue, "", 1);
-		resourceEntityServiceImpl.saveMenuResource("任务管理", "/ercs/perform-rescue/task-manage", performRescue, "", 2);
+		int i = 1;
+		resourceEntityServiceImpl.saveMenuResource("任务查看", "/ercs/perform-rescue/task-view", performRescue, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("任务管理", "/ercs/perform-rescue/task-manage", performRescue, "", i++);
 
 		// 应急资源管理
-		int i = 1;
 		String material = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/material-index", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("应急资源", "/ercs/material-index/material", material, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("物资使用记录", "/ercs/material-index/use-record", material, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("医护器材", "/ercs/material-index/medical-supply", material, "", i++);
 
 		// 应急预案管理
-		i = 1;
 		String plan = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/plan-index", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("应急预案", "/ercs/plan-index/plan", plan, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援措施模板", "/ercs/plan-index/template", plan, "", i++);
 
 		// 应急救援人员
-		i = 1;
 		String staff = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/staff-index", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("救援人员", "/ercs/staff-index/staff", staff, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/staff-index/specia-list", staff, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急保障机构", "/ercs/staff-index/safegard-org", staff, "", i++);
-
 	}
 
 	/**

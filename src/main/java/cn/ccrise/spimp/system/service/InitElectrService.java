@@ -128,18 +128,6 @@ public class InitElectrService {
 		resourceEntityServiceImpl.saveMenuResource("故障记录", "/electr/maintenance/problem", maintenance, "", i++);
 
 		/**
-		 * 制度管理：制度文件管理 奖惩记录 工作安排 图片管理 每月总结 图纸管理
-		 */
-		String regulation = resourceEntityServiceImpl.getDefaultIdentifier("/electr/regulation", HttpMethod.GET);
-		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("制度文件管理", "/electr/regulation/file", regulation, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/electr/regulation/reward", regulation, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/electr/regulation/arrange", regulation, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("图片管理", "/electr/regulation/picture", regulation, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("每月总结", "/electr/regulation/summary", regulation, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("图纸管理", "/electr/regulation/drawing", regulation, "", i++);
-
-		/**
 		 * 设备管理：设备台账 检修计划 定期检修记录 定期检修提醒 定期检修设置
 		 */
 		String equipment = resourceEntityServiceImpl.getDefaultIdentifier("/electr/equipment", HttpMethod.GET);
@@ -149,13 +137,6 @@ public class InitElectrService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/electr/equipment/overhaul", equipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/electr/equipment/alert", equipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/electr/equipment/settings", equipment, "", i++);
-
-		/**
-		 * 事故管理：事故记录
-		 */
-		String accident = resourceEntityServiceImpl.getDefaultIdentifier("/electr/accident", HttpMethod.GET);
-		resourceEntityServiceImpl.saveMenuResource("事故记录", "/electr/accident/record", accident, "", i++);
-		i = 1;
 	}
 
 	/**
@@ -167,8 +148,6 @@ public class InitElectrService {
 		resourceEntityServiceImpl.saveMenuResource("配件管理", "/electr/material", electr, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/electr/car", electr, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/electr/maintenance", electr, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("规章制度", "/electr/regulation", electr, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/electr/equipment", electr, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("事故管理", "/electr/accident", electr, "", i++);
 	}
 }

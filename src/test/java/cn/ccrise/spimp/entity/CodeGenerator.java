@@ -14,12 +14,14 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
  */
 public class CodeGenerator {
 	// protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
-	protected final String packageName = "cn.ccrise.spimp.spmi.quality";
+	// protected final String packageName = "cn.ccrise.spimp.spmi.quality";
+	protected final String packageName = "cn.ccrise.spimp.spmi.daily";
 	// protected final String packageName = "cn.ccrise.spimp.system";
 	// protected final String packageName = "cn.ccrise.spimp.electr";
 
 	// protected final String uriPrefix = "spmi/schedule";
-	protected final String uriPrefix = "spmi/quality";
+	// protected final String uriPrefix = "spmi/quality";
+	protected final String uriPrefix = "spmi/daily";
 	// protected final String uriPrefix = "system";
 	// protected final String uriPrefix = "electr/equipment";
 
@@ -27,7 +29,8 @@ public class CodeGenerator {
 	// protected final String entityName = "TransportationGrade"; // 运输专业
 	// protected final String entityName = "ElectroGrade"; // 机电专业
 	// protected final String entityName = "TunnellingGrade"; // 掘进专业
-	protected final String entityName = "MiningGrade"; // 采煤专业
+	// protected final String entityName = "MiningGrade"; // 采煤专业
+	protected final String entityName = "Reform"; // 隐患整改
 
 	// protected final String entityName = "Staff";
 	// protected final String entityName = "Alteration";

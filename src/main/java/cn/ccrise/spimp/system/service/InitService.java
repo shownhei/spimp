@@ -103,8 +103,8 @@ public class InitService extends DataInitAbstractService {
 	public void initFourthLevelOperate() {
 		// 安全生产管理
 		// 质量标准化评分
-		int i = 1;
 		String quality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/quality", HttpMethod.GET);
+		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("一通三防专业", "/spmi/quality/wind", quality, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("地测防治水专业", "/spmi/quality/water", quality, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("采煤专业", "/spmi/quality/mining", quality, "", i++);
@@ -118,8 +118,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("地面设施专业", "/spmi/quality/facilities", quality, "", i++);
 
 		// 质量标准化管理
-		i = 1;
 		String document = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/document", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("文档综合查询", "/spmi/document/query", document, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("调度室录入", "/spmi/document/schedule", document, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("安全科录入", "/spmi/document/safe", document, "", i++);
@@ -132,10 +132,22 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("开拓队录入", "/spmi/document/develop", document, "", i++);
 
 		// 日常工作
-		i = 1;
 		String daily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/daily", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/daily/plan", daily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/daily/reform", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/daily/reward", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/daily/picture", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/daily/summary", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("产量统计", "/spmi/daily/output", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("生产日报表", "/spmi/daily/report", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("事故记录", "/spmi/daily/accident", daily, "", i++);
+
+		// 培训管理
+		String training = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/training", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/training/plan", training, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("培训安排", "/spmi/training/arrange", training, "", i++);
 
 		// 应急救援指挥
 		initErcsService.initFourthLevelOperate();
@@ -177,8 +189,8 @@ public class InitService extends DataInitAbstractService {
 
 	@Override
 	public void initSecondLevelMenu() {
-		int i = 1;
 		String rootMenuIdentifier = resourceEntityServiceImpl.getRootMenu().getIdentifier();
+		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-wrench", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", i++);
 		resourceEntityServiceImpl.saveMenuResource("机电管理", "/electr", rootMenuIdentifier, "icon-bolt", i++);
@@ -193,11 +205,12 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initThirdLevelMenu() {
 		// 安全生产管理
-		int i = 1;
 		String spmi = resourceEntityServiceImpl.getDefaultIdentifier("/spmi", HttpMethod.GET);
+		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化评分", "/spmi/quality", spmi, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化管理", "/spmi/document", spmi, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/daily", spmi, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("培训管理", "/spmi/training", spmi, "", i++);
 
 		// 应急救援管理
 		initErcsService.initThirdLevelMenu();
@@ -206,8 +219,8 @@ public class InitService extends DataInitAbstractService {
 		initElectrService.initThirdLevelMenu();
 
 		// 系统管理
-		i = 1;
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);
+		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("用户管理", "/system/account", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("角色管理", "/system/role", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("机构管理", "/system/group", system, "", i++);
