@@ -3,12 +3,15 @@
  */
 package cn.ccrise.spimp.system.web;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
 
@@ -157,5 +160,31 @@ public class IndexElectrController {
 	@RequestMapping(value = "/electr/car/monthly-oil", method = RequestMethod.GET)
 	public String monthlyOil() {
 		return "electr/car/monthly-oil/index";
+	}
+
+	/**
+	 * 年度公里统计一览表
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/annual-kilometer", method = RequestMethod.GET)
+	public ModelAndView getAnnualKilometer() {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		return new ModelAndView("electr/car/annual-kilometer/index", root);
+	}
+
+	/**
+	 * 月度运行公里统计情况
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-run", method = RequestMethod.GET)
+	public ModelAndView getMonthlyRun(Integer year, Integer month) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("year", year);
+		root.put("month", month);
+		return new ModelAndView("electr/car/monthly-run/index", root);
 	}
 }

@@ -124,10 +124,10 @@ public class OilStaticsController {
 	public List<Object> queryByYear(Integer year) {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, 1);
+		c.set(Calendar.MONTH, 0);
 		c.set(Calendar.DAY_OF_MONTH, 1);
 		Date startDate = new Date(c.getTime().getTime());
-		c.set(Calendar.MONTH, 12);
+		c.set(Calendar.MONTH, 11);
 		c.set(Calendar.DAY_OF_MONTH, 31);
 		Date endDate = new Date(c.getTime().getTime());
 		StringBuffer buff = new StringBuffer();

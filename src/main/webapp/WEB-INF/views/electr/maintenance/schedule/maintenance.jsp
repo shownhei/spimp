@@ -30,7 +30,7 @@
 
 			<tbody>
 				<c:forEach items="${details}" var="data" varStatus="status">
-					<tr>
+					<tr class="grid-row page_report_table_tr">
 						<td>${status.index+1}</td>
 						<td>${data.checkItem }</td>
 						<td class="hidden-480">${data.maintenanceWay }</td>
