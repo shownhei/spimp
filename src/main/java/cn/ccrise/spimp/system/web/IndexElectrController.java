@@ -25,31 +25,23 @@ public class IndexElectrController {
 	private UploadedFileService uploadedFileService;
 
 	/**
-	 * 库存管理
+	 * 事故管理
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/electr/material/stock", method = RequestMethod.GET)
-	public String index() {
-		return "electr/material/stock/index";
+	@RequestMapping(value = "/electr/accident/record", method = RequestMethod.GET)
+	public String accidentRecord() {
+		return "electr/accident/record/index";
 	}
 
 	/**
-	 * 入库管理
-	 */
-	@RequestMapping(value = "/electr/material/stock-putin", method = RequestMethod.GET)
-	public String stockPutin() {
-		return "/electr/material/stock-putin/index";
-	}
-
-	/**
-	 * 出库管理
+	 * 年度油耗统计
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/electr/material/stock-sendout", method = RequestMethod.GET)
-	public String ercsAlarm() {
-		return "/electr/material/stock-sendout/index";
+	@RequestMapping(value = "/electr/car/annual-oil", method = RequestMethod.GET)
+	public String annualOil() {
+		return "electr/car/annual-oil/index";
 	}
 
 	/**
@@ -83,56 +75,6 @@ public class IndexElectrController {
 	}
 
 	/**
-	 * 定期维修的界面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/maintenance/schedule", method = RequestMethod.GET)
-	public String schedule() {
-		return "electr/maintenance/schedule/index";
-	}
-
-	/**
-	 * 事故管理
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/accident/record", method = RequestMethod.GET)
-	public String accidentRecord() {
-		return "electr/accident/record/index";
-	}
-
-	/**
-	 * 制度文件管理
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/regulation/file", method = RequestMethod.GET)
-	public String regulationFile() {
-		return "electr/regulation/file/index";
-	}
-
-	/**
-	 * 奖惩记录
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/regulation/reward", method = RequestMethod.GET)
-	public String regulationReward() {
-		return "electr/regulation/reward/index";
-	}
-
-	/**
-	 * 工作安排
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/regulation/arrange", method = RequestMethod.GET)
-	public String workArrange() {
-		return "electr/regulation/arrange/index";
-	}
-
-	/**
 	 * 图纸管理
 	 * 
 	 * @return
@@ -143,23 +85,13 @@ public class IndexElectrController {
 	}
 
 	/**
-	 * 年度油耗统计
+	 * 出库管理
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/electr/car/annual-oil", method = RequestMethod.GET)
-	public String annualOil() {
-		return "electr/car/annual-oil/index";
-	}
-
-	/**
-	 * 月度油耗统计
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/car/monthly-oil", method = RequestMethod.GET)
-	public String monthlyOil() {
-		return "electr/car/monthly-oil/index";
+	@RequestMapping(value = "/electr/material/stock-sendout", method = RequestMethod.GET)
+	public String ercsAlarm() {
+		return "electr/material/stock-sendout/index";
 	}
 
 	/**
@@ -186,5 +118,73 @@ public class IndexElectrController {
 		root.put("year", year);
 		root.put("month", month);
 		return new ModelAndView("electr/car/monthly-run/index", root);
+	}
+
+	/**
+	 * 库存管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/material/stock", method = RequestMethod.GET)
+	public String index() {
+		return "electr/material/stock/index";
+	}
+
+	/**
+	 * 月度油耗统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-oil", method = RequestMethod.GET)
+	public String monthlyOil() {
+		return "electr/car/monthly-oil/index";
+	}
+
+	/**
+	 * 制度文件管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/file", method = RequestMethod.GET)
+	public String regulationFile() {
+		return "electr/regulation/file/index";
+	}
+
+	/**
+	 * 奖惩记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/reward", method = RequestMethod.GET)
+	public String regulationReward() {
+		return "electr/regulation/reward/index";
+	}
+
+	/**
+	 * 定期维修的界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/schedule", method = RequestMethod.GET)
+	public String schedule() {
+		return "electr/maintenance/schedule/index";
+	}
+
+	/**
+	 * 入库管理
+	 */
+	@RequestMapping(value = "/electr/material/stock-putin", method = RequestMethod.GET)
+	public String stockPutin() {
+		return "electr/material/stock-putin/index";
+	}
+
+	/**
+	 * 工作安排
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/regulation/arrange", method = RequestMethod.GET)
+	public String workArrange() {
+		return "electr/regulation/arrange/index";
 	}
 }
