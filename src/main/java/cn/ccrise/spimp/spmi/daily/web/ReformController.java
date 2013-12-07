@@ -44,11 +44,6 @@ public class ReformController {
 		return new Response(reformService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/daily/reform", method = RequestMethod.GET)
-	public String index() {
-		return "spmi/daily/reform/index";
-	}
-
 	@RequestMapping(value = "/spmi/daily/reforms", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Reform> page) {

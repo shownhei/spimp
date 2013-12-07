@@ -209,7 +209,7 @@ define(function(require, exports, module) {
 		});
 	});
 
-	// 删除
+	// 重置密码
 	$('#reset').click(function() {
 		if (Utils.button.isDisable('reset')) {
 			return;
@@ -218,7 +218,7 @@ define(function(require, exports, module) {
 		Utils.modal.show('reset');
 	});
 
-	// 删除确认
+	// 确认重置密码
 	$('#reset-save').click(function() {
 		update(null, '123456');
 		Utils.modal.hide('reset');
