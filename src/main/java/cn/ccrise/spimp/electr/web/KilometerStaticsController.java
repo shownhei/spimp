@@ -1,6 +1,7 @@
 package cn.ccrise.spimp.electr.web;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,7 @@ import cn.ccrise.spimp.util.DateUtil;
 
 @Controller
 public class KilometerStaticsController {
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private RunLogService runLogService;
 	@Autowired
@@ -42,6 +46,7 @@ public class KilometerStaticsController {
 	 * @param month
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/electr/car/monthly-run/result", method = RequestMethod.GET)
 	public ModelAndView getMonthlyRun(Long carId, Integer year, Integer month) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
@@ -59,27 +64,27 @@ public class KilometerStaticsController {
 		// 运行日志中所有的车辆号码表
 		List<String> carList = null;
 		carList = getCarArray(startDate, endDate, carId);
-		int carListSize = carList.size();
 		root.put("carList", carList);
-		HashMap<String, Integer> monthRowIndexMap = new HashMap<String, Integer>();
+
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();// 最终的结果集
-		int colCount = carListSize * 10;
-		int maxDay = 31;
-		for (int i = 0; i < maxDay; i++) {
-			monthRowIndexMap.put(String.valueOf(i), i);
-			ArrayList<Long> row = new ArrayList<Long>(colCount);
-			for (int j = 0; j < colCount; j++) {
-				row.add(0l);
-			}
-			result.add(row);
-		}
+
 		StringBuffer buff = new StringBuffer();
 		buff.append("select l.car.carNo,sum(l.trainNumber),sum(l.distance),sum(l.refuelNumber),l.addDate,l.classType  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo,l.addDate,l.classType");
+		buff.append(" from RunLog l where l.addDate between :startDate and :endDate  ");
+		if (carId != null) {
+			buff.append(" and l.car.id=:carId ");
+		}
+		buff.append("  group by l.car.carNo,l.addDate,l.classType ");
 		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
 		query.setDate("startDate", startDate);
 		query.setDate("endDate", endDate);
-		root.put("test", query.list());
+		if (carId != null) {
+			query.setLong("carId", carId);
+		}
+		List<Object> runlogList = query.list();
+		ArrayList<Long> sumList = new ArrayList<Long>();
+		caculateMonthlyRunLog(carList, result, runlogList, sumList);
+		root.put("sumList", sumList);
 		root.put("result", result);
 		return new ModelAndView("electr/car/monthly-run/result", root);
 	}
@@ -87,7 +92,26 @@ public class KilometerStaticsController {
 	/**
 	 * 月度情况计算,1:车号，2：车次，3：路程，4：加油，5：日期，6：班次
 	 */
-	private void caculateMonthlyRunLog(ArrayList<ArrayList<Long>> result, List<Object> runlogsGroup) {
+	private void caculateMonthlyRunLog(List<String> carList, ArrayList<ArrayList<Long>> result,
+			List<Object> runlogsGroup, ArrayList<Long> sumList) {
+		HashMap<Integer, Integer> monthRowIndexMap = new HashMap<Integer, Integer>();
+		int colCount = carList.size() * 10;
+		Iterator<String> carIt = carList.iterator();
+		HashMap<String, Integer> car2baseIndexMap = new HashMap<String, Integer>();
+		int baseIndex = 0;
+		int step = 10;
+		while (carIt.hasNext()) {
+			car2baseIndexMap.put(carIt.next(), step * baseIndex++);
+		}
+		int maxDay = 31;
+		for (int i = 0; i < maxDay; i++) {
+			monthRowIndexMap.put(i, i);
+			ArrayList<Long> row = new ArrayList<Long>(colCount);
+			for (int j = 0; j < colCount; j++) {
+				row.add(0l);
+			}
+			result.add(row);
+		}
 		Iterator<Object> it = runlogsGroup.iterator();
 		Object rawarray[] = null;
 		String carNo = null;
@@ -96,8 +120,37 @@ public class KilometerStaticsController {
 		Long refuelNumber = null;
 		Date addDate = null;
 		String classType = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd");
+		String day = null;
+		int rowIndex = 0;
+		ArrayList<Long> row = null;
+		HashMap<String, Integer> class2Index = new HashMap<String, Integer>();
+		// 班次排序 0、8、4
+		class2Index.put("0", 0);
+		class2Index.put("8", 3);
+		class2Index.put("4", 6);
+		for (int i = 0; i < colCount; i++) {
+			sumList.add(0l);
+		}
 		while (it.hasNext()) {
 			rawarray = (Object[]) it.next();
+			carNo = (String) rawarray[0];
+			trainNumber = (Long) rawarray[1];
+			distance = (Long) rawarray[2];
+			refuelNumber = (Long) rawarray[3];
+			addDate = (Date) rawarray[4];
+			day = sdf.format(addDate);
+			rowIndex = Integer.parseInt(day) - 1;
+			classType = (String) rawarray[5];
+			row = result.get(rowIndex);
+			baseIndex = car2baseIndexMap.get(carNo);
+			int colIndex = baseIndex + class2Index.get(classType);
+			row.set(colIndex, row.get(colIndex) + trainNumber);
+			row.set(colIndex + 1, row.get(colIndex + 1) + distance);
+			row.set(colIndex + 2, row.get(colIndex + 2) + refuelNumber);
+			sumList.set(colIndex, row.get(colIndex));
+			sumList.set(colIndex + 1, row.get(colIndex + 1));
+			sumList.set(colIndex + 2, row.get(colIndex + 2));
 		}
 	}
 

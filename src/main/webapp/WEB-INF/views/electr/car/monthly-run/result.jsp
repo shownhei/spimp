@@ -2,14 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:if test="${fn:length(carList)>0}">
-<c:set var="carListSize" value="${fn:length(carList)}"/>
+	<c:set var="carListSize" value="${fn:length(carList)}" />
 	<div class="table-responsive" id="table_panel">
-	${test}
-	<c:forEach items="${test}" var="data" varStatus="index"><br>
-	${data[0] },${data[1] },${data[2]},${data[3]},${data[4]},${data[5]}
-	</c:forEach>
-	
-		<table id="sample-table-1" <c:if test="${carListSize>1}">style="width:${carListSize*500+50 }px;" </c:if>class="table table-striped table-bordered table-hover">
+		<table id="sample-table-1" <c:if test="${carListSize>1}">style="width:${carListSize*500+50 }px;" </c:if>
+			class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
 					<th colspan=${carListSize*10+1 }><center>${year }年${month }月份运行情况统计表</center></th>
@@ -55,6 +51,12 @@
 						</c:forEach>
 					</tr>
 				</c:forEach>
+				<tr class="grid-row page_report_table_tr">
+					<td>合计</td>
+					<c:forEach items="${sumList}" var="data" varStatus="index">
+						<td <c:if test="${(index.index)%10==0}">style="border-left-color:black;"</c:if>><c:if test="${data>0}">${data}</c:if></td>
+					</c:forEach>
+				</tr>
 			</tbody>
 		</table>
 	</div>
