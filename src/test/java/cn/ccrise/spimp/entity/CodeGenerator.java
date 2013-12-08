@@ -33,7 +33,8 @@ public class CodeGenerator {
 	// protected final String entityName = "Reform"; // 隐患整改
 	// protected final String entityName = "Plan"; // 工作安排
 	// protected final String entityName = "Reward"; // 奖惩记录
-	protected final String entityName = "Summary"; // 总结
+	// protected final String entityName = "Summary"; // 总结
+	protected final String entityName = "Accident"; // 事故记录
 
 	// protected final String entityName = "Staff";
 	// protected final String entityName = "Alteration";
