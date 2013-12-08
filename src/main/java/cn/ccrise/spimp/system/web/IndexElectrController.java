@@ -197,4 +197,24 @@ public class IndexElectrController {
 	public String indexEquipmentPlan() {
 		return "electr/equipment/plan/index";
 	}
+
+	/**
+	 * 机电设备管理-定期检修记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/overhaul", method = RequestMethod.GET)
+	public String overhaul() {
+		return "electr/equipment/overhaul/index";
+	}
+
+	/**
+	 * 定期检修设置
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/settings", method = RequestMethod.GET)
+	public String setting() {
+		return "electr/equipment/settings/index";
+	}
 }

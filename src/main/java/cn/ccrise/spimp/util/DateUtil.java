@@ -207,6 +207,29 @@ public class DateUtil {
 		}
 	}
 
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getMaxDaysOfYear(int year) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		return cal.getActualMaximum(Calendar.DAY_OF_YEAR);
+	}
+
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getCurrentYear() {
+		Calendar cal = Calendar.getInstance();
+		return cal.get(Calendar.YEAR);
+	}
+
 	private static StringBuffer buildString(int number, StringBuffer buff, boolean withJz) {
 		String upper[] = { "○", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" };
 		HashMap<String, String> map = new HashMap<String, String>();
