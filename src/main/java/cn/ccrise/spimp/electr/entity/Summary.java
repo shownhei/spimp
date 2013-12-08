@@ -6,9 +6,7 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.spimp.ercs.entity.UploadedFile;
@@ -20,8 +18,8 @@ import cn.ccrise.spimp.util.PageFields;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Entity
-@Table(name = "electr_summaries")
+// @Entity
+// @Table(name = "electr_summaries")
 public class Summary extends IDEntity {
 	/**
 	 * 总结标题
@@ -49,20 +47,8 @@ public class Summary extends IDEntity {
 	@PageFields(describtion = "记录时间", columnShow = false, search = false, allowedNull = true)
 	private Timestamp recordTime;
 
-	public Date getUploadDate() {
-		return uploadDate;
-	}
-
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
-	}
-
-	public String getSummaryTitle() {
-		return summaryTitle;
-	}
-
-	public void setSummaryTitle(String summaryTitle) {
-		this.summaryTitle = summaryTitle;
+	public Timestamp getRecordTime() {
+		return recordTime;
 	}
 
 	@ManyToOne
@@ -70,8 +56,8 @@ public class Summary extends IDEntity {
 		return summary;
 	}
 
-	public void setSummary(UploadedFile summary) {
-		this.summary = summary;
+	public String getSummaryTitle() {
+		return summaryTitle;
 	}
 
 	@ManyToOne
@@ -79,16 +65,28 @@ public class Summary extends IDEntity {
 		return summaryType;
 	}
 
-	public void setSummaryType(Dictionary summaryType) {
-		this.summaryType = summaryType;
-	}
-
-	public Timestamp getRecordTime() {
-		return recordTime;
+	public Date getUploadDate() {
+		return uploadDate;
 	}
 
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setSummary(UploadedFile summary) {
+		this.summary = summary;
+	}
+
+	public void setSummaryTitle(String summaryTitle) {
+		this.summaryTitle = summaryTitle;
+	}
+
+	public void setSummaryType(Dictionary summaryType) {
+		this.summaryType = summaryType;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
 	}
 
 }

@@ -14,7 +14,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ import cn.ccrise.spimp.util.ExcelHelper;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Controller
+// @Controller
 public class SummaryController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -43,6 +42,28 @@ public class SummaryController {
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(summaryService.delete(id));
+	}
+
+	@RequestMapping(value = "/electr/regulation/summaries/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Long summaryType, Date startDate, Date endDate)
+			throws Exception {
+		Page<Summary> page = new Page<Summary>();
+		page.setPageSize(100000);
+		page = summaryService.pageQuery(page, search, summaryType, startDate, endDate);
+
+		String[] headers = { "材料名称", "附件", "总结分类", "上传日期", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Summary>().genExcel("每月总结 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("每月总结 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
 	}
 
 	@RequestMapping(value = "/electr/regulation/summaries/{id}", method = RequestMethod.GET)
@@ -58,7 +79,7 @@ public class SummaryController {
 
 	@RequestMapping(value = "/electr/regulation/summaries", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Summary> page,String search,Long summaryType, Date startDate, Date endDate) {
+	public Response page(Page<Summary> page, String search, Long summaryType, Date startDate, Date endDate) {
 		page = summaryService.pageQuery(page, search, summaryType, startDate, endDate);
 		return new Response(page);
 	}
@@ -73,25 +94,5 @@ public class SummaryController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Summary summary, @PathVariable long id) {
 		return new Response(summaryService.update(summary));
-	}
-	
-	@RequestMapping(value = "/electr/regulation/summaries/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,String search,Long summaryType, Date startDate, Date endDate) throws Exception {
-		Page<Summary> page = new Page<Summary>();
-		page.setPageSize(100000);
-		page = summaryService.pageQuery(page, search, summaryType, startDate, endDate);
-		
-		String[] headers = {"材料名称","附件","总结分类","上传日期","记录时间"};
-		
-		HSSFWorkbook wb = new ExcelHelper<Summary>().genExcel("每月总结 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("每月总结 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

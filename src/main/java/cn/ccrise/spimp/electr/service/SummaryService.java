@@ -12,7 +12,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
@@ -25,7 +24,7 @@ import cn.ccrise.spimp.electr.entity.Summary;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Service
+// @Service
 public class SummaryService extends HibernateDataServiceImpl<Summary, Long> {
 	@Autowired
 	private SummaryDAO summaryDAO;
