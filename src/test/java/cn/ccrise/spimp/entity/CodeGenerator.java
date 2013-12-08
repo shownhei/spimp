@@ -31,7 +31,8 @@ public class CodeGenerator {
 	// protected final String entityName = "TunnellingGrade"; // 掘进专业
 	// protected final String entityName = "MiningGrade"; // 采煤专业
 	// protected final String entityName = "Reform"; // 隐患整改
-	protected final String entityName = "Plan"; // 工作安排
+	// protected final String entityName = "Plan"; // 工作安排
+	protected final String entityName = "Reward"; // 奖惩记录
 
 	// protected final String entityName = "Staff";
 	// protected final String entityName = "Alteration";
