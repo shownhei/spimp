@@ -38,6 +38,11 @@ public class ReminderSetting extends IDEntity {
 	@PageFields(describtion = "提前天数", columnShow = true, search = false, allowedNull = false)
 	private Integer daysEarly;
 	/**
+	 * 到期日期
+	 */
+	@PageFields(describtion = "到期日期", columnShow = true, search = true, allowedNull = false)
+	private Date dateEarly;
+	/**
 	 * 记录日期
 	 */
 	@PageFields(describtion = "记录日期", columnShow = true, search = true, allowedNull = false)
@@ -60,6 +65,14 @@ public class ReminderSetting extends IDEntity {
 
 	public void setRecordAccount(Account recordAccount) {
 		this.recordAccount = recordAccount;
+	}
+
+	public Date getDateEarly() {
+		return dateEarly;
+	}
+
+	public void setDateEarly(Date dateEarly) {
+		this.dateEarly = dateEarly;
 	}
 
 	@ManyToOne

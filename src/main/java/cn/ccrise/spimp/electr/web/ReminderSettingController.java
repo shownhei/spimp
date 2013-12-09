@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.ReminderSetting;
 import cn.ccrise.spimp.electr.service.ReminderSettingService;
 import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.util.DateUtil;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -66,6 +68,24 @@ public class ReminderSettingController {
 		return new Response(page);
 	}
 
+	/**
+	 * 提醒
+	 * 
+	 * @param page
+	 * @param project
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/alerts", method = RequestMethod.GET)
+	@ResponseBody
+	public Response alert(Page<ReminderSetting> page, Long project, Date startDate, Date endDate) {
+		page.setOrder("asc");
+		page.setOrderBy("dateEarly");
+		page = reminderSettingService.getPage(page, Restrictions.le("dateEarly", new Date(System.currentTimeMillis())));
+		return new Response(page);
+	}
+
 	@RequestMapping(value = "/electr/equipment/reminder-settings", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody ReminderSetting reminderSetting, HttpSession session) {
@@ -74,6 +94,9 @@ public class ReminderSettingController {
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		reminderSetting.setRecordAccount(loginAccount);
 		reminderSetting.setRecordGroup(loginAccount.getGroupEntity());
+
+		reminderSetting.setDateEarly(DateUtil.getFutureDay(reminderSetting.getExpirationDate(),
+				-reminderSetting.getDaysEarly()));
 		return new Response(reminderSettingService.save(reminderSetting));
 	}
 

@@ -217,4 +217,14 @@ public class IndexElectrController {
 	public String setting() {
 		return "electr/equipment/settings/index";
 	}
+
+	/**
+	 * 定期检修提醒
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/alert", method = RequestMethod.GET)
+	public String alert() {
+		return "electr/equipment/alert/index";
+	}
 }

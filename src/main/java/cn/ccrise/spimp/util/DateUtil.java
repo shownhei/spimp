@@ -83,6 +83,19 @@ public class DateUtil {
 		return future;
 	}
 
+	public static Date getFutureDay(Date appDate, int days) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(appDate);
+			calendar.add(Calendar.DATE, days);
+			return new Date(calendar.getTime().getTime());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	/**
 	 * 得到某日最后一毫秒。
 	 * 
