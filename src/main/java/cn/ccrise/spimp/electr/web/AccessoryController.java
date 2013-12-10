@@ -3,6 +3,8 @@
  */
 package cn.ccrise.spimp.electr.web;
 
+import java.sql.Date;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Accessory;
+import cn.ccrise.spimp.electr.entity.Equipment;
 import cn.ccrise.spimp.electr.service.AccessoryService;
+import cn.ccrise.spimp.electr.service.EquipmentService;
 
 /**
  * Accessory Controller。
@@ -28,7 +32,8 @@ import cn.ccrise.spimp.electr.service.AccessoryService;
 @Controller
 public class AccessoryController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+	@Autowired
+	private EquipmentService equipmentService;
 	@Autowired
 	private AccessoryService accessoryService;
 
@@ -53,6 +58,11 @@ public class AccessoryController {
 	@RequestMapping(value = "/electr/equipment/accessories", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Accessory accessory) {
+		accessory.setRecordDate(new Date(System.currentTimeMillis()));
+		accessoryService.save(accessory);
+		Equipment equipment = equipmentService.get(accessory.getEquipmentId());
+		equipment.getAccessories().add(accessory);
+		equipmentService.save(equipment);
 		return new Response(accessoryService.save(accessory));
 	}
 

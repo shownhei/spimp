@@ -11,7 +11,7 @@ import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
 /**
  * Equipment DAO。
  * 
- * @author Xiong Shuhong(shelltea@gmail.com)
+ * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Repository
 public class EquipmentDAO extends HibernateDAOImpl<Equipment, Long> {
