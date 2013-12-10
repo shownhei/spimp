@@ -15,8 +15,6 @@ import cn.ccrise.spimp.util.PageFields;
 
 /**
  * 每月总结。
- * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 // @Entity
 // @Table(name = "electr_summaries")

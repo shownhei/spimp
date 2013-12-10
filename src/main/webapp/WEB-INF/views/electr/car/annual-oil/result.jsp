@@ -18,7 +18,6 @@
 				<th>备注</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			<c:forEach items="${category}" var="list" varStatus="status">
 				<c:forEach items="${list}" var="data" varStatus="listIndex">
@@ -28,7 +27,7 @@
 						<td>${data.distance}</td>
 						<td class="hidden-480">${data.refuelNumber}</td>
 						<c:if test="${listIndex.index==0 }">
-							<td rowspan="${fn:length(list) }"  style="text-align:center;vertical-align:middle"></td>
+							<td rowspan="${fn:length(list) }"  style="text-align:center;vertical-align:middle">${data.dayTrainNumberDisplay }</td>
 						</c:if>
 						<td>${data.oilDistanceDisplay}</td>
 						<c:if test="${listIndex.index==0 }">

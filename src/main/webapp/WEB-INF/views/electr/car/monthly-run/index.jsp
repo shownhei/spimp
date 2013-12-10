@@ -13,6 +13,11 @@
 		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
+				<div class="toolbar">
+					<button id="export_result" class="btn btn-small btn-pink disabled" title="导出当前统计结果">
+						<i class="icon-download-alt"></i> 导出
+					</button>
+				</div>
 				<div class="nav-search">
 					<form id="query-form" class="form-search" onsubmit="return false;">
 						<select id="search_car" name="car" style="height: 25px; width: 120px; font-size: 12px;"></select> <input id="query_year" name="year" type="number"
@@ -35,7 +40,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="page-content" id="tablePanel" style="height:400px;overflow: auto;"></div>
+			<div class="page-content" id="tablePanel" style="height: 400px; overflow: auto;"></div>
 		</div>
 	</div>
 	<script type="text/javascript">

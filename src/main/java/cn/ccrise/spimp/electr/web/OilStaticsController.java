@@ -1,15 +1,12 @@
 package cn.ccrise.spimp.electr.web;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,7 @@ import cn.ccrise.spimp.electr.service.RunLogService;
 import cn.ccrise.spimp.util.DateUtil;
 
 /**
+ * 油耗计算 年度 月度
  */
 @Controller
 public class OilStaticsController {
@@ -38,10 +36,8 @@ public class OilStaticsController {
 	public ModelAndView getAnnualOil(Integer year) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("year", year);
-		List<Object> list = queryByYear(year);
-		// root.put("result", query.list());
+		List<Object> list = oilStaticsService.queryByYear(year);
 		Iterator<Object> it = list.iterator();
-		// ArrayList<AnnualOil> result = new ArrayList<AnnualOil>(24);
 		Object[] array = null;
 		AnnualOil instance = null;
 		int i = 0;
@@ -60,13 +56,12 @@ public class OilStaticsController {
 				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
 			}
 			map.get(instance.getCarCategory()).add(instance);
-			// result.add(instance);
 		}
 		Collection<ArrayList<AnnualOil>> groups = map.values();
 		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
 		DecimalFormat df = new DecimalFormat(".##");
 		while (groupIt.hasNext()) {
-			oilStaticsService.oilAVG(groupIt.next(), df);
+			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
 		}
 		root.put("category", groups);
 		return new ModelAndView("electr/car/annual-oil/result", root);
@@ -82,7 +77,7 @@ public class OilStaticsController {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("year", year);
 		root.put("month", month);
-		List<Object> list = queryByMonth(year, month);
+		List<Object> list = oilStaticsService.queryByMonth(year, month);
 		Iterator<Object> it = list.iterator();
 		Object[] array = null;
 		AnnualOil instance = null;
@@ -102,66 +97,15 @@ public class OilStaticsController {
 				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
 			}
 			map.get(instance.getCarCategory()).add(instance);
-			// result.add(instance);
 		}
 		Collection<ArrayList<AnnualOil>> groups = map.values();
 		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
 		DecimalFormat df = new DecimalFormat(".##");
 		while (groupIt.hasNext()) {
-			oilStaticsService.oilAVG(groupIt.next(), df);
+			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getCurrentMonthLastDay());
 		}
 		root.put("category", groups);
 		return new ModelAndView("electr/car/monthly-oil/result", root);
 	}
 
-	/**
-	 * 按照年统计
-	 * 
-	 * @param year
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Object> queryByYear(Integer year) {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, 0);
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		Date startDate = new Date(c.getTime().getTime());
-		c.set(Calendar.MONTH, 11);
-		c.set(Calendar.DAY_OF_MONTH, 31);
-		Date endDate = new Date(c.getTime().getTime());
-		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
-		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
-		query.setDate("startDate", startDate);
-		query.setDate("endDate", endDate);
-		return query.list();
-	}
-
-	/**
-	 * 月度统计
-	 * 
-	 * @param year
-	 * @param month
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Object> queryByMonth(Integer year, Integer month) {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, month - 1);
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		Date startDate = new Date(c.getTime().getTime());
-		c.set(Calendar.MONTH, month - 1);
-		c.set(Calendar.DAY_OF_MONTH, DateUtil.getCurrentMonthLastDay());
-		Date endDate = new Date(c.getTime().getTime());
-		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
-		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
-		query.setDate("startDate", startDate);
-		query.setDate("endDate", endDate);
-		return query.list();
-	}
 }

@@ -33,6 +33,30 @@ public class AnnualOil {
 	private String avgOilDistance;
 
 	private String carCategory;
+	/**
+	 * 日平均运行次数
+	 */
+	private Double dayTrainNumber;
+	/**
+	 * 日平均运行次数
+	 */
+	private String dayTrainNumberDisplay;
+
+	public DecimalFormat getDf() {
+		return df;
+	}
+
+	public void setDf(DecimalFormat df) {
+		this.df = df;
+	}
+
+	public Double getDayTrainNumber() {
+		return dayTrainNumber;
+	}
+
+	public void setDayTrainNumber(Double dayTrainNumber) {
+		this.dayTrainNumber = dayTrainNumber;
+	}
 
 	public String getAvgOilDistance() {
 		return avgOilDistance;
@@ -44,6 +68,14 @@ public class AnnualOil {
 
 	public String getOilDistanceDisplay() {
 		return oilDistanceDisplay;
+	}
+
+	public String getDayTrainNumberDisplay() {
+		return dayTrainNumberDisplay;
+	}
+
+	public void setDayTrainNumberDisplay(String dayTrainNumberDisplay) {
+		this.dayTrainNumberDisplay = dayTrainNumberDisplay;
 	}
 
 	public void setOilDistanceDisplay(String oilDistanceDisplay) {

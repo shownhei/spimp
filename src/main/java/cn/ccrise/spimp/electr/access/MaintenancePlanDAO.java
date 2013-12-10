@@ -5,14 +5,14 @@ package cn.ccrise.spimp.electr.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.electr.entity.Equipment;
+import cn.ccrise.spimp.electr.entity.MaintenancePlan;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
 
 /**
- * Equipment DAO。
+ * MaintenancePlan DAO。
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Repository
-public class EquipmentDAO extends HibernateDAOImpl<Equipment, Long> {
+public class MaintenancePlanDAO extends HibernateDAOImpl<MaintenancePlan, Long> {
 }

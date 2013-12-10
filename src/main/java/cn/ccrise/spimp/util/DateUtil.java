@@ -83,6 +83,19 @@ public class DateUtil {
 		return future;
 	}
 
+	public static Date getFutureDay(Date appDate, int days) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(appDate);
+			calendar.add(Calendar.DATE, days);
+			return new Date(calendar.getTime().getTime());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	/**
 	 * 得到某日最后一毫秒。
 	 * 
@@ -205,6 +218,29 @@ public class DateUtil {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getMaxDaysOfYear(int year) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		return cal.getActualMaximum(Calendar.DAY_OF_YEAR);
+	}
+
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getCurrentYear() {
+		Calendar cal = Calendar.getInstance();
+		return cal.get(Calendar.YEAR);
 	}
 
 	private static StringBuffer buildString(int number, StringBuffer buff, boolean withJz) {
