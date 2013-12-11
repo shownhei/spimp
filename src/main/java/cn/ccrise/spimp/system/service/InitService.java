@@ -3,16 +3,15 @@
  */
 package cn.ccrise.spimp.system.service;
 
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
+import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
+import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.entity.Dictionary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-
-import cn.ccrise.ikjp.core.security.entity.GroupEntity;
-import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
-import cn.ccrise.spimp.system.entity.Account;
-import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
  * 系统基础数据初始化服务。
@@ -86,11 +85,10 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
 		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
 
-		Dictionary dic = new Dictionary();
 		String carCategory[] = { "人车", "客货车", "洒水车", "两驱料车", "四驱料车", "铲运车", "支架搬运车", "其他未录入车型" };
 		for (String element : carCategory) {
-			dic = new Dictionary();
-			dic.setTypeCode("car_carCategory");
+            Dictionary dic = new Dictionary();
+            dic.setTypeCode("car_carCategory");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
@@ -144,15 +142,10 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("产量统计", "/spmi/daily/output", daily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("生产日报表", "/spmi/daily/report", daily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("事故记录", "/spmi/daily/accident", daily, "", i++);
+        resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/daily/training", daily, "", i++);
 
-		// 培训管理
-		String training = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/training", HttpMethod.GET);
-		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/training/plan", training, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("培训安排", "/spmi/training/arrange", training, "", i++);
-
-		// 应急救援指挥
-		initErcsService.initFourthLevelOperate();
+        // 应急救援指挥
+        initErcsService.initFourthLevelOperate();
 
 		// 机电管理
 		initElectrService.initFourthLevelOperate();
@@ -212,7 +205,6 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("质量标准化评分", "/spmi/quality", spmi, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("质量标准化管理", "/spmi/document", spmi, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/daily", spmi, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("培训管理", "/spmi/training", spmi, "", i++);
 
 		// 应急救援管理
 		initErcsService.initThirdLevelMenu();
