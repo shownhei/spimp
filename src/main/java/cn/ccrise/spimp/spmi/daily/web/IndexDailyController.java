@@ -33,6 +33,7 @@ public class IndexDailyController {
 	}
 
 	// 日常工作
+
 	/**
 	 * 图片管理
 	 */
@@ -79,5 +80,13 @@ public class IndexDailyController {
 	@RequestMapping(value = "/spmi/daily/summary", method = RequestMethod.GET)
 	public String summary() {
 		return "spmi/daily/summary/index";
+	}
+
+	/**
+	 * 培训计划
+	 */
+	@RequestMapping(value = "/spmi/daily/training", method = RequestMethod.GET)
+	public String training() {
+		return "spmi/daily/training/index";
 	}
 }
