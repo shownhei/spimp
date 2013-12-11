@@ -3,16 +3,7 @@
  */
 package cn.ccrise.spimp.repackage;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
-
+import com.google.common.base.Stopwatch;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
@@ -22,11 +13,12 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.base.Stopwatch;
+import java.io.*;
+import java.util.Iterator;
 
 /**
  * 处理WAR文件工具类。可压缩或解压缩WAR文件。
- * 
+ *
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class WarUtils {
@@ -39,7 +31,7 @@ public class WarUtils {
 			ArchiveInputStream in = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.JAR,
 					bufferedInputStream);
 
-			JarArchiveEntry entry = null;
+			JarArchiveEntry entry;
 			while ((entry = (JarArchiveEntry) in.getNextEntry()) != null) {
 				if (entry.isDirectory()) {
 					new File(unzipPath, entry.getName()).mkdir();

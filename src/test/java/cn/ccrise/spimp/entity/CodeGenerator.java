@@ -3,13 +3,12 @@
  */
 package cn.ccrise.spimp.entity;
 
-import org.junit.Test;
-
 import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
+import org.junit.Test;
 
 /**
  * 代码自动生成测试。
- * 
+ *
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class CodeGenerator {
@@ -18,13 +17,11 @@ public class CodeGenerator {
 	protected final String packageName = "cn.ccrise.spimp.spmi.daily";
 	// protected final String packageName = "cn.ccrise.spimp.system";
 	// protected final String packageName = "cn.ccrise.spimp.electr";
-
 	// protected final String uriPrefix = "spmi/schedule";
 	// protected final String uriPrefix = "spmi/quality";
 	protected final String uriPrefix = "spmi/daily";
 	// protected final String uriPrefix = "system";
 	// protected final String uriPrefix = "electr/equipment";
-
 	// protected final String entityName = "Output";
 	// protected final String entityName = "TransportationGrade"; // 运输专业
 	// protected final String entityName = "ElectroGrade"; // 机电专业
@@ -35,7 +32,8 @@ public class CodeGenerator {
 	// protected final String entityName = "Reward"; // 奖惩记录
 	// protected final String entityName = "Summary"; // 总结
 	// protected final String entityName = "Accident"; // 事故记录
-	protected final String entityName = "DailyReport"; // 日报表
+	// protected final String entityName = "DailyReport"; // 日报表
+	protected final String entityName = "Training"; // 培训
 
 	// protected final String entityName = "Staff";
 	// protected final String entityName = "Alteration";

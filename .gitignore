@@ -5,3 +5,5 @@
 /src/main/resources/application.local.properties
 /src/main/webapp/WEB-INF/uploads
 /src/main/webapp/WEB-INF/resources/scripts/dist
+.idea/
+*.iml

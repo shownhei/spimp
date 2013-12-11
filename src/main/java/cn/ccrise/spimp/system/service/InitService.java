@@ -15,13 +15,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * 系统基础数据初始化服务。
- * 
+ *
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Service
 public class InitService extends DataInitAbstractService {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
 	@Autowired
 	private AccountService accountService;
 	@Autowired
@@ -85,10 +84,10 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
 		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
 
-		String carCategory[] = { "人车", "客货车", "洒水车", "两驱料车", "四驱料车", "铲运车", "支架搬运车", "其他未录入车型" };
+		String carCategory[] = {"人车", "客货车", "洒水车", "两驱料车", "四驱料车", "铲运车", "支架搬运车", "其他未录入车型"};
 		for (String element : carCategory) {
-            Dictionary dic = new Dictionary();
-            dic.setTypeCode("car_carCategory");
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("car_carCategory");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
@@ -142,10 +141,10 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("产量统计", "/spmi/daily/output", daily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("生产日报表", "/spmi/daily/report", daily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("事故记录", "/spmi/daily/accident", daily, "", i++);
-        resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/daily/training", daily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/daily/training", daily, "", i++);
 
-        // 应急救援指挥
-        initErcsService.initFourthLevelOperate();
+		// 应急救援指挥
+		initErcsService.initFourthLevelOperate();
 
 		// 机电管理
 		initElectrService.initFourthLevelOperate();

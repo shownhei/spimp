@@ -3,26 +3,19 @@
  */
 package cn.ccrise.spimp.repackage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import cn.ccrise.spimp.system.web.LoginController;
+import cn.ccrise.spimp.util.AES;
+import com.google.common.collect.Lists;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-
-import cn.ccrise.spimp.system.web.LoginController;
-import cn.ccrise.spimp.util.AES;
-
-import com.google.common.collect.Lists;
-
 /**
  * 重新打包
- * 
+ *
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class Repackage {
@@ -36,7 +29,7 @@ public class Repackage {
 		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
 		log4jxml("WARN");
 		wroproperties();
-		headjsp(version);
+		headjsp();
 
 		WarUtils.zip("target/ROOT.war", "target/ROOT");
 	}
@@ -64,7 +57,7 @@ public class Repackage {
 		writeLinesToFile(fileName, lines);
 	}
 
-	private static void headjsp(String version) {
+	private static void headjsp() {
 		String fileName = "target/ROOT/WEB-INF/views/common/head.jsp";
 		List<String> lines = readLines(fileName);
 
@@ -89,7 +82,7 @@ public class Repackage {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 
-			String line = "";
+			String line;
 			while ((line = in.readLine()) != null) {
 				lines.add(line);
 			}
