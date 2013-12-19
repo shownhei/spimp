@@ -237,4 +237,14 @@ public class IndexElectrController {
 	public String regularMaintenanceConfig() {
 		return "electr/maintenance/regular-config/index";
 	}
+
+	/**
+	 * 定期保养到期提醒
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/regular-remind", method = RequestMethod.GET)
+	public String regularRemind() {
+		return "electr/maintenance/regular-remind/index";
+	}
 }
