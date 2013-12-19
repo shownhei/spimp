@@ -25,6 +25,7 @@
 <![endif]-->
 <%-- <script src="${resources}/app.js"></script> --%>
 <script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
+<script src="${resources}/scripts/app/common/date.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var contextPath = "${contextPath}";
 	var resources = "${resources}";
