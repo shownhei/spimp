@@ -87,7 +87,7 @@
 						<div class="control-group">
 							<label class="control-label">检查日期</label>
 							<div class="controls">
-								<input name="checkDate" type="datetime">
+								<input id="checkDate" name="checkDate" type="datetime">
 							</div>
 						</div>
 						<div class="control-group">
