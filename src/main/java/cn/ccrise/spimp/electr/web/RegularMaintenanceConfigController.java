@@ -61,6 +61,19 @@ public class RegularMaintenanceConfigController {
 		return new Response(page);
 	}
 
+	/**
+	 * 加载定期维修配置列表
+	 * 
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/regular-configs-list", method = RequestMethod.GET)
+	@ResponseBody
+	public Response pageList(Page<RegularMaintenanceConfig> page) {
+		page = regularMaintenanceConfigService.pageQuery(page);
+		return new Response(page.getResult());
+	}
+
 	@RequestMapping(value = "/electr/maintenance/regular-configs", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody RegularMaintenanceConfig regularMaintenanceConfig, HttpSession httpSession) {
