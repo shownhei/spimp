@@ -123,6 +123,9 @@ public class InitElectrService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/electr/maintenance/daily", maintenance, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期保养", "/electr/maintenance/schedule", maintenance, "", i++);
+		resourceEntityServiceImpl
+				.saveMenuResource("保养周期设置", "/electr/maintenance/regular-config", maintenance, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("保养提醒", "/electr/maintenance/regular-remind", maintenance, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修检测", "/electr/maintenance/maintenance-testing", maintenance, "",
 				i++);
 		resourceEntityServiceImpl.saveMenuResource("故障记录", "/electr/maintenance/problem", maintenance, "", i++);

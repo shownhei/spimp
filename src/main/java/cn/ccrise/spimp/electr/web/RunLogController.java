@@ -86,7 +86,11 @@ public class RunLogController {
 	public Response save(@Valid @RequestBody RunLog runLog) {
 		runLog.setAddDate(new Date(System.currentTimeMillis()));
 		runLog.setRecordTime(new Timestamp(System.currentTimeMillis()));
-		return new Response(runLogService.save(runLog));
+		/**
+		 * 往定期保养提醒表中 累加里程数据
+		 */
+
+		return new Response(runLogService.saveAnRunLog(runLog));
 	}
 
 	@RequestMapping(value = "/electr/car/run-logs/{id}", method = RequestMethod.PUT)
