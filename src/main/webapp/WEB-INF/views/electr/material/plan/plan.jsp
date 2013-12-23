@@ -6,7 +6,7 @@
 		<table id="sample-table-1" data-id="${planId}"  class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr class="grid-row">
-					<th colspan=9><center>${fn:substring(plan.planDate, 0,4)}年${fn:substring(plan.planDate, 5,7)}月份胶轮车材料申请计划<center></th>
+					<th colspan=9><center>${fn:substring(plan.planDate, 0,4)}年${fn:substring(plan.planDate, 5,7)}月份材料申请计划<center></th>
 				</tr>
 				<tr class="grid-row">
 					<th colspan=4>单位：${plan.planGroup.name}</th>
