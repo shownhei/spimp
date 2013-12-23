@@ -247,4 +247,24 @@ public class IndexElectrController {
 	public String regularRemind() {
 		return "electr/maintenance/regular-remind/index";
 	}
+
+	/**
+	 * 小改小革
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/innovation/innovation", method = RequestMethod.GET)
+	public String innovation() {
+		return "electr/innovation/innovation/index";
+	}
+
+	/**
+	 * 革新统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/innovation/statistics", method = RequestMethod.GET)
+	public String innovationStatistics() {
+		return "electr/innovation/statistics/index";
+	}
 }
