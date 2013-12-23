@@ -61,7 +61,9 @@ public class RegularMaintenanceRemindService extends HibernateDataServiceImpl<Re
 		if (car != null) {
 			criterions.add(Restrictions.eq("car.id", car));
 		}
-		criterions.add(Restrictions.in("id", remindIdArray.toArray(new Long[0])));
+		if (remindIdArray.size() > 0) {
+			criterions.add(Restrictions.in("id", remindIdArray.toArray(new Long[0])));
+		}
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

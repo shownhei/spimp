@@ -9,10 +9,11 @@ define(function(require, exports, module) {
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-
+	// 下拉列表初始化
+	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/car/carslist', 'id', 'carNo', true, '车号');
 	// 配置表格列
 	var fields = [ {
-		header : '上报日期',
+		header : '时间',
 		width : 90,
 		name : 'reportDate'
 	}, {
@@ -21,6 +22,18 @@ define(function(require, exports, module) {
 		render:function(val){
 			return val?val.carNo:'';
 		}
+	},{
+		header : '班次',
+		width : 90,
+		render:function(v){
+			switch(v){
+				case '0':return '零点班';
+				case '4':return '四点班';
+				case '8':return '八点班';
+				default :return '未知班次';
+			}
+		},
+		name : 'classType'
 	}, {
 		header : '故障说明',
 		name : 'problem'
@@ -135,9 +148,6 @@ define(function(require, exports, module) {
 			return false;
 		}
 
-		var car = {id:$('#create-car').attr('data-id')};
-		delete object.car;
-		object.car=car;
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

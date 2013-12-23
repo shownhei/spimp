@@ -65,7 +65,7 @@
 				<div class="span12">
 					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="reportDate">上报日期</label>
+							<label class="control-label" for="reportDate">时间</label>
 							<div class="controls">
 								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_reportDate" name="reportDate">
 							</div>
@@ -73,7 +73,17 @@
 						<div class="control-group">
 							<label class="control-label" for="car">故障车辆</label>
 							<div class="controls">
-								<input id="create-car" name="car" type="text">
+								<select id="create_car" name="car[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="classType">班次 </label>
+							<div class="controls">
+								<select id="create_classType" name="classType">
+									<option value=0>零点班</option>
+									<option value=4>四点班</option>
+									<option value=8>八点班</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -122,7 +132,7 @@
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="reportDate">上报日期</label>
+							<label class="control-label" for="reportDate">时间</label>
 							<div class="controls">
 								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_reportDate" name="reportDate">
 							</div>
@@ -130,7 +140,17 @@
 						<div class="control-group">
 							<label class="control-label" for="car">故障车辆</label>
 							<div class="controls">
-								<input id="edit_car" name="car" type="text">
+								<select id="edit_car" name="car[id]"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="classType">班次 </label>
+							<div class="controls">
+								<select id="edit_classType" name="classType">
+									<option value=0>零点班</option>
+									<option value=4>四点班</option>
+									<option value=8>八点班</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -179,7 +199,7 @@
 				<div class="span12">
 					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="reportDate">上报日期</label>
+							<label class="control-label" for="reportDate">时间</label>
 							<div class="controls">
 								<input id="detail_reportDate" name="reportDate" type="text" readonly="readonly">
 							</div>
@@ -188,6 +208,16 @@
 							<label class="control-label" for="car">故障车辆</label>
 							<div class="controls">
 								<input id="detail_car" name="car" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="classType">班次 </label>
+							<div class="controls">
+								<select id="detail_classType" name="classType" >
+									<option value=0>零点班</option>
+									<option value=4>四点班</option>
+									<option value=8>八点班</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
