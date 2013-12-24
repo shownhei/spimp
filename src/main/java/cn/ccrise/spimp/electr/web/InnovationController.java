@@ -58,8 +58,8 @@ public class InnovationController {
 
 	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Innovation> page, String search) {
-		page = innovationService.pageQuery(page, search);
+	public Response page(Page<Innovation> page, String search, Date startDate, Date endDate) {
+		page = innovationService.pageQuery(page, search, startDate, endDate);
 		return new Response(page);
 	}
 
@@ -90,10 +90,11 @@ public class InnovationController {
 	}
 
 	@RequestMapping(value = "/electr/innovation/innovations/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpSession httpSession, HttpServletResponse response, String search) throws Exception {
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, String search, Date startDate,
+			Date endDate) throws Exception {
 		Page<Innovation> page = new Page<Innovation>();
 		page.setPageSize(100000);
-		page = innovationService.pageQuery(page, search);
+		page = innovationService.pageQuery(page, search, startDate, endDate);
 
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("lists", page.getResult());

@@ -21,6 +21,14 @@
 
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入项目名称...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -28,7 +36,7 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="material-table" ></div>
+				<div class="row-fluid" id="material-table"></div>
 			</div>
 		</div>
 	</div>
