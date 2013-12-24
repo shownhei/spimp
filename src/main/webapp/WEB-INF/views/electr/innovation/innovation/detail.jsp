@@ -46,6 +46,14 @@
 				<td >效果及经济社会效益分析</td>
 				<td colspan=3>${innovation.analysis}</td>
 			</tr>
+			<tr>
+				<td >相关图片</td>
+				<td colspan=3>
+				<c:forEach items="${pictures}" var="pic" varStatus="listIndex">
+				    <img src="${pic.imagePath }" style="width:400px;" >
+				</c:forEach>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>

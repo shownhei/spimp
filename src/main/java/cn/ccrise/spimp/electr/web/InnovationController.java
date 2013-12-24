@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Innovation;
 import cn.ccrise.spimp.electr.entity.MaterialsPlan;
+import cn.ccrise.spimp.electr.service.InnovationImageService;
 import cn.ccrise.spimp.electr.service.InnovationService;
 import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
@@ -43,6 +45,8 @@ public class InnovationController {
 
 	@Autowired
 	private InnovationService innovationService;
+	@Autowired
+	private InnovationImageService innovationImageService;
 
 	@RequestMapping(value = "/electr/innovation/innovations/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -68,6 +72,7 @@ public class InnovationController {
 	public ModelAndView detail(@PathVariable long id) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("innovation", innovationService.get(id));
+		root.put("pictures", innovationImageService.find(Restrictions.eq("innovationId", id)));
 		return new ModelAndView("electr/innovation/innovation/detail", root);
 	}
 

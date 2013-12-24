@@ -20,6 +20,9 @@
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i> 编辑
 					</button>
+					<button id="upload" class="btn btn-small btn-primary disabled">
+						<i class="icon-upload"></i> 图片
+					</button>
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
@@ -37,8 +40,8 @@
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="row-fluid" id="material-table" ></div>
-				<div class="row-fluid" id="detail-panel" style="display:none;"></div>
+				<div class="row-fluid" id="material-table"></div>
+				<div class="row-fluid" id="detail-panel" style="display: none;"></div>
 			</div>
 		</div>
 	</div>
@@ -86,8 +89,8 @@
 							<div class="control-group span6">
 								<label class="control-label " for="quantity">实施时间</label>
 								<div class="controls">
-									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_implementationPeriod" name="implementationPeriod" class="span2"
-										style="width: 122px;">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_implementationPeriod" name="implementationPeriod"
+										class="span2" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -106,13 +109,13 @@
 						<div class="control-group">
 							<label class="control-label" for="content">主要内容或原理</label>
 							<div class="controls">
-								<textarea id="create_content" name="content" class="xheditor {skin:'nostyle',tools:'simple'}" style="height:100px;"></textarea>
+								<textarea id="create_content" name="content" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="analysis">效果及经济社会效益分析</label>
 							<div class="controls">
-								<textarea id="create_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height:100px;"></textarea>
+								<textarea id="create_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 					</form>
@@ -136,7 +139,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal modal-sm hide">
+	<div id="edit-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -321,6 +324,46 @@
 		</div>
 		<div class="modal-footer">
 			<button id="remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 上传-->
+	<div id="upload-modal" class="modal modal-sm hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 上传图片
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="upload-form" class="form-horizontal" style="margin-bottom: 0px;"></form>
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" style="margin-bottom: 0px;" method="post" enctype="multipart/form-data"
+						target="acceptFrame">
+						<div class="control-group">
+							<label class="control-label span2" for="credential">处置方案</label>
+							<div class="controls">
+								<input name="file" id="file" type="file" class="span11">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="upload-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i> <span id="upload-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="upload-save" class="btn btn-small btn-success">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

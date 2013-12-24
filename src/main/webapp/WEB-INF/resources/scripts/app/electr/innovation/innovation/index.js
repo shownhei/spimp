@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/electr/innovation/innovations';
-
+	window.$ = $;
+	window.Utils=Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -73,9 +74,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			Utils.button.enable([ 'edit', 'upload', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove' ]);
+			Utils.button.disable([ 'edit', 'upload', 'remove' ]);
 		}
 	}
 
@@ -182,7 +183,43 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+	$('#file').bind('change', function() {
+		if ($('#file').val() !== '') {
+			$('#create-file-form').submit();
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
+		}
+	});
+	$('#create-file-delete').bind('click', function() {
+		var process = new Utils.modal.showProcess('process');
+		window.process = process;
+		$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
+			window.process.stop();
+			window.process = null;
+			$('#attachment').parent().parent().hide();
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		});
+	});
+	// 图片上传
+	$('#upload').click(function() {
+		Utils.modal.reset('upload');
+		Utils.modal.show('upload');
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
+	});
 
+	// 上传保存
+	$('#upload-save').click(function() {
+		var object = Utils.form.serialize('upload');
+		$.post('/electr/innovation/innovation-images', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('upload');
+			} else {
+				Utils.modal.message('upload', data.errors);
+			}
+		});
+	});
 	// 编辑
 	$('#edit').click(function() {
 		if (Utils.button.isDisable('edit')) {
@@ -260,4 +297,18 @@ define(function(require, exports, module) {
 		grid.set('url', defaultUrl);
 		grid.refresh();
 	});
+	function callBack(data) {
+		window.process.stop();
+		window.process = null;
+		if (!data.success) {
+			alert("上传失败..." + data.data);
+			return false;
+		} else {
+			var selectId = grid.selectedData('id');
+			$.post('/electr/innovation/innovation-images', JSON.stringify({'innovationId':selectId,'imagePath':data.data}), function(data) {
+				Utils.modal.hide('upload');
+			});
+		}
+	}
+	window.callBack=callBack;
 });
