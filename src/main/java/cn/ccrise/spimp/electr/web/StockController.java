@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,15 +24,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Stock;
 import cn.ccrise.spimp.electr.service.StockService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
  * Stock Controller。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Controller
 public class StockController {
@@ -43,14 +45,14 @@ public class StockController {
 	@RequestMapping(value = "/electr/material/stocks/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
-		return new Response(stockService.delete(id));
+		return new Response(stockService.deleteStock(id));
 	}
 
 	@RequestMapping(value = "/electr/material/stocks/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+	public void exportExcel(HttpServletResponse response, String search, HttpSession httpSession) throws Exception {
 		Page<Stock> page = new Page<Stock>();
 		page.setPageSize(100000);
-		page = stockService.pageQuery(page, search);
+		page = stockService.pageQuery(page, search, httpSession);
 
 		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "备注", "更新时间" };
 
@@ -75,26 +77,35 @@ public class StockController {
 
 	@RequestMapping(value = "/electr/material/stocks", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Stock> page, String search) {
-		page = stockService.pageQuery(page, search);
+	public Response page(Page<Stock> page, String search, HttpSession httpSession) {
+		page = stockService.pageQuery(page, search, httpSession);
 		return new Response(page);
 	}
 
 	@RequestMapping(value = "/electr/material/stocks/listname", method = RequestMethod.GET)
 	@ResponseBody
-	public Response pageListName(Page<Stock> page, String q) {
-		return new Response(stockService.getPage(page, Restrictions.ilike("materialName", q, MatchMode.ANYWHERE)));
+	public Response pageListName(Page<Stock> page, String q, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		return new Response(stockService.getPage(page, Restrictions.ilike("materialName", q, MatchMode.ANYWHERE),
+				Restrictions.eq("recordGroup", loginAccount.getGroupEntity())));
 	}
 
 	@RequestMapping(value = "/electr/material/stocks", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody Stock stock) {
+	public Response save(@Valid @RequestBody Stock stock, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		stock.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(stockService.save(stock));
 	}
 
 	@RequestMapping(value = "/electr/material/stocks/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Stock stock, @PathVariable long id) {
+	public Response update(@Valid @RequestBody Stock stock, @PathVariable long id, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		stock.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(stockService.update(stock));
 	}
 }

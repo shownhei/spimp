@@ -7,12 +7,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 import cn.ccrise.spimp.util.PageFields;
@@ -83,6 +85,23 @@ public class Blotters extends IDEntity {
 	private Integer status;
 
 	private Long originalId;
+	/**
+	 * 记录组织
+	 */
+	private GroupEntity recordGroup;
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
+	}
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
+	}
+
+	/**
+	 * 记录组织
+	 */
 
 	public Integer getAmount() {
 		return amount;

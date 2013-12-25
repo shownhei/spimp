@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -20,10 +22,12 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.electr.access.BlottersDAO;
 import cn.ccrise.spimp.electr.entity.Blotters;
 import cn.ccrise.spimp.electr.entity.Stock;
 import cn.ccrise.spimp.electr.entity.StockDetail;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * 
@@ -45,12 +49,12 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 	/**
 	 * 入库、出库、库存明细
 	 */
-	public void stockChangeDetail(HashMap<String, Object> root, Integer year, Integer month) {
+	public void stockChangeDetail(HashMap<String, Object> root, Integer year, Integer month, HttpSession httpSession) {
 		// 入库的
 		HashMap<Long, StockDetail> detailMap = new HashMap<Long, StockDetail>();
 		ArrayList<StockDetail> tempList = null;
 		ArrayList<StockDetail> resultList = new ArrayList<StockDetail>();
-		tempList = putInQueryByYearMonth(root, year, month);
+		tempList = putInQueryByYearMonth(root, year, month, httpSession);
 		StockDetail currentDetail = null;
 		StockDetail temp = null;
 		Iterator<StockDetail> putInIt = tempList.iterator();
@@ -60,7 +64,7 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 			resultList.add(currentDetail);
 		}
 		// 出库
-		tempList = sendOutQueryByYearMonth(root, year, month);
+		tempList = sendOutQueryByYearMonth(root, year, month, httpSession);
 		Iterator<StockDetail> sendOutIt = tempList.iterator();
 		while (sendOutIt.hasNext()) {
 			currentDetail = sendOutIt.next();
@@ -75,7 +79,7 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 				resultList.add(currentDetail);
 			}
 		}
-		tempList = noChangeQueryByYearMonth(root, year, month);
+		tempList = noChangeQueryByYearMonth(root, year, month, httpSession);
 		Iterator<StockDetail> otherIt = tempList.iterator();
 		while (otherIt.hasNext()) {
 			currentDetail = otherIt.next();
@@ -89,15 +93,20 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 	 * 
 	 * @param root
 	 */
-	private ArrayList<StockDetail> putInQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month) {
+	private ArrayList<StockDetail> putInQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month,
+			HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		StringBuilder buff = new StringBuilder();
 		buff.append(" select a.originalId, a.materialName,  a.amount,   a.measureUnit,");
 		buff.append(" b.materialId,b.materialName3, b.quantity3,b.measureUnit3 ");
 		buff.append(" from Blotters a ,StockDetail b  ");
 		buff.append(" where a.originalId=b.materialId and a.opertionType=1 and year(a.recordTime)=:year and month(a.recordTime)=:month ");
+		buff.append(" and a.recordGroup=:recordGroup ");
 		Query query = getDAO().getSession().createQuery(buff.toString());
 		query.setInteger("year", year);
 		query.setInteger("month", month);
+		query.setEntity("recordGroup", loginAccount.getGroupEntity());
 		Iterator<?> detailList = query.list().iterator();
 		ArrayList<StockDetail> result = new ArrayList<StockDetail>();
 		Object raw[] = null;
@@ -125,16 +134,21 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 	 * 
 	 * @param root
 	 */
-	private ArrayList<StockDetail> sendOutQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month) {
+	private ArrayList<StockDetail> sendOutQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month,
+			HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		StringBuilder buff = new StringBuilder();
 		buff.append(" select a.originalId, a.materialName,  a.amount,   a.measureUnit,");
 		buff.append(" b.materialId,b.materialName3, b.quantity3,b.measureUnit3 ");
 		buff.append(" from Blotters a ,StockDetail b  ");
 		buff.append(" where a.originalId=b.materialId and a.opertionType=:opertionType and year(a.recordTime)=:year and month(a.recordTime)=:month  ");
+		buff.append(" and a.recordGroup=:recordGroup ");
 		Query query = getDAO().getSession().createQuery(buff.toString());
 		query.setInteger("opertionType", Blotters.OPERTION_TYPE_SENDOUT);
 		query.setInteger("year", year);
 		query.setInteger("month", month);
+		query.setEntity("recordGroup", loginAccount.getGroupEntity());
 		Iterator<?> detailList = query.list().iterator();
 		ArrayList<StockDetail> result = new ArrayList<StockDetail>();
 		Object raw[] = null;
@@ -162,15 +176,20 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 	 * 
 	 * @param root
 	 */
-	private ArrayList<StockDetail> noChangeQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month) {
+	private ArrayList<StockDetail> noChangeQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month,
+			HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		StringBuilder buff = new StringBuilder();
 		buff.append(" select ");
 		buff.append(" b.materialId,b.materialName3, b.quantity3,b.measureUnit3 ");
 		buff.append(" from StockDetail b  ");
 		buff.append(" where not exists (select a.originalId from Blotters a where a.originalId=b.materialId and year(a.recordTime)=:year and month(a.recordTime)=:month  )  ");
+		buff.append(" and b.recordGroup=:recordGroup ");
 		Query query = getDAO().getSession().createQuery(buff.toString());
 		query.setInteger("year", year);
 		query.setInteger("month", month);
+		query.setEntity("recordGroup", loginAccount.getGroupEntity());
 		Iterator<?> detailList = query.list().iterator();
 		ArrayList<StockDetail> result = new ArrayList<StockDetail>();
 		Object raw[] = null;
@@ -189,7 +208,9 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 		return result;
 	}
 
-	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType) {
+	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
@@ -197,10 +218,11 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
 		}
 		criterions.add(Restrictions.eq("opertionType", operationType));
+		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 
-	public boolean putIn(Blotters instance) {
+	public boolean putIn(Blotters instance, HttpSession httpSession) {
 		if (instance.getOriginalId() == null) {// 证明没有对应的产品记录
 			Stock stock = new Stock();
 			stock.setAmount(instance.getAmount());
@@ -210,6 +232,7 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 			stock.setPrice(instance.getPrice());
 			stock.setRemark(instance.getRemark());
 			stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+			stock.setRecordGroup(instance.getRecordGroup());
 			stockService.save(stock);
 			instance.setOriginalId(stock.getId());
 			stockDetailService.putIn(instance);
@@ -220,7 +243,7 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 		return save(instance);
 	}
 
-	public boolean sendOut(Blotters instance) {
+	public boolean sendOut(Blotters instance, HttpSession httpSession) {
 		boolean result = false;
 		if (instance.getOpertionType().intValue() == Blotters.OPERTION_TYPE_SENDOUT) {
 			result = stockService.sendOut(instance.getOriginalId(), instance.getAmount());

@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Blotters;
 import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.service.BlottersService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -52,7 +54,7 @@ public class BlottersController {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("year", year);
 		root.put("month", month);
-		blottersService.stockChangeDetail(root, year, month);
+		blottersService.stockChangeDetail(root, year, month, httpSession);
 		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response, "electr/blotters.xls", root,
 				"进货使用剩余量明细表", new String[] { "进货使用剩余量明细表" });
 	}
@@ -80,19 +82,22 @@ public class BlottersController {
 
 	@RequestMapping(value = "/electr/material/putin", method = RequestMethod.GET)
 	@ResponseBody
-	public Response putinPage(Page<Blotters> page, String search) {
-		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_PUTIN);
+	public Response putinPage(Page<Blotters> page, String search, HttpSession httpSession) {
+		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_PUTIN, httpSession);
 		return new Response(page);
 	}
 
 	@RequestMapping(value = "/electr/material/blotters", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody Blotters blotters) {
+	public Response save(@Valid @RequestBody Blotters blotters, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		blotters.setRecordGroup(loginAccount.getGroupEntity());
 		blotters.setRecordTime(new Timestamp(System.currentTimeMillis()));
 		if (blotters.getOpertionType() == Blotters.OPERTION_TYPE_PUTIN) {
-			return new Response(blottersService.putIn(blotters));
+			return new Response(blottersService.putIn(blotters, httpSession));
 		} else {
-			return new Response(blottersService.sendOut(blotters));
+			return new Response(blottersService.sendOut(blotters, httpSession));
 		}
 	}
 
@@ -108,8 +113,8 @@ public class BlottersController {
 
 	@RequestMapping(value = "/electr/material/sendout", method = RequestMethod.GET)
 	@ResponseBody
-	public Response sendoutPage(Page<Blotters> page, String search) {
-		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_SENDOUT);
+	public Response sendoutPage(Page<Blotters> page, String search, HttpSession httpSession) {
+		page = blottersService.pageQuery(page, search, Blotters.OPERTION_TYPE_SENDOUT, httpSession);
 		return new Response(page);
 	}
 
@@ -119,25 +124,25 @@ public class BlottersController {
 	 * @return
 	 */
 	@RequestMapping(value = "/electr/material/statistics", method = RequestMethod.GET)
-	public ModelAndView statistics() {
+	public ModelAndView statistics(HttpSession httpSession) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("result", blottersService.staticsCurrentYearMonth());
 		return new ModelAndView("electr/material/statistics/index", root);
 	}
 
 	@RequestMapping(value = "/electr/material/statistics_query", method = RequestMethod.GET)
-	public ModelAndView statisticsQuery(Integer year, Integer month) {
+	public ModelAndView statisticsQuery(Integer year, Integer month, HttpSession httpSession) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("year", year);
 		root.put("month", month);
-		blottersService.stockChangeDetail(root, year, month);
+		blottersService.stockChangeDetail(root, year, month, httpSession);
 		// 出库的
 		return new ModelAndView("electr/material/statistics/result", root);
 	}
 
 	@RequestMapping(value = "/electr/material/blotters/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Blotters blotters, @PathVariable long id) {
+	public Response update(@Valid @RequestBody Blotters blotters, @PathVariable long id, HttpSession httpSession) {
 		return new Response(blottersService.update(blotters));
 	}
 }

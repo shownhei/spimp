@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -21,15 +22,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.StockDetail;
 import cn.ccrise.spimp.electr.service.StockDetailService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
- * StockDetail Controller。
+ * 库存明细
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Controller
 public class StockDetailController {
@@ -45,10 +47,10 @@ public class StockDetailController {
 	}
 
 	@RequestMapping(value = "/electr/stock-details/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
+	public void exportExcel(HttpServletResponse response, String search, HttpSession httpSession) throws Exception {
 		Page<StockDetail> page = new Page<StockDetail>();
 		page.setPageSize(100000);
-		page = stockDetailService.pageQuery(page, search);
+		page = stockDetailService.pageQuery(page, search, httpSession);
 
 		String[] headers = { "材料名称", "度量单位", "数量" };
 
@@ -78,20 +80,26 @@ public class StockDetailController {
 
 	@RequestMapping(value = "/electr/stock-details", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<StockDetail> page, String search) {
-		page = stockDetailService.pageQuery(page, search);
+	public Response page(Page<StockDetail> page, String search, HttpSession httpSession) {
+		page = stockDetailService.pageQuery(page, search, httpSession);
 		return new Response(page);
 	}
 
 	@RequestMapping(value = "/electr/stock-details", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody StockDetail stockDetail) {
+	public Response save(@Valid @RequestBody StockDetail stockDetail, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		stockDetail.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(stockDetailService.save(stockDetail));
 	}
 
 	@RequestMapping(value = "/electr/stock-details/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody StockDetail stockDetail, @PathVariable long id) {
+	public Response update(@Valid @RequestBody StockDetail stockDetail, @PathVariable long id, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		stockDetail.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(stockDetailService.update(stockDetail));
 	}
 }
