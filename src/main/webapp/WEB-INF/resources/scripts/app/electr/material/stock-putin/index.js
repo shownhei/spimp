@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 	$('#edit_recordTime').datetimepicker({
 		format : 'yyyy-mm-dd hh:ii:ss'
 	});
-	$("#create_materialName").autocomplete('/electr/material/stocks', {
+	$("#create_materialName").autocomplete('/electr/material/stocks/listname', {
 		dataType : "json",
 		mustMatch : false,
 		cacheLength : 0,
