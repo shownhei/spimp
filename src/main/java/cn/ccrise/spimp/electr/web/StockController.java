@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,12 @@ public class StockController {
 	public Response page(Page<Stock> page, String search) {
 		page = stockService.pageQuery(page, search);
 		return new Response(page);
+	}
+
+	@RequestMapping(value = "/electr/material/stocks/listname", method = RequestMethod.GET)
+	@ResponseBody
+	public Response pageListName(Page<Stock> page, String q) {
+		return new Response(stockService.getPage(page, Restrictions.ilike("materialName", q, MatchMode.ANYWHERE)));
 	}
 
 	@RequestMapping(value = "/electr/material/stocks", method = RequestMethod.POST)

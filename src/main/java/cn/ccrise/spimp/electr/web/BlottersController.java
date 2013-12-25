@@ -3,15 +3,13 @@
  */
 package cn.ccrise.spimp.electr.web;
 
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Blotters;
+import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.service.BlottersService;
 import cn.ccrise.spimp.util.ExcelHelper;
 
@@ -48,24 +47,14 @@ public class BlottersController {
 	}
 
 	@RequestMapping(value = "/electr/material/blotters/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search) throws Exception {
-		Page<Blotters> page = new Page<Blotters>();
-		page.setPageSize(100000);
-		page = blottersService.pageQuery(page, search, 1);
-
-		String[] headers = { "材料名称", "规格型号/设备号", "度量单位", "数量", "单价（元）", "操作类型", "经办人", "备注", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<Blotters>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, Integer year, Integer month)
+			throws Exception {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("year", year);
+		root.put("month", month);
+		blottersService.stockChangeDetail(root, year, month);
+		new ExcelHelper<MaterialsPlan>().genExcelWithTel(httpSession, response, "electr/blotters.xls", root,
+				"进货使用剩余量明细表", new String[] { "进货使用剩余量明细表" });
 	}
 
 	@RequestMapping(value = "/electr/material/blotters/{id}", method = RequestMethod.GET)
@@ -137,9 +126,12 @@ public class BlottersController {
 	}
 
 	@RequestMapping(value = "/electr/material/statistics_query", method = RequestMethod.GET)
-	public ModelAndView statisticsQuery() {
+	public ModelAndView statisticsQuery(Integer year, Integer month) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("result", blottersService.staticsCurrentYearMonth());
+		root.put("year", year);
+		root.put("month", month);
+		blottersService.stockChangeDetail(root, year, month);
+		// 出库的
 		return new ModelAndView("electr/material/statistics/result", root);
 	}
 
