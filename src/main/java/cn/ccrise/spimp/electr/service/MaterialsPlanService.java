@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -18,14 +20,15 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.electr.access.MaterialsPlanDAO;
 import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.entity.MaterialsPlanDetail;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * MaterialsPlan Service。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Service
 public class MaterialsPlanService extends HibernateDataServiceImpl<MaterialsPlan, Long> {
@@ -51,7 +54,8 @@ public class MaterialsPlanService extends HibernateDataServiceImpl<MaterialsPlan
 		return materialsPlanDAO;
 	}
 
-	public Page<MaterialsPlan> pageQuery(Page<MaterialsPlan> page, Date startDate, Date endDate, String search) {
+	public Page<MaterialsPlan> pageQuery(Page<MaterialsPlan> page, Date startDate, Date endDate, String search,
+			HttpSession httpSession) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
@@ -64,7 +68,9 @@ public class MaterialsPlanService extends HibernateDataServiceImpl<MaterialsPlan
 		if (endDate != null) {
 			criterions.add(Restrictions.le("planDate", endDate));
 		}
-
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

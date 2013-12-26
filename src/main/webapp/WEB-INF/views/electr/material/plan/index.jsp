@@ -71,12 +71,6 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="planGroup">单位</label>
-							<div class="controls">
-								<select id="planGroup" name="planGroup[id]" type="text"></select>
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label" for="planTitle">计划名称</label>
 							<div class="controls">
 								<input id="create_planTitle" name="planTitle" type="text" value="胶轮车材料申请计划">
