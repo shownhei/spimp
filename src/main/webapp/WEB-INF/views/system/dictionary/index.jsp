@@ -51,7 +51,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
-						<input id="typeCode" name="typeCode" type="hidden">
+						<input  name="typeCode" type="hidden">
 						<div class="control-group">
 							<label class="control-label" for="typeCode">字典分类</label>
 							<div class="controls">
