@@ -33,7 +33,6 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('export_result')) {
 			return;
 		}
-		
 		window.location.href = '/electr/car/annual-oil/export?' + Utils.form.buildParams('query-form');
 	});
 	// 搜索 
