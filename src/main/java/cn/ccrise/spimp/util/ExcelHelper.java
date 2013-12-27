@@ -237,4 +237,46 @@ public class ExcelHelper<T> {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 根据模板生成excel
+	 * 
+	 * @param response
+	 * @param templatePath
+	 * @param root
+	 */
+	public void genExcelWithTel(HttpSession httpSession, HttpServletResponse response, String templatePath,
+			HashMap<String, Object> root, String downloadFileName, String sheetNames[], ExcelCallBackInteface callback) {
+		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
+		XLSTransformer transformer = new XLSTransformer();
+		InputStream ins = null;
+		OutputStream os = null;
+		try {
+			ins = new FileInputStream(new File(templateFoldPath + "/WEB-INF/resources/template/" + templatePath));
+			Workbook book = transformer.transformXLS(ins, root);
+			response.setContentType("application/force-download");
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-Disposition",
+					"attachment;filename=" + URLEncoder.encode(downloadFileName, "UTF-8") + ".xls");
+			os = response.getOutputStream();
+			if (sheetNames != null && sheetNames.length > 0) {
+
+				int len = sheetNames.length;
+				for (int i = 0; i < len; i++) {
+					book.setSheetName(i, sheetNames[i]);
+				}
+			}
+			if (callback != null) {
+				callback.process(book, root);
+			}
+			book.write(os);
+			os.flush();
+			os.close();
+			ins.close();
+		} catch (ParsePropertyException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

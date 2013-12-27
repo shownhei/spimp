@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,8 @@ import cn.ccrise.spimp.electr.entity.AnnualOil;
 import cn.ccrise.spimp.electr.service.OilStaticsService;
 import cn.ccrise.spimp.electr.service.RunLogService;
 import cn.ccrise.spimp.util.DateUtil;
+import cn.ccrise.spimp.util.ExcelCallBackInteface;
+import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
  * 油耗计算 年度 月度
@@ -35,6 +43,67 @@ public class OilStaticsController {
 	@RequestMapping(value = "/electr/car/annual-oil/result", method = RequestMethod.GET)
 	public ModelAndView getAnnualOil(Integer year) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
+		doQueryAnnualOil(year, root);
+		return new ModelAndView("electr/car/annual-oil/result", root);
+	}
+
+	@RequestMapping(value = "/electr/car/annual-oil/export", method = RequestMethod.GET)
+	public void getAnnualOilExport(HttpSession httpSession, HttpServletResponse response, Integer year) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		doQueryAnnualOil(year, root);
+		final Collection<ArrayList<AnnualOil>> groups = (Collection<ArrayList<AnnualOil>>) root.get("category");
+		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
+		ArrayList<AnnualOil> recordList = null;
+		ArrayList<AnnualOil> result = new ArrayList<AnnualOil>();
+		while (groupIt.hasNext()) {
+			recordList = groupIt.next();
+			Iterator<AnnualOil> recordIt = recordList.iterator();
+			while (recordIt.hasNext()) {
+				result.add(recordIt.next());
+			}
+		}
+		root.put("result", result);
+		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response, "electr/car/annual-oil.xls", root, year
+				+ "年无轨胶轮车百公里油耗计算表", new String[] { year + "年无轨胶轮车百公里油耗计算表" }, new ExcelCallBackInteface() {
+
+			@Override
+			public void process(Workbook book, HashMap<String, Object> root) {
+				Sheet sheet = book.getSheetAt(0);
+				final Collection<ArrayList<AnnualOil>> groups = (Collection<ArrayList<AnnualOil>>) root.get("category");
+				ArrayList<AnnualOil> recordList = null;
+				Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
+				int start_row = 2;
+				int start_col_1 = 4;
+				int start_col_2 = 6;
+				while (groupIt.hasNext()) {
+					recordList = groupIt.next();
+					Iterator<AnnualOil> recordIt = recordList.iterator();
+					/**
+					 * 合并日平均运行 次数（次）
+					 */
+					CellRangeAddress temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1,
+							start_col_1, start_col_1);
+					sheet.addMergedRegion(temp);
+
+					/**
+					 * 平均油耗（升）
+					 */
+					temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1, start_col_2, start_col_2);
+					sheet.addMergedRegion(temp);
+					start_row += recordList.size();
+				}
+			}
+
+		});
+	}
+
+	/**
+	 * 年度油耗查询统计
+	 * 
+	 * @param year
+	 * @param root
+	 */
+	private void doQueryAnnualOil(Integer year, HashMap<String, Object> root) {
 		root.put("year", year);
 		List<Object> list = oilStaticsService.queryByYear(year);
 		Iterator<Object> it = list.iterator();
@@ -65,7 +134,6 @@ public class OilStaticsController {
 			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
 		}
 		root.put("category", groups);
-		return new ModelAndView("electr/car/annual-oil/result", root);
 	}
 
 	/**
