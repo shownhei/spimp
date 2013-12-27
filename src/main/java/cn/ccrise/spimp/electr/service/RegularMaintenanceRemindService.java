@@ -63,7 +63,10 @@ public class RegularMaintenanceRemindService extends HibernateDataServiceImpl<Re
 		}
 		if (remindIdArray.size() > 0) {
 			criterions.add(Restrictions.in("id", remindIdArray.toArray(new Long[0])));
+			return getPage(page, criterions.toArray(new Criterion[0]));
 		}
-		return getPage(page, criterions.toArray(new Criterion[0]));
+		Page<RegularMaintenanceRemind> pageReturn = new Page<RegularMaintenanceRemind>();
+		pageReturn.setPageSize(page.getPageSize());
+		return pageReturn;
 	}
 }
