@@ -26,9 +26,6 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
-					<button id="export" class="btn btn-small btn-pink disabled">
-						<i class="icon-download-alt"></i> 导出
-					</button>
 				</div>
 
 				<div class="nav-search">

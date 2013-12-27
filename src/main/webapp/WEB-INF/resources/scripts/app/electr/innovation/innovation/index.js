@@ -276,15 +276,6 @@ define(function(require, exports, module) {
 		});
 	});
 
-	// 导出
-	$('#export').click(function() {
-		if (Utils.button.isDisable('export')) {
-			return;
-		}
-
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
-	});
-
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({
