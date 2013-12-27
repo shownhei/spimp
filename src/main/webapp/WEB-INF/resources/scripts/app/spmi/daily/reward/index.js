@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	// 获取机构
-	Utils.select.remote([ 'create-groupName' ], contextPath + '/system/groups', 'id', 'name');
+	Utils.select.remote([ 'create-groupName','edit-groupName'], contextPath + '/system/groups', 'id', 'name');
 
 	// 配置表格列
 	var fields = [ {
@@ -85,7 +85,18 @@ define(function(require, exports, module) {
 		var object = Utils.form.serialize('create');
 
 		// 验证
-
+		if(object.name===null||object.name===''){
+			Utils.modal.message('create', [ '奖惩人姓名不能为空' ]);
+			return;
+		}
+		if(object.category===''){
+			Utils.modal.message('create', [ '奖惩分类不能为空' ]);
+			return;
+		}
+		if(object.content===''){
+			Utils.modal.message('create', [ '奖惩内容不能为空' ]);
+			return;
+		}
 		// 处理属性
 
 		$.post(contextPath + '/spmi/daily/rewards', JSON.stringify(object), function(data) {
@@ -103,13 +114,12 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('edit')) {
 			return;
 		}
-
 		Utils.modal.reset('edit');
 
 		var selectId = grid.selectedData('id');
 		$.get(contextPath + '/spmi/daily/rewards/' + selectId, function(data) {
 			var object = data.data;
-
+			$("#edit-reason").val(object.reason);
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
@@ -118,11 +128,23 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-
+		// 验证
+		if(object.name===null||object.name===''){
+			Utils.modal.message('edit', [ '奖惩人姓名不能为空' ]);
+			return;
+		}
+		if(object.category===''){
+			Utils.modal.message('edit', [ '奖惩分类不能为空' ]);
+			return;
+		}
+		if(object.content===''){
+			Utils.modal.message('edit', [ '奖惩内容不能为空' ]);
+			return;
+		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
-
+		
 		$.put(contextPath + '/spmi/daily/rewards/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -146,6 +168,7 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del(contextPath + '/spmi/daily/rewards/' + selectId, function(data) {
+			grid.set('url', defaultUrl);
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
