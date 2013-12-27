@@ -60,6 +60,7 @@ public class OilStaticsController {
 		Collection<ArrayList<AnnualOil>> groups = map.values();
 		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
 		DecimalFormat df = new DecimalFormat(".##");
+		df.applyPattern("0.00");
 		while (groupIt.hasNext()) {
 			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
 		}
