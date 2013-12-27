@@ -5,6 +5,8 @@ package cn.ccrise.spimp.spmi.daily.web;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,14 @@ public class RewardController {
 
 	@RequestMapping(value = "/spmi/daily/rewards", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Reward> page) {
-		return new Response(rewardService.getPage(page));
+	public Response page(Page<Reward> page, String search) {
+		if (search != null) {
+			page = rewardService.getPage(page, Restrictions.ilike("name", search, MatchMode.ANYWHERE));
+			return new Response(page);
+		} else {
+
+			return new Response(rewardService.getPage(page));
+		}
 	}
 
 	@RequestMapping(value = "/spmi/daily/rewards", method = RequestMethod.POST)

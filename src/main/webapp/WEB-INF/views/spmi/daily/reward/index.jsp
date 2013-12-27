@@ -84,7 +84,7 @@
 						<div class="control-group">
 							<label class="control-label">理由</label>
 							<div class="controls">
-								<textarea name="reason" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+								<textarea id="create-reason" name="reason" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -113,6 +113,116 @@
 		</div>
 		<div class="modal-footer">
 			<button id="create-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 编辑 -->
+	<div id="edit-modal" class="modal modal-lg hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
+						<div class="control-group">
+							<label class="control-label">奖惩人姓名</label>
+							<div class="controls">
+								<input name="name" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">奖惩人所属部门</label>
+							<div class="controls">
+								<select id="edit-groupName" name="groupName"></select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">分类</label>
+							<div class="controls">
+								<select name="category">
+									<option value="奖励">奖励</option>
+									<option value="惩罚">惩罚</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">奖惩内容</label>
+							<div class="controls">
+								<input name="content" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">理由</label>
+							<div class="controls">
+								<textarea id="edit-reason" name="reason" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">授奖人</label>
+							<div class="controls">
+								<input name="executor" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">奖惩日期</label>
+							<div class="controls">
+								<input name="rewardDate" type="datetime">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="edit-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="edit-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+		<!-- 删除 -->
+	<div id="remove-modal" class="modal modal-xs hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：删除选中的数据？
+				</div>
+				<div id="remove-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="remove-save" class="btn btn-small btn-danger">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">
