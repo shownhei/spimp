@@ -158,7 +158,7 @@ define(function(require, exports, module) {
 			var html = '';
 			if (blank) {
 				if (blankText !== undefined) {
-					html += '<option value="">' + blankText + '</option>';
+					html += '<option value="" class="light-grey">' + blankText + '</option>';
 				} else {
 					html += '<option value=""></option>';
 				}
@@ -183,16 +183,16 @@ define(function(require, exports, module) {
 				}
 			}
 			$.each(data.data, function(entryIndex, entry) {
-				var showText='';
-				var itemName='';
-				for(var i=0;i<display.length;i++){
-					console.log(display[i],entry[display[i]]);
-					if(entry[display[i]] && typeof entry[display[i]]==='object'){
-						showText+=utils.html.encode(entry[display[i]].itemName);
-					}else{
-						showText+=utils.html.encode(entry[display[i]]);
+				var showText = '';
+				var itemName = '';
+				for (var i = 0; i < display.length; i++) {
+					console.log(display[i], entry[display[i]]);
+					if (entry[display[i]] && typeof entry[display[i]] === 'object') {
+						showText += utils.html.encode(entry[display[i]].itemName);
+					} else {
+						showText += utils.html.encode(entry[display[i]]);
 					}
-					showText+="&nbsp;";
+					showText += "&nbsp;";
 				}
 				html += '<option value="' + entry[value] + '">' + showText + '</option>';
 			});
