@@ -35,6 +35,16 @@ public class IndexElectrController {
 	}
 
 	/**
+	 * 定期检修提醒
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/alert", method = RequestMethod.GET)
+	public String alert() {
+		return "electr/equipment/alert/index";
+	}
+
+	/**
 	 * 年度油耗统计
 	 * 
 	 * @return
@@ -131,6 +141,36 @@ public class IndexElectrController {
 	}
 
 	/**
+	 * 设备管理-检修计划
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/plan", method = RequestMethod.GET)
+	public String indexEquipmentPlan() {
+		return "electr/equipment/plan/index";
+	}
+
+	/**
+	 * 小改小革
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/innovation/innovation", method = RequestMethod.GET)
+	public String innovation() {
+		return "electr/innovation/innovation/index";
+	}
+
+	/**
+	 * 革新统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/innovation/statistics", method = RequestMethod.GET)
+	public String innovationStatistics() {
+		return "electr/innovation/statistics/index";
+	}
+
+	/**
 	 * 月度油耗统计
 	 * 
 	 * @return
@@ -138,6 +178,36 @@ public class IndexElectrController {
 	@RequestMapping(value = "/electr/car/monthly-oil", method = RequestMethod.GET)
 	public String monthlyOil() {
 		return "electr/car/monthly-oil/index";
+	}
+
+	/**
+	 * 机电设备管理-定期检修记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/overhaul", method = RequestMethod.GET)
+	public String overhaul() {
+		return "electr/equipment/overhaul/index";
+	}
+
+	/**
+	 * 定期保养周期设置
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/regular-config", method = RequestMethod.GET)
+	public String regularMaintenanceConfig() {
+		return "electr/maintenance/regular-config/index";
+	}
+
+	/**
+	 * 定期保养到期提醒
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/maintenance/regular-remind", method = RequestMethod.GET)
+	public String regularRemind() {
+		return "electr/maintenance/regular-remind/index";
 	}
 
 	/**
@@ -171,6 +241,16 @@ public class IndexElectrController {
 	}
 
 	/**
+	 * 定期检修设置
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/settings", method = RequestMethod.GET)
+	public String setting() {
+		return "electr/equipment/settings/index";
+	}
+
+	/**
 	 * 入库管理
 	 */
 	@RequestMapping(value = "/electr/material/stock-putin", method = RequestMethod.GET)
@@ -186,85 +266,5 @@ public class IndexElectrController {
 	@RequestMapping(value = "/electr/regulation/arrange", method = RequestMethod.GET)
 	public String workArrange() {
 		return "electr/regulation/arrange/index";
-	}
-
-	/**
-	 * 设备管理-检修计划
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/plan", method = RequestMethod.GET)
-	public String indexEquipmentPlan() {
-		return "electr/equipment/plan/index";
-	}
-
-	/**
-	 * 机电设备管理-定期检修记录
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/overhaul", method = RequestMethod.GET)
-	public String overhaul() {
-		return "electr/equipment/overhaul/index";
-	}
-
-	/**
-	 * 定期检修设置
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/settings", method = RequestMethod.GET)
-	public String setting() {
-		return "electr/equipment/settings/index";
-	}
-
-	/**
-	 * 定期检修提醒
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/alert", method = RequestMethod.GET)
-	public String alert() {
-		return "electr/equipment/alert/index";
-	}
-
-	/**
-	 * 定期保养周期设置
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/maintenance/regular-config", method = RequestMethod.GET)
-	public String regularMaintenanceConfig() {
-		return "electr/maintenance/regular-config/index";
-	}
-
-	/**
-	 * 定期保养到期提醒
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/maintenance/regular-remind", method = RequestMethod.GET)
-	public String regularRemind() {
-		return "electr/maintenance/regular-remind/index";
-	}
-
-	/**
-	 * 小改小革
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/innovation/innovation", method = RequestMethod.GET)
-	public String innovation() {
-		return "electr/innovation/innovation/index";
-	}
-
-	/**
-	 * 革新统计
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/innovation/statistics", method = RequestMethod.GET)
-	public String innovationStatistics() {
-		return "electr/innovation/statistics/index";
 	}
 }

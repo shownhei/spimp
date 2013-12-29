@@ -46,6 +46,62 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 		return blottersDAO;
 	}
 
+	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		List<Criterion> criterions = new ArrayList<Criterion>();
+
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
+		}
+		criterions.add(Restrictions.eq("opertionType", operationType));
+		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
+		return getPage(page, criterions.toArray(new Criterion[0]));
+	}
+
+	public boolean putIn(Blotters instance, HttpSession httpSession) {
+		if (instance.getOriginalId() == null) {// 证明没有对应的产品记录
+			Stock stock = new Stock();
+			stock.setAmount(instance.getAmount());
+			stock.setMaterialName(instance.getMaterialName());
+			stock.setMeasureUnit(instance.getMeasureUnit());
+			stock.setModel(instance.getModel());
+			stock.setPrice(instance.getPrice());
+			stock.setRemark(instance.getRemark());
+			stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+			stock.setRecordGroup(instance.getRecordGroup());
+			stockService.save(stock);
+			instance.setOriginalId(stock.getId());
+			stockDetailService.putIn(instance);
+		} else {
+			stockService.putIn(instance.getOriginalId(), instance.getAmount());
+			stockDetailService.putIn(instance);
+		}
+		return save(instance);
+	}
+
+	public boolean sendOut(Blotters instance, HttpSession httpSession) {
+		boolean result = false;
+		if (instance.getOpertionType().intValue() == Blotters.OPERTION_TYPE_SENDOUT) {
+			result = stockService.sendOut(instance.getOriginalId(), instance.getAmount());
+			if (result) {
+				stockDetailService.sendOut(instance);
+				save(instance);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 统计当前年月的情况
+	 * 
+	 * @return
+	 */
+	public List<StockDetail> staticsCurrentYearMonth() {
+		return stockDetailService.find();
+	}
+
 	/**
 	 * 入库、出库、库存明细
 	 */
@@ -86,6 +142,43 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 			resultList.add(currentDetail);
 		}
 		root.put("result", resultList);
+	}
+
+	/**
+	 * 未发生变化的情况
+	 * 
+	 * @param root
+	 */
+	private ArrayList<StockDetail> noChangeQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month,
+			HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		StringBuilder buff = new StringBuilder();
+		buff.append(" select ");
+		buff.append(" b.materialId,b.materialName3, b.quantity3,b.measureUnit3 ");
+		buff.append(" from StockDetail b  ");
+		buff.append(" where not exists (select a.originalId from Blotters a where a.originalId=b.materialId and year(a.recordTime)=:year and month(a.recordTime)=:month  )  ");
+		buff.append(" and b.recordGroup=:recordGroup ");
+		Query query = getDAO().getSession().createQuery(buff.toString());
+		query.setInteger("year", year);
+		query.setInteger("month", month);
+		query.setEntity("recordGroup", loginAccount.getGroupEntity());
+		Iterator<?> detailList = query.list().iterator();
+		ArrayList<StockDetail> result = new ArrayList<StockDetail>();
+		Object raw[] = null;
+		StockDetail tempDetail = null;
+		int i = 0;
+		while (detailList.hasNext()) {
+			i = 0;
+			raw = (Object[]) detailList.next();
+			tempDetail = new StockDetail();
+			tempDetail.setMaterialId((Long) raw[i++]);
+			tempDetail.setMaterialName3((String) raw[i++]);
+			tempDetail.setQuantity3((Integer) raw[i++]);
+			tempDetail.setMeasureUnit3((String) raw[i++]);
+			result.add(tempDetail);
+		}
+		return result;
 	}
 
 	/**
@@ -169,98 +262,5 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 			result.add(tempDetail);
 		}
 		return result;
-	}
-
-	/**
-	 * 未发生变化的情况
-	 * 
-	 * @param root
-	 */
-	private ArrayList<StockDetail> noChangeQueryByYearMonth(HashMap<String, Object> root, Integer year, Integer month,
-			HttpSession httpSession) {
-		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
-				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
-		StringBuilder buff = new StringBuilder();
-		buff.append(" select ");
-		buff.append(" b.materialId,b.materialName3, b.quantity3,b.measureUnit3 ");
-		buff.append(" from StockDetail b  ");
-		buff.append(" where not exists (select a.originalId from Blotters a where a.originalId=b.materialId and year(a.recordTime)=:year and month(a.recordTime)=:month  )  ");
-		buff.append(" and b.recordGroup=:recordGroup ");
-		Query query = getDAO().getSession().createQuery(buff.toString());
-		query.setInteger("year", year);
-		query.setInteger("month", month);
-		query.setEntity("recordGroup", loginAccount.getGroupEntity());
-		Iterator<?> detailList = query.list().iterator();
-		ArrayList<StockDetail> result = new ArrayList<StockDetail>();
-		Object raw[] = null;
-		StockDetail tempDetail = null;
-		int i = 0;
-		while (detailList.hasNext()) {
-			i = 0;
-			raw = (Object[]) detailList.next();
-			tempDetail = new StockDetail();
-			tempDetail.setMaterialId((Long) raw[i++]);
-			tempDetail.setMaterialName3((String) raw[i++]);
-			tempDetail.setQuantity3((Integer) raw[i++]);
-			tempDetail.setMeasureUnit3((String) raw[i++]);
-			result.add(tempDetail);
-		}
-		return result;
-	}
-
-	public Page<Blotters> pageQuery(Page<Blotters> page, String search, Integer operationType, HttpSession httpSession) {
-		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
-				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
-		List<Criterion> criterions = new ArrayList<Criterion>();
-
-		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
-					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
-		}
-		criterions.add(Restrictions.eq("opertionType", operationType));
-		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
-		return getPage(page, criterions.toArray(new Criterion[0]));
-	}
-
-	public boolean putIn(Blotters instance, HttpSession httpSession) {
-		if (instance.getOriginalId() == null) {// 证明没有对应的产品记录
-			Stock stock = new Stock();
-			stock.setAmount(instance.getAmount());
-			stock.setMaterialName(instance.getMaterialName());
-			stock.setMeasureUnit(instance.getMeasureUnit());
-			stock.setModel(instance.getModel());
-			stock.setPrice(instance.getPrice());
-			stock.setRemark(instance.getRemark());
-			stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-			stock.setRecordGroup(instance.getRecordGroup());
-			stockService.save(stock);
-			instance.setOriginalId(stock.getId());
-			stockDetailService.putIn(instance);
-		} else {
-			stockService.putIn(instance.getOriginalId(), instance.getAmount());
-			stockDetailService.putIn(instance);
-		}
-		return save(instance);
-	}
-
-	public boolean sendOut(Blotters instance, HttpSession httpSession) {
-		boolean result = false;
-		if (instance.getOpertionType().intValue() == Blotters.OPERTION_TYPE_SENDOUT) {
-			result = stockService.sendOut(instance.getOriginalId(), instance.getAmount());
-			if (result) {
-				stockDetailService.sendOut(instance);
-				save(instance);
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * 统计当前年月的情况
-	 * 
-	 * @return
-	 */
-	public List<StockDetail> staticsCurrentYearMonth() {
-		return stockDetailService.find();
 	}
 }

@@ -46,44 +46,44 @@ public class RegulationReward extends IDEntity {
 	@PageFields(describtion = "奖惩金额", allowedNull = true, search = false)
 	private Double awardedMoney;
 
-	public String getAwardedPeople() {
-		return awardedPeople;
-	}
-
-	public void setAwardedPeople(String awardedPeople) {
-		this.awardedPeople = awardedPeople;
-	}
-
 	public Date getAwardedDate() {
 		return awardedDate;
-	}
-
-	public void setAwardedDate(Date awardedDate) {
-		this.awardedDate = awardedDate;
-	}
-
-	public Integer getAwardType() {
-		return awardType;
-	}
-
-	public void setAwardType(Integer awardType) {
-		this.awardType = awardType;
-	}
-
-	public String getAwardedReason() {
-		return awardedReason;
-	}
-
-	public void setAwardedReason(String awardedReason) {
-		this.awardedReason = awardedReason;
 	}
 
 	public Double getAwardedMoney() {
 		return awardedMoney;
 	}
 
+	public String getAwardedPeople() {
+		return awardedPeople;
+	}
+
+	public String getAwardedReason() {
+		return awardedReason;
+	}
+
+	public Integer getAwardType() {
+		return awardType;
+	}
+
+	public void setAwardedDate(Date awardedDate) {
+		this.awardedDate = awardedDate;
+	}
+
 	public void setAwardedMoney(Double awardedMoney) {
 		this.awardedMoney = awardedMoney;
+	}
+
+	public void setAwardedPeople(String awardedPeople) {
+		this.awardedPeople = awardedPeople;
+	}
+
+	public void setAwardedReason(String awardedReason) {
+		this.awardedReason = awardedReason;
+	}
+
+	public void setAwardType(Integer awardType) {
+		this.awardType = awardType;
 	}
 
 }

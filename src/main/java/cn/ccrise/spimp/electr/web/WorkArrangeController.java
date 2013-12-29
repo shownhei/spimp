@@ -46,6 +46,27 @@ public class WorkArrangeController {
 		return new Response(workArrangeService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/regulation/work-arranges/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate) throws Exception {
+		Page<WorkArrange> page = new Page<WorkArrange>();
+		page.setPageSize(100000);
+		page = workArrangeService.pageQuery(page, search, startDate, endDate);
+
+		String[] headers = { "标题", "工作安排", "上传日期", "上传人", "上传组织" };
+
+		HSSFWorkbook wb = new ExcelHelper<WorkArrange>().genExcel("工作安排管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("工作安排管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/regulation/work-arranges/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -78,26 +99,5 @@ public class WorkArrangeController {
 		workArrange.setUploader(loginAccount);
 		workArrange.setUploadGroup(loginAccount.getGroupEntity());
 		return new Response(workArrangeService.update(workArrange));
-	}
-
-	@RequestMapping(value = "/electr/regulation/work-arranges/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate) throws Exception {
-		Page<WorkArrange> page = new Page<WorkArrange>();
-		page.setPageSize(100000);
-		page = workArrangeService.pageQuery(page, search, startDate, endDate);
-
-		String[] headers = { "标题", "工作安排", "上传日期", "上传人", "上传组织" };
-
-		HSSFWorkbook wb = new ExcelHelper<WorkArrange>().genExcel("工作安排管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("工作安排管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

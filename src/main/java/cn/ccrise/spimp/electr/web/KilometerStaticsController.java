@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,18 +33,13 @@ public class KilometerStaticsController {
 	@Autowired
 	private KilometerStaticsService kilometerStaticsService;
 
-	/**
-	 * 月度运行情况
-	 * 
-	 * @param year
-	 * @param month
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/car/monthly-run/result", method = RequestMethod.GET)
-	public ModelAndView getMonthlyRun(Long carId, Integer year, Integer month) {
+	@RequestMapping(value = "/electr/car/annual-kilometer/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, int year) throws Exception {
 		HashMap<String, Object> root = new HashMap<String, Object>();
-		kilometerStaticsService.monthlyRunQuery(carId, year, month, root);
-		return new ModelAndView("electr/car/monthly-run/result", root);
+		kilometerStaticsService.annualOil(year, root);
+		ExcelHelper<MaterialsPlan> helper = new ExcelHelper<MaterialsPlan>();
+		helper.genExcelWithTel(httpSession, response, "electr/annual-kilometer.xls", root, "导出文档",
+				new String[] { "材料计划" });
 	}
 
 	/**
@@ -75,18 +69,22 @@ public class KilometerStaticsController {
 				year + "无轨胶轮车行程公里一览表", new String[] { year + "无轨胶轮车行程公里一览表" }, new ExcelCallBackInteface() {
 					@Override
 					public void process(Workbook book, HashMap<String, Object> root) {
-						Sheet sheet = book.getSheetAt(0);
 					}
 				});
 	}
 
-	@RequestMapping(value = "/electr/car/annual-kilometer/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpSession httpSession, HttpServletResponse response, int year) throws Exception {
+	/**
+	 * 月度运行情况
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-run/result", method = RequestMethod.GET)
+	public ModelAndView getMonthlyRun(Long carId, Integer year, Integer month) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
-		kilometerStaticsService.annualOil(year, root);
-		ExcelHelper<MaterialsPlan> helper = new ExcelHelper<MaterialsPlan>();
-		helper.genExcelWithTel(httpSession, response, "electr/annual-kilometer.xls", root, "导出文档",
-				new String[] { "材料计划" });
+		kilometerStaticsService.monthlyRunQuery(carId, year, month, root);
+		return new ModelAndView("electr/car/monthly-run/result", root);
 	}
 
 }

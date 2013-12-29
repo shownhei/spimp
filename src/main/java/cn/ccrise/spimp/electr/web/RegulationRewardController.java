@@ -45,6 +45,27 @@ public class RegulationRewardController {
 		return new Response(regulationRewardService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/regulation/regulation-rewards/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate) throws Exception {
+		Page<RegulationReward> page = new Page<RegulationReward>();
+		page.setPageSize(100000);
+		page = regulationRewardService.pageQuery(page, search, startDate, endDate);
+
+		String[] headers = { "受奖人", "奖惩日期", "奖惩原因", "奖惩类型", "奖惩金额" };
+
+		HSSFWorkbook wb = new ExcelHelper<RegulationReward>().genExcel("奖惩管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("奖惩管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/regulation/regulation-rewards/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -68,26 +89,5 @@ public class RegulationRewardController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody RegulationReward regulationReward, @PathVariable long id) {
 		return new Response(regulationRewardService.update(regulationReward));
-	}
-
-	@RequestMapping(value = "/electr/regulation/regulation-rewards/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate) throws Exception {
-		Page<RegulationReward> page = new Page<RegulationReward>();
-		page.setPageSize(100000);
-		page = regulationRewardService.pageQuery(page, search, startDate, endDate);
-
-		String[] headers = { "受奖人", "奖惩日期", "奖惩原因", "奖惩类型", "奖惩金额" };
-
-		HSSFWorkbook wb = new ExcelHelper<RegulationReward>().genExcel("奖惩管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("奖惩管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

@@ -47,13 +47,8 @@ public class MaintenancePlan extends IDEntity {
 	@PageFields(describtion = "负责人", allowedNull = false, search = false)
 	private String chargePerson;
 
-	@ManyToOne
-	public Dictionary getProject() {
-		return project;
-	}
-
-	public void setProject(Dictionary project) {
-		this.project = project;
+	public String getChargePerson() {
+		return chargePerson;
 	}
 
 	@Lob
@@ -61,8 +56,9 @@ public class MaintenancePlan extends IDEntity {
 		return content;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	@ManyToOne
+	public Dictionary getProject() {
+		return project;
 	}
 
 	@Lob
@@ -70,24 +66,28 @@ public class MaintenancePlan extends IDEntity {
 		return standard;
 	}
 
-	public void setStandard(String standard) {
-		this.standard = standard;
-	}
-
 	public Date getWorkDate() {
 		return workDate;
 	}
 
-	public void setWorkDate(Date workDate) {
-		this.workDate = workDate;
-	}
-
-	public String getChargePerson() {
-		return chargePerson;
-	}
-
 	public void setChargePerson(String chargePerson) {
 		this.chargePerson = chargePerson;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setProject(Dictionary project) {
+		this.project = project;
+	}
+
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+
+	public void setWorkDate(Date workDate) {
+		this.workDate = workDate;
 	}
 
 }

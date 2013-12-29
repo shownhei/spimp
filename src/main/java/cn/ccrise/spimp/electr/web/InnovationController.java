@@ -54,19 +54,6 @@ public class InnovationController {
 		return new Response(innovationService.delete(id));
 	}
 
-	@RequestMapping(value = "/electr/innovation/innovations/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(innovationService.get(id));
-	}
-
-	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.GET)
-	@ResponseBody
-	public Response page(Page<Innovation> page, String search, Date startDate, Date endDate) {
-		page = innovationService.pageQuery(page, search, startDate, endDate);
-		return new Response(page);
-	}
-
 	@RequestMapping(value = "/electr/innovation/detail/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView detail(@PathVariable long id) {
@@ -74,24 +61,6 @@ public class InnovationController {
 		root.put("innovation", innovationService.get(id));
 		root.put("pictures", innovationImageService.find(Restrictions.eq("innovationId", id)));
 		return new ModelAndView("electr/innovation/innovation/detail", root);
-	}
-
-	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody Innovation innovation, HttpSession httpSession) {
-		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
-				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
-		innovation.setRecordGroup(loginAccount.getGroupEntity());
-		return new Response(innovationService.save(innovation));
-	}
-
-	@RequestMapping(value = "/electr/innovation/innovations/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody Innovation innovation, @PathVariable long id, HttpSession httpSession) {
-		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
-				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
-		innovation.setRecordGroup(loginAccount.getGroupEntity());
-		return new Response(innovationService.update(innovation));
 	}
 
 	@RequestMapping(value = "/electr/innovation/innovations/export-excel", method = RequestMethod.GET)
@@ -112,5 +81,36 @@ public class InnovationController {
 		ExcelHelper<MaterialsPlan> helper = new ExcelHelper<MaterialsPlan>();
 		helper.genExcelWithTel(httpSession, response, "electr/innovation_statistics.xls", root, "小改小革上报统计",
 				new String[] { "小改小革上报统计表", "小改小革上报统计表(队内公示）" });
+	}
+
+	@RequestMapping(value = "/electr/innovation/innovations/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response get(@PathVariable long id) {
+		return new Response(innovationService.get(id));
+	}
+
+	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.GET)
+	@ResponseBody
+	public Response page(Page<Innovation> page, String search, Date startDate, Date endDate) {
+		page = innovationService.pageQuery(page, search, startDate, endDate);
+		return new Response(page);
+	}
+
+	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.POST)
+	@ResponseBody
+	public Response save(@Valid @RequestBody Innovation innovation, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		innovation.setRecordGroup(loginAccount.getGroupEntity());
+		return new Response(innovationService.save(innovation));
+	}
+
+	@RequestMapping(value = "/electr/innovation/innovations/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Response update(@Valid @RequestBody Innovation innovation, @PathVariable long id, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		innovation.setRecordGroup(loginAccount.getGroupEntity());
+		return new Response(innovationService.update(innovation));
 	}
 }

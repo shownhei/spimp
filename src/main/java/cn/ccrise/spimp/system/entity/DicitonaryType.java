@@ -33,20 +33,20 @@ public class DicitonaryType extends IDEntity {
 		return dicGroup;
 	}
 
-	public void setDicGroup(String dicGroup) {
-		this.dicGroup = dicGroup;
-	}
-
 	public String getDicType() {
 		return dicType;
 	}
 
-	public void setDicType(String dicType) {
-		this.dicType = dicType;
-	}
-
 	public String getTypeTitle() {
 		return typeTitle;
+	}
+
+	public void setDicGroup(String dicGroup) {
+		this.dicGroup = dicGroup;
+	}
+
+	public void setDicType(String dicType) {
+		this.dicType = dicType;
 	}
 
 	public void setTypeTitle(String typeTitle) {

@@ -62,52 +62,24 @@ public class Overhaul extends IDEntity {
 	@PageFields(describtion = "记录时间", columnShow = true, search = false)
 	private Timestamp recordTime;
 
-	public Date getOverhaulDate() {
-		return overhaulDate;
-	}
-
-	public void setOverhaulDate(Date overhaulDate) {
-		this.overhaulDate = overhaulDate;
-	}
-
-	public String getOverhaulPosition() {
-		return overhaulPosition;
-	}
-
-	public void setOverhaulPosition(String overhaulPosition) {
-		this.overhaulPosition = overhaulPosition;
-	}
-
 	public String getChargePersoin() {
 		return chargePersoin;
-	}
-
-	public void setChargePersoin(String chargePersoin) {
-		this.chargePersoin = chargePersoin;
 	}
 
 	public String getChecker() {
 		return checker;
 	}
 
-	public void setChecker(String checker) {
-		this.checker = checker;
-	}
-
 	public String getExistProblem() {
 		return existProblem;
 	}
 
-	public void setExistProblem(String existProblem) {
-		this.existProblem = existProblem;
+	public Date getOverhaulDate() {
+		return overhaulDate;
 	}
 
-	public String getVestigialProblem() {
-		return vestigialProblem;
-	}
-
-	public void setVestigialProblem(String vestigialProblem) {
-		this.vestigialProblem = vestigialProblem;
+	public String getOverhaulPosition() {
+		return overhaulPosition;
 	}
 
 	@Column(updatable = false)
@@ -117,8 +89,36 @@ public class Overhaul extends IDEntity {
 		return recordTime;
 	}
 
+	public String getVestigialProblem() {
+		return vestigialProblem;
+	}
+
+	public void setChargePersoin(String chargePersoin) {
+		this.chargePersoin = chargePersoin;
+	}
+
+	public void setChecker(String checker) {
+		this.checker = checker;
+	}
+
+	public void setExistProblem(String existProblem) {
+		this.existProblem = existProblem;
+	}
+
+	public void setOverhaulDate(Date overhaulDate) {
+		this.overhaulDate = overhaulDate;
+	}
+
+	public void setOverhaulPosition(String overhaulPosition) {
+		this.overhaulPosition = overhaulPosition;
+	}
+
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setVestigialProblem(String vestigialProblem) {
+		this.vestigialProblem = vestigialProblem;
 	}
 
 }

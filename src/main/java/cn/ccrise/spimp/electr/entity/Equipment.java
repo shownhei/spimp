@@ -155,76 +155,12 @@ public class Equipment extends IDEntity {
 		return accessories;
 	}
 
-	public String getPictureURL() {
-		return pictureURL;
+	public String getChargePerson() {
+		return chargePerson;
 	}
 
-	public String getSpecificationURL() {
-		return specificationURL;
-	}
-
-	public void setAccessories(List<Accessory> accessories) {
-		this.accessories = accessories;
-	}
-
-	public void setPictureURL(String pictureURL) {
-		this.pictureURL = pictureURL;
-	}
-
-	public void setSpecificationURL(String specificationURL) {
-		this.specificationURL = specificationURL;
-	}
-
-	@ManyToOne
-	public Dictionary getDeviceClass() {
-		return deviceClass;
-	}
-
-	public void setDeviceClass(Dictionary deviceClass) {
-		this.deviceClass = deviceClass;
-	}
-
-	@ManyToOne
-	public Dictionary getDeviceCategory() {
-		return deviceCategory;
-	}
-
-	public void setDeviceCategory(Dictionary deviceCategory) {
-		this.deviceCategory = deviceCategory;
-	}
-
-	@ManyToOne
-	public Dictionary getDeviceType() {
-		return deviceType;
-	}
-
-	public void setDeviceType(Dictionary deviceType) {
-		this.deviceType = deviceType;
-	}
-
-	public String getDeviceName() {
-		return deviceName;
-	}
-
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
-	}
-
-	public String getDeviceModel() {
-		return deviceModel;
-	}
-
-	public void setDeviceModel(String deviceModel) {
-		this.deviceModel = deviceModel;
-	}
-
-	@ManyToOne
-	public Dictionary getServiceEnvironment() {
-		return serviceEnvironment;
-	}
-
-	public void setServiceEnvironment(Dictionary serviceEnvironment) {
-		this.serviceEnvironment = serviceEnvironment;
+	public String getDeliveryValue() {
+		return deliveryValue;
 	}
 
 	@ManyToOne
@@ -232,8 +168,80 @@ public class Equipment extends IDEntity {
 		return deviceArea;
 	}
 
-	public void setDeviceArea(Dictionary deviceArea) {
-		this.deviceArea = deviceArea;
+	@ManyToOne
+	public Dictionary getDeviceCategory() {
+		return deviceCategory;
+	}
+
+	@ManyToOne
+	public Dictionary getDeviceClass() {
+		return deviceClass;
+	}
+
+	public String getDeviceModel() {
+		return deviceModel;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public String getDeviceNumber() {
+		return deviceNumber;
+	}
+
+	@ManyToOne
+	public Dictionary getDeviceType() {
+		return deviceType;
+	}
+
+	public String getFactoryNumber() {
+		return factoryNumber;
+	}
+
+	public Integer getLayoutLength() {
+		return layoutLength;
+	}
+
+	public String getLockerNumber() {
+		return lockerNumber;
+	}
+
+	public String getMonitor() {
+		return monitor;
+	}
+
+	public String getOpenLocker() {
+		return openLocker;
+	}
+
+	public String getPictureURL() {
+		return pictureURL;
+	}
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public Date getProductionDate() {
+		return productionDate;
+	}
+
+	@ManyToOne
+	public Dictionary getServiceEnvironment() {
+		return serviceEnvironment;
+	}
+
+	public String getSpecificationURL() {
+		return specificationURL;
+	}
+
+	public String getSpeed() {
+		return speed;
+	}
+
+	public Integer getStatus() {
+		return status;
 	}
 
 	@ManyToOne
@@ -241,113 +249,105 @@ public class Equipment extends IDEntity {
 		return stowedPosition;
 	}
 
-	public void setStowedPosition(Dictionary stowedPosition) {
-		this.stowedPosition = stowedPosition;
-	}
-
 	@Column(name = "equipment_usage")
 	public String getUsage() {
 		return usage;
 	}
 
-	public void setUsage(String usage) {
-		this.usage = usage;
-	}
-
-	public String getProducer() {
-		return producer;
-	}
-
-	public void setProducer(String producer) {
-		this.producer = producer;
-	}
-
-	public String getDeviceNumber() {
-		return deviceNumber;
-	}
-
-	public void setDeviceNumber(String deviceNumber) {
-		this.deviceNumber = deviceNumber;
-	}
-
-	public String getFactoryNumber() {
-		return factoryNumber;
-	}
-
-	public void setFactoryNumber(String factoryNumber) {
-		this.factoryNumber = factoryNumber;
-	}
-
-	public Date getProductionDate() {
-		return productionDate;
-	}
-
-	public void setProductionDate(Date productionDate) {
-		this.productionDate = productionDate;
-	}
-
-	public String getChargePerson() {
-		return chargePerson;
+	public void setAccessories(List<Accessory> accessories) {
+		this.accessories = accessories;
 	}
 
 	public void setChargePerson(String chargePerson) {
 		this.chargePerson = chargePerson;
 	}
 
-	public String getMonitor() {
-		return monitor;
-	}
-
-	public void setMonitor(String monitor) {
-		this.monitor = monitor;
-	}
-
-	public String getOpenLocker() {
-		return openLocker;
-	}
-
-	public void setOpenLocker(String openLocker) {
-		this.openLocker = openLocker;
-	}
-
-	public String getLockerNumber() {
-		return lockerNumber;
-	}
-
-	public void setLockerNumber(String lockerNumber) {
-		this.lockerNumber = lockerNumber;
-	}
-
-	public String getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(String speed) {
-		this.speed = speed;
-	}
-
-	public String getDeliveryValue() {
-		return deliveryValue;
-	}
-
 	public void setDeliveryValue(String deliveryValue) {
 		this.deliveryValue = deliveryValue;
 	}
 
-	public Integer getLayoutLength() {
-		return layoutLength;
+	public void setDeviceArea(Dictionary deviceArea) {
+		this.deviceArea = deviceArea;
+	}
+
+	public void setDeviceCategory(Dictionary deviceCategory) {
+		this.deviceCategory = deviceCategory;
+	}
+
+	public void setDeviceClass(Dictionary deviceClass) {
+		this.deviceClass = deviceClass;
+	}
+
+	public void setDeviceModel(String deviceModel) {
+		this.deviceModel = deviceModel;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
+
+	public void setDeviceNumber(String deviceNumber) {
+		this.deviceNumber = deviceNumber;
+	}
+
+	public void setDeviceType(Dictionary deviceType) {
+		this.deviceType = deviceType;
+	}
+
+	public void setFactoryNumber(String factoryNumber) {
+		this.factoryNumber = factoryNumber;
 	}
 
 	public void setLayoutLength(Integer layoutLength) {
 		this.layoutLength = layoutLength;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public void setLockerNumber(String lockerNumber) {
+		this.lockerNumber = lockerNumber;
+	}
+
+	public void setMonitor(String monitor) {
+		this.monitor = monitor;
+	}
+
+	public void setOpenLocker(String openLocker) {
+		this.openLocker = openLocker;
+	}
+
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public void setProductionDate(Date productionDate) {
+		this.productionDate = productionDate;
+	}
+
+	public void setServiceEnvironment(Dictionary serviceEnvironment) {
+		this.serviceEnvironment = serviceEnvironment;
+	}
+
+	public void setSpecificationURL(String specificationURL) {
+		this.specificationURL = specificationURL;
+	}
+
+	public void setSpeed(String speed) {
+		this.speed = speed;
 	}
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public void setStowedPosition(Dictionary stowedPosition) {
+		this.stowedPosition = stowedPosition;
+	}
+
+	public void setUsage(String usage) {
+		this.usage = usage;
 	}
 
 }

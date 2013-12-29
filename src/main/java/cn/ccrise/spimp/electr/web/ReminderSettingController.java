@@ -44,10 +44,49 @@ public class ReminderSettingController {
 	@Autowired
 	private ReminderSettingService reminderSettingService;
 
+	/**
+	 * 提醒
+	 * 
+	 * @param page
+	 * @param project
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/alerts", method = RequestMethod.GET)
+	@ResponseBody
+	public Response alert(Page<ReminderSetting> page, Long project, Date startDate, Date endDate) {
+		page.setOrder("asc");
+		page.setOrderBy("dateEarly");
+		page = reminderSettingService.getPage(page, Restrictions.le("dateEarly", new Date(System.currentTimeMillis())));
+		return new Response(page);
+	}
+
 	@RequestMapping(value = "/electr/equipment/reminder-settings/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
 		return new Response(reminderSettingService.delete(id));
+	}
+
+	@RequestMapping(value = "/electr/equipment/reminder-settings/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Long project, Date startDate, Date endDate) throws Exception {
+		Page<ReminderSetting> page = new Page<ReminderSetting>();
+		page.setPageSize(100000);
+		page = reminderSettingService.pageQuery(page, project, startDate, endDate);
+
+		String[] headers = { "项目", "到期时间", "提前天数", "记录日期", "记录人", "记录组织" };
+
+		HSSFWorkbook wb = new ExcelHelper<ReminderSetting>().genExcel("定期检修设置管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("定期检修设置管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
 	}
 
 	@RequestMapping(value = "/electr/equipment/reminder-settings/{id}", method = RequestMethod.GET)
@@ -65,24 +104,6 @@ public class ReminderSettingController {
 	@ResponseBody
 	public Response page(Page<ReminderSetting> page, Long project, Date startDate, Date endDate) {
 		page = reminderSettingService.pageQuery(page, project, startDate, endDate);
-		return new Response(page);
-	}
-
-	/**
-	 * 提醒
-	 * 
-	 * @param page
-	 * @param project
-	 * @param startDate
-	 * @param endDate
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/alerts", method = RequestMethod.GET)
-	@ResponseBody
-	public Response alert(Page<ReminderSetting> page, Long project, Date startDate, Date endDate) {
-		page.setOrder("asc");
-		page.setOrderBy("dateEarly");
-		page = reminderSettingService.getPage(page, Restrictions.le("dateEarly", new Date(System.currentTimeMillis())));
 		return new Response(page);
 	}
 
@@ -109,26 +130,5 @@ public class ReminderSettingController {
 		reminderSetting.setRecordAccount(loginAccount);
 		reminderSetting.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(reminderSettingService.update(reminderSetting));
-	}
-
-	@RequestMapping(value = "/electr/equipment/reminder-settings/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Long project, Date startDate, Date endDate) throws Exception {
-		Page<ReminderSetting> page = new Page<ReminderSetting>();
-		page.setPageSize(100000);
-		page = reminderSettingService.pageQuery(page, project, startDate, endDate);
-
-		String[] headers = { "项目", "到期时间", "提前天数", "记录日期", "记录人", "记录组织" };
-
-		HSSFWorkbook wb = new ExcelHelper<ReminderSetting>().genExcel("定期检修设置管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("定期检修设置管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

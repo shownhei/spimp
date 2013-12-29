@@ -73,61 +73,13 @@ public class Innovation extends IDEntity {
 	@PageFields(describtion = "记录组织", columnShow = false, search = false, allowedNull = true)
 	private GroupEntity recordGroup;
 
-	public String getProjectName() {
-		return projectName;
-	}
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+	@Lob
+	public String getAnalysis() {
+		return analysis;
 	}
 
 	public String getChargePerson() {
 		return chargePerson;
-	}
-
-	public void setChargePerson(String chargePerson) {
-		this.chargePerson = chargePerson;
-	}
-
-	public Date getDeclarationDate() {
-		return declarationDate;
-	}
-
-	public void setDeclarationDate(Date declarationDate) {
-		this.declarationDate = declarationDate;
-	}
-
-	public String getImplementationAddress() {
-		return implementationAddress;
-	}
-
-	public void setImplementationAddress(String implementationAddress) {
-		this.implementationAddress = implementationAddress;
-	}
-
-	public Date getImplementationPeriod() {
-		return implementationPeriod;
-	}
-
-	public void setImplementationPeriod(Date implementationPeriod) {
-		this.implementationPeriod = implementationPeriod;
-	}
-
-	public String getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(String participant) {
-		this.participant = participant;
-	}
-
-	@Lob
-	public String getInventionPurpose() {
-		return inventionPurpose;
-	}
-
-	public void setInventionPurpose(String inventionPurpose) {
-		this.inventionPurpose = inventionPurpose;
 	}
 
 	@Lob
@@ -135,22 +87,70 @@ public class Innovation extends IDEntity {
 		return content;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public Date getDeclarationDate() {
+		return declarationDate;
+	}
+
+	public String getImplementationAddress() {
+		return implementationAddress;
+	}
+
+	public Date getImplementationPeriod() {
+		return implementationPeriod;
 	}
 
 	@Lob
-	public String getAnalysis() {
-		return analysis;
+	public String getInventionPurpose() {
+		return inventionPurpose;
+	}
+
+	public String getParticipant() {
+		return participant;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
 	}
 
 	public void setAnalysis(String analysis) {
 		this.analysis = analysis;
 	}
 
-	@ManyToOne
-	public GroupEntity getRecordGroup() {
-		return recordGroup;
+	public void setChargePerson(String chargePerson) {
+		this.chargePerson = chargePerson;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setDeclarationDate(Date declarationDate) {
+		this.declarationDate = declarationDate;
+	}
+
+	public void setImplementationAddress(String implementationAddress) {
+		this.implementationAddress = implementationAddress;
+	}
+
+	public void setImplementationPeriod(Date implementationPeriod) {
+		this.implementationPeriod = implementationPeriod;
+	}
+
+	public void setInventionPurpose(String inventionPurpose) {
+		this.inventionPurpose = inventionPurpose;
+	}
+
+	public void setParticipant(String participant) {
+		this.participant = participant;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public void setRecordGroup(GroupEntity recordGroup) {

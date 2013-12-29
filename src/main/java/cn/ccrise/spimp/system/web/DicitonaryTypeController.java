@@ -44,19 +44,19 @@ public class DicitonaryTypeController {
 		return new Response(dicitonaryTypeService.get(id));
 	}
 
-	@RequestMapping(value = "/system/dicitonary-types", method = RequestMethod.GET)
-	@ResponseBody
-	public Response page(Page<DicitonaryType> page) {
-		page = dicitonaryTypeService.pageQuery(page);
-		return new Response(page);
-	}
-
 	@RequestMapping(value = "/system/dicitonary-types/list", method = RequestMethod.GET)
 	@ResponseBody
 	public Response list(Page<DicitonaryType> page) {
 		page.setPageSize(200);
 		page = dicitonaryTypeService.pageQuery(page);
 		return new Response(page.getResult());
+	}
+
+	@RequestMapping(value = "/system/dicitonary-types", method = RequestMethod.GET)
+	@ResponseBody
+	public Response page(Page<DicitonaryType> page) {
+		page = dicitonaryTypeService.pageQuery(page);
+		return new Response(page);
 	}
 
 	@RequestMapping(value = "/system/dicitonary-types", method = RequestMethod.POST)

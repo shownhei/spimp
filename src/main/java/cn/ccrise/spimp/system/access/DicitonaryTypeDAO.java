@@ -5,8 +5,8 @@ package cn.ccrise.spimp.system.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.system.entity.DicitonaryType;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.system.entity.DicitonaryType;
 
 /**
  * DicitonaryType DAO。

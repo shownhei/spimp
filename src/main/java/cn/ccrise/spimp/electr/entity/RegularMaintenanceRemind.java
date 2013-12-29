@@ -54,45 +54,45 @@ public class RegularMaintenanceRemind extends IDEntity {
 	 */
 	public static final Integer MAINTENANCE_STATUS_NO = 0;
 
-	public Date getMaintenanceDate() {
-		return maintenanceDate;
-	}
-
-	public void setMaintenanceDate(Date maintenanceDate) {
-		this.maintenanceDate = maintenanceDate;
-	}
-
-	public Integer getMaintenanceStatus() {
-		return maintenanceStatus;
-	}
-
-	public void setMaintenanceStatus(Integer maintenanceStatus) {
-		this.maintenanceStatus = maintenanceStatus;
-	}
-
 	@ManyToOne
 	public Car getCar() {
 		return car;
-	}
-
-	public void setCar(Car car) {
-		this.car = car;
-	}
-
-	public Integer getMaintenanceLevel() {
-		return maintenanceLevel;
-	}
-
-	public void setMaintenanceLevel(Integer maintenanceLevel) {
-		this.maintenanceLevel = maintenanceLevel;
 	}
 
 	public Long getKilometres() {
 		return kilometres;
 	}
 
+	public Date getMaintenanceDate() {
+		return maintenanceDate;
+	}
+
+	public Integer getMaintenanceLevel() {
+		return maintenanceLevel;
+	}
+
+	public Integer getMaintenanceStatus() {
+		return maintenanceStatus;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
 	public void setKilometres(Long kilometres) {
 		this.kilometres = kilometres;
+	}
+
+	public void setMaintenanceDate(Date maintenanceDate) {
+		this.maintenanceDate = maintenanceDate;
+	}
+
+	public void setMaintenanceLevel(Integer maintenanceLevel) {
+		this.maintenanceLevel = maintenanceLevel;
+	}
+
+	public void setMaintenanceStatus(Integer maintenanceStatus) {
+		this.maintenanceStatus = maintenanceStatus;
 	}
 
 }

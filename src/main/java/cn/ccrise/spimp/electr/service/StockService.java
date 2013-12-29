@@ -39,11 +39,6 @@ public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 	@Autowired
 	private StockDetailService stockDetailService;
 
-	@Override
-	public HibernateDAO<Stock, Long> getDAO() {
-		return stockDAO;
-	}
-
 	public boolean deleteStock(Long id) {
 
 		// 删除stockdetail
@@ -54,6 +49,11 @@ public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 		stockDetailService.getDAO().getSession().createQuery("delete from Blotters b where b.originalId=" + id)
 				.executeUpdate();
 		return delete(id);
+	}
+
+	@Override
+	public HibernateDAO<Stock, Long> getDAO() {
+		return stockDAO;
 	}
 
 	public Page<Stock> pageQuery(Page<Stock> page, String search, HttpSession httpSession) {

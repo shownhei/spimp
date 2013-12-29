@@ -70,8 +70,7 @@ public class MaintenanceController {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		Maintenance maintenance = maintenanceService.findUniqueBy("id", id);
 		root.put("maintenance", maintenance);
-		List<MaintenanceDetail> details = this.maintenanceDetailService.find(Restrictions
-				.eq("maintenance", maintenance));
+		List<MaintenanceDetail> details = maintenanceDetailService.find(Restrictions.eq("maintenance", maintenance));
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy年MM月dd日");
 		String maintenanceDate = formater.format(maintenance.getMaintenanceDate());
 		root.put("maintenanceDate", maintenanceDate);

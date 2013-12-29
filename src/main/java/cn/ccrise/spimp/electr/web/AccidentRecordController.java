@@ -46,6 +46,27 @@ public class AccidentRecordController {
 		return new Response(accidentRecordService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/accident/accident-records/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate) throws Exception {
+		Page<AccidentRecord> page = new Page<AccidentRecord>();
+		page.setPageSize(100000);
+		page = accidentRecordService.pageQuery(page, startDate, endDate);
+
+		String[] headers = { "事故地点", "事故描述", "上报人", "事故类型", "事故日期", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<AccidentRecord>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/accident/accident-records/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -70,26 +91,5 @@ public class AccidentRecordController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody AccidentRecord accidentRecord, @PathVariable long id) {
 		return new Response(accidentRecordService.update(accidentRecord));
-	}
-
-	@RequestMapping(value = "/electr/accident/accident-records/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate) throws Exception {
-		Page<AccidentRecord> page = new Page<AccidentRecord>();
-		page.setPageSize(100000);
-		page = accidentRecordService.pageQuery(page, startDate, endDate);
-
-		String[] headers = { "事故地点", "事故描述", "上报人", "事故类型", "事故日期", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<AccidentRecord>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

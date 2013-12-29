@@ -46,36 +46,12 @@ public class RegularMaintenanceConfig extends IDEntity {
 	@PageFields(describtion = "创建单位", allowedNull = true, search = true)
 	private GroupEntity planGroup;
 
-	public Integer getMaintenanceLevel() {
-		return maintenanceLevel;
-	}
-
-	public void setMaintenanceLevel(Integer maintenanceLevel) {
-		this.maintenanceLevel = maintenanceLevel;
-	}
-
 	public Long getKilometres() {
 		return kilometres;
 	}
 
-	public void setKilometres(Long kilometres) {
-		this.kilometres = kilometres;
-	}
-
-	public Date getRecordDate() {
-		return recordDate;
-	}
-
-	public void setRecordDate(Date recordDate) {
-		this.recordDate = recordDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public Integer getMaintenanceLevel() {
+		return maintenanceLevel;
 	}
 
 	@ManyToOne
@@ -83,8 +59,32 @@ public class RegularMaintenanceConfig extends IDEntity {
 		return planGroup;
 	}
 
+	public Date getRecordDate() {
+		return recordDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setKilometres(Long kilometres) {
+		this.kilometres = kilometres;
+	}
+
+	public void setMaintenanceLevel(Integer maintenanceLevel) {
+		this.maintenanceLevel = maintenanceLevel;
+	}
+
 	public void setPlanGroup(GroupEntity planGroup) {
 		this.planGroup = planGroup;
+	}
+
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

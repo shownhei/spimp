@@ -75,15 +75,6 @@ public class StockDetail extends IDEntity {
 	 */
 	private GroupEntity recordGroup;
 
-	@ManyToOne
-	public GroupEntity getRecordGroup() {
-		return recordGroup;
-	}
-
-	public void setRecordGroup(GroupEntity recordGroup) {
-		this.recordGroup = recordGroup;
-	}
-
 	public Long getMaterialId() {
 		return materialId;
 	}
@@ -126,6 +117,11 @@ public class StockDetail extends IDEntity {
 
 	public Integer getQuantity3() {
 		return quantity3;
+	}
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
 	}
 
 	@Column(name = "yearmonth")
@@ -175,6 +171,10 @@ public class StockDetail extends IDEntity {
 
 	public void setQuantity3(Integer quantity3) {
 		this.quantity3 = quantity3;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
 	}
 
 	public void setYearMonth(Date yearMonth) {

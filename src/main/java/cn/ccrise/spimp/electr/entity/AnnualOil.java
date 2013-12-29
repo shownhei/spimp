@@ -42,100 +42,100 @@ public class AnnualOil {
 	 */
 	private String dayTrainNumberDisplay;
 
-	public DecimalFormat getDf() {
-		return df;
-	}
-
-	public void setDf(DecimalFormat df) {
-		this.df = df;
-	}
-
-	public Double getDayTrainNumber() {
-		return dayTrainNumber;
-	}
-
-	public void setDayTrainNumber(Double dayTrainNumber) {
-		this.dayTrainNumber = dayTrainNumber;
+	public void count() {
+		if (distance > 0l) {
+			oilDistance = (double) ((double) refuelNumber * 100 / (double) distance);
+			df.applyPattern("0.00");
+			oilDistanceDisplay = df.format(oilDistance);
+		}
 	}
 
 	public String getAvgOilDistance() {
 		return avgOilDistance;
 	}
 
-	public void setAvgOilDistance(String avgOilDistance) {
-		this.avgOilDistance = avgOilDistance;
-	}
-
-	public String getOilDistanceDisplay() {
-		return oilDistanceDisplay;
-	}
-
-	public String getDayTrainNumberDisplay() {
-		return dayTrainNumberDisplay;
-	}
-
-	public void setDayTrainNumberDisplay(String dayTrainNumberDisplay) {
-		this.dayTrainNumberDisplay = dayTrainNumberDisplay;
-	}
-
-	public void setOilDistanceDisplay(String oilDistanceDisplay) {
-		this.oilDistanceDisplay = oilDistanceDisplay;
-	}
-
-	public Double getOilDistance() {
-		return oilDistance;
-	}
-
-	public void count() {
-		if (distance > 0l) {
-			this.oilDistance = (double) ((double) refuelNumber * 100 / (double) distance);
-			df.applyPattern("0.00");
-			oilDistanceDisplay = df.format(oilDistance);
-		}
-	}
-
-	public void setOilDistance(Double oilDistance) {
-		this.oilDistance = oilDistance;
-	}
-
 	public String getCarCategory() {
 		return carCategory;
-	}
-
-	public void setCarCategory(String carCategory) {
-		this.carCategory = carCategory;
 	}
 
 	public String getCarNo() {
 		return carNo;
 	}
 
-	public void setCarNo(String carNo) {
-		this.carNo = carNo;
+	public Double getDayTrainNumber() {
+		return dayTrainNumber;
 	}
 
-	public Long getTrainNumber() {
-		return trainNumber;
+	public String getDayTrainNumberDisplay() {
+		return dayTrainNumberDisplay;
 	}
 
-	public void setTrainNumber(Long trainNumber) {
-		this.trainNumber = trainNumber;
+	public DecimalFormat getDf() {
+		return df;
 	}
 
 	public Long getDistance() {
 		return distance;
 	}
 
-	public void setDistance(Long distance) {
-		this.distance = distance;
+	public Double getOilDistance() {
+		return oilDistance;
+	}
+
+	public String getOilDistanceDisplay() {
+		return oilDistanceDisplay;
 	}
 
 	public Long getRefuelNumber() {
 		return refuelNumber;
 	}
 
+	public Long getTrainNumber() {
+		return trainNumber;
+	}
+
+	public void setAvgOilDistance(String avgOilDistance) {
+		this.avgOilDistance = avgOilDistance;
+	}
+
+	public void setCarCategory(String carCategory) {
+		this.carCategory = carCategory;
+	}
+
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
+	}
+
+	public void setDayTrainNumber(Double dayTrainNumber) {
+		this.dayTrainNumber = dayTrainNumber;
+	}
+
+	public void setDayTrainNumberDisplay(String dayTrainNumberDisplay) {
+		this.dayTrainNumberDisplay = dayTrainNumberDisplay;
+	}
+
+	public void setDf(DecimalFormat df) {
+		this.df = df;
+	}
+
+	public void setDistance(Long distance) {
+		this.distance = distance;
+	}
+
+	public void setOilDistance(Double oilDistance) {
+		this.oilDistance = oilDistance;
+	}
+
+	public void setOilDistanceDisplay(String oilDistanceDisplay) {
+		this.oilDistanceDisplay = oilDistanceDisplay;
+	}
+
 	public void setRefuelNumber(Long refuelNumber) {
 		this.refuelNumber = refuelNumber;
+	}
+
+	public void setTrainNumber(Long trainNumber) {
+		this.trainNumber = trainNumber;
 	}
 
 }

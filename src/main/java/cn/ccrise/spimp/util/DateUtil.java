@@ -66,6 +66,43 @@ public class DateUtil {
 		return sdf.format(date);
 	}
 
+	/**
+	 * 取得当月最大天数
+	 * 
+	 * @return
+	 */
+	public static int getCurrentMonthLastDay() {
+		Calendar a = Calendar.getInstance();
+		a.set(Calendar.DATE, 1);// 把日期设置为当月第一天
+		a.roll(Calendar.DATE, -1);// 日期回滚一天，也就是最后一天
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
+	}
+
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getCurrentYear() {
+		Calendar cal = Calendar.getInstance();
+		return cal.get(Calendar.YEAR);
+	}
+
+	public static Date getFutureDay(Date appDate, int days) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(appDate);
+			calendar.add(Calendar.DATE, days);
+			return new Date(calendar.getTime().getTime());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	public static String getFutureDay(String appDate, String format, int days) {
 		String future = "";
 		try {
@@ -83,19 +120,6 @@ public class DateUtil {
 		return future;
 	}
 
-	public static Date getFutureDay(Date appDate, int days) {
-		try {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(appDate);
-			calendar.add(Calendar.DATE, days);
-			return new Date(calendar.getTime().getTime());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
 	/**
 	 * 得到某日最后一毫秒。
 	 * 
@@ -108,6 +132,18 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, 1);
 		calendar.add(Calendar.MILLISECOND, -1);
 		return new Date(calendar.getTimeInMillis());
+	}
+
+	/**
+	 * 获得某年有多少天
+	 * 
+	 * @param year
+	 * @return
+	 */
+	public static int getMaxDaysOfYear(int year) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		return cal.getActualMaximum(Calendar.DAY_OF_YEAR);
 	}
 
 	/**
@@ -128,19 +164,6 @@ public class DateUtil {
 		int maxDate = a.get(Calendar.DATE);
 		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(a.getTime()));
 		System.out.println(maxDate);
-	}
-
-	/**
-	 * 取得当月最大天数
-	 * 
-	 * @return
-	 */
-	public static int getCurrentMonthLastDay() {
-		Calendar a = Calendar.getInstance();
-		a.set(Calendar.DATE, 1);// 把日期设置为当月第一天
-		a.roll(Calendar.DATE, -1);// 日期回滚一天，也就是最后一天
-		int maxDate = a.get(Calendar.DATE);
-		return maxDate;
 	}
 
 	/**
@@ -218,29 +241,6 @@ public class DateUtil {
 		} else {
 			return null;
 		}
-	}
-
-	/**
-	 * 获得某年有多少天
-	 * 
-	 * @param year
-	 * @return
-	 */
-	public static int getMaxDaysOfYear(int year) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, year);
-		return cal.getActualMaximum(Calendar.DAY_OF_YEAR);
-	}
-
-	/**
-	 * 获得某年有多少天
-	 * 
-	 * @param year
-	 * @return
-	 */
-	public static int getCurrentYear() {
-		Calendar cal = Calendar.getInstance();
-		return cal.get(Calendar.YEAR);
 	}
 
 	private static StringBuffer buildString(int number, StringBuffer buff, boolean withJz) {

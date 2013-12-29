@@ -3,15 +3,18 @@
  */
 package cn.ccrise.spimp.spmi.daily.entity;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import cn.ccrise.ikjp.core.entity.IDEntity;
+
 /**
- * Training。<p>培训计划。</p>
- *
+ * Training。
+ * <p>
+ * 培训计划。
+ * </p>
+ * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
@@ -22,29 +25,8 @@ public class Training extends IDEntity {
 	private String origin; // 来源：内培计划/委外培训计划
 	private String fileUrl; // 上传文件路径
 
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	@Column(nullable = false)
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getCategory() {
 		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	@Column(nullable = false)
@@ -52,7 +34,28 @@ public class Training extends IDEntity {
 		return fileUrl;
 	}
 
+	@Column(nullable = false)
+	public String getName() {
+		return name;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 }

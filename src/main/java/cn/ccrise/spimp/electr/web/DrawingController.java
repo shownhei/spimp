@@ -48,6 +48,30 @@ public class DrawingController {
 		return new Response(drawingService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/regulation/drawings/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate,
+			HttpSession session) throws Exception {
+		Account loginAccount = (Account) session.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		Page<Drawing> page = new Page<Drawing>();
+		page.setPageSize(100000);
+		page = drawingService.pageQuery(page, search, startDate, endDate, loginAccount, loginAccount.getGroupEntity());
+
+		String[] headers = { "标题", "图纸类型", "工作安排", "上传日期", "上传人", "上传组织" };
+
+		HSSFWorkbook wb = new ExcelHelper<Drawing>().genExcel("工作安排管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("工作安排管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/regulation/drawings/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -81,29 +105,5 @@ public class DrawingController {
 		drawing.setUploader(loginAccount);
 		drawing.setUploadGroup(loginAccount.getGroupEntity());
 		return new Response(drawingService.update(drawing));
-	}
-
-	@RequestMapping(value = "/electr/regulation/drawings/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search, Date startDate, Date endDate,
-			HttpSession session) throws Exception {
-		Account loginAccount = (Account) session.getAttribute(PropertiesUtils
-				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
-		Page<Drawing> page = new Page<Drawing>();
-		page.setPageSize(100000);
-		page = drawingService.pageQuery(page, search, startDate, endDate, loginAccount, loginAccount.getGroupEntity());
-
-		String[] headers = { "标题", "图纸类型", "工作安排", "上传日期", "上传人", "上传组织" };
-
-		HSSFWorkbook wb = new ExcelHelper<Drawing>().genExcel("工作安排管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("工作安排管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

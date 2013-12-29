@@ -63,76 +63,76 @@ public class Accessory extends IDEntity {
 	@PageFields(describtion = "记录日期", allowedNull = true, search = false)
 	private Date recordDate;
 
-	public Long getEquipmentId() {
-		return equipmentId;
-	}
-
-	public void setEquipmentId(Long equipmentId) {
-		this.equipmentId = equipmentId;
-	}
-
 	public String getAccessoryModel() {
 		return accessoryModel;
-	}
-
-	public void setAccessoryModel(String accessoryModel) {
-		this.accessoryModel = accessoryModel;
 	}
 
 	public String getAccessoryNumber() {
 		return accessoryNumber;
 	}
 
-	public void setAccessoryNumber(String accessoryNumber) {
-		this.accessoryNumber = accessoryNumber;
-	}
-
-	public Date getProductionDate() {
-		return productionDate;
-	}
-
-	public void setProductionDate(Date productionDate) {
-		this.productionDate = productionDate;
+	public Long getEquipmentId() {
+		return equipmentId;
 	}
 
 	public String getProducer() {
 		return producer;
 	}
 
-	public void setProducer(String producer) {
-		this.producer = producer;
-	}
-
-	public Integer getServiceRating() {
-		return serviceRating;
-	}
-
-	public void setServiceRating(Integer serviceRating) {
-		this.serviceRating = serviceRating;
-	}
-
-	public Double getTransmissionRatio() {
-		return transmissionRatio;
-	}
-
-	public void setTransmissionRatio(Double transmissionRatio) {
-		this.transmissionRatio = transmissionRatio;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public Date getProductionDate() {
+		return productionDate;
 	}
 
 	public Date getRecordDate() {
 		return recordDate;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public Integer getServiceRating() {
+		return serviceRating;
+	}
+
+	public Double getTransmissionRatio() {
+		return transmissionRatio;
+	}
+
+	public void setAccessoryModel(String accessoryModel) {
+		this.accessoryModel = accessoryModel;
+	}
+
+	public void setAccessoryNumber(String accessoryNumber) {
+		this.accessoryNumber = accessoryNumber;
+	}
+
+	public void setEquipmentId(Long equipmentId) {
+		this.equipmentId = equipmentId;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public void setProductionDate(Date productionDate) {
+		this.productionDate = productionDate;
+	}
+
 	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setServiceRating(Integer serviceRating) {
+		this.serviceRating = serviceRating;
+	}
+
+	public void setTransmissionRatio(Double transmissionRatio) {
+		this.transmissionRatio = transmissionRatio;
 	}
 
 }

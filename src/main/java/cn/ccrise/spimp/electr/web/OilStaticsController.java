@@ -47,6 +47,7 @@ public class OilStaticsController {
 		return new ModelAndView("electr/car/annual-oil/result", root);
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/electr/car/annual-oil/export", method = RequestMethod.GET)
 	public void getAnnualOilExport(HttpSession httpSession, HttpServletResponse response, Integer year) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
@@ -77,7 +78,6 @@ public class OilStaticsController {
 				int start_col_2 = 6;
 				while (groupIt.hasNext()) {
 					recordList = groupIt.next();
-					Iterator<AnnualOil> recordIt = recordList.iterator();
 					/**
 					 * 合并日平均运行 次数（次）
 					 */
@@ -95,45 +95,6 @@ public class OilStaticsController {
 			}
 
 		});
-	}
-
-	/**
-	 * 年度油耗查询统计
-	 * 
-	 * @param year
-	 * @param root
-	 */
-	private void doQueryAnnualOil(Integer year, HashMap<String, Object> root) {
-		root.put("year", year);
-		List<Object> list = oilStaticsService.queryByYear(year);
-		Iterator<Object> it = list.iterator();
-		Object[] array = null;
-		AnnualOil instance = null;
-		int i = 0;
-		HashMap<String, ArrayList<AnnualOil>> map = new HashMap<String, ArrayList<AnnualOil>>();
-		while (it.hasNext()) {
-			array = (Object[]) it.next();
-			instance = new AnnualOil();
-			i = 0;
-			instance.setCarNo((String) array[i++]);
-			instance.setTrainNumber((Long) array[i++]);
-			instance.setDistance((Long) array[i++]);
-			instance.setRefuelNumber((Long) array[i++]);
-			instance.setCarCategory((String) array[i++]);
-			instance.count();
-			if (!map.containsKey(instance.getCarCategory())) {
-				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
-			}
-			map.get(instance.getCarCategory()).add(instance);
-		}
-		Collection<ArrayList<AnnualOil>> groups = map.values();
-		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
-		DecimalFormat df = new DecimalFormat(".##");
-		df.applyPattern("0.00");
-		while (groupIt.hasNext()) {
-			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
-		}
-		root.put("category", groups);
 	}
 
 	/**
@@ -175,6 +136,45 @@ public class OilStaticsController {
 		}
 		root.put("category", groups);
 		return new ModelAndView("electr/car/monthly-oil/result", root);
+	}
+
+	/**
+	 * 年度油耗查询统计
+	 * 
+	 * @param year
+	 * @param root
+	 */
+	private void doQueryAnnualOil(Integer year, HashMap<String, Object> root) {
+		root.put("year", year);
+		List<Object> list = oilStaticsService.queryByYear(year);
+		Iterator<Object> it = list.iterator();
+		Object[] array = null;
+		AnnualOil instance = null;
+		int i = 0;
+		HashMap<String, ArrayList<AnnualOil>> map = new HashMap<String, ArrayList<AnnualOil>>();
+		while (it.hasNext()) {
+			array = (Object[]) it.next();
+			instance = new AnnualOil();
+			i = 0;
+			instance.setCarNo((String) array[i++]);
+			instance.setTrainNumber((Long) array[i++]);
+			instance.setDistance((Long) array[i++]);
+			instance.setRefuelNumber((Long) array[i++]);
+			instance.setCarCategory((String) array[i++]);
+			instance.count();
+			if (!map.containsKey(instance.getCarCategory())) {
+				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
+			}
+			map.get(instance.getCarCategory()).add(instance);
+		}
+		Collection<ArrayList<AnnualOil>> groups = map.values();
+		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
+		DecimalFormat df = new DecimalFormat(".##");
+		df.applyPattern("0.00");
+		while (groupIt.hasNext()) {
+			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
+		}
+		root.put("category", groups);
 	}
 
 }

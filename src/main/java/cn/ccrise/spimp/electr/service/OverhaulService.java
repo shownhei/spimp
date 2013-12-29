@@ -3,16 +3,17 @@
  */
 package cn.ccrise.spimp.electr.service;
 
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Criterion;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -33,21 +34,22 @@ public class OverhaulService extends HibernateDataServiceImpl<Overhaul, Long> {
 	public HibernateDAO<Overhaul, Long> getDAO() {
 		return overhaulDAO;
 	}
-	
-	public Page<Overhaul> pageQuery(Page<Overhaul> page, Date startDate, Date endDate,String search) {
+
+	public Page<Overhaul> pageQuery(Page<Overhaul> page, Date startDate, Date endDate, String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("overhaulPosition", search, MatchMode.ANYWHERE),Restrictions.ilike("chargePersoin", search, MatchMode.ANYWHERE)));
+			criterions.add(Restrictions.or(Restrictions.ilike("overhaulPosition", search, MatchMode.ANYWHERE),
+					Restrictions.ilike("chargePersoin", search, MatchMode.ANYWHERE)));
 		}
-		
+
 		if (startDate != null) {
 			criterions.add(Restrictions.ge("overhaulDate", startDate));
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("overhaulDate", endDate));
 		}
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

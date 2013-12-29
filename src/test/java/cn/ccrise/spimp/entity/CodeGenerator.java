@@ -3,12 +3,13 @@
  */
 package cn.ccrise.spimp.entity;
 
-import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
 import org.junit.Test;
+
+import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
 
 /**
  * 代码自动生成测试。
- *
+ * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class CodeGenerator {

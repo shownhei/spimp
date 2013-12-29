@@ -90,15 +90,6 @@ public class Blotters extends IDEntity {
 	 */
 	private GroupEntity recordGroup;
 
-	public void setRecordGroup(GroupEntity recordGroup) {
-		this.recordGroup = recordGroup;
-	}
-
-	@ManyToOne
-	public GroupEntity getRecordGroup() {
-		return recordGroup;
-	}
-
 	/**
 	 * 记录组织
 	 */
@@ -133,6 +124,11 @@ public class Blotters extends IDEntity {
 
 	public String getPrice() {
 		return price;
+	}
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
 	}
 
 	@Column(updatable = false)
@@ -180,6 +176,10 @@ public class Blotters extends IDEntity {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
 	}
 
 	public void setRecordTime(Timestamp recordTime) {

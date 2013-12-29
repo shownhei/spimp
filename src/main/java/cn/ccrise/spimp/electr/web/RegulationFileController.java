@@ -48,6 +48,28 @@ public class RegulationFileController {
 		return new Response(regulationFileService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/regulation/regulation-files/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, String search, Long fileType, Date startDate, Date endDate)
+			throws Exception {
+		Page<RegulationFile> page = new Page<RegulationFile>();
+		page.setPageSize(100000);
+		page = regulationFileService.pageQuery(page, search, fileType, startDate, endDate);
+
+		String[] headers = { "文档名称", "制度类型", "附件", "上传日期", "上传日期", "上传日期" };
+
+		HSSFWorkbook wb = new ExcelHelper<RegulationFile>().genExcel("制度文件管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("制度文件管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/regulation/regulation-files/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -80,27 +102,5 @@ public class RegulationFileController {
 		regulationFile.setUploader(loginAccount);
 		regulationFile.setUploadGroup(loginAccount.getGroupEntity());
 		return new Response(regulationFileService.update(regulationFile));
-	}
-
-	@RequestMapping(value = "/electr/regulation/regulation-files/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, String search, Long fileType, Date startDate, Date endDate)
-			throws Exception {
-		Page<RegulationFile> page = new Page<RegulationFile>();
-		page.setPageSize(100000);
-		page = regulationFileService.pageQuery(page, search, fileType, startDate, endDate);
-
-		String[] headers = { "文档名称", "制度类型", "附件", "上传日期", "上传日期", "上传日期" };
-
-		HSSFWorkbook wb = new ExcelHelper<RegulationFile>().genExcel("制度文件管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("制度文件管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

@@ -54,29 +54,17 @@ public class Drawing extends IDEntity {
 	@PageFields(describtion = "上传组织", columnShow = true, search = false, allowedNull = true)
 	private GroupEntity uploadGroup;
 
-	public String getFileTitle() {
-		return fileTitle;
-	}
-
-	public void setFileTitle(String fileTitle) {
-		this.fileTitle = fileTitle;
-	}
-
 	@ManyToOne
 	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(UploadedFile attachment) {
-		this.attachment = attachment;
+	public String getFileTitle() {
+		return fileTitle;
 	}
 
 	public Date getUploadDate() {
 		return uploadDate;
-	}
-
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
 	}
 
 	@ManyToOne
@@ -84,13 +72,25 @@ public class Drawing extends IDEntity {
 		return uploader;
 	}
 
-	public void setUploader(Account uploader) {
-		this.uploader = uploader;
-	}
-
 	@ManyToOne
 	public GroupEntity getUploadGroup() {
 		return uploadGroup;
+	}
+
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
+	}
+
+	public void setFileTitle(String fileTitle) {
+		this.fileTitle = fileTitle;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	public void setUploader(Account uploader) {
+		this.uploader = uploader;
 	}
 
 	public void setUploadGroup(GroupEntity uploadGroup) {

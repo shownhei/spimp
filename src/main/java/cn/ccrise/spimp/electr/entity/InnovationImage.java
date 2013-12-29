@@ -19,28 +19,28 @@ public class InnovationImage extends IDEntity {
 	private String imagePath;
 	private Long innovationId;
 
-	public String getSimpleName() {
-		return simpleName;
-	}
-
-	public void setSimpleName(String simpleName) {
-		this.simpleName = simpleName;
-	}
-
 	public String getImagePath() {
 		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 
 	public Long getInnovationId() {
 		return innovationId;
 	}
 
+	public String getSimpleName() {
+		return simpleName;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 	public void setInnovationId(Long innovationId) {
 		this.innovationId = innovationId;
+	}
+
+	public void setSimpleName(String simpleName) {
+		this.simpleName = simpleName;
 	}
 
 }

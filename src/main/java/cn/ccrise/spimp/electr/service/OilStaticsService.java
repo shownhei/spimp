@@ -25,28 +25,34 @@ public class OilStaticsService {
 	private RunLogService runLogService;
 
 	/**
-	 * 按照年统计
+	 * 计算平均油耗（升） 同属一种类型的车的百公里油耗sum除以同种车型的条数
 	 * 
-	 * @param year
-	 * @return
+	 * @param result
+	 * @param df
 	 */
-	@SuppressWarnings("unchecked")
-	public List<Object> queryByYear(Integer year) {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.MONTH, 0);
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		Date startDate = new Date(c.getTime().getTime());
-		c.set(Calendar.MONTH, 11);
-		c.set(Calendar.DAY_OF_MONTH, 31);
-		Date endDate = new Date(c.getTime().getTime());
-		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
-		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
-		query.setDate("startDate", startDate);
-		query.setDate("endDate", endDate);
-		return query.list();
+	public void oilAVG(Collection<AnnualOil> result, DecimalFormat df, int days) {
+		df.applyPattern("0.00");
+		Iterator<AnnualOil> it = result.iterator();
+		AnnualOil temp = null;
+		int size = result.size();
+		double sum = 0;
+		Long trainNumber = 0l;
+		double dayTrainNumber = 0l;
+		while (it.hasNext()) {
+			temp = it.next();
+			sum += temp.getOilDistance();
+			trainNumber += temp.getTrainNumber();
+		}
+		double avg = sum / size;
+		dayTrainNumber = trainNumber / new Long(days);
+		it = result.iterator();
+		DecimalFormat df3 = new DecimalFormat(".###");
+		df3.applyPattern("0.00");
+		while (it.hasNext()) {
+			temp = it.next();
+			temp.setAvgOilDistance(df.format(avg));
+			temp.setDayTrainNumberDisplay(df3.format(dayTrainNumber));
+		}
 	}
 
 	/**
@@ -76,33 +82,27 @@ public class OilStaticsService {
 	}
 
 	/**
-	 * 计算平均油耗（升） 同属一种类型的车的百公里油耗sum除以同种车型的条数
+	 * 按照年统计
 	 * 
-	 * @param result
-	 * @param df
+	 * @param year
+	 * @return
 	 */
-	public void oilAVG(Collection<AnnualOil> result, DecimalFormat df, int days) {
-		df.applyPattern("0.00");
-		Iterator<AnnualOil> it = result.iterator();
-		AnnualOil temp = null;
-		int size = result.size();
-		double sum = 0;
-		Long trainNumber = 0l;
-		double dayTrainNumber = 0l;
-		while (it.hasNext()) {
-			temp = it.next();
-			sum += temp.getOilDistance();
-			trainNumber += temp.getTrainNumber();
-		}
-		double avg = sum / size;
-		dayTrainNumber = (double) (trainNumber / new Long((long) days));
-		it = result.iterator();
-		DecimalFormat df3 = new DecimalFormat(".###");
-		df3.applyPattern("0.00");
-		while (it.hasNext()) {
-			temp = it.next();
-			temp.setAvgOilDistance(df.format(avg));
-			temp.setDayTrainNumberDisplay(df3.format(dayTrainNumber));
-		}
+	@SuppressWarnings("unchecked")
+	public List<Object> queryByYear(Integer year) {
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.MONTH, 0);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		Date startDate = new Date(c.getTime().getTime());
+		c.set(Calendar.MONTH, 11);
+		c.set(Calendar.DAY_OF_MONTH, 31);
+		Date endDate = new Date(c.getTime().getTime());
+		StringBuffer buff = new StringBuffer();
+		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
+		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
+		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
+		query.setDate("startDate", startDate);
+		query.setDate("endDate", endDate);
+		return query.list();
 	}
 }

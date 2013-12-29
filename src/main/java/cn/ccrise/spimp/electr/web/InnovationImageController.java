@@ -44,6 +44,27 @@ public class InnovationImageController {
 		return new Response(innovationImageService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/innovation/innovation-images/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response) throws Exception {
+		Page<InnovationImage> page = new Page<InnovationImage>();
+		page.setPageSize(100000);
+		page = innovationImageService.pageQuery(page);
+
+		String[] headers = {};
+
+		HSSFWorkbook wb = new ExcelHelper<InnovationImage>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/innovation/innovation-images/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -67,26 +88,5 @@ public class InnovationImageController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody InnovationImage innovationImage, @PathVariable long id) {
 		return new Response(innovationImageService.update(innovationImage));
-	}
-
-	@RequestMapping(value = "/electr/innovation/innovation-images/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response) throws Exception {
-		Page<InnovationImage> page = new Page<InnovationImage>();
-		page.setPageSize(100000);
-		page = innovationImageService.pageQuery(page);
-
-		String[] headers = {};
-
-		HSSFWorkbook wb = new ExcelHelper<InnovationImage>().genExcel("故障管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

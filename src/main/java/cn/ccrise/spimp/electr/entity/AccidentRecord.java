@@ -56,36 +56,16 @@ public class AccidentRecord extends IDEntity {
 	@PageFields(describtion = "记录时间", allowedNull = true, search = false)
 	private Timestamp recordTime;
 
-	public String getAccidentAddress() {
-		return accidentAddress;
-	}
-
-	public void setAccidentAddress(String accidentAddress) {
-		this.accidentAddress = accidentAddress;
-	}
-
-	public String getAccidentDesc() {
-		return accidentDesc;
-	}
-
-	public void setAccidentDesc(String accidentDesc) {
-		this.accidentDesc = accidentDesc;
-	}
-
-	public String getReporter() {
-		return reporter;
-	}
-
-	public void setReporter(String reporter) {
-		this.reporter = reporter;
-	}
-
 	public String getAccident() {
 		return accident;
 	}
 
-	public void setAccident(String accident) {
-		this.accident = accident;
+	public String getAccidentAddress() {
+		return accidentAddress;
+	}
+
+	public String getAccidentDesc() {
+		return accidentDesc;
 	}
 
 	@Column(updatable = false)
@@ -95,8 +75,28 @@ public class AccidentRecord extends IDEntity {
 		return recordTime;
 	}
 
+	public String getReporter() {
+		return reporter;
+	}
+
+	public void setAccident(String accident) {
+		this.accident = accident;
+	}
+
+	public void setAccidentAddress(String accidentAddress) {
+		this.accidentAddress = accidentAddress;
+	}
+
+	public void setAccidentDesc(String accidentDesc) {
+		this.accidentDesc = accidentDesc;
+	}
+
 	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
 	}
 
 }

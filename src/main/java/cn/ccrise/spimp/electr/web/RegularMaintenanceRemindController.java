@@ -38,25 +38,6 @@ public class RegularMaintenanceRemindController {
 	@Autowired
 	private RegularMaintenanceRemindService regularMaintenanceRemindService;
 
-	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(regularMaintenanceRemindService.delete(id));
-	}
-
-	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(regularMaintenanceRemindService.get(id));
-	}
-
-	@RequestMapping(value = "/electr/maintenance/regular-reminds", method = RequestMethod.GET)
-	@ResponseBody
-	public Response page(Page<RegularMaintenanceRemind> page, Long car) {
-		page = regularMaintenanceRemindService.pageQuery(page, car);
-		return new Response(page);
-	}
-
 	@RequestMapping(value = "/electr/maintenance/regular-reminds/close", method = RequestMethod.GET)
 	@ResponseBody
 	public Response closeRemind(Long id) {
@@ -64,16 +45,10 @@ public class RegularMaintenanceRemindController {
 		return new Response(true);
 	}
 
-	@RequestMapping(value = "/electr/maintenance/regular-reminds", method = RequestMethod.POST)
+	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response save(@Valid @RequestBody RegularMaintenanceRemind regularMaintenanceRemind) {
-		return new Response(regularMaintenanceRemindService.save(regularMaintenanceRemind));
-	}
-
-	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody RegularMaintenanceRemind regularMaintenanceRemind, @PathVariable long id) {
-		return new Response(regularMaintenanceRemindService.update(regularMaintenanceRemind));
+	public Response delete(@PathVariable long id) {
+		return new Response(regularMaintenanceRemindService.delete(id));
 	}
 
 	@RequestMapping(value = "/electr/maintenance/regular-reminds/export-excel", method = RequestMethod.GET)
@@ -95,5 +70,30 @@ public class RegularMaintenanceRemindController {
 		wb.write(ouputStream);
 		ouputStream.flush();
 		ouputStream.close();
+	}
+
+	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response get(@PathVariable long id) {
+		return new Response(regularMaintenanceRemindService.get(id));
+	}
+
+	@RequestMapping(value = "/electr/maintenance/regular-reminds", method = RequestMethod.GET)
+	@ResponseBody
+	public Response page(Page<RegularMaintenanceRemind> page, Long car) {
+		page = regularMaintenanceRemindService.pageQuery(page, car);
+		return new Response(page);
+	}
+
+	@RequestMapping(value = "/electr/maintenance/regular-reminds", method = RequestMethod.POST)
+	@ResponseBody
+	public Response save(@Valid @RequestBody RegularMaintenanceRemind regularMaintenanceRemind) {
+		return new Response(regularMaintenanceRemindService.save(regularMaintenanceRemind));
+	}
+
+	@RequestMapping(value = "/electr/maintenance/regular-reminds/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Response update(@Valid @RequestBody RegularMaintenanceRemind regularMaintenanceRemind, @PathVariable long id) {
+		return new Response(regularMaintenanceRemindService.update(regularMaintenanceRemind));
 	}
 }

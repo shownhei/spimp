@@ -5,8 +5,8 @@ package cn.ccrise.spimp.electr.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.electr.entity.AccidentRecord;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.electr.entity.AccidentRecord;
 
 /**
  * AccidentRecord DAO。

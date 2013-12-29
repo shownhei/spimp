@@ -46,17 +46,13 @@ public class Problem extends IDEntity {
 	@PageFields(describtion = "上报人", allowedNull = false, search = false)
 	private String reporter;
 
-	public String getClassType() {
-		return classType;
-	}
-
-	public void setClassType(String classType) {
-		this.classType = classType;
-	}
-
 	@ManyToOne
 	public Car getCar() {
 		return car;
+	}
+
+	public String getClassType() {
+		return classType;
 	}
 
 	public String getProblem() {
@@ -73,6 +69,10 @@ public class Problem extends IDEntity {
 
 	public void setCar(Car car) {
 		this.car = car;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
 	}
 
 	public void setProblem(String problem) {

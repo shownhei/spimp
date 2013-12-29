@@ -65,15 +65,6 @@ public class Stock extends IDEntity {
 	 */
 	private GroupEntity recordGroup;
 
-	@ManyToOne
-	public GroupEntity getRecordGroup() {
-		return recordGroup;
-	}
-
-	public void setRecordGroup(GroupEntity recordGroup) {
-		this.recordGroup = recordGroup;
-	}
-
 	public Integer getAmount() {
 		return amount;
 	}
@@ -92,6 +83,11 @@ public class Stock extends IDEntity {
 
 	public String getPrice() {
 		return price;
+	}
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
 	}
 
 	public String getRemark() {
@@ -122,6 +118,10 @@ public class Stock extends IDEntity {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
 	}
 
 	public void setRemark(String remark) {

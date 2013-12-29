@@ -94,6 +94,27 @@ public class KilometerStaticsService {
 		root.put("result", result);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<String> getCarArray(Date startDate, Date endDate, Long carId) {
+		String hql = "select distinct l.car.carNo from RunLog l where l.addDate between :startDate and :endDate ";
+		if (carId != null) {
+			hql += " and l.car.id=:carId";
+		}
+		Query query = runLogService.getDAO().getSession().createQuery(hql);
+		query.setDate("startDate", startDate);
+		query.setDate("endDate", endDate);
+		if (carId != null) {
+			query.setLong("carId", carId);
+		}
+		List<Object> carNoList = query.list();
+		List<String> result = new ArrayList<String>();
+		Iterator<?> it = carNoList.iterator();
+		while (it.hasNext()) {
+			result.add((String) it.next());
+		}
+		return result;
+	}
+
 	public void monthlyRunQuery(Long carId, Integer year, Integer month, HashMap<String, Object> root) {
 		root.put("year", year);
 		root.put("month", month);
@@ -132,6 +153,21 @@ public class KilometerStaticsService {
 		caculateMonthlyRunLog(carList, result, runlogList, sumList);
 		root.put("sumList", sumList);
 		root.put("result", result);
+	}
+
+	public void sum(ArrayList<ArrayList<Long>> result) {
+		Iterator<ArrayList<Long>> it = result.iterator();
+		ArrayList<Long> row = null;
+		Long sum = 0l;
+		while (it.hasNext()) {
+			row = it.next();
+			Iterator<Long> col = row.iterator();
+			sum = 0l;
+			while (col.hasNext()) {
+				sum += col.next();
+			}
+			row.add(sum);
+		}
 	}
 
 	/**
@@ -197,41 +233,5 @@ public class KilometerStaticsService {
 			sumList.set(colIndex + 1, row.get(colIndex + 1));
 			sumList.set(colIndex + 2, row.get(colIndex + 2));
 		}
-	}
-
-	public void sum(ArrayList<ArrayList<Long>> result) {
-		Iterator<ArrayList<Long>> it = result.iterator();
-		ArrayList<Long> row = null;
-		Long sum = 0l;
-		while (it.hasNext()) {
-			row = it.next();
-			Iterator<Long> col = row.iterator();
-			sum = 0l;
-			while (col.hasNext()) {
-				sum += col.next();
-			}
-			row.add(sum);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<String> getCarArray(Date startDate, Date endDate, Long carId) {
-		String hql = "select distinct l.car.carNo from RunLog l where l.addDate between :startDate and :endDate ";
-		if (carId != null) {
-			hql += " and l.car.id=:carId";
-		}
-		Query query = runLogService.getDAO().getSession().createQuery(hql);
-		query.setDate("startDate", startDate);
-		query.setDate("endDate", endDate);
-		if (carId != null) {
-			query.setLong("carId", carId);
-		}
-		List<Object> carNoList = query.list();
-		List<String> result = new ArrayList<String>();
-		Iterator<?> it = carNoList.iterator();
-		while (it.hasNext()) {
-			result.add((String) it.next());
-		}
-		return result;
 	}
 }

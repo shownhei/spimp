@@ -48,6 +48,27 @@ public class RegularMaintenanceConfigController {
 		return new Response(regularMaintenanceConfigService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/maintenance/regular-configs/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response) throws Exception {
+		Page<RegularMaintenanceConfig> page = new Page<RegularMaintenanceConfig>();
+		page.setPageSize(100000);
+		page = regularMaintenanceConfigService.pageQuery(page);
+
+		String[] headers = { "保养类别", "公里数", "记录时间", "修改时间", "创建单位" };
+
+		HSSFWorkbook wb = new ExcelHelper<RegularMaintenanceConfig>().genExcel("定期保养周期配置管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("定期保养周期配置管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/maintenance/regular-configs/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -93,26 +114,5 @@ public class RegularMaintenanceConfigController {
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		regularMaintenanceConfig.setPlanGroup(loginAccount.getGroupEntity());
 		return new Response(regularMaintenanceConfigService.update(regularMaintenanceConfig));
-	}
-
-	@RequestMapping(value = "/electr/maintenance/regular-configs/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response) throws Exception {
-		Page<RegularMaintenanceConfig> page = new Page<RegularMaintenanceConfig>();
-		page.setPageSize(100000);
-		page = regularMaintenanceConfigService.pageQuery(page);
-
-		String[] headers = { "保养类别", "公里数", "记录时间", "修改时间", "创建单位" };
-
-		HSSFWorkbook wb = new ExcelHelper<RegularMaintenanceConfig>().genExcel("定期保养周期配置管理 - 安全生产综合管理平台", headers,
-				page.getResult(), "yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("定期保养周期配置管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

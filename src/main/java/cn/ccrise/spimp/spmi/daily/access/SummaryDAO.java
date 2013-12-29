@@ -5,8 +5,8 @@ package cn.ccrise.spimp.spmi.daily.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.spmi.daily.entity.Summary;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.spmi.daily.entity.Summary;
 
 /**
  * Summary DAO。

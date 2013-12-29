@@ -45,6 +45,27 @@ public class OverhaulController {
 		return new Response(overhaulService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/equipment/overhauls/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
+		Page<Overhaul> page = new Page<Overhaul>();
+		page.setPageSize(100000);
+		page = overhaulService.pageQuery(page, startDate, endDate, search);
+
+		String[] headers = { "检修日期", "检修位置", "负责人", "材料名称", "存在问题", "遗留问题", "记录时间" };
+
+		HSSFWorkbook wb = new ExcelHelper<Overhaul>().genExcel("检修记录管理 - 安全生产综合管理平台", headers, page.getResult(),
+				"yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("检修记录管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/equipment/overhauls/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -68,26 +89,5 @@ public class OverhaulController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Overhaul overhaul, @PathVariable long id) {
 		return new Response(overhaulService.update(overhaul));
-	}
-
-	@RequestMapping(value = "/electr/equipment/overhauls/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, String search) throws Exception {
-		Page<Overhaul> page = new Page<Overhaul>();
-		page.setPageSize(100000);
-		page = overhaulService.pageQuery(page, startDate, endDate, search);
-
-		String[] headers = { "检修日期", "检修位置", "负责人", "材料名称", "存在问题", "遗留问题", "记录时间" };
-
-		HSSFWorkbook wb = new ExcelHelper<Overhaul>().genExcel("检修记录管理 - 安全生产综合管理平台", headers, page.getResult(),
-				"yyyy-MM-dd");
-		response.setContentType("application/force-download");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("检修记录管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
-
-		OutputStream ouputStream = response.getOutputStream();
-		wb.write(ouputStream);
-		ouputStream.flush();
-		ouputStream.close();
 	}
 }

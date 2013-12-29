@@ -28,11 +28,6 @@ public class RegularMaintenanceRemindService extends HibernateDataServiceImpl<Re
 	@Autowired
 	private MaintenanceDetailService maintenanceDetailService;
 
-	@Override
-	public HibernateDAO<RegularMaintenanceRemind, Long> getDAO() {
-		return regularMaintenanceRemindDAO;
-	}
-
 	public void closeRemind(Long remindId) {
 		/**
 		 * 关闭一个提醒 重置本记录的行程公里数为0 保养状态为已保养1
@@ -40,7 +35,12 @@ public class RegularMaintenanceRemindService extends HibernateDataServiceImpl<Re
 		RegularMaintenanceRemind remind = findUniqueBy("id", remindId);
 		remind.setMaintenanceStatus(RegularMaintenanceRemind.MAINTENANCE_STATUS_YES);
 		remind.setKilometres(0l);
-		this.save(remind);
+		save(remind);
+	}
+
+	@Override
+	public HibernateDAO<RegularMaintenanceRemind, Long> getDAO() {
+		return regularMaintenanceRemindDAO;
 	}
 
 	public Page<RegularMaintenanceRemind> pageQuery(Page<RegularMaintenanceRemind> page, Long car) {

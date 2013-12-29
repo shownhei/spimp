@@ -58,21 +58,30 @@ public class ReminderSetting extends IDEntity {
 	@PageFields(describtion = "记录组织", columnShow = false, search = false, allowedNull = true)
 	private GroupEntity recordGroup;
 
+	public Date getDateEarly() {
+		return dateEarly;
+	}
+
+	public Integer getDaysEarly() {
+		return daysEarly;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	@ManyToOne
+	public Dictionary getProject() {
+		return project;
+	}
+
 	@ManyToOne
 	public Account getRecordAccount() {
 		return recordAccount;
 	}
 
-	public void setRecordAccount(Account recordAccount) {
-		this.recordAccount = recordAccount;
-	}
-
-	public Date getDateEarly() {
-		return dateEarly;
-	}
-
-	public void setDateEarly(Date dateEarly) {
-		this.dateEarly = dateEarly;
+	public Date getRecordDate() {
+		return recordDate;
 	}
 
 	@ManyToOne
@@ -80,40 +89,31 @@ public class ReminderSetting extends IDEntity {
 		return recordGroup;
 	}
 
-	public void setRecordGroup(GroupEntity recordGroup) {
-		this.recordGroup = recordGroup;
-	}
-
-	public Date getExpirationDate() {
-		return expirationDate;
-	}
-
-	public void setExpirationDate(Date expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-
-	public Integer getDaysEarly() {
-		return daysEarly;
+	public void setDateEarly(Date dateEarly) {
+		this.dateEarly = dateEarly;
 	}
 
 	public void setDaysEarly(Integer daysEarly) {
 		this.daysEarly = daysEarly;
 	}
 
-	public Date getRecordDate() {
-		return recordDate;
-	}
-
-	public void setRecordDate(Date recordDate) {
-		this.recordDate = recordDate;
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	public void setProject(Dictionary project) {
 		this.project = project;
 	}
 
-	@ManyToOne
-	public Dictionary getProject() {
-		return project;
+	public void setRecordAccount(Account recordAccount) {
+		this.recordAccount = recordAccount;
+	}
+
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
 	}
 }

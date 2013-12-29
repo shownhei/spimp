@@ -39,6 +39,27 @@ public class RunLogService extends HibernateDataServiceImpl<RunLog, Long> {
 		return runLogDAO;
 	}
 
+	public Page<RunLog> pageQuery(Page<RunLog> page, Long car, String search, Date startDate, Date endDate) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("classType", search, MatchMode.ANYWHERE)));
+		}
+
+		if (startDate != null) {
+			criterions.add(Restrictions.ge("addDate", startDate));
+		}
+		if (endDate != null) {
+			criterions.add(Restrictions.le("addDate", endDate));
+		}
+
+		if (car != null) {
+			criterions.add(Restrictions.eq("car.id", car));
+		}
+
+		return getPage(page, criterions.toArray(new Criterion[0]));
+	}
+
 	public boolean saveAnRunLog(RunLog log) {
 
 		/**
@@ -77,26 +98,5 @@ public class RunLogService extends HibernateDataServiceImpl<RunLog, Long> {
 			query.executeUpdate();
 		}
 		return save(log);
-	}
-
-	public Page<RunLog> pageQuery(Page<RunLog> page, Long car, String search, Date startDate, Date endDate) {
-		List<Criterion> criterions = new ArrayList<Criterion>();
-
-		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("classType", search, MatchMode.ANYWHERE)));
-		}
-
-		if (startDate != null) {
-			criterions.add(Restrictions.ge("addDate", startDate));
-		}
-		if (endDate != null) {
-			criterions.add(Restrictions.le("addDate", endDate));
-		}
-
-		if (car != null) {
-			criterions.add(Restrictions.eq("car.id", car));
-		}
-
-		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }
