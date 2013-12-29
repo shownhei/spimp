@@ -23,9 +23,23 @@
 			<ul class="submenu" style="background-color: #f5f5f5;">
 				{{#each resourceEntities}}
 				<li>
-					<a href="{{uri}}">
+					<a href="{{uri}}" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
 						<i class="icon-angle-right"></i>{{name}}
+						{{#if resourceEntities}}
+						<b class="arrow icon-angle-down"></b>
+						{{/if}}
 					</a>
+					{{#if resourceEntities}}
+					<ul class="submenu">
+						{{#each resourceEntities}}
+						<li>
+							<a href="{{uri}}">
+								<i class="icon-angle-right"></i>{{name}}
+							</a>
+						</li>
+						{{/each}}
+					</ul>
+					{{/if}}
 				</li>
 				{{/each}}
 			</ul>

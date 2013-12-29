@@ -2,7 +2,9 @@ define(function(require, exports, module) {
 	var $ = require('kjquery');
 	Handlebars = require('handlebars');
 
-	var url = requestURI.replace('/WEB-INF/views', '').replace('/index.jsp', '');
+	// var url = requestURI.replace('/WEB-INF/views', '').replace('/index.jsp',
+	// '');
+	var url = document.location.pathname;
 
 	// 渲染菜单
 	$.get(contextPath + '/menus', function(data) {
@@ -16,6 +18,9 @@ define(function(require, exports, module) {
 		var parentMenu = activeMenu.parent('li').parent('ul').parent('li');
 		parentMenu.addClass('active open');
 		parentMenu.parent('ul').parent('li').addClass('active open');
+		var parentParentMenu = parentMenu.parent('ul').parent('li');
+		parentParentMenu.addClass('open');
+		parentParentMenu.parent('ul').parent('li').addClass('active open');
 
 		handle_side_menu();
 
@@ -34,7 +39,6 @@ define(function(require, exports, module) {
 	/**
 	 * 菜单栏处理
 	 */
-
 	function handle_side_menu() {
 		$('#menu-toggler').on('click', function() {
 			$('#sidebar').toggleClass('display');
