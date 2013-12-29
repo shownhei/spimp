@@ -25,9 +25,6 @@
 						<button id="ercs" class="btn btn-app btn-primary">
 							<i class="icon-medkit bigger-230"></i> 应急救援指挥
 						</button>
-						<button id="electr" class="btn btn-app btn-info">
-							<i class="icon-bolt bigger-230"></i> 机电管理
-						</button>
 						<button id="system" class="btn btn-app btn-default">
 							<i class="icon-cogs bigger-230"></i> 系统管理
 						</button>
