@@ -6,20 +6,28 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
-	$(document).ready(function() {
-		$('#query_year,#query_month').bind('change', function() {
-			$('#submit').trigger('click');
-		});
+	var currentDate = new Date();
+	$('#query_year').val(currentDate.getFullYear());
+	$('#query_month').val(currentDate.getMonth() + 1);
+	var loadInfo=function(){
+		Utils.button.disable(['export' ]);
+		$('#table_panel').html('');
 		$.ajax({
 			type : 'get',
-			data : '',
+			data : Utils.form.buildParams('search-form'),
 			dataType : 'text',
 			url : '/electr/material/statistics_query',
 			success : function(data) {
 				$('#table_panel').html(data);
+				Utils.button.enable(['export' ]);
 			}
 		});
+	};
+	$(document).ready(function() {
+		$('#query_year,#query_month').bind('change', function() {
+			$('#submit').trigger('click');
+		});
+		loadInfo();
 	});
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
@@ -38,15 +46,12 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
+		window.location.href = '/electr/material/blotters/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
 	// 搜索
 	$('#submit').click(function() {
-		grid.set({
-			url : defaultUrl + Utils.form.buildParams('search-form')
-		});
+		loadInfo();
 	});
 
 	// 查询条件重置

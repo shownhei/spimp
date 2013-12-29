@@ -12,10 +12,6 @@ define(function(require, exports, module) {
 		format : 'yyyy-mm-dd hh:ii:ss'
 	});
 
-	$('#edit_updateTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
-
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 
@@ -145,44 +141,6 @@ define(function(require, exports, module) {
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}
-
-	// 编辑
-	$('#edit').click(function() {
-		if (Utils.button.isDisable('edit')) {
-			return;
-		}
-
-		Utils.modal.reset('edit');
-		var selectId = grid.selectedData('id');
-		$.get(operateUri + '/' + selectId, function(data) {
-			var object = data.data;
-			Utils.form.fill('edit', object);
-			Utils.modal.show('edit');
-		});
-	});
-
-	// 更新
-	$('#edit-save').click(function() {
-		var object = Utils.form.serialize('edit');
-
-		// 验证
-		if (!validate('edit', object)) {
-			return false;
-		}
-
-		// 处理属性
-		var selectId = grid.selectedData('id');
-		object.id = selectId;
-		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
-			if (data.success) {
-				grid.refresh();
-				Utils.modal.hide('edit');
-			} else {
-				Utils.modal.message('edit', data.errors);
-			}
-		});
-	});
-
 	// 删除
 	$('#remove').click(function() {
 		if (Utils.button.isDisable('remove')) {
@@ -199,16 +157,6 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
-	// 导出
-	$('#export').click(function() {
-		if (Utils.button.isDisable('export')) {
-			return;
-		}
-
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
-	});
-
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({

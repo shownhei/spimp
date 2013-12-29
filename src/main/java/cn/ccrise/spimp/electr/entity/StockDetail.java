@@ -7,15 +7,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
  * 入库出库库存明细。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
 @Table(name = "electr_stock_details")
@@ -69,6 +70,19 @@ public class StockDetail extends IDEntity {
 	 * 材料的原始id
 	 */
 	private Long materialId;
+	/**
+	 * 记录组织
+	 */
+	private GroupEntity recordGroup;
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
+	}
 
 	public Long getMaterialId() {
 		return materialId;

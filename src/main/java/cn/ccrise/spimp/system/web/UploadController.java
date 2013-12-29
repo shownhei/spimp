@@ -74,6 +74,25 @@ public class UploadController {
 		// 写入文件
 		final File newFile = new File(uploadRealPath + "/" + filePath);
 		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
+		/**
+		 * 图片上传处理过程
+		 */
+		String lowerFileName = filePath.toLowerCase();
+		if (lowerFileName.endsWith("jpg") || lowerFileName.endsWith("jpeg") || lowerFileName.endsWith("bmp")
+				|| lowerFileName.endsWith("gif") || lowerFileName.endsWith("png")) {
+			// 记录日志
+			logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
+
+			// 设置响应
+			response.setContentType("text/html");
+			response.getWriter().write(
+					"<script>parent.callBack("
+							+ JSON.toJSONString(new Response(new String(
+									(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
+			response.flushBuffer();
+			return;
+		}
+		// 文档上传
 		UploadedFile instance = null;
 		try {
 			instance = fileUploadFilter(file.getOriginalFilename(), filePath, newFile);

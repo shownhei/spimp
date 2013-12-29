@@ -15,16 +15,20 @@ import cn.ccrise.spimp.util.PageFields;
 /**
  * 故障管理
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
 @Table(name = "electr_problems")
 public class Problem extends IDEntity {
 	/**
+	 * 班次 零点、四点、八点
+	 */
+	@PageFields(describtion = "班次 ", allowedNull = false, search = true)
+	private String classType;
+	/**
 	 * 故障上报日期
 	 */
 
-	@PageFields(describtion = "上报日期", allowedNull = false, search = true)
+	@PageFields(describtion = "时间", allowedNull = false, search = true)
 	private Date reportDate;
 	/**
 	 * 故障车辆
@@ -41,6 +45,14 @@ public class Problem extends IDEntity {
 	 */
 	@PageFields(describtion = "上报人", allowedNull = false, search = false)
 	private String reporter;
+
+	public String getClassType() {
+		return classType;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
 
 	@ManyToOne
 	public Car getCar() {

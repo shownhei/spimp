@@ -6,12 +6,14 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 import cn.ccrise.spimp.util.PageFields;
@@ -19,7 +21,6 @@ import cn.ccrise.spimp.util.PageFields;
 /**
  * 库存
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
 @Table(name = "electr_stocks")
@@ -59,6 +60,19 @@ public class Stock extends IDEntity {
 	 */
 	@PageFields(describtion = "更新时间")
 	private Timestamp updateTime;
+	/**
+	 * 记录组织
+	 */
+	private GroupEntity recordGroup;
+
+	@ManyToOne
+	public GroupEntity getRecordGroup() {
+		return recordGroup;
+	}
+
+	public void setRecordGroup(GroupEntity recordGroup) {
+		this.recordGroup = recordGroup;
+	}
 
 	public Integer getAmount() {
 		return amount;

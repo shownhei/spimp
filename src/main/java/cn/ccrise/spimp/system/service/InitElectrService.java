@@ -140,6 +140,10 @@ public class InitElectrService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/electr/equipment/overhaul", equipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/electr/equipment/alert", equipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/electr/equipment/settings", equipment, "", i++);
+		String innovation = resourceEntityServiceImpl.getDefaultIdentifier("/electr/innovation", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("小改小革", "/electr/innovation/innovation", innovation, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("革新统计", "/electr/innovation/statistics", innovation, "", i++);
 	}
 
 	/**
@@ -152,5 +156,6 @@ public class InitElectrService {
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/electr/car", electr, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/electr/maintenance", electr, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/electr/equipment", electr, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("小改小革", "/electr/innovation", electr, "", i++);
 	}
 }

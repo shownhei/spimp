@@ -89,6 +89,7 @@ public class AnnualOil {
 	public void count() {
 		if (distance > 0l) {
 			this.oilDistance = (double) ((double) refuelNumber * 100 / (double) distance);
+			df.applyPattern("0.00");
 			oilDistanceDisplay = df.format(oilDistance);
 		}
 	}

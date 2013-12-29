@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	var operateUri = '/electr/maintenance/problems';
-
+	var operateUri = '/electr/innovation/innovations';
+	window.$ = $;
+	window.Utils=Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -9,38 +10,51 @@ define(function(require, exports, module) {
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	// 下拉列表初始化
-	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/car/carslist', 'id', 'carNo', true, '车号');
+	var loadDetail = function(id) {
+		$('#detail-panel').html('');
+		$.ajax({
+			type : 'get',
+			data : '',
+			dataType : 'text',
+			url : '/electr/innovation/detail/' + id,
+			success : function(data) {
+				Utils.button.disable([ 'submit', 'reset' ]);
+				$('#button_bar').fadeOut(200);
+				$('#material-table').fadeOut(200);
+				$('#detail-panel').html(data);
+				$('#detail-panel').fadeIn(200);
+				$('#close_detail').bind('click', function() {
+					$('#detail-panel').hide();
+					$('#material-table').fadeIn(200);
+					$('#button_bar').fadeIn(200);
+					Utils.button.enable([ 'submit', 'reset' ]);
+				});
+			}
+		});
+	};
 	// 配置表格列
 	var fields = [ {
-		header : '时间',
-		width : 90,
-		name : 'reportDate'
+		header : '项目名称',
+		name : 'projectName'
 	}, {
-		header : '故障车辆',
-		name : 'car',
-		render:function(val){
-			return val?val.carNo:'';
-		}
-	},{
-		header : '班次',
-		width : 90,
-		render:function(v){
-			switch(v){
-				case '0':return '零点班';
-				case '4':return '四点班';
-				case '8':return '八点班';
-				default :return '未知班次';
-			}
-		},
-		name : 'classType'
-	}, {
-		header : '故障说明',
-		name : 'problem'
-	}, {
-		header : '上报人',
+		header : '负责人',
 		width : 80,
-		name : 'reporter'
+		name : 'chargePerson'
+	}, {
+		header : '申报日期',
+		width : 90,
+		name : 'declarationDate'
+	}, {
+		header : '实施地点',
+		name : 'implementationAddress'
+	}, {
+		header : '实施时间',
+		width : 90,
+		name : 'implementationPeriod'
+	}, {
+		header : '参与人',
+		width : 80,
+		name : 'participant'
 	}, {
 		header : '查看',
 		name : 'id',
@@ -60,9 +74,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			Utils.button.enable([ 'edit', 'upload', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'remove' ]);
+			Utils.button.disable([ 'edit', 'upload', 'remove' ]);
 		}
 	}
 
@@ -106,20 +120,36 @@ define(function(require, exports, module) {
 	function validate(showType, model) {
 		var errorMsg = [];
 
-		if (model.reportDate === '') {
-			errorMsg.push('请输入上报日期');
+		if (model.projectName === '') {
+			errorMsg.push('请输入项目名称');
 		}
 
-		if (model.car === '') {
-			errorMsg.push('请输入故障车辆');
+		if (model.chargePerson === '') {
+			errorMsg.push('请输入负责人');
 		}
 
-		if (model.problem === '') {
-			errorMsg.push('请输入故障说明');
+		if (model.implementationAddress === '') {
+			errorMsg.push('请输入实施地点');
 		}
 
-		if (model.reporter === '') {
-			errorMsg.push('请输入上报人');
+		if (model.implementationPeriod === '') {
+			errorMsg.push('请输入实施时间');
+		}
+
+		if (model.participant === '') {
+			errorMsg.push('请输入参与人');
+		}
+
+		if (model.inventionPurpose === '') {
+			errorMsg.push('请输入目的');
+		}
+
+		if (model.content === '') {
+			errorMsg.push('请输入主要内容或原理');
+		}
+
+		if (model.analysis === '') {
+			errorMsg.push('请输入效果及经济社会效益分析');
 		}
 
 		if (errorMsg.length > 0) {
@@ -132,11 +162,7 @@ define(function(require, exports, module) {
 
 	// 查看
 	function showDetail(data) {
-		Utils.modal.reset('detail');
-		var object = $.extend({}, data);
-		object.car=object.car.carNo;
-		Utils.form.fill('detail', object);
-		Utils.modal.show('detail');
+		loadDetail(data.id);
 	}
 
 	// 保存
@@ -157,7 +183,43 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+	$('#file').bind('change', function() {
+		if ($('#file').val() !== '') {
+			$('#create-file-form').submit();
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
+		}
+	});
+	$('#create-file-delete').bind('click', function() {
+		var process = new Utils.modal.showProcess('process');
+		window.process = process;
+		$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
+			window.process.stop();
+			window.process = null;
+			$('#attachment').parent().parent().hide();
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		});
+	});
+	// 图片上传
+	$('#upload').click(function() {
+		Utils.modal.reset('upload');
+		Utils.modal.show('upload');
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
+	});
 
+	// 上传保存
+	$('#upload-save').click(function() {
+		var object = Utils.form.serialize('upload');
+		$.post('/electr/innovation/innovation-images', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('upload');
+			} else {
+				Utils.modal.message('upload', data.errors);
+			}
+		});
+	});
 	// 编辑
 	$('#edit').click(function() {
 		if (Utils.button.isDisable('edit')) {
@@ -169,10 +231,9 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get(operateUri + '/' + selectId, function(data) {
 			var object = data.data;
+
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
-			$('#edit_car').attr('data-id',object.car.id);
-			$('#edit_car').val(object.car.carNo);
 		});
 	});
 
@@ -184,9 +245,7 @@ define(function(require, exports, module) {
 		if (!validate('edit', object)) {
 			return false;
 		}
-		var car = {id:$('#edit_car').attr('data-id')};
-		delete object.car;
-		object.car=car;
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -217,34 +276,6 @@ define(function(require, exports, module) {
 		});
 	});
 
-	$("#create-car").autocomplete('/electr/cars', {
-		dataType : "json",
-		mustMatch : true,
-		cacheLength : 20,
-		parse : function(data) {
-			return $.map(data.data.result, function(row) {
-				return {
-					data : row,
-					value : row.carNo,
-					result : row.carNo
-				};
-			});
-		},
-		formatItem : function(item) {
-			return item.carNo;
-		}
-	}).result(function(e, item) {
-		$('#create-car').attr('data-id', item.id);
-	});
-	// 导出
-	$('#export').click(function() {
-		if (Utils.button.isDisable('export')) {
-			return;
-		}
-
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
-	});
-
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({
@@ -257,4 +288,18 @@ define(function(require, exports, module) {
 		grid.set('url', defaultUrl);
 		grid.refresh();
 	});
+	function callBack(data) {
+		window.process.stop();
+		window.process = null;
+		if (!data.success) {
+			alert("上传失败..." + data.data);
+			return false;
+		} else {
+			var selectId = grid.selectedData('id');
+			$.post('/electr/innovation/innovation-images', JSON.stringify({'innovationId':selectId,'imagePath':data.data}), function(data) {
+				Utils.modal.hide('upload');
+			});
+		}
+	}
+	window.callBack=callBack;
 });

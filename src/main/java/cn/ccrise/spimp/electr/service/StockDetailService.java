@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -18,10 +20,12 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.electr.access.StockDetailDAO;
 import cn.ccrise.spimp.electr.entity.Blotters;
 import cn.ccrise.spimp.electr.entity.Stock;
 import cn.ccrise.spimp.electr.entity.StockDetail;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * StockDetail Service。
@@ -40,13 +44,15 @@ public class StockDetailService extends HibernateDataServiceImpl<StockDetail, Lo
 		return stockDetailDAO;
 	}
 
-	public Page<StockDetail> pageQuery(Page<StockDetail> page, String search) {
+	public Page<StockDetail> pageQuery(Page<StockDetail> page, String search, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE)));
 		}
-
+		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 
@@ -103,6 +109,7 @@ public class StockDetailService extends HibernateDataServiceImpl<StockDetail, Lo
 			temp.setQuantity3(stock.getAmount());
 			temp.setQuantity2(instance.getAmount());
 			temp.setMaterialId(originalId);
+			temp.setRecordGroup(instance.getRecordGroup());
 			save(temp);
 		}
 	}

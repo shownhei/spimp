@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -18,8 +20,10 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.electr.access.StockDAO;
 import cn.ccrise.spimp.electr.entity.Stock;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * Stock Service。
@@ -30,20 +34,38 @@ import cn.ccrise.spimp.electr.entity.Stock;
 public class StockService extends HibernateDataServiceImpl<Stock, Long> {
 	@Autowired
 	private StockDAO stockDAO;
+	@Autowired
+	private BlottersService blottersService;
+	@Autowired
+	private StockDetailService stockDetailService;
 
 	@Override
 	public HibernateDAO<Stock, Long> getDAO() {
 		return stockDAO;
 	}
 
-	public Page<Stock> pageQuery(Page<Stock> page, String search) {
+	public boolean deleteStock(Long id) {
+
+		// 删除stockdetail
+		// 删除流水表Blotters
+		// 删除库存表
+		stockDetailService.getDAO().getSession().createQuery("delete from StockDetail d where d.materialId=" + id)
+				.executeUpdate();
+		stockDetailService.getDAO().getSession().createQuery("delete from Blotters b where b.originalId=" + id)
+				.executeUpdate();
+		return delete(id);
+	}
+
+	public Page<Stock> pageQuery(Page<Stock> page, String search, HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
 			criterions.add(Restrictions.or(Restrictions.ilike("materialName", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("model", search, MatchMode.ANYWHERE)));
 		}
-
+		criterions.add(Restrictions.eq("recordGroup", loginAccount.getGroupEntity()));
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 

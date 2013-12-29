@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>配件统计管理 - 安全生产综合管理平台</title>
+<title>小改小革管理 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>
@@ -13,40 +13,35 @@
 		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
-				<div class="toolbar">
+				<div class="toolbar" id="button_bar">
 					<button id="export" class="btn btn-small btn-pink disabled">
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
+
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" value="2013" /> <select id="query_month"
-							name="month" style="height: 25px; width: 130px; font-size: 12px;">
-							<option value="1">1月份</option>
-							<option value="2">2月份</option>
-							<option value="3">3月份</option>
-							<option value="4">4月份</option>
-							<option value="5">5月份</option>
-							<option value="6">6月份</option>
-							<option value="7">7月份</option>
-							<option value="8">8月份</option>
-							<option value="9">9月份</option>
-							<option value="10">10月份</option>
-							<option value="11">11月份</option>
-							<option value="12">12月份</option>
-						</select>
+						<div class="input-append">
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							</span>
+						</div>
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入项目名称...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
+						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
 			</div>
 			<div class="page-content">
-				<div class="table-responsive" id="table_panel"></div>
+				<div class="row-fluid" id="material-table"></div>
 			</div>
 		</div>
 	</div>
-	<!-- 新建 -->
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/electr/material/statistics/index');
+		seajs.use('${resources}/scripts/app/electr/innovation/statistics/index');
 	</script>
 </body>
 </html>
