@@ -25,6 +25,9 @@ define(function(require, exports, module) {
 		handle_side_menu();
 
 		handleSubmenuHeight();
+
+		var offsetTop = activeMenu.offset().top - $('.nav-list').offset().top - 40;
+		$('#sidebar>.nav>li.active>.submenu').scrollTop(offsetTop)
 	});
 
 	function handleSubmenuHeight() {
