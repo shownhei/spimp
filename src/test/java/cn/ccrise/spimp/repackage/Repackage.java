@@ -68,7 +68,7 @@ public class Repackage {
 		String fileName = "target/ROOT/WEB-INF/views/common/head.jsp";
 		List<String> lines = readLines(fileName);
 
-		lines.set(34 - 1, "	var isDevelopment = false;");
+		lines.set(37 - 1, "	var isDevelopment = false;");
 
 		writeLinesToFile(fileName, lines);
 	}

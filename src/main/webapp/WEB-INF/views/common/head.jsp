@@ -16,6 +16,8 @@
 <link href="${resources}/styles/ui/ace-skins.min.css" rel="stylesheet">
 <link href="${resources}/styles/ui/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 <link href="${resources}/styles/ui/jquery.autocomplete.css" rel="stylesheet">
+<link href="${resources}/styles/ui/select2.css" rel="stylesheet">
+<%-- <link href="${resources}/styles/ui/select2-bootstrap.css" rel="stylesheet"> --%>
 <link href="${resources}/styles/main.css" rel="stylesheet">
 <!--[if IE 7]>
 <link href="${resources}/styles/ui/font-awesome-ie7.min.css" rel="stylesheet"/>

@@ -4,6 +4,7 @@
 package cn.ccrise.spimp.system.web;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -109,9 +110,13 @@ public class AccountController {
 					Restrictions.ilike("realName", search, MatchMode.ANYWHERE)));
 		}
 		if (q != null) {
-			return new Response(accountService.find(Restrictions.or(
+			List<Account> results = accountService.find(Restrictions.or(
 					Restrictions.ilike("principal", q, MatchMode.ANYWHERE),
-					Restrictions.ilike("realName", q, MatchMode.ANYWHERE))));
+					Restrictions.ilike("realName", q, MatchMode.ANYWHERE)));
+
+			ResponseDataFilter.filter(results);
+
+			return new Response(results);
 		}
 
 		accountService.getPage(page, criterions.toArray(new Criterion[0]));
