@@ -6,6 +6,7 @@ package cn.ccrise.spimp.spmi.daily.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
@@ -29,6 +30,7 @@ public class DailyReport extends IDEntity {
 	private String leader; // 跟班队长
 	private String result; // 班前安排工作落实结果
 
+	@Lob
 	public String getIssue() {
 		return issue;
 	}
@@ -37,6 +39,7 @@ public class DailyReport extends IDEntity {
 		return leader;
 	}
 
+	@Lob
 	public String getLeaveIssue() {
 		return leaveIssue;
 	}
