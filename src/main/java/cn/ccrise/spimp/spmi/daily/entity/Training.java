@@ -5,9 +5,11 @@ package cn.ccrise.spimp.spmi.daily.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.ercs.entity.UploadedFile;
 
 /**
  * Training。
@@ -23,15 +25,13 @@ public class Training extends IDEntity {
 	private String name; // 计划名称
 	private String category; // 分类：月度/年度培训计划
 	private String origin; // 来源：内培计划/委外培训计划
-	private String fileUrl; // 上传文件路径
+	/**
+	 * 附件
+	 */
+	private UploadedFile attachment;
 
 	public String getCategory() {
 		return category;
-	}
-
-	@Column(nullable = false)
-	public String getFileUrl() {
-		return fileUrl;
 	}
 
 	@Column(nullable = false)
@@ -47,8 +47,13 @@ public class Training extends IDEntity {
 		this.category = category;
 	}
 
-	public void setFileUrl(String fileUrl) {
-		this.fileUrl = fileUrl;
+	@ManyToOne
+	public UploadedFile getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
 	}
 
 	public void setName(String name) {

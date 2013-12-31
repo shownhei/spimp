@@ -5,6 +5,8 @@ package cn.ccrise.spimp.spmi.daily.web;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.spmi.daily.entity.Training;
 import cn.ccrise.spimp.spmi.daily.service.TrainingService;
+
+import com.google.common.base.Strings;
 
 /**
  * Training Controller。
@@ -46,8 +50,12 @@ public class TrainingController {
 
 	@RequestMapping(value = "/spmi/daily/trainings", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Training> page) {
-		return new Response(trainingService.getPage(page));
+	public Response page(Page<Training> page, String search) {
+		if (!Strings.isNullOrEmpty(search)) {
+			return new Response(trainingService.getPage(page, Restrictions.ilike("name", search, MatchMode.ANYWHERE)));
+		} else {
+			return new Response(trainingService.getPage(page));
+		}
 	}
 
 	@RequestMapping(value = "/spmi/daily/trainings", method = RequestMethod.POST)
@@ -59,6 +67,7 @@ public class TrainingController {
 	@RequestMapping(value = "/spmi/daily/trainings/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Training training, @PathVariable long id) {
-		return new Response(trainingService.update(training));
+		training.setId(id);
+		return new Response(trainingService.merge(training));
 	}
 }
