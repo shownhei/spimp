@@ -79,6 +79,10 @@ define(function(require, exports, module) {
 			};
 		object.attachment = attachment;
 		// 验证
+		if(object.name===''){
+			Utils.modal.message('create', [ '文件名不能为空' ]);
+			return;
+		}
 		// 处理属性
 
 		$.post(contextPath + '/spmi/daily/summaries', JSON.stringify(object), function(data) {
@@ -113,7 +117,7 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 		if (object.name === '') {
-			Utils.modal.message('edit', [ '请输入文件名' ]);
+			Utils.modal.message('edit', [ '文件名不能为空' ]);
 			return;
 		}
 		// 处理属性
@@ -146,6 +150,7 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del(contextPath + '/spmi/daily/summaries/' + selectId, function(data) {
+			grid.set('url', defaultUrl);
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
