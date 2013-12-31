@@ -31,7 +31,7 @@ define(function(require, exports, module) {
 		width : 50,
 		align : 'center',
 		render : function(value) {
-			return '<i data-role="view" class="icon-list" style="cursor:pointer;"></i>';
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
 		}
 	} ];
 
@@ -63,6 +63,10 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
@@ -74,12 +78,29 @@ define(function(require, exports, module) {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
 	});
+	// 查看
+	function showDetail(data) {
+		Utils.modal.reset('detail');
 
+		var object = $.extend({}, data);
+		console.log("object:",object);
+
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
+	}
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
 		// 验证
+		if(object.leader===''){
+			Utils.modal.message('create', [ '跟班队长不能为空' ]);
+			return;
+		}
+		if(object.reportDate===''){
+			Utils.modal.message('create', [ '日期不能为空' ]);
+			return;
+		}
 
 		// 处理属性
 
@@ -104,7 +125,8 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get(contextPath + '/spmi/daily/daily-reports/' + selectId, function(data) {
 			var object = data.data;
-
+			$("#edit-issue").val(object.issue);
+			$("#edit-leaveIssue").val(object.leaveIssue);
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
@@ -113,6 +135,15 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
+		// 验证
+		if(object.leader===''){
+			Utils.modal.message('edit', [ '跟班队长不能为空' ]);
+			return;
+		}
+		if(object.reportDate===''){
+			Utils.modal.message('edit', [ '日期不能为空' ]);
+			return;
+		}
 
 		// 处理属性
 		var selectId = grid.selectedData('id');
@@ -141,6 +172,7 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
 		$.del(contextPath + '/spmi/daily/daily-reports/' + selectId, function(data) {
+			grid.set('url', defaultUrl);
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
