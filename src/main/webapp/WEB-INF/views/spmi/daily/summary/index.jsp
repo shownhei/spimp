@@ -63,15 +63,23 @@
 						<div class="control-group">
 							<label class="control-label">分类</label>
 							<div class="controls">
-								<select name="category">
-									<option value="" class="light-grey">选择分类</option>
+								<select id="create-category" name="category" class="input-small span11">
 								</select>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="number">选择文件</label>
+					<div class="control-group" style="display: none;">
+							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input name="fileUrl" type="file">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
+							</div>
+						</div>
+					</form>
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
+						<div class="control-group">
+							<label class="control-label" for="credential">附件</label>
+							<div class="controls">
+								<input name="file" id="file" type="file">
 							</div>
 						</div>
 					</form>
@@ -95,6 +103,90 @@
 			</button>
 		</div>
 	</div>
+	<!-- 编辑 -->
+	<div id="edit-modal" class="modal modal-lg hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
+						<div class="control-group">
+							<label class="control-label">文件名</label>
+							<div class="controls">
+								<input name="name" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">分类</label>
+							<div class="controls">
+								<select id="edit-category" name="category" class="input-small span11">
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="credential">附件</label>
+							<div class="controls">
+								<input name="attachment" id="edit_attachment" readonly type="text">
+							</div>
+						</div>
+				</div>
+				<div id="edit-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="edit-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- 删除 -->
+	<div id="remove-modal" class="modal modal-xs hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：确认删除选中的数据？
+				</div>
+				<div id="remove-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+		<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/summary/index');
 	</script>
