@@ -516,6 +516,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/kte/document", kte, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/kte/info", kte, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/kte/daily", kte, "", i++);
+		// 应急救援管理系统
+		initErcsService.initFourthLevelOperate();
 	}
 
 	@Override
