@@ -121,6 +121,188 @@
 			</button>
 		</div>
 	</div>
+		<!-- 编辑 -->
+	<div id="edit-modal" class="modal modal-lg hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
+						<div class="control-group">
+							<label class="control-label">班次</label>
+							<div class="controls">
+								<select name="shift">
+									<option value="0点班">0点班</option>
+									<option value="8点班">8点班</option>
+									<option value="4点班">4点班</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">割煤</label>
+							<div class="controls">
+								<input name="output" type="number">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">存在问题</label>
+							<div class="controls">
+								<textarea id="edit-issue" name="issue" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">遗留问题</label>
+							<div class="controls">
+								<textarea id="edit-leaveIssue" name="leaveIssue" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跟班队长</label>
+							<div class="controls">
+								<input name="leader" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">工作落实结果</label>
+							<div class="controls">
+								<input name="result" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">报表日期</label>
+							<div class="controls">
+								<input name="reportDate" type="datetime">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="edit-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="edit-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+		<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-lg hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-plus-sign-alt"></i> 新建
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" onsubmit="return false;">
+						<div class="control-group">
+							<label class="control-label">班次</label>
+							<div class="controls">
+								<select name="shift">
+									<option value="0点班">0点班</option>
+									<option value="8点班">8点班</option>
+									<option value="4点班">4点班</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">割煤</label>
+							<div class="controls">
+								<input name="output" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">存在问题</label>
+							<div class="controls">
+								<textarea id="edit-issue" readonly="readonly" name="issue" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">遗留问题</label>
+							<div class="controls">
+								<textarea id="edit-leaveIssue" readonly="readonly" name="leaveIssue" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跟班队长</label>
+							<div class="controls">
+								<input name="leader"  type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">工作落实结果</label>
+							<div class="controls">
+								<input name="result" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">报表日期</label>
+							<div class="controls">
+								<input name="reportDate" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="edit-save" class="btn btn-small btn-success">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+			<!-- 删除 -->
+	<div id="remove-modal" class="modal modal-xs hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-trash"></i> 删除
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：删除选中的数据？
+				</div>
+				<div id="remove-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/report/index');
 	</script>

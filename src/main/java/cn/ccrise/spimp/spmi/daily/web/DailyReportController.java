@@ -5,6 +5,8 @@ package cn.ccrise.spimp.spmi.daily.web;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.spmi.daily.entity.DailyReport;
 import cn.ccrise.spimp.spmi.daily.service.DailyReportService;
+
+import com.google.common.base.Strings;
 
 /**
  * DailyReport Controller。
@@ -51,8 +55,14 @@ public class DailyReportController {
 
 	@RequestMapping(value = "/spmi/daily/daily-reports", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<DailyReport> page) {
-		return new Response(dailyReportService.getPage(page));
+	public Response page(Page<DailyReport> page, String search) {
+		if (!Strings.isNullOrEmpty(search)) {
+			return new Response(dailyReportService.getPage(page,
+					Restrictions.ilike("issue", search, MatchMode.ANYWHERE)));
+		} else {
+			return new Response(dailyReportService.getPage(page));
+		}
+
 	}
 
 	@RequestMapping(value = "/spmi/daily/daily-reports", method = RequestMethod.POST)

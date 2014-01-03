@@ -36,7 +36,7 @@ define(function(require, exports, module) {
 		width : 50,
 		align : 'center',
 		render : function(value) {
-			return '<i data-role="view" class="icon-list" style="cursor:pointer;"></i>';
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
 		}
 	} ];
 
@@ -68,12 +68,23 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
 		}
 	}).render();
+	// 查看
+	function showDetail(data) {
+		Utils.modal.reset('detail');
 
+		var object = $.extend({}, data);
+
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
+	}
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');

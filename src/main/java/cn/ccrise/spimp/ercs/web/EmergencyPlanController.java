@@ -82,7 +82,6 @@ public class EmergencyPlanController {
 	@RequestMapping(value = "/ercs/plans/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody EmergencyPlan emergencyPlan, @PathVariable long id) {
-		logger.debug("{}", emergencyPlan);
 		return new Response(emergencyPlanService.update(emergencyPlan));
 	}
 }
