@@ -125,7 +125,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 编辑
 			</h5>
 		</div>
 		<div class="modal-body">
@@ -235,7 +235,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-plus-sign-alt"></i> 新建
+				<i class="icon-plus-sign-alt"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">
@@ -269,7 +269,7 @@
 						<div class="control-group">
 							<label class="control-label">理由</label>
 							<div class="controls">
-								<textarea id="edit-reason" name="reason" class="xheditor {skin:'nostyle',tools:'simple'}" readonly="readonly"></textarea>
+								<textarea id="edit-reason" name="reason"  class="xheditor {skin:'nostyle',tools:'simple'，readonly:'readonly'}" readonly="readonly"></textarea>
 							</div>
 						</div>
 						<div class="control-group">

@@ -83,6 +83,14 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '文件名不能为空' ]);
 			return;
 		}
+		if($('#attachment').val()===''){
+			Utils.modal.message('create', [ '文件不能为空' ]);
+			return;
+		}
+		if(object.category===''){
+			Utils.modal.message('create', [ '分类不能为空' ]);
+			return;
+		}
 		// 处理属性
 
 		$.post(contextPath + '/spmi/daily/summaries', JSON.stringify(object), function(data) {
@@ -116,10 +124,6 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		if (object.name === '') {
-			Utils.modal.message('edit', [ '文件名不能为空' ]);
-			return;
-		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		var attachment = {
@@ -127,6 +131,14 @@ define(function(require, exports, module) {
 			};
 			delete object.attachment;
 			object.attachment = attachment;
+			if (object.name === '') {
+				Utils.modal.message('edit', [ '文件名不能为空' ]);
+				return;
+			}
+			if(object.category===''){
+				Utils.modal.message('edit', [ '分类不能为空' ]);
+				return;
+			}
 		$.put(contextPath + '/spmi/daily/summaries/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

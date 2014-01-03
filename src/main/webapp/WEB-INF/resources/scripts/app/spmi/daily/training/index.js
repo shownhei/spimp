@@ -77,17 +77,25 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
-		// 验证
-		if(object.name===''){
-			Utils.modal.message('create', [ '计划名称不能为空' ]);
-			return;
-		}
 		// 处理属性
 		var attachment = {
 				id : $('#attachment').attr('data-id'),
 				name : object.filePath
 			};
 		object.attachment = attachment;
+		// 验证
+		if(object.name===''){
+			Utils.modal.message('create', [ '计划名称不能为空' ]);
+			return;
+		}
+		if($('#attachment').val()===''){
+			Utils.modal.message('create', [ '文件不能为空' ]);
+			return;
+		}
+		if(object.category===''){
+			Utils.modal.message('create', [ '分类不能为空' ]);
+			return;
+		}
 
 		$.post(contextPath + '/spmi/daily/trainings', JSON.stringify(object), function(data) {
 			if (data.success) {
@@ -119,10 +127,6 @@ define(function(require, exports, module) {
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-		if(object.name===''){
-			Utils.modal.message('edit', [ '计划名称不能为空' ]);
-			return;
-		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		var attachment = {
@@ -130,6 +134,14 @@ define(function(require, exports, module) {
 			};
 			delete object.attachment;
 			object.attachment = attachment;
+			if(object.name===''){
+				Utils.modal.message('edit', [ '计划名称不能为空' ]);
+				return;
+			}
+			if(object.category===''){
+				Utils.modal.message('edit', [ '分类不能为空' ]);
+				return;
+			}
 		$.put(contextPath + '/spmi/daily/trainings/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
