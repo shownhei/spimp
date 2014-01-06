@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Maintenance;
 import cn.ccrise.spimp.electr.entity.MaintenanceDetail;
@@ -35,6 +36,7 @@ import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.service.CarService;
 import cn.ccrise.spimp.electr.service.MaintenanceDetailService;
 import cn.ccrise.spimp.electr.service.MaintenanceService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -92,9 +94,10 @@ public class MaintenanceController {
 	 */
 	@RequestMapping(value = "/electr/maintenance/getdailymaintenance", method = RequestMethod.GET)
 	public ModelAndView getDailyMaintenance(Long car, Long maintenanceId, Date maintenanceDate,
-			String maintenancePeople, Integer maintenanceLevel) {
+			String maintenancePeople, Integer maintenanceLevel,HttpSession httpSession) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
-
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		if (maintenanceId != null) {
 			Maintenance maintenance = maintenanceService.findUniqueBy("id", maintenanceId);
 			root.put("maintenance", maintenance);
@@ -113,6 +116,7 @@ public class MaintenanceController {
 			if (maintenanceLevel != null) {
 				query.add(Restrictions.eq("maintenanceLevel", maintenanceLevel));
 			}
+			query.add(Restrictions.eq("maintenanceGroup.id", loginAccount.getGroupEntity().getId()));
 			@SuppressWarnings("unchecked")
 			List<Maintenance> result = query.list();
 			if (result != null && result.size() > 0) {
@@ -131,7 +135,9 @@ public class MaintenanceController {
 	 */
 	@RequestMapping(value = "/electr/maintenance/getschedulemaintenance", method = RequestMethod.GET)
 	public ModelAndView getScheduleMaintenance(Long car, Long maintenanceId, Date maintenanceDate,
-			String maintenancePeople, Integer maintenanceLevel) {
+			String maintenancePeople, Integer maintenanceLevel,HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		HashMap<String, Object> root = new HashMap<String, Object>();
 
 		if (maintenanceId != null) {
@@ -172,14 +178,20 @@ public class MaintenanceController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenances", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody Maintenance maintenance) {
+	public Response save(@Valid @RequestBody Maintenance maintenance,HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		maintenance.setMaintenanceGroup(loginAccount.getGroupEntity());
 		maintenanceService.save(maintenance);
 		return new Response(maintenance);
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenances/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Maintenance maintenance, @PathVariable long id) {
+	public Response update(@Valid @RequestBody Maintenance maintenance, @PathVariable long id,HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		maintenance.setMaintenanceGroup(loginAccount.getGroupEntity());
 		return new Response(maintenanceService.update(maintenance));
 	}
 }

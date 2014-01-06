@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
@@ -44,11 +45,23 @@ public class Maintenance extends IDEntity {
 	 */
 	@PageFields(describtion = "验收人", allowedNull = true, search = false)
 	private String accepter;
-
+	/**
+	 * 单位
+	 */
+	@PageFields(describtion = "单位", allowedNull = false, search = true)
+	private GroupEntity maintenanceGroup;
 	public String getAccepter() {
 		return accepter;
 	}
+	
 
+	@ManyToOne
+	public GroupEntity getMaintenanceGroup() {
+		return maintenanceGroup;
+	}
+	public void setMaintenanceGroup(GroupEntity maintenanceGroup) {
+		this.maintenanceGroup = maintenanceGroup;
+	}
 	@ManyToOne
 	public Car getCar() {
 		return car;
