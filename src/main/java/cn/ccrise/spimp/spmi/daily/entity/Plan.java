@@ -8,9 +8,12 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -30,21 +33,28 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 @Entity
 @Table(name = "spmi_plans")
 public class Plan extends IDEntity {
+	public enum PlanStatus {
+		未指派, 已指派, 已执行, 已完成
+	}
+
+	// 业务属性
 	@NotBlank
 	private String title; // 主题
 	private String content; // 内容
-	private String category; // 分类
+	private String category; // 分类：整改安排/日常工作/其他工作
+	@NotNull
 	private Date cutoffDate; // 截止日期
 	private String feedback; // 反馈
 	private Timestamp createTime = new Timestamp(System.currentTimeMillis()); // 创建时间
 	private Timestamp feedbackTime; // 反馈时间
-	private String status; // 状态：已指派/已读/已执行/已完成
-	private Long createrAccountId; // 创建人id
-	private Long executorAccountId; // 执行人id
+	private PlanStatus status; // 状态：未指派/已指派/已执行/已完成
+	private String executor; // 执行人
+
+	// 非业务属性
+	private Long createrId; // 创建人id
 
 	// 非持久化属性
 	private String creater; // 创建人
-	private String executor; // 执行人
 
 	public String getCategory() {
 		return category;
@@ -61,12 +71,13 @@ public class Plan extends IDEntity {
 	}
 
 	@Column(nullable = false)
-	public Long getCreaterAccountId() {
-		return createrAccountId;
+	public Long getCreaterId() {
+		return createrId;
 	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
+	@Column(updatable = false)
 	public Timestamp getCreateTime() {
 		return createTime;
 	}
@@ -75,14 +86,8 @@ public class Plan extends IDEntity {
 		return cutoffDate;
 	}
 
-	@Transient
 	public String getExecutor() {
 		return executor;
-	}
-
-	@Column(nullable = false)
-	public Long getExecutorAccountId() {
-		return executorAccountId;
 	}
 
 	@Lob
@@ -97,7 +102,8 @@ public class Plan extends IDEntity {
 	}
 
 	@Column(nullable = false)
-	public String getStatus() {
+	@Enumerated(EnumType.STRING)
+	public PlanStatus getStatus() {
 		return status;
 	}
 
@@ -118,8 +124,8 @@ public class Plan extends IDEntity {
 		this.creater = creater;
 	}
 
-	public void setCreaterAccountId(Long createrAccountId) {
-		this.createrAccountId = createrAccountId;
+	public void setCreaterId(Long createrId) {
+		this.createrId = createrId;
 	}
 
 	public void setCreateTime(Timestamp createTime) {
@@ -134,10 +140,6 @@ public class Plan extends IDEntity {
 		this.executor = executor;
 	}
 
-	public void setExecutorAccountId(Long executorAccountId) {
-		this.executorAccountId = executorAccountId;
-	}
-
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
@@ -146,7 +148,7 @@ public class Plan extends IDEntity {
 		this.feedbackTime = feedbackTime;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(PlanStatus status) {
 		this.status = status;
 	}
 

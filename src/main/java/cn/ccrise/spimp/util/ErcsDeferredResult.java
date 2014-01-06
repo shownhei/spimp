@@ -40,7 +40,6 @@ public class ErcsDeferredResult<T> extends DeferredResult<T> {
 	 */
 	public Long getTimePassed() {
 		Long temp = System.currentTimeMillis() - recordTime.getTime();
-		System.out.println("等待时间:" + temp + "毫秒");
 		return temp;
 	}
 

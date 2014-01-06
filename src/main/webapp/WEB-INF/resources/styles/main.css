@@ -475,10 +475,22 @@ body {
 	width: 199px;
 }
 
-.sidebar:before{
+.sidebar:before {
 	width: 199px;
 }
 
 .main-content {
 	margin-left: 200px;
+}
+
+/* 整改通知单样式 */
+.reform-table {
+	table-layout: fixed;
+	width: 100%;
+	font-size: 12px;
+	color: #111;
+}
+
+.reform-table td {
+	border: 1px #333 solid;
 }
