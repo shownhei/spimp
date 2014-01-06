@@ -158,6 +158,7 @@ public class MaintenanceController {
 			if (maintenanceLevel != null) {
 				query.add(Restrictions.eq("maintenanceLevel", maintenanceLevel));
 			}
+			query.add(Restrictions.eq("maintenanceGroup.id", loginAccount.getGroupEntity().getId()));
 			@SuppressWarnings("unchecked")
 			List<Maintenance> result = query.list();
 			if (result != null && result.size() > 0) {
