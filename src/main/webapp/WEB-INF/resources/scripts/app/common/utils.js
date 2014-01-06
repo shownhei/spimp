@@ -66,7 +66,7 @@ define(function(require, exports, module) {
 		}
 
 		$modal.offset({
-			top : modalTop,
+			top : modalTop + $(document).scrollTop(),
 			left : modalLeft
 		});
 
