@@ -46,10 +46,6 @@ public class Summary extends IDEntity {
 		return attachment;
 	}
 
-	public void setAttachment(UploadedFile attachment) {
-		this.attachment = attachment;
-	}
-
 	public String getCategory() {
 		return category;
 	}
@@ -72,6 +68,10 @@ public class Summary extends IDEntity {
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getUploadTime() {
 		return uploadTime;
+	}
+
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
 	}
 
 	public void setCategory(String category) {

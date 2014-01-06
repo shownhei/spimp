@@ -27,15 +27,18 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入受奖人...">
@@ -99,7 +102,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -147,7 +151,7 @@
 						<div class="control-group">
 							<label class="control-label" for="awardType">奖惩类型</label>
 							<div class="controls">
-								<select id="edit_awardType" name="awardType" >
+								<select id="edit_awardType" name="awardType">
 									<option value="0">罚</option>
 									<option value="1">奖</option>
 								</select>
@@ -164,7 +168,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -247,7 +252,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

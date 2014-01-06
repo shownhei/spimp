@@ -18,10 +18,9 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-					    <input name="search" type="datetime" style="height: 20px; width: 130px; font-size: 12px;" placeholder="请输入年月">
+						<input name="search" type="datetime" style="height: 20px; width: 130px; font-size: 12px;" placeholder="请输入年月">
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入材料名称...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
@@ -32,8 +31,8 @@
 				<div class="table-responsive">
 					<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 						<thead>
-						     <tr>
-								<th colspan=12 ><center>2013年8月份胶轮车配件进货使用剩余量明细表</center></th>
+							<tr>
+								<th colspan=12><center>2013年8月份胶轮车配件进货使用剩余量明细表</center></th>
 							</tr>
 							<tr>
 								<th colspan=4><center>胶轮车配件进货明细表</center></th>
@@ -55,38 +54,47 @@
 								<th>备注</th>
 							</tr>
 						</thead>
-
 						<tbody>
 							<tr>
-								<td><a href="#">ace.com</a></td>
+								<td>
+									<a href="#">ace.com</a>
+								</td>
 								<td>$45</td>
 								<td class="hidden-480">3,330</td>
 								<td>Feb 12</td>
-								<td><a href="#">ace.com</a></td>
+								<td>
+									<a href="#">ace.com</a>
+								</td>
 								<td>$45</td>
 								<td class="hidden-480">3,330</td>
 								<td>Feb 12</td>
-								<td><a href="#">ace.com</a></td>
+								<td>
+									<a href="#">ace.com</a>
+								</td>
 								<td>$45</td>
 								<td class="hidden-480">3,330</td>
 								<td>Feb 12</td>
 							</tr>
-
 							<tr class="grid-row">
-								<td><a href="#">base.com</a></td>
+								<td>
+									<a href="#">base.com</a>
+								</td>
 								<td>$35</td>
 								<td class="hidden-480">2,595</td>
 								<td>Feb 18</td>
-								<td><a href="#">base.com</a></td>
+								<td>
+									<a href="#">base.com</a>
+								</td>
 								<td>$35</td>
 								<td class="hidden-480">2,595</td>
 								<td>Feb 18</td>
-								<td><a href="#">base.com</a></td>
+								<td>
+									<a href="#">base.com</a>
+								</td>
 								<td>$35</td>
 								<td class="hidden-480">2,595</td>
 								<td>Feb 18</td>
 							</tr>
-
 						</tbody>
 					</table>
 				</div>
@@ -128,7 +136,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -178,7 +187,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -249,7 +259,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

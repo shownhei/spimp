@@ -121,7 +121,7 @@
 			</button>
 		</div>
 	</div>
-		<!-- 编辑 -->
+	<!-- 编辑 -->
 	<div id="edit-modal" class="modal modal-lg hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -200,7 +200,7 @@
 			</button>
 		</div>
 	</div>
-		<!-- 详细信息 -->
+	<!-- 详细信息 -->
 	<div id="detail-modal" class="modal modal-lg hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -243,7 +243,7 @@
 						<div class="control-group">
 							<label class="control-label">跟班队长</label>
 							<div class="controls">
-								<input name="leader"  type="text" readonly="readonly">
+								<input name="leader" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -271,7 +271,7 @@
 			</button>
 		</div>
 	</div>
-			<!-- 删除 -->
+	<!-- 删除 -->
 	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>

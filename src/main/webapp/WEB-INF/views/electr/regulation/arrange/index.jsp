@@ -27,15 +27,18 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入标题...">
@@ -70,8 +73,8 @@
 						<div class="control-group">
 							<label class="control-label" for="attachment">工作安排</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;"> <input value="删除" type="button"
-									id="create-file-delete" class="btn btn-small btn-success" style="width: 50px;">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success" style="width: 50px;">
 							</div>
 						</div>
 					</form>
@@ -88,7 +91,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -132,7 +136,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -203,7 +208,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

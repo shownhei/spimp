@@ -27,10 +27,9 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入文档名称...">
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入文档名称...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -62,7 +61,7 @@
 						<div class="control-group">
 							<label class="control-label" for="fileNo">附件</label>
 							<div class="controls">
-								<input id="attachment"  name="attachment" type="text" class="span10 " style="width: 350px;">
+								<input id="attachment" name="attachment" type="text" class="span10 " style="width: 350px;">
 								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
 							</div>
 						</div>

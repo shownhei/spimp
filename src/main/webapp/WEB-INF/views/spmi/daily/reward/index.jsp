@@ -198,7 +198,7 @@
 			</button>
 		</div>
 	</div>
-		<!-- 删除 -->
+	<!-- 删除 -->
 	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -230,7 +230,7 @@
 			</button>
 		</div>
 	</div>
-		<!-- 查看 -->
+	<!-- 查看 -->
 	<div id="detail-modal" class="modal modal-lg hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -251,7 +251,7 @@
 						<div class="control-group">
 							<label class="control-label">奖惩人所属部门</label>
 							<div class="controls">
-								<input  name="groupName" readonly="readonly">
+								<input name="groupName" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -269,7 +269,7 @@
 						<div class="control-group">
 							<label class="control-label">理由</label>
 							<div class="controls">
-								<textarea id="edit-reason" name="reason"  class="xheditor {skin:'nostyle',tools:'simple'，readonly:'readonly'}" readonly="readonly"></textarea>
+								<textarea id="edit-reason" name="reason" class="xheditor {skin:'nostyle',tools:'simple'，readonly:'readonly'}" readonly="readonly"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -281,7 +281,7 @@
 						<div class="control-group">
 							<label class="control-label">奖惩日期</label>
 							<div class="controls">
-								<input name="rewardDate" type="datetime" >
+								<input name="rewardDate" type="datetime">
 							</div>
 						</div>
 					</form>

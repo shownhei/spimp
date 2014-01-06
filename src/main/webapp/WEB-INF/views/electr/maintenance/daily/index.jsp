@@ -27,12 +27,12 @@
 						<i class="icon-download-alt"></i> 导出保养单
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="query-form" class="form-search" onsubmit="return false;">
 						<select id="query_car" name="car" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<div class="input-append">
-							<input id="query_maintenanceDate" name="maintenanceDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on">
+							<input id="query_maintenanceDate" name="maintenanceDate" type="datetime" placeholder="开始时间" class="input-small">
+							<span class="add-on nav-add-on">
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
@@ -99,7 +99,8 @@
 				<div id="create_maintenance-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create_maintenance-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create_maintenance-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -156,7 +157,8 @@
 				<div id="create_maintenance_detail-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create_maintenance_detail-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create_maintenance_detail-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -185,13 +187,13 @@
 						<div class="control-group">
 							<label class="control-label" for="checkItem">检查维修项目</label>
 							<div class="controls">
-								<input  name="checkItem" type="text">
+								<input name="checkItem" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="maintenanceWay">保养方式</label>
 							<div class="controls">
-								<input  name="maintenanceWay" type="text">
+								<input name="maintenanceWay" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -213,7 +215,8 @@
 				<div id="edit_maintenance_detail-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit_maintenance_detail-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit_maintenance_detail-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -244,7 +247,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

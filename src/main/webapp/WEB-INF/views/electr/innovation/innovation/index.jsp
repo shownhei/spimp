@@ -27,7 +27,6 @@
 						<i class="icon-trash"></i> 删除
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入项目名称...">
@@ -60,7 +59,6 @@
 								<input id="create_projectName" name="projectName" type="text">
 							</div>
 						</div>
-
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="refugeType">负责人</label>
@@ -120,7 +118,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -206,7 +205,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -313,7 +313,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -353,7 +354,8 @@
 				<div id="upload-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="upload-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="upload-message-content"></span>
 						</div>
 					</div>
 				</div>

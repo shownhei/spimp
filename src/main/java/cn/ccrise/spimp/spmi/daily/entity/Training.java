@@ -30,6 +30,11 @@ public class Training extends IDEntity {
 	 */
 	private UploadedFile attachment;
 
+	@ManyToOne
+	public UploadedFile getAttachment() {
+		return attachment;
+	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -43,17 +48,12 @@ public class Training extends IDEntity {
 		return origin;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	@ManyToOne
-	public UploadedFile getAttachment() {
-		return attachment;
-	}
-
 	public void setAttachment(UploadedFile attachment) {
 		this.attachment = attachment;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public void setName(String name) {

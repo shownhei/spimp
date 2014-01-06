@@ -67,7 +67,7 @@
 								</select>
 							</div>
 						</div>
-					<div class="control-group" style="display: none;">
+						<div class="control-group" style="display: none;">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
 								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
@@ -186,7 +186,7 @@
 			</button>
 		</div>
 	</div>
-		<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/summary/index');
 	</script>

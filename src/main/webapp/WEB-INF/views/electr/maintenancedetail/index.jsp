@@ -27,7 +27,6 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
 			</div>
 			<div class="page-content">
 				<div class="row-fluid" id="material-table"></div>

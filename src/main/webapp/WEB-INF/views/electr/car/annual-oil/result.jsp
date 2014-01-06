@@ -27,14 +27,14 @@
 						<td>${data.distance}</td>
 						<td class="hidden-480">${data.refuelNumber}</td>
 						<c:if test="${listIndex.index==0 }">
-							<td rowspan="${fn:length(list) }"  style="text-align:center;vertical-align:middle">${data.dayTrainNumberDisplay }</td>
+							<td rowspan="${fn:length(list) }" style="text-align: center; vertical-align: middle">${data.dayTrainNumberDisplay }</td>
 						</c:if>
 						<td>${data.oilDistanceDisplay}</td>
 						<c:if test="${listIndex.index==0 }">
-							<td rowspan="${fn:length(list) }"  style="text-align:center;vertical-align:middle">${data.avgOilDistance }</td>
+							<td rowspan="${fn:length(list) }" style="text-align: center; vertical-align: middle">${data.avgOilDistance }</td>
 						</c:if>
 						<c:if test="${listIndex.index==0 }">
-							<td rowspan="${fn:length(list) }"  style="text-align:center;vertical-align:middle">${data.carCategory }</td>
+							<td rowspan="${fn:length(list) }" style="text-align: center; vertical-align: middle">${data.carCategory }</td>
 						</c:if>
 					</tr>
 				</c:forEach>

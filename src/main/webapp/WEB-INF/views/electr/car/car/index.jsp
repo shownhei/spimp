@@ -27,7 +27,6 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入车类/车型/车号...">
@@ -76,8 +75,8 @@
 							<label class="control-label" for="carStatus">车辆状态</label>
 							<div class="controls">
 								<select id="create_carStatus" name="carStatus">
-								   <option value=1>正常</option>
-								   <option value=0>停用</option>
+									<option value=1>正常</option>
+									<option value=0>停用</option>
 								</select>
 							</div>
 						</div>
@@ -104,7 +103,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -154,8 +154,8 @@
 							<label class="control-label" for="carStatus">车辆状态</label>
 							<div class="controls">
 								<select id="edit_carStatus" name="carStatus">
-								   <option value="1">正常</option>
-								   <option value="0">停用</option>
+									<option value="1">正常</option>
+									<option value="0">停用</option>
 								</select>
 							</div>
 						</div>
@@ -182,7 +182,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -283,7 +284,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

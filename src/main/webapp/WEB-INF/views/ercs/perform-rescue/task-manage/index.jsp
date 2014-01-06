@@ -53,7 +53,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="create-form" class="form-horizontal">
-					    <div class="control-group">
+						<div class="control-group">
 							<label class="control-label span2" for="alarm">事故选择</label>
 							<div class="controls">
 								<select id="create-alarm" name="alarm[id]"></select>

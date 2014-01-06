@@ -27,7 +27,6 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
@@ -42,7 +41,7 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<input name="search" type="text" style="height:15px;width:130px;font-size:12px;" placeholder="输入检修位置/负责人...">
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入检修位置/负责人...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>

@@ -30,16 +30,14 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<select id="search_deviceClass" name="deviceClass" style="height: 25px; width: 120px; font-size: 12px;"></select> <select id="search_deviceCategory"
-							name="deviceCategory" style="height: 25px; width: 120px; font-size: 12px;"></select> <select id="search_deviceType" name="deviceType"
-							style="height: 25px; width: 120px; font-size: 12px;"></select> <select id="search_serviceEnvironment" name="serviceEnvironment"
-							style="height: 25px; width: 120px; font-size: 12px;"></select> <select id="search_deviceArea" name="deviceArea"
-							style="height: 25px; width: 120px; font-size: 12px;"></select> <select id="search_stowedPosition" name="stowedPosition"
-							style="height: 25px; width: 120px; font-size: 12px;"></select>
-
+						<select id="search_deviceClass" name="deviceClass" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_deviceCategory" name="deviceCategory" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_deviceType" name="deviceType" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_serviceEnvironment" name="serviceEnvironment" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_deviceArea" name="deviceArea" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_stowedPosition" name="stowedPosition" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -77,7 +75,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="deviceType">设备类型</label>
 							<div class="controls">
@@ -90,7 +87,6 @@
 								<input id="create_deviceName" name="deviceName" type="text">
 							</div>
 						</div>
-
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="deviceModel">设备型号</label>
@@ -119,8 +115,6 @@
 								</div>
 							</div>
 						</div>
-
-
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="usage">用途</label>
@@ -149,14 +143,12 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="control-group">
 							<label class="control-label" for="productionDate">出厂日期</label>
 							<div class="controls">
 								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_productionDate" name="productionDate">
 							</div>
 						</div>
-
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="chargePerson">包机人</label>
@@ -185,7 +177,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="chargePerson">速度</label>
@@ -200,7 +191,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row-fluid ">
 							<div class="control-group span6">
 								<label class="control-label " for="layoutLength">布置长度</label>
@@ -215,7 +205,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label" for="pictureURL">图片路径</label>
 							<div class="controls">
@@ -233,7 +222,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -307,7 +297,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create_detail-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create_detail-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -477,7 +468,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -668,7 +660,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

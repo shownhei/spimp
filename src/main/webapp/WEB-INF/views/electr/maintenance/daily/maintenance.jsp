@@ -27,7 +27,6 @@
 					<th>操作</th>
 				</tr>
 			</thead>
-
 			<tbody>
 				<c:forEach items="${details}" var="data" varStatus="status">
 					<tr class="grid-row page_report_table_tr">
@@ -36,15 +35,16 @@
 						<td class="hidden-480">${data.maintenanceWay }</td>
 						<td>${data.treatment }</td>
 						<td>${data.remark }</td>
-						<td><div class="visible-md  btn-group">
+						<td>
+							<div class="visible-md  btn-group">
 								<button class="btn btn-small btn-info" detailId="${data.id}" buttonType="edit">
 									<i class="icon-edit bigger-120" detailId="${data.id}" buttonType="edit"></i>
 								</button>
-
 								<button class="btn btn-small btn-danger" detailId="${data.id}" buttonType="delete">
 									<i class="icon-trash bigger-120" detailId="${data.id}" buttonType="delete"></i>
 								</button>
-							</div></td>
+							</div>
+						</td>
 					</tr>
 				</c:forEach>
 				<tr>

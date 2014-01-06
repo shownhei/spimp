@@ -27,20 +27,22 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
-							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="startDate" type="datetime" placeholder="开始时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
 						<div class="input-append">
-							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small"> <span class="add-on nav-add-on"> <i class="icon-calendar"></i>
+							<input name="endDate" type="datetime" placeholder="结束时间" class="input-small">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入文档名称..."> <select id="search_fileType"
-							name="fileType" style="height: 25px; width: 120px; font-size: 12px;"></select>
-
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入文档名称...">
+						<select id="search_fileType" name="fileType" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -102,7 +104,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -158,7 +161,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -235,7 +239,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

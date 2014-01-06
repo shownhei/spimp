@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:if test="${plan!=null}">
-	<div id="table_panel" >
-		<table id="sample-table-1" data-id="${planId}"  class="table table-striped table-bordered table-hover">
+	<div id="table_panel">
+		<table id="sample-table-1" data-id="${planId}" class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr class="grid-row">
 					<th colspan=9><center>${fn:substring(plan.planDate, 0,4)}年${fn:substring(plan.planDate, 5,7)}月份材料申请计划<center></th>
@@ -24,7 +24,6 @@
 					<th>操作</th>
 				</tr>
 			</thead>
-
 			<tbody>
 				<c:forEach items="${details}" var="data" varStatus="status">
 					<tr class="grid-row page_report_table_tr">
@@ -36,15 +35,16 @@
 						<td>${data.quantity }</td>
 						<td>${data.sumMoney }</td>
 						<td>${data.remark }</td>
-						<td><div class="visible-md  btn-group">
+						<td>
+							<div class="visible-md  btn-group">
 								<button class="btn btn-small btn-info" detailId="${data.id}" buttonType="edit">
 									<i class="icon-edit bigger-120" detailId="${data.id}" buttonType="edit"></i>
 								</button>
-
 								<button class="btn btn-small btn-danger" detailId="${data.id}" buttonType="delete">
 									<i class="icon-trash bigger-120" detailId="${data.id}" buttonType="delete"></i>
 								</button>
-							</div></td>
+							</div>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

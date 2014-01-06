@@ -237,7 +237,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="associate-form" class="form-horizontal">
-					    <input id="staffId" name="staffId" type="hidden">
+						<input id="staffId" name="staffId" type="hidden">
 						<div class="control-group">
 							<label class="control-label " for="account">账户选择</label>
 							<div class="controls">

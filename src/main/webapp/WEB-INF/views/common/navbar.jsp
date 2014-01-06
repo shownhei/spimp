@@ -13,7 +13,7 @@
 						<span class="badge badge-important">0</span>
 					</a>
 					<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-						<li class="nav-header" >
+						<li class="nav-header">
 							<i class="icon-warning-sign"></i> 0 个报警
 						</li>
 						<li>
@@ -29,7 +29,7 @@
 						<span class="badge badge-success">0</span>
 					</a>
 					<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-						<li class="nav-header" >
+						<li class="nav-header">
 							<i class="icon-envelope-alt"></i> 0 条消息
 						</li>
 						<li>

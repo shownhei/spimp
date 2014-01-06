@@ -15,13 +15,14 @@
 				<th>合计</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			<c:forEach items="${result}" var="data" varStatus="listIndex">
 				<tr class="grid-row page_report_table_tr">
 					<td>${listIndex.index+1}月份</td>
 					<c:forEach begin="1" end="${fn:length(carList)+1}" step="1" var="index">
-						<td><c:if test="${data[index-1]>0}">${data[index-1]}</c:if></td>
+						<td>
+							<c:if test="${data[index-1]>0}">${data[index-1]}</c:if>
+						</td>
 					</c:forEach>
 				</tr>
 			</c:forEach>

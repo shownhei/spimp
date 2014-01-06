@@ -20,8 +20,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="query-form" class="form-search" onsubmit="return false;">
-						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" /> <select id="query_month" name="month"
-							style="height: 25px; width: 130px; font-size: 12px;">
+						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" />
+						<select id="query_month" name="month" style="height: 25px; width: 130px; font-size: 12px;">
 							<option value="1">1月</option>
 							<option value="2">2月</option>
 							<option value="3">3月</option>

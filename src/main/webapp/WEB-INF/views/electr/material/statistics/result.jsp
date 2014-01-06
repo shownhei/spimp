@@ -25,7 +25,6 @@
 			<th>备注</th>
 		</tr>
 	</thead>
-
 	<tbody>
 		<c:forEach items="${result}" var="data">
 			<tr class="page_report_table_tr">

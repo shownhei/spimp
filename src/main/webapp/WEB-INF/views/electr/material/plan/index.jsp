@@ -27,11 +27,10 @@
 						<i class="icon-download-alt"></i> 导出本计划
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" value="2013" /> <select id="query_month"
-							name="month" style="height: 25px; width: 130px; font-size: 12px;">
+						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" value="2013" />
+						<select id="query_month" name="month" style="height: 25px; width: 130px; font-size: 12px;">
 							<option value="1">1月份</option>
 							<option value="2">2月份</option>
 							<option value="3">3月份</option>
@@ -49,7 +48,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="page-content" id="tablePanel" style="overflow-x:auto;"></div>
+			<div class="page-content" id="tablePanel" style="overflow-x: auto;"></div>
 		</div>
 	</div>
 	<!-- 新建 -->
@@ -81,7 +80,8 @@
 				<div id="create_plan-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create_plan-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create_plan-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -156,7 +156,8 @@
 				<div id="add_detail-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="add_detail-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="add_detail-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -228,13 +229,15 @@
 								<input id="edit_remark" name="remark" type="text">
 							</div>
 						</div>
-						<input type="hidden" id="edit_detail-plan" name="plan"> <input type="hidden" name="id">
+						<input type="hidden" id="edit_detail-plan" name="plan">
+						<input type="hidden" name="id">
 					</form>
 				</div>
 				<div id="edit_detail-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit_detail-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit_detail-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -265,7 +268,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

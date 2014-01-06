@@ -27,7 +27,6 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-				
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<div class="input-append">
@@ -213,7 +212,7 @@
 						<div class="control-group">
 							<label class="control-label" for="classType">班次 </label>
 							<div class="controls">
-								<select id="detail_classType" name="classType" >
+								<select id="detail_classType" name="classType">
 									<option value=0>零点班</option>
 									<option value=4>四点班</option>
 									<option value=8>八点班</option>

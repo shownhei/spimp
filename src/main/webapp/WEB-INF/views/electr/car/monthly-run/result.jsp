@@ -41,20 +41,23 @@
 					</c:forEach>
 				</tr>
 			</thead>
-
 			<tbody>
 				<c:forEach items="${result}" var="data" varStatus="listIndex">
 					<tr class="grid-row page_report_table_tr">
 						<td>${listIndex.index+1}日</td>
 						<c:forEach begin="1" end="${fn:length(data)}" step="1" var="index">
-							<td <c:if test="${(index-1)%10==0}">style="border-left-color:black;"</c:if>><c:if test="${data[index-1]>0}">${data[index-1]}</c:if></td>
+							<td <c:if test="${(index-1)%10==0}">style="border-left-color:black;"</c:if>>
+								<c:if test="${data[index-1]>0}">${data[index-1]}</c:if>
+							</td>
 						</c:forEach>
 					</tr>
 				</c:forEach>
 				<tr class="grid-row page_report_table_tr">
 					<td>合计</td>
 					<c:forEach items="${sumList}" var="data" varStatus="index">
-						<td <c:if test="${(index.index)%10==0}">style="border-left-color:black;"</c:if>><c:if test="${data>0}">${data}</c:if></td>
+						<td <c:if test="${(index.index)%10==0}">style="border-left-color:black;"</c:if>>
+							<c:if test="${data>0}">${data}</c:if>
+						</td>
 					</c:forEach>
 				</tr>
 			</tbody>
