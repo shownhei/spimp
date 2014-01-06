@@ -6,6 +6,7 @@ package cn.ccrise.spimp.spmi.daily.web;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
@@ -37,7 +39,9 @@ import cn.ccrise.spimp.spmi.daily.entity.Reform;
 import cn.ccrise.spimp.spmi.daily.entity.Reform.ReformStatus;
 import cn.ccrise.spimp.spmi.daily.service.PlanService;
 import cn.ccrise.spimp.spmi.daily.service.ReformService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.service.AccountService;
+import cn.ccrise.spimp.system.service.GroupService;
 
 import com.google.common.collect.Lists;
 
@@ -56,6 +60,8 @@ public class PlanController {
 	private ReformService reformService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private GroupService groupService;
 	@Autowired
 	private MessageSource messageSource;
 
@@ -99,6 +105,8 @@ public class PlanController {
 		if (status != null) {
 			criterions.add(Restrictions.eq("status", status));
 		}
+
+		addFilter(httpSession, criterions);
 
 		page = planService.getPage(page, criterions.toArray(new Criterion[0]));
 
@@ -160,5 +168,33 @@ public class PlanController {
 		}
 
 		return new Response(planService.update(planInDb));
+	}
+
+	/**
+	 * 根据用户所在机构查询同一机构所有用户的工作安排，包括下属机构。
+	 * 
+	 * @param httpSession
+	 * @param criterions
+	 */
+	private void addFilter(HttpSession httpSession, ArrayList<Criterion> criterions) {
+		GroupEntity groupEntityInDb = groupService.get(WebUtils.getGroup(httpSession).getId()); // 重新从数据库获取机构数据
+
+		List<GroupEntity> childrenGroups = groupService.getChildrenByQueryLabel(groupEntityInDb, new String[] { "mine",
+				"office", "team", "other" });
+
+		childrenGroups.add(WebUtils.getGroup(httpSession));
+
+		List<Account> accounts = accountService.find(Restrictions.in("groupEntity", childrenGroups));
+		List<Long> accountIds = Lists.newArrayList();
+		for (Account account : accounts) {
+			accountIds.add(account.getId());
+		}
+
+		if (accounts.size() != 0) {
+			criterions.add(Restrictions.in("createrId", accountIds));
+		} else {
+			// 如果没有下属机构，则什么都不显示
+			criterions.add(Restrictions.eq("createrId", 0L));
+		}
 	}
 }

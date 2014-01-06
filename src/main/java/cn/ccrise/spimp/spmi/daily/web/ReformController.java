@@ -6,6 +6,7 @@ package cn.ccrise.spimp.spmi.daily.web;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -104,6 +105,8 @@ public class ReformController {
 			criterions.add(Restrictions.eq("status", status));
 		}
 
+		addFilter(httpSession, criterions);
+
 		page = reformService.getPage(page, criterions.toArray(new Criterion[0]));
 
 		for (Reform reform : page.getResult()) {
@@ -143,6 +146,26 @@ public class ReformController {
 			return new Response(reformService.update(reformInDb));
 		} else { // 不做任何改动
 			return new Response(true);
+		}
+	}
+
+	/**
+	 * 增加根据用户所在机构查询数据的过滤条件。
+	 * 
+	 * @param httpSession
+	 * @param criterions
+	 */
+	private void addFilter(HttpSession httpSession, ArrayList<Criterion> criterions) {
+		List<Long> childrenGroupIds = groupService.getChildrenByQueryLabel(WebUtils.getGroup(httpSession).getId(),
+				new String[] { "mine", "office", "team", "other" });
+
+		childrenGroupIds.add(WebUtils.getGroup(httpSession).getId());
+
+		if (childrenGroupIds.size() != 0) {
+			criterions.add(Restrictions.in("sendGroupId", childrenGroupIds));
+		} else {
+			// 如果没有下属机构，则什么都不显示
+			criterions.add(Restrictions.eq("sendGroupId", 0L));
 		}
 	}
 }
