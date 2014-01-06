@@ -272,6 +272,12 @@ define(function(require, exports, module) {
 	$('#designate-save').click(function() {
 		var object = Utils.form.serialize('designate');
 
+		// 验证
+		if (object.executor === '') {
+			Utils.modal.message('designate', [ '请输入执行人' ]);
+			return;
+		}
+
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
