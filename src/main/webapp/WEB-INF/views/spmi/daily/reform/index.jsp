@@ -30,6 +30,9 @@
 						<i class="icon-trash"></i>
 						<span class="hidden-phone">删除</span>
 					</button>
+					<button id="info" class="btn btn-minier btn-info">
+						<i class="icon-info"></i>
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="query-form" class="form-inline" onsubmit="return false;">

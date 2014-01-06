@@ -26,6 +26,22 @@ define(function(require, exports, module) {
 		tools : 'simple'
 	});
 
+	// 流程图示
+	var infoHtml = '整改安排<br><span class="label label-important arrowed-right">未指派</span>';
+	infoHtml += '<span class="label label-warning arrowed-in arrowed-right">已指派</span>';
+	infoHtml += '<span class="label label-success arrowed-in arrowed-right">已执行</span>';
+	infoHtml += '<span class="label label-info arrowed-in">已完成</span>';
+	infoHtml += '<br>日常工作/其他工作<br><span class="label label-important arrowed-right">未指派</span>';
+	infoHtml += '<span class="label label-warning arrowed-in arrowed-right">已指派</span>';
+	infoHtml += '<span class="label label-success arrowed-in">已执行</span>';
+	$('#info').popover({
+		placement : 'bottom',
+		trigger : 'hover',
+		html : true,
+		title : '流程图示',
+		content : infoHtml
+	});
+
 	// 配置表格列
 	var fields = [ {
 		header : '主题',

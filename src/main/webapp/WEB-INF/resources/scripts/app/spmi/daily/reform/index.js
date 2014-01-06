@@ -26,6 +26,19 @@ define(function(require, exports, module) {
 		tools : 'simple'
 	});
 
+	// 流程图示
+	var infoHtml = '<span class="label label-important arrowed-right">已下发</span>';
+	infoHtml += '<span class="label label-warning arrowed-in arrowed-right">已指派</span>';
+	infoHtml += '<span class="label label-success arrowed-in arrowed-right">已执行</span>';
+	infoHtml += '<span class="label label-info arrowed-in">已审核</span>';
+	$('#info').popover({
+		placement : 'bottom',
+		trigger : 'hover',
+		html : true,
+		title : '流程图示',
+		content : infoHtml
+	});
+
 	// 获取机构
 	Utils.select.remote([ 'query-testGroupIdSelect' ], contextPath + '/system/groups?label=office,team', 'id', 'name', true, '选择被检单位');
 
