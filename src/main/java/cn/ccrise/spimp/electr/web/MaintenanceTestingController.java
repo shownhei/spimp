@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.MaintenanceTesting;
 import cn.ccrise.spimp.electr.service.MaintenanceTestingService;
+import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -47,11 +50,11 @@ public class MaintenanceTestingController {
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search)
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search,HttpSession httpSession)
 			throws Exception {
 		Page<MaintenanceTesting> page = new Page<MaintenanceTesting>();
 		page.setPageSize(100000);
-		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search);
+		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search,httpSession);
 
 		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "维修工", "记录时间" };
 
@@ -81,21 +84,27 @@ public class MaintenanceTestingController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car, String search) {
-		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search);
+	public Response page(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car, String search,HttpSession httpSession) {
+		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search,httpSession);
 		return new Response(page);
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody MaintenanceTesting maintenanceTesting) {
+	public Response save(@Valid @RequestBody MaintenanceTesting maintenanceTesting,HttpSession httpSession) {
 		maintenanceTesting.setRecordDateTime(new Timestamp(System.currentTimeMillis()));
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		maintenanceTesting.setMaintenanceGroup(loginAccount.getGroupEntity());
 		return new Response(maintenanceTestingService.save(maintenanceTesting));
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody MaintenanceTesting maintenanceTesting, @PathVariable long id) {
+	public Response update(@Valid @RequestBody MaintenanceTesting maintenanceTesting, @PathVariable long id,HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
+		maintenanceTesting.setMaintenanceGroup(loginAccount.getGroupEntity());
 		return new Response(maintenanceTestingService.update(maintenanceTesting));
 	}
 }
