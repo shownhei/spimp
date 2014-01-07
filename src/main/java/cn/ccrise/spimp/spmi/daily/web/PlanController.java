@@ -44,6 +44,7 @@ import cn.ccrise.spimp.spmi.daily.service.ReformService;
 import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.service.AccountService;
 import cn.ccrise.spimp.system.service.GroupService;
+import cn.ccrise.spimp.system.web.ReminderController;
 
 import com.google.common.collect.Lists;
 
@@ -65,16 +66,23 @@ public class PlanController {
 	@Autowired
 	private GroupService groupService;
 	@Autowired
+	private ReminderController reminderController;
+	@Autowired
 	private MessageSource messageSource;
 
 	@RequestMapping(value = "/spmi/daily/plans/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
+	public Response delete(@PathVariable long id, HttpSession httpSession) {
 		// 判断是否是整改通知单自动创建的工作安排，如果是则不能删除
 		if (reformService.findUniqueBy("planId", id) != null) {
 			return new Response(false);
 		} else {
-			return new Response(planService.delete(id));
+			boolean result = planService.delete(id);
+
+			// 推送
+			reminderController.push(httpSession);
+
+			return new Response(result);
 		}
 	}
 
@@ -144,12 +152,18 @@ public class PlanController {
 		} else {
 			plan.setStatus(PlanStatus.已指派);
 		}
-		return new Response(planService.save(plan));
+
+		boolean result = planService.save(plan);
+
+		// 推送
+		reminderController.push(httpSession);
+
+		return new Response(result);
 	}
 
 	@RequestMapping(value = "/spmi/daily/plans/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Plan plan, @PathVariable long id) {
+	public Response update(@Valid @RequestBody Plan plan, @PathVariable long id, HttpSession httpSession) {
 		Plan planInDb = planService.get(id);
 
 		if (planInDb.getStatus().equals(PlanStatus.未指派)) { // 未指派->已指派，只能是整改安排
@@ -185,7 +199,12 @@ public class PlanController {
 			}
 		}
 
-		return new Response(planService.update(planInDb));
+		boolean result = planService.update(planInDb);
+
+		// 推送
+		reminderController.push(httpSession);
+
+		return new Response(result);
 	}
 
 	/**

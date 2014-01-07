@@ -22,7 +22,7 @@
 
 	<properties>
 		<ikjp.version>1.4.2</ikjp.version>
-		<spring.version>3.2.4.RELEASE</spring.version>
+		<spring.version>3.2.6.RELEASE</spring.version>
 		<hibernate.version>4.2.5.Final</hibernate.version>
 		<jetty.version>9.0.5.v20130815</jetty.version>
 		<js.dir>WEB-INF/resources/scripts</js.dir>
@@ -55,6 +55,41 @@
 			<groupId>cn.ccrise</groupId>
 			<artifactId>ikjp.security</artifactId>
 			<version>${ikjp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

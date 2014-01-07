@@ -10,16 +10,12 @@
 				<li class="purple">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 						<i class="icon-bell-alt" id="header_bell"></i>
-						<span class="badge badge-important">0</span>
+						<span id="notifications-count" class="badge badge-important">0</span>
 					</a>
-					<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+					<ul id="notifications" class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 						<li class="nav-header">
-							<i class="icon-warning-sign"></i> 0 个报警
-						</li>
-						<li>
-							<a href="/ercs/alarm">
-								查看所有报警 <i class="icon-arrow-right"></i>
-							</a>
+							<i class="icon-warning-sign"></i>
+							<span id="notifications-title">0 个提醒</span>
 						</li>
 					</ul>
 				</li>

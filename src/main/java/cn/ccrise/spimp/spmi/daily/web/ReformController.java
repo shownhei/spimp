@@ -39,6 +39,7 @@ import cn.ccrise.spimp.spmi.daily.service.PlanService;
 import cn.ccrise.spimp.spmi.daily.service.ReformService;
 import cn.ccrise.spimp.system.service.AccountService;
 import cn.ccrise.spimp.system.service.GroupService;
+import cn.ccrise.spimp.system.web.ReminderController;
 
 import com.google.common.collect.Lists;
 
@@ -60,12 +61,19 @@ public class ReformController {
 	@Autowired
 	private PlanService planService;
 	@Autowired
+	private ReminderController reminderController;
+	@Autowired
 	private MessageSource messageSource;
 
 	@RequestMapping(value = "/spmi/daily/reforms/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(reformService.delete(id, true));
+	public Response delete(@PathVariable long id, HttpSession httpSession) {
+		boolean result = reformService.delete(id, true);
+
+		// 推送
+		reminderController.push(httpSession);
+
+		return new Response(result);
 	}
 
 	@RequestMapping(value = "/spmi/daily/reforms/{id}", method = RequestMethod.GET)
@@ -123,7 +131,14 @@ public class ReformController {
 	@ResponseBody
 	public Response save(@Valid @RequestBody Reform reform, HttpSession httpSession) {
 		reform.setCreaterId(WebUtils.getAccount(httpSession).getId());
-		return new Response(reformService.save(reform, true));
+
+		// 保存
+		boolean result = reformService.save(reform, true);
+
+		// 推送
+		reminderController.push(httpSession);
+
+		return new Response(result);
 	}
 
 	@RequestMapping(value = "/spmi/daily/reforms/{id}", method = RequestMethod.PUT)

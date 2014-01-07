@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Handlebars = require('handlebars'), Utils = require('../common/utils');
 
-	window.$=$;
+	window.$ = $;
+
 	$('#settings').click(function() {
 		Utils.modal.reset('settings');
 		Utils.modal.show('settings');
@@ -50,20 +51,21 @@ define(function(require, exports, module) {
 	$('#logout-save').click(function() {
 		window.location = contextPath + '/logout';
 	});
-	//报警同步
-	var showResult=function(len,operation){
-		var bell=$("#header_bell");
+
+	// 报警同步
+	var showResult = function(len, operation) {
+		var bell = $("#header_bell");
 		bell.removeClass('icon-animated-bell');
 		bell.addClass('icon-animated-bell');
-		if(operation==='start'){
-			bell.css("-webkit-animation","ringing 2.0s 10000 ease 1.0s");
-		}else{
-			bell.css("-webkit-animation",null);
+		if (operation === 'start') {
+			bell.css("-webkit-animation", "ringing 2.0s 10000 ease 1.0s");
+		} else {
+			bell.css("-webkit-animation", null);
 		}
 		bell.parent().find('span').html(len);
-		$('.purple').find('li.nav-header').html(len+"个报警");
+		$('.purple').find('li.nav-header').html(len + "个提醒");
 	};
-	var idarray=[];
+	var idarray = [];
 	function asynGetAlarm() {
 		$.ajax({
 			type : 'GET',
@@ -75,21 +77,21 @@ define(function(require, exports, module) {
 			success : function(data) {
 				var newIdArray = data.alarmList;
 				for (var i = 0; i < newIdArray.length; i++) {
-					if(idarray.indexOf(newIdArray[i])===-1){
+					if (idarray.indexOf(newIdArray[i]) === -1) {
 						idarray.push(newIdArray[i]);
 					}
 				}
-				showResult(idarray.length,'start');
+				showResult(idarray.length, 'start');
 				asynGetAlarm();
 			},
 			error : function(data, textStatus) {
-				showResult('0','end');
-				idarray=[];
+				showResult('0', 'end');
+				idarray = [];
 				asynGetAlarm();
 			}
 		});
 	}
-	//邮件同步
+	// 邮件同步
 	function asynGetTask() {
 		$.ajax({
 			type : 'GET',
@@ -98,10 +100,10 @@ define(function(require, exports, module) {
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				var bell=$("#header_mail");
+				var bell = $("#header_mail");
 				bell.removeClass('icon-animated-vertical');
 				bell.addClass('icon-animated-vertical');
-				bell.css("-webkit-animation","vertical 2.0s 10000 ease 2.0s");
+				bell.css("-webkit-animation", "vertical 2.0s 10000 ease 2.0s");
 				bell.parent().find('span').html(data.data.result.length);
 			},
 			error : function(data, textStatus) {
@@ -111,6 +113,59 @@ define(function(require, exports, module) {
 			}
 		});
 	}
-	asynGetAlarm();
-	asynGetTask();
+	// asynGetAlarm();
+	// asynGetTask();
+
+	// 显示提醒
+	function displayNotification(data) {
+		$('#notifications').children('li:not(:first)').remove();
+
+		$('#notifications-count').html(data.count);
+		$('#notifications-title').html(data.count + '个提醒');
+
+		if (data.count > 0) {
+			$("#header_bell").addClass('icon-animated-bell');
+		} else {
+			$("#header_bell").removeClass('icon-animated-bell');
+		}
+
+		var html = '';
+		$.each(data.messages, function(k, v) {
+			html += '<li><a href="' + v.link + '">';
+			html += '<div class="clearfix"><span class="pull-left"><i class="btn btn-mini no-hover btn-pink icon-comment"></i> ' + v.message;
+			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
+		});
+
+		$('#notifications').append(html);
+	}
+	// 推送提醒
+	var errorCount = 0;
+	function pushNotification() {
+		$.ajax({
+			type : 'GET',
+			url : contextPath + '/reminder/notification/push',
+			cache : false,
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				displayNotification(data);
+				pushNotification();
+			},
+			error : function(jqXHR, textStatus) {
+				errorCount++;
+				if (errorCount < 20) { // 只重试20次
+					pushNotification();
+				}
+			}
+		});
+	}
+	// 拉取提醒
+	function pullNotification() {
+		$.get(contextPath + '/reminder/notification/pull', function(data) {
+			displayNotification(data);
+		});
+	}
+
+	pullNotification();
+	pushNotification();
 });

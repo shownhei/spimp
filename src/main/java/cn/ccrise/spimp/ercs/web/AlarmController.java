@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.hibernate.criterion.Restrictions;
@@ -28,6 +29,7 @@ import cn.ccrise.spimp.ercs.entity.Alarm;
 import cn.ccrise.spimp.ercs.service.AlarmService;
 import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.system.service.DictionaryService;
+import cn.ccrise.spimp.system.web.ReminderController;
 import cn.ccrise.spimp.util.AlarmMessage;
 import cn.ccrise.spimp.util.ErcsDeferredResult;
 
@@ -41,6 +43,8 @@ public class AlarmController {
 	private DictionaryService dictionaryService;
 	@Autowired
 	private AlarmService alarmService;
+	@Autowired
+	private ReminderController reminderController;
 
 	/**
 	 * 等待报警 top数字
@@ -145,10 +149,14 @@ public class AlarmController {
 	 */
 	@RequestMapping(value = "/ercs/alarm/putalarm", method = RequestMethod.GET)
 	@ResponseBody
-	public AlarmMessage putAlarm(HttpServletRequest httpServletRequest) {
+	public AlarmMessage putAlarm(HttpServletRequest httpServletRequest, HttpSession httpSession) {
 		logger.debug("请求进入...........");
 		alarmService.putAlarm(httpServletRequest);
 		AlarmMessage message = new AlarmMessage();
+
+		// 推送
+		reminderController.push(httpSession);
+
 		return message;
 	}
 
