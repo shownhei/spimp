@@ -23,6 +23,7 @@ define(function(require, exports, module) {
 	});
 	var loadMaintenance = function() {
 		$('#tablePanel').html('');
+		Utils.button.disable([ 'export_result']);
 		var data = 'year=' + $('#query_year').val();
 		data += "&month=" + $('#query_month').val();
 		var carId = $('#search_car').val();
@@ -36,9 +37,17 @@ define(function(require, exports, module) {
 			url : '/electr/car/monthly-run/result',
 			success : function(data) {
 				$('#tablePanel').html(data);
+				Utils.button.enable([ 'export_result']);
 			}
 		});
 	};
+	// 导出
+	$('#export_result').click(function() {
+		if (Utils.button.isDisable('export_result')) {
+			return;
+		}
+		window.location.href = '/electr/car/monthly-run/export?' + Utils.form.buildParams('query-form');
+	});
 	// 搜索
 	$('#submit').click(function() {
 		loadMaintenance(new Date().getFullYear());
