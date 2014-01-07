@@ -11,9 +11,11 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,8 +92,9 @@ public class PlanController {
 
 	@RequestMapping(value = "/spmi/daily/plans", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Plan> page, HttpSession httpSession, Date startDate, Date endDate, String category,
-			PlanStatus status) {
+	public Response page(Page<Plan> page, HttpSession httpSession, Date startDate, Date endDate,
+			Date feedbackStartDate, Date feedbackEndDate, String category, PlanStatus status, String content,
+			String feedback, Boolean filter) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (startDate != null) {
 			criterions.add(Restrictions.ge("cutoffDate", startDate));
@@ -99,14 +102,29 @@ public class PlanController {
 		if (endDate != null) {
 			criterions.add(Restrictions.le("cutoffDate", DateUtils.addSeconds(DateUtils.addDays(endDate, 1), -1)));
 		}
+		if (feedbackStartDate != null) {
+			criterions.add(Restrictions.ge("feedbackTime", feedbackStartDate));
+		}
+		if (feedbackEndDate != null) {
+			criterions.add(Restrictions.le("feedbackTime",
+					DateUtils.addSeconds(DateUtils.addDays(feedbackEndDate, 1), -1)));
+		}
 		if (category != null) {
 			criterions.add(Restrictions.eq("category", category));
 		}
 		if (status != null) {
 			criterions.add(Restrictions.eq("status", status));
 		}
+		if (content != null) {
+			criterions.add(Restrictions.like("content", content, MatchMode.ANYWHERE));
+		}
+		if (feedback != null) {
+			criterions.add(Restrictions.like("feedback", feedback, MatchMode.ANYWHERE));
+		}
 
-		addFilter(httpSession, criterions);
+		if (BooleanUtils.isNotFalse(filter)) {
+			addFilter(httpSession, criterions);
+		}
 
 		page = planService.getPage(page, criterions.toArray(new Criterion[0]));
 

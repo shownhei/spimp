@@ -36,6 +36,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/aqk/info", method = RequestMethod.GET)
+	public String spmiAqkInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/aqk/quality/facilities", method = RequestMethod.GET)
 	public String spmiAqkQualityFacilities() {
 		return "spmi/quality/facilities/index";
@@ -66,6 +71,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/dck/info", method = RequestMethod.GET)
+	public String spmiDckInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/dck/quality/water", method = RequestMethod.GET)
 	public String spmiDckQualityWater() {
 		return "spmi/quality/water/index";
@@ -89,6 +99,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/dds/document/query", method = RequestMethod.GET)
 	public String spmiDdsDocumentQuery() {
 		return "spmi/document/query/index";
+	}
+
+	@RequestMapping(value = "/spmi/dds/info", method = RequestMethod.GET)
+	public String spmiDdsInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/dds/quality/dispatch", method = RequestMethod.GET)
@@ -136,6 +151,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/fzs/document/query", method = RequestMethod.GET)
 	public String spmiFzsDocumentQuery() {
 		return "spmi/document/query/index";
+	}
+
+	@RequestMapping(value = "/spmi/fzs/info", method = RequestMethod.GET)
+	public String spmiFzsInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/fzs/quality/water", method = RequestMethod.GET)
@@ -233,6 +253,11 @@ public class IndexSpmiController {
 		return "system/group/index";
 	}
 
+	@RequestMapping(value = "/spmi/jdd/info", method = RequestMethod.GET)
+	public String spmiJddInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/jdd/maintenance/daily", method = RequestMethod.GET)
 	public String spmiJddMaintenanceDaily() {
 		return "electr/maintenance/daily/index";
@@ -303,6 +328,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/jdk/info", method = RequestMethod.GET)
+	public String spmiJdkInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/jdk/quality/electro", method = RequestMethod.GET)
 	public String spmiJdkQualityElectro() {
 		return "spmi/quality/electro/index";
@@ -328,6 +358,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/jje/info", method = RequestMethod.GET)
+	public String spmiJjeInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/jje/quality/tunnelling", method = RequestMethod.GET)
 	public String spmiJjeQualityTunnelling() {
 		return "spmi/quality/tunnelling/index";
@@ -346,6 +381,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/jjy/document/query", method = RequestMethod.GET)
 	public String spmiJjyDocumentQuery() {
 		return "spmi/document/query/index";
+	}
+
+	@RequestMapping(value = "/spmi/jjy/info", method = RequestMethod.GET)
+	public String spmiJjyInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/jjy/quality/tunnelling", method = RequestMethod.GET)
@@ -368,6 +408,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/kte/info", method = RequestMethod.GET)
+	public String spmiKteInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/kte/quality/tunnelling", method = RequestMethod.GET)
 	public String spmiKteQualityTunnelling() {
 		return "spmi/quality/tunnelling/index";
@@ -386,6 +431,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/kty/document/query", method = RequestMethod.GET)
 	public String spmiKtyDocumentQuery() {
 		return "spmi/document/query/index";
+	}
+
+	@RequestMapping(value = "/spmi/kty/info", method = RequestMethod.GET)
+	public String spmiKtyInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/kty/quality/tunnelling", method = RequestMethod.GET)
@@ -501,6 +551,11 @@ public class IndexSpmiController {
 		return "spmi/document/query/index";
 	}
 
+	@RequestMapping(value = "/spmi/sjk/info", method = RequestMethod.GET)
+	public String spmiSjkInfo() {
+		return "spmi/info/index";
+	}
+
 	@RequestMapping(value = "/spmi/sjk/quality/mining", method = RequestMethod.GET)
 	public String spmiSjkQualityMining() {
 		return "spmi/quality/mining/index";
@@ -554,6 +609,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/tfk/equipment/settings", method = RequestMethod.GET)
 	public String spmiTfkEquipmentSettings() {
 		return "electr/equipment/settings/index";
+	}
+
+	@RequestMapping(value = "/spmi/tfk/info", method = RequestMethod.GET)
+	public String spmiTfkInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/tfk/maintenance/daily", method = RequestMethod.GET)
@@ -629,6 +689,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/tfs/document/query", method = RequestMethod.GET)
 	public String spmiTfsDocumentQuery() {
 		return "spmi/document/query/index";
+	}
+
+	@RequestMapping(value = "/spmi/tfs/info", method = RequestMethod.GET)
+	public String spmiTfsInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/zcd/car/annual-kilometer", method = RequestMethod.GET)
@@ -709,6 +774,11 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/zcd/equipment/settings", method = RequestMethod.GET)
 	public String spmiZcdEquipmentSettings() {
 		return "electr/equipment/settings/index";
+	}
+
+	@RequestMapping(value = "/spmi/zcd/info", method = RequestMethod.GET)
+	public String spmiZcdInfo() {
+		return "spmi/info/index";
 	}
 
 	@RequestMapping(value = "/spmi/zcd/maintenance/daily", method = RequestMethod.GET)
