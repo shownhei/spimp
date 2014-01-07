@@ -78,6 +78,70 @@ public class KilometerStaticsController {
 				year + "无轨胶轮车行程公里一览表", new String[] { year + "无轨胶轮车行程公里一览表" }, new ExcelCallBackInteface() {
 					@Override
 					public void process(Workbook book, HashMap<String, Object> root) {
+						Sheet sheet=book.getSheetAt(0);
+						CellStyle privateCellStyle_left=sheet.getRow(0).getCell(0).getCellStyle();
+						CellStyle privateCellStyle_center=sheet.getRow(0).getCell(1).getCellStyle();
+						CellStyle privateCellStyle_normal=sheet.getRow(0).getCell(2).getCellStyle();
+						@SuppressWarnings("unchecked")
+						ArrayList<ArrayList<Long>> result=(ArrayList<ArrayList<Long>>) root.get("result");
+						@SuppressWarnings("unchecked")
+						List<String> carList= (List<String> )root.get("carList");
+						int monthLen=1;
+						int sumLen=1;
+						int cars=carList.size();
+						int colsLen=monthLen+cars+sumLen;//列数
+						int startRow=2;
+						Cell cell=null;
+						//第一行标题
+						CellRangeAddress temp = new CellRangeAddress(0, 0,
+								0, colsLen-1);
+						sheet.addMergedRegion(temp);
+						sheet.getRow(0).getCell(0).setCellStyle(privateCellStyle_center);
+						//车辆
+						Row carRow=sheet.createRow(1);
+						cell=carRow.createCell(0);
+						cell.setCellStyle(privateCellStyle_center);
+						cell.setCellValue("车辆/月份");
+						Iterator<String> carIt = carList.iterator();
+						String carNo=null;
+						int carIndex=1;
+						while(carIt.hasNext()){
+							carNo=carIt.next();
+							cell=carRow.createCell(carIndex);
+							cell.setCellStyle(privateCellStyle_normal);
+							cell.setCellValue(carNo);
+							carIndex++;
+						}
+						cell=carRow.createCell(carIndex);
+						cell.setCellStyle(privateCellStyle_normal);
+						cell.setCellValue("合计");
+						//carno end
+						Iterator<ArrayList<Long>> resultIt= result.iterator();
+						ArrayList<Long> raw=null;
+						int rawIndex=0;
+						Row dataRow=null;
+						char startChar='B';
+						char endChar=(char) (startChar+cars-1);
+						while(resultIt.hasNext()){
+							raw=resultIt.next();
+							dataRow=sheet.createRow(startRow+rawIndex);
+							cell=dataRow.createCell(0);
+							cell.setCellStyle(privateCellStyle_left);
+							cell.setCellValue((rawIndex+1)+ "月份");
+							for(int i=0;i<cars;i++){
+								cell=dataRow.createCell(monthLen+i);
+								cell.setCellStyle(privateCellStyle_normal);
+								cell.setCellValue(raw.get(i));
+							}
+							cell=dataRow.createCell(colsLen-1);
+							cell.setCellStyle(privateCellStyle_left);
+							cell.setCellValue("");
+							if(cars>0){
+								cell.setCellFormula("sum("+startChar+(rawIndex+3)+":"+endChar+(rawIndex+3)+")");
+							}
+							rawIndex++;
+						}
+						
 					}
 				});
 	}
