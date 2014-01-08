@@ -3,8 +3,6 @@
  */
 package cn.ccrise.spimp.electr.web;
 
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.HashMap;
 
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
