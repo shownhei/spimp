@@ -20,13 +20,13 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '车辆类型',
+		header : '车型',
 		render:function(v){
 			return v?v.itemName:'';
 		},
 		name : 'carCategory'
 	}, {
-		header : '车辆型号',
+		header : '型号',
 		name : 'models'
 	}, {
 		header : '车号',
@@ -151,6 +151,7 @@ define(function(require, exports, module) {
 
 		var object = $.extend({}, data);
 		Utils.form.fill('detail', object);
+		$("#detail_carCategory").val(data.carCategory.itemName);
 		Utils.modal.show('detail');
 	}
 

@@ -30,7 +30,7 @@
 
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入车类/车型/车号...">
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入车型/车号...">
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
