@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.async.DeferredResult;
 
 import cn.ccrise.ikjp.core.security.entity.ResourceEntity;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
@@ -26,6 +25,7 @@ import cn.ccrise.spimp.ercs.service.AlarmService;
 import cn.ccrise.spimp.spmi.daily.entity.Plan;
 import cn.ccrise.spimp.spmi.daily.entity.Plan.PlanStatus;
 import cn.ccrise.spimp.spmi.daily.web.PlanController;
+import cn.ccrise.spimp.system.web.entity.ReminderDeferredResult;
 import cn.ccrise.spimp.system.web.entity.ReminderMessage;
 import cn.ccrise.spimp.system.web.entity.ReminderResponse;
 
@@ -40,7 +40,7 @@ import com.google.common.collect.Queues;
 public class ReminderController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public final Queue<DeferredResult<ReminderResponse>> messageQueue = Queues.newConcurrentLinkedQueue();
+	public final Queue<ReminderDeferredResult<ReminderResponse>> messageQueue = Queues.newConcurrentLinkedQueue();
 
 	@Autowired
 	private PlanController planController;
@@ -57,22 +57,27 @@ public class ReminderController {
 	/**
 	 * 推送
 	 */
-	public void push(HttpSession httpSession) {
+	public void push() {
 		logger.debug("Start to push,queue size:{}", messageQueue.size());
 
-		for (DeferredResult<ReminderResponse> deferredResult : messageQueue) {
-			if (!deferredResult.isSetOrExpired()) {
-				deferredResult.setResult(getReminderResponse(httpSession));
+		for (ReminderDeferredResult<ReminderResponse> reminderDeferredResult : messageQueue) {
+			boolean isSetOrExpired = reminderDeferredResult.isSetOrExpired();
+			boolean setResult = false;
+			try {
+				setResult = reminderDeferredResult.setResult(getReminderResponse(reminderDeferredResult
+						.getHttpSession()));
+			} catch (IllegalArgumentException exception) {
+				logger.warn("IllegalArgumentException,isSetOrExpired:{},setResult:{}", isSetOrExpired, setResult);
 			}
 
-			messageQueue.remove(deferredResult);
+			messageQueue.remove(reminderDeferredResult);
 		}
 	}
 
 	@RequestMapping(value = "/reminder/notification/push", method = RequestMethod.GET)
 	@ResponseBody
-	public DeferredResult<ReminderResponse> pushNotification() {
-		DeferredResult<ReminderResponse> deferredResult = new DeferredResult<>(300000);
+	public ReminderDeferredResult<ReminderResponse> pushNotification(HttpSession httpSession) {
+		ReminderDeferredResult<ReminderResponse> deferredResult = new ReminderDeferredResult<>(300000, httpSession);
 		messageQueue.add(deferredResult);
 		return deferredResult;
 	}

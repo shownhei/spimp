@@ -72,7 +72,7 @@ public class PlanController {
 
 	@RequestMapping(value = "/spmi/daily/plans/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id, HttpSession httpSession) {
+	public Response delete(@PathVariable long id) {
 		// 判断是否是整改通知单自动创建的工作安排，如果是则不能删除
 		if (reformService.findUniqueBy("planId", id) != null) {
 			return new Response(false);
@@ -80,7 +80,7 @@ public class PlanController {
 			boolean result = planService.delete(id);
 
 			// 推送
-			reminderController.push(httpSession);
+			reminderController.push();
 
 			return new Response(result);
 		}
@@ -156,14 +156,14 @@ public class PlanController {
 		boolean result = planService.save(plan);
 
 		// 推送
-		reminderController.push(httpSession);
+		reminderController.push();
 
 		return new Response(result);
 	}
 
 	@RequestMapping(value = "/spmi/daily/plans/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Plan plan, @PathVariable long id, HttpSession httpSession) {
+	public Response update(@Valid @RequestBody Plan plan, @PathVariable long id) {
 		Plan planInDb = planService.get(id);
 
 		if (planInDb.getStatus().equals(PlanStatus.未指派)) { // 未指派->已指派，只能是整改安排
@@ -202,7 +202,7 @@ public class PlanController {
 		boolean result = planService.update(planInDb);
 
 		// 推送
-		reminderController.push(httpSession);
+		reminderController.push();
 
 		return new Response(result);
 	}

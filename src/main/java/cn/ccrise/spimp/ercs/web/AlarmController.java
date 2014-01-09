@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.hibernate.criterion.Restrictions;
@@ -149,13 +148,13 @@ public class AlarmController {
 	 */
 	@RequestMapping(value = "/ercs/alarm/putalarm", method = RequestMethod.GET)
 	@ResponseBody
-	public AlarmMessage putAlarm(HttpServletRequest httpServletRequest, HttpSession httpSession) {
+	public AlarmMessage putAlarm(HttpServletRequest httpServletRequest) {
 		logger.debug("请求进入...........");
 		alarmService.putAlarm(httpServletRequest);
 		AlarmMessage message = new AlarmMessage();
 
 		// 推送
-		reminderController.push(httpSession);
+		reminderController.push();
 
 		return message;
 	}
@@ -170,7 +169,13 @@ public class AlarmController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody Alarm alarm, @PathVariable long id) {
 		alarm.setProcessingTime(new Timestamp(System.currentTimeMillis()));
-		return new Response(alarmService.updateAlarm(alarm));
+
+		boolean result = alarmService.updateAlarm(alarm);
+
+		// 推送
+		reminderController.push();
+
+		return new Response(result);
 	}
 
 	/**

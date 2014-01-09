@@ -67,11 +67,11 @@ public class ReformController {
 
 	@RequestMapping(value = "/spmi/daily/reforms/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id, HttpSession httpSession) {
+	public Response delete(@PathVariable long id) {
 		boolean result = reformService.delete(id, true);
 
 		// 推送
-		reminderController.push(httpSession);
+		reminderController.push();
 
 		return new Response(result);
 	}
@@ -136,7 +136,7 @@ public class ReformController {
 		boolean result = reformService.save(reform, true);
 
 		// 推送
-		reminderController.push(httpSession);
+		reminderController.push();
 
 		return new Response(result);
 	}
