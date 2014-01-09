@@ -61,7 +61,10 @@ public class ReminderController {
 		logger.debug("Start to push,queue size:{}", messageQueue.size());
 
 		for (DeferredResult<ReminderResponse> deferredResult : messageQueue) {
-			deferredResult.setResult(getReminderResponse(httpSession));
+			if (!deferredResult.isSetOrExpired()) {
+				deferredResult.setResult(getReminderResponse(httpSession));
+			}
+
 			messageQueue.remove(deferredResult);
 		}
 	}
@@ -101,7 +104,7 @@ public class ReminderController {
 
 		// 未处理的报警
 		Long alarmCount = alarmService.count(Restrictions.eq("dealFlag", Alarm.DEAL_FLAG_UNDEALED));
-		reminderResponse.addReminderMessage(new ReminderMessage("你有" + alarmCount + "条未处理报警", "/ercs/alarm",
+		reminderResponse.addReminderMessage(new ReminderMessage("你有" + alarmCount + "条未处理的报警", "/ercs/alarm",
 				alarmCount, "报警"));
 
 		return reminderResponse;
