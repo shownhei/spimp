@@ -116,6 +116,24 @@ define(function(require, exports, module) {
 	// asynGetAlarm();
 	// asynGetTask();
 
+	// 根据分类获取图标
+	function getIcon(category) {
+		var clszz;
+		switch (category) {
+			case '工作安排':
+				clszz = 'icon-check';
+				break;
+			case '报警':
+				clszz = 'icon-exclamation-sign';
+				break;
+			default:
+				clszz = 'icon-comment';
+				break;
+		}
+
+		return '<i class="' + clszz + '" style="font-size:14px;margin:0 5px"></i> ';
+	}
+
 	// 显示提醒
 	function displayNotification(data) {
 		$('#notifications').children('li:not(:first)').remove();
@@ -132,7 +150,7 @@ define(function(require, exports, module) {
 		var html = '';
 		$.each(data.messages, function(k, v) {
 			html += '<li><a href="' + v.link + '">';
-			html += '<div class="clearfix"><span class="pull-left"><i class="btn btn-mini no-hover btn-pink icon-comment"></i> ' + v.message;
+			html += '<div class="clearfix"><span class="pull-left">' + getIcon(v.category) + v.message;
 			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
 		});
 
