@@ -6,6 +6,12 @@
 <title>图片管理 - 安全生产综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
+<style type="text/css">
+	.imgContent{
+	display:none;
+	}
+ 	div.imgFrame:hover div{display:block};   
+</style>
 </head>
 <body class="navbar-fixed">
 	<%@ include file="../../../common/navbar.jsp"%>
@@ -17,10 +23,6 @@
 					<button id="create" class="btn btn-small btn-success disabled" title="上传图片，先选择机构">
 						<i class="icon-plus-sign-alt"></i>
 						<span class="hidden-phone">上传</span>
-					</button>
-					<button id="remove" class="btn btn-small btn-danger disabled" title="">
-						<i class="icon-trash"></i>
-						<span class="hidden-phone">删除</span>
 					</button>
 				</div>
 				<div class="nav-search">
@@ -50,34 +52,20 @@
 							<ul class="nav nav-tabs">
 								<li class="active">
 									<a data-toggle="tab" href="#basic">
-										<i class="green icon-home"></i> 图片预览
+										<i class="green icon-home"></i> 图片
 									</a>
 								</li>
 							</ul>
 							<div id="tab-content" class="tab-content">
 								<div id="basic" class="tab-pane in active">
-									<div class="row-fluid">
-										<div class="span3">
-											<img src="${resources}/images/demo/1.jpg" width="100%" class="img-polaroid">
-										</div>
-										<div class="span3">
-											<img src="${resources}/images/demo/2.jpg" width="100%" class="img-polaroid">
-										</div>
-										<div class="span3">
-											<img src="${resources}/images/demo/3.jpg" width="100%" class="img-polaroid">
-										</div>
-										<div class="span3">
-											<img src="${resources}/images/demo/4.jpg" width="100%" class="img-polaroid">
-										</div>
-									</div>
-									<div class="row-fluid" style="margin-top: 6px;">
-										<div class="span3">
-											<img src="${resources}/images/demo/5.jpg" width="100%" class="img-polaroid">
-										</div>
-										<div class="span3">
-											<img src="${resources}/images/demo/6.jpg" width="100%" class="img-polaroid">
-										</div>
-									</div>
+								<ul id = "column1" class="span3" style="list-style-type:none">
+								</ul>
+								<ul id = "column2" class="span3" style="list-style-type:none">
+								</ul>
+								<ul id = "column3" class="span3" style="list-style-type:none">
+								</ul>
+								<ul id = "column4" class="span3" style="list-style-type:none">
+								</ul>
 								</div>
 							</div>
 						</div>
@@ -104,10 +92,19 @@
 								<input name="name" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="number">选择文件</label>
+							<div class="control-group" style="display: none;">
+							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input name="file" type="file">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
+							</div>
+						</div>
+					</form>
+						<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
+						<div class="control-group">
+							<label class="control-label" for="credential">附件</label>
+							<div class="controls">
+								<input name="file" id="file" type="file">
 							</div>
 						</div>
 					</form>
@@ -163,6 +160,24 @@
 			</button>
 		</div>
 	</div>
+			<!-- 查看 -->
+	<div id="detail-modal" class="modal hide" >
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body"  align="center">
+			<div class="row-fluid">
+				<div  class="span12">
+					<img id="imgfile" src="" class='img-polaroid' style="height: 500px">
+				</div>
+			</div>
+		</div>
+		
+	</div>
+			<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/picture/index');
 	</script>
