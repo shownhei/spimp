@@ -72,6 +72,7 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("机电管理", "car_carCategory", "车辆分类");
 		dicitonaryTypeService.save("机电管理", "equipment_maintenance_project", "设备检修计划项目");
 		dicitonaryTypeService.save("机电管理", "reminder_setting_project", "定期检修设置-项目");
+		dicitonaryTypeService.save("机电管理", "transform_device_class", "运输设备分类");
 
 		// 安全生产管理
 		dicitonaryTypeService.save("安全生产管理", "schedule_coal_type", "煤种");
