@@ -7,10 +7,13 @@
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 <style type="text/css">
-	.imgContent{
-	display:none;
-	}
- 	div.imgFrame:hover div{display:block};   
+.imgContent {
+	display: none;
+}
+
+div.imgFrame:hover div {
+	display: block;
+}
 </style>
 </head>
 <body class="navbar-fixed">
@@ -58,14 +61,14 @@
 							</ul>
 							<div id="tab-content" class="tab-content">
 								<div id="basic" class="tab-pane in active">
-								<ul id = "column1" class="span3" style="list-style-type:none">
-								</ul>
-								<ul id = "column2" class="span3" style="list-style-type:none">
-								</ul>
-								<ul id = "column3" class="span3" style="list-style-type:none">
-								</ul>
-								<ul id = "column4" class="span3" style="list-style-type:none">
-								</ul>
+									<ul id="column1" class="span3" style="list-style-type: none">
+									</ul>
+									<ul id="column2" class="span3" style="list-style-type: none">
+									</ul>
+									<ul id="column3" class="span3" style="list-style-type: none">
+									</ul>
+									<ul id="column4" class="span3" style="list-style-type: none">
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -92,7 +95,7 @@
 								<input name="name" type="text">
 							</div>
 						</div>
-							<div class="control-group" style="display: none;">
+						<div class="control-group" style="display: none;">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
 								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
@@ -100,7 +103,7 @@
 							</div>
 						</div>
 					</form>
-						<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
 						<div class="control-group">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
@@ -160,24 +163,23 @@
 			</button>
 		</div>
 	</div>
-			<!-- 查看 -->
-	<div id="detail-modal" class="modal hide" >
+	<!-- 查看 -->
+	<div id="detail-modal" class="modal hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
 				<i class="icon-list"></i> 查看
 			</h5>
 		</div>
-		<div class="modal-body"  align="center">
+		<div class="modal-body" align="center">
 			<div class="row-fluid">
-				<div  class="span12">
+				<div class="span12">
 					<img id="imgfile" src="" class='img-polaroid' style="height: 500px">
 				</div>
 			</div>
 		</div>
-		
 	</div>
-			<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/picture/index');
 	</script>

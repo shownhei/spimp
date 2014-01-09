@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -28,14 +27,10 @@
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text"
-							style="height: 15px; width: 130px; font-size: 12px;"
-							placeholder="输入安装位置/编号...">
-						<button id="submit" type="button"
-							class="btn btn-primary btn-small">查询</button>
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入安装位置/编号...">
+						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
@@ -56,8 +51,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="location">安装位置</label>
 							<div class="controls">
@@ -67,8 +61,7 @@
 						<div class="control-group">
 							<label class="control-label" for="equipmentCode">编号</label>
 							<div class="controls">
-								<input id="create_equipmentCode" name="equipmentCode"
-									type="text">
+								<input id="create_equipmentCode" name="equipmentCode" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -118,7 +111,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -144,8 +138,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="location">安装位置</label>
 							<div class="controls">
@@ -205,7 +198,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -231,76 +225,65 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="detail-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="location">安装位置</label>
 							<div class="controls">
-								<input id="detail_location" name="location" type="text"
-									readonly="readonly">
+								<input id="detail_location" name="location" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="equipmentCode">编号</label>
 							<div class="controls">
-								<input id="detail_equipmentCode" name="equipmentCode"
-									type="text" readonly="readonly">
+								<input id="detail_equipmentCode" name="equipmentCode" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="windAmount">安装套数</label>
 							<div class="controls">
-								<input id="detail_windAmount" name="windAmount" type="text"
-									readonly="readonly">
+								<input id="detail_windAmount" name="windAmount" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="windCycle">维护周期</label>
 							<div class="controls">
-								<input id="detail_windCycle" name="windCycle" type="text"
-									readonly="readonly">
+								<input id="detail_windCycle" name="windCycle" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="waterAmount">安装套数</label>
 							<div class="controls">
-								<input id="detail_waterAmount" name="waterAmount" type="text"
-									readonly="readonly">
+								<input id="detail_waterAmount" name="waterAmount" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="waterCycle">维护周期</label>
 							<div class="controls">
-								<input id="detail_waterCycle" name="waterCycle" type="text"
-									readonly="readonly">
+								<input id="detail_waterCycle" name="waterCycle" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="chargePerson">负责人</label>
 							<div class="controls">
-								<input id="detail_chargePerson" name="chargePerson" type="text"
-									readonly="readonly">
+								<input id="detail_chargePerson" name="chargePerson" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="phoneNumber">电话号码</label>
 							<div class="controls">
-								<input id="detail_phoneNumber" name="phoneNumber" type="text"
-									readonly="readonly">
+								<input id="detail_phoneNumber" name="phoneNumber" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="detail_remark" name="remark" type="text"
-									readonly="readonly">
+								<input id="detail_remark" name="remark" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="recordDate">记录日期</label>
 							<div class="controls">
-								<input id="detail_recordDate" name="recordDate" type="text"
-									readonly="readonly">
+								<input id="detail_recordDate" name="recordDate" type="text" readonly="readonly">
 							</div>
 						</div>
 					</form>
@@ -329,7 +312,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

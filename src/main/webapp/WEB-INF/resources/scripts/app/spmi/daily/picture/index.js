@@ -9,12 +9,12 @@ define(function(require, exports, module) {
 	/**
 	 * 重置页面状态
 	 */
-	function picture(path, j,id) {
+	function picture(path, j, id) {
 		var htmlP = "";
 		if (path !== '') {
 			htmlP += "<li>";
 			htmlP += "<div class='span12 imgFrame'  style='position:relative'>";
-			htmlP +="<input type='text' value="+id+" style='display:none'>";
+			htmlP += "<input type='text' value=" + id + " style='display:none'>";
 			htmlP += "<img  src=" + path + " width='100%' class='img-polaroid' >";
 			htmlP += "<div class='imgContent' style='position:absolute;left:47px;bottom:5px;'>";
 			htmlP += "<input name='view' type='button' value='查看' onclick='show(this)' class='btn btn-mini'/>&nbsp;&nbsp;";
@@ -27,25 +27,25 @@ define(function(require, exports, module) {
 			$("#column" + j).append("");
 		}
 	}
-	function show(o){
-		$("#imgfile").attr("src",$(o).parent().prev().attr("src"));
-		 var tmpObj = new Image();
-		 tmpObj.src = $(o).parent().prev().attr("src");
+	function show(o) {
+		$("#imgfile").attr("src", $(o).parent().prev().attr("src"));
+		var tmpObj = new Image();
+		tmpObj.src = $(o).parent().prev().attr("src");
 		if (tmpObj.width > 500 && tmpObj.width > tmpObj.height) {
-			tmpObj.height = parseInt(500 * tmpObj.height / tmpObj.width);
+			tmpObj.height = parseInt(500 * tmpObj.height / tmpObj.width, 10);
 			tmpObj.width = 500;
 		} else if (tmpObj.height > 500 && tmpObj.width < tmpObj.height) {
-			tmpObj.width = parseInt(500 * tmpObj.width / tmpObj.height);
+			tmpObj.width = parseInt(500 * tmpObj.width / tmpObj.height, 10);
 			tmpObj.height = 500;
 		}
-		 tmpObj.onload=function(){
+		tmpObj.onload = function() {
 			var modalWidth = $("#detail-modal").width();
-			 $("#detail-modal").width(tmpObj.width);  
-				$("#imgfile").attr("style","width:"+tmpObj.width+";height:"+tmpObj.height+";");
-				Utils.modal.show('detail');
-		 };
+			$("#detail-modal").width(tmpObj.width);
+			$("#imgfile").attr("style", "width:" + tmpObj.width + ";height:" + tmpObj.height + ";");
+			Utils.modal.show('detail');
+		};
 	}
-	function deletePic(o){
+	function deletePic(o) {
 		Utils.modal.show('remove');
 		$('#remove-save').click(function() {
 			$.del('/spmi/daily/pictures/' + $(o).parent().prev().prev().attr("value"), function(data) {
@@ -58,10 +58,10 @@ define(function(require, exports, module) {
 				showPicture(groupId);
 			});
 		});
-		
+
 	}
 	// 删除确认
-	
+
 	function showPicture(groupId) {
 		$.get("/spmi/daily/pictures?groupId=" + groupId, function(data) {
 			var columns = Math.ceil(data.data.result.length / 4);
@@ -70,8 +70,8 @@ define(function(require, exports, module) {
 					var path = "";
 					if (i < data.data.result.length) {
 						path = data.data.result[i].attachment.filePath;
-						id=data.data.result[i].id;
-						picture(path, i % 4 + 1,id);
+						id = data.data.result[i].id;
+						picture(path, i % 4 + 1, id);
 					}
 				}
 			}
@@ -123,8 +123,7 @@ define(function(require, exports, module) {
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#groups-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
@@ -180,7 +179,7 @@ define(function(require, exports, module) {
 	});
 	// 文件上传
 	$('#file').bind('change', function() {
-		var extArray = [".jpg", ".gif", ".jpeg", ".png", ".ico", ".bmp", ".tif"];
+		var extArray = [ ".jpg", ".gif", ".jpeg", ".png", ".ico", ".bmp", ".tif" ];
 		var file = $('#file').val();
 		var allowSubmit = false;
 		if (!file) {
@@ -238,7 +237,7 @@ define(function(require, exports, module) {
 		}
 	}
 	window.callBack = callBack;
-	window.show=show;
-	window.deletePic=deletePic;
-	
+	window.show = show;
+	window.deletePic = deletePic;
+
 });
