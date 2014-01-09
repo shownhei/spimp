@@ -38,8 +38,7 @@ public class CarService extends HibernateDataServiceImpl<Car, Long> {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
-			criterions.add(Restrictions.or(Restrictions.ilike("carCategory", search, MatchMode.ANYWHERE),
-					Restrictions.ilike("models", search, MatchMode.ANYWHERE),
+			criterions.add(Restrictions.or(Restrictions.ilike("models", search, MatchMode.ANYWHERE),
 					Restrictions.ilike("carNo", search, MatchMode.ANYWHERE)));
 		}
 

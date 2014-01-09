@@ -153,6 +153,7 @@ public class KilometerStaticsService {
 		caculateMonthlyRunLog(carList, result, runlogList, sumList);
 		root.put("sumList", sumList);
 		root.put("result", result);
+		
 	}
 
 	public void sum(ArrayList<ArrayList<Long>> result) {

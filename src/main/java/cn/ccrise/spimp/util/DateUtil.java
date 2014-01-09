@@ -65,7 +65,16 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		return sdf.format(date);
 	}
-
+	/**
+	 * 把java.util.Date格式转为字符串
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String formateDate(java.util.Date date,String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
+	}
 	/**
 	 * 取得当月最大天数
 	 * 

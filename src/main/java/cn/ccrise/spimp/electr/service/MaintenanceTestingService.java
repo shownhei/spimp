@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -17,8 +19,10 @@ import org.springframework.stereotype.Service;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.spimp.electr.access.MaintenanceTestingDAO;
 import cn.ccrise.spimp.electr.entity.MaintenanceTesting;
+import cn.ccrise.spimp.system.entity.Account;
 
 /**
  * MaintenanceTesting Service。
@@ -36,7 +40,9 @@ public class MaintenanceTestingService extends HibernateDataServiceImpl<Maintena
 	}
 
 	public Page<MaintenanceTesting> pageQuery(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car,
-			String search) {
+			String search,HttpSession httpSession) {
+		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
+				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
@@ -53,7 +59,8 @@ public class MaintenanceTestingService extends HibernateDataServiceImpl<Maintena
 		if (car != null) {
 			criterions.add(Restrictions.eq("car.id", car));
 		}
-
+		criterions.add(Restrictions.eq("maintenanceGroup.id", loginAccount.getGroupEntity().getId()));
+		
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }
