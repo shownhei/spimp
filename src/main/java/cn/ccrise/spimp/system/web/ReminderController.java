@@ -66,8 +66,8 @@ public class ReminderController {
 			try {
 				setResult = reminderDeferredResult.setResult(getReminderResponse(reminderDeferredResult
 						.getHttpSession()));
-			} catch (IllegalArgumentException exception) {
-				logger.warn("IllegalArgumentException,isSetOrExpired:{},setResult:{}", isSetOrExpired, setResult);
+			} catch (Exception exception) {
+				logger.warn("{},isSetOrExpired:{},setResult:{}", exception.getClass(), isSetOrExpired, setResult);
 			}
 
 			messageQueue.remove(reminderDeferredResult);
