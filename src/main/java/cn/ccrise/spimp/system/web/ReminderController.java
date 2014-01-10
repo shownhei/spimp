@@ -77,7 +77,7 @@ public class ReminderController {
 	@RequestMapping(value = "/reminder/notification/push", method = RequestMethod.GET)
 	@ResponseBody
 	public ReminderDeferredResult<ReminderResponse> pushNotification(HttpSession httpSession) {
-		ReminderDeferredResult<ReminderResponse> deferredResult = new ReminderDeferredResult<>(300000, httpSession);
+		ReminderDeferredResult<ReminderResponse> deferredResult = new ReminderDeferredResult<>(3600000, httpSession);
 		messageQueue.add(deferredResult);
 		return deferredResult;
 	}

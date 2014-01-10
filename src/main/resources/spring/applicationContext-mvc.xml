@@ -47,7 +47,7 @@
 
 	<!-- 采用注解定义配置 -->
 	<mvc:annotation-driven>
-		<mvc:async-support default-timeout="300000"></mvc:async-support>
+		<mvc:async-support default-timeout="3600000"></mvc:async-support>
 	</mvc:annotation-driven>
 
 	<!-- 定义直接映射视图 -->

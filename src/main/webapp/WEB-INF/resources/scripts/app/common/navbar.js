@@ -171,7 +171,7 @@ define(function(require, exports, module) {
 			},
 			error : function(jqXHR, textStatus) {
 				errorCount++;
-				if (errorCount < 20) { // 只重试20次
+				if (errorCount < 48) { // 只重试48次，每次超时1小时。
 					pushNotification();
 				}
 			}
