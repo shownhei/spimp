@@ -215,11 +215,7 @@
 						<div class="control-group">
 							<label class="control-label">班次</label>
 							<div class="controls">
-								<select name="shift">
-									<option value="0点班">0点班</option>
-									<option value="8点班">8点班</option>
-									<option value="4点班">4点班</option>
-								</select>
+								<input name="shift" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -263,11 +259,8 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button id="edit-save" class="btn btn-small btn-success">
-				<i class="icon-ok"></i> 确定
-			</button>
 			<button class="btn btn-small" data-dismiss="modal">
-				<i class="icon-remove"></i> 取消
+				<i class="icon-remove"></i> 关闭
 			</button>
 		</div>
 	</div>
