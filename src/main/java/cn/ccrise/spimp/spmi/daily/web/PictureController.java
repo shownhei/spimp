@@ -3,9 +3,12 @@
  */
 package cn.ccrise.spimp.spmi.daily.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +24,11 @@ import cn.ccrise.ikjp.core.security.entity.AccountEntity;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.ercs.service.UploadedFileService;
 import cn.ccrise.spimp.spmi.daily.entity.Picture;
 import cn.ccrise.spimp.spmi.daily.service.PictureService;
+
+import com.google.common.base.Strings;
 
 /**
  * Picture Controller。
@@ -35,6 +41,8 @@ public class PictureController {
 
 	@Autowired
 	private PictureService pictureService;
+	@Autowired
+	private UploadedFileService uploadedFileService;
 
 	@RequestMapping(value = "/spmi/daily/pictures/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -50,9 +58,20 @@ public class PictureController {
 
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Picture> page, Long groupId) {
+	public Response page(Page<Picture> page, Long groupId, String search) {
 		page.setPageSize(1000);
+		if (!Strings.isNullOrEmpty(search)) {
+			return new Response(pictureService.getPage(page, Restrictions.eq("groupId", groupId),
+					Restrictions.ilike("name", search, MatchMode.ANYWHERE)));
+		}
 		return new Response(pictureService.getPage(page, Restrictions.eq("groupId", groupId)));
+	}
+
+	@RequestMapping(value = "/spmi/daily/pictures/{id}/count", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getCount(@PathVariable long id) {
+		List<Picture> result = pictureService.findBy("groupId", id);
+		return new Response(result.size());
 	}
 
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.POST)

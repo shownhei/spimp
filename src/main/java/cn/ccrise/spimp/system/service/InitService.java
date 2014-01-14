@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
+import cn.ccrise.spimp.spmi.daily.entity.Folder;
+import cn.ccrise.spimp.spmi.daily.service.FolderService;
 import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.entity.Dictionary;
 
@@ -34,6 +36,8 @@ public class InitService extends DataInitAbstractService {
 	private DicitonaryTypeService dicitonaryTypeService;
 	@Autowired
 	private DictionaryService dictionaryService;
+	@Autowired
+	private FolderService folderService;
 
 	@Override
 	public void initAdmin() {
@@ -123,7 +127,9 @@ public class InitService extends DataInitAbstractService {
 			dictionary.setTypeCode("system_post");
 			dictionaryService.save(dictionary);
 		}
-
+		Folder folder = new Folder();
+		folder.setName("文件名");
+		folderService.save(folder);
 		initElectrService.initCustomData();
 	}
 
