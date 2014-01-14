@@ -21,7 +21,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
-@Table(name = "daily_folders")
+@Table(name = "spmi_folders")
 public class Folder extends IDEntity {
 	private String name;
 	private List<Folder> folders;
