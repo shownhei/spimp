@@ -71,6 +71,10 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
+		$('#attachment').parent().parent().hide();
+		$('#create-file-form')[0].reset();
+		$('#create-file-form').show();
+		Utils.modal.hide('remove');
 	});
 
 	// 保存
