@@ -101,6 +101,10 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '日期不能为空' ]);
 			return;
 		}
+		if(object.output===''){
+			Utils.modal.message('create', [ '割煤不能为空且为数字类型' ]);
+			return;
+		}
 
 		// 处理属性
 
@@ -142,6 +146,10 @@ define(function(require, exports, module) {
 		}
 		if(object.reportDate===''){
 			Utils.modal.message('edit', [ '日期不能为空' ]);
+			return;
+		}
+		if(object.output===''){
+			Utils.modal.message('edit', [ '割煤不能为空且为数字类型' ]);
 			return;
 		}
 
