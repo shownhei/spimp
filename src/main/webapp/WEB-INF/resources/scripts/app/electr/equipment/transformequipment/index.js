@@ -375,7 +375,7 @@ define(function(require, exports, module) {
 	$(document).mouseover(function(event) {
 		var el = $(event.target);
 		var parent = el.parent();
-		if (el.is('td') && el.attr('dataType') === 'showRemark' || (el.is('div') && parent.is('td') && parent.attr('dataType') === 'showRemark')) {
+		if ((el.is('td') && el.attr('dataType') === 'showRemark') || (el.is('div') && parent.is('td') && parent.attr('dataType') === 'showRemark')) {
 			if ($('#show_tips').is(":hidden")) {
 				showTip(event.pageX - 150, event.pageY - 40, el.find('div:first').html());
 			} else {
@@ -397,9 +397,9 @@ define(function(require, exports, module) {
 			return;
 		}
 		var dataType = el.attr('dataType');
+		var dataId = el.attr('dataId');
+		var buttonType = el.attr('buttonType');
 		if (dataType === 'reducer') {
-			var dataId = el.attr('dataId');
-			var buttonType = el.attr('buttonType');
 			if (buttonType === 'delete') {
 				$.del('/electr/equipment/reducer-devices/' + dataId, function(data) {
 					loadDeviceInfo(grid.selectedData('id'));
@@ -408,8 +408,6 @@ define(function(require, exports, module) {
 			return;
 		}
 		if (dataType === 'electromotor') {
-			var dataId = el.attr('dataId');
-			var buttonType = el.attr('buttonType');
 			if (buttonType === 'delete') {
 				$.del('/electr/equipment/electromotor-devices/' + dataId, function(data) {
 					loadDeviceInfo(grid.selectedData('id'));
@@ -418,8 +416,6 @@ define(function(require, exports, module) {
 			return;
 		}
 		if (dataType === 'brake') {
-			var dataId = el.attr('dataId');
-			var buttonType = el.attr('buttonType');
 			if (buttonType === 'delete') {
 				$.del('/electr/equipment/brake-devices/' + dataId, function(data) {
 					loadDeviceInfo(grid.selectedData('id'));
@@ -428,8 +424,6 @@ define(function(require, exports, module) {
 			return;
 		}
 		if (dataType === 'tensioning') {
-			var dataId = el.attr('dataId');
-			var buttonType = el.attr('buttonType');
 			if (buttonType === 'delete') {
 				$.del('/electr/equipment/tensioning-devices/' + dataId, function(data) {
 					loadDeviceInfo(grid.selectedData('id'));

@@ -125,6 +125,88 @@ public class TransformEquipmentController {
 		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response,
 				"electr/equipment/transform-equipments.xls", root, "运输设备", new String[] { "运输设备" },
 				new ExcelCallBackInteface() {
+					@Override
+					public void process(Workbook book, HashMap<String, Object> root) {
+						int startRow = 3;
+						int mainRecordCols = 12;// 主记录的所有列数
+						/****** 配件列数 ********/
+						int reducerCols = 5;// 减速机
+						int electromotorCols = 4;// 电动机
+						int brakeCols = 4;// 制动器
+						int tensioningCols = 7;// 拉紧装置
+						final int allCols = 1 + mainRecordCols + reducerCols + electromotorCols + brakeCols
+								+ tensioningCols;
+
+						Sheet sheet = book.getSheetAt(0);
+						@SuppressWarnings("unchecked")
+						List<TransformEquipment> result = (List<TransformEquipment>) root.get("result");
+						for (int rowIndex = 0; rowIndex < maxRow; rowIndex++) {
+							Row currentRow = sheet.createRow(rowIndex + startRow);
+							for (int colIndex = 0; colIndex < allCols; colIndex++) {
+								Cell cell = currentRow.createCell(colIndex);
+								cell.setCellValue("");
+							}
+						}
+						int mainStartRow = startRow;
+						for (TransformEquipment equipment : result) {
+							drawTensioning(tensioningMap, maxRowMap, mainRecordCols, reducerCols, electromotorCols,
+									brakeCols, tensioningCols, sheet, result, equipment, mainStartRow);
+							drawBrake(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
+									tensioningCols, sheet, result, equipment, mainStartRow);
+							drawElectromotor(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
+									tensioningCols, sheet, result, equipment, mainStartRow);
+							drawReducers(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
+									tensioningCols, sheet, result, equipment, mainStartRow);
+							int equipmentStartRow = mainStartRow;
+							int colIndex = 2;
+							Row row = sheet.getRow(equipmentStartRow++);
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceClass().getItemName());
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceName());
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceModel());
+							row.getCell(colIndex++).setCellValue(equipment.getSpeed());
+							row.getCell(colIndex++).setCellValue(equipment.getEquipmentNumber());
+							row.getCell(colIndex++).setCellValue(equipment.getProductionDate());
+							row.getCell(colIndex++).setCellValue(equipment.getEquipmentNumber());
+							row.getCell(colIndex++).setCellValue(equipment.getLocation());
+							row.getCell(colIndex++).setCellValue(equipment.getProducer());
+							row.getCell(colIndex++).setCellValue(equipment.getLayoutLength());
+
+							mainStartRow += maxRowMap.get(equipment.getId());
+						}
+						int mainStartRow2 = startRow;
+						for (TransformEquipment equipment : result) {
+							int rows = maxRowMap.get(equipment.getId());
+							int colIndex = 0;
+							CellRangeAddress temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
+									colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
+							sheet.addMergedRegion(temp);
+							mainStartRow2 += maxRowMap.get(equipment.getId());
+						}
+
+					}
+
 					private void drawBrake(HashMap<Long, Integer> maxRowMap, int mainRecordCols, int reducerCols,
 							int electromotorCols, int brakeCols, int tensioningCols, Sheet sheet,
 							List<TransformEquipment> result, TransformEquipment equipment, int mainStartRow) {
@@ -244,88 +326,6 @@ public class TransformEquipmentController {
 									+ maxRowMap.get(equipment.getId()) - 1, startCol + i, startCol + i);
 							sheet.addMergedRegion(temp);
 						}
-					}
-
-					@Override
-					public void process(Workbook book, HashMap<String, Object> root) {
-						int startRow = 3;
-						int mainRecordCols = 12;// 主记录的所有列数
-						/****** 配件列数 ********/
-						int reducerCols = 5;// 减速机
-						int electromotorCols = 4;// 电动机
-						int brakeCols = 4;// 制动器
-						int tensioningCols = 7;// 拉紧装置
-						final int allCols = 1 + mainRecordCols + reducerCols + electromotorCols + brakeCols
-								+ tensioningCols;
-
-						Sheet sheet = book.getSheetAt(0);
-						@SuppressWarnings("unchecked")
-						List<TransformEquipment> result = (List<TransformEquipment>) root.get("result");
-						for (int rowIndex = 0; rowIndex < maxRow; rowIndex++) {
-							Row currentRow = sheet.createRow(rowIndex + startRow);
-							for (int colIndex = 0; colIndex < allCols; colIndex++) {
-								Cell cell = currentRow.createCell(colIndex);
-								cell.setCellValue("");
-							}
-						}
-						int mainStartRow = startRow;
-						for (TransformEquipment equipment : result) {
-							drawTensioning(tensioningMap, maxRowMap, mainRecordCols, reducerCols, electromotorCols,
-									brakeCols, tensioningCols, sheet, result, equipment, mainStartRow);
-							drawBrake(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
-									tensioningCols, sheet, result, equipment, mainStartRow);
-							drawElectromotor(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
-									tensioningCols, sheet, result, equipment, mainStartRow);
-							drawReducers(maxRowMap, mainRecordCols, reducerCols, electromotorCols, brakeCols,
-									tensioningCols, sheet, result, equipment, mainStartRow);
-							int equipmentStartRow = mainStartRow;
-							int colIndex = 2;
-							Row row = sheet.getRow(equipmentStartRow++);
-							row.getCell(colIndex++).setCellValue(equipment.getDeviceClass().getItemName());
-							row.getCell(colIndex++).setCellValue(equipment.getDeviceName());
-							row.getCell(colIndex++).setCellValue(equipment.getDeviceModel());
-							row.getCell(colIndex++).setCellValue(equipment.getSpeed());
-							row.getCell(colIndex++).setCellValue(equipment.getEquipmentNumber());
-							row.getCell(colIndex++).setCellValue(equipment.getProductionDate());
-							row.getCell(colIndex++).setCellValue(equipment.getEquipmentNumber());
-							row.getCell(colIndex++).setCellValue(equipment.getLocation());
-							row.getCell(colIndex++).setCellValue(equipment.getProducer());
-							row.getCell(colIndex++).setCellValue(equipment.getLayoutLength());
-
-							mainStartRow += maxRowMap.get(equipment.getId());
-						}
-						int mainStartRow2 = startRow;
-						for (TransformEquipment equipment : result) {
-							int rows = maxRowMap.get(equipment.getId());
-							int colIndex = 0;
-							CellRangeAddress temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
-									colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1, colIndex, colIndex++);
-							sheet.addMergedRegion(temp);
-							mainStartRow2 += maxRowMap.get(equipment.getId());
-						}
-
 					}
 
 					private void setComment(Sheet sheet, Cell tempCell, String value) {

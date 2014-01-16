@@ -30,29 +30,29 @@ public class Folder extends IDEntity {
 	 */
 	protected Long parentId;
 
-	public Long getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@OneToMany(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	public List<Folder> getFolders() {
 		return folders;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
 	public void setFolders(List<Folder> folders) {
 		this.folders = folders;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 }

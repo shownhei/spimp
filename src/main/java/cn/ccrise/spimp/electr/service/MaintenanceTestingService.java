@@ -40,7 +40,7 @@ public class MaintenanceTestingService extends HibernateDataServiceImpl<Maintena
 	}
 
 	public Page<MaintenanceTesting> pageQuery(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car,
-			String search,HttpSession httpSession) {
+			String search, HttpSession httpSession) {
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		List<Criterion> criterions = new ArrayList<Criterion>();
@@ -60,7 +60,7 @@ public class MaintenanceTestingService extends HibernateDataServiceImpl<Maintena
 			criterions.add(Restrictions.eq("car.id", car));
 		}
 		criterions.add(Restrictions.eq("maintenanceGroup.id", loginAccount.getGroupEntity().getId()));
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

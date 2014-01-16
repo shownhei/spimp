@@ -21,7 +21,7 @@ public class ReminderResponse {
 
 	public void addReminderMessage(ReminderMessage reminderMessage) {
 		count += reminderMessage.getCount();
-		this.messages.add(reminderMessage);
+		messages.add(reminderMessage);
 	}
 
 	public Long getCount() {

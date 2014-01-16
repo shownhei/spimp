@@ -38,33 +38,17 @@ public class Picture extends IDEntity {
 	private String uploader; // 上传人
 	private Long groupId;// 所属机构ID
 
-	public void setUploadTime(Timestamp uploadTime) {
-		this.uploadTime = uploadTime;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getUploaderId() {
-		return uploaderId;
-	}
-
-	public void setUploaderId(Long uploaderId) {
-		this.uploaderId = uploaderId;
-	}
-
 	@ManyToOne
 	public UploadedFile getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(UploadedFile attachment) {
-		this.attachment = attachment;
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Transient
@@ -72,22 +56,38 @@ public class Picture extends IDEntity {
 		return uploader;
 	}
 
-	public void setUploader(String uploader) {
-		this.uploader = uploader;
-	}
-
-	public Long getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(Long groupId) {
-		this.groupId = groupId;
+	public Long getUploaderId() {
+		return uploaderId;
 	}
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	public Timestamp getUploadTime() {
 		return uploadTime;
+	}
+
+	public void setAttachment(UploadedFile attachment) {
+		this.attachment = attachment;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setUploader(String uploader) {
+		this.uploader = uploader;
+	}
+
+	public void setUploaderId(Long uploaderId) {
+		this.uploaderId = uploaderId;
+	}
+
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
 	}
 
 }

@@ -5,15 +5,6 @@ import com.artofsolving.jodconverter.DocumentFamily;
 import com.artofsolving.jodconverter.DocumentFormat;
 
 public class ErcsDocumentFormatRegistry extends DefaultDocumentFormatRegistry {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public ErcsDocumentFormatRegistry() {
 		super();
 		/**

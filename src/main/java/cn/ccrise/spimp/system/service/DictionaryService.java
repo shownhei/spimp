@@ -22,15 +22,16 @@ public class DictionaryService extends HibernateDataServiceImpl<Dictionary, Long
 	@Autowired
 	private DictionaryDAO dictionaryDAO;
 
-	@Override
-	public HibernateDAO<Dictionary, Long> getDAO() {
-		return dictionaryDAO;
-	}
 	/***
 	 * 周期性执行数据库查询，保障数据库连接不会断开
 	 */
-	@Scheduled(fixedRate=1000*60*60)
-	public void dbTest(){
-		this.getDAO().getSession().createQuery("from Dictionary a").list();
+	@Scheduled(fixedRate = 1000 * 60 * 60)
+	public void dbTest() {
+		getDAO().getSession().createQuery("from Dictionary a").list();
+	}
+
+	@Override
+	public HibernateDAO<Dictionary, Long> getDAO() {
+		return dictionaryDAO;
 	}
 }

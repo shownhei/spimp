@@ -21,9 +21,18 @@ public class FolderService extends HibernateDataServiceImpl<Folder, Long> {
 	@Autowired
 	private FolderDAO folderDAO;
 
-	@Override
-	public HibernateDAO<Folder, Long> getDAO() {
-		return folderDAO;
+	/**
+	 * 关联删除。删除组并移除与其他组之间的关联。
+	 * 
+	 * @param folder
+	 *            需要删除的组
+	 * @return true 删除成功 false 删除失败
+	 */
+	public boolean associatedDelete(Folder folder) {
+		Folder parentFolder = get(folder.getParentId());
+		Folder removeFolder = get(folder.getId());
+		parentFolder.getFolders().remove(removeFolder);
+		return delete(removeFolder);
 	}
 
 	/**
@@ -42,13 +51,6 @@ public class FolderService extends HibernateDataServiceImpl<Folder, Long> {
 		}
 	}
 
-	private boolean save(Folder folder, Folder parentFolder) {
-		boolean result1 = super.save(folder);
-		parentFolder.getFolders().add(folder);
-		boolean result2 = super.save(parentFolder);
-		return result1 && result2;
-	}
-
 	/**
 	 * 
 	 * @param folder
@@ -64,17 +66,15 @@ public class FolderService extends HibernateDataServiceImpl<Folder, Long> {
 		return true;
 	}
 
-	/**
-	 * 关联删除。删除组并移除与其他组之间的关联。
-	 * 
-	 * @param folder
-	 *            需要删除的组
-	 * @return true 删除成功 false 删除失败
-	 */
-	public boolean associatedDelete(Folder folder) {
-		Folder parentFolder = get(folder.getParentId());
-		Folder removeFolder = get(folder.getId());
-		parentFolder.getFolders().remove(removeFolder);
-		return delete(removeFolder);
+	@Override
+	public HibernateDAO<Folder, Long> getDAO() {
+		return folderDAO;
+	}
+
+	private boolean save(Folder folder, Folder parentFolder) {
+		boolean result1 = super.save(folder);
+		parentFolder.getFolders().add(folder);
+		boolean result2 = super.save(parentFolder);
+		return result1 && result2;
 	}
 }

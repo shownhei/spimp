@@ -56,6 +56,13 @@ public class PictureController {
 		return new Response(pictureService.get(id));
 	}
 
+	@RequestMapping(value = "/spmi/daily/pictures/{id}/count", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getCount(@PathVariable long id) {
+		List<Picture> result = pictureService.findBy("groupId", id);
+		return new Response(result.size());
+	}
+
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Picture> page, Long groupId, String search) {
@@ -65,13 +72,6 @@ public class PictureController {
 					Restrictions.ilike("name", search, MatchMode.ANYWHERE)));
 		}
 		return new Response(pictureService.getPage(page, Restrictions.eq("groupId", groupId)));
-	}
-
-	@RequestMapping(value = "/spmi/daily/pictures/{id}/count", method = RequestMethod.GET)
-	@ResponseBody
-	public Response getCount(@PathVariable long id) {
-		List<Picture> result = pictureService.findBy("groupId", id);
-		return new Response(result.size());
 	}
 
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.POST)

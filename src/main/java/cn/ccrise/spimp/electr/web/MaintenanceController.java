@@ -94,7 +94,7 @@ public class MaintenanceController {
 	 */
 	@RequestMapping(value = "/electr/maintenance/getdailymaintenance", method = RequestMethod.GET)
 	public ModelAndView getDailyMaintenance(Long car, Long maintenanceId, Date maintenanceDate,
-			String maintenancePeople, Integer maintenanceLevel,HttpSession httpSession) {
+			String maintenancePeople, Integer maintenanceLevel, HttpSession httpSession) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
@@ -135,7 +135,7 @@ public class MaintenanceController {
 	 */
 	@RequestMapping(value = "/electr/maintenance/getschedulemaintenance", method = RequestMethod.GET)
 	public ModelAndView getScheduleMaintenance(Long car, Long maintenanceId, Date maintenanceDate,
-			String maintenancePeople, Integer maintenanceLevel,HttpSession httpSession) {
+			String maintenancePeople, Integer maintenanceLevel, HttpSession httpSession) {
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		HashMap<String, Object> root = new HashMap<String, Object>();
@@ -179,7 +179,7 @@ public class MaintenanceController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenances", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody Maintenance maintenance,HttpSession httpSession) {
+	public Response save(@Valid @RequestBody Maintenance maintenance, HttpSession httpSession) {
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		maintenance.setMaintenanceGroup(loginAccount.getGroupEntity());
@@ -189,7 +189,7 @@ public class MaintenanceController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenances/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody Maintenance maintenance, @PathVariable long id,HttpSession httpSession) {
+	public Response update(@Valid @RequestBody Maintenance maintenance, @PathVariable long id, HttpSession httpSession) {
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		maintenance.setMaintenanceGroup(loginAccount.getGroupEntity());

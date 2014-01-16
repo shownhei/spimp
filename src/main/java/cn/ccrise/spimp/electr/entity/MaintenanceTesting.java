@@ -68,14 +68,6 @@ public class MaintenanceTesting extends IDEntity {
 	 */
 	@PageFields(describtion = "单位", allowedNull = false, search = true)
 	private GroupEntity maintenanceGroup;
-	@ManyToOne
-	public GroupEntity getMaintenanceGroup() {
-		return maintenanceGroup;
-	}
-
-	public void setMaintenanceGroup(GroupEntity maintenanceGroup) {
-		this.maintenanceGroup = maintenanceGroup;
-	}
 
 	@ManyToOne
 	public Car getCar() {
@@ -88,6 +80,11 @@ public class MaintenanceTesting extends IDEntity {
 
 	public Date getMaintenanceDate() {
 		return maintenanceDate;
+	}
+
+	@ManyToOne
+	public GroupEntity getMaintenanceGroup() {
+		return maintenanceGroup;
 	}
 
 	public String getMiantainer() {
@@ -119,6 +116,10 @@ public class MaintenanceTesting extends IDEntity {
 
 	public void setMaintenanceDate(Date maintenanceDate) {
 		this.maintenanceDate = maintenanceDate;
+	}
+
+	public void setMaintenanceGroup(GroupEntity maintenanceGroup) {
+		this.maintenanceGroup = maintenanceGroup;
 	}
 
 	public void setMiantainer(String miantainer) {

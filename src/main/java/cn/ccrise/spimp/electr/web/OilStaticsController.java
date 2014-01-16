@@ -96,9 +96,22 @@ public class OilStaticsController {
 
 		});
 	}
+
+	/**
+	 * 
+	 * @param year
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/monthly-oil/result", method = RequestMethod.GET)
+	public ModelAndView getMonthlyOil(Integer year, Integer month) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		monthOilQuery(year, month, root);
+		return new ModelAndView("electr/car/monthly-oil/result", root);
+	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/electr/car/monthly-oil/export", method = RequestMethod.GET)
-	public void getmonthlyOilExport(HttpSession httpSession, HttpServletResponse response, Integer year,int month) {
+	public void getmonthlyOilExport(HttpSession httpSession, HttpServletResponse response, Integer year, int month) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		monthOilQuery(year, month, root);
 		final Collection<ArrayList<AnnualOil>> groups = (Collection<ArrayList<AnnualOil>>) root.get("category");
@@ -114,81 +127,39 @@ public class OilStaticsController {
 		}
 		root.put("result", result);
 		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response, "electr/car/monthly-oil.xls", root, year
-				+"年"+month+"月无轨胶轮车百公里油耗计算表", new String[] { year + "年"+month+"月无轨胶轮车百公里油耗计算表" }, new ExcelCallBackInteface() {
+				+ "年" + month + "月无轨胶轮车百公里油耗计算表", new String[] { year + "年" + month + "月无轨胶轮车百公里油耗计算表" },
+				new ExcelCallBackInteface() {
 
-			@Override
-			public void process(Workbook book, HashMap<String, Object> root) {
-				Sheet sheet = book.getSheetAt(0);
-				final Collection<ArrayList<AnnualOil>> groups = (Collection<ArrayList<AnnualOil>>) root.get("category");
-				ArrayList<AnnualOil> recordList = null;
-				Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
-				int start_row = 2;
-				int start_col_1 = 4;
-				int start_col_2 = 6;
-				while (groupIt.hasNext()) {
-					recordList = groupIt.next();
-					/**
-					 * 合并日平均运行 次数（次）
-					 */
-					CellRangeAddress temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1,
-							start_col_1, start_col_1);
-					sheet.addMergedRegion(temp);
+					@Override
+					public void process(Workbook book, HashMap<String, Object> root) {
+						Sheet sheet = book.getSheetAt(0);
+						final Collection<ArrayList<AnnualOil>> groups = (Collection<ArrayList<AnnualOil>>) root
+								.get("category");
+						ArrayList<AnnualOil> recordList = null;
+						Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
+						int start_row = 2;
+						int start_col_1 = 4;
+						int start_col_2 = 6;
+						while (groupIt.hasNext()) {
+							recordList = groupIt.next();
+							/**
+							 * 合并日平均运行 次数（次）
+							 */
+							CellRangeAddress temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1,
+									start_col_1, start_col_1);
+							sheet.addMergedRegion(temp);
 
-					/**
-					 * 平均油耗（升）
-					 */
-					temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1, start_col_2, start_col_2);
-					sheet.addMergedRegion(temp);
-					start_row += recordList.size();
-				}
-			}
+							/**
+							 * 平均油耗（升）
+							 */
+							temp = new CellRangeAddress(start_row, start_row + recordList.size() - 1, start_col_2,
+									start_col_2);
+							sheet.addMergedRegion(temp);
+							start_row += recordList.size();
+						}
+					}
 
-		});
-	}
-	/**
-	 * 
-	 * @param year
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/car/monthly-oil/result", method = RequestMethod.GET)
-	public ModelAndView getMonthlyOil(Integer year, Integer month) {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		monthOilQuery(year, month, root);
-		return new ModelAndView("electr/car/monthly-oil/result", root);
-	}
-
-	private void monthOilQuery(Integer year, Integer month,
-			HashMap<String, Object> root) {
-		root.put("year", year);
-		root.put("month", month);
-		List<Object> list = oilStaticsService.queryByMonth(year, month);
-		Iterator<Object> it = list.iterator();
-		Object[] array = null;
-		AnnualOil instance = null;
-		int i = 0;
-		HashMap<String, ArrayList<AnnualOil>> map = new HashMap<String, ArrayList<AnnualOil>>();
-		while (it.hasNext()) {
-			array = (Object[]) it.next();
-			instance = new AnnualOil();
-			i = 0;
-			instance.setCarNo((String) array[i++]);
-			instance.setTrainNumber((Long) array[i++]);
-			instance.setDistance((Long) array[i++]);
-			instance.setRefuelNumber((Long) array[i++]);
-			instance.setCarCategory((String) array[i++]);
-			instance.count();
-			if (!map.containsKey(instance.getCarCategory())) {
-				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
-			}
-			map.get(instance.getCarCategory()).add(instance);
-		}
-		Collection<ArrayList<AnnualOil>> groups = map.values();
-		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
-		DecimalFormat df = new DecimalFormat(".##");
-		while (groupIt.hasNext()) {
-			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getCurrentMonthLastDay());
-		}
-		root.put("category", groups);
+				});
 	}
 
 	/**
@@ -226,6 +197,39 @@ public class OilStaticsController {
 		df.applyPattern("0.00");
 		while (groupIt.hasNext()) {
 			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getMaxDaysOfYear(DateUtil.getCurrentYear()));
+		}
+		root.put("category", groups);
+	}
+
+	private void monthOilQuery(Integer year, Integer month, HashMap<String, Object> root) {
+		root.put("year", year);
+		root.put("month", month);
+		List<Object> list = oilStaticsService.queryByMonth(year, month);
+		Iterator<Object> it = list.iterator();
+		Object[] array = null;
+		AnnualOil instance = null;
+		int i = 0;
+		HashMap<String, ArrayList<AnnualOil>> map = new HashMap<String, ArrayList<AnnualOil>>();
+		while (it.hasNext()) {
+			array = (Object[]) it.next();
+			instance = new AnnualOil();
+			i = 0;
+			instance.setCarNo((String) array[i++]);
+			instance.setTrainNumber((Long) array[i++]);
+			instance.setDistance((Long) array[i++]);
+			instance.setRefuelNumber((Long) array[i++]);
+			instance.setCarCategory((String) array[i++]);
+			instance.count();
+			if (!map.containsKey(instance.getCarCategory())) {
+				map.put(instance.getCarCategory(), new ArrayList<AnnualOil>());
+			}
+			map.get(instance.getCarCategory()).add(instance);
+		}
+		Collection<ArrayList<AnnualOil>> groups = map.values();
+		Iterator<ArrayList<AnnualOil>> groupIt = groups.iterator();
+		DecimalFormat df = new DecimalFormat(".##");
+		while (groupIt.hasNext()) {
+			oilStaticsService.oilAVG(groupIt.next(), df, DateUtil.getCurrentMonthLastDay());
 		}
 		root.put("category", groups);
 	}

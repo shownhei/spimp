@@ -50,11 +50,11 @@ public class MaintenanceTestingController {
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search,HttpSession httpSession)
-			throws Exception {
+	public void exportExcel(HttpServletResponse response, Date startDate, Date endDate, Long car, String search,
+			HttpSession httpSession) throws Exception {
 		Page<MaintenanceTesting> page = new Page<MaintenanceTesting>();
 		page.setPageSize(100000);
-		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search,httpSession);
+		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search, httpSession);
 
 		String[] headers = { "维修日期", "维修车辆", "故障表现/原因", "处理方法", "备注", "维修工", "记录时间" };
 
@@ -84,14 +84,15 @@ public class MaintenanceTestingController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car, String search,HttpSession httpSession) {
-		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search,httpSession);
+	public Response page(Page<MaintenanceTesting> page, Date startDate, Date endDate, Long car, String search,
+			HttpSession httpSession) {
+		page = maintenanceTestingService.pageQuery(page, startDate, endDate, car, search, httpSession);
 		return new Response(page);
 	}
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings", method = RequestMethod.POST)
 	@ResponseBody
-	public Response save(@Valid @RequestBody MaintenanceTesting maintenanceTesting,HttpSession httpSession) {
+	public Response save(@Valid @RequestBody MaintenanceTesting maintenanceTesting, HttpSession httpSession) {
 		maintenanceTesting.setRecordDateTime(new Timestamp(System.currentTimeMillis()));
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
@@ -101,7 +102,8 @@ public class MaintenanceTestingController {
 
 	@RequestMapping(value = "/electr/maintenance/maintenance-testings/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public Response update(@Valid @RequestBody MaintenanceTesting maintenanceTesting, @PathVariable long id,HttpSession httpSession) {
+	public Response update(@Valid @RequestBody MaintenanceTesting maintenanceTesting, @PathVariable long id,
+			HttpSession httpSession) {
 		Account loginAccount = (Account) httpSession.getAttribute(PropertiesUtils
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		maintenanceTesting.setMaintenanceGroup(loginAccount.getGroupEntity());
