@@ -122,6 +122,7 @@ define(function(require, exports, module) {
 		var selectId = grid.selectedData('id');
 		$.get(contextPath + '/spmi/daily/trainings/' + selectId, function(data) {
 			var object = data.data;
+			Utils.form.fill('edit', object);
 			$('#edit_attachment').val(object.attachment.filePath);
 			$('#edit_attachment').attr('data-id', object.attachment.id);
 			Utils.modal.show('edit');
