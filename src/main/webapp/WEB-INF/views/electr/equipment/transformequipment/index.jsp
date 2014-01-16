@@ -473,7 +473,7 @@
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<input id="electromotor_create_deviceModel" name="deviceModel" type="text">
+								<textArea id="electromotor_create_deviceModel" name="deviceModel" ></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -531,7 +531,7 @@
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<input id="brake_create_deviceModel" name="deviceModel" type="text">
+								<textArea id="brake_create_deviceModel" name="deviceModel" ></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -601,7 +601,7 @@
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<input id="tensioning_create_deviceModel" name="deviceModel" type="text">
+								<textArea id="tensioning_create_deviceModel" name="deviceModel" ></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -625,7 +625,7 @@
 						<div class="control-group">
 							<label class="control-label" for="techParameters">技术参数</label>
 							<div class="controls">
-								<input id="tensioning_create_techParameters" name="techParameters" type="text">
+								<textArea id="tensioning_create_techParameters" name="techParameters" ></textArea>
 							</div>
 						</div>
 					</form>
@@ -649,7 +649,7 @@
 			</button>
 		</div>
 	</div>
-	<div id="show_tips" style="position:absolute;display:none;width:100px;height:100px;left:0px;top:0px;z-index:800;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);background-color: #FFF;
-border: 1px solid #999;padding:2px;"></div>
+	<div id="show_tips" style="position:absolute;display:none;width:200px;height:130px;left:0px;top:0px;z-index:800;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);background-color: #FFF;
+border: 1px solid #999;padding:2px;overflow:auto"></div>
 </body>
 </html>

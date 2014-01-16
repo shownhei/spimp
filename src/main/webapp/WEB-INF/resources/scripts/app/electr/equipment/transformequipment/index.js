@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				var lastSelect = activeTab;
 				$('#deviceInfoPanel').html(data);
-				$('#' + lastSelect).trigger('click');
+				$('#' + lastSelect).find('a:first').trigger('click');
 				registClickHandler();
 			}
 		});
@@ -403,8 +403,13 @@ define(function(require, exports, module) {
 	};
 	$(document).mouseover(function(event) {
 		var el = $(event.target);
-		if (el.is('td') && el.attr('dataType') == 'showRemark') {
-			showTip(event.pageX, event.pageY, el.html());
+		var parent=el.parent();
+		if (el.is('td') && el.attr('dataType') == 'showRemark'||(el.is('div')&&parent.is('td')&&parent.attr('dataType') == 'showRemark')) {
+			if($('#show_tips').is(":hidden")){
+				showTip(event.pageX-150, event.pageY-40, el.find('div:first').html());
+			}else{
+				$('#show_tips').html(el.find('div:first').html());
+			}
 		} else {
 			$('#show_tips').hide();
 		}
@@ -431,6 +436,7 @@ define(function(require, exports, module) {
 									loadDeviceInfo(grid.selectedData('id'));
 								});
 					}
+					return;
 				}
 				if (dataType == 'electromotor') {
 					var dataId = el.attr('dataId');
@@ -440,7 +446,7 @@ define(function(require, exports, module) {
 								+ dataId, function(data) {
 							loadDeviceInfo(grid.selectedData('id'));
 						});
-					}
+					}return;
 				}
 				if (dataType == 'brake') {
 					var dataId = el.attr('dataId');
@@ -450,7 +456,7 @@ define(function(require, exports, module) {
 								function(data) {
 									loadDeviceInfo(grid.selectedData('id'));
 								});
-					}
+					}return;
 				}
 				if (dataType == 'tensioning') {
 					var dataId = el.attr('dataId');
@@ -460,7 +466,7 @@ define(function(require, exports, module) {
 								function(data) {
 									loadDeviceInfo(grid.selectedData('id'));
 								});
-					}
+					}return;
 				}
 			});
 });

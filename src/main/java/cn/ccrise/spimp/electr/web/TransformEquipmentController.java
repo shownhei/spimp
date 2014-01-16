@@ -189,7 +189,7 @@ public class TransformEquipmentController {
 			@Override
 			public void process(Workbook book, HashMap<String, Object> root) {
 				int startRow=3;
-				int mainRecordCols=11;//主记录的所有列数
+				int mainRecordCols=12;//主记录的所有列数
 				/******配件列数********/
 				int reducerCols=5;//减速机
 				int electromotorCols=4;//电动机
@@ -198,16 +198,13 @@ public class TransformEquipmentController {
 				final int allCols=1+mainRecordCols+reducerCols+electromotorCols+brakeCols+tensioningCols;
 				
 				Sheet sheet = book.getSheetAt(0);
+				@SuppressWarnings("unchecked")
 				List<TransformEquipment> result=(List<TransformEquipment>) root.get("result");
 				for (int rowIndex=0; rowIndex<maxRow;rowIndex++) { 
 					Row currentRow=sheet.createRow(rowIndex+startRow);
 					for(int colIndex=0;colIndex<allCols;colIndex++){
 						Cell cell=currentRow.createCell(colIndex);
 						cell.setCellValue("");
-						Comment comment=sheet.createDrawingPatriarch().createCellComment(new HSSFClientAnchor(0,0,0,0,(short)3,3,(short)5,6));
-						comment.setAuthor("赵培夫");
-						comment.setString(new HSSFRichTextString("插件批注成功!插件批注成功!"));
-						cell.setCellComment(comment);
 					}
 				}
 				int mainStartRow=startRow;
@@ -239,8 +236,14 @@ public class TransformEquipmentController {
 				int mainStartRow2=startRow;
 				for(TransformEquipment equipment:result){
 					int rows=maxRowMap.get(equipment.getId());
-					int colIndex=2;
+					int colIndex=0;
 					CellRangeAddress temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
+							colIndex, colIndex++);
+					sheet.addMergedRegion(temp);
+					temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
+							colIndex, colIndex++);
+					sheet.addMergedRegion(temp);
+					temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
 							colIndex, colIndex++);
 					sheet.addMergedRegion(temp);
 					temp = new CellRangeAddress(mainStartRow2, mainStartRow2 + rows - 1,
@@ -266,14 +269,24 @@ public class TransformEquipmentController {
 				}
 				
 			}
+			private void setComment(Sheet sheet,Cell tempCell,String value){
+				Comment comment=sheet.createDrawingPatriarch().createCellComment(new HSSFClientAnchor(0,0,0,0,(short)3,1,(short)5,6));
+				comment.setAuthor("赵培夫");
+				comment.setString(new HSSFRichTextString(value));
+				tempCell.setCellComment(comment);
+			}
 			private void drawReducers(
 					 HashMap<Long, Integer> maxRowMap, 
 					int mainRecordCols, int reducerCols, int electromotorCols, int brakeCols,int tensioningCols,Sheet sheet, List<TransformEquipment> result,TransformEquipment equipment,int mainStartRow){
-				   int reducerStartCol=mainRecordCols+1;
+				   int reducerStartCol=mainRecordCols;
 					int reducerStartRow=mainStartRow;
+					Cell tempCell=null;
 					for(ReducerDevice reducer:reducerMap.get(equipment.getId())){
 						Row row=sheet.getRow(reducerStartRow++);
 						row.getCell(reducerStartCol).setCellValue(reducer.getDeviceModel());
+						tempCell=row.getCell(reducerStartCol);
+						setComment(sheet,tempCell,reducer.getDeviceModel());
+						
 						row.getCell(reducerStartCol+1).setCellValue(reducer.getRunningPower());
 						row.getCell(reducerStartCol+2).setCellValue(reducer.getTransmissionRatio());
 						row.getCell(reducerStartCol+3).setCellValue(reducer.getFactoryNumber());
@@ -297,11 +310,15 @@ public class TransformEquipmentController {
 			private void drawElectromotor(
 					 HashMap<Long, Integer> maxRowMap, 
 					int mainRecordCols, int reducerCols,int  electromotorCols, int brakeCols,int tensioningCols,Sheet sheet, List<TransformEquipment> result,TransformEquipment equipment,int mainStartRow){
-				   int electromotorStartCol=mainRecordCols+reducerCols+1;
+				   int electromotorStartCol=mainRecordCols+reducerCols;
 					int electromotorStartRow=mainStartRow;
+					Cell tempCell=null;
 					for(ElectromotorDevice electromotor:electromotorMap.get(equipment.getId())){
 						Row row=sheet.getRow(electromotorStartRow++);
 						row.getCell(electromotorStartCol).setCellValue(electromotor.getDeviceModel());
+						tempCell=row.getCell(electromotorStartCol);
+						setComment(sheet,tempCell,electromotor.getDeviceModel());
+						
 						row.getCell(electromotorStartCol+1).setCellValue(electromotor.getFactoryNumber());
 						row.getCell(electromotorStartCol+2).setCellValue(electromotor.getProductionDate());
 						row.getCell(electromotorStartCol+3).setCellValue(electromotor.getProducer());
@@ -310,17 +327,20 @@ public class TransformEquipmentController {
 					if(maxRowMap.get(equipment.getId())>1&&(rowCount==0||rowCount==1)){
 						electromotorStartRow=mainStartRow;
 						mergeCells(maxRowMap,  sheet, equipment,
-								electromotorStartRow,mainRecordCols+reducerCols,reducerCols);
+								electromotorStartRow,mainRecordCols+reducerCols,electromotorCols);
 					}
 			}
 			private void drawBrake(
 					 HashMap<Long, Integer> maxRowMap, 
 					int mainRecordCols,int reducerCols, int electromotorCols, int brakeCols,int tensioningCols,Sheet sheet, List<TransformEquipment> result,TransformEquipment equipment,int mainStartRow){
-				   int brakeStartCol=mainRecordCols+reducerCols+electromotorCols+1;
+				   int brakeStartCol=mainRecordCols+reducerCols+electromotorCols;
 					int reducerStartRow=mainStartRow;
+					Cell tempCell=null;
 					for(BrakeDevice brake:brakeMap.get(equipment.getId())){
 						Row row=sheet.getRow(reducerStartRow++);
 						row.getCell(brakeStartCol).setCellValue(brake.getDeviceModel());
+						tempCell=row.getCell(brakeStartCol);
+						setComment(sheet,tempCell,brake.getDeviceModel());
 						row.getCell(brakeStartCol+1).setCellValue(brake.getFactoryNumber());
 						row.getCell(brakeStartCol+2).setCellValue(brake.getProductionDate());
 						row.getCell(brakeStartCol+3).setCellValue(brake.getProducer());
@@ -349,8 +369,9 @@ public class TransformEquipmentController {
 					 HashMap<Long, List<TensioningDevice>> tensioningMap,
 					 HashMap<Long, Integer> maxRowMap, 
 					int mainRecordCols,int reducerCols,int  electromotorCols,int  brakeCols,int tensioningCols, Sheet sheet, List<TransformEquipment> result,TransformEquipment equipment,int mainStartRow) {
-				int tensioningStartCol=mainRecordCols+reducerCols+electromotorCols+brakeCols+1;
+				int tensioningStartCol=mainRecordCols+reducerCols+electromotorCols+brakeCols;
 					int tensioningStartRow=mainStartRow;
+					Cell tempCell=null;
 					for(TensioningDevice tensioning:tensioningMap.get(equipment.getId())){
 						Row row=sheet.getRow(tensioningStartRow++);
 						row.getCell(tensioningStartCol).setCellValue(tensioning.getTakeUp());
@@ -359,7 +380,9 @@ public class TransformEquipmentController {
 						row.getCell(tensioningStartCol+3).setCellValue(tensioning.getDeviceNumber());
 						row.getCell(tensioningStartCol+4).setCellValue(tensioning.getProductionDate());
 						row.getCell(tensioningStartCol+5).setCellValue(tensioning.getProducer());
-						row.getCell(tensioningStartCol+6).setCellValue(tensioning.getTechParameters());
+						row.getCell(tensioningStartCol+6).setCellValue("备注");
+						tempCell=row.getCell(tensioningStartCol+6);
+						setComment(sheet,tempCell,tensioning.getTechParameters());
 					}
 					int rowCount=tensioningMap.get(equipment.getId()).size();
 					if(maxRowMap.get(equipment.getId())>1&&(rowCount==0||rowCount==1)){

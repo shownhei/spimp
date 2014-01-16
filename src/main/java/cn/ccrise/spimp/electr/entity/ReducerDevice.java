@@ -4,6 +4,7 @@
 package cn.ccrise.spimp.electr.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
@@ -34,6 +35,7 @@ public class ReducerDevice extends IDEntity {
 	 * 主记录的id
 	 */
 	private Long transformEquipmentId;
+	@Lob
 	public String getDeviceModel() {
 		return deviceModel;
 	}

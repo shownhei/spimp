@@ -6,6 +6,7 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
@@ -33,6 +34,7 @@ public class ElectromotorDevice extends IDEntity {
 	
 	private Long transformEquipmentId;
 
+	@Lob
 	public String getDeviceModel() {
 		return deviceModel;
 	}

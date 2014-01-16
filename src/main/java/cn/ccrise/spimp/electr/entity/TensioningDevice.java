@@ -6,6 +6,7 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
@@ -59,6 +60,7 @@ public class TensioningDevice extends IDEntity {
 		this.deviceName = deviceName;
 	}
 
+	@Lob
 	public String getDeviceModel() {
 		return deviceModel;
 	}
@@ -90,7 +92,7 @@ public class TensioningDevice extends IDEntity {
 	public void setProducer(String producer) {
 		this.producer = producer;
 	}
-
+	@Lob
 	public String getTechParameters() {
 		return techParameters;
 	}

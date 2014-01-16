@@ -40,7 +40,7 @@
 						<tbody>
 							<c:forEach items="${reducerDevices }" var="data">
 								<tr class="grid-row page_report_table_tr">
-									<td>${data.deviceModel}</td>
+									<td dataType="showRemark"><div style="width:100px;height:20px;overflow:hidden;white-space:nowrap;">${data.deviceModel}</div></td>
 									<td>${data.runningPower}</td>
 									<td>${data.transmissionRatio}</td>
 									<td>${data.factoryNumber}</td>
@@ -81,7 +81,7 @@
 					<tbody>
 						<c:forEach items="${electromotorDevices }" var="data">
 							<tr class="grid-row page_report_table_tr">
-								<td>${data.deviceModel}</td>
+								<td dataType="showRemark"><div style="width:100px;height:20px;overflow:hidden;white-space:nowrap;">${data.deviceModel}</div></td>
 								<td>${data.factoryNumber}</td>
 								<td>${data.productionDate}</td>
 								<td>${data.producer}</td>
@@ -120,7 +120,7 @@
 					<tbody>
 						<c:forEach items="${brakeDeviceDevices }" var="data">
 							<tr class="grid-row page_report_table_tr">
-								<td>${data.deviceModel}</td>
+								<td dataType="showRemark"><div style="width:100px;height:20px;overflow:hidden;white-space:nowrap;">${data.deviceModel}</div></td>
 								<td>${data.factoryNumber}</td>
 								<td>${data.productionDate}</td>
 								<td>${data.producer}</td>
@@ -160,14 +160,14 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${tensioningDevices }" var="data">
-								<tr class="grid-row page_report_table_tr">
+								<tr class="grid-row page_report_table_tr"  >
 									<td>${data.takeUp}</td>
 									<td>${data.deviceName}</td>
-									<td>${data.deviceModel}</td>
+									<td dataType="showRemark"><div style="width:100px;height:20px;overflow:hidden;white-space:nowrap;">${data.deviceModel}</div></td>
 									<td>${data.deviceNumber}</td>
 									<td>${data.productionDate}</td>
 									<td>${data.producer}</td>
-									<td dataType="showRemark">${data.techParameters}</td>
+									<td dataType="showRemark" width=100 ><div style="width:100px;height:20px;overflow:hidden;white-space:nowrap;">${data.techParameters}</div></td>
 									<td><div class="visible-md  btn-group">
 											<button class="btn btn-small btn-danger" dataType="tensioning" dataId="${data.id}" buttonType="delete">
 												<i class="icon-trash bigger-120" dataType="tensioning" dataId="${data.id}" buttonType="delete"></i>
