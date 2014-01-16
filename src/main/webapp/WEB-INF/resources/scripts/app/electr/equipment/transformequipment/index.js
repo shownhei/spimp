@@ -24,9 +24,7 @@ define(function(require, exports, module) {
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass',
-			'edit_deviceClass' ],
-			'/system/dictionaries?list=true&typeCode=transform_device_class',
+	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=transform_device_class',
 			'id', 'itemName', true, '设备分类');
 
 	// 下拉列表change事件
@@ -38,71 +36,57 @@ define(function(require, exports, module) {
 	Utils.input.date('input[type=datetime]');
 
 	// 配置表格列
-	var fields = [
-			{
-				header : '设备分类',
-				name : 'deviceClass',
-				render : function(value) {
-					return value === null ? '' : value.itemName;
-				}
-			},
-			{
-				header : '设备名称',
-				name : 'deviceName'
-			},
-			{
-				header : '设备型号',
-				name : 'deviceModel'
-			},
-			{
-				header : '速度(m/s)',
-				name : 'speed'
-			},
-			{
-				header : '输送量(T/h)',
-				name : 'conveyingCapacity'
-			},
-			{
-				header : '出厂编号',
-				name : 'factoryNumber'
-			},
-			{
-				header : '出厂日期',
-				width : 90,
-				name : 'productionDate'
-			},
-			{
-				header : '设备编号',
-				name : 'equipmentNumber'
-			},
-			{
-				header : '使用地点',
-				name : 'location'
-			},
-			{
-				header : '生产厂家',
-				name : 'producer'
-			},
-			{
-				header : '布置长度(m)',
-				align : 'right',
-				width : 80,
-				name : 'layoutLength'
-			},
-			{
-				header : '查看',
-				name : 'id',
-				width : 50,
-				align : 'center',
-				render : function(value) {
-					return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
-				}
-			} ];
+	var fields = [ {
+		header : '设备分类',
+		name : 'deviceClass',
+		render : function(value) {
+			return value === null ? '' : value.itemName;
+		}
+	}, {
+		header : '设备名称',
+		name : 'deviceName'
+	}, {
+		header : '设备型号',
+		name : 'deviceModel'
+	}, {
+		header : '速度(m/s)',
+		name : 'speed'
+	}, {
+		header : '输送量(T/h)',
+		name : 'conveyingCapacity'
+	}, {
+		header : '出厂编号',
+		name : 'factoryNumber'
+	}, {
+		header : '出厂日期',
+		width : 90,
+		name : 'productionDate'
+	}, {
+		header : '设备编号',
+		name : 'equipmentNumber'
+	}, {
+		header : '使用地点',
+		name : 'location'
+	}, {
+		header : '生产厂家',
+		name : 'producer'
+	}, {
+		header : '布置长度(m)',
+		align : 'right',
+		width : 80,
+		name : 'layoutLength'
+	}, {
+		header : '查看',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
+		}
+	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height()
-					+ $('.page-header').height() + 370);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 370);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -117,8 +101,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + operateUri
-			+ '?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + operateUri + '?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#material-table',
 		url : defaultUrl,
@@ -243,28 +226,26 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(
-			function() {
-				var object = Utils.form.serialize('edit');
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
 
-				// 验证
-				if (!validate('edit', object)) {
-					return false;
-				}
+		// 验证
+		if (!validate('edit', object)) {
+			return false;
+		}
 
-				// 处理属性
-				var selectId = grid.selectedData('id');
-				object.id = selectId;
-				$.put(operateUri + '/' + selectId, JSON.stringify(object),
-						function(data) {
-							if (data.success) {
-								grid.refresh();
-								Utils.modal.hide('edit');
-							} else {
-								Utils.modal.message('edit', data.errors);
-							}
-						});
-			});
+		// 处理属性
+		var selectId = grid.selectedData('id');
+		object.id = selectId;
+		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
 
 	// 删除
 	$('#remove').click(function() {
@@ -308,64 +289,54 @@ define(function(require, exports, module) {
 	 * (1):减速机-ReducerDevice; (2):电动机-ElectromotorDevice; (3):制动器-BrakeDevice;
 	 * (4):拉紧装置-TensioningDevice;
 	 */
-	$('#reducer_create-save').click(
-			function() {
-				var object = Utils.form.serialize('reducer_create');
-				object.transformEquipmentId = grid.selectedData('id');
-				$.post('/electr/equipment/reducer-devices', JSON
-						.stringify(object), function(data) {
-					if (data.success) {
-						Utils.modal.hide('reducer_create');
-					} else {
-						Utils.modal.message('reducer_create', data.errors);
-					}
-					loadDeviceInfo(grid.selectedData('id'));
-				});
-			});
-	$('#electromotor_create-save').click(
-			function() {
-				var object = Utils.form.serialize('electromotor_create');
-				object.transformEquipmentId = grid.selectedData('id');
-				$.post('/electr/equipment/electromotor-devices', JSON
-						.stringify(object),
-						function(data) {
-							if (data.success) {
-								Utils.modal.hide('electromotor_create');
-							} else {
-								Utils.modal.message('electromotor_create',
-										data.errors);
-							}
-							loadDeviceInfo(grid.selectedData('id'));
-						});
-			});
-	$('#brake_create-save').click(
-			function() {
-				var object = Utils.form.serialize('brake_create');
-				object.transformEquipmentId = grid.selectedData('id');
-				$.post('/electr/equipment/brake-devices', JSON
-						.stringify(object), function(data) {
-					if (data.success) {
-						Utils.modal.hide('brake_create');
-					} else {
-						Utils.modal.message('brake_create', data.errors);
-					}
-					loadDeviceInfo(grid.selectedData('id'));
-				});
-			});
-	$('#tensioning_create-save').click(
-			function() {
-				var object = Utils.form.serialize('tensioning_create');
-				object.transformEquipmentId = grid.selectedData('id');
-				$.post('/electr/equipment/tensioning-devices', JSON
-						.stringify(object), function(data) {
-					if (data.success) {
-						Utils.modal.hide('tensioning_create');
-					} else {
-						Utils.modal.message('tensioning_create', data.errors);
-					}
-					loadDeviceInfo(grid.selectedData('id'));
-				});
-			});
+	$('#reducer_create-save').click(function() {
+		var object = Utils.form.serialize('reducer_create');
+		object.transformEquipmentId = grid.selectedData('id');
+		$.post('/electr/equipment/reducer-devices', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('reducer_create');
+			} else {
+				Utils.modal.message('reducer_create', data.errors);
+			}
+			loadDeviceInfo(grid.selectedData('id'));
+		});
+	});
+	$('#electromotor_create-save').click(function() {
+		var object = Utils.form.serialize('electromotor_create');
+		object.transformEquipmentId = grid.selectedData('id');
+		$.post('/electr/equipment/electromotor-devices', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('electromotor_create');
+			} else {
+				Utils.modal.message('electromotor_create', data.errors);
+			}
+			loadDeviceInfo(grid.selectedData('id'));
+		});
+	});
+	$('#brake_create-save').click(function() {
+		var object = Utils.form.serialize('brake_create');
+		object.transformEquipmentId = grid.selectedData('id');
+		$.post('/electr/equipment/brake-devices', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('brake_create');
+			} else {
+				Utils.modal.message('brake_create', data.errors);
+			}
+			loadDeviceInfo(grid.selectedData('id'));
+		});
+	});
+	$('#tensioning_create-save').click(function() {
+		var object = Utils.form.serialize('tensioning_create');
+		object.transformEquipmentId = grid.selectedData('id');
+		$.post('/electr/equipment/tensioning-devices', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('tensioning_create');
+			} else {
+				Utils.modal.message('tensioning_create', data.errors);
+			}
+			loadDeviceInfo(grid.selectedData('id'));
+		});
+	});
 	var registClickHandler = function() {
 		// 新建减速机
 		$('#reducer_create').click(function() {
@@ -396,77 +367,75 @@ define(function(require, exports, module) {
 		var panel = $('#show_tips');
 		panel.css({
 			left : x,
-			top : y-100
+			top : y - 100
 		});
 		panel.html(html);
 		panel.show();
 	};
 	$(document).mouseover(function(event) {
 		var el = $(event.target);
-		var parent=el.parent();
-		if (el.is('td') && el.attr('dataType') == 'showRemark'||(el.is('div')&&parent.is('td')&&parent.attr('dataType') == 'showRemark')) {
-			if($('#show_tips').is(":hidden")){
-				showTip(event.pageX-150, event.pageY-40, el.find('div:first').html());
-			}else{
+		var parent = el.parent();
+		if (el.is('td') && el.attr('dataType') === 'showRemark' || (el.is('div') && parent.is('td') && parent.attr('dataType') === 'showRemark')) {
+			if ($('#show_tips').is(":hidden")) {
+				showTip(event.pageX - 150, event.pageY - 40, el.find('div:first').html());
+			} else {
 				$('#show_tips').html(el.find('div:first').html());
 			}
 		} else {
 			$('#show_tips').hide();
 		}
 	});
-	$(document).click(
-			function(event) {
-				var el = $(event.target);
-				var elType = el.attr('elType');
-				var temp = el;
-				if (elType == 'tab') {
-					while (!temp.is('li')) {
-						temp = temp.parent();
-					}
-					activeTab = $('.active').attr('id');
-					return;
-				}
-				var dataType = el.attr('dataType');
-				if (dataType == 'reducer') {
-					var dataId = el.attr('dataId');
-					var buttonType = el.attr('buttonType');
-					if (buttonType == 'delete') {
-						$.del('/electr/equipment/reducer-devices/' + dataId,
-								function(data) {
-									loadDeviceInfo(grid.selectedData('id'));
-								});
-					}
-					return;
-				}
-				if (dataType == 'electromotor') {
-					var dataId = el.attr('dataId');
-					var buttonType = el.attr('buttonType');
-					if (buttonType == 'delete') {
-						$.del('/electr/equipment/electromotor-devices/'
-								+ dataId, function(data) {
-							loadDeviceInfo(grid.selectedData('id'));
-						});
-					}return;
-				}
-				if (dataType == 'brake') {
-					var dataId = el.attr('dataId');
-					var buttonType = el.attr('buttonType');
-					if (buttonType == 'delete') {
-						$.del('/electr/equipment/brake-devices/' + dataId,
-								function(data) {
-									loadDeviceInfo(grid.selectedData('id'));
-								});
-					}return;
-				}
-				if (dataType == 'tensioning') {
-					var dataId = el.attr('dataId');
-					var buttonType = el.attr('buttonType');
-					if (buttonType == 'delete') {
-						$.del('/electr/equipment/tensioning-devices/' + dataId,
-								function(data) {
-									loadDeviceInfo(grid.selectedData('id'));
-								});
-					}return;
-				}
-			});
+	$(document).click(function(event) {
+		var el = $(event.target);
+		var elType = el.attr('elType');
+		var temp = el;
+		if (elType === 'tab') {
+			while (!temp.is('li')) {
+				temp = temp.parent();
+			}
+			activeTab = $('.active').attr('id');
+			return;
+		}
+		var dataType = el.attr('dataType');
+		if (dataType === 'reducer') {
+			var dataId = el.attr('dataId');
+			var buttonType = el.attr('buttonType');
+			if (buttonType === 'delete') {
+				$.del('/electr/equipment/reducer-devices/' + dataId, function(data) {
+					loadDeviceInfo(grid.selectedData('id'));
+				});
+			}
+			return;
+		}
+		if (dataType === 'electromotor') {
+			var dataId = el.attr('dataId');
+			var buttonType = el.attr('buttonType');
+			if (buttonType === 'delete') {
+				$.del('/electr/equipment/electromotor-devices/' + dataId, function(data) {
+					loadDeviceInfo(grid.selectedData('id'));
+				});
+			}
+			return;
+		}
+		if (dataType === 'brake') {
+			var dataId = el.attr('dataId');
+			var buttonType = el.attr('buttonType');
+			if (buttonType === 'delete') {
+				$.del('/electr/equipment/brake-devices/' + dataId, function(data) {
+					loadDeviceInfo(grid.selectedData('id'));
+				});
+			}
+			return;
+		}
+		if (dataType === 'tensioning') {
+			var dataId = el.attr('dataId');
+			var buttonType = el.attr('buttonType');
+			if (buttonType === 'delete') {
+				$.del('/electr/equipment/tensioning-devices/' + dataId, function(data) {
+					loadDeviceInfo(grid.selectedData('id'));
+				});
+			}
+			return;
+		}
+	});
 });

@@ -44,6 +44,27 @@ public class ElectromotorDeviceController {
 		return new Response(electromotorDeviceService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/equipment/electromotor-devices/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response) throws Exception {
+		Page<ElectromotorDevice> page = new Page<ElectromotorDevice>();
+		page.setPageSize(100000);
+		page = electromotorDeviceService.pageQuery(page);
+
+		String[] headers = { "型号", "编号", "出厂日期", "生产厂家" };
+
+		HSSFWorkbook wb = new ExcelHelper<ElectromotorDevice>().genExcel("运输设备管理 - 安全生产综合管理平台", headers,
+				page.getResult(), "yyyy-MM-dd");
+		response.setContentType("application/force-download");
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode("运输设备管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+
+		OutputStream ouputStream = response.getOutputStream();
+		wb.write(ouputStream);
+		ouputStream.flush();
+		ouputStream.close();
+	}
+
 	@RequestMapping(value = "/electr/equipment/electromotor-devices/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -72,25 +93,5 @@ public class ElectromotorDeviceController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody ElectromotorDevice electromotorDevice, @PathVariable long id) {
 		return new Response(electromotorDeviceService.update(electromotorDevice));
-	}
-	
-	@RequestMapping(value = "/electr/equipment/electromotor-devices/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response) throws Exception {
-		Page<ElectromotorDevice> page = new Page<ElectromotorDevice>();
-		page.setPageSize(100000);
-		page = electromotorDeviceService.pageQuery(page);
-		
-		String[] headers = {"型号","编号","出厂日期","生产厂家"};
-		
-		HSSFWorkbook wb = new ExcelHelper<ElectromotorDevice>().genExcel("运输设备管理 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("运输设备管理 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
 	}
 }

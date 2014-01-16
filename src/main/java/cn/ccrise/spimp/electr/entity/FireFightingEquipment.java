@@ -86,100 +86,48 @@ public class FireFightingEquipment extends IDEntity {
 	@PageFields(describtion = "记录日期", allowedNull = true, search = false)
 	private Date recordDate;
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getEquipmentCode() {
-		return equipmentCode;
-	}
-
-	public void setEquipmentCode(String equipmentCode) {
-		this.equipmentCode = equipmentCode;
-	}
-
-	public Integer getSandBoxCapacity() {
-		return sandBoxCapacity;
-	}
-
-	public void setSandBoxCapacity(Integer sandBoxCapacity) {
-		this.sandBoxCapacity = sandBoxCapacity;
-	}
-
 	public String getAmount1() {
 		return amount1;
-	}
-
-	public void setAmount1(String amount1) {
-		this.amount1 = amount1;
-	}
-
-	public String getMaintenanceDate1() {
-		return maintenanceDate1;
-	}
-
-	public void setMaintenanceDate1(String maintenanceDate1) {
-		this.maintenanceDate1 = maintenanceDate1;
 	}
 
 	public Integer getAmount2() {
 		return amount2;
 	}
 
-	public void setAmount2(Integer amount2) {
-		this.amount2 = amount2;
-	}
-
-	public String getMaintenance2() {
-		return maintenance2;
-	}
-
-	public void setMaintenance2(String maintenance2) {
-		this.maintenance2 = maintenance2;
+	public String getEquipmentCode() {
+		return equipmentCode;
 	}
 
 	public Integer getFireAxe() {
 		return fireAxe;
 	}
 
-	public void setFireAxe(Integer fireAxe) {
-		this.fireAxe = fireAxe;
+	public Integer getFireBucket() {
+		return fireBucket;
 	}
 
 	public Integer getFireHook() {
 		return fireHook;
 	}
 
-	public void setFireHook(Integer fireHook) {
-		this.fireHook = fireHook;
-	}
-
-	public Integer getFireBucket() {
-		return fireBucket;
-	}
-
-	public void setFireBucket(Integer fireBucket) {
-		this.fireBucket = fireBucket;
-	}
-
 	public Integer getFireShovel() {
 		return fireShovel;
 	}
 
-	public void setFireShovel(Integer fireShovel) {
-		this.fireShovel = fireShovel;
+	public String getLocation() {
+		return location;
+	}
+
+	public String getMaintenance2() {
+		return maintenance2;
+	}
+
+	public String getMaintenanceDate1() {
+		return maintenanceDate1;
 	}
 
 	public String getOthers() {
 		return others;
-	}
-
-	public void setOthers(String others) {
-		this.others = others;
 	}
 
 	@Column(updatable = false)
@@ -187,8 +135,60 @@ public class FireFightingEquipment extends IDEntity {
 		return recordDate;
 	}
 
+	public Integer getSandBoxCapacity() {
+		return sandBoxCapacity;
+	}
+
+	public void setAmount1(String amount1) {
+		this.amount1 = amount1;
+	}
+
+	public void setAmount2(Integer amount2) {
+		this.amount2 = amount2;
+	}
+
+	public void setEquipmentCode(String equipmentCode) {
+		this.equipmentCode = equipmentCode;
+	}
+
+	public void setFireAxe(Integer fireAxe) {
+		this.fireAxe = fireAxe;
+	}
+
+	public void setFireBucket(Integer fireBucket) {
+		this.fireBucket = fireBucket;
+	}
+
+	public void setFireHook(Integer fireHook) {
+		this.fireHook = fireHook;
+	}
+
+	public void setFireShovel(Integer fireShovel) {
+		this.fireShovel = fireShovel;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setMaintenance2(String maintenance2) {
+		this.maintenance2 = maintenance2;
+	}
+
+	public void setMaintenanceDate1(String maintenanceDate1) {
+		this.maintenanceDate1 = maintenanceDate1;
+	}
+
+	public void setOthers(String others) {
+		this.others = others;
+	}
+
 	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
+	}
+
+	public void setSandBoxCapacity(Integer sandBoxCapacity) {
+		this.sandBoxCapacity = sandBoxCapacity;
 	}
 
 }

@@ -3,12 +3,13 @@
  */
 package cn.ccrise.spimp.electr.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
@@ -29,10 +30,10 @@ public class ReducerDeviceService extends HibernateDataServiceImpl<ReducerDevice
 	public HibernateDAO<ReducerDevice, Long> getDAO() {
 		return reducerDeviceDAO;
 	}
-	
+
 	public Page<ReducerDevice> pageQuery(Page<ReducerDevice> page) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		
+
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }
