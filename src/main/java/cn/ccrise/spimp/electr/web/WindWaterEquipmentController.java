@@ -47,6 +47,22 @@ public class WindWaterEquipmentController {
 		return new Response(windWaterEquipmentService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/equipment/wind-water-equipments/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, HttpSession httpSession, String search) throws Exception {
+		Page<WindWaterEquipment> page = new Page<WindWaterEquipment>();
+		page.setPageSize(100000);
+		page = windWaterEquipmentService.pageQuery(page, search);
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("result", page.getResult());
+		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response,
+				"electr/equipment/wind-water-equipments.xls", root, "压风供水自救装置台账", new String[] { "压风供水自救装置台账" },
+				new ExcelCallBackInteface() {
+					@Override
+					public void process(Workbook book, HashMap<String, Object> root) {
+					}
+				});
+	}
+
 	@RequestMapping(value = "/electr/equipment/wind-water-equipments/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -60,7 +76,7 @@ public class WindWaterEquipmentController {
 
 	@RequestMapping(value = "/electr/equipment/wind-water-equipments", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<WindWaterEquipment> page,String search) {
+	public Response page(Page<WindWaterEquipment> page, String search) {
 		page = windWaterEquipmentService.pageQuery(page, search);
 		return new Response(page);
 	}
@@ -76,23 +92,5 @@ public class WindWaterEquipmentController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody WindWaterEquipment windWaterEquipment, @PathVariable long id) {
 		return new Response(windWaterEquipmentService.update(windWaterEquipment));
-	}
-	
-	@RequestMapping(value = "/electr/equipment/wind-water-equipments/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,
-			HttpSession httpSession,String search) throws Exception {
-		Page<WindWaterEquipment> page = new Page<WindWaterEquipment>();
-		page.setPageSize(100000);
-		page = windWaterEquipmentService.pageQuery(page, search);
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("result", page.getResult());
-		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response,
-				"electr/equipment/wind-water-equipments.xls", root, "压风供水自救装置台账",
-				new String[] { "压风供水自救装置台账" }, new ExcelCallBackInteface() {
-					@Override
-					public void process(Workbook book,
-							HashMap<String, Object> root) {
-					}
-				});
 	}
 }

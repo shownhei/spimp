@@ -69,66 +69,86 @@ public class WindWaterEquipment extends IDEntity {
 	 */
 	@PageFields(describtion = "记录日期", allowedNull = true, search = false)
 	private Date recordDate;
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	public String getEquipmentCode() {
-		return equipmentCode;
-	}
-	public void setEquipmentCode(String equipmentCode) {
-		this.equipmentCode = equipmentCode;
-	}
-	public String getWindAmount() {
-		return windAmount;
-	}
-	public void setWindAmount(String windAmount) {
-		this.windAmount = windAmount;
-	}
-	public String getWindCycle() {
-		return windCycle;
-	}
-	public void setWindCycle(String windCycle) {
-		this.windCycle = windCycle;
-	}
-	public String getWaterAmount() {
-		return waterAmount;
-	}
-	public void setWaterAmount(String waterAmount) {
-		this.waterAmount = waterAmount;
-	}
-	public String getWaterCycle() {
-		return waterCycle;
-	}
-	public void setWaterCycle(String waterCycle) {
-		this.waterCycle = waterCycle;
-	}
+
 	public String getChargePerson() {
 		return chargePerson;
 	}
-	public void setChargePerson(String chargePerson) {
-		this.chargePerson = chargePerson;
+
+	public String getEquipmentCode() {
+		return equipmentCode;
 	}
+
+	public String getLocation() {
+		return location;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	@Column(updatable=false)
+
+	@Column(updatable = false)
 	public Date getRecordDate() {
 		return recordDate;
 	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public String getWaterAmount() {
+		return waterAmount;
+	}
+
+	public String getWaterCycle() {
+		return waterCycle;
+	}
+
+	public String getWindAmount() {
+		return windAmount;
+	}
+
+	public String getWindCycle() {
+		return windCycle;
+	}
+
+	public void setChargePerson(String chargePerson) {
+		this.chargePerson = chargePerson;
+	}
+
+	public void setEquipmentCode(String equipmentCode) {
+		this.equipmentCode = equipmentCode;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
 	}
-	
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public void setWaterAmount(String waterAmount) {
+		this.waterAmount = waterAmount;
+	}
+
+	public void setWaterCycle(String waterCycle) {
+		this.waterCycle = waterCycle;
+	}
+
+	public void setWindAmount(String windAmount) {
+		this.windAmount = windAmount;
+	}
+
+	public void setWindCycle(String windCycle) {
+		this.windCycle = windCycle;
+	}
+
 }

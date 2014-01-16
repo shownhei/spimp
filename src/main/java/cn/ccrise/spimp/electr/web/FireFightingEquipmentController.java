@@ -47,6 +47,23 @@ public class FireFightingEquipmentController {
 		return new Response(fireFightingEquipmentService.delete(id));
 	}
 
+	@RequestMapping(value = "/electr/equipment/fire-fighting-equipments/export-excel", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response, HttpSession httpSession, String search) throws Exception {
+		Page<FireFightingEquipment> page = new Page<FireFightingEquipment>();
+		page.setPageSize(100000);
+		page = fireFightingEquipmentService.pageQuery(page, search);
+
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("result", page.getResult());
+		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response,
+				"electr/equipment/fire-fighting-equipments.xls", root, "井下消防器材统计表", new String[] { "井下消防器材统计表" },
+				new ExcelCallBackInteface() {
+					@Override
+					public void process(Workbook book, HashMap<String, Object> root) {
+					}
+				});
+	}
+
 	@RequestMapping(value = "/electr/equipment/fire-fighting-equipments/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -60,7 +77,7 @@ public class FireFightingEquipmentController {
 
 	@RequestMapping(value = "/electr/equipment/fire-fighting-equipments", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<FireFightingEquipment> page,String search) {
+	public Response page(Page<FireFightingEquipment> page, String search) {
 		page = fireFightingEquipmentService.pageQuery(page, search);
 		return new Response(page);
 	}
@@ -76,23 +93,5 @@ public class FireFightingEquipmentController {
 	@ResponseBody
 	public Response update(@Valid @RequestBody FireFightingEquipment fireFightingEquipment, @PathVariable long id) {
 		return new Response(fireFightingEquipmentService.update(fireFightingEquipment));
-	}
-	
-	@RequestMapping(value = "/electr/equipment/fire-fighting-equipments/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,HttpSession httpSession,String search) throws Exception {
-		Page<FireFightingEquipment> page = new Page<FireFightingEquipment>();
-		page.setPageSize(100000);
-		page = fireFightingEquipmentService.pageQuery(page, search);
-		
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		root.put("result", page.getResult());
-		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response,
-				"electr/equipment/fire-fighting-equipments.xls", root, "井下消防器材统计表",
-				new String[] { "井下消防器材统计表" }, new ExcelCallBackInteface() {
-					@Override
-					public void process(Workbook book,
-							HashMap<String, Object> root) {
-					}
-				});
 	}
 }

@@ -5,8 +5,8 @@ package cn.ccrise.spimp.electr.access;
 
 import org.springframework.stereotype.Repository;
 
-import cn.ccrise.spimp.electr.entity.ElectromotorDevice;
 import cn.ccrise.ikjp.core.access.HibernateDAOImpl;
+import cn.ccrise.spimp.electr.entity.ElectromotorDevice;
 
 /**
  * ElectromotorDevice DAO。

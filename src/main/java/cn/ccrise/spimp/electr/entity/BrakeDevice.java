@@ -38,36 +38,36 @@ public class BrakeDevice extends IDEntity {
 		return deviceModel;
 	}
 
-	public void setDeviceModel(String deviceModel) {
-		this.deviceModel = deviceModel;
-	}
-
 	public String getFactoryNumber() {
 		return factoryNumber;
-	}
-
-	public void setFactoryNumber(String factoryNumber) {
-		this.factoryNumber = factoryNumber;
-	}
-
-	public Date getProductionDate() {
-		return productionDate;
-	}
-
-	public void setProductionDate(Date productionDate) {
-		this.productionDate = productionDate;
 	}
 
 	public String getProducer() {
 		return producer;
 	}
 
-	public void setProducer(String producer) {
-		this.producer = producer;
+	public Date getProductionDate() {
+		return productionDate;
 	}
 
 	public Long getTransformEquipmentId() {
 		return transformEquipmentId;
+	}
+
+	public void setDeviceModel(String deviceModel) {
+		this.deviceModel = deviceModel;
+	}
+
+	public void setFactoryNumber(String factoryNumber) {
+		this.factoryNumber = factoryNumber;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public void setProductionDate(Date productionDate) {
+		this.productionDate = productionDate;
 	}
 
 	public void setTransformEquipmentId(Long transformEquipmentId) {

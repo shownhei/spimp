@@ -15,12 +15,8 @@ import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
- * 运输设备台账。
- * 关联配件 :
- * (1):减速机-ReducerDevice;
- * (2):电动机-ElectromotorDevice;
- * (3):制动器-BrakeDevice;
- * (4):拉紧装置-TensioningDevice;
+ * 运输设备台账。 关联配件 : (1):减速机-ReducerDevice; (2):电动机-ElectromotorDevice;
+ * (3):制动器-BrakeDevice; (4):拉紧装置-TensioningDevice;
  */
 @Entity
 @Table(name = "electr_transform_equipments")
@@ -74,93 +70,45 @@ public class TransformEquipment extends IDEntity {
 	@PageFields(describtion = "单位", allowedNull = false, search = true)
 	private GroupEntity recordGroup;
 
+	public String getConveyingCapacity() {
+		return conveyingCapacity;
+	}
+
 	@ManyToOne
 	public Dictionary getDeviceClass() {
 		return deviceClass;
-	}
-
-	public void setDeviceClass(Dictionary deviceClass) {
-		this.deviceClass = deviceClass;
-	}
-
-	public String getDeviceName() {
-		return deviceName;
-	}
-
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
 	}
 
 	public String getDeviceModel() {
 		return deviceModel;
 	}
 
-	public void setDeviceModel(String deviceModel) {
-		this.deviceModel = deviceModel;
-	}
-
-	public String getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(String speed) {
-		this.speed = speed;
-	}
-
-	public String getConveyingCapacity() {
-		return conveyingCapacity;
-	}
-
-	public void setConveyingCapacity(String conveyingCapacity) {
-		this.conveyingCapacity = conveyingCapacity;
-	}
-
-	public String getFactoryNumber() {
-		return factoryNumber;
-	}
-
-	public void setFactoryNumber(String factoryNumber) {
-		this.factoryNumber = factoryNumber;
-	}
-
-	public Date getProductionDate() {
-		return productionDate;
-	}
-
-	public void setProductionDate(Date productionDate) {
-		this.productionDate = productionDate;
+	public String getDeviceName() {
+		return deviceName;
 	}
 
 	public String getEquipmentNumber() {
 		return equipmentNumber;
 	}
 
-	public void setEquipmentNumber(String equipmentNumber) {
-		this.equipmentNumber = equipmentNumber;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getProducer() {
-		return producer;
-	}
-
-	public void setProducer(String producer) {
-		this.producer = producer;
+	public String getFactoryNumber() {
+		return factoryNumber;
 	}
 
 	public Integer getLayoutLength() {
 		return layoutLength;
 	}
 
-	public void setLayoutLength(Integer layoutLength) {
-		this.layoutLength = layoutLength;
+	public String getLocation() {
+		return location;
+	}
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public Date getProductionDate() {
+		return productionDate;
 	}
 
 	@ManyToOne
@@ -168,8 +116,56 @@ public class TransformEquipment extends IDEntity {
 		return recordGroup;
 	}
 
+	public String getSpeed() {
+		return speed;
+	}
+
+	public void setConveyingCapacity(String conveyingCapacity) {
+		this.conveyingCapacity = conveyingCapacity;
+	}
+
+	public void setDeviceClass(Dictionary deviceClass) {
+		this.deviceClass = deviceClass;
+	}
+
+	public void setDeviceModel(String deviceModel) {
+		this.deviceModel = deviceModel;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
+
+	public void setEquipmentNumber(String equipmentNumber) {
+		this.equipmentNumber = equipmentNumber;
+	}
+
+	public void setFactoryNumber(String factoryNumber) {
+		this.factoryNumber = factoryNumber;
+	}
+
+	public void setLayoutLength(Integer layoutLength) {
+		this.layoutLength = layoutLength;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public void setProductionDate(Date productionDate) {
+		this.productionDate = productionDate;
+	}
+
 	public void setRecordGroup(GroupEntity recordGroup) {
 		this.recordGroup = recordGroup;
+	}
+
+	public void setSpeed(String speed) {
+		this.speed = speed;
 	}
 
 }
