@@ -228,9 +228,37 @@ public class IndexSpmiController {
 		return "electr/equipment/alert/index";
 	}
 
+	/**
+	 * 电器设备台账
+	 * @return
+	 */
 	@RequestMapping(value = "/spmi/jdd/equipment/detail", method = RequestMethod.GET)
 	public String spmiJddEquipmentDetail() {
 		return "electr/equipment/detail/index";
+	}
+	/**
+	 * 运输设备台账
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/equipment/transform", method = RequestMethod.GET)
+	public String spmiFireFighting() {
+		return "electr/equipment/transformequipment/index";
+	}
+	/**
+	 * 压风供水自救设备台账
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/equipment/wind-water", method = RequestMethod.GET)
+	public String spmiTransform() {
+		return "electr/equipment/windwater/index";
+	}
+	/**
+	 * 井下消防设备台账
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/equipment/fire-fighting", method = RequestMethod.GET)
+	public String spmiWindWater() {
+		return "electr/equipment/firefighting/index";
 	}
 
 	@RequestMapping(value = "/spmi/jdd/equipment/overhaul", method = RequestMethod.GET)
