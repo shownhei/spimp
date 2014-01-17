@@ -21,12 +21,20 @@ define(function(require, exports, module) {
 	Utils.select.remote([ 'create-post', 'edit-post', 'create-partTime', 'edit-partTime' ],
 			contextPath + '/system/dictionaries?list=true&typeCode=system_post', 'itemName', 'itemName', true, '请选择岗位');
 
+	// 初始化富文本编辑器
+	var editRemark = $('#edit-remark').xheditor({
+		skin : 'nostyle',
+		tools : 'simple'
+	});
+
 	// 配置表格列
 	var fields = [ {
 		header : '姓名',
 		name : 'name'
 	}, {
 		header : '性别',
+		width : 40,
+		align : 'center',
 		name : 'gender'
 	}, {
 		header : '所属机构',
@@ -53,12 +61,20 @@ define(function(require, exports, module) {
 		header : '资格证号',
 		name : 'qualification'
 	}, {
-		header : '变更记录',
+		header : '查看',
 		name : 'id',
-		width : 80,
+		width : 50,
 		align : 'center',
 		render : function(value) {
 			return '<i data-role="view" class="icon-list" style="cursor:pointer;"></i>';
+		}
+	}, {
+		header : '变更记录',
+		name : 'id',
+		width : 70,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="record" class="icon-list-alt" style="cursor:pointer;"></i>';
 		}
 	} ];
 
@@ -91,16 +107,34 @@ define(function(require, exports, module) {
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
 
+			// 变更记录
+			if (target.data('role') === 'record') {
+				if (data.alterations.length === 0) {
+					$('#alteration-records').hide();
+
+					$('#record-staff-name').html(data.name);
+					$('#record-no-records').show();
+				} else {
+					$('#record-no-records').hide();
+					$('#alteration-records-tbody').empty();
+
+					var alterationHtml;
+					$.each(data.alterations, function(k, v) {
+						alterationHtml += '<tr><td align="center">' + v.changeDate + '</td><td>' + v.content + '</td></tr>';
+					});
+
+					$('#alteration-records-tbody').html(alterationHtml);
+					$('#alteration-records').show();
+				}
+				Utils.modal.show('record');
+			}
+
 			// 查看
 			if (target.data('role') === 'view') {
 				Utils.modal.reset('view');
-				if (data.alterations.length === 0) {
-					$('#view-staff-name').html(data.name);
-					$('#view-no-records').show();
-				} else {
-					$.each(data.alterations, function(k, v) {
-					});
-				}
+				Utils.form.fill('view', data);
+				$('#view-groupEntity').val(data.groupEntity.name);
+				$('#view-remark').html(data.remark);
 				Utils.modal.show('view');
 			}
 		},
@@ -126,6 +160,10 @@ define(function(require, exports, module) {
 		}
 		if (object.identityCard === '') {
 			Utils.modal.message('create', [ '请输入身份证' ]);
+			return;
+		}
+		if (!(/(^\d{15}$)|(^\d{17}([0-9]|x|X)$)/.test(object.identityCard))) {
+			Utils.modal.message('create', [ '身份证格式不正确' ]);
 			return;
 		}
 
@@ -154,6 +192,7 @@ define(function(require, exports, module) {
 			var object = data.data;
 
 			Utils.form.fill('edit', object);
+			editRemark.setSource(object.remark);
 			Utils.modal.show('edit');
 		});
 	});
@@ -162,6 +201,20 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 		var selectId = grid.selectedData('id');
+
+		// 验证
+		if (object.name === '') {
+			Utils.modal.message('edit', [ '请输入姓名' ]);
+			return;
+		}
+		if (object.identityCard === '') {
+			Utils.modal.message('edit', [ '请输入身份证' ]);
+			return;
+		}
+		if (!(/(^\d{15}$)|(^\d{17}([0-9]|x|X)$)/.test(object.identityCard))) {
+			Utils.modal.message('edit', [ '身份证格式不正确' ]);
+			return;
+		}
 
 		// 处理属性
 		object.id = selectId;
@@ -209,13 +262,13 @@ define(function(require, exports, module) {
 			return $.map(data.data, function(row) {
 				return {
 					data : row,
-					value : row.realName,
-					result : row.realName
+					value : row.name,
+					result : row.name
 				};
 			});
 		},
 		formatItem : function(item) {
-			return item.realName + '[' + item.principal + ']';
+			return item.name + '[' + item.identityCard + ']';
 		}
 	}).result(function(e, item) {
 		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));

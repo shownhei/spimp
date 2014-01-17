@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -28,17 +27,11 @@
 						<i class="icon-download-alt"></i> 导出全部
 					</button>
 				</div>
-
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text"
-							style="height: 15px; width: 130px; font-size: 12px;"
-							placeholder="输入设备名称/设备型号..."> <select
-							id="search_deviceClass" name="deviceClass"
-							style="height: 25px; width: 120px; font-size: 12px;"></select>
-
-						<button id="submit" type="button"
-							class="btn btn-primary btn-small">查询</button>
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入设备名称/设备型号...">
+						<select id="search_deviceClass" name="deviceClass" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
@@ -46,8 +39,7 @@
 			<div class="page-content">
 				<div class="row-fluid" id="material-table"></div>
 				<br>
-				<div class="tabbable" id="deviceInfoPanel">
-				</div>
+				<div class="tabbable" id="deviceInfoPanel"></div>
 			</div>
 		</div>
 	</div>
@@ -62,8 +54,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="deviceClass">设备分类</label>
 							<div class="controls">
@@ -91,30 +82,25 @@
 						<div class="control-group">
 							<label class="control-label" for="conveyingCapacity">输送量(T/h)</label>
 							<div class="controls">
-								<input id="create_conveyingCapacity" name="conveyingCapacity"
-									type="text">
+								<input id="create_conveyingCapacity" name="conveyingCapacity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="factoryNumber">出厂编号</label>
 							<div class="controls">
-								<input id="create_factoryNumber" name="factoryNumber"
-									type="text">
+								<input id="create_factoryNumber" name="factoryNumber" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="productionDate">出厂日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small"
-									autocomplete="off" id="create_productionDate"
-									name="productionDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_productionDate" name="productionDate">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="equipmentNumber">设备编号</label>
 							<div class="controls">
-								<input id="create_equipmentNumber" name="equipmentNumber"
-									type="text">
+								<input id="create_equipmentNumber" name="equipmentNumber" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -132,8 +118,7 @@
 						<div class="control-group">
 							<label class="control-label" for="layoutLength">布置长度(m)</label>
 							<div class="controls">
-								<input id="create_layoutLength" name="layoutLength"
-									type="number">
+								<input id="create_layoutLength" name="layoutLength" type="number">
 							</div>
 						</div>
 					</form>
@@ -141,7 +126,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -167,8 +153,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="deviceClass">设备分类</label>
 							<div class="controls">
@@ -196,8 +181,7 @@
 						<div class="control-group">
 							<label class="control-label" for="conveyingCapacity">输送量(T/h)</label>
 							<div class="controls">
-								<input id="edit_conveyingCapacity" name="conveyingCapacity"
-									type="text">
+								<input id="edit_conveyingCapacity" name="conveyingCapacity" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -209,16 +193,13 @@
 						<div class="control-group">
 							<label class="control-label" for="productionDate">出厂日期</label>
 							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small"
-									autocomplete="off" id="edit_productionDate"
-									name="productionDate">
+								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_productionDate" name="productionDate">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="equipmentNumber">设备编号</label>
 							<div class="controls">
-								<input id="edit_equipmentNumber" name="equipmentNumber"
-									type="text">
+								<input id="edit_equipmentNumber" name="equipmentNumber" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -244,7 +225,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -270,83 +252,71 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="detail-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="deviceClass">设备分类</label>
 							<div class="controls">
-								<input id="detail_deviceClass" name="deviceClass" type="text"
-									readonly="readonly">
+								<input id="detail_deviceClass" name="deviceClass" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="deviceName">设备名称</label>
 							<div class="controls">
-								<input id="detail_deviceName" name="deviceName" type="text"
-									readonly="readonly">
+								<input id="detail_deviceName" name="deviceName" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">设备型号</label>
 							<div class="controls">
-								<input id="detail_deviceModel" name="deviceModel" type="text"
-									readonly="readonly">
+								<input id="detail_deviceModel" name="deviceModel" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="speed">速度(m/s)</label>
 							<div class="controls">
-								<input id="detail_speed" name="speed" type="text"
-									readonly="readonly">
+								<input id="detail_speed" name="speed" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="conveyingCapacity">输送量(T/h)</label>
 							<div class="controls">
-								<input id="detail_conveyingCapacity" name="conveyingCapacity"
-									type="text" readonly="readonly">
+								<input id="detail_conveyingCapacity" name="conveyingCapacity" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="factoryNumber">出厂编号</label>
 							<div class="controls">
-								<input id="detail_factoryNumber" name="factoryNumber"
-									type="text" readonly="readonly">
+								<input id="detail_factoryNumber" name="factoryNumber" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="productionDate">出厂日期</label>
 							<div class="controls">
-								<input id="detail_productionDate" name="productionDate"
-									type="text" readonly="readonly">
+								<input id="detail_productionDate" name="productionDate" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="equipmentNumber">设备编号</label>
 							<div class="controls">
-								<input id="detail_equipmentNumber" name="equipmentNumber"
-									type="text" readonly="readonly">
+								<input id="detail_equipmentNumber" name="equipmentNumber" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="location">使用地点</label>
 							<div class="controls">
-								<input id="detail_location" name="location" type="text"
-									readonly="readonly">
+								<input id="detail_location" name="location" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="producer">生产厂家</label>
 							<div class="controls">
-								<input id="detail_producer" name="producer" type="text"
-									readonly="readonly">
+								<input id="detail_producer" name="producer" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="layoutLength">布置长度(m)</label>
 							<div class="controls">
-								<input id="detail_layoutLength" name="layoutLength" type="text"
-									readonly="readonly">
+								<input id="detail_layoutLength" name="layoutLength" type="text" readonly="readonly">
 							</div>
 						</div>
 					</form>
@@ -375,7 +345,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -405,7 +376,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="reducer_create-form" class="form-horizontal" style="margin-bottom: 0px;">
-					    <input type="hidden" id="reducer_create_id" name="id"/>
+						<input type="hidden" id="reducer_create_id" name="id" />
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
@@ -469,11 +440,11 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="electromotor_create-form" class="form-horizontal" style="margin-bottom: 0px;">
-					    <input type="hidden" id="electromotor_create_id" name="id"/>
+						<input type="hidden" id="electromotor_create_id" name="id" />
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<textArea id="electromotor_create_deviceModel" name="deviceModel" ></textArea>
+								<textArea id="electromotor_create_deviceModel" name="deviceModel"></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -527,11 +498,11 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="brake_create-form" class="form-horizontal" style="margin-bottom: 0px;">
-					    <input type="hidden" id="brake_create_id" name="id"/>
+						<input type="hidden" id="brake_create_id" name="id" />
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<textArea id="brake_create_deviceModel" name="deviceModel" ></textArea>
+								<textArea id="brake_create_deviceModel" name="deviceModel"></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -585,7 +556,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="tensioning_create-form" class="form-horizontal" style="margin-bottom: 0px;">
-					    <input type="hidden" id="tensioning_create_id" name="id"/>
+						<input type="hidden" id="tensioning_create_id" name="id" />
 						<div class="control-group">
 							<label class="control-label" for="takeUp">拉紧方式</label>
 							<div class="controls">
@@ -601,7 +572,7 @@
 						<div class="control-group">
 							<label class="control-label" for="deviceModel">型号</label>
 							<div class="controls">
-								<textArea id="tensioning_create_deviceModel" name="deviceModel" ></textArea>
+								<textArea id="tensioning_create_deviceModel" name="deviceModel"></textArea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -625,7 +596,7 @@
 						<div class="control-group">
 							<label class="control-label" for="techParameters">技术参数</label>
 							<div class="controls">
-								<textArea id="tensioning_create_techParameters" name="techParameters" ></textArea>
+								<textArea id="tensioning_create_techParameters" name="techParameters"></textArea>
 							</div>
 						</div>
 					</form>
@@ -649,7 +620,7 @@
 			</button>
 		</div>
 	</div>
-	<div id="show_tips" style="position:absolute;display:none;width:200px;height:130px;left:0px;top:0px;z-index:800;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);background-color: #FFF;
-border: 1px solid #999;padding:2px;overflow:auto"></div>
+	<div id="show_tips"
+		style="position: absolute; display: none; width: 200px; height: 130px; left: 0px; top: 0px; z-index: 800; box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15); background-color: #FFF; border: 1px solid #999; padding: 2px; overflow: auto"></div>
 </body>
 </html>

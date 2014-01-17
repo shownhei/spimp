@@ -30,7 +30,8 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入姓名..." class="input-small nav-search-input" autocomplete="off">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入姓名或身份证号..." class="input-small nav-search-input" style="width: 180px"
+								autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -152,7 +153,7 @@
 		</div>
 	</div>
 	<!-- 编辑 -->
-	<div id="edit-modal" class="modal modal-sm hide">
+	<div id="edit-modal" class="modal modal-lg hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
@@ -163,39 +164,82 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
-						<div class="control-group">
-							<label class="control-label" for="name">姓名</label>
-							<div class="controls">
-								<input name="name" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="gender">性别</label>
-							<div class="controls">
-								<select name="gender">
-									<option value="男">男</option>
-									<option value="女">女</option>
-								</select>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="groupEntity">所属机构</label>
-							<div class="controls">
-								<select id="edit-groupEntity" name="groupEntity[id]"></select>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="qualification">资格证号</label>
-							<div class="controls">
-								<input name="qualification" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="workType">工种</label>
-							<div class="controls">
-								<input name="workType" type="text">
-							</div>
-						</div>
+						<table style="width: 100%">
+							<tbody>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">姓名</td>
+									<td>
+										<input name="name" type="text" style="width: 140px">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">性别</td>
+									<td>
+										<select name="gender" style="width: 140px">
+											<option value="男">男</option>
+											<option value="女">女</option>
+										</select>
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">用工类别</td>
+									<td>
+										<select name="category" style="width: 140px">
+											<option value="" class="light-grey">请选择用工类别</option>
+											<option value="正">正</option>
+											<option value="协">协</option>
+											<option value="临">临</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">文化程度</td>
+									<td>
+										<select id="edit-education" name="education" style="width: 140px">
+										</select>
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">职务职称</td>
+									<td>
+										<select id="edit-duty" name="duty" style="width: 140px">
+										</select>
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">所属机构</td>
+									<td>
+										<select id="edit-groupEntity" name="groupEntity[id]" style="width: 140px"></select>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">确定岗位</td>
+									<td>
+										<select id="edit-post" name="post" style="width: 140px">
+										</select>
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">兼职岗位</td>
+									<td>
+										<select id="edit-partTime" name="partTime" style="width: 140px">
+										</select>
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">定岗日期</td>
+									<td>
+										<input name="postDate" type="datetime" style="width: 140px">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">资格证号</td>
+									<td>
+										<input name="qualification" type="text" style="width: 140px">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">身份证</td>
+									<td>
+										<input name="identityCard" type="text" style="width: 140px">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px"></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">备注</td>
+									<td colspan="5">
+										<textarea id="edit-remark" name="remark" style="width: 100%"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</form>
 				</div>
 			</div>
@@ -249,24 +293,119 @@
 			</button>
 		</div>
 	</div>
-	<!-- 查看 -->
-	<div id="view-modal" class="modal modal-xl hide">
+	<!-- 变更记录 -->
+	<div id="record-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="blue">
-				<i class="icon-list"></i> 变更记录
+				<i class="icon-list-alt"></i> 变更记录
 			</h5>
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<div id="view-no-records" class="alert alert-info hide">
+					<div id="record-no-records" class="alert alert-info hide">
 						<i class="icon-exclamation-sign"></i>
 						<span>
-							<strong id="view-staff-name"></strong> 无变更记录。
+							<strong id="record-staff-name"></strong> 无变更记录。
 						</span>
 					</div>
-					<form id="view-form" class="form-horizontal" onsubmit="return false;"></form>
+					<div id="alteration-records" class="hide" style="max-height: 400px; overflow: auto;">
+						<table class="grade-table">
+							<thead>
+								<tr>
+									<th width="80px">变更日期 <i class="icon-caret-up"></i></th>
+									<th>变更内容</th>
+								</tr>
+							</thead>
+							<tbody id="alteration-records-tbody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
+	<!-- 查看 -->
+	<div id="view-modal" class="modal modal-lg hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="view-form" class="form-horizontal" onsubmit="return false;">
+						<table style="width: 100%">
+							<tbody>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">姓名</td>
+									<td>
+										<input name="name" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">性别</td>
+									<td>
+										<input name="gender" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">用工类别</td>
+									<td>
+										<input name="category" type="text" style="width: 140px" readonly="readonly">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">文化程度</td>
+									<td>
+										<input name="education" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">职务职称</td>
+									<td>
+										<input name="duty" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">所属机构</td>
+									<td>
+										<input id="view-groupEntity" name="groupEntity.name" type="text" style="width: 140px" readonly="readonly">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">确定岗位</td>
+									<td>
+										<input name="post" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">兼职岗位</td>
+									<td>
+										<input name="partTime" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">定岗日期</td>
+									<td>
+										<input name="postDate" type="text" style="width: 140px" readonly="readonly">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">资格证号</td>
+									<td>
+										<input name="qualification" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px">身份证</td>
+									<td>
+										<input name="identityCard" type="text" style="width: 140px" readonly="readonly">
+									</td>
+									<td style="width: 80px; text-align: right; padding-right: 10px"></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="width: 80px; text-align: right; padding-right: 10px">备注</td>
+									<td colspan="5" id="view-remark"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>
