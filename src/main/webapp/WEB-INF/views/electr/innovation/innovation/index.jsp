@@ -146,34 +146,40 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-						<div class="control-group">
+					<div class="control-group">
 							<label class="control-label" for="projectName">项目名称</label>
 							<div class="controls">
 								<input id="edit_projectName" name="projectName" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="chargePerson">负责人</label>
-							<div class="controls">
-								<input id="edit_chargePerson" name="chargePerson" type="text">
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label " for="refugeType">负责人</label>
+								<div class="controls">
+									<input id="edit_chargePerson" name="chargePerson" type="text" class="span2" style="width: 130px;">
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label " for="quantity">申报日期</label>
+								<div class="controls">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_declarationDate" name="declarationDate" class="span2"
+										style="width: 122px;">
+								</div>
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="declarationDate">申报日期</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_declarationDate" name="declarationDate">
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label " for="refugeType">实施地点</label>
+								<div class="controls">
+									<input id="edit_implementationAddress" name="implementationAddress" type="text" class="span2" style="width: 130px;">
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="implementationAddress">实施地点</label>
-							<div class="controls">
-								<input id="edit_implementationAddress" name="implementationAddress" type="text">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="implementationPeriod">实施时间</label>
-							<div class="controls">
-								<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_implementationPeriod" name="implementationPeriod">
+							<div class="control-group span6">
+								<label class="control-label " for="quantity">实施时间</label>
+								<div class="controls">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_implementationPeriod" name="implementationPeriod"
+										class="span2" style="width: 122px;">
+								</div>
 							</div>
 						</div>
 						<div class="control-group">
@@ -191,13 +197,13 @@
 						<div class="control-group">
 							<label class="control-label" for="content">主要内容或原理</label>
 							<div class="controls">
-								<input id="edit_content" name="content" type="text">
+								<textarea id="edit_content" name="content" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="analysis">效果及经济社会效益分析</label>
 							<div class="controls">
-								<input id="edit_analysis" name="analysis" type="text">
+								<textarea id="edit_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 					</form>

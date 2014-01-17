@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Accessory;
-import cn.ccrise.spimp.electr.entity.Equipment;
 import cn.ccrise.spimp.electr.service.AccessoryService;
 import cn.ccrise.spimp.electr.service.EquipmentService;
 
@@ -54,15 +53,18 @@ public class AccessoryController {
 	public Response page(Page<Accessory> page) {
 		return new Response(accessoryService.getPage(page));
 	}
-
+	@RequestMapping(value = "/electr/equipment/accessories/setpictureurl", method = RequestMethod.GET)
+	@ResponseBody
+	public Response setPicture(Long id,String pictureUrl) {
+		Accessory temp = accessoryService.get(id);
+		temp.setPictureURL(pictureUrl);
+		return new Response(accessoryService.save(temp));
+	}
 	@RequestMapping(value = "/electr/equipment/accessories", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Accessory accessory) {
 		accessory.setRecordDate(new Date(System.currentTimeMillis()));
 		accessoryService.save(accessory);
-		Equipment equipment = equipmentService.get(accessory.getEquipmentId());
-		equipment.getAccessories().add(accessory);
-		equipmentService.save(equipment);
 		return new Response(accessoryService.save(accessory));
 	}
 

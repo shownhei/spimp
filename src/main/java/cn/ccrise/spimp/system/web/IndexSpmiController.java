@@ -260,7 +260,14 @@ public class IndexSpmiController {
 	public String spmiWindWater() {
 		return "electr/equipment/firefighting/index";
 	}
-
+	/**
+	 * 小改小革
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/innovation/innovation", method = RequestMethod.GET)
+	public String spmiInnovation() {
+		return "electr/innovation/innovation/index";
+	}
 	@RequestMapping(value = "/spmi/jdd/equipment/overhaul", method = RequestMethod.GET)
 	public String spmiJddEquipmentOverhaul() {
 		return "electr/equipment/overhaul/index";

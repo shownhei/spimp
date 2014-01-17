@@ -63,6 +63,19 @@ public class Accessory extends IDEntity {
 	@PageFields(describtion = "记录日期", allowedNull = true, search = false)
 	private Date recordDate;
 
+	/**
+	 * 图片
+	 */
+	private String pictureURL;
+	
+	public String getPictureURL() {
+		return pictureURL;
+	}
+
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
+	}
+
 	public String getAccessoryModel() {
 		return accessoryModel;
 	}

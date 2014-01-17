@@ -18,11 +18,12 @@ define(function(require, exports, module) {
 			url : '/electr/equipment/info',
 			success : function(data) {
 				$('#info_panel').html(data);
+				$('#' + activeTab).find('a:first').trigger('click');
 			}
 		});
 	};
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true,
+	Utils.select.remote([  'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true,
 			'设备分类');
 	Utils.select.remote([ 'search_deviceCategory', 'create_deviceCategory', 'edit_deviceCategory' ], '/system/dictionaries?list=true&typeCode=', 'id',
 			'itemName', true, '设备种类');
@@ -60,12 +61,6 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields = [ {
-		header : '设备分类',
-		name : 'deviceClass',
-		render : function(value) {
-			return value === null ? '' : value.itemName;
-		}
-	}, {
 		header : '设备种类',
 		name : 'deviceCategory',
 		render : function(value) {
@@ -112,17 +107,6 @@ define(function(require, exports, module) {
 	}, {
 		header : '数量',
 		name : 'lockerNumber'
-	}, {
-		header : '速度',
-		name : 'speed'
-	}, {
-		header : '运输量',
-		name : 'deliveryValue'
-	}, {
-		header : '布置长度',
-		align : 'right',
-		width : 80,
-		name : 'layoutLength'
 	}/*,
 		  { header : '图片路径', name : 'pictureURL' }, { header : '说明书路径', name :
 		  'specificationURL' },
@@ -238,18 +222,6 @@ define(function(require, exports, module) {
 			errorMsg.push('请输入出厂日期');
 		}
 
-		if (model.layoutLength !== '' && !$.isNumeric(model.layoutLength)) {
-			errorMsg.push('布置长度为数字格式');
-		}
-
-		if (model.status === '') {
-			errorMsg.push('请输入是否已拆除');
-		}
-
-		if (model.status !== '' && !$.isNumeric(model.status)) {
-			errorMsg.push('是否已拆除为数字格式');
-		}
-
 		if (model.specificationURL === '') {
 			errorMsg.push('请输入说明书路径');
 		}
@@ -338,7 +310,7 @@ define(function(require, exports, module) {
 		}
 		$.post('/electr/equipment/accessories', JSON.stringify(object), function(data) {
 			if (data.success) {
-				grid.refresh();
+				loadMaintenance(grid.selectedData('id'));
 				Utils.modal.hide('create_detail');
 			} else {
 				Utils.modal.message('create_detail', data.errors);
@@ -422,7 +394,93 @@ define(function(require, exports, module) {
 		grid.set('url', defaultUrl);
 		grid.refresh();
 	});
+	$('#file').bind('change', function() {
+		if ($('#file').val() !== '') {
+			$('#create-file-form').submit();
+			var process = new Utils.modal.showProcess('process');
+			window.process = process;
+		}
+	});
+	/**关闭提示框*/
+	var closeTips=function(el){
+		var parent = el.parent();
+		var b1=el.is('td') && (el.attr('dataType') === 'showRemark') ;
+		var b2=el.is('div') && parent.is('td') && (parent.attr('dataType') === 'showRemark');
+		if(!(b1||b1)){
+			$('#show_tips').hide();
+		}
+	};
+	var activeTab='';
+	$(document).click(function(event){
+		var el = $(event.target);
+		closeTips(el);
+		var elType = el.attr('elType');
+		var temp = el;
+		if (elType === 'tab') {
+			while (!temp.is('li')) {
+				temp = temp.parent();
+			}
+			activeTab = temp.attr('id');
+			return;
+		}
+		var buttonType =el.attr('buttonType');
+		if(buttonType==='delete'){
+			var selectId = grid.selectedData('id');
+			$.del('/electr/equipment/accessories/' + el.attr('data-id'), function(data) {
+				loadMaintenance(selectId);
+			});
+		}
+		if(buttonType==='upload'){
+			accessoryId=el.attr('data-id');
+			Utils.modal.reset('upload');
+			Utils.modal.show('upload');
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		}
+	});
 	$(document).ready(function(){
 		loadMaintenance(null);
 	});
+	var showTip = function(x, y, html) {
+		var panel = $('#show_tips');
+		panel.css({
+			left : x,
+			top : y - 100
+		});
+		panel.html(html);
+		panel.show();
+	};
+	$(document).mouseover(function(event) {
+		var el = $(event.target);
+		if(el.attr('buttonType')==='upload'){
+			$('#show_tips').hide();
+			return;
+		}
+		var parent = el.parent();
+		if ((el.is('td') && el.attr('dataType') === 'showRemark') || (el.is('div') && parent.is('td') && parent.attr('dataType') === 'showRemark')) {
+			var _html='';
+			if(el.is('td')){
+				_html='<image src='+el.find('div:first').html()+'>';	
+			}else{
+				_html='<image src='+el.html()+'>';	
+			}
+			showTip(event.pageX - 250, event.pageY - 40, _html);
+		}
+	});
+	var accessoryId='';
+	function callBack(data) {
+		window.process.stop();
+		window.process = null;
+		if (!data.success) {
+			alert("上传失败..." + data.data);
+			return false;
+		} else {
+			var selectId = grid.selectedData('id');
+			$.get('/electr/equipment/accessories/setpictureurl?id='+accessoryId+'&pictureUrl='+encodeURI(data.data), function(data) {
+				Utils.modal.hide('upload');
+				loadMaintenance(selectId);
+			});
+		}
+	}
+	window.callBack=callBack;
 });

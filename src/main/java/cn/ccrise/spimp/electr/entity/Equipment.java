@@ -4,24 +4,15 @@
 package cn.ccrise.spimp.electr.entity;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
-
-import com.google.common.collect.Lists;
-
 /**
  * 设备管理-设备台账。
  * <p>
@@ -118,26 +109,6 @@ public class Equipment extends IDEntity {
 	@PageFields(describtion = "数量", allowedNull = true, search = false)
 	private String lockerNumber;
 	/**
-	 * 速度(运输设备有效)
-	 */
-	@PageFields(describtion = "速度", allowedNull = true, search = false)
-	private String speed;
-	/**
-	 * 运输量(运输设备有效)
-	 */
-	@PageFields(describtion = "运输量", allowedNull = true, search = false)
-	private String deliveryValue;
-	/**
-	 * 布置长度(运输设备有效)
-	 */
-	@PageFields(describtion = "布置长度", allowedNull = true, search = false)
-	private Integer layoutLength;
-	/**
-	 * 是否已拆除 1:是；0：否
-	 */
-	@PageFields(describtion = "是否已拆除", allowedNull = false, search = false)
-	private Integer status;
-	/**
 	 * 图片路径
 	 */
 	@PageFields(describtion = "图片路径", allowedNull = true, search = false)
@@ -147,20 +118,9 @@ public class Equipment extends IDEntity {
 	 */
 	@PageFields(describtion = "说明书路径", allowedNull = false, search = false)
 	private String specificationURL; // 说明书路径
-	private List<Accessory> accessories = Lists.newArrayList(); // 配件
-
-	@OneToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	public List<Accessory> getAccessories() {
-		return accessories;
-	}
 
 	public String getChargePerson() {
 		return chargePerson;
-	}
-
-	public String getDeliveryValue() {
-		return deliveryValue;
 	}
 
 	@ManyToOne
@@ -199,10 +159,6 @@ public class Equipment extends IDEntity {
 		return factoryNumber;
 	}
 
-	public Integer getLayoutLength() {
-		return layoutLength;
-	}
-
 	public String getLockerNumber() {
 		return lockerNumber;
 	}
@@ -236,14 +192,6 @@ public class Equipment extends IDEntity {
 		return specificationURL;
 	}
 
-	public String getSpeed() {
-		return speed;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
 	@ManyToOne
 	public Dictionary getStowedPosition() {
 		return stowedPosition;
@@ -254,16 +202,8 @@ public class Equipment extends IDEntity {
 		return usage;
 	}
 
-	public void setAccessories(List<Accessory> accessories) {
-		this.accessories = accessories;
-	}
-
 	public void setChargePerson(String chargePerson) {
 		this.chargePerson = chargePerson;
-	}
-
-	public void setDeliveryValue(String deliveryValue) {
-		this.deliveryValue = deliveryValue;
 	}
 
 	public void setDeviceArea(Dictionary deviceArea) {
@@ -298,10 +238,6 @@ public class Equipment extends IDEntity {
 		this.factoryNumber = factoryNumber;
 	}
 
-	public void setLayoutLength(Integer layoutLength) {
-		this.layoutLength = layoutLength;
-	}
-
 	public void setLockerNumber(String lockerNumber) {
 		this.lockerNumber = lockerNumber;
 	}
@@ -332,14 +268,6 @@ public class Equipment extends IDEntity {
 
 	public void setSpecificationURL(String specificationURL) {
 		this.specificationURL = specificationURL;
-	}
-
-	public void setSpeed(String speed) {
-		this.speed = speed;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public void setStowedPosition(Dictionary stowedPosition) {

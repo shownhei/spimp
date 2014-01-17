@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,19 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Equipment;
+import cn.ccrise.spimp.electr.service.AccessoryService;
 import cn.ccrise.spimp.electr.service.EquipmentService;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
  * Equipment Controller。
  * 
- * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Controller
 public class EquipmentController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+	@Autowired
+	private AccessoryService accessoryService;
 	@Autowired
 	private EquipmentService equipmentService;
 
@@ -80,7 +82,9 @@ public class EquipmentController {
 	public ModelAndView getPlan(Long equipmentId) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		if (equipmentId != null) {
-			root.put("equipment", equipmentService.get(equipmentId));
+			Equipment instance = equipmentService.get(equipmentId);
+			root.put("equipment", instance);
+			root.put("accessories", accessoryService.find(Restrictions.eq("equipmentId", instance.getId()))); 
 		}
 		return new ModelAndView("electr/equipment/detail/info", root);
 	}

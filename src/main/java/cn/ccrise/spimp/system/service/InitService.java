@@ -290,6 +290,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/jdd/equipment/overhaul", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/jdd/equipment/alert", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/jdd/equipment/settings", jddEquipment, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("小改小革", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
 		String jddMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/jdd/maintenance/daily", jddMaintenance, "", i++);
