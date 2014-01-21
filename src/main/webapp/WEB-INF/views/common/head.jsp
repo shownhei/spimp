@@ -41,7 +41,8 @@
 			handlebars : 'gallery/handlebars/1.0.0/handlebars',
 			kjquery : 'ikj/kjquery/1.0.0/kjquery',
 			bootbox : 'ikj/bootbox/3.3.0/bootbox',
-			grid : 'ikj/grid/1.4.0/grid'
+			grid : 'ikj/grid/1.4.0/grid',
+			uploader : 'arale/upload/1.1.0/upload'
 		}
 
 		if (isDevelopment) {

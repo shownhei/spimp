@@ -48,7 +48,7 @@ public class Staff extends IDEntity {
 	private String category; // 用工类别：正/协/临
 	private String education; // 文化程度：高中/中专/大专/本科/硕士/博士
 	private String duty; // 职务职称
-	private String post; // 岗位
+	private String post; // 确定岗位
 	private String partTime; // 兼职岗位
 	private Date postDate; // 定岗日期
 	private String identityCard; // 身份证

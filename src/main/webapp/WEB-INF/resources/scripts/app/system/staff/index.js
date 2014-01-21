@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils'), Uploader = require('uploader');
 
 	// 提示信息
 	$('button[title]').tooltip({
@@ -17,9 +17,9 @@ define(function(require, exports, module) {
 	// 职务职称
 	Utils.select.remote([ 'create-duty', 'edit-duty' ], contextPath + '/system/dictionaries?list=true&typeCode=system_duty', 'itemName', 'itemName', true,
 			'请选择职务职称');
-	// 岗位、兼职岗位
+	// 确定岗位、兼职岗位
 	Utils.select.remote([ 'create-post', 'edit-post', 'create-partTime', 'edit-partTime' ],
-			contextPath + '/system/dictionaries?list=true&typeCode=system_post', 'itemName', 'itemName', true, '请选择岗位');
+			contextPath + '/system/dictionaries?list=true&typeCode=system_post', 'itemName', 'itemName', true, '请选择确定岗位');
 
 	// 初始化富文本编辑器
 	var editRemark = $('#edit-remark').xheditor({
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 		header : '职务职称',
 		name : 'duty'
 	}, {
-		header : '岗位',
+		header : '确定岗位',
 		name : 'post'
 	}, {
 		header : '兼职岗位',
@@ -245,6 +245,55 @@ define(function(require, exports, module) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});
+	});
+
+	// 导入
+	$('#import').click(function() {
+		if (Utils.button.isDisable('import')) {
+			return;
+		}
+
+		Utils.modal.show('import');
+
+		// 显示Upload组件
+		$('form[action="/system/import/staff"]').show();
+	});
+
+	// 执行上传
+	var uploader = new Uploader({
+		trigger : '#fileupload',
+		name : 'file',
+		action : '/system/import/staff',
+		accept : 'application/vnd.ms-excel',
+		error : function(file) {
+			$('#upload-failure-message').html('<li>发生错误，请重试！</li>');
+			Utils.modal.show('upload-failure');
+			this.refreshInput();
+		},
+		success : function(response) {
+			response = JSON.parse(response);
+
+			if (response.success) {
+				grid.refresh();
+				Utils.modal.hide('import');
+
+				// 隐藏Upload组件
+				$('form[action="/system/import/staff"]').hide();
+			} else {
+				var errorHtml = '';
+				if (response.errors === undefined) {
+					errorHtml += '<li>上传失败，请上传xls格式的文件</li>';
+				} else {
+					$.each(response.errors, function(k, v) {
+						errorHtml += '<li>' + k + v + '</li>';
+					});
+				}
+				$('#upload-failure-message').html(errorHtml);
+
+				Utils.modal.show('upload-failure');
+			}
+			this.refreshInput();
+		}
 	});
 
 	// 搜索

@@ -494,3 +494,13 @@ body {
 .reform-table td {
 	border: 1px #333 solid;
 }
+
+.fileinput-button input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	opacity: 0;
+	-ms-filter: 'alpha(opacity=0)';
+	cursor: pointer;
+}
