@@ -20,13 +20,17 @@
 					<button id="create_detail" class="btn btn-small btn-success">
 						<i class="icon-plus-sign-alt"></i> 添加配件
 					</button>
+					
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i> 编辑
 					</button>
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
-					<button id="export" class="btn btn-small btn-pink disabled">
+					<button id="import" class="btn btn-small btn-primary ">
+						<i class="icon-upload"></i> 导入
+					</button>
+					<button id="export" class="btn btn-small btn-primary disabled">
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
@@ -34,9 +38,9 @@
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<select id="search_deviceCategory" name="deviceCategory" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<select id="search_deviceType" name="deviceType" style="height: 25px; width: 120px; font-size: 12px;"></select>
-						<select id="search_serviceEnvironment" name="serviceEnvironment" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<!--select id="search_serviceEnvironment" name="serviceEnvironment" style="height: 25px; width: 120px; font-size: 12px;"></select>
 						<select id="search_deviceArea" name="deviceArea" style="height: 25px; width: 120px; font-size: 12px;"></select>
-						<select id="search_stowedPosition" name="stowedPosition" style="height: 25px; width: 120px; font-size: 12px;"></select>
+						<select id="search_stowedPosition" name="stowedPosition" style="height: 25px; width: 120px; font-size: 12px;"></select-->
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -222,6 +226,12 @@
 					<form id="create_detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<input type="hidden" id="create_detail-equipmentId" name="equipmentId">
 						<div class="control-group">
+							<label class="control-label" for="accessoryName">配件名称</label>
+							<div class="controls">
+								<input id="create_detail_accessoryName" name="accessoryName" type="text">
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="accessoryModel">配件型号</label>
 							<div class="controls">
 								<input id="create_detail_accessoryModel" name="accessoryModel" type="text">
@@ -246,15 +256,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="serviceRating">运输功率</label>
+							<label class="control-label" for="producer">存放位置</label>
 							<div class="controls">
-								<input id="create_detail_serviceRating" name="serviceRating" type="number" value="0">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="transmissionRatio">传动比</label>
-							<div class="controls">
-								<input id="create_detail_transmissionRatio" name="transmissionRatio" type="number" value="0">
+								<input id="create_detail_accessoryLocation" name="accessoryLocation" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -631,6 +635,37 @@
 		</div>
 		<div class="modal-footer">
 			<button id="remove-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+	<!-- import导入 -->
+	<div id="import-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="red">
+				<i class="icon-upload"></i> 导入
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+				</div>
+				<div id="import-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="import-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="import-save" class="btn btn-small btn-danger">
 				<i class="icon-ok"></i> 确定
 			</button>
 			<button class="btn btn-small" data-dismiss="modal">

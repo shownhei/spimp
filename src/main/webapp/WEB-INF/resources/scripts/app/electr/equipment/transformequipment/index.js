@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=transform_device_class',
+	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=equipment_device_class',
 			'id', 'itemName', true, '设备分类');
 
 	// 下拉列表change事件
@@ -393,7 +393,7 @@ define(function(require, exports, module) {
 			while (!temp.is('li')) {
 				temp = temp.parent();
 			}
-			activeTab = $('.active').attr('id');
+			activeTab = temp.attr('id');
 			return;
 		}
 		var dataType = el.attr('dataType');

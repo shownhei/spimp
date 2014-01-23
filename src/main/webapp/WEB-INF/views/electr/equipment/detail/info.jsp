@@ -74,38 +74,57 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
+						<th width=80>配件名称</th>
 						<th width=80>配件型号</th>
 						<th width=80>配件编号</th>
 						<th width=80>出厂日期</th>
-						<th width=80>运输功率</th>
 						<th>厂商</th>
-						<th>传动比</th>
+						<th>存放位置</th>
 						<th>备注</th>
 						<th width=80>图片</th>
+						<th width=80>说明书</th>
 						<th width=50>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${accessories}" var="data" varStatus="status">
 						<tr class="page_report_table_tr">
+						    <td>${data.accessoryName }</td>
 							<td>${data.accessoryModel }</td>
 							<td>${data.accessoryNumber }</td>
 							<td>${data.productionDate }</td>
 							<td>${data.producer }</td>
-							<td>${data.serviceRating }</td>
-							<td>${data.transmissionRatio }</td>
+							<td>${data.producer }</td>
 							<td>${data.remark }</td>
-							<td dataType="showRemark" buttonType="upload"><c:if test="${empty data.pictureURL}">
+							<c:if test="${empty data.pictureURL}">
+								<td buttonType="upload">
 									<button class="btn btn-small btn-success" data-id="${data.id}"
 										buttonType="upload">
 										<i class="icon-upload bigger-120" data-id="${data.id}"
 											buttonType="upload"></i>
 									</button>
-								</c:if>
-								<c:if test="${!empty data.pictureURL}">
+							</c:if>
+							<c:if test="${!empty data.pictureURL}">
+								<td dataType="showRemark">
 									<div
 										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.pictureURL}</div>
-								</c:if></td>
+							</c:if>
+							</td>
+							
+							<c:if test="${empty data.instructions}">
+								<td buttonType="upload">
+									<button class="btn btn-small btn-success" data-id="${data.id}"
+										buttonType="upload">
+										<i class="icon-upload bigger-120" data-id="${data.id}"
+											buttonType="upload"></i>
+									</button>
+							</c:if>
+							<c:if test="${!empty data.instructions}">
+								<td dataType="showRemark">
+									<div
+										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.instructions}</div>
+							</c:if>
+							</td>
 							<td><button class="btn btn-small btn-danger"
 									data-id="${data.id}" buttonType="delete">
 									<i class="icon-trash bigger-120" data-id="${data.id}"

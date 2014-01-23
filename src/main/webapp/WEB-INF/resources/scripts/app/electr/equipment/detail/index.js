@@ -7,9 +7,9 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	var loadMaintenance = function(equipmentId) {
-		var data ='';
-		if(equipmentId){
-			data+='equipmentId=' + equipmentId;
+		var data = '';
+		if (equipmentId) {
+			data += 'equipmentId=' + equipmentId;
 		}
 		$.ajax({
 			type : 'get',
@@ -23,18 +23,17 @@ define(function(require, exports, module) {
 		});
 	};
 	// 下拉列表初始化
-	Utils.select.remote([  'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true,
-			'设备分类');
-	Utils.select.remote([ 'search_deviceCategory', 'create_deviceCategory', 'edit_deviceCategory' ], '/system/dictionaries?list=true&typeCode=', 'id',
-			'itemName', true, '设备种类');
-	Utils.select.remote([ 'search_deviceType', 'create_deviceType', 'edit_deviceType' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true,
-			'设备类型');
-	Utils.select.remote([ 'search_serviceEnvironment', 'create_serviceEnvironment', 'edit_serviceEnvironment' ], '/system/dictionaries?list=true&typeCode=',
-			'id', 'itemName', true, '使用环境');
-	Utils.select.remote([ 'search_deviceArea', 'create_deviceArea', 'edit_deviceArea' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true,
-			'所属区域');
-	Utils.select.remote([ 'search_stowedPosition', 'create_stowedPosition', 'edit_stowedPosition' ], '/system/dictionaries?list=true&typeCode=', 'id',
-			'itemName', true, '存放地点');
+	Utils.select.remote([ 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true, '设备分类');
+	Utils.select.remote([ 'search_deviceCategory', 'create_deviceCategory', 'edit_deviceCategory' ],
+			'/system/dictionaries?list=true&typeCode=equipment_deviceCategory', 'id', 'itemName', true, '设备种类');
+	Utils.select.remote([ 'search_deviceType', 'create_deviceType', 'edit_deviceType' ], '/system/dictionaries?list=true&typeCode=equipment_deviceType', 'id',
+			'itemName', true, '设备类型');
+	Utils.select.remote([ 'search_serviceEnvironment', 'create_serviceEnvironment', 'edit_serviceEnvironment' ],
+			'/system/dictionaries?list=true&typeCode=equipment_serviceEnvironment', 'id', 'itemName', true, '使用环境');
+	Utils.select.remote([ 'search_deviceArea', 'create_deviceArea', 'edit_deviceArea' ], '/system/dictionaries?list=true&typeCode=equipment_deviceArea', 'id',
+			'itemName', true, '所属区域');
+	Utils.select.remote([ 'search_stowedPosition', 'create_stowedPosition', 'edit_stowedPosition' ],
+			'/system/dictionaries?list=true&typeCode=equipment_stowedPosition', 'id', 'itemName', true, '存放地点');
 
 	// 下拉列表change事件
 	$('#search_deviceClass').bind('change', function() {
@@ -78,23 +77,35 @@ define(function(require, exports, module) {
 	}, {
 		header : '设备型号',
 		name : 'deviceModel'
-	},/*
-		 * { header : '使用环境', name : 'serviceEnvironment', render :
-		 * function(value) { return value === null ? '' : value.itemName; } },
-		 */{
+	}, {
+		header : '使用环境',
+		name : 'serviceEnvironment',
+		render : function(value) {
+			return value === null ? '' : value.itemName;
+		}
+	}, {
 		header : '所属区域',
 		name : 'deviceArea',
 		render : function(value) {
 			return value === null ? '' : value.itemName;
 		}
-	}, /*
-		 * { header : '存放地点', name : 'stowedPosition', render : function(value) {
-		 * return value === null ? '' : value.itemName; } }, { header : '用途',
-		 * name : 'usage' },{ header : '生产厂家', name : 'producer' }, { header :
-		 * '设备编号', name : 'deviceNumber' }, { header : '出厂编号', name :
-		 * 'factoryNumber' }, { header : '出厂日期', width : 90, name :
-		 * 'productionDate' },
-		 */{
+	}, {
+		header : '存放地点',
+		name : 'stowedPosition',
+		render : function(value) {
+			return value === null ? '' : value.itemName;
+		}
+	}, {
+		header : '用途',
+		name : 'usage'
+	}, {
+		header : '生产厂家',
+		name : 'producer'
+	}, {
+		header : '出厂日期',
+		width : 90,
+		name : 'productionDate'
+	}, {
 		header : '包机人',
 		width : 80,
 		name : 'chargePerson'
@@ -107,18 +118,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '数量',
 		name : 'lockerNumber'
-	}/*,
-		  { header : '图片路径', name : 'pictureURL' }, { header : '说明书路径', name :
-		  'specificationURL' },
-		 {
-		header : '查看',
-		name : 'id',
-		width : 50,
-		align : 'center',
-		render : function(value) {
-			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
-		}
-	} */];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 380);
@@ -172,6 +172,9 @@ define(function(require, exports, module) {
 		Utils.modal.show('create');
 	});
 	$('#create_detail').click(function() {
+		if (Utils.button.isDisable('create_detail')) {
+			return;
+		}
 		Utils.modal.reset('create_detail');
 		Utils.modal.show('create_detail');
 		var selectId = grid.selectedData('id');
@@ -251,14 +254,6 @@ define(function(require, exports, module) {
 
 		if (model.producer === '') {
 			errorMsg.push('请输入生产厂家');
-		}
-
-		if (model.serviceRating !== '' && !$.isNumeric(model.serviceRating)) {
-			errorMsg.push('运输功率为数字格式');
-		}
-
-		if (model.transmissionRatio !== '' && !$.isNumeric(model.transmissionRatio)) {
-			errorMsg.push('传动比为数字格式');
 		}
 
 		if (errorMsg.length > 0) {
@@ -381,7 +376,13 @@ define(function(require, exports, module) {
 
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
-
+	// 导入
+	$('#import').click(function() {
+		if (Utils.button.isDisable('import')) {
+			return;
+		}
+		Utils.modal.show('import');
+	});
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({
@@ -401,17 +402,17 @@ define(function(require, exports, module) {
 			window.process = process;
 		}
 	});
-	/**关闭提示框*/
-	var closeTips=function(el){
+	/** 关闭提示框 */
+	var closeTips = function(el) {
 		var parent = el.parent();
-		var b1=el.is('td') && (el.attr('dataType') === 'showRemark') ;
-		var b2=el.is('div') && parent.is('td') && (parent.attr('dataType') === 'showRemark');
-		if(!(b1||b1)){
+		var b1 = el.is('td') && (el.attr('dataType') === 'showRemark');
+		var b2 = el.is('div') && parent.is('td') && (parent.attr('dataType') === 'showRemark');
+		if (!(b1 || b1)) {
 			$('#show_tips').hide();
 		}
 	};
-	var activeTab='';
-	$(document).click(function(event){
+	var activeTab = '';
+	$(document).click(function(event) {
 		var el = $(event.target);
 		closeTips(el);
 		var elType = el.attr('elType');
@@ -423,22 +424,22 @@ define(function(require, exports, module) {
 			activeTab = temp.attr('id');
 			return;
 		}
-		var buttonType =el.attr('buttonType');
-		if(buttonType==='delete'){
+		var buttonType = el.attr('buttonType');
+		if (buttonType === 'delete') {
 			var selectId = grid.selectedData('id');
 			$.del('/electr/equipment/accessories/' + el.attr('data-id'), function(data) {
 				loadMaintenance(selectId);
 			});
 		}
-		if(buttonType==='upload'){
-			accessoryId=el.attr('data-id');
+		if (buttonType === 'upload') {
+			accessoryId = el.attr('data-id');
 			Utils.modal.reset('upload');
 			Utils.modal.show('upload');
 			$('#create-file-form')[0].reset();
 			$('#create-file-form').show();
 		}
 	});
-	$(document).ready(function(){
+	$(document).ready(function() {
 		loadMaintenance(null);
 	});
 	var showTip = function(x, y, html) {
@@ -452,22 +453,22 @@ define(function(require, exports, module) {
 	};
 	$(document).mouseover(function(event) {
 		var el = $(event.target);
-		if(el.attr('buttonType')==='upload'){
+		if (el.attr('buttonType') === 'upload') {
 			$('#show_tips').hide();
 			return;
 		}
 		var parent = el.parent();
 		if ((el.is('td') && el.attr('dataType') === 'showRemark') || (el.is('div') && parent.is('td') && parent.attr('dataType') === 'showRemark')) {
-			var _html='';
-			if(el.is('td')){
-				_html='<image src='+el.find('div:first').html()+'>';	
-			}else{
-				_html='<image src='+el.html()+'>';	
+			var _html = '';
+			if (el.is('td')) {
+				_html = '<image src=' + el.find('div:first').html() + '>';
+			} else {
+				_html = '<image src=' + el.html() + '>';
 			}
 			showTip(event.pageX - 250, event.pageY - 40, _html);
 		}
 	});
-	var accessoryId='';
+	var accessoryId = '';
 	function callBack(data) {
 		window.process.stop();
 		window.process = null;
@@ -476,11 +477,11 @@ define(function(require, exports, module) {
 			return false;
 		} else {
 			var selectId = grid.selectedData('id');
-			$.get('/electr/equipment/accessories/setpictureurl?id='+accessoryId+'&pictureUrl='+encodeURI(data.data), function(data) {
+			$.get('/electr/equipment/accessories/setpictureurl?id=' + accessoryId + '&pictureUrl=' + encodeURI(data.data), function(data) {
 				Utils.modal.hide('upload');
 				loadMaintenance(selectId);
 			});
 		}
 	}
-	window.callBack=callBack;
+	window.callBack = callBack;
 });
