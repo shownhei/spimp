@@ -6,9 +6,11 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.ercs.entity.UploadedFile;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
@@ -16,12 +18,13 @@ import cn.ccrise.spimp.util.PageFields;
  * <p>
  * 配件。
  * 
- * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
 @Table(name = "electr_accessories")
 public class Accessory extends IDEntity {
 	private Long equipmentId;
+	@PageFields(describtion = "配件名称", allowedNull = false, search = false)
+	private String accessoryName;
 	/**
 	 * 配件型号
 	 */
@@ -43,15 +46,9 @@ public class Accessory extends IDEntity {
 	@PageFields(describtion = "生产厂家", allowedNull = false, search = false)
 	private String producer;
 	/**
-	 * 运输功率(运输设备有效)
+	 * 存放位置
 	 */
-	@PageFields(describtion = "运输功率", allowedNull = true, search = false)
-	private Integer serviceRating;
-	/**
-	 * 传动比(运输设备有效)
-	 */
-	@PageFields(describtion = "传动比", allowedNull = true, search = false)
-	private Double transmissionRatio;
+	private String accessoryLocation;
 	/**
 	 * 备注
 	 */
@@ -62,6 +59,48 @@ public class Accessory extends IDEntity {
 	 */
 	@PageFields(describtion = "记录日期", allowedNull = true, search = false)
 	private Date recordDate;
+
+	/**
+	 * 图片
+	 */
+	private String pictureURL;
+
+	/**
+	 * 说明书
+	 */
+	private UploadedFile instructions ;
+	@ManyToOne
+	public UploadedFile getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(UploadedFile instructions) {
+		this.instructions = instructions;
+	}
+
+	public String getAccessoryName() {
+		return accessoryName;
+	}
+
+	public void setAccessoryName(String accessoryName) {
+		this.accessoryName = accessoryName;
+	}
+
+	public String getAccessoryLocation() {
+		return accessoryLocation;
+	}
+
+	public void setAccessoryLocation(String accessoryLocation) {
+		this.accessoryLocation = accessoryLocation;
+	}
+
+	public String getPictureURL() {
+		return pictureURL;
+	}
+
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
+	}
 
 	public String getAccessoryModel() {
 		return accessoryModel;
@@ -91,14 +130,6 @@ public class Accessory extends IDEntity {
 		return remark;
 	}
 
-	public Integer getServiceRating() {
-		return serviceRating;
-	}
-
-	public Double getTransmissionRatio() {
-		return transmissionRatio;
-	}
-
 	public void setAccessoryModel(String accessoryModel) {
 		this.accessoryModel = accessoryModel;
 	}
@@ -126,13 +157,4 @@ public class Accessory extends IDEntity {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
-	public void setServiceRating(Integer serviceRating) {
-		this.serviceRating = serviceRating;
-	}
-
-	public void setTransmissionRatio(Double transmissionRatio) {
-		this.transmissionRatio = transmissionRatio;
-	}
-
 }

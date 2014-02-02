@@ -34,7 +34,7 @@ public class FireFightingEquipment extends IDEntity {
 	 * 0.5m³ 沙箱容积
 	 */
 	@PageFields(describtion = "沙箱容积", allowedNull = true, search = false)
-	private Integer sandBoxCapacity;
+	private String sandBoxCapacity;
 	/**
 	 * 数量-co2
 	 */
@@ -135,7 +135,7 @@ public class FireFightingEquipment extends IDEntity {
 		return recordDate;
 	}
 
-	public Integer getSandBoxCapacity() {
+	public String getSandBoxCapacity() {
 		return sandBoxCapacity;
 	}
 
@@ -187,7 +187,7 @@ public class FireFightingEquipment extends IDEntity {
 		this.recordDate = recordDate;
 	}
 
-	public void setSandBoxCapacity(Integer sandBoxCapacity) {
+	public void setSandBoxCapacity(String sandBoxCapacity) {
 		this.sandBoxCapacity = sandBoxCapacity;
 	}
 

@@ -69,6 +69,7 @@ define(function(require, exports, module) {
 	$('#create').click(function() {
 		Utils.modal.reset('create');
 		Utils.modal.show('create');
+		$('#typeCode').val($('#typeCodeSelect').val());
 	});
 
 	// 保存
