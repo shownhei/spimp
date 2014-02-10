@@ -554,7 +554,7 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("机构管理", "/spmi/jdd/group", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("人员管理", "/spmi/jdd/staff", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/spmi/jdd/equipment", jdd, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("岗位管理", "/spmi/jdd/post", jdd, "", i++);
+//		resourceEntityServiceImpl.saveMenuResource("岗位管理", "/spmi/jdd/post", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/spmi/jdd/maintenance", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/spmi/jdd/car", jdd, "", i++);
 
