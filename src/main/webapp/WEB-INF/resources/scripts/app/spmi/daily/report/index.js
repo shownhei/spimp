@@ -14,8 +14,11 @@ define(function(require, exports, module) {
 		header : '班次',
 		name : 'shift'
 	}, {
-		header : '割煤',
-		name : 'output'
+		header : '割煤(架)',
+		name : 'output',
+		render : function(v) {
+			return v + '架';
+		}
 	}, {
 		header : '存在问题',
 		name : 'issue'
@@ -83,7 +86,7 @@ define(function(require, exports, module) {
 		Utils.modal.reset('detail');
 
 		var object = $.extend({}, data);
-		console.log("object:",object);
+		console.log("object:", object);
 
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
@@ -93,15 +96,15 @@ define(function(require, exports, module) {
 		var object = Utils.form.serialize('create');
 
 		// 验证
-		if(object.leader===''){
+		if (object.leader === '') {
 			Utils.modal.message('create', [ '跟班队长不能为空' ]);
 			return;
 		}
-		if(object.reportDate===''){
+		if (object.reportDate === '') {
 			Utils.modal.message('create', [ '日期不能为空' ]);
 			return;
 		}
-		if(object.output===''){
+		if (object.output === '') {
 			Utils.modal.message('create', [ '割煤不能为空且为数字类型' ]);
 			return;
 		}
@@ -140,15 +143,15 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 		// 验证
-		if(object.leader===''){
+		if (object.leader === '') {
 			Utils.modal.message('edit', [ '跟班队长不能为空' ]);
 			return;
 		}
-		if(object.reportDate===''){
+		if (object.reportDate === '') {
 			Utils.modal.message('edit', [ '日期不能为空' ]);
 			return;
 		}
-		if(object.output===''){
+		if (object.output === '') {
 			Utils.modal.message('edit', [ '割煤不能为空且为数字类型' ]);
 			return;
 		}

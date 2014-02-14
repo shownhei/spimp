@@ -24,7 +24,7 @@
 		<ikjp.version>1.4.2</ikjp.version>
 		<spring.version>3.2.6.RELEASE</spring.version>
 		<hibernate.version>4.2.5.Final</hibernate.version>
-		<jetty.version>9.0.5.v20130815</jetty.version>
+		<jetty.version>9.1.2.v20140210</jetty.version>
 		<js.dir>WEB-INF/resources/scripts</js.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>

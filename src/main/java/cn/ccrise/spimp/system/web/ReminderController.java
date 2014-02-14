@@ -50,7 +50,7 @@ public class ReminderController {
 	@RequestMapping(value = "/reminder/notification/pull", method = RequestMethod.GET)
 	@ResponseBody
 	public ReminderResponse pullNotification(HttpSession httpSession) {
-		logger.debug("Current queue size:{}", messageQueue.size());
+		logger.debug("Push queue current size:{}", messageQueue.size());
 		return getReminderResponse(httpSession);
 	}
 

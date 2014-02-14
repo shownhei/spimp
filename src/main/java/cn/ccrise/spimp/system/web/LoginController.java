@@ -65,7 +65,6 @@ public class LoginController {
 	private LogEntityServiceImpl logEntityServiceImpl;
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private ResourceEntityServiceImpl resourceEntityServiceImpl;
 

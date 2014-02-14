@@ -23,7 +23,7 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 public class DailyReport extends IDEntity {
 	private String shift; // 班次
 	private Integer output; // 产量，单位：架
-	private Double weight; // 实际重量，单位：吨
+	private Double weight; // 实际重量，单位：吨，换算：1架=10吨
 	private Date reportDate; // 报表日期
 	private String issue; // 存在问题
 	private String leaveIssue; // 遗留问题

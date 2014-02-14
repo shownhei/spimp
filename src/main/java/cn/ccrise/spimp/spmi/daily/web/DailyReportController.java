@@ -3,9 +3,14 @@
  */
 package cn.ccrise.spimp.spmi.daily.web;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +53,6 @@ public class DailyReportController {
 		return new Response(dailyReportService.get(id));
 	}
 
-	@RequestMapping(value = "/spmi/daily/daily-report", method = RequestMethod.GET)
-	public String index() {
-		return "spmi/daily/daily-report/index";
-	}
-
 	@RequestMapping(value = "/spmi/daily/daily-reports", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<DailyReport> page, String search) {
@@ -62,13 +62,31 @@ public class DailyReportController {
 		} else {
 			return new Response(dailyReportService.getPage(page));
 		}
-
 	}
 
 	@RequestMapping(value = "/spmi/daily/daily-reports", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody DailyReport dailyReport) {
 		return new Response(dailyReportService.save(dailyReport));
+	}
+
+	@RequestMapping(value = "/spmi/daily/daily-reports/statistics", method = RequestMethod.GET)
+	@ResponseBody
+	public Response statistics(Date startDate, Date endDate) {
+		if (startDate == null || endDate == null) {
+			return new Response(false);
+		} else {
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.groupProperty("reportDate"));
+			projectionList.add(Projections.groupProperty("shift"));
+			projectionList.add(Projections.sum("output"));
+
+			List<?> result = dailyReportService.getDAO()
+					.createCriteria(Restrictions.between("reportDate", startDate, endDate))
+					.setProjection(projectionList).list();
+
+			return new Response(result);
+		}
 	}
 
 	@RequestMapping(value = "/spmi/daily/daily-reports/{id}", method = RequestMethod.PUT)
