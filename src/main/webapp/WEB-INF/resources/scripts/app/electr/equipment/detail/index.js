@@ -439,9 +439,6 @@ define(function(require, exports, module) {
 			$('#create-file-form').show();
 		}
 	});
-	$(document).ready(function() {
-		loadMaintenance(null);
-	});
 	var showTip = function(x, y, html) {
 		var panel = $('#show_tips');
 		panel.css({
@@ -484,4 +481,5 @@ define(function(require, exports, module) {
 		}
 	}
 	window.callBack = callBack;
+	loadMaintenance(null);
 });

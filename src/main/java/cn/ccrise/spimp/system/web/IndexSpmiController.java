@@ -241,7 +241,7 @@ public class IndexSpmiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/equipment/transform", method = RequestMethod.GET)
-	public String spmiFireFighting() {
+	public String spmiJddEquipmentTransform() {
 		return "electr/equipment/transformequipment/index";
 	}
 	/**
@@ -249,7 +249,7 @@ public class IndexSpmiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/equipment/wind-water", method = RequestMethod.GET)
-	public String spmiTransform() {
+	public String spmiJddEquipmentWindWater() {
 		return "electr/equipment/windwater/index";
 	}
 	/**
@@ -257,7 +257,7 @@ public class IndexSpmiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/equipment/fire-fighting", method = RequestMethod.GET)
-	public String spmiWindWater() {
+	public String spmiJddEquipmentFireFighting() {
 		return "electr/equipment/firefighting/index";
 	}
 	/**
@@ -265,7 +265,7 @@ public class IndexSpmiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/innovation/innovation", method = RequestMethod.GET)
-	public String spmiInnovation() {
+	public String spmiJddInnovationInnovation() {
 		return "electr/innovation/innovation/index";
 	}
 	@RequestMapping(value = "/spmi/jdd/equipment/overhaul", method = RequestMethod.GET)

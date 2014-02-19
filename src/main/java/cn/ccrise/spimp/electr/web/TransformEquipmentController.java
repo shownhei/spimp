@@ -329,7 +329,9 @@ public class TransformEquipmentController {
 							row.getCell(tensioningStartCol + 1).setCellValue(tensioning.getDeviceName());
 							row.getCell(tensioningStartCol + 2).setCellValue(tensioning.getDeviceModel());
 							row.getCell(tensioningStartCol + 3).setCellValue(tensioning.getDeviceNumber());
-							row.getCell(tensioningStartCol + 4).setCellValue(tensioning.getProductionDate());
+							if(tensioning.getProductionDate()!=null){
+								row.getCell(tensioningStartCol + 4).setCellValue(tensioning.getProductionDate());
+							}
 							row.getCell(tensioningStartCol + 5).setCellValue(tensioning.getProducer());
 							row.getCell(tensioningStartCol + 6).setCellValue("备注");
 							tempCell = row.getCell(tensioningStartCol + 6);
