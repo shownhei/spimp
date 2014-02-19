@@ -236,7 +236,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/staff-index/safegard-org/index');
+		seajs.use('${resources}/scripts/app/ercs/organization/safegard-org/index');
 	</script>
 </body>
 </html>
