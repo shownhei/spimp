@@ -42,13 +42,12 @@ import cn.ccrise.spimp.system.service.DictionaryService;
  */
 @Service
 public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> {
-	private static final double Integer = 0;
 	@Autowired
 	private EquipmentDAO equipmentDAO;
 	@Autowired
 	private DictionaryService dictionaryService;
 
-	private void convertTomap(List<Dictionary> list, HashMap<String, Dictionary> aimMap) {
+	private void convertToMap(List<Dictionary> list, HashMap<String, Dictionary> aimMap) {
 		Iterator<Dictionary> it = list.iterator();
 		Dictionary temp = null;
 		while (it.hasNext()) {
@@ -70,14 +69,14 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 		HashMap<String, Dictionary> deviceArea = new HashMap<String, Dictionary>();
 		HashMap<String, Dictionary> stowedPosition = new HashMap<String, Dictionary>();
 		// 缓存字典数据
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_device_class")), deviceClass);
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceCategory")), deviceCategory);
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceType")), deviceType);
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_device_class")), deviceClass);
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceCategory")), deviceCategory);
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceType")), deviceType);
 
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_serviceEnvironment")),
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_serviceEnvironment")),
 				serviceEnvironment);
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceArea")), deviceArea);
-		convertTomap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_stowedPosition")), stowedPosition);
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceArea")), deviceArea);
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_stowedPosition")), stowedPosition);
 
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		InputStream ins = new FileInputStream(new File(fileName));
@@ -237,7 +236,7 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 				int  cellType = cell.getCellType();
 				String value=null;
 				if(cellType== Cell.CELL_TYPE_NUMERIC){
-					value=String.valueOf(Integer*cell.getNumericCellValue());
+					value=String.valueOf((int)cell.getNumericCellValue());
 					raw.setLockerNumber(value);//数量
 				}
 				else if(cellType== Cell.CELL_TYPE_STRING){
