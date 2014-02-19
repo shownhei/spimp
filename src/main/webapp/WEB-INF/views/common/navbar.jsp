@@ -3,7 +3,7 @@
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a href="/" class="brand">
-				<small> <i class="icon-leaf"></i> 安全生产综合管理平台
+				<small> <i class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
 				</small>
 			</a>
 			<ul class="nav ace-nav pull-right">

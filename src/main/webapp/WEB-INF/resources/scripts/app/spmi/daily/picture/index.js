@@ -387,11 +387,12 @@ define(function(require, exports, module) {
 			return false;
 		} else {
 			var attachment = $('#attachment');
-			attachment.val(data.data.filePath);
-			attachment.attr('data-id', data.data.id);
+			attachment.val(data.data);
 			$('#create-file-form').hide();
 			attachment.parent().parent().show();
 			$('#create-save').removeClass('disabled');
+			$('#create-save').trigger('click');
+			
 		}
 	}
 	window.callBack = callBack;
