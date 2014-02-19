@@ -218,12 +218,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("信息调度专业", "/spmi/dds/quality/dispatch", ddsQuality, "", i++);
 		String ddsDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dds/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/dds/document/query", ddsDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/dds/document/input", ddsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/dds/document/query", ddsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/dds/document/input", ddsDocument, "", i++);
 		String ddsDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dds/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/dds/daily/reform", ddsDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/dds/daily/plan", ddsDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/dds/daily/plan", ddsDaily, "", i++);
 
 		// 安全科
 		String aqkQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/aqk/quality", HttpMethod.GET);
@@ -232,12 +232,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("地面设施专业", "/spmi/aqk/quality/facilities", aqkQuality, "", i++);
 		String aqkDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/aqk/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/aqk/document/query", aqkDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/aqk/document/input", aqkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/aqk/document/query", aqkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/aqk/document/input", aqkDocument, "", i++);
 		String aqkDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/aqk/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/aqk/daily/reform", aqkDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/aqk/daily/plan", aqkDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/aqk/daily/plan", aqkDaily, "", i++);
 
 		// 机电科
 		String jdkQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdk/quality", HttpMethod.GET);
@@ -246,12 +246,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("运输专业", "/spmi/jdk/quality/transportation", jdkQuality, "", i++);
 		String jdkDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdk/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/jdk/document/query", jdkDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/jdk/document/input", jdkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/jdk/document/query", jdkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/jdk/document/input", jdkDocument, "", i++);
 		String jdkDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdk/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/jdk/daily/reform", jdkDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/jdk/daily/plan", jdkDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/jdk/daily/plan", jdkDaily, "", i++);
 
 		// 通风科
 		String tfkQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfk/quality", HttpMethod.GET);
@@ -260,12 +260,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("职业健康专业", "/spmi/tfk/quality/health", tfkQuality, "", i++);
 		String tfkDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfk/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/tfk/document/query", tfkDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/tfk/document/input", tfkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/tfk/document/query", tfkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/tfk/document/input", tfkDocument, "", i++);
 		String tfkDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfk/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/tfk/daily/reform", tfkDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/tfk/daily/plan", tfkDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/tfk/daily/plan", tfkDaily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("培训计划", "/spmi/tfk/daily/training", tfkDaily, "", i++);
 		String tfkMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfk/material", HttpMethod.GET);
 		i = 1;
@@ -295,12 +295,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("采煤专业", "/spmi/sjk/quality/mining", sjkQuality, "", i++);
 		String sjkDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/sjk/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/sjk/document/query", sjkDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/sjk/document/input", sjkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/sjk/document/query", sjkDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/sjk/document/input", sjkDocument, "", i++);
 		String sjkDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/sjk/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/sjk/daily/reform", sjkDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/sjk/daily/plan", sjkDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/sjk/daily/plan", sjkDaily, "", i++);
 
 		// 地测科
 		String dckQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dck/quality", HttpMethod.GET);
@@ -308,12 +308,12 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("地测防治水专业", "/spmi/dck/quality/water", dckQuality, "", i++);
 		String dckDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dck/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/dck/document/query", dckDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/dck/document/input", dckDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/dck/document/query", dckDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/dck/document/input", dckDocument, "", i++);
 		String dckDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dck/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/dck/daily/reform", dckDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/dck/daily/plan", dckDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/dck/daily/plan", dckDaily, "", i++);
 
 		// 防治水科
 		String fzsQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/fzs/quality", HttpMethod.GET);
@@ -321,33 +321,35 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("地测防治水专业", "/spmi/fzs/quality/water", fzsQuality, "", i++);
 		String fzsDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/fzs/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/fzs/document/query", fzsDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/fzs/document/input", fzsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/fzs/document/query", fzsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/fzs/document/input", fzsDocument, "", i++);
 		String fzsDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/fzs/daily", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("整改通知单", "/spmi/fzs/daily/reform", fzsDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/fzs/daily/plan", fzsDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/fzs/daily/plan", fzsDaily, "", i++);
 
 		// 探放水队
 		String tfsDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfs/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/tfs/document/query", tfsDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/tfs/document/input", tfsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/tfs/document/query", tfsDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/tfs/document/input", tfsDocument, "", i++);
 		String tfsDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfs/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/tfs/daily/plan", tfsDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/tfs/daily/plan", tfsDaily, "", i++);
 
 		// 机电机运队
 		String jddDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/jdd/document/query", jddDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/jdd/document/input", jddDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/jdd/document/query", jddDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/jdd/document/input", jddDocument, "", i++);
 		String jddDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/jdd/daily/plan", jddDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/jdd/daily/reward", jddDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/jdd/daily/picture", jddDaily, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/jdd/daily/summary", jddDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/jdd/daily/plan", jddDaily, "", i++);
+		i = 1;
+		String routine=resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/routine", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/jdd/routine/reward", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/jdd/routine/picture", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/jdd/routine/summary", routine, "", i++);
 		String jddMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/material", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("采购计划", "/spmi/jdd/material/plan", jddMaterial, "", i++);
@@ -357,15 +359,19 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("配件统计", "/spmi/jdd/material/statistics", jddMaterial, "", i++);
 		String jddEquipment = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("设备台账", "/spmi/jdd/equipment/detail", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/jdd/equipment/transform", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/jdd/equipment/wind-water", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/jdd/equipment/fire-fighting", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("检修计划", "/spmi/jdd/equipment/plan", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/jdd/equipment/overhaul", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/jdd/equipment/alert", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/jdd/equipment/settings", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("小改小革", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
+		//equipment-ledger
+		String jddEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment-ledger", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/jdd/equipment-ledger/detail", jddEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/jdd/equipment-ledger/transform", jddEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/jdd/equipment-ledger/wind-water", jddEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/jdd/equipment-ledger/fire-fighting", jddEquipmentLedger, "", i++);
+		
 		String jddMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/jdd/maintenance/daily", jddMaintenance, "", i++);
@@ -388,13 +394,16 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("采煤专业", "/spmi/zcd/quality/mining", zcdQuality, "", i++);
 		String zcdDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/zcd/document/query", zcdDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/zcd/document/input", zcdDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/zcd/document/query", zcdDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/zcd/document/input", zcdDocument, "", i++);
 		String zcdDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/zcd/daily/plan", zcdDaily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("生产日报表", "/spmi/zcd/daily/report", zcdDaily, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("产量统计", "/spmi/zcd/daily/output", zcdDaily, "", i++);
+		i = 1;
+		String safe = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/safe", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/zcd/safe/plan", safe, "", i++);
+		
 		String zcdMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/material", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("采购计划", "/spmi/zcd/material/plan", zcdMaterial, "", i++);
@@ -402,9 +411,16 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("入库管理", "/spmi/zcd/material/stock-putin", zcdMaterial, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("出库管理", "/spmi/zcd/material/stock-sendout", zcdMaterial, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("配件统计", "/spmi/zcd/material/statistics", zcdMaterial, "", i++);
+		
+		String zcdEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/equipment-ledger", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/zcd/equipment-ledger/detail", zcdEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/zcd/equipment-ledger/transform", zcdEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/zcd/equipment-ledger/wind-water", zcdEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/zcd/equipment-ledger/fire-fighting", zcdEquipmentLedger, "", i++);
+		
 		String zcdEquipment = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/equipment", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("设备台账", "/spmi/zcd/equipment/detail", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("检修计划", "/spmi/zcd/equipment/plan", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/zcd/equipment/overhaul", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/zcd/equipment/alert", zcdEquipment, "", i++);
@@ -431,11 +447,11 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("掘进专业", "/spmi/jjy/quality/tunnelling", jjyQuality, "", i++);
 		String jjyDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jjy/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/jjy/document/query", jjyDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/jjy/document/input", jjyDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/jjy/document/query", jjyDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/jjy/document/input", jjyDocument, "", i++);
 		String jjyDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jjy/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/jjy/daily/plan", jjyDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/jjy/daily/plan", jjyDaily, "", i++);
 
 		// 掘进二队
 		String jjeQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jje/quality", HttpMethod.GET);
@@ -443,11 +459,11 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("掘进专业", "/spmi/jje/quality/tunnelling", jjeQuality, "", i++);
 		String jjeDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jje/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/jje/document/query", jjeDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/jje/document/input", jjeDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/jje/document/query", jjeDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/jje/document/input", jjeDocument, "", i++);
 		String jjeDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jje/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/jje/daily/plan", jjeDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/jje/daily/plan", jjeDaily, "", i++);
 
 		// 开拓一队
 		String ktyQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kty/quality", HttpMethod.GET);
@@ -455,11 +471,11 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("掘进专业", "/spmi/kty/quality/tunnelling", ktyQuality, "", i++);
 		String ktyDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kty/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/kty/document/query", ktyDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/kty/document/input", ktyDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/kty/document/query", ktyDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/kty/document/input", ktyDocument, "", i++);
 		String ktyDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kty/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/kty/daily/plan", ktyDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/kty/daily/plan", ktyDaily, "", i++);
 
 		// 开拓二队
 		String kteQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kte/quality", HttpMethod.GET);
@@ -467,11 +483,11 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("掘进专业", "/spmi/kte/quality/tunnelling", kteQuality, "", i++);
 		String kteDocument = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kte/document", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档查询", "/spmi/kte/document/query", kteDocument, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档录入", "/spmi/kte/document/input", kteDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档综合查询", "/spmi/kte/document/query", kteDocument, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档录入", "/spmi/kte/document/input", kteDocument, "", i++);
 		String kteDaily = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kte/daily", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("工作安排", "/spmi/kte/daily/plan", kteDaily, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/kte/daily/plan", kteDaily, "", i++);
 	}
 
 	@Override
@@ -481,33 +497,33 @@ public class InitService extends DataInitAbstractService {
 		String dds = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dds", HttpMethod.GET);
 		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/dds/quality", dds, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/dds/document", dds, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/dds/document", dds, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/dds/info", dds, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/dds/daily", dds, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/dds/daily", dds, "", i++);
 
 		// 安全科
 		String aqk = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/aqk", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/aqk/quality", aqk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/aqk/document", aqk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/aqk/document", aqk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/aqk/info", aqk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/aqk/daily", aqk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/aqk/daily", aqk, "", i++);
 
 		// 机电科
 		String jdk = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdk", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/jdk/quality", jdk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/jdk/document", jdk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/jdk/document", jdk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/jdk/info", jdk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/jdk/daily", jdk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/jdk/daily", jdk, "", i++);
 
 		// 通风科
 		String tfk = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfk", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/tfk/quality", tfk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/tfk/document", tfk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/tfk/document", tfk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/tfk/info", tfk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/tfk/daily", tfk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/tfk/daily", tfk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("配件管理", "/spmi/tfk/material", tfk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("人员管理", "/spmi/tfk/staff", tfk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/spmi/tfk/equipment", tfk, "", i++);
@@ -517,43 +533,45 @@ public class InitService extends DataInitAbstractService {
 		String sjk = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/sjk", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/sjk/quality", sjk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/sjk/document", sjk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/sjk/document", sjk, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/sjk/info", sjk, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/sjk/daily", sjk, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/sjk/daily", sjk, "", i++);
 
 		// 地测科
 		String dck = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/dck", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/dck/quality", dck, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/dck/document", dck, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/dck/document", dck, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/dck/info", dck, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/dck/daily", dck, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/dck/daily", dck, "", i++);
 
 		// 防治水科
 		String fzs = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/fzs", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/fzs/quality", fzs, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/fzs/document", fzs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/fzs/document", fzs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/fzs/info", fzs, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/fzs/daily", fzs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/fzs/daily", fzs, "", i++);
 
 		// 探放水队
 		String tfs = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/tfs", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/tfs/document", tfs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/tfs/document", tfs, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/tfs/info", tfs, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/tfs/daily", tfs, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/tfs/daily", tfs, "", i++);
 
 		// 机电机运队
 		String jdd = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd", HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/jdd/document", jdd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/jdd/document", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/jdd/info", jdd, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/jdd/daily", jdd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/jdd/daily", jdd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/jdd/routine", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("配件管理", "/spmi/jdd/material", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("机构管理", "/spmi/jdd/group", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("人员管理", "/spmi/jdd/staff", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/spmi/jdd/equipment", jdd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("设备台账", "/spmi/jdd/equipment-ledger", jdd, "", i++);
 //		resourceEntityServiceImpl.saveMenuResource("岗位管理", "/spmi/jdd/post", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/spmi/jdd/maintenance", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/spmi/jdd/car", jdd, "", i++);
@@ -562,12 +580,14 @@ public class InitService extends DataInitAbstractService {
 		String zcd = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/zcd/quality", zcd, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/zcd/document", zcd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/zcd/document", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/zcd/info", zcd, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/zcd/daily", zcd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("产量管理", "/spmi/zcd/daily", zcd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/zcd/safe", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("配件管理", "/spmi/zcd/material", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("人员管理", "/spmi/zcd/staff", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/spmi/zcd/equipment", zcd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("设备台账", "/spmi/zcd/equipment-ledger", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/spmi/zcd/maintenance", zcd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/spmi/zcd/car", zcd, "", i++);
 
@@ -575,33 +595,33 @@ public class InitService extends DataInitAbstractService {
 		String jjy = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jjy", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/jjy/quality", jjy, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/jjy/document", jjy, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/jjy/document", jjy, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/jjy/info", jjy, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/jjy/daily", jjy, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/jjy/daily", jjy, "", i++);
 
 		// 掘进二队
 		String jje = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jje", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/jje/quality", jje, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/jje/document", jje, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/jje/document", jje, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/jje/info", jje, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/jje/daily", jje, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/jje/daily", jje, "", i++);
 
 		// 开拓一队
 		String kty = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kty", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/kty/quality", kty, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/kty/document", kty, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/kty/document", kty, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/kty/info", kty, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/kty/daily", kty, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/kty/daily", kty, "", i++);
 
 		// 开拓二队
 		String kte = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/kte", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("质量标准化", "/spmi/kte/quality", kte, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("文档管理", "/spmi/kte/document", kte, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/kte/document", kte, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/kte/info", kte, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("日常工作", "/spmi/kte/daily", kte, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/kte/daily", kte, "", i++);
 		// 应急救援管理系统
 		initErcsService.initFourthLevelOperate();
 	}
