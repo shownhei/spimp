@@ -230,80 +230,24 @@ public class IndexSpmiController {
 
 	/**
 	 * 电器设备台账
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/equipment-ledger/detail", method = RequestMethod.GET)
 	public String spmiJddEquipmentDetail() {
 		return "electr/equipment/detail/index";
 	}
-	/**
-	 * 运输设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/jdd/equipment-ledger/transform", method = RequestMethod.GET)
-	public String spmiJddEquipmentTransform() {
-		return "electr/equipment/transformequipment/index";
-	}
-	/**
-	 * 压风供水自救设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/jdd/equipment-ledger/wind-water", method = RequestMethod.GET)
-	public String spmiJddEquipmentWindWater() {
-		return "electr/equipment/windwater/index";
-	}
+
 	/**
 	 * 井下消防设备台账
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/spmi/jdd/equipment-ledger/fire-fighting", method = RequestMethod.GET)
 	public String spmiJddEquipmentFireFighting() {
 		return "electr/equipment/firefighting/index";
 	}
-	
-	
-	
-	
-	/**
-	 * 电器设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/equipment-ledger/detail", method = RequestMethod.GET)
-	public String spmiZcdEquipmentLedgerDetail() {
-		return "electr/equipment/detail/index";
-	}
-	/**
-	 * 运输设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/equipment-ledger/transform", method = RequestMethod.GET)
-	public String spmiZcdEquipmentTransform() {
-		return "electr/equipment/transformequipment/index";
-	}
-	/**
-	 * 压风供水自救设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/equipment-ledger/wind-water", method = RequestMethod.GET)
-	public String spmiZcdEquipmentWindWater() {
-		return "electr/equipment/windwater/index";
-	}
-	/**
-	 * 井下消防设备台账
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/equipment-ledger/fire-fighting", method = RequestMethod.GET)
-	public String spmiZcdEquipmentFireFighting() {
-		return "electr/equipment/firefighting/index";
-	}
-	/**
-	 * 小改小革
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/jdd/innovation/innovation", method = RequestMethod.GET)
-	public String spmiJddInnovationInnovation() {
-		return "electr/innovation/innovation/index";
-	}
+
 	@RequestMapping(value = "/spmi/jdd/equipment/overhaul", method = RequestMethod.GET)
 	public String spmiJddEquipmentOverhaul() {
 		return "electr/equipment/overhaul/index";
@@ -319,6 +263,26 @@ public class IndexSpmiController {
 		return "electr/equipment/settings/index";
 	}
 
+	/**
+	 * 运输设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/equipment-ledger/transform", method = RequestMethod.GET)
+	public String spmiJddEquipmentTransform() {
+		return "electr/equipment/transformequipment/index";
+	}
+
+	/**
+	 * 压风供水自救设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/equipment-ledger/wind-water", method = RequestMethod.GET)
+	public String spmiJddEquipmentWindWater() {
+		return "electr/equipment/windwater/index";
+	}
+
 	@RequestMapping(value = "/spmi/jdd/group", method = RequestMethod.GET)
 	public String spmiJddGroup() {
 		return "system/group/index";
@@ -327,6 +291,16 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/jdd/info", method = RequestMethod.GET)
 	public String spmiJddInfo() {
 		return "spmi/info/index";
+	}
+
+	/**
+	 * 小改小革
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/innovation/innovation", method = RequestMethod.GET)
+	public String spmiJddInnovationInnovation() {
+		return "electr/innovation/innovation/index";
 	}
 
 	@RequestMapping(value = "/spmi/jdd/maintenance/daily", method = RequestMethod.GET)
@@ -832,6 +806,26 @@ public class IndexSpmiController {
 		return "electr/equipment/detail/index";
 	}
 
+	/**
+	 * 井下消防设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/equipment-ledger/fire-fighting", method = RequestMethod.GET)
+	public String spmiZcdEquipmentFireFighting() {
+		return "electr/equipment/firefighting/index";
+	}
+
+	/**
+	 * 电器设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/equipment-ledger/detail", method = RequestMethod.GET)
+	public String spmiZcdEquipmentLedgerDetail() {
+		return "electr/equipment/detail/index";
+	}
+
 	@RequestMapping(value = "/spmi/zcd/equipment/overhaul", method = RequestMethod.GET)
 	public String spmiZcdEquipmentOverhaul() {
 		return "electr/equipment/overhaul/index";
@@ -845,6 +839,26 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/zcd/equipment/settings", method = RequestMethod.GET)
 	public String spmiZcdEquipmentSettings() {
 		return "electr/equipment/settings/index";
+	}
+
+	/**
+	 * 运输设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/equipment-ledger/transform", method = RequestMethod.GET)
+	public String spmiZcdEquipmentTransform() {
+		return "electr/equipment/transformequipment/index";
+	}
+
+	/**
+	 * 压风供水自救设备台账
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/equipment-ledger/wind-water", method = RequestMethod.GET)
+	public String spmiZcdEquipmentWindWater() {
+		return "electr/equipment/windwater/index";
 	}
 
 	@RequestMapping(value = "/spmi/zcd/info", method = RequestMethod.GET)

@@ -95,7 +95,7 @@ public class BlottersController {
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		blotters.setRecordGroup(loginAccount.getGroupEntity());
 		blotters.setRecordTime(new Timestamp(System.currentTimeMillis()));
-		if(StringUtils.isBlank(blotters.getOperator())){
+		if (StringUtils.isBlank(blotters.getOperator())) {
 			blotters.setOperator(loginAccount.getRealName());
 		}
 		if (blotters.getOpertionType() == Blotters.OPERTION_TYPE_PUTIN) {

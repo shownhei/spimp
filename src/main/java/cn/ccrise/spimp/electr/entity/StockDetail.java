@@ -108,15 +108,15 @@ public class StockDetail extends IDEntity {
 	}
 
 	public Integer getQuantity1() {
-		return quantity1==null?0:quantity1;
+		return quantity1 == null ? 0 : quantity1;
 	}
 
 	public Integer getQuantity2() {
-		return quantity2==null?0:quantity2;
+		return quantity2 == null ? 0 : quantity2;
 	}
 
 	public Integer getQuantity3() {
-		return quantity3==null?0:quantity3;
+		return quantity3 == null ? 0 : quantity3;
 	}
 
 	@ManyToOne

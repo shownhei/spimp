@@ -32,6 +32,7 @@ import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.electr.access.FireFightingEquipmentDAO;
 import cn.ccrise.spimp.electr.entity.FireFightingEquipment;
+
 /**
  * FireFightingEquipment Service。
  * 
@@ -45,8 +46,9 @@ public class FireFightingEquipmentService extends HibernateDataServiceImpl<FireF
 	public HibernateDAO<FireFightingEquipment, Long> getDAO() {
 		return fireFightingEquipmentDAO;
 	}
+
 	public void importFormExcel(String fileName) throws ParsePropertyException, InvalidFormatException,
-	FileNotFoundException, Exception {
+			FileNotFoundException, Exception {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		InputStream ins = new FileInputStream(new File(fileName));
 		XLSTransformer transformer = new XLSTransformer();
@@ -54,31 +56,32 @@ public class FireFightingEquipmentService extends HibernateDataServiceImpl<FireF
 		Sheet sheet = book.getSheetAt(0);
 		Iterator<Row> rowIt = sheet.rowIterator();
 		Row row = null;
-		int startRow=3;//数据的起始行
-		int currentRowIndex=0;
+		int startRow = 3;// 数据的起始行
+		int currentRowIndex = 0;
 		Date recordDate = new Date(System.currentTimeMillis());
 		while (rowIt.hasNext()) {
-			int colIndex=1;
+			int colIndex = 1;
 			row = rowIt.next();
-			currentRowIndex=row.getRowNum();
+			currentRowIndex = row.getRowNum();
 			if (currentRowIndex >= startRow) {
-				FireFightingEquipment fireFighting= new FireFightingEquipment();
-				fireFighting.setLocation(row.getCell(colIndex++).toString());//存在地点
-				fireFighting.setEquipmentCode(row.getCell(colIndex++).toString());//编号
-				fireFighting.setSandBoxCapacity(row.getCell(colIndex++).toString());//沙箱容积
-				fireFighting.setAmount1(row.getCell(colIndex++).toString());//数量
-				fireFighting.setMaintenanceDate1(row.getCell(colIndex++).toString());//维修时间
-				fireFighting.setAmount2(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());//干粉-数量
-				fireFighting.setMaintenance2(row.getCell(colIndex++).toString());//维修时间
-				fireFighting.setFireAxe(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());//消防斧
-				fireFighting.setFireHook(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());//消防钩
-				fireFighting.setFireBucket(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());//消防桶
-				fireFighting.setFireShovel(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());//消防锹
-				fireFighting.setOthers(row.getCell(colIndex++).toString());//其他
-				fireFighting.setRecordDate(recordDate);//记录日期
+				FireFightingEquipment fireFighting = new FireFightingEquipment();
+				fireFighting.setLocation(row.getCell(colIndex++).toString());// 存在地点
+				fireFighting.setEquipmentCode(row.getCell(colIndex++).toString());// 编号
+				fireFighting.setSandBoxCapacity(row.getCell(colIndex++).toString());// 沙箱容积
+				fireFighting.setAmount1(row.getCell(colIndex++).toString());// 数量
+				fireFighting.setMaintenanceDate1(row.getCell(colIndex++).toString());// 维修时间
+				fireFighting.setAmount2(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());// 干粉-数量
+				fireFighting.setMaintenance2(row.getCell(colIndex++).toString());// 维修时间
+				fireFighting.setFireAxe(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());// 消防斧
+				fireFighting.setFireHook(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());// 消防钩
+				fireFighting.setFireBucket(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());// 消防桶
+				fireFighting.setFireShovel(new Double(row.getCell(colIndex++).getNumericCellValue()).intValue());// 消防锹
+				fireFighting.setOthers(row.getCell(colIndex++).toString());// 其他
+				fireFighting.setRecordDate(recordDate);// 记录日期
 			}
 		}
 	}
+
 	public Page<FireFightingEquipment> pageQuery(Page<FireFightingEquipment> page, String search) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 

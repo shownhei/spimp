@@ -205,22 +205,22 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 		Object raw[] = null;
 		StockDetail tempDetail = null;
 		int i = 0;
-		HashMap<Long,StockDetail> map = new HashMap<Long,StockDetail>();
-		Long tempId=null;
+		HashMap<Long, StockDetail> map = new HashMap<Long, StockDetail>();
+		Long tempId = null;
 		while (detailList.hasNext()) {
 			i = 0;
 			raw = (Object[]) detailList.next();
-			tempId=(Long) raw[i++];
-			if(!map.containsKey(tempId)){
+			tempId = (Long) raw[i++];
+			if (!map.containsKey(tempId)) {
 				tempDetail = new StockDetail();
 				map.put(tempId, tempDetail);
 				result.add(tempDetail);
-			}else{
-				tempDetail=map.get(tempId);
+			} else {
+				tempDetail = map.get(tempId);
 			}
 			tempDetail.setMaterialId(tempId);
 			tempDetail.setMaterialName1((String) raw[i++]);
-			tempDetail.setQuantity1(tempDetail.getQuantity1()+(Integer) raw[i++]);
+			tempDetail.setQuantity1(tempDetail.getQuantity1() + (Integer) raw[i++]);
 			tempDetail.setMeasureUnit1((String) raw[i++]);
 			i++;
 			tempDetail.setMaterialName3((String) raw[i++]);

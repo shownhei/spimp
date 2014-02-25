@@ -4,6 +4,7 @@
 package cn.ccrise.spimp.electr.web;
 
 import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.InnovationImage;
 import cn.ccrise.spimp.electr.service.InnovationImageService;
+
 /**
  * InnovationImage Controller。
  * 

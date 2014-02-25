@@ -76,13 +76,9 @@ public class EquipmentController {
 		ouputStream.close();
 	}
 
-	@RequestMapping(value = "/electr/equipment/equipments/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(equipmentService.get(id));
-	}
 	/**
 	 * 数据导入
+	 * 
 	 * @param httpSession
 	 * @return
 	 */
@@ -90,7 +86,7 @@ public class EquipmentController {
 	@ResponseBody
 	public Response get(HttpSession httpSession) {
 		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
-		String fileName=templateFoldPath + "/WEB-INF/resources/template/123.xls";
+		String fileName = templateFoldPath + "/WEB-INF/resources/template/123.xls";
 		try {
 			equipmentService.importFormExcel(fileName);
 		} catch (ParsePropertyException e) {
@@ -102,13 +98,20 @@ public class EquipmentController {
 		}
 		return new Response(true);
 	}
+
+	@RequestMapping(value = "/electr/equipment/equipments/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response get(@PathVariable long id) {
+		return new Response(equipmentService.get(id));
+	}
+
 	@RequestMapping(value = "/electr/equipment/info", method = RequestMethod.GET)
 	public ModelAndView getPlan(Long equipmentId) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		if (equipmentId != null) {
 			Equipment instance = equipmentService.get(equipmentId);
 			root.put("equipment", instance);
-			root.put("accessories", accessoryService.find(Restrictions.eq("equipmentId", instance.getId()))); 
+			root.put("accessories", accessoryService.find(Restrictions.eq("equipmentId", instance.getId())));
 		}
 		return new ModelAndView("electr/equipment/detail/info", root);
 	}

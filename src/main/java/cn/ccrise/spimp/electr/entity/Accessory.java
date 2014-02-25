@@ -68,42 +68,18 @@ public class Accessory extends IDEntity {
 	/**
 	 * 说明书
 	 */
-	private UploadedFile instructions ;
-	@ManyToOne
-	public UploadedFile getInstructions() {
-		return instructions;
-	}
-
-	public void setInstructions(UploadedFile instructions) {
-		this.instructions = instructions;
-	}
-
-	public String getAccessoryName() {
-		return accessoryName;
-	}
-
-	public void setAccessoryName(String accessoryName) {
-		this.accessoryName = accessoryName;
-	}
+	private UploadedFile instructions;
 
 	public String getAccessoryLocation() {
 		return accessoryLocation;
 	}
 
-	public void setAccessoryLocation(String accessoryLocation) {
-		this.accessoryLocation = accessoryLocation;
-	}
-
-	public String getPictureURL() {
-		return pictureURL;
-	}
-
-	public void setPictureURL(String pictureURL) {
-		this.pictureURL = pictureURL;
-	}
-
 	public String getAccessoryModel() {
 		return accessoryModel;
+	}
+
+	public String getAccessoryName() {
+		return accessoryName;
 	}
 
 	public String getAccessoryNumber() {
@@ -112,6 +88,15 @@ public class Accessory extends IDEntity {
 
 	public Long getEquipmentId() {
 		return equipmentId;
+	}
+
+	@ManyToOne
+	public UploadedFile getInstructions() {
+		return instructions;
+	}
+
+	public String getPictureURL() {
+		return pictureURL;
 	}
 
 	public String getProducer() {
@@ -130,8 +115,16 @@ public class Accessory extends IDEntity {
 		return remark;
 	}
 
+	public void setAccessoryLocation(String accessoryLocation) {
+		this.accessoryLocation = accessoryLocation;
+	}
+
 	public void setAccessoryModel(String accessoryModel) {
 		this.accessoryModel = accessoryModel;
+	}
+
+	public void setAccessoryName(String accessoryName) {
+		this.accessoryName = accessoryName;
 	}
 
 	public void setAccessoryNumber(String accessoryNumber) {
@@ -140,6 +133,14 @@ public class Accessory extends IDEntity {
 
 	public void setEquipmentId(Long equipmentId) {
 		this.equipmentId = equipmentId;
+	}
+
+	public void setInstructions(UploadedFile instructions) {
+		this.instructions = instructions;
+	}
+
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
 	}
 
 	public void setProducer(String producer) {

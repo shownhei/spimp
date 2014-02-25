@@ -53,19 +53,21 @@ public class AccessoryController {
 	public Response page(Page<Accessory> page) {
 		return new Response(accessoryService.getPage(page));
 	}
-	@RequestMapping(value = "/electr/equipment/accessories/setpictureurl", method = RequestMethod.GET)
-	@ResponseBody
-	public Response setPicture(Long id,String pictureUrl) {
-		Accessory temp = accessoryService.get(id);
-		temp.setPictureURL(pictureUrl);
-		return new Response(accessoryService.save(temp));
-	}
+
 	@RequestMapping(value = "/electr/equipment/accessories", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(@Valid @RequestBody Accessory accessory) {
 		accessory.setRecordDate(new Date(System.currentTimeMillis()));
 		accessoryService.save(accessory);
 		return new Response(accessoryService.save(accessory));
+	}
+
+	@RequestMapping(value = "/electr/equipment/accessories/setpictureurl", method = RequestMethod.GET)
+	@ResponseBody
+	public Response setPicture(Long id, String pictureUrl) {
+		Accessory temp = accessoryService.get(id);
+		temp.setPictureURL(pictureUrl);
+		return new Response(accessoryService.save(temp));
 	}
 
 	@RequestMapping(value = "/electr/equipment/accessories/{id}", method = RequestMethod.PUT)

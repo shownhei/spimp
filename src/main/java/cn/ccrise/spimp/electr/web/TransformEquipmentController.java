@@ -73,27 +73,6 @@ public class TransformEquipmentController {
 	@Autowired
 	private TransformEquipmentService transformEquipmentService;
 
-	/**
-	 * 数据导入
-	 * @param httpSession
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/equipment/transform-equipments/test", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(HttpSession httpSession) {
-		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
-		String fileName=templateFoldPath + "/WEB-INF/resources/template/机电机运队设备统计台帐2013.10.xls";
-		try {
-			transformEquipmentService.importFormExcel(fileName);
-		} catch (ParsePropertyException e) {
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new Response(true);
-	}
 	@RequestMapping(value = "/electr/equipment/transform-equipments/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
@@ -329,7 +308,7 @@ public class TransformEquipmentController {
 							row.getCell(tensioningStartCol + 1).setCellValue(tensioning.getDeviceName());
 							row.getCell(tensioningStartCol + 2).setCellValue(tensioning.getDeviceModel());
 							row.getCell(tensioningStartCol + 3).setCellValue(tensioning.getDeviceNumber());
-							if(tensioning.getProductionDate()!=null){
+							if (tensioning.getProductionDate() != null) {
 								row.getCell(tensioningStartCol + 4).setCellValue(tensioning.getProductionDate());
 							}
 							row.getCell(tensioningStartCol + 5).setCellValue(tensioning.getProducer());
@@ -364,6 +343,29 @@ public class TransformEquipmentController {
 
 				});
 
+	}
+
+	/**
+	 * 数据导入
+	 * 
+	 * @param httpSession
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/equipment/transform-equipments/test", method = RequestMethod.GET)
+	@ResponseBody
+	public Response get(HttpSession httpSession) {
+		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
+		String fileName = templateFoldPath + "/WEB-INF/resources/template/机电机运队设备统计台帐2013.10.xls";
+		try {
+			transformEquipmentService.importFormExcel(fileName);
+		} catch (ParsePropertyException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Response(true);
 	}
 
 	@RequestMapping(value = "/electr/equipment/transform-equipments/{id}", method = RequestMethod.GET)

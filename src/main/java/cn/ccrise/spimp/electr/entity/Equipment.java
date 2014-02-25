@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
+
 /**
  * 设备管理-设备台账。
  * <p>

@@ -75,14 +75,13 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("机电管理", "car_carCategory", "车辆分类");
 		dicitonaryTypeService.save("机电管理", "equipment_maintenance_project", "设备检修计划项目");
 		dicitonaryTypeService.save("机电管理", "reminder_setting_project", "定期检修设置-项目");
-		
+
 		dicitonaryTypeService.save("机电管理", "equipment_device_class", "设备分类");
 		dicitonaryTypeService.save("机电管理", "equipment_deviceCategory", "设备种类");
 		dicitonaryTypeService.save("机电管理", "equipment_deviceType", "设备类型");
 		dicitonaryTypeService.save("机电管理", "equipment_serviceEnvironment", "使用环境");
 		dicitonaryTypeService.save("机电管理", "equipment_deviceArea", "所属区域");
 		dicitonaryTypeService.save("机电管理", "equipment_stowedPosition", "存放地点");
-		
 
 		// 安全生产管理
 		dicitonaryTypeService.save("安全生产管理", "schedule_coal_type", "煤种");
@@ -100,125 +99,114 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("安全生产管理", "schedule_wellheads", "井口");
 		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
 		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
-		//事故类型
-		String accidentCategories[]={"顶板事故","瓦斯事故","机电事故","放炮事故","火灾事故","水害事故"};
+		// 事故类型
+		String accidentCategories[] = { "顶板事故", "瓦斯事故", "机电事故", "放炮事故", "火灾事故", "水害事故" };
 		for (String element : accidentCategories) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("accident_category");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//事故严重程度 accident_level
-		String accidentLevels[]={"特别重大事故","重大事故","较大事故","一般事故"};
+		// 事故严重程度 accident_level
+		String accidentLevels[] = { "特别重大事故", "重大事故", "较大事故", "一般事故" };
 		for (String element : accidentLevels) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("accident_level");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//应急预案种类plan_type
-		String planTypes[]={"瓦斯突出事故应急预案","火灾事故应急预案","水害事故应急预案","综合预案"};
+		// 应急预案种类plan_type
+		String planTypes[] = { "瓦斯突出事故应急预案", "火灾事故应急预案", "水害事故应急预案", "综合预案" };
 		for (String element : planTypes) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("plan_type");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//专业领域expertise_area
-		String expertiseArea[]={"采矿专业","机电专业","通风安全","地质专业"};
-		for (String element : expertiseArea) { 
+		// 专业领域expertise_area
+		String expertiseArea[] = { "采矿专业", "机电专业", "通风安全", "地质专业" };
+		for (String element : expertiseArea) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("expertise_area");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
-		}		
-		//事故响应级别 response_level
-		String responseLevels[]={"Ⅰ级响应","Ⅱ级响应","Ⅲ级响应","Ⅳ级响应","Ⅴ级响应"};
+		}
+		// 事故响应级别 response_level
+		String responseLevels[] = { "Ⅰ级响应", "Ⅱ级响应", "Ⅲ级响应", "Ⅳ级响应", "Ⅴ级响应" };
 		for (String element : responseLevels) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("response_level");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//避险场所种类 refuge_type
-		String refugeTypes[]={"移动式救生舱","避难硐室"};
+		// 避险场所种类 refuge_type
+		String refugeTypes[] = { "移动式救生舱", "避难硐室" };
 		for (String element : refugeTypes) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("refuge_type");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//应急保障机构类型 organization_type
-		String organizationType[]={"医疗","消防"};
+		// 应急保障机构类型 organization_type
+		String organizationType[] = { "医疗", "消防" };
 		for (String element : organizationType) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("organization_type");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
-		}		
-		//设备台账---设备分类
-		String deviceClass[]={"电器设备","运输设备","脚轮运输","压风供水自救装置","消防器材装置"};
+		}
+		// 设备台账---设备分类
+		String deviceClass[] = { "电器设备", "运输设备", "脚轮运输", "压风供水自救装置", "消防器材装置" };
 		for (String element : deviceClass) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_device_class");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//设备台账---设备种类
-		String deviceCategory[]={"安全交通灯","变频器","低压开关","电动机","高压开关","集控设备","流量计","滤波器","排水设施","配电柜","通风设施","压风设施"};
+		// 设备台账---设备种类
+		String deviceCategory[] = { "安全交通灯", "变频器", "低压开关", "电动机", "高压开关", "集控设备", "流量计", "滤波器", "排水设施", "配电柜", "通风设施",
+				"压风设施" };
 		for (String element : deviceCategory) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_deviceCategory");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//设备台账---设备类型
-		String deviceType[]={"35KV柜","380V配电柜","660V配电柜","6KV柜","LED屏","按钮","变频电动机","传感器","灯箱"
-				,"低压变频器","电源箱","干式变压器","高爆"
-				,"高压变频器","功率补偿柜","管道泵","检修设备","控制柜"
-				,"控制箱","馈电开关","离心式水泵","流量记传感器","流量计主机"
-				,"启动器","潜水式水泵","软起动器","输出滤波器","输入滤波器"
-				,"双电源开关"
-				,"显示控制箱","消弧柜","压风机","一般电动机","移变"
-				,"浸油式变压器","在线检测柜","渣浆泵","照明综保","整流柜"
-				,"直流屏","制动器","制冷机","主机","主通风机","自动排水系统",
-				"自动长进开关"};
+		// 设备台账---设备类型
+		String deviceType[] = { "35KV柜", "380V配电柜", "660V配电柜", "6KV柜", "LED屏", "按钮", "变频电动机", "传感器", "灯箱", "低压变频器",
+				"电源箱", "干式变压器", "高爆", "高压变频器", "功率补偿柜", "管道泵", "检修设备", "控制柜", "控制箱", "馈电开关", "离心式水泵", "流量记传感器",
+				"流量计主机", "启动器", "潜水式水泵", "软起动器", "输出滤波器", "输入滤波器", "双电源开关", "显示控制箱", "消弧柜", "压风机", "一般电动机", "移变",
+				"浸油式变压器", "在线检测柜", "渣浆泵", "照明综保", "整流柜", "直流屏", "制动器", "制冷机", "主机", "主通风机", "自动排水系统", "自动长进开关" };
 		for (String element : deviceType) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_deviceType");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//设备台账---使用环境
-		String []serviceEnvironment={"地面","井下"};
+		// 设备台账---使用环境
+		String[] serviceEnvironment = { "地面", "井下" };
 		for (String element : serviceEnvironment) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_serviceEnvironment");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//设备台账---所属区域
-		String deviceArea[]={"中央变电所", "压风机房", "1＃皮带", "避难硐室", "7＃皮带", 
-				"污水站", "主井", "", "中央水泵房", "35KV变电站", "副井", "630溜槽", "2＃配电点", "开拓变电所",
-				"5＃皮带", "锅炉房", "胶轮运输巷", "主提升皮带", "主扇", "南翼配电点", "6＃皮带"};
+		// 设备台账---所属区域
+		String deviceArea[] = { "中央变电所", "压风机房", "1＃皮带", "避难硐室", "7＃皮带", "污水站", "主井", "", "中央水泵房", "35KV变电站", "副井",
+				"630溜槽", "2＃配电点", "开拓变电所", "5＃皮带", "锅炉房", "胶轮运输巷", "主提升皮带", "主扇", "南翼配电点", "6＃皮带" };
 		for (String element : deviceArea) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_deviceArea");
 			dic.setItemName(element);
 			dictionaryService.save(dic);
 		}
-		//设备台账---存放地点
-		String stowedPosition[]={"1＃驱动处", "1#皮带机头", "主井变压器室", "主提升变频室", "6＃皮带机尾处234#H架", "6KV配电室", "材料巷口", "1＃机尾", "平硐口", "630溜槽机头", "消防材料库", "旧消防材料库", "2#排水点", "南翼水仓", 
-				"1＃避难硐室", "7＃皮带机头", "锅炉房配电点", "1＃配电点",
-				"3＃调车硐室", "自动补偿柜室", "压风机房", "值班室内", "新消防材料库",
-				"5＃皮带机头", "开拓变电所", "风水管路539＃", 
-				"1#皮带机电硐室", "1#排水点", "7＃皮带56＃H架",
-				"3＃避难硐室", "主扇配电室", "副井配电点", "1＃皮带机头", 
-				"主提升皮带机头", "绞车房", "35KV配电室", "材料巷口处", 
-				"消弧柜室", "主井配电室", "中央水泵房", "35KV变电站",
-				"2＃配电点", "平硐3＃躲避硐", "6＃皮带机头", "主扇", "增压泵处",
-				"中央变电所", "2＃避难硐室", "控制室", "3＃排水点", "主提升原值班室",
-				"主提升皮带机尾", "2＃驱动处", "南翼配电点"};
+		// 设备台账---存放地点
+		String stowedPosition[] = { "1＃驱动处", "1#皮带机头", "主井变压器室", "主提升变频室", "6＃皮带机尾处234#H架", "6KV配电室", "材料巷口", "1＃机尾",
+				"平硐口", "630溜槽机头", "消防材料库", "旧消防材料库", "2#排水点", "南翼水仓", "1＃避难硐室", "7＃皮带机头", "锅炉房配电点", "1＃配电点", "3＃调车硐室",
+				"自动补偿柜室", "压风机房", "值班室内", "新消防材料库", "5＃皮带机头", "开拓变电所", "风水管路539＃", "1#皮带机电硐室", "1#排水点", "7＃皮带56＃H架",
+				"3＃避难硐室", "主扇配电室", "副井配电点", "1＃皮带机头", "主提升皮带机头", "绞车房", "35KV配电室", "材料巷口处", "消弧柜室", "主井配电室", "中央水泵房",
+				"35KV变电站", "2＃配电点", "平硐3＃躲避硐", "6＃皮带机头", "主扇", "增压泵处", "中央变电所", "2＃避难硐室", "控制室", "3＃排水点", "主提升原值班室",
+				"主提升皮带机尾", "2＃驱动处", "南翼配电点" };
 		for (String element : stowedPosition) {
 			Dictionary dic = new Dictionary();
 			dic.setTypeCode("equipment_stowedPosition");
@@ -401,7 +389,7 @@ public class InitService extends DataInitAbstractService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/jdd/daily/plan", jddDaily, "", i++);
 		i = 1;
-		String routine=resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/routine", HttpMethod.GET);
+		String routine = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/routine", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/jdd/routine/reward", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/jdd/routine/picture", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/jdd/routine/summary", routine, "", i++);
@@ -419,14 +407,19 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/jdd/equipment/alert", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/jdd/equipment/settings", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
-		//equipment-ledger
-		String jddEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment-ledger", HttpMethod.GET);
+		// equipment-ledger
+		String jddEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment-ledger",
+				HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/jdd/equipment-ledger/detail", jddEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/jdd/equipment-ledger/transform", jddEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/jdd/equipment-ledger/wind-water", jddEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/jdd/equipment-ledger/fire-fighting", jddEquipmentLedger, "", i++);
-		
+		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/jdd/equipment-ledger/detail", jddEquipmentLedger, "",
+				i++);
+		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/jdd/equipment-ledger/transform", jddEquipmentLedger,
+				"", i++);
+		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/jdd/equipment-ledger/wind-water",
+				jddEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/jdd/equipment-ledger/fire-fighting",
+				jddEquipmentLedger, "", i++);
+
 		String jddMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/jdd/maintenance/daily", jddMaintenance, "", i++);
@@ -458,7 +451,7 @@ public class InitService extends DataInitAbstractService {
 		i = 1;
 		String safe = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/safe", HttpMethod.GET);
 		resourceEntityServiceImpl.saveMenuResource("派工单管理", "/spmi/zcd/safe/plan", safe, "", i++);
-		
+
 		String zcdMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/material", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("采购计划", "/spmi/zcd/material/plan", zcdMaterial, "", i++);
@@ -466,14 +459,19 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("入库管理", "/spmi/zcd/material/stock-putin", zcdMaterial, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("出库管理", "/spmi/zcd/material/stock-sendout", zcdMaterial, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("配件统计", "/spmi/zcd/material/statistics", zcdMaterial, "", i++);
-		
-		String zcdEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/equipment-ledger", HttpMethod.GET);
+
+		String zcdEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/equipment-ledger",
+				HttpMethod.GET);
 		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/zcd/equipment-ledger/detail", zcdEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/zcd/equipment-ledger/transform", zcdEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/zcd/equipment-ledger/wind-water", zcdEquipmentLedger, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/zcd/equipment-ledger/fire-fighting", zcdEquipmentLedger, "", i++);
-		
+		resourceEntityServiceImpl.saveMenuResource("电器设备", "/spmi/zcd/equipment-ledger/detail", zcdEquipmentLedger, "",
+				i++);
+		resourceEntityServiceImpl.saveMenuResource("运输设备", "/spmi/zcd/equipment-ledger/transform", zcdEquipmentLedger,
+				"", i++);
+		resourceEntityServiceImpl.saveMenuResource("压风供水自救设备", "/spmi/zcd/equipment-ledger/wind-water",
+				zcdEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/zcd/equipment-ledger/fire-fighting",
+				zcdEquipmentLedger, "", i++);
+
 		String zcdEquipment = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/equipment", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("检修计划", "/spmi/zcd/equipment/plan", zcdEquipment, "", i++);
@@ -627,7 +625,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("人员管理", "/spmi/jdd/staff", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备管理", "/spmi/jdd/equipment", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("设备台账", "/spmi/jdd/equipment-ledger", jdd, "", i++);
-//		resourceEntityServiceImpl.saveMenuResource("岗位管理", "/spmi/jdd/post", jdd, "", i++);
+		// resourceEntityServiceImpl.saveMenuResource("岗位管理", "/spmi/jdd/post",
+		// jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("维修保养", "/spmi/jdd/maintenance", jdd, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/spmi/jdd/car", jdd, "", i++);
 

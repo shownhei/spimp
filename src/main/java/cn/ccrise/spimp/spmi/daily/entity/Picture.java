@@ -6,7 +6,6 @@ package cn.ccrise.spimp.spmi.daily.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,7 +15,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
-import cn.ccrise.spimp.ercs.entity.UploadedFile;
 
 /**
  * Picture。
