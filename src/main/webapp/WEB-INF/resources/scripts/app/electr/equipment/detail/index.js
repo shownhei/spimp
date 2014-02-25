@@ -407,7 +407,7 @@ define(function(require, exports, module) {
 		var parent = el.parent();
 		var b1 = el.is('td') && (el.attr('dataType') === 'showRemark');
 		var b2 = el.is('div') && parent.is('td') && (parent.attr('dataType') === 'showRemark');
-		if (!(b1 || b1)) {
+		if (!(b1 || b2)) {
 			$('#show_tips').hide();
 		}
 	};

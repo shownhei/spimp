@@ -6,28 +6,75 @@
 <title>首页 - 安全生产综合管理平台</title>
 <%@ include file="common/head.jsp"%>
 <%@ include file="common/template.jsp"%>
+<script src="${resources}/scripts/app/common/echarts-plain.js" type="text/javascript"></script>
 </head>
 <body class="navbar-fixed breadcrumbs-fixed">
 	<%@ include file="common/navbar.jsp"%>
 	<div class="main-container container-fluid">
 		<%@ include file="common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="breadcrumbs fixed" id="breadcrumbs"></div>
+			<div class="breadcrumbs fixed" id="breadcrumbs">
+				<ul class="breadcrumb">
+					<li>
+						<i class="icon-home home-icon"></i>
+						<a href="/">仪表盘</a>
+					</li>
+				</ul>
+			</div>
 			<div class="page-content">
-				<div class="page-header position-relative">
-					<h1></h1>
+				<div class="row-fluid">
+					<div class="span6">
+						<div class="widget-box">
+							<div class="widget-header widget-header-flat widget-header-small">
+								<h5>
+									<i class="icon-info"></i> 信息统计
+								</h5>
+							</div>
+							<div class="widget-body">
+								<div id="infobox" class="widget-main infobox-container"></div>
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="widget-box">
+							<div class="widget-header widget-header-flat widget-header-small">
+								<h5>
+									<i class="icon-signal"></i>
+									<span id="chart1-title"></span>
+								</h5>
+							</div>
+							<div class="widget-body">
+								<div id="chart1" class="widget-main"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12">
-						<button id="spmi" class="btn btn-app btn-success">
-							<i class="icon-wrench bigger-230"></i> 安全生产管理
-						</button>
-						<button id="ercs" class="btn btn-app btn-primary">
-							<i class="icon-medkit bigger-230"></i> 应急救援指挥
-						</button>
-						<button id="system" class="btn btn-app btn-default">
-							<i class="icon-cogs bigger-230"></i> 系统管理
-						</button>
+					<div class="span6">
+						<div class="widget-box">
+							<div class="widget-header widget-header-flat widget-header-small">
+								<h5>
+									<i class="icon-signal"></i>
+									<span id="chart2-title"></span>
+								</h5>
+							</div>
+							<div class="widget-body">
+								<div id="chart2" class="widget-main"></div>
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="widget-box">
+							<div class="widget-header widget-header-flat widget-header-small">
+								<h5>
+									<i class="icon-signal"></i>
+									<span id="chart3-title"></span>
+								</h5>
+							</div>
+							<div class="widget-body">
+								<div id="chart3" class="widget-main"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

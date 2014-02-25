@@ -51,3 +51,16 @@
 </li>
 {{/each}}
 </script>
+<script id="infobox-template" type="text/x-handlebars-template">
+{{#each data}}
+<div class="infobox {{color}}" style="width: 45%">
+	<div class="infobox-icon">
+		<i class="{{icon}}"></i>
+	</div>
+	<div class="infobox-data">
+		<span class="infobox-data-number">{{value}}</span>
+		<div class="infobox-content">{{content}} <a href="{{link}}"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></a></div>
+	</div>
+</div>
+{{/each}}
+</script>
