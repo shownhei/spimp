@@ -54,7 +54,6 @@ public class InitService extends DataInitAbstractService {
 	@Override
 	public void initCustomData() {
 		// 人员管理
-		dicitonaryTypeService.save("人员管理", "system_education", "文化程度");
 		dicitonaryTypeService.save("人员管理", "system_duty", "职务职称");
 		dicitonaryTypeService.save("人员管理", "system_post", "岗位");
 
@@ -101,6 +100,62 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("安全生产管理", "schedule_wellheads", "井口");
 		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
 		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
+		//事故类型
+		String accidentCategories[]={"顶板事故","瓦斯事故","机电事故","放炮事故","火灾事故","水害事故"};
+		for (String element : accidentCategories) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("accident_category");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
+		//事故严重程度 accident_level
+		String accidentLevels[]={"特别重大事故","重大事故","较大事故","一般事故"};
+		for (String element : accidentLevels) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("accident_level");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
+		//应急预案种类plan_type
+		String planTypes[]={"瓦斯突出事故应急预案","火灾事故应急预案","水害事故应急预案","综合预案"};
+		for (String element : planTypes) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("plan_type");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
+		//专业领域expertise_area
+		String expertiseArea[]={"采矿专业","机电专业","通风安全","地质专业"};
+		for (String element : expertiseArea) { 
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("expertise_area");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}		
+		//事故响应级别 response_level
+		String responseLevels[]={"Ⅰ级响应","Ⅱ级响应","Ⅲ级响应","Ⅳ级响应","Ⅴ级响应"};
+		for (String element : responseLevels) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("response_level");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
+		//避险场所种类 refuge_type
+		String refugeTypes[]={"移动式救生舱","避难硐室"};
+		for (String element : refugeTypes) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("refuge_type");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
+		//应急保障机构类型 organization_type
+		String organizationType[]={"医疗","消防"};
+		for (String element : organizationType) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("organization_type");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}		
 		//设备台账---设备分类
 		String deviceClass[]={"电器设备","运输设备","脚轮运输","压风供水自救装置","消防器材装置"};
 		for (String element : deviceClass) {
@@ -182,7 +237,7 @@ public class InitService extends DataInitAbstractService {
 		for (String education : educations) {
 			Dictionary dictionary = new Dictionary();
 			dictionary.setItemName(education);
-			dictionary.setTypeCode("system_education");
+			dictionary.setTypeCode("education_level");
 			dictionaryService.save(dictionary);
 		}
 		// 职务职称
