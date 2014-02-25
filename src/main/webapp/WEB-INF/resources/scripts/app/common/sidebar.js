@@ -30,14 +30,15 @@ define(function(require, exports, module) {
 			var offsetTop = activeMenu.offset().top - $('.nav-list').offset().top - 40;
 			$('#sidebar>.nav>li.active>.submenu').scrollTop(offsetTop);
 		}
+
+		reDrawVerticalLine();
 	});
 
 	function handleSubmenuHeight() {
-		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li:not(.active)').outerHeight()
-				* $('.nav-list>li').length;
+		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li:not(.active)').outerHeight() * $('.nav-list>li').length;
 		$('.nav-list > li > .submenu').css({
-			'max-height' : height,
-			'overflow-y' : 'auto'
+			'max-height': height,
+			'overflow-y': 'auto'
 		});
 	}
 
@@ -91,8 +92,18 @@ define(function(require, exports, module) {
 			if (isMin && $(d.parentNode.parentNode).hasClass('nav-list')) {
 				return false;
 			}
-			$(d).slideToggle(200).parent().toggleClass('open');
+			$(d).slideToggle(200, reDrawVerticalLine).parent().toggleClass('open');
 			return false;
 		});
 	}
+
+	//计算左边竖线的高度,生成新的样式
+	function reDrawVerticalLine() {
+		var height = 0;
+		$('#sidebar>.nav>li.open>.submenu>li').each(function(i, li) {
+			height += $(li).height();
+		});
+		$('<style>.nav-list>li>.submenu:before{height:' + height + 'px}</style>').appendTo('head');
+	}
+
 });
