@@ -33,13 +33,12 @@ public class Picture extends IDEntity {
 	/**
 	 * 附件
 	 */
-	private UploadedFile attachment;
+	private String attachment;
 	// 非持久化属性
 	private String uploader; // 上传人
 	private Long groupId;// 所属机构ID
 
-	@ManyToOne
-	public UploadedFile getAttachment() {
+	public String getAttachment() {
 		return attachment;
 	}
 
@@ -66,7 +65,7 @@ public class Picture extends IDEntity {
 		return uploadTime;
 	}
 
-	public void setAttachment(UploadedFile attachment) {
+	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
 

@@ -53,7 +53,11 @@ public class InitErcsService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("救援人员", "/ercs/staff-index/staff", staff, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("救援专家", "/ercs/staff-index/specia-list", staff, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("应急保障机构", "/ercs/staff-index/safegard-org", staff, "", i++);
+		//应急机构
+		String organization = resourceEntityServiceImpl.getDefaultIdentifier("/ercs/organization", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("矿外应急机构", "/ercs/organization/safegard-org", organization, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("矿内应急机构", "/ercs/organization/organization", organization, "", i++);
 	}
 
 	/**

@@ -166,10 +166,6 @@ define(function(require, exports, module) {
 			errorMsg.push('操作类型为数字格式');
 		}
 
-		if (model.operator === '') {
-			errorMsg.push('请输入经办人');
-		}
-
 		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;

@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
+	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 
 	// 提示信息
 	$('button[title]').tooltip({

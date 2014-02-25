@@ -92,7 +92,7 @@ div.imgFrame:hover div {
 		</div>
 	</div>
 	<!-- 新建 -->
-	<div id="create-modal" class="modal modal-sm hide">
+	<div id="create-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
@@ -146,7 +146,7 @@ div.imgFrame:hover div {
 		</div>
 	</div>
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal modal-xs hide">
+	<div id="remove-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">

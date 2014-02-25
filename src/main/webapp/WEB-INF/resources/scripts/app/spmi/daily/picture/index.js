@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 			htmlP += "<li>";
 			htmlP += "<div class='span12 imgFrame'  style='position:relative'>";
 			// ID是机构ID，fileID是附件ID
-			htmlP += "<input type='text' value=" + id + " data-id=" + fileId + " style='display:none'>";
+			htmlP += "<input type='text' value=" + id + " data-id=" + id + " style='display:none'>";
 			// 附件路径和名称
 			htmlP += "<img  src=" + path + " width='100%' data-id=" + name + " class='img-polaroid' >";
 			htmlP += "<div class='imgContent' style='position:absolute;left:47px;bottom:5px;'>";
@@ -78,11 +78,10 @@ define(function(require, exports, module) {
 				for (var i = (j - 1) * 4; i < j * 4; i++) {
 					var path = "";
 					if (i < data.data.result.length) {
-						path = data.data.result[i].attachment.filePath;
-						fileId = data.data.result[i].attachment.id;
+						path = data.data.result[i].attachment;
 						id = data.data.result[i].id;
 						name = data.data.result[i].name;
-						picture(path, i % 4 + 1, id, fileId, name);
+						picture(path, i % 4 + 1, id, null, name);
 					}
 				}
 			}
@@ -188,12 +187,8 @@ define(function(require, exports, module) {
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
-		var attachment = {
-			id : $('#attachment').attr('data-id'),
-			name : object.filePath
-		};
-		object.attachment = attachment;
 		object.groupId = groupTree.getSelectedNodes()[0].id;
+		console.log(object);
 		// 验证
 		if (object.name === '') {
 			Utils.modal.message('create', [ '图片不能为空' ]);
@@ -387,11 +382,12 @@ define(function(require, exports, module) {
 			return false;
 		} else {
 			var attachment = $('#attachment');
-			attachment.val(data.data.filePath);
-			attachment.attr('data-id', data.data.id);
+			attachment.val(data.data);
 			$('#create-file-form').hide();
 			attachment.parent().parent().show();
 			$('#create-save').removeClass('disabled');
+			$('#create-save').trigger('click');
+			
 		}
 	}
 	window.callBack = callBack;

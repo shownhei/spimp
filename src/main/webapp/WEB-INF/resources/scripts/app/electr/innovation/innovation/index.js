@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	var loadDetail = function(id) {
+		window.innovationId=id;
 		$('#detail-panel').html('');
 		$.ajax({
 			type : 'get',
@@ -302,4 +303,35 @@ define(function(require, exports, module) {
 		}
 	}
 	window.callBack=callBack;
+	//删除图片
+	//removeImg
+	$(document).mouseover(function(event) {
+		var el = $(event.target);
+		var dataType = el.attr('data-type');
+		if(dataType==='detail-image'){
+			el.parent().find("a").show();
+		}
+	});
+	$(document).mouseout(function(event) {
+		var el = $(event.target);
+		var dataType = el.attr('data-type');
+		if(dataType==='detail-image'){
+			el.parent().find("a").hide();
+		}
+	});
+	$(document).click(function(event) {
+		var el = $(event.target);
+		var dataType = el.attr('data-type');
+		if(dataType==='removeImg'){
+			var dataId = el.attr('data-id');
+			$.ajax({
+				type: "delete", 
+				url : "/electr/innovation/innovation-images/"+dataId,
+				dataType:'json',
+				success: function(json){
+					loadDetail(window.innovationId);
+				} 
+			}); 
+		}
+	});
 });

@@ -82,7 +82,7 @@
 						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="create_remark" name="remark" type="text">
+								<input id="create_remark" name="remark" type="text" value="无">
 							</div>
 						</div>
 						<input name="opertionType" type="hidden" value=1>

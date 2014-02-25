@@ -4,13 +4,13 @@
 <html>
 <head>
 <title>应急机构管理 - 安全生产综合管理平台</title>
-<%@ include file="../../common/head.jsp"%>
-<%@ include file="../../common/template.jsp"%>
+<%@ include file="../../../common/head.jsp"%>
+<%@ include file="../../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../common/navbar.jsp"%>
+	<%@ include file="../../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../common/sidebar.jsp"%>
+		<%@ include file="../../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar"></div>
 			<div class="page-content">
@@ -235,7 +235,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/ercs/organization/index');
+		seajs.use('${resources}/scripts/app/ercs/organization/organization/index');
 	</script>
 </body>
 </html>
