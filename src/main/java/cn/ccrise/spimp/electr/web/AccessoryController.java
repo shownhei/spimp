@@ -22,6 +22,7 @@ import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.Accessory;
 import cn.ccrise.spimp.electr.service.AccessoryService;
 import cn.ccrise.spimp.electr.service.EquipmentService;
+import cn.ccrise.spimp.ercs.service.UploadedFileService;
 
 /**
  * Accessory Controller。
@@ -35,6 +36,8 @@ public class AccessoryController {
 	private EquipmentService equipmentService;
 	@Autowired
 	private AccessoryService accessoryService;
+	@Autowired
+	private UploadedFileService uploadedFileService;
 
 	@RequestMapping(value = "/electr/equipment/accessories/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
@@ -73,6 +76,14 @@ public class AccessoryController {
 	@RequestMapping(value = "/electr/equipment/accessories/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Response update(@Valid @RequestBody Accessory accessory, @PathVariable long id) {
+		return new Response(accessoryService.update(accessory));
+	}
+
+	@RequestMapping(value = "/electr/equipment/accessories/setinstructions", method = RequestMethod.GET)
+	@ResponseBody
+	public Response modify(Long accessoryId, Long uploadFileId) {
+		Accessory accessory = accessoryService.findUniqueBy("id", accessoryId);
+		accessory.setInstructions(uploadedFileService.findUniqueBy("id", uploadFileId));
 		return new Response(accessoryService.update(accessory));
 	}
 }

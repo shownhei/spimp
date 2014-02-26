@@ -253,7 +253,12 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 			cell = row.getCell(colIndex++);
 			cell = row.getCell(colIndex++);
 			if (cell != null) {
-				raw.setProductionDate(new Date(cell.getDateCellValue().getTime()));// 出厂日期
+				int cellType = cell.getCellType();
+				if (cellType == Cell.CELL_TYPE_STRING) {
+					//raw.setDeviceNumber(String.valueOf(cell.getNumericCellValue()));// 出厂日期
+				} else if (cellType == Cell.CELL_TYPE_NUMERIC) {
+					raw.setProductionDate(new Date(cell.getDateCellValue().getTime()));// 出厂日期
+				}
 			}
 			cell = row.getCell(colIndex++);
 			if (cell != null) {
