@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,9 @@ public class UploadController {
 	private LogEntityServiceImpl logEntityServiceImpl;
 
 	@RequestMapping(value = "/simpleupload", method = RequestMethod.POST)
-	public void simpleUpload(@RequestParam MultipartFile file, HttpSession httpSession, HttpServletResponse response,
+	public void simpleUpload(@RequestParam MultipartFile file,String callBackFunction, HttpSession httpSession, HttpServletResponse response,
 			final String uploadPath) throws IOException {
+		String callBack=StringUtils.isBlank(callBackFunction)?"callBack":callBackFunction;
 		// 生成文件路径
 		String filePath = generatePath(file);
 
@@ -86,7 +88,7 @@ public class UploadController {
 			// 设置响应
 			response.setContentType("text/html");
 			response.getWriter().write(
-					"<script>parent.callBack("
+					"<script>parent."+callBack+"("
 							+ JSON.toJSONString(new Response(new String(
 									(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
 			response.flushBuffer();
@@ -102,7 +104,7 @@ public class UploadController {
 			Response falseResponse = new Response();
 			falseResponse.setSuccess(false);
 			falseResponse.setData(e.getMessage());
-			response.getWriter().write("<script>parent.callBack(" + JSON.toJSONString(falseResponse) + ")</script>");
+			response.getWriter().write("<script>parent."+callBack+"(" + JSON.toJSONString(falseResponse) + ")</script>");
 			response.flushBuffer();
 			return;
 		}
@@ -112,7 +114,7 @@ public class UploadController {
 		response.setContentType("text/html");
 
 		response.getWriter().write(
-				"<script>parent.callBack(" + JSON.toJSONString(new Response(instance)) + ")</script>");
+				"<script>parent."+callBack+"(" + JSON.toJSONString(new Response(instance)) + ")</script>");
 		response.flushBuffer();
 	}
 

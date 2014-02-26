@@ -112,17 +112,18 @@
 							</td>
 							
 							<c:if test="${empty data.instructions}">
-								<td buttonType="upload">
+								<td buttonType="upload-instructions">
 									<button class="btn btn-small btn-success" data-id="${data.id}"
-										buttonType="upload">
+										buttonType="upload-instructions">
 										<i class="icon-upload bigger-120" data-id="${data.id}"
-											buttonType="upload"></i>
+											buttonType="upload-instructions"></i>
 									</button>
 							</c:if>
 							<c:if test="${!empty data.instructions}">
 								<td dataType="showRemark">
 									<div
-										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.instructions}</div>
+										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">
+										<a href="javascript:void(0)" elType="showDocument" data-id="${data.instructions.id}" >${data.instructions.simpleName}</a></div>
 							</c:if>
 							</td>
 							<td><button class="btn btn-small btn-danger"

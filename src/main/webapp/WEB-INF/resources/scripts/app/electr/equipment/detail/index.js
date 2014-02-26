@@ -416,6 +416,11 @@ define(function(require, exports, module) {
 		var el = $(event.target);
 		closeTips(el);
 		var elType = el.attr('elType');
+		if(el.is('a')&&elType==='showDocument'){
+			$('#showDocument').attr('src', '/ercs/view-pdf/' + el.attr('data-id') + "?t=" + new Date().getTime());
+			Utils.modal.show('view');
+			return;
+		}
 		var temp = el;
 		if (elType === 'tab') {
 			while (!temp.is('li')) {
@@ -435,6 +440,13 @@ define(function(require, exports, module) {
 			accessoryId = el.attr('data-id');
 			Utils.modal.reset('upload');
 			Utils.modal.show('upload');
+			$('#create-file-form')[0].reset();
+			$('#create-file-form').show();
+		}
+		if (buttonType === 'upload-instructions') {
+			accessoryId = el.attr('data-id');
+			Utils.modal.reset('upload-instructions');
+			Utils.modal.show('upload-instructions');
 			$('#create-file-form')[0].reset();
 			$('#create-file-form').show();
 		}
@@ -467,6 +479,7 @@ define(function(require, exports, module) {
 	});
 	var accessoryId = '';
 	function callBack(data) {
+		alert('callBack');
 		window.process.stop();
 		window.process = null;
 		if (!data.success) {
@@ -482,4 +495,25 @@ define(function(require, exports, module) {
 	}
 	window.callBack = callBack;
 	loadMaintenance(null);
+	//数据导入
+	$('#upload_data_file').bind('change',function(){
+		$('#upload-data-form').submit();
+	});
+	//上传说明书 
+	$('#upload-instructions-file').bind('change',function(){
+		$('#upload-instructions-form').submit();
+	});
+	//上传说明书回调
+	var uploadInstructionsCallback=function(data){
+		$.ajax({
+			type : 'get',
+			data : "accessoryId="+accessoryId+"&uploadFileId="+data.data.id,
+			dataType : 'text',
+			url : '/electr/equipment/accessories/setinstructions',
+			success : function(data) {
+				Utils.modal.hide('upload-instructions');
+			}
+		});
+	};
+	window.uploadInstructionsCallback=uploadInstructionsCallback;
 });
