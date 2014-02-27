@@ -3,6 +3,9 @@
  */
 package cn.ccrise.spimp.electr.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +18,8 @@ import javax.validation.Valid;
 
 import net.sf.jxls.exception.ParsePropertyException;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -34,8 +39,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Strings;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.PropertiesUtils;
@@ -52,6 +62,7 @@ import cn.ccrise.spimp.electr.service.ReducerDeviceService;
 import cn.ccrise.spimp.electr.service.TensioningDeviceService;
 import cn.ccrise.spimp.electr.service.TransformEquipmentService;
 import cn.ccrise.spimp.system.entity.Account;
+import cn.ccrise.spimp.system.web.UploadController;
 import cn.ccrise.spimp.util.ExcelCallBackInteface;
 import cn.ccrise.spimp.util.ExcelHelper;
 
@@ -344,20 +355,41 @@ public class TransformEquipmentController {
 				});
 
 	}
-
 	/**
-	 * 数据导入
-	 * 
+	 * 运输设备导入过程
+	 * @param file
+	 * @param callBackFunction
 	 * @param httpSession
-	 * @return
+	 * @param response
+	 * @param uploadPath
+	 * @throws IOException
 	 */
-	@RequestMapping(value = "/electr/equipment/transform-equipments/test", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(HttpSession httpSession) {
-		String templateFoldPath = httpSession.getServletContext().getRealPath("/");
-		String fileName = templateFoldPath + "/WEB-INF/resources/template/机电机运队设备统计台帐2013.10.xls";
+	@RequestMapping(value = "/electr/equipment/transform-equipments/upload", method = RequestMethod.POST)
+	public void upload(@RequestParam MultipartFile file,String callBackFunction, HttpSession httpSession, HttpServletResponse response,
+			final String uploadPath) throws IOException {
+		// 生成文件路径
+		String filePath = generatePath(file);
+
+		String defaultUploadPath=null;
+		// 自定义上传目录
+		if (!Strings.isNullOrEmpty(uploadPath)) {
+			if (uploadPath.charAt(uploadPath.length() - 1) != '/') {
+				defaultUploadPath = uploadPath + '/';
+			} else {
+				defaultUploadPath = uploadPath;
+			}
+		} else {
+			defaultUploadPath = UploadController.DEFAULT_PATH;
+		}
+
+		// 获取上传目录的真实路径
+		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
+		filePath = replaceChars(filePath);
+		// 写入文件
+		final File newFile = new File(uploadRealPath + "/" + filePath);
+		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
 		try {
-			transformEquipmentService.importFormExcel(fileName);
+			transformEquipmentService.importFormExcel(newFile.getAbsolutePath());
 		} catch (ParsePropertyException e) {
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
@@ -365,9 +397,14 @@ public class TransformEquipmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new Response(true);
+		// 设置响应
+		response.setContentType("text/html");
+		response.getWriter().write(
+				"<script>parent."+callBackFunction+"("
+						+ JSON.toJSONString(new Response(new String(
+								(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
+		response.flushBuffer();
 	}
-
 	@RequestMapping(value = "/electr/equipment/transform-equipments/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -420,5 +457,30 @@ public class TransformEquipmentController {
 				.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		transformEquipment.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(transformEquipmentService.update(transformEquipment));
+	}
+	private String generatePath(MultipartFile file) {
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+
+		// 根据年月生成文件夹
+		String folder = new SimpleDateFormat("yyyy-MM").format(now);
+
+		// 重新生成文件名，文件名+日期+时间+6位随机数
+		String fullFileName = file.getOriginalFilename();
+
+		String fileName, type = "";
+		if (fullFileName.lastIndexOf(".") != -1) {
+			fileName = fullFileName.substring(0, fullFileName.lastIndexOf("."));
+			type = fullFileName.substring(fullFileName.lastIndexOf("."));
+		} else {
+			fileName = fullFileName;
+		}
+
+		String newFullFileName = fileName + "-" + new SimpleDateFormat("ddHHmmss").format(now) + "-"
+				+ RandomStringUtils.randomNumeric(6) + type.toLowerCase();
+
+		return folder + "/" + newFullFileName;
+	}
+	private String replaceChars(String srcString) {
+		return srcString.replace("[", "【").replace("]", "】");
 	}
 }
