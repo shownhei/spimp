@@ -62,8 +62,19 @@
 						<td>${equipment.lockerNumber}</td>
 						<td></td>
 						<td></td>
-						<td>数量</td>
-						<td>${equipment.lockerNumber}</td>
+						<td colspan=4></td>
+					</tr>
+					<tr class="page_report_table_tr">
+						<td>图片</td>
+						<td colspan="3"><c:if test="${!empty equipment.pictureURL}">
+								<img src="${equipment.pictureURL}">
+							</c:if></td>
+						<td>说明书</td>
+						<td><c:if test="${!empty equipment.pictureURL}">
+								<a elType="showDocument"
+									data-id="${equipment.specificationURL.id}"
+									href="javascript:void(0);" target="_blank">${equipment.specificationURL.simpleName}</a>
+							</c:if></td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -89,7 +100,7 @@
 				<tbody>
 					<c:forEach items="${accessories}" var="data" varStatus="status">
 						<tr class="page_report_table_tr">
-						    <td>${data.accessoryName }</td>
+							<td>${data.accessoryName }</td>
 							<td>${data.accessoryModel }</td>
 							<td>${data.accessoryNumber }</td>
 							<td>${data.productionDate }</td>
@@ -110,7 +121,7 @@
 										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.pictureURL}</div>
 							</c:if>
 							</td>
-							
+
 							<c:if test="${empty data.instructions}">
 								<td buttonType="upload-instructions">
 									<button class="btn btn-small btn-success" data-id="${data.id}"
@@ -120,10 +131,12 @@
 									</button>
 							</c:if>
 							<c:if test="${!empty data.instructions}">
-								<td dataType="showRemark">
+								<td>
 									<div
 										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">
-										<a href="javascript:void(0)" elType="showDocument" data-id="${data.instructions.id}" >${data.instructions.simpleName}</a></div>
+										<a href="javascript:void(0)" elType="showDocument"
+											data-id="${data.instructions.id}">${data.instructions.simpleName}</a>
+									</div>
 							</c:if>
 							</td>
 							<td><button class="btn btn-small btn-danger"

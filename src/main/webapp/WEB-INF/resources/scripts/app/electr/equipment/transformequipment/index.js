@@ -432,4 +432,21 @@ define(function(require, exports, module) {
 			return;
 		}
 	});
+	
+	// 导入
+	$('#import').click(function() {
+		if (Utils.button.isDisable('import')) {
+			return;
+		}
+		var uploadUrl='/electr/equipment/transform-equipments/upload';
+		Utils.modal.showUpload(uploadUrl,function(data){
+			console.log(data);
+			
+		},'数据上传');
+	});
+	$('#upload_data_file').bind('change',function(){
+		if($('#upload_data_file').val()){
+			$('#upload-data-form').submit();
+		}
+	});
 });

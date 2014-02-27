@@ -766,8 +766,7 @@
 		seajs.use('${resources}/scripts/app/electr/equipment/detail/index');
 	</script>
 
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100"
-		height="100" style="display: none"></iframe>
+	<iframe  name="acceptFrame" style="display: none"></iframe>
 	<div id="upload-modal" class="modal modal-sm hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -784,7 +783,7 @@
 						class="form-horizontal" style="margin-bottom: 0px;" method="post"
 						enctype="multipart/form-data" target="acceptFrame">
 						<div class="control-group">
-							<label class="control-label span2" for="credential">处置方案</label>
+							<label class="control-label span2" for="credential">选择图片</label>
 							<div class="controls">
 								<input name="file" id="file" type="file" class="span11">
 							</div>
@@ -854,8 +853,8 @@
 		<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
+			<h5 class="green">
+				<i class="icon-trash"></i> 查看说明书
 			</h5>
 		</div>
 		<div class="modal-body">

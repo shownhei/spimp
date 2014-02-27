@@ -5,6 +5,7 @@ package cn.ccrise.spimp.electr.web;
 
 import java.sql.Date;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -41,8 +42,8 @@ public class AccessoryController {
 
 	@RequestMapping(value = "/electr/equipment/accessories/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(accessoryService.delete(id));
+	public Response delete(@PathVariable long id,HttpSession httpSession) {
+		return new Response(accessoryService.deleteAccessory(id, httpSession));
 	}
 
 	@RequestMapping(value = "/electr/equipment/accessories/{id}", method = RequestMethod.GET)

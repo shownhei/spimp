@@ -204,6 +204,9 @@ define(function(require, exports, module) {
 	});
 	// 图片上传
 	$('#upload').click(function() {
+		if (Utils.button.isDisable('upload')) {
+			return;
+		}
 		Utils.modal.reset('upload');
 		Utils.modal.show('upload');
 		$('#create-file-form')[0].reset();
@@ -334,4 +337,5 @@ define(function(require, exports, module) {
 			}); 
 		}
 	});
+	window.$=$;
 });
