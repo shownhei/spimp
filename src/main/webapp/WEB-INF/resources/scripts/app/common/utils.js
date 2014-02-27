@@ -97,7 +97,7 @@ define(function(require, exports, module) {
 	};
 
 	utils.modal.showProcess = function(processId) {
-		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1052;">', '<div class="modal-header">', '<h5 class="green">',
+		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1056;">', '<div class="modal-header">', '<h5 class="green">',
 				'<i class="icon-upload"></i> 上传中请稍后...', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
 				'<div class="control-group" id="processParent">', '<label class="control-label" ></label>', '<div class="controls">',
 				'<div class="progress progress-striped active span12" >', '<div class="bar" id="' + processId + '" style="width: 1px;"></div>', '</div>',
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
 				'</div>', '</div>' ];
 		if ($('#process-modal').length === 0) {
 			$(_html.join('')).appendTo($("body"));
-			$('<div class="modal-backdrop  in" id="' + processId + '-modal-black" style="z-index:1051;"></div>').appendTo($("body"));
+			$('<div class="modal-backdrop  in" id="' + processId + '-modal-black" style="z-index:1055;"></div>').appendTo($("body"));
 		} else {
 			$('#' + processId + '-modal').show();
 			$('#' + processId + '-modal-black').show();
@@ -142,12 +142,78 @@ define(function(require, exports, module) {
 		};
 		this.reset();
 		this.close = function() {
-			$('#' + processId + '-modal').hide();
-			$('#' + processId + '-modal-black').hide();
+			$('#' + processId + '-modal').remove();
+			$('#' + processId + '-modal-black').remove();
 		};
 		$('#' + processId + '-modal').show();
 	};
 
+	utils.modal.showUpload=function(url,callBack,winTitle){
+		var callbackFunc='callbackFunc';
+		if($("#__acceptFrame").length<=0){
+			$('<iframe id="__acceptFrame" name="__acceptFrame" style="display: none"></iframe>').appendTo($('body'));
+			var _winHtml=[];
+			_winHtml.push('	<div id="__import-modal" class="modal hide" style="z-index:1053;">');
+			_winHtml.push('<div class="modal-header">');
+			_winHtml.push('<button type="button" class="close" data-dismiss="modal">×</button>');
+			_winHtml.push('<h5 class="blue">');
+			_winHtml.push('<i class="icon-upload"></i> '+winTitle);
+			_winHtml.push('</h5>');
+			_winHtml.push('</div>');
+			_winHtml.push('<div class="modal-body">');
+			_winHtml.push('<div class="row-fluid">');
+			_winHtml.push('<div class="span12">');
+			_winHtml.push('<form id="__import-form" class="form-horizontal" action="'+url+'" method="post"');
+			_winHtml.push('enctype="multipart/form-data" target="__acceptFrame"');
+			_winHtml.push('style="margin-bottom: 0px;">');
+			_winHtml.push('<div class="control-group">');
+			_winHtml.push('<label class="control-label" for="file">上传文件</label>');
+			_winHtml.push('<div class="controls">');
+			_winHtml.push('<input id="__import_file" name="file" type="file">');
+			_winHtml.push('</div>');
+			_winHtml.push('</div><input type="hidden" name="callBackFunction" value="callbackFunc">');
+			_winHtml.push('</form>');
+			_winHtml.push('</div>');
+			_winHtml.push('<div id="__import-message-alert" class="row-fluid hide">');
+			_winHtml.push('<div class="span12">');
+			_winHtml.push('<div class="alert alert-error">');
+			_winHtml.push('<i class="icon-remove"></i> <span id="__import-message-content"></span>');
+			_winHtml.push('</div>');
+			_winHtml.push('</div>');
+			_winHtml.push('</div>');
+			_winHtml.push('</div>');
+			_winHtml.push('</div>');
+			_winHtml.push('<div class="modal-footer">');
+			_winHtml.push('<button id="__import-save" class="btn btn-small btn-danger">');
+			_winHtml.push('<i class="icon-ok"></i> 确定');
+			_winHtml.push('</button>');
+			_winHtml.push('<button class="btn btn-small" data-dismiss="modal">');
+			_winHtml.push('<i class="icon-remove"></i> 取消');
+			_winHtml.push('</button>');
+			_winHtml.push('</div>');
+			_winHtml.push('</div>');
+			$(_winHtml.join('')).appendTo($('body'));
+			$('#__import_file').bind('change',function onSelectChange(){
+				$('#__import-form').submit();
+			});
+			$('#__import-form').submit(function _onSubmit(){
+				var process = new utils.modal.showProcess('_process');
+				window.process = process;
+			});
+			$('#__acceptFrame').load(function(){
+				window.process.stop();
+				window.process = null;
+			});
+		}
+		utils.modal.reset('__import');
+		utils.modal.show('__import');
+		var testFunction=function(data){
+			utils.modal.hide('__import');
+			callBack(data);
+		};
+		window[callbackFunc]=testFunction;
+		
+	};
 	/**
 	 * 下拉列表。
 	 */
