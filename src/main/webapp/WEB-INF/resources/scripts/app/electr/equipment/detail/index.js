@@ -62,6 +62,7 @@ define(function(require, exports, module) {
 	var fields = [ {
 		header : '设备种类',
 		name : 'deviceCategory',
+		hidden :'tablet',
 		render : function(value) {
 			return value === null ? '' : value.itemName;
 		}
@@ -86,6 +87,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '所属区域',
 		name : 'deviceArea',
+		hidden :'tablet',
 		render : function(value) {
 			return value === null ? '' : value.itemName;
 		}
@@ -97,9 +99,11 @@ define(function(require, exports, module) {
 		}
 	}, {
 		header : '用途',
+		hidden :'phone',
 		name : 'usage'
 	}, {
 		header : '生产厂家',
+		hidden :'tablet',
 		name : 'producer'
 	}, {
 		header : '出厂日期',
@@ -114,6 +118,7 @@ define(function(require, exports, module) {
 		name : 'monitor'
 	}, {
 		header : '三开一防锁',
+		hidden :'tablet',
 		name : 'openLocker'
 	}, {
 		header : '数量',
@@ -225,10 +230,6 @@ define(function(require, exports, module) {
 			errorMsg.push('请输入出厂日期');
 		}
 
-		if (model.specificationURL === '') {
-			errorMsg.push('请输入说明书路径');
-		}
-
 		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
@@ -326,6 +327,8 @@ define(function(require, exports, module) {
 
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
+		    $('#edit_specificationURL').attr('data-id',object.specificationURL.id);
+		    $('#edit_specificationURL').val(object.specificationURL.simpleName);
 		});
 	});
 
@@ -341,6 +344,10 @@ define(function(require, exports, module) {
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
+		var specificationURL={id:$('#edit_specificationURL').attr('data-id')};
+		delete object.specificationURL;
+		object.specificationURL = specificationURL;
+		
 		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -381,7 +388,9 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('import')) {
 			return;
 		}
-		Utils.modal.show('import');
+		Utils.modal.showUpload('/electr/equipment/equipments/upload',function(data){
+			grid.refresh();
+		},'数据上传');
 	});
 	// 搜索
 	$('#submit').click(function() {
@@ -479,7 +488,6 @@ define(function(require, exports, module) {
 	});
 	var accessoryId = '';
 	function callBack(data) {
-		alert('callBack');
 		window.process.stop();
 		window.process = null;
 		if (!data.success) {
@@ -516,4 +524,19 @@ define(function(require, exports, module) {
 		});
 	};
 	window.uploadInstructionsCallback=uploadInstructionsCallback;
+	$('#create_pictureURL,#edit_pictureURL').bind('click',function(){
+		var uploadUrl='/simpleupload';
+		var that=this;
+		Utils.modal.showUpload(uploadUrl,function(data){
+			$(that).val(data.data);
+		},'上传图片');
+	});
+	$('#create_specificationURL,#edit_specificationURL').bind('click',function(){
+		var uploadUrl='/simpleupload';
+		var that=this;
+		Utils.modal.showUpload(uploadUrl,function(data){
+			$(that).val(data.data.simpleName);
+			$(that).attr('data-id',data.data.id);
+		},'上传说明书');
+	});
 });
