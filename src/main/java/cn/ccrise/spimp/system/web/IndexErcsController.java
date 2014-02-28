@@ -175,6 +175,6 @@ public class IndexErcsController {
 	public ModelAndView ercsViewPdf(@PathVariable long id) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("file", uploadedFileService.findUniqueBy("id", id));
-		return new ModelAndView("/ercs/view-pdf", root);
+		return new ModelAndView("ercs/view-pdf", root);
 	}
 }

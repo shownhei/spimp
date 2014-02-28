@@ -23,6 +23,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="import" class="btn btn-small btn-primary ">
+						<i class="icon-upload"></i> 导入
+					</button>
 					<button id="export" class="btn btn-small btn-pink disabled">
 						<i class="icon-download-alt"></i> 导出全部
 					</button>
@@ -622,5 +625,51 @@
 	</div>
 	<div id="show_tips"
 		style="position: absolute; display: none; width: 200px; height: 130px; left: 0px; top: 0px; z-index: 800; box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15); background-color: #FFF; border: 1px solid #999; padding: 2px; overflow: auto"></div>
+	<!-- import导入 -->
+	<div id="import-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-upload"></i> 导入
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="upload-data-form" class="form-horizontal" action="/electr/equipment/transform-equipments/upload" method="post"
+						enctype="multipart/form-data" target="acceptFrame"
+						style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="location">模板下载</label>
+							<div class="controls">
+							    <a href="${resources }/template/electr/equipment/transform_equipments_upload_tpl.xls" target="_blank">wenjian</a>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="equipmentCode">上传文件</label>
+							<div class="controls">
+								<input id="upload_data_file" name="file" type="file">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="import-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i> <span id="import-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="import-save" class="btn btn-small btn-danger">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
 </body>
 </html>

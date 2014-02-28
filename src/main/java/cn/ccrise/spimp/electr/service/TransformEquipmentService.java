@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -194,7 +195,6 @@ public class TransformEquipmentService extends HibernateDataServiceImpl<Transfor
 	 */
 	private void saveAccessories(int startRowIndex, int endRowIndex, Sheet sheet, Long transformEquipmentId) {
 		// 减速机
-		logger.debug("{}", startRowIndex + "==" + endRowIndex);
 		Row row = null;
 		for (int i = startRowIndex; i <= endRowIndex; i++) {
 			int colIndex = 12;
@@ -242,6 +242,7 @@ public class TransformEquipmentService extends HibernateDataServiceImpl<Transfor
 			brakeDeviceService.save(brake);
 		}
 		// 拉紧装置
+		Cell cell = null;
 		for (int i = startRowIndex; i <= endRowIndex; i++) {
 			int colIndex = 24;
 			row = sheet.getRow(i);
@@ -253,9 +254,16 @@ public class TransformEquipmentService extends HibernateDataServiceImpl<Transfor
 			tensioning.setDeviceName(row.getCell(colIndex++).toString());// 装置名称
 			tensioning.setDeviceModel(row.getCell(colIndex++).toString());// 型号
 			tensioning.setDeviceNumber(row.getCell(colIndex++).toString());// 编号
-			tensioning.setProductionDate(null);// 出厂日期
-			tensioning.setProducer(row.getCell(colIndex++).toString());// 生产厂家
-			tensioning.setTechParameters(row.getCell(colIndex++).toString());// 技术参数
+			logger.debug("{}",row.getCell(colIndex++).toString());
+//			tensioning.setProductionDate(new Date(row.getCell(colIndex++).getNumericCellValue()));// 出厂日期
+			cell = row.getCell(colIndex++);
+			if(cell!=null){
+				tensioning.setProducer(cell.toString());// 生产厂家
+			}
+			cell = row.getCell(colIndex++);
+			if(cell!=null){
+				tensioning.setTechParameters(cell.toString());// 技术参数
+			}
 			tensioning.setTransformEquipmentId(transformEquipmentId);
 			tensioningDeviceService.save(tensioning);
 		}

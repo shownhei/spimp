@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.ercs.entity.UploadedFile;
 import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
@@ -118,7 +119,7 @@ public class Equipment extends IDEntity {
 	 * 说明书路径
 	 */
 	@PageFields(describtion = "说明书路径", allowedNull = false, search = false)
-	private String specificationURL; // 说明书路径
+	private UploadedFile specificationURL; // 说明书路径
 
 	public String getChargePerson() {
 		return chargePerson;
@@ -188,8 +189,8 @@ public class Equipment extends IDEntity {
 	public Dictionary getServiceEnvironment() {
 		return serviceEnvironment;
 	}
-
-	public String getSpecificationURL() {
+	@ManyToOne
+	public UploadedFile getSpecificationURL() {
 		return specificationURL;
 	}
 
@@ -267,7 +268,7 @@ public class Equipment extends IDEntity {
 		this.serviceEnvironment = serviceEnvironment;
 	}
 
-	public void setSpecificationURL(String specificationURL) {
+	public void setSpecificationURL(UploadedFile specificationURL) {
 		this.specificationURL = specificationURL;
 	}
 

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
@@ -31,6 +33,7 @@ import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.electr.access.EquipmentDAO;
+import cn.ccrise.spimp.electr.entity.Accessory;
 import cn.ccrise.spimp.electr.entity.Equipment;
 import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.system.service.DictionaryService;
@@ -46,7 +49,16 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 	private EquipmentDAO equipmentDAO;
 	@Autowired
 	private DictionaryService dictionaryService;
-
+	@Autowired
+	private AccessoryService accessoryService;
+	public boolean deleteEquipment(Long id,HttpSession httpSession){
+		Equipment tEquipment=findUniqueBy("id", id);
+		List<Accessory> result=accessoryService.findBy("equipmentId", id);
+		for(Accessory ac: result){
+			accessoryService.deleteAccessory(ac.getId(), httpSession);
+		}
+		return delete(tEquipment);
+	}
 	@Override
 	public HibernateDAO<Equipment, Long> getDAO() {
 		return equipmentDAO;
@@ -253,7 +265,12 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 			cell = row.getCell(colIndex++);
 			cell = row.getCell(colIndex++);
 			if (cell != null) {
-				raw.setProductionDate(new Date(cell.getDateCellValue().getTime()));// 出厂日期
+				int cellType = cell.getCellType();
+				if (cellType == Cell.CELL_TYPE_STRING) {
+					//raw.setDeviceNumber(String.valueOf(cell.getNumericCellValue()));// 出厂日期
+				} else if (cellType == Cell.CELL_TYPE_NUMERIC) {
+					raw.setProductionDate(new Date(cell.getDateCellValue().getTime()));// 出厂日期
+				}
 			}
 			cell = row.getCell(colIndex++);
 			if (cell != null) {
