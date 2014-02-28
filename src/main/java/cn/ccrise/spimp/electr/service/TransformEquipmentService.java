@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -254,14 +253,15 @@ public class TransformEquipmentService extends HibernateDataServiceImpl<Transfor
 			tensioning.setDeviceName(row.getCell(colIndex++).toString());// 装置名称
 			tensioning.setDeviceModel(row.getCell(colIndex++).toString());// 型号
 			tensioning.setDeviceNumber(row.getCell(colIndex++).toString());// 编号
-			logger.debug("{}",row.getCell(colIndex++).toString());
-//			tensioning.setProductionDate(new Date(row.getCell(colIndex++).getNumericCellValue()));// 出厂日期
+			logger.debug("{}", row.getCell(colIndex++).toString());
+			// tensioning.setProductionDate(new
+			// Date(row.getCell(colIndex++).getNumericCellValue()));// 出厂日期
 			cell = row.getCell(colIndex++);
-			if(cell!=null){
+			if (cell != null) {
 				tensioning.setProducer(cell.toString());// 生产厂家
 			}
 			cell = row.getCell(colIndex++);
-			if(cell!=null){
+			if (cell != null) {
 				tensioning.setTechParameters(cell.toString());// 技术参数
 			}
 			tensioning.setTransformEquipmentId(transformEquipmentId);

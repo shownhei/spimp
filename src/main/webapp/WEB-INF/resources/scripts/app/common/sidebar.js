@@ -35,10 +35,11 @@ define(function(require, exports, module) {
 	});
 
 	function handleSubmenuHeight() {
-		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li:not(.active)').outerHeight() * $('.nav-list>li').length;
+		var height = $(window).height() - $('.nav-list').offset().top - $('#sidebar-collapse').outerHeight() - $('.nav-list>li:not(.active)').outerHeight()
+				* $('.nav-list>li').length;
 		$('.nav-list > li > .submenu').css({
-			'max-height': height,
-			'overflow-y': 'auto'
+			'max-height' : height,
+			'overflow-y' : 'auto'
 		});
 	}
 
@@ -97,7 +98,7 @@ define(function(require, exports, module) {
 		});
 	}
 
-	//计算左边竖线的高度,生成新的样式
+	// 计算左边竖线的高度,生成新的样式
 	function reDrawVerticalLine() {
 		var height = 0;
 		$('#sidebar>.nav>li.open>.submenu>li').each(function(i, li) {
