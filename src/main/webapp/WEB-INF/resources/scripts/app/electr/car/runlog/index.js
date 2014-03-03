@@ -26,6 +26,12 @@ define(function(require, exports, module) {
 			return value === null ? '' : value.carNo;
 		}
 	}, {
+		header : '类型',
+		name : 'car',
+		render : function(value) {
+			return value === null ? '' : value.carCategory.itemName;
+		}
+	}, {
 		header : '班次 ',
 		render:function(v){
 			switch(v){
@@ -122,7 +128,9 @@ define(function(require, exports, module) {
 	// 验证
 	function validate(showType, model) {
 		var errorMsg = [];
-
+		if (model.car.id === '') {
+			errorMsg.push('请输入车辆 ');
+		}
 		if (model.classType === '') {
 			errorMsg.push('请输入班次 ');
 		}
@@ -134,11 +142,14 @@ define(function(require, exports, module) {
 		if (model.trainNumber !== '' && !$.isNumeric(model.trainNumber)) {
 			errorMsg.push('车次 为数字格式');
 		}
-
 		if (model.distance === '') {
 			errorMsg.push('请输入路程 ');
 		}
 
+		if (model.distance === '0' ) {
+			errorMsg.push('行驶公里数不能为0');
+			$('#create_distance')[0].focus();
+		}
 		if (model.distance !== '' && !$.isNumeric(model.distance)) {
 			errorMsg.push('路程 为数字格式');
 		}
@@ -149,10 +160,6 @@ define(function(require, exports, module) {
 
 		if (model.refuelNumber !== '' && !$.isNumeric(model.refuelNumber)) {
 			errorMsg.push('加油数 为数字格式');
-		}
-
-		if (model.remark === '') {
-			errorMsg.push('请输入备注 ');
 		}
 
 		if (errorMsg.length > 0) {
