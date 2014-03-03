@@ -21,8 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.electr.entity.AnnualOil;
 import cn.ccrise.spimp.electr.entity.MaterialsPlan;
 import cn.ccrise.spimp.electr.service.KilometerStaticsService;
@@ -63,6 +65,19 @@ public class KilometerStaticsController {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		kilometerStaticsService.annualOil(year, root);
 		return new ModelAndView("electr/car/annual-kilometer/result", root);
+	}
+	/**
+	 * 年度运行情况
+	 * 
+	 * @param year
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/annual-kilometer/chart", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getAnnualOilForChart(Integer year) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		kilometerStaticsService.annualOil(year, root);
+		return new Response(root);
 	}
 
 	/**
