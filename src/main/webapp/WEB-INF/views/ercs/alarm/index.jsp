@@ -159,6 +159,9 @@
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
+				    <button id="create" class="btn btn-small btn-success">
+						<i class="icon-plus-sign-alt"></i> 新建
+					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i> 编辑
 					</button>
@@ -269,7 +272,7 @@
 	</div>
 	<!-- 编辑end -->
 	<!-- 删除 -->
-	<div id="remove-modal" class="modal modal-xs hide">
+	<div id="remove-modal" class="modal modal-md hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="red">
