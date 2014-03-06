@@ -71,22 +71,22 @@ define(function(require, exports, module) {
 					var len = v.length;
 					var currentType = null;
 					for (var i = 0; i < len; i++) {
-						if (carTypes.indexOf(v[i]['carCategory']) === -1) {
+						if (carTypes.indexOf(v[i].carCategory) === -1) {
 							currentType = {
 								run : 0,
 								kilomiter : 0,
 								oil : 0,
 								oilDistanceDisplay : 0
 							};
-							container[v[i]['carCategory']] = currentType;
-							carTypes.push(v[i]['carCategory']);
+							container[v[i].carCategory] = currentType;
+							carTypes.push(v[i].carCategory);
 						} else {
-							currentType = container[v[i]['carCategory']];
+							currentType = container[v[i].carCategory];
 						}
-						currentType.run += v[i]['trainNumber'];
-						currentType.kilomiter += v[i]['distance'];
-						currentType.oil += v[i]['refuelNumber'];
-						currentType.oilDistanceDisplay += v[i]['oilDistanceDisplay'];
+						currentType.run += v[i].trainNumber;
+						currentType.kilomiter += v[i].distance;
+						currentType.oil += v[i].refuelNumber;
+						currentType.oilDistanceDisplay += v[i].oilDistanceDisplay;
 					}
 				}
 			});//
