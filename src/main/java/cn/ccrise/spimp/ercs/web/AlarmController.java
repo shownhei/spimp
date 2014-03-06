@@ -107,8 +107,7 @@ public class AlarmController {
 
 	@RequestMapping(value = "/ercs/alarms", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, Integer dealFlag, Boolean isList,
-			HttpServletRequest httpServletRequest) {
+	public Response page(Page<Alarm> page, Long accidentType, Long accidentLevel, Integer dealFlag, Boolean isList) {
 		ArrayList<SimpleExpression> param = new ArrayList<SimpleExpression>();
 		if (accidentType != null) {
 			List<Dictionary> result = dictionaryService.find(Restrictions.eq("id", accidentType));

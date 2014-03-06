@@ -86,7 +86,7 @@ public class EmergencyPlanInstanceController {
 	@RequestMapping(value = "/ercs/emergency-plan-instances", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<EmergencyPlanInstance> page, Long accidentType, HttpSession httpSession,
-			Boolean isManage, HttpServletRequest request) {
+			Boolean isManage) {
 		Object obj = httpSession.getAttribute(PropertiesUtils.getString(PropertiesUtils.SESSION_KEY_PROPERTY));
 		Account loginAccount = null;
 		HashMap<Long, ResponseTeam> map = new HashMap<Long, ResponseTeam>();
