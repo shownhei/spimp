@@ -2,10 +2,10 @@
 <a class="menu-toggler" id="menu-toggler" href="#">
 	<span class="menu-text"></span>
 </a>
-<div class="sidebar fixed" id="sidebar">
+<div class="sidebar fixed menu-min" id="sidebar">
 	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-			<a class="btn btn-small btn-success" href="${contextPath}/" title="首页">
+			<a class="btn btn-small btn-success" href="${contextPath}/" target="_blank" title="首页">
 				<i class="icon-wrench"></i>
 			</a>
 			<button class="btn btn-small btn-info">
@@ -26,8 +26,50 @@
 		</div>
 	</div>
 	<ul class="nav nav-list">
+		<li>
+			<a>
+				<i class="icon-dashboard"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-text-width"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-desktop"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-list"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-edit"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-list-alt"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-calendar"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-picture"></i>
+			</a>
+		</li>
+		<li>
+			<a>
+				<i class="icon-tag"></i>
+			</a>
+		</li>
 	</ul>
-	<div class="sidebar-collapse" id="sidebar-collapse">
-		<i class="icon-double-angle-left"></i>
-	</div>
 </div>

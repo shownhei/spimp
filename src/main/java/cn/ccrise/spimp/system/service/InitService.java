@@ -676,8 +676,29 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("质量标准化文档管理", "/spmi/kte/document", kte, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("经验信息库", "/spmi/kte/info", kte, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/kte/daily", kte, "", i++);
+
 		// 应急救援管理系统
 		initErcsService.initFourthLevelOperate();
+
+		// 三维综合管理
+		String monitor = resourceEntityServiceImpl.getDefaultIdentifier("/3d/monitor", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("实时监测", "/3d/monitor/realtime", monitor, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("历史查询", "/3d/monitor/query", monitor, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("历史曲线", "/3d/monitor/curve", monitor, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("基础信息", "/3d/monitor/info", monitor, "", i++);
+
+		String location = resourceEntityServiceImpl.getDefaultIdentifier("/3d/location", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("实时监测", "/3d/location/realtime", location, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("历史查询", "/3d/location/query", location, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("领导带班", "/3d/location/foreman", location, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("基础信息", "/3d/location/info", location, "", i++);
+
+		String rescue = resourceEntityServiceImpl.getDefaultIdentifier("/3d/rescue", HttpMethod.GET);
+		i = 1;
+		resourceEntityServiceImpl.saveMenuResource("避灾路线展示", "/3d/rescue/path", rescue, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急处置", "/3d/rescue/dispose", rescue, "", i++);
 	}
 
 	@Override
@@ -720,6 +741,7 @@ public class InitService extends DataInitAbstractService {
 		int i = 1;
 		resourceEntityServiceImpl.saveMenuResource("安全生产管理", "/spmi", rootMenuIdentifier, "icon-wrench", i++);
 		resourceEntityServiceImpl.saveMenuResource("应急救援指挥", "/ercs", rootMenuIdentifier, "icon-medkit", i++);
+		resourceEntityServiceImpl.saveMenuResource("三维综合管理", "/3d", rootMenuIdentifier, "icon-picture", i++);
 		resourceEntityServiceImpl.saveMenuResource("系统管理", "/system", rootMenuIdentifier, "icon-cogs", i++);
 	}
 
@@ -750,6 +772,12 @@ public class InitService extends DataInitAbstractService {
 
 		// 应急救援管理
 		initErcsService.initThirdLevelMenu();
+
+		// 三维综合管理
+		String ddd = resourceEntityServiceImpl.getDefaultIdentifier("/3d", HttpMethod.GET);
+		resourceEntityServiceImpl.saveMenuResource("监测监控", "/3d/monitor", ddd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("人员定位", "/3d/location", ddd, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("应急救援", "/3d/rescue", ddd, "", i++);
 
 		// 系统管理
 		String system = resourceEntityServiceImpl.getDefaultIdentifier("/system", HttpMethod.GET);

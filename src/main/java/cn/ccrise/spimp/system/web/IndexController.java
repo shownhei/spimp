@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+	// 三维综合管理
+	@RequestMapping(value = "/3d", method = RequestMethod.GET)
+	public String ddd() {
+		return "3d/index";
+	}
+
 	// 系统管理
 	/**
 	 * 用户管理

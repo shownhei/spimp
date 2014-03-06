@@ -65,12 +65,19 @@ public class Repackage {
 	}
 
 	private static void headjsp() {
-		String fileName = "target/ROOT/WEB-INF/views/common/head.jsp";
-		List<String> lines = readLines(fileName);
+		String fileName1 = "target/ROOT/WEB-INF/views/common/head.jsp";
+		List<String> lines1 = readLines(fileName1);
 
-		lines.set(37 - 1, "	var isDevelopment = false;");
+		lines1.set(37 - 1, "	var isDevelopment = false;");
 
-		writeLinesToFile(fileName, lines);
+		writeLinesToFile(fileName1, lines1);
+
+		String fileName2 = "target/ROOT/WEB-INF/views/3d/head.jsp";
+		List<String> lines2 = readLines(fileName2);
+
+		lines2.set(37 - 1, "	var isDevelopment = false;");
+
+		writeLinesToFile(fileName2, lines2);
 	}
 
 	private static void log4jxml(String level) {
