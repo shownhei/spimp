@@ -1,0 +1,239 @@
+{
+	"success" : true,
+	"data" : {
+		"id" : 2,
+		"name" : "王庄煤业",
+		"number" : "WZMY",
+		"groupEntities" : [{
+				"id" : 3,
+				"name" : "地质体",
+				"number" : "DDS",
+				"groupEntities" : [{
+						"id" : 31,
+						"name" : "地形",
+						"number" : "DDS",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "1",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 32,
+						"name" : "采空区",
+						"number" : "DDS",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "1",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 33,
+						"name" : "异常区",
+						"number" : "DDS",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "1",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 34,
+						"name" : "陷落柱",
+						"number" : "DDS",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "1",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 35,
+						"name" : "煤层",
+						"number" : "DDS",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "1",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}
+				],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "1",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 4,
+				"name" : "工业广场",
+				"number" : "AQK",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "2",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 5,
+				"name" : "巷道",
+				"number" : "JDK",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "3",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 6,
+				"name" : "变电所",
+				"number" : "TFK",
+				"groupEntities" : [{
+						"id" : 61,
+						"name" : "35KV变电所",
+						"number" : "TFK",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "4",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 62,
+						"name" : "中央变电所",
+						"number" : "TFK",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "4",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 63,
+						"name" : "开拓变电所",
+						"number" : "TFK",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "4",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}, {
+						"id" : 64,
+						"name" : "南翼变电所",
+						"number" : "TFK",
+						"groupEntities" : [],
+						"organizationEntity" : null,
+						"topLevel" : false,
+						"queryLabel" : "4",
+						"parentId" : 2,
+						"category" : "科室",
+						"checked" : null
+					}
+				],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "4",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 7,
+				"name" : "采区",
+				"number" : "SJK",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "1",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 8,
+				"name" : "避难硐室",
+				"number" : "DCK",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "2",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 9,
+				"name" : "机电设备",
+				"number" : "FZS",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "3",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 10,
+				"name" : "人员分传感器",
+				"number" : "FZS",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "4",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 11,
+				"name" : "瓦斯分站传感器",
+				"number" : "FZS",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "4",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 12,
+				"name" : "顶板传感器",
+				"number" : "FZS",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "4",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}, {
+				"id" : 13,
+				"name" : "摄像头",
+				"number" : "FZS",
+				"groupEntities" : [],
+				"organizationEntity" : null,
+				"topLevel" : false,
+				"queryLabel" : "4",
+				"parentId" : 2,
+				"category" : "科室",
+				"checked" : null
+			}
+		],
+		"organizationEntity" : null,
+		"topLevel" : false,
+		"queryLabel" : "mine",
+		"parentId" : 1,
+		"category" : "煤矿",
+		"checked" : null
+	},
+	"errors" : null
+}

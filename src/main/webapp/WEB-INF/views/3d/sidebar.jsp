@@ -14,9 +14,9 @@
 			<a class="btn btn-small btn-warning" href="${contextPath}/3d" target="_blank" title="三维综合管理">
 				<i class="icon-picture"></i>
 			</a>
-			<button class="btn btn-small btn-danger">
+			<a class="btn btn-small btn-danger" href="${contextPath}/auto" target="_blank" title="综合自动化管控平台">
 				<i class="icon-cogs"></i>
-			</button>
+			</a>
 		</div>
 		<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 			<span class="btn btn-success"></span>
@@ -27,48 +27,38 @@
 	</div>
 	<ul class="nav nav-list">
 		<li>
-			<a>
-				<i class="icon-dashboard"></i>
+			<a title="全屏" data-image="全屏.png" data-type="fullscreen">
+				<i class="icon-fullscreen"></i>
 			</a>
 		</li>
 		<li>
-			<a>
-				<i class="icon-text-width"></i>
-			</a>
-		</li>
-		<li>
-			<a>
-				<i class="icon-desktop"></i>
-			</a>
-		</li>
-		<li>
-			<a>
-				<i class="icon-list"></i>
-			</a>
-		</li>
-		<li>
-			<a>
-				<i class="icon-edit"></i>
-			</a>
-		</li>
-		<li>
-			<a>
-				<i class="icon-list-alt"></i>
-			</a>
-		</li>
-		<li>
-			<a>
-				<i class="icon-calendar"></i>
-			</a>
-		</li>
-		<li>
-			<a>
+			<a title="全图显示" data-image="全图显示.png">
 				<i class="icon-picture"></i>
 			</a>
 		</li>
 		<li>
-			<a>
-				<i class="icon-tag"></i>
+			<a title="巷道半显示" data-image="巷道半显示.png">
+				<i class="icon-upload"></i>
+			</a>
+		</li>
+		<li>
+			<a title="巷道交叉处理" data-image="巷道交叉处理.png">
+				<i class="icon-remove"></i>
+			</a>
+		</li>
+		<li>
+			<a title="拉框放大" data-image="拉框放大-放大前.png,拉框放大-放大后.png" data-type="zoom-in">
+				<i class="icon-resize-full"></i>
+			</a>
+		</li>
+		<li>
+			<a title="量测工具" data-image="量测工具.png">
+				<i class="icon-crop"></i>
+			</a>
+		</li>
+		<li>
+			<a title="巷道漫游" data-image="巷道漫游.png">
+				<i class="icon-compass"></i>
 			</a>
 		</li>
 	</ul>
