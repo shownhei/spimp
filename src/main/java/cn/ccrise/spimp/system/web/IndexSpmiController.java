@@ -352,6 +352,14 @@ public class IndexSpmiController {
 	public String spmiJddStaff() {
 		return "system/staff/index";
 	}
+	/**
+	 * 专利发明统计
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/innovation/statistics", method = RequestMethod.GET)
+	public String spmiJddInnovationStatistics() {
+		return "electr/innovation/statistics/index";
+	}
 
 	@RequestMapping(value = "/spmi/jdk/daily/plan", method = RequestMethod.GET)
 	public String spmiJdkDailyPlan() {
@@ -894,5 +902,21 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/zcd/staff", method = RequestMethod.GET)
 	public String spmiZcdStaff() {
 		return "system/staff/index";
+	}
+	/**
+	 * 专利发明
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/innovation/innovation", method = RequestMethod.GET)
+	public String spmiZcdInnovationInnovation() {
+		return "electr/innovation/innovation/index";
+	}
+	/**
+	 * 专利发明统计
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/innovation/statistics", method = RequestMethod.GET)
+	public String spmiZcdInnovationStatistics() {
+		return "electr/innovation/statistics/index";
 	}
 }

@@ -407,6 +407,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/jdd/equipment/alert", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/jdd/equipment/settings", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/jdd/innovation/statistics", jddEquipment, "", i++);
+		
 		// equipment-ledger
 		String jddEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment-ledger",
 				HttpMethod.GET);
@@ -435,6 +437,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("年度公里统计", "/spmi/jdd/car/annual-kilometer", jddCar, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("月度油耗统计", "/spmi/jdd/car/monthly-oil", jddCar, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("月度运行统计", "/spmi/jdd/car/monthly-run", jddCar, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("定期保养周期配置", "/electr/maintenance/regular-config", jddCar, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("定期保养到期提醒", "/electr/maintenance/regular-remind", jddCar, "", i++);
 
 		// 综采队
 		String zcdQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/quality", HttpMethod.GET);
@@ -478,6 +482,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/zcd/equipment/overhaul", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/zcd/equipment/alert", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/zcd/equipment/settings", zcdEquipment, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/zcd/innovation/innovation", zcdEquipment, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/zcd/innovation/statistics", zcdEquipment, "", i++);
 		String zcdMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/zcd/maintenance/daily", zcdMaintenance, "", i++);

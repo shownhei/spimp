@@ -91,7 +91,15 @@ define(function(require, exports, module) {
 		}
 
 	}
-
+	$('#create').click(function() {
+		Utils.button.disable([ 'create' ]);
+		$.ajax({
+			url : '/ercs/alarm/putalarm',
+			success : function(data) {
+				Utils.button.enable([ 'create' ]);
+			}
+		});
+	});
 	// 配置表格
 	var defaultUrl = contextPath + '/ercs/alarms?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({

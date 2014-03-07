@@ -69,10 +69,18 @@
 								<input id="decide" name="decide" type="text">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label " for="principal">事故发生时间</label>
-							<div class="controls">
-								<input id="startTime" name="startTime" type="text">
+						<div class="row-fluid ">
+							<div class="control-group span6">
+								<label class="control-label span4" for="resourceNo">事故发生日期</label>
+								<div class="controls">
+									<input id="startTime" name="startTime" type="datetime" class="span12" style="width: 130px;">
+								</div>
+							</div>
+							<div class="control-group span6">
+								<label class="control-label span4" for="amount">事故发生时间</label>
+								<div class="controls">
+									<input id="create_startTime_tail" name="startTime_tail" type="time" value="1" class="span11" style="width: 122px;">
+								</div>
 							</div>
 						</div>
 						<div class="control-group" style="display: none;">
