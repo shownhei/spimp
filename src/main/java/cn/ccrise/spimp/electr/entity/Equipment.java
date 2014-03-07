@@ -189,6 +189,7 @@ public class Equipment extends IDEntity {
 	public Dictionary getServiceEnvironment() {
 		return serviceEnvironment;
 	}
+
 	@ManyToOne
 	public UploadedFile getSpecificationURL() {
 		return specificationURL;

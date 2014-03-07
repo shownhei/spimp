@@ -66,19 +66,6 @@ public class KilometerStaticsController {
 		kilometerStaticsService.annualOil(year, root);
 		return new ModelAndView("electr/car/annual-kilometer/result", root);
 	}
-	/**
-	 * 年度运行情况
-	 * 
-	 * @param year
-	 * @return
-	 */
-	@RequestMapping(value = "/electr/car/annual-kilometer/chart", method = RequestMethod.GET)
-	@ResponseBody
-	public Response getAnnualOilForChart(Integer year) {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		kilometerStaticsService.annualOil(year, root);
-		return new Response(root);
-	}
 
 	/**
 	 * 年度运行情况
@@ -160,6 +147,20 @@ public class KilometerStaticsController {
 
 					}
 				});
+	}
+
+	/**
+	 * 年度运行情况
+	 * 
+	 * @param year
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/car/annual-kilometer/chart", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getAnnualOilForChart(Integer year) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		kilometerStaticsService.annualOil(year, root);
+		return new Response(root);
 	}
 
 	/**

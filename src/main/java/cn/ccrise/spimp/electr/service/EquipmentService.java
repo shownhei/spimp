@@ -51,14 +51,16 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 	private DictionaryService dictionaryService;
 	@Autowired
 	private AccessoryService accessoryService;
-	public boolean deleteEquipment(Long id,HttpSession httpSession){
-		Equipment tEquipment=findUniqueBy("id", id);
-		List<Accessory> result=accessoryService.findBy("equipmentId", id);
-		for(Accessory ac: result){
+
+	public boolean deleteEquipment(Long id, HttpSession httpSession) {
+		Equipment tEquipment = findUniqueBy("id", id);
+		List<Accessory> result = accessoryService.findBy("equipmentId", id);
+		for (Accessory ac : result) {
 			accessoryService.deleteAccessory(ac.getId(), httpSession);
 		}
 		return delete(tEquipment);
 	}
+
 	@Override
 	public HibernateDAO<Equipment, Long> getDAO() {
 		return equipmentDAO;
@@ -267,7 +269,8 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 			if (cell != null) {
 				int cellType = cell.getCellType();
 				if (cellType == Cell.CELL_TYPE_STRING) {
-					//raw.setDeviceNumber(String.valueOf(cell.getNumericCellValue()));// 出厂日期
+					// raw.setDeviceNumber(String.valueOf(cell.getNumericCellValue()));//
+					// 出厂日期
 				} else if (cellType == Cell.CELL_TYPE_NUMERIC) {
 					raw.setProductionDate(new Date(cell.getDateCellValue().getTime()));// 出厂日期
 				}

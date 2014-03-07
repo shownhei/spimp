@@ -48,14 +48,7 @@ public class OilStaticsController {
 		doQueryAnnualOil(year, root);
 		return new ModelAndView("electr/car/annual-oil/result", root);
 	}
-	@RequestMapping(value = "/electr/car/annual-oil/resultchart", method = RequestMethod.GET)
-	@ResponseBody
-	public Response getAnnualOilForChart(Integer year) {
-		HashMap<String, Object> root = new HashMap<String, Object>();
-		doQueryAnnualOil(year, root);
-		logger.debug("{}",root);
-		return new Response(root);
-	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/electr/car/annual-oil/export", method = RequestMethod.GET)
 	public void getAnnualOilExport(HttpSession httpSession, HttpServletResponse response, Integer year) {
@@ -104,6 +97,15 @@ public class OilStaticsController {
 			}
 
 		});
+	}
+
+	@RequestMapping(value = "/electr/car/annual-oil/resultchart", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getAnnualOilForChart(Integer year) {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		doQueryAnnualOil(year, root);
+		logger.debug("{}", root);
+		return new Response(root);
 	}
 
 	/**

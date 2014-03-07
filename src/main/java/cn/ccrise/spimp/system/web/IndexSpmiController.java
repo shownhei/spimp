@@ -303,6 +303,16 @@ public class IndexSpmiController {
 		return "electr/innovation/innovation/index";
 	}
 
+	/**
+	 * 专利发明统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/jdd/innovation/statistics", method = RequestMethod.GET)
+	public String spmiJddInnovationStatistics() {
+		return "electr/innovation/statistics/index";
+	}
+
 	@RequestMapping(value = "/spmi/jdd/maintenance/daily", method = RequestMethod.GET)
 	public String spmiJddMaintenanceDaily() {
 		return "electr/maintenance/daily/index";
@@ -351,14 +361,6 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/jdd/staff", method = RequestMethod.GET)
 	public String spmiJddStaff() {
 		return "system/staff/index";
-	}
-	/**
-	 * 专利发明统计
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/jdd/innovation/statistics", method = RequestMethod.GET)
-	public String spmiJddInnovationStatistics() {
-		return "electr/innovation/statistics/index";
 	}
 
 	@RequestMapping(value = "/spmi/jdk/daily/plan", method = RequestMethod.GET)
@@ -874,6 +876,26 @@ public class IndexSpmiController {
 		return "spmi/info/index";
 	}
 
+	/**
+	 * 专利发明
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/innovation/innovation", method = RequestMethod.GET)
+	public String spmiZcdInnovationInnovation() {
+		return "electr/innovation/innovation/index";
+	}
+
+	/**
+	 * 专利发明统计
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/spmi/zcd/innovation/statistics", method = RequestMethod.GET)
+	public String spmiZcdInnovationStatistics() {
+		return "electr/innovation/statistics/index";
+	}
+
 	@RequestMapping(value = "/spmi/zcd/maintenance/daily", method = RequestMethod.GET)
 	public String spmiZcdMaintenanceDaily() {
 		return "electr/maintenance/daily/index";
@@ -902,21 +924,5 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/zcd/staff", method = RequestMethod.GET)
 	public String spmiZcdStaff() {
 		return "system/staff/index";
-	}
-	/**
-	 * 专利发明
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/innovation/innovation", method = RequestMethod.GET)
-	public String spmiZcdInnovationInnovation() {
-		return "electr/innovation/innovation/index";
-	}
-	/**
-	 * 专利发明统计
-	 * @return
-	 */
-	@RequestMapping(value = "/spmi/zcd/innovation/statistics", method = RequestMethod.GET)
-	public String spmiZcdInnovationStatistics() {
-		return "electr/innovation/statistics/index";
 	}
 }

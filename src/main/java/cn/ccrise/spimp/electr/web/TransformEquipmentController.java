@@ -44,9 +44,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.base.Strings;
-
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
@@ -65,6 +62,9 @@ import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.web.UploadController;
 import cn.ccrise.spimp.util.ExcelCallBackInteface;
 import cn.ccrise.spimp.util.ExcelHelper;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Strings;
 
 /**
  * 运输设备台账。
@@ -355,56 +355,7 @@ public class TransformEquipmentController {
 				});
 
 	}
-	/**
-	 * 运输设备导入过程
-	 * @param file
-	 * @param callBackFunction
-	 * @param httpSession
-	 * @param response
-	 * @param uploadPath
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/electr/equipment/transform-equipments/upload", method = RequestMethod.POST)
-	public void upload(@RequestParam MultipartFile file,String callBackFunction, HttpSession httpSession, HttpServletResponse response,
-			final String uploadPath) throws IOException {
-		// 生成文件路径
-		String filePath = generatePath(file);
 
-		String defaultUploadPath=null;
-		// 自定义上传目录
-		if (!Strings.isNullOrEmpty(uploadPath)) {
-			if (uploadPath.charAt(uploadPath.length() - 1) != '/') {
-				defaultUploadPath = uploadPath + '/';
-			} else {
-				defaultUploadPath = uploadPath;
-			}
-		} else {
-			defaultUploadPath = UploadController.DEFAULT_PATH;
-		}
-
-		// 获取上传目录的真实路径
-		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
-		filePath = replaceChars(filePath);
-		// 写入文件
-		final File newFile = new File(uploadRealPath + "/" + filePath);
-		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
-		try {
-			transformEquipmentService.importFormExcel(newFile.getAbsolutePath());
-		} catch (ParsePropertyException e) {
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 设置响应
-		response.setContentType("text/html");
-		response.getWriter().write(
-				"<script>parent."+callBackFunction+"("
-						+ JSON.toJSONString(new Response(new String(
-								(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
-		response.flushBuffer();
-	}
 	@RequestMapping(value = "/electr/equipment/transform-equipments/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable long id) {
@@ -458,6 +409,61 @@ public class TransformEquipmentController {
 		transformEquipment.setRecordGroup(loginAccount.getGroupEntity());
 		return new Response(transformEquipmentService.update(transformEquipment));
 	}
+
+	/**
+	 * 运输设备导入过程
+	 * 
+	 * @param file
+	 * @param callBackFunction
+	 * @param httpSession
+	 * @param response
+	 * @param uploadPath
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/electr/equipment/transform-equipments/upload", method = RequestMethod.POST)
+	public void upload(@RequestParam MultipartFile file, String callBackFunction, HttpSession httpSession,
+			HttpServletResponse response, final String uploadPath) throws IOException {
+		// 生成文件路径
+		String filePath = generatePath(file);
+
+		String defaultUploadPath = null;
+		// 自定义上传目录
+		if (!Strings.isNullOrEmpty(uploadPath)) {
+			if (uploadPath.charAt(uploadPath.length() - 1) != '/') {
+				defaultUploadPath = uploadPath + '/';
+			} else {
+				defaultUploadPath = uploadPath;
+			}
+		} else {
+			defaultUploadPath = UploadController.DEFAULT_PATH;
+		}
+
+		// 获取上传目录的真实路径
+		String uploadRealPath = httpSession.getServletContext().getRealPath(defaultUploadPath);
+		filePath = replaceChars(filePath);
+		// 写入文件
+		final File newFile = new File(uploadRealPath + "/" + filePath);
+		FileUtils.writeByteArrayToFile(newFile, file.getBytes());
+		try {
+			transformEquipmentService.importFormExcel(newFile.getAbsolutePath());
+		} catch (ParsePropertyException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 设置响应
+		response.setContentType("text/html");
+		response.getWriter().write(
+				"<script>parent."
+						+ callBackFunction
+						+ "("
+						+ JSON.toJSONString(new Response(new String(
+								(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath)))) + ")</script>");
+		response.flushBuffer();
+	}
+
 	private String generatePath(MultipartFile file) {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 
@@ -480,6 +486,7 @@ public class TransformEquipmentController {
 
 		return folder + "/" + newFullFileName;
 	}
+
 	private String replaceChars(String srcString) {
 		return srcString.replace("[", "【").replace("]", "】");
 	}

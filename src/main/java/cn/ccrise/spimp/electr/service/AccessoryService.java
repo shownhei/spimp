@@ -25,13 +25,19 @@ public class AccessoryService extends HibernateDataServiceImpl<Accessory, Long> 
 	@Autowired
 	private AccessoryDAO accessoryDAO;
 
-	public boolean deleteAccessory(Long id ,HttpSession httpSession){
-		Accessory temp=findUniqueBy("id", id);
-		this.deleteFile(temp.getInstructions().getFilePath(), httpSession);
-		this.deleteFile(temp.getInstructions().getPdfPath(), httpSession);
-		this.deleteFile(temp.getInstructions().getSwfPath(), httpSession);
+	public boolean deleteAccessory(Long id, HttpSession httpSession) {
+		Accessory temp = findUniqueBy("id", id);
+		deleteFile(temp.getInstructions().getFilePath(), httpSession);
+		deleteFile(temp.getInstructions().getPdfPath(), httpSession);
+		deleteFile(temp.getInstructions().getSwfPath(), httpSession);
 		return delete(id);
 	}
+
+	@Override
+	public HibernateDAO<Accessory, Long> getDAO() {
+		return accessoryDAO;
+	}
+
 	private void deleteFile(String deleteFilePath, HttpSession httpSession) {
 		if (deleteFilePath.indexOf("/uploads/") == 0) {
 			String uploadRealPath = httpSession.getServletContext().getRealPath("/WEB-INF" + deleteFilePath);
@@ -42,9 +48,5 @@ public class AccessoryService extends HibernateDataServiceImpl<Accessory, Long> 
 				file.delete();
 			}
 		}
-	}
-	@Override
-	public HibernateDAO<Accessory, Long> getDAO() {
-		return accessoryDAO;
 	}
 }
