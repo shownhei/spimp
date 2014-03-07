@@ -61,8 +61,6 @@ define(function(require, exports, module) {
 		var kilomiter = 0;
 		var oils = [];
 		var oil = 0;
-		var oilDistanceDisplays = [];
-		var oilDistanceDisplay = 0;
 		$.get(contextPath + '/electr/car/annual-oil/resultchart?year=' + new Date().format('yyyy'), function(data) {
 			var result = data.data.category;
 			var container = {};
@@ -75,8 +73,7 @@ define(function(require, exports, module) {
 							currentType = {
 								run : 0,
 								kilomiter : 0,
-								oil : 0,
-								oilDistanceDisplay : 0
+								oil : 0
 							};
 							container[v[i].carCategory] = currentType;
 							carTypes.push(v[i].carCategory);
@@ -86,7 +83,6 @@ define(function(require, exports, module) {
 						currentType.run += v[i].trainNumber;
 						currentType.kilomiter += v[i].distance;
 						currentType.oil += v[i].refuelNumber;
-						currentType.oilDistanceDisplay += v[i].oilDistanceDisplay;
 					}
 				}
 			});//
@@ -94,7 +90,6 @@ define(function(require, exports, module) {
 				runs.push(container[v].run);
 				kilomiters.push(container[v].kilomiter);
 				oils.push(container[v].oil);
-				oilDistanceDisplays.push(container[v].oilDistanceDisplay);
 			});
 			chart2.setOption(yearOidOption);
 		});
@@ -105,7 +100,7 @@ define(function(require, exports, module) {
 			},
 			legend : {
 				orient : 'horizontal',
-				data : [ '运行次数', '行驶公里数', '加油数', '百公里油耗' ],
+				data : [ '运行次数', '行驶公里数', '加油数'],
 				x : 'center',
 				y : 'top'
 			},
@@ -135,11 +130,7 @@ define(function(require, exports, module) {
 				name : '加油数',
 				type : 'bar',
 				data : oils
-			}, {
-				name : '百公里油耗',
-				type : 'bar',
-				data : oils
-			} ]
+			}]
 		};
 	};
 	showChart2();
@@ -156,8 +147,9 @@ define(function(require, exports, module) {
 				kilos=0;
 				var _tempLen=v.length;
 				$.each(v, function(key, val) {
-					if(key<_tempLen-1)
-					kilos+=val;
+					if(key<_tempLen-1){
+						kilos+=val;
+					}
 				});
 				datas.push(kilos);
 			});
@@ -166,11 +158,8 @@ define(function(require, exports, module) {
 			var yearKilosOption = {
 					color : colors,
 					tooltip : {
-						trigger : 'axis'
-					},
-					tooltip : {
 						trigger : 'item',
-						formatter : "{a} <br/>{b} : {c}公里 "
+						formatter : '{a} <br/>{b} : {c}公里 '
 					},
 					legend : {
 						orient : 'horizontal',

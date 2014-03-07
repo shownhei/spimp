@@ -90,7 +90,8 @@ public class InfoboxController {
 		result.add(new Infobox("infobox-blue2", "icon-file-alt", reformPage.getTotalCount() + "条", "已执行的整改通知单",
 				getRealLink(httpSession, "/daily/reform")));
 		//报警信息
-		Page<Alarm> alarmPage=alarmMessages();
+		Page<Alarm> alarmPage=new Page<Alarm>(Integer.MAX_VALUE);
+		alarmPage=(Page<Alarm>)alarmController.page(alarmPage, null, null, Alarm.DEAL_FLAG_UNDEALED, false).getData();
 		result.add(new Infobox("infobox-red", "icon-phone", alarmPage.getTotalCount() + "条", "报警信息",
 				getRealLink(httpSession, "/ercs/alarm")));
 		//定期检修提醒
@@ -112,11 +113,6 @@ public class InfoboxController {
 		return new Response(result);
 	}
 
-	@SuppressWarnings("unchecked")
-	private Page<Alarm> alarmMessages(){
-		Page<Alarm>  returnPage= new Page<Alarm>(Integer.MAX_VALUE);
-		return (Page<Alarm>)alarmController.page(returnPage, null, null, Alarm.DEAL_FLAG_UNDEALED, false).getData();
-	}
 	private String getRealLink(HttpSession httpSession, String link) {
 		List<ResourceEntity> roleResourceEntities = WebUtils.getRole(httpSession).getResourceEntities();
 		String realLink = "";

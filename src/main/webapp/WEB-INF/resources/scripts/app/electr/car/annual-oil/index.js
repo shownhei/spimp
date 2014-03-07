@@ -50,18 +50,16 @@ define(function(require, exports, module) {
 		var runs = [];
 		var kilomiters = [];
 		var oils = [];
-		var oilDistanceDisplays = [];
 		$.get(contextPath + '/electr/car/annual-oil/resultchart?year=' + $('#query_year').val(), function(data) {
 			var result = data.data.category;
 			$.each(result, function(k, v) {
 				if (v) {
 					var len = v.length;
 					for (var i = 0; i < len; i++) {
-						cars.push(v[i]['carNo']);
-						runs.push(v[i]['trainNumber']);
-						kilomiters.push(v[i]['distance']);
-						oils.push(v[i]['refuelNumber']);
-						oilDistanceDisplays.push(v[i]['oilDistanceDisplay']);
+						cars.push(v[i].carNo);
+						runs.push(v[i].trainNumber);
+						kilomiters.push(v[i].distance);
+						oils.push(v[i].refuelNumber);
 					}
 				}
 			});
@@ -77,7 +75,7 @@ define(function(require, exports, module) {
 			},
 			legend : {
 				orient:'vertical',
-				data : [ '运行次数', '行驶公里数', '加油数', '百公里油耗' ],
+				data : [ '运行次数', '行驶公里数', '加油数'],
 				x : 'right',
 				y : 'center'
 			},
@@ -131,10 +129,6 @@ define(function(require, exports, module) {
 				data : kilomiters
 			}, {
 				name : '加油数',
-				type : 'bar',
-				data : oils
-			}, {
-				name : '百公里油耗',
 				type : 'bar',
 				data : oils
 			} ]
