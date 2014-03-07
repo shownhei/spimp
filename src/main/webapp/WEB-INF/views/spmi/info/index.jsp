@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>经验信息库 - 安全生产综合管理平台</title>
+<title>经验信息库 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../common/head.jsp"%>
 <%@ include file="../../common/template.jsp"%>
 </head>

@@ -683,26 +683,6 @@ public class InitService extends DataInitAbstractService {
 
 		// 应急救援管理系统
 		initErcsService.initFourthLevelOperate();
-
-		// 三维综合管理
-		String monitor = resourceEntityServiceImpl.getDefaultIdentifier("/3d/monitor", HttpMethod.GET);
-		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("实时监测", "/3d/monitor/realtime", monitor, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("历史查询", "/3d/monitor/query", monitor, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("历史曲线", "/3d/monitor/curve", monitor, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("基础信息", "/3d/monitor/info", monitor, "", i++);
-
-		String location = resourceEntityServiceImpl.getDefaultIdentifier("/3d/location", HttpMethod.GET);
-		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("实时监测", "/3d/location/realtime", location, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("历史查询", "/3d/location/query", location, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("领导带班", "/3d/location/foreman", location, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("基础信息", "/3d/location/info", location, "", i++);
-
-		String rescue = resourceEntityServiceImpl.getDefaultIdentifier("/3d/rescue", HttpMethod.GET);
-		i = 1;
-		resourceEntityServiceImpl.saveMenuResource("避灾路线展示", "/3d/rescue/path", rescue, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("应急处置", "/3d/rescue/dispose", rescue, "", i++);
 	}
 
 	@Override

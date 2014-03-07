@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>安全生产综合管理平台</title>
+<title>山西王庄煤业数字矿山综合管理平台</title>
 <script src="${resources}/scripts/sea-modules/seajs/seajs/2.0.0/sea.js" type="text/javascript"></script>
 <script type="text/javascript">
 	seajs.config({

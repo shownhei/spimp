@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>救援专家型人才备案 - 安全生产综合管理平台</title>
+<title>救援专家型人才备案 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>

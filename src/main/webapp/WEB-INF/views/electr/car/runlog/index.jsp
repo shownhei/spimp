@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>机电管理-车辆管理-运行日志管理 - 安全生产综合管理平台</title>
+<title>机电管理-车辆管理-运行日志管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>

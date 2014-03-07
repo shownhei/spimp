@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>图片管理 - 安全生产综合管理平台</title>
+<title>图片管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 <style type="text/css">

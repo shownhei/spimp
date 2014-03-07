@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>电器设备管理 - 安全生产综合管理平台</title>
+<title>电器设备管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 <c:set var="resources" value="${pageContext.request.contextPath}/static-resources" />

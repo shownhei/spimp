@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>基层单位干部跟班情况 - 安全生产综合管理平台</title>
+<title>基层单位干部跟班情况 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="../../../common/head.jsp"%>
 <%@ include file="../../../common/template.jsp"%>
 </head>

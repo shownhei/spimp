@@ -134,6 +134,8 @@ define(function(require, exports, module) {
 					}, 600);
 					break;
 				case 'info':
+					$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
+
 					$('#info-tab').trigger('click');
 					$('#object').html('<img src="' + resources + '/images/3d/capture/信息统计-右侧属性栏.jpg" style="width: 100%">');
 					break;
