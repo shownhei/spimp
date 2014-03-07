@@ -22,6 +22,46 @@ public class IndexController {
 		return "3d/index";
 	}
 
+	@RequestMapping(value = "/location/foreman", method = RequestMethod.GET)
+	public String locationForeman() {
+		return "location/foreman/index";
+	}
+
+	@RequestMapping(value = "/location/info", method = RequestMethod.GET)
+	public String locationInfo() {
+		return "location/info/index";
+	}
+
+	@RequestMapping(value = "/location/query", method = RequestMethod.GET)
+	public String locationQuery() {
+		return "location/query/index";
+	}
+
+	@RequestMapping(value = "/location/realtime", method = RequestMethod.GET)
+	public String locationRealtime() {
+		return "location/realtime/index";
+	}
+
+	@RequestMapping(value = "/monitor/curve", method = RequestMethod.GET)
+	public String monitorCurve() {
+		return "monitor/curve/index";
+	}
+
+	@RequestMapping(value = "/monitor/info", method = RequestMethod.GET)
+	public String monitorInfo() {
+		return "monitor/info/index";
+	}
+
+	@RequestMapping(value = "/monitor/query", method = RequestMethod.GET)
+	public String monitorQuery() {
+		return "monitor/query/index";
+	}
+
+	@RequestMapping(value = "/monitor/realtime", method = RequestMethod.GET)
+	public String monitorRealtime() {
+		return "monitor/realtime/index";
+	}
+
 	// 系统管理
 	/**
 	 * 用户管理
