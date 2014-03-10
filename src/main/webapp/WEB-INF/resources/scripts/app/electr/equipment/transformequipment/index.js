@@ -22,7 +22,9 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
+	$('#download').click(function(){
+		open(resources+'/template/electr/equipment/transform_equipments_upload_tpl.xls');
+	});
 	// 下拉列表初始化
 	Utils.select.remote([ 'search_deviceClass', 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=equipment_device_class',
 			'id', 'itemName', true, '设备分类');

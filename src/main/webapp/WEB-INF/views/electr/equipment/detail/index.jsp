@@ -27,6 +27,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="download" class="btn btn-small btn-primary ">
+						<i class="icon-download"></i> 模板下载
+					</button>
 					<button id="import" class="btn btn-small btn-primary ">
 						<i class="icon-upload"></i> 导入
 					</button>
