@@ -16,6 +16,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,18 +63,31 @@ public class BlottersService extends HibernateDataServiceImpl<Blotters, Long> {
 
 	public boolean putIn(Blotters instance, HttpSession httpSession) {
 		if (instance.getOriginalId() == null) {// 证明没有对应的产品记录
-			Stock stock = new Stock();
-			stock.setAmount(instance.getAmount());
-			stock.setMaterialName(instance.getMaterialName());
-			stock.setMeasureUnit(instance.getMeasureUnit());
-			stock.setModel(instance.getModel());
-			stock.setPrice(instance.getPrice());
-			stock.setRemark(instance.getRemark());
-			stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-			stock.setRecordGroup(instance.getRecordGroup());
-			stockService.save(stock);
-			instance.setOriginalId(stock.getId());
-			stockDetailService.putIn(instance);
+			/**
+			 * 按照 材料名称	规格型号/设备号	度量单位 查询看看是否有对应的记录存在 
+			 */
+			SimpleExpression materialNameExp=Restrictions.eq("materialName", instance.getMaterialName());
+			SimpleExpression measureUnitExp=Restrictions.eq("measureUnit", instance.getMeasureUnit());
+			SimpleExpression modelExp=Restrictions.eq("model", instance.getModel());
+			List<Stock> tempReslt=stockService.find(materialNameExp,measureUnitExp,modelExp);
+			if(tempReslt.size()>0){
+				instance.setOriginalId(tempReslt.get(0).getId());
+				stockService.putIn(instance.getOriginalId(), instance.getAmount());
+				stockDetailService.putIn(instance);
+			}else{
+				Stock stock = new Stock();
+				stock.setAmount(instance.getAmount());
+				stock.setMaterialName(instance.getMaterialName());
+				stock.setMeasureUnit(instance.getMeasureUnit());
+				stock.setModel(instance.getModel());
+				stock.setPrice(instance.getPrice());
+				stock.setRemark(instance.getRemark());
+				stock.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+				stock.setRecordGroup(instance.getRecordGroup());
+				stockService.save(stock);
+				instance.setOriginalId(stock.getId());
+				stockDetailService.putIn(instance);
+			}
 		} else {
 			stockService.putIn(instance.getOriginalId(), instance.getAmount());
 			stockDetailService.putIn(instance);
