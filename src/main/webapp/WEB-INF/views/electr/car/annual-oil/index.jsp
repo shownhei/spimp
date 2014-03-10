@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -16,17 +15,14 @@
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
-					<button id="export_result" class="btn btn-small btn-pink disabled"
-						title="导出当前统计结果">
+					<button id="export_result" class="btn btn-small btn-pink disabled" title="导出当前统计结果">
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
 				<div class="nav-search">
 					<form id="query-form" class="form-search" onsubmit="return false;">
-						<input id="query_year" name="year" type="number"
-							style="height: 15px; width: 130px; font-size: 12px;" value="2013" />
-						<button id="submit" type="button"
-							class="btn btn-primary btn-small">查询</button>
+						<input id="query_year" name="year" type="number" style="height: 15px; width: 130px; font-size: 12px;" value="2013" />
+						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 					</form>
 				</div>
 			</div>
@@ -35,19 +31,18 @@
 					<div class="span11" id="tablePanel"></div>
 				</div>
 				<div class="row">
-					<div class="span11" >
-
+					<div class="span11">
 						<div class="widget-box">
 							<div class="widget-header widget-header-flat widget-header-small">
 								<h5>
-									<i class="icon-signal"></i> <span id="chartPanel-title"></span>
+									<i class="icon-signal"></i>
+									<span id="chartPanel-title"></span>
 								</h5>
 							</div>
 							<div class="widget-body">
-								<div id="chartPanel" class="widget-main" style="height:200px;"></div>
+								<div id="chartPanel" class="widget-main" style="height: 200px;"></div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

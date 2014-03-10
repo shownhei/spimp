@@ -88,9 +88,9 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([  'remove' ]);
+			Utils.button.enable([ 'remove' ]);
 		} else {
-			Utils.button.disable([  'remove' ]);
+			Utils.button.disable([ 'remove' ]);
 		}
 	}
 

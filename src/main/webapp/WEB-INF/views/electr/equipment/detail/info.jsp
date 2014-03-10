@@ -1,17 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="table-responsive" id="table_panel">
 	<ul class="nav nav-tabs">
-		<li class="active" id="BaseTab" elType="tab"><a data-toggle="tab"
-			href="#BasePanel" elType="tab"> <i class="green icon-home"
-				elType="tab"></i> 设备信息
-		</a></li>
-		<li id="AccessoryTab" elType="tab"><a data-toggle="tab"
-			href="#AccessoryPanel" elType="tab"> <i class="green icon-list"
-				elType="tab"></i>配件信息
-		</a></li>
+		<li class="active" id="BaseTab" elType="tab">
+			<a data-toggle="tab" href="#BasePanel" elType="tab">
+				<i class="green icon-home" elType="tab"></i> 设备信息
+			</a>
+		</li>
+		<li id="AccessoryTab" elType="tab">
+			<a data-toggle="tab" href="#AccessoryPanel" elType="tab">
+				<i class="green icon-list" elType="tab"></i>配件信息
+			</a>
+		</li>
 	</ul>
 	<div id="tab-content" class="tab-content">
 		<div id="BasePanel" class="tab-pane in active">
@@ -66,15 +67,17 @@
 					</tr>
 					<tr class="page_report_table_tr">
 						<td>图片</td>
-						<td colspan="3"><c:if test="${!empty equipment.pictureURL}">
+						<td colspan="3">
+							<c:if test="${!empty equipment.pictureURL}">
 								<img src="${equipment.pictureURL}">
-							</c:if></td>
+							</c:if>
+						</td>
 						<td>说明书</td>
-						<td><c:if test="${!empty equipment.pictureURL}">
-								<a elType="showDocument"
-									data-id="${equipment.specificationURL.id}"
-									href="javascript:void(0);" target="_blank">${equipment.specificationURL.simpleName}</a>
-							</c:if></td>
+						<td>
+							<c:if test="${!empty equipment.pictureURL}">
+								<a elType="showDocument" data-id="${equipment.specificationURL.id}" href="javascript:void(0);" target="_blank">${equipment.specificationURL.simpleName}</a>
+							</c:if>
+						</td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -109,41 +112,33 @@
 							<td>${data.remark }</td>
 							<c:if test="${empty data.pictureURL}">
 								<td buttonType="upload">
-									<button class="btn btn-small btn-success" data-id="${data.id}"
-										buttonType="upload">
-										<i class="icon-upload bigger-120" data-id="${data.id}"
-											buttonType="upload"></i>
+									<button class="btn btn-small btn-success" data-id="${data.id}" buttonType="upload">
+										<i class="icon-upload bigger-120" data-id="${data.id}" buttonType="upload"></i>
 									</button>
 							</c:if>
 							<c:if test="${!empty data.pictureURL}">
 								<td dataType="showRemark">
-									<div
-										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.pictureURL}</div>
+									<div style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.pictureURL}</div>
 							</c:if>
 							</td>
-
 							<c:if test="${empty data.instructions}">
 								<td buttonType="upload-instructions">
-									<button class="btn btn-small btn-success" data-id="${data.id}"
-										buttonType="upload-instructions">
-										<i class="icon-upload bigger-120" data-id="${data.id}"
-											buttonType="upload-instructions"></i>
+									<button class="btn btn-small btn-success" data-id="${data.id}" buttonType="upload-instructions">
+										<i class="icon-upload bigger-120" data-id="${data.id}" buttonType="upload-instructions"></i>
 									</button>
 							</c:if>
 							<c:if test="${!empty data.instructions}">
 								<td>
-									<div
-										style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">
-										<a href="javascript:void(0)" elType="showDocument"
-											data-id="${data.instructions.id}">${data.instructions.simpleName}</a>
+									<div style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">
+										<a href="javascript:void(0)" elType="showDocument" data-id="${data.instructions.id}">${data.instructions.simpleName}</a>
 									</div>
 							</c:if>
 							</td>
-							<td><button class="btn btn-small btn-danger"
-									data-id="${data.id}" buttonType="delete">
-									<i class="icon-trash bigger-120" data-id="${data.id}"
-										buttonType="delete"></i>
-								</button></td>
+							<td>
+								<button class="btn btn-small btn-danger" data-id="${data.id}" buttonType="delete">
+									<i class="icon-trash bigger-120" data-id="${data.id}" buttonType="delete"></i>
+								</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

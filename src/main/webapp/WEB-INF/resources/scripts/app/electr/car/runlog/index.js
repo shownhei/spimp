@@ -33,12 +33,16 @@ define(function(require, exports, module) {
 		}
 	}, {
 		header : '班次 ',
-		render:function(v){
-			switch(v){
-				case '0':return '零点班';
-				case '4':return '四点班';
-				case '8':return '八点班';
-				default :return '未知班次';
+		render : function(v) {
+			switch (v) {
+				case '0':
+					return '零点班';
+				case '4':
+					return '四点班';
+				case '8':
+					return '八点班';
+				default:
+					return '未知班次';
 			}
 		},
 		name : 'classType'
@@ -146,7 +150,7 @@ define(function(require, exports, module) {
 			errorMsg.push('请输入路程 ');
 		}
 
-		if (model.distance === '0' ) {
+		if (model.distance === '0') {
 			errorMsg.push('行驶公里数不能为0');
 			$('#create_distance')[0].focus();
 		}

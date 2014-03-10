@@ -171,7 +171,7 @@ define(function(require, exports, module) {
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 			$('#edit_attachment').val(object.attachment.simpleName);
-			$('#edit_attachment').attr('data-id',object.attachment.id);
+			$('#edit_attachment').attr('data-id', object.attachment.id);
 		});
 	});
 

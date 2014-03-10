@@ -9,8 +9,8 @@ define(function(require, exports, module) {
 	var currentDate = new Date();
 	$('#query_year').val(currentDate.getFullYear());
 	$('#query_month').val(currentDate.getMonth() + 1);
-	var loadInfo=function(){
-		Utils.button.disable(['export' ]);
+	var loadInfo = function() {
+		Utils.button.disable([ 'export' ]);
 		$('#table_panel').html('');
 		$.ajax({
 			type : 'get',
@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 			url : '/electr/material/statistics_query',
 			success : function(data) {
 				$('#table_panel').html(data);
-				Utils.button.enable(['export' ]);
+				Utils.button.enable([ 'export' ]);
 			}
 		});
 	};

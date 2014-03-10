@@ -12,14 +12,14 @@ define(function(require, exports, module) {
 	$(document).ready(function() {
 		var currentDate = new Date();
 		$('#query_year').val(currentDate.getFullYear());
-		$('#query_month').val(currentDate.getMonth()+1);
+		$('#query_month').val(currentDate.getMonth() + 1);
 		$('#submit').trigger('click');
 	});
 	var loadMaintenance = function() {
 		$('#tablePanel').html('');
 		Utils.button.disable([ 'export_result' ]);
 		var data = 'year=' + $('#query_year').val();
-		data+="&month="+$('#query_month').val();
+		data += "&month=" + $('#query_month').val();
 		$.ajax({
 			type : 'get',
 			data : data,

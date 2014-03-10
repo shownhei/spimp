@@ -297,7 +297,7 @@ define(function(require, exports, module) {
 	}
 
 	function asynGet() {
-		window.atAlarmPage=true;
+		window.atAlarmPage = true;
 		$.ajax({
 			type : 'GET',
 			url : '/ercs/alarm/waitalarm',
@@ -309,7 +309,7 @@ define(function(require, exports, module) {
 				var newIdArray = data.alarmList;
 				var len = idarray.length;
 				for (var i = 0; i < newIdArray.length; i++) {
-					if(idarray.indexOf(newIdArray[i])===-1){
+					if (idarray.indexOf(newIdArray[i]) === -1) {
 						idarray.push(newIdArray[i]);
 						openDialog(newIdArray[i]);
 					}
@@ -317,10 +317,10 @@ define(function(require, exports, module) {
 				asynGet();
 			},
 			error : function(data, textStatus) {
-				//alert(textStatus);
+				// alert(textStatus);
 				if (textStatus !== 'error') {
 					asynGet();
-					//setTimeout(asynGet,50000);
+					// setTimeout(asynGet,50000);
 				}
 			}
 		});

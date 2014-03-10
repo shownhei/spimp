@@ -159,7 +159,7 @@
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
-				    <button id="create" class="btn btn-small btn-success">
+					<button id="create" class="btn btn-small btn-success">
 						<i class="icon-plus-sign-alt"></i> 新建
 					</button>
 					<button id="edit" class="btn btn-small btn-primary disabled">

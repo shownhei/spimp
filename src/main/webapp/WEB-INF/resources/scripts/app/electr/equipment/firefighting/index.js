@@ -11,90 +11,76 @@ define(function(require, exports, module) {
 	Utils.input.date('input[type=datetime]');
 
 	// 配置表格列
-	var fields = [
-			{
-				header : '存在地点',
-				name : 'location'
-			},
-			{
-				header : '编号',
-				name : 'equipmentCode'
-			},
-			{
-				header : '沙箱容积',
-				align : 'right',
-				width : 80,
-				name : 'sandBoxCapacity'
-			},
-			{
-				header : "CO2（4Kg）",
-				children : [ {
-					header : '数量',
-					name : 'amount1'
-				}, {
-					header : '维修时间',
-					name : 'maintenanceDate1'
-				} ]
-			},
-			{
-				header : "干粉（8Kg）",
-				children : [ {
-					header : '数量',
-					align : 'right',
-					width : 80,
-					name : 'amount2'
-				}, {
-					header : '维修时间',
-					name : 'maintenance2'
-				} ]
-			},
-			{
-				header : '消防斧',
-				align : 'right',
-				width : 80,
-				name : 'fireAxe'
-			},
-			{
-				header : '消防钩',
-				align : 'right',
-				width : 80,
-				name : 'fireHook'
-			},
-			{
-				header : '消防桶',
-				align : 'right',
-				width : 80,
-				name : 'fireBucket'
-			},
-			{
-				header : '消防锹',
-				align : 'right',
-				width : 80,
-				name : 'fireShovel'
-			},
-			{
-				header : '其他',
-				name : 'others'
-			},
-			{
-				header : '记录日期',
-				width : 90,
-				name : 'recordDate'
-			},
-			{
-				header : '查看',
-				name : 'id',
-				width : 50,
-				align : 'center',
-				render : function(value) {
-					return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
-				}
-			} ];
+	var fields = [ {
+		header : '存在地点',
+		name : 'location'
+	}, {
+		header : '编号',
+		name : 'equipmentCode'
+	}, {
+		header : '沙箱容积',
+		align : 'right',
+		width : 80,
+		name : 'sandBoxCapacity'
+	}, {
+		header : "CO2（4Kg）",
+		children : [ {
+			header : '数量',
+			name : 'amount1'
+		}, {
+			header : '维修时间',
+			name : 'maintenanceDate1'
+		} ]
+	}, {
+		header : "干粉（8Kg）",
+		children : [ {
+			header : '数量',
+			align : 'right',
+			width : 80,
+			name : 'amount2'
+		}, {
+			header : '维修时间',
+			name : 'maintenance2'
+		} ]
+	}, {
+		header : '消防斧',
+		align : 'right',
+		width : 80,
+		name : 'fireAxe'
+	}, {
+		header : '消防钩',
+		align : 'right',
+		width : 80,
+		name : 'fireHook'
+	}, {
+		header : '消防桶',
+		align : 'right',
+		width : 80,
+		name : 'fireBucket'
+	}, {
+		header : '消防锹',
+		align : 'right',
+		width : 80,
+		name : 'fireShovel'
+	}, {
+		header : '其他',
+		name : 'others'
+	}, {
+		header : '记录日期',
+		width : 90,
+		name : 'recordDate'
+	}, {
+		header : '查看',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
+		}
+	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height()
-					+ $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	/**
@@ -109,8 +95,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + operateUri
-			+ '?orderBy=id&order=desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + operateUri + '?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#material-table',
 		url : defaultUrl,
@@ -244,28 +229,26 @@ define(function(require, exports, module) {
 	});
 
 	// 更新
-	$('#edit-save').click(
-			function() {
-				var object = Utils.form.serialize('edit');
+	$('#edit-save').click(function() {
+		var object = Utils.form.serialize('edit');
 
-				// 验证
-				if (!validate('edit', object)) {
-					return false;
-				}
+		// 验证
+		if (!validate('edit', object)) {
+			return false;
+		}
 
-				// 处理属性
-				var selectId = grid.selectedData('id');
-				object.id = selectId;
-				$.put(operateUri + '/' + selectId, JSON.stringify(object),
-						function(data) {
-							if (data.success) {
-								grid.refresh();
-								Utils.modal.hide('edit');
-							} else {
-								Utils.modal.message('edit', data.errors);
-							}
-						});
-			});
+		// 处理属性
+		var selectId = grid.selectedData('id');
+		object.id = selectId;
+		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
+			if (data.success) {
+				grid.refresh();
+				Utils.modal.hide('edit');
+			} else {
+				Utils.modal.message('edit', data.errors);
+			}
+		});
+	});
 
 	// 删除
 	$('#remove').click(function() {
@@ -285,15 +268,13 @@ define(function(require, exports, module) {
 	});
 
 	// 导出
-	$('#export').click(
-			function() {
-				if (Utils.button.isDisable('export')) {
-					return;
-				}
+	$('#export').click(function() {
+		if (Utils.button.isDisable('export')) {
+			return;
+		}
 
-				window.location.href = operateUri + '/export-excel?'
-						+ Utils.form.buildParams('search-form');
-			});
+		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
+	});
 
 	// 搜索
 	$('#submit').click(function() {

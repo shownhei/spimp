@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				$('#tablePanel').html(data);
 				$('#add_detail-plan').val($('#sample-table-1').attr('data-id'));
-				changeButtonsStatus(true,data);
+				changeButtonsStatus(true, data);
 			}
 		});
 	};
@@ -32,7 +32,7 @@ define(function(require, exports, module) {
 	 * 修改/重置按钮状态
 	 */
 	function changeButtonsStatus(loaded, data) {
-		if (loaded &&($('#add_detail-plan').val()!=='')) {
+		if (loaded && ($('#add_detail-plan').val() !== '')) {
 			Utils.button.enable([ 'add_detail', 'remove_plan', 'export_plan' ]);
 			Utils.button.disable([ 'create_plan' ]);
 		} else {
@@ -103,7 +103,7 @@ define(function(require, exports, module) {
 		if (model.sumMoney === '') {
 			errorMsg.push('请输入金额');
 		}
-		
+
 		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
@@ -178,7 +178,7 @@ define(function(require, exports, module) {
 		delete object.plan;
 		object.plan = plan;
 		// 处理属性
-		$.put('/electr/material/plan-details/'+object.id, JSON.stringify(object), function(data) {
+		$.put('/electr/material/plan-details/' + object.id, JSON.stringify(object), function(data) {
 			if (data.success) {
 				Utils.modal.hide('edit_detail');
 				loadPlan($('#edit_detail-plan').val());

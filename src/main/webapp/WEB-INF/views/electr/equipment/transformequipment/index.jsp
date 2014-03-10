@@ -636,13 +636,12 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="upload-data-form" class="form-horizontal" action="/electr/equipment/transform-equipments/upload" method="post"
-						enctype="multipart/form-data" target="acceptFrame"
-						style="margin-bottom: 0px;">
+					<form id="upload-data-form" class="form-horizontal" action="/electr/equipment/transform-equipments/upload" method="post" enctype="multipart/form-data"
+						target="acceptFrame" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="location">模板下载</label>
 							<div class="controls">
-							    <a href="${resources }/template/electr/equipment/transform_equipments_upload_tpl.xls" target="_blank">wenjian</a>
+								<a href="${resources }/template/electr/equipment/transform_equipments_upload_tpl.xls" target="_blank">wenjian</a>
 							</div>
 						</div>
 						<div class="control-group">
@@ -656,7 +655,8 @@
 				<div id="import-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="import-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="import-message-content"></span>
 						</div>
 					</div>
 				</div>

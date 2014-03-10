@@ -19,18 +19,22 @@ define(function(require, exports, module) {
 	}, {
 		header : '故障车辆',
 		name : 'car',
-		render:function(val){
-			return val?val.carNo:'';
+		render : function(val) {
+			return val ? val.carNo : '';
 		}
-	},{
+	}, {
 		header : '班次',
 		width : 90,
-		render:function(v){
-			switch(v){
-				case '0':return '零点班';
-				case '4':return '四点班';
-				case '8':return '八点班';
-				default :return '未知班次';
+		render : function(v) {
+			switch (v) {
+				case '0':
+					return '零点班';
+				case '4':
+					return '四点班';
+				case '8':
+					return '八点班';
+				default:
+					return '未知班次';
 			}
 		},
 		name : 'classType'
@@ -134,7 +138,7 @@ define(function(require, exports, module) {
 	function showDetail(data) {
 		Utils.modal.reset('detail');
 		var object = $.extend({}, data);
-		object.car=object.car.carNo;
+		object.car = object.car.carNo;
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}
@@ -171,7 +175,7 @@ define(function(require, exports, module) {
 			var object = data.data;
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
-			$('#edit_car').attr('data-id',object.car.id);
+			$('#edit_car').attr('data-id', object.car.id);
 			$('#edit_car').val(object.car.carNo);
 		});
 	});
@@ -184,9 +188,11 @@ define(function(require, exports, module) {
 		if (!validate('edit', object)) {
 			return false;
 		}
-		var car = {id:$('#edit_car').attr('data-id')};
+		var car = {
+			id : $('#edit_car').attr('data-id')
+		};
 		delete object.car;
-		object.car=car;
+		object.car = car;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;

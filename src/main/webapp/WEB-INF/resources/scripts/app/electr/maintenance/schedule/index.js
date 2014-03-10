@@ -111,7 +111,7 @@ define(function(require, exports, module) {
 			url : '/electr/maintenance/getschedulemaintenance',
 			success : function(data) {
 				$('#tablePanel').html(data);
-				changeButtonsStatus($('#tablePanel').children().length>0);
+				changeButtonsStatus($('#tablePanel').children().length > 0);
 			}
 		});
 	};
@@ -133,11 +133,11 @@ define(function(require, exports, module) {
 	// 计算表格高度和行数
 	function changeButtonsStatus(loaded, data) {
 		if (loaded) {
-			Utils.button.enable([ 'create_maintenance_detail', 'remove_maintenance','export_maintenance' ]);
-			Utils.button.disable([  'create_maintenance']);
+			Utils.button.enable([ 'create_maintenance_detail', 'remove_maintenance', 'export_maintenance' ]);
+			Utils.button.disable([ 'create_maintenance' ]);
 		} else {
-			Utils.button.disable([  'create_maintenance_detail', 'remove_maintenance','export_maintenance' ]);
-			Utils.button.enable([ 'create_maintenance']);
+			Utils.button.disable([ 'create_maintenance_detail', 'remove_maintenance', 'export_maintenance' ]);
+			Utils.button.enable([ 'create_maintenance' ]);
 		}
 	}
 
@@ -185,11 +185,13 @@ define(function(require, exports, module) {
 			return false;
 		}
 
-		var _maintenanceId=$('#edit_detail_maintenance').val();
-		var maintenance = {id:_maintenanceId};
+		var _maintenanceId = $('#edit_detail_maintenance').val();
+		var maintenance = {
+			id : _maintenanceId
+		};
 		delete object.maintenance;
-		object.maintenance=maintenance;
-		$.put("/electr/maintenance/maintenance-details/"+object.id, JSON.stringify(object), function(data) {
+		object.maintenance = maintenance;
+		$.put("/electr/maintenance/maintenance-details/" + object.id, JSON.stringify(object), function(data) {
 			if (data.success) {
 				loadMaintenance(_maintenanceId);
 				Utils.modal.hide('edit_maintenance_detail');
@@ -200,7 +202,7 @@ define(function(require, exports, module) {
 	});
 	// 保存
 	$('#create_maintenance_detail-save').click(function() {
-		
+
 		var object = Utils.form.serialize('create_maintenance_detail');
 
 		// 验证
@@ -243,7 +245,7 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-		window.location.href = operateUri + '/export-excel?id='+$('#sample-table-1').attr('data-id');
+		window.location.href = operateUri + '/export-excel?id=' + $('#sample-table-1').attr('data-id');
 	});
 
 	// 搜索

@@ -46,7 +46,7 @@ define(function(require, exports, module) {
 		header : '上传人',
 		name : 'uploader',
 		render : function(v) {
-			return v?v.realName:'';
+			return v ? v.realName : '';
 		}
 	}, {
 		header : '查看',

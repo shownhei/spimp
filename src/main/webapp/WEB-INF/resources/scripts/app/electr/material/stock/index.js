@@ -95,7 +95,6 @@ define(function(require, exports, module) {
 		}
 	}).render();
 
-
 	// 验证
 	function validate(showType, model) {
 		var errorMsg = [];

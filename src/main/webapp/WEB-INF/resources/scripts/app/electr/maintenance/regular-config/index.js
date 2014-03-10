@@ -9,20 +9,20 @@ define(function(require, exports, module) {
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	//加载配置级别
+	// 加载配置级别
 	Utils.select.remote([ 'search_car', 'create_car', 'edit_car' ], '/electr/maintenance/regular-configs-list', 'id', 'carNo', true, '配置');
 	// 配置表格列
 	var fields = [ {
 		header : '保养类别',
 		name : 'maintenanceLevel',
-		render:function(v){
-			return v+'级';
+		render : function(v) {
+			return v + '级';
 		}
 	}, {
 		header : '公里数',
 		name : 'kilometres',
-		render:function(v){
-			return v+'km';
+		render : function(v) {
+			return v + 'km';
 		}
 	}, {
 		header : '记录时间',

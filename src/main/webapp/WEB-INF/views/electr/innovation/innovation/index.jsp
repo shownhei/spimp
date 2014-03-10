@@ -146,7 +146,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
-					<div class="control-group">
+						<div class="control-group">
 							<label class="control-label" for="projectName">项目名称</label>
 							<div class="controls">
 								<input id="edit_projectName" name="projectName" type="text">

@@ -32,7 +32,7 @@ define(function(require, exports, module) {
 		width : 80,
 		name : 'uploader',
 		render : function(v) {
-			return v?v.realName:'';
+			return v ? v.realName : '';
 		}
 	}, {
 		header : '查看',

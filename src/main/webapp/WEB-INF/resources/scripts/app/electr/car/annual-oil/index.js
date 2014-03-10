@@ -12,11 +12,11 @@ define(function(require, exports, module) {
 		var currentDate = new Date();
 		$('#query_year').val(currentDate.getFullYear());
 		$('#submit').trigger('click');
-		
+
 	});
 	var loadMaintenance = function() {
 		$('#tablePanel').html('');
-		Utils.button.enable([ 'disable']);
+		Utils.button.enable([ 'disable' ]);
 		var data = 'year=' + $('#query_year').val();
 		$.ajax({
 			type : 'get',
@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				showChart();
 				$('#tablePanel').html(data);
-				Utils.button.enable([ 'export_result']);
+				Utils.button.enable([ 'export_result' ]);
 			}
 		});
 	};
@@ -37,11 +37,11 @@ define(function(require, exports, module) {
 		}
 		window.location.href = '/electr/car/annual-oil/export?' + Utils.form.buildParams('query-form');
 	});
-	// 搜索 
+	// 搜索
 	$('#submit').click(function() {
 		loadMaintenance(new Date().getFullYear());
 	});
-	var showChart=function(){
+	var showChart = function() {
 		// chartPanel--年度油耗
 		var colors = [ '#82af6f', '#3a87ad', '#f89406', '#b94a48' ];
 		var chartPanel = echarts.init(document.getElementById('chartPanel'));
@@ -74,8 +74,8 @@ define(function(require, exports, module) {
 				trigger : 'axis'
 			},
 			legend : {
-				orient:'vertical',
-				data : [ '运行次数', '行驶公里数', '加油数'],
+				orient : 'vertical',
+				data : [ '运行次数', '行驶公里数', '加油数' ],
 				x : 'right',
 				y : 'center'
 			},
@@ -134,5 +134,5 @@ define(function(require, exports, module) {
 			} ]
 		};
 	};
-	
+
 });

@@ -52,10 +52,10 @@
 				<td>相关图片</td>
 				<td colspan=3>
 					<c:forEach items="${pictures}" var="pic" varStatus="listIndex">
-					<div class="span2" style="position:relative;height:100%;">
-						<img src="${pic.imagePath }" data-type="detail-image" style="width: 400px;position:absolute;left:1px;top:1px;">
-						<a href="javascript:void(0)" data-id="${pic.id }" data-type="removeImg" style="position:absolute;left:1px;top:1px;">删除</a>
-					</div>
+						<div class="span2" style="position: relative; height: 100%;">
+							<img src="${pic.imagePath }" data-type="detail-image" style="width: 400px; position: absolute; left: 1px; top: 1px;">
+							<a href="javascript:void(0)" data-id="${pic.id }" data-type="removeImg" style="position: absolute; left: 1px; top: 1px;">删除</a>
+						</div>
 					</c:forEach>
 				</td>
 			</tr>

@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/electr/innovation/innovations';
 	window.$ = $;
-	window.Utils=Utils;
+	window.Utils = Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	var loadDetail = function(id) {
-		window.innovationId=id;
+		window.innovationId = id;
 		$('#detail-panel').html('');
 		$.ajax({
 			type : 'get',
@@ -300,42 +300,45 @@ define(function(require, exports, module) {
 			return false;
 		} else {
 			var selectId = grid.selectedData('id');
-			$.post('/electr/innovation/innovation-images', JSON.stringify({'innovationId':selectId,'imagePath':data.data}), function(data) {
+			$.post('/electr/innovation/innovation-images', JSON.stringify({
+				'innovationId' : selectId,
+				'imagePath' : data.data
+			}), function(data) {
 				Utils.modal.hide('upload');
 			});
 		}
 	}
-	window.callBack=callBack;
-	//删除图片
-	//removeImg
+	window.callBack = callBack;
+	// 删除图片
+	// removeImg
 	$(document).mouseover(function(event) {
 		var el = $(event.target);
 		var dataType = el.attr('data-type');
-		if(dataType==='detail-image'){
+		if (dataType === 'detail-image') {
 			el.parent().find("a").show();
 		}
 	});
 	$(document).mouseout(function(event) {
 		var el = $(event.target);
 		var dataType = el.attr('data-type');
-		if(dataType==='detail-image'){
+		if (dataType === 'detail-image') {
 			el.parent().find("a").hide();
 		}
 	});
 	$(document).click(function(event) {
 		var el = $(event.target);
 		var dataType = el.attr('data-type');
-		if(dataType==='removeImg'){
+		if (dataType === 'removeImg') {
 			var dataId = el.attr('data-id');
 			$.ajax({
-				type: "delete", 
-				url : "/electr/innovation/innovation-images/"+dataId,
-				dataType:'json',
-				success: function(json){
+				type : "delete",
+				url : "/electr/innovation/innovation-images/" + dataId,
+				dataType : 'json',
+				success : function(json) {
 					loadDetail(window.innovationId);
-				} 
-			}); 
+				}
+			});
 		}
 	});
-	window.$=$;
+	window.$ = $;
 });

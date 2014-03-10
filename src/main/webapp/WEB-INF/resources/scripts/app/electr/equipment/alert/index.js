@@ -115,7 +115,7 @@ define(function(require, exports, module) {
 	// 删除确认
 	$('#remove-save').click(function() {
 		var selectId = grid.selectedData('id');
-		$.del('/electr/equipment/reminder-settings/'+ selectId, function(data) {
+		$.del('/electr/equipment/reminder-settings/' + selectId, function(data) {
 			grid.refresh();
 			Utils.modal.hide('remove');
 		});

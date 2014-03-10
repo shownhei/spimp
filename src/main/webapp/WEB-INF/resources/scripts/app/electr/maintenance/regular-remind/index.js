@@ -4,11 +4,11 @@ define(function(require, exports, module) {
 	/**
 	 * 加载用来渲染保养级别的数据
 	 */
-	var levelMap={};
-	window.levelMap=levelMap;
+	var levelMap = {};
+	window.levelMap = levelMap;
 	$.get('/electr/maintenance/regular-configs-list', function(data) {
 		$.each(data.data, function(entryIndex, entry) {
-			levelMap[entry.maintenanceLevel]=entry.kilometres+"km 维修一次";
+			levelMap[entry.maintenanceLevel] = entry.kilometres + "km 维修一次";
 		});
 	});
 
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 		header : '保养类别',
 		align : 'right',
 		width : 120,
-		render:function(v){
+		render : function(v) {
 			return levelMap[v];
 		},
 		name : 'maintenanceLevel'
@@ -93,9 +93,9 @@ define(function(require, exports, module) {
 
 			// 改变导出按钮状态
 			if (this.data.totalCount > 0) {
-				Utils.button.enable([ 'close-remind','export' ]);
+				Utils.button.enable([ 'close-remind', 'export' ]);
 			} else {
-				Utils.button.disable([ 'close-remind','export' ]);
+				Utils.button.disable([ 'close-remind', 'export' ]);
 			}
 		}
 	}).render();
@@ -121,7 +121,6 @@ define(function(require, exports, module) {
 			grid.refresh();
 		});
 	});
-
 
 	// 导出
 	$('#export').click(function() {

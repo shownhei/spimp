@@ -8,7 +8,8 @@ define(function(require, exports, module) {
 	});
 
 	// 下拉列表初始化
-	Utils.select.remote([ 'search_project', 'create_project', 'edit_project' ], '/system/dictionaries?typeCode=reminder_setting_project&list=true', 'id', 'itemName', true, '项目');
+	Utils.select.remote([ 'search_project', 'create_project', 'edit_project' ], '/system/dictionaries?typeCode=reminder_setting_project&list=true', 'id',
+			'itemName', true, '项目');
 
 	// 下拉列表change事件
 	$('#search_project').bind('change', function() {
