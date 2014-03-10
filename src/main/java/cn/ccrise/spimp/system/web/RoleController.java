@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -29,6 +30,7 @@ import cn.ccrise.ikjp.core.security.entity.RoleEntity;
 import cn.ccrise.ikjp.core.security.service.impl.LogEntityServiceImpl;
 import cn.ccrise.ikjp.core.security.service.impl.ResourceEntityServiceImpl;
 import cn.ccrise.ikjp.core.security.service.impl.RoleEntityServiceImpl;
+import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.ikjp.core.util.ValidationUtils;
@@ -122,6 +124,16 @@ public class RoleController {
 	@ResponseBody
 	public Response handleMethodArgumentNotValidException(MethodArgumentNotValidException error) {
 		return new Response(ValidationUtils.renderResultMap(error.getBindingResult(), messageSource));
+	}
+
+	/**
+	 * 判断角色是否包含对某一URI的访问权限，URI使用":"替换"/"。
+	 */
+	@RequestMapping(value = "/system/roles/has-permission/{resourceUri}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response hasPermission(HttpSession httpSession, @PathVariable String resourceUri) {
+		long roleId = WebUtils.getRole(httpSession).getId();
+		return new Response(accountService.hasPermission(roleId, "/" + resourceUri.replaceAll(":", "/")));
 	}
 
 	@RequestMapping(value = "/system/roles", method = RequestMethod.GET)

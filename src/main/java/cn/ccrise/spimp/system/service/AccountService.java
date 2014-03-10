@@ -5,6 +5,9 @@ package cn.ccrise.spimp.system.service;
 
 import java.sql.Timestamp;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,26 @@ public class AccountService extends AccountEntityServiceImpl<Account> {
 	@Override
 	public HibernateDAO<Account, Long> getDAO() {
 		return accountDAO;
+	}
+
+	/**
+	 * 判断角色是否对某一URL有访问权限。
+	 * 
+	 * @param roleId
+	 *            角色id
+	 * @param uri
+	 *            URL
+	 * @return true 有 false 无
+	 */
+	public boolean hasPermission(Long roleId, String uri) {
+		Criteria roleCriteria = roleEntityServiceImpl.getDAO().createCriteria(Restrictions.eq("id", roleId))
+				.setProjection(Projections.rowCount());
+		Criteria resourceCriteria = roleCriteria.createCriteria("resourceEntities");
+		resourceCriteria.add(Restrictions.eq("uri", uri));
+
+		long resultCount = Long.parseLong(roleCriteria.list().get(0).toString());
+
+		return resultCount == 0 ? false : true;
 	}
 
 	/**

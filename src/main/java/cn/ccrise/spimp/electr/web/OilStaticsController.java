@@ -104,7 +104,6 @@ public class OilStaticsController {
 	public Response getAnnualOilForChart(Integer year) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		doQueryAnnualOil(year, root);
-		logger.debug("{}", root);
 		return new Response(root);
 	}
 

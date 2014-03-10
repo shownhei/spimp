@@ -33,6 +33,7 @@ import cn.ccrise.spimp.spmi.daily.entity.Reform;
 import cn.ccrise.spimp.spmi.daily.entity.Reform.ReformStatus;
 import cn.ccrise.spimp.spmi.daily.web.PlanController;
 import cn.ccrise.spimp.spmi.daily.web.ReformController;
+import cn.ccrise.spimp.system.service.AccountService;
 import cn.ccrise.spimp.system.web.entity.Infobox;
 
 import com.google.common.collect.Lists;
@@ -58,12 +59,16 @@ public class InfoboxController {
 	private ReminderSettingController reminderSettingController;
 	@Autowired
 	private ReminderController reminderController;
+	@Autowired
+	private AccountService accountService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/infobox/pull", method = RequestMethod.GET)
 	@ResponseBody
 	public Response pullInfobox(HttpSession httpSession) {
 		List<Infobox> result = Lists.newArrayList();
+
+		long roleId = WebUtils.getRole(httpSession).getId();
 
 		// 未指派的工作安排
 		Page<Plan> planPage = new Page<>(Integer.MAX_VALUE);
@@ -79,33 +84,41 @@ public class InfoboxController {
 		result.add(new Infobox("infobox-blue2", "icon-file-alt", reformPage.getTotalCount() + "条", "已执行的整改通知单",
 				getRealLink(httpSession, "/daily/reform")));
 
-		// 报警信息
-		Page<Alarm> alarmPage = new Page<Alarm>(Integer.MAX_VALUE);
-		alarmPage = (Page<Alarm>) alarmController.page(alarmPage, null, null, Alarm.DEAL_FLAG_UNDEALED, false)
-				.getData();
-		result.add(new Infobox("infobox-red", "icon-phone", alarmPage.getTotalCount() + "条", "报警信息", getRealLink(
-				httpSession, "/ercs/alarm")));
+		// 应急报警
+		if (accountService.hasPermission(roleId, "/ercs/alarm")) {
+			Page<Alarm> alarmPage = new Page<Alarm>(Integer.MAX_VALUE);
+			alarmPage = (Page<Alarm>) alarmController.page(alarmPage, null, null, Alarm.DEAL_FLAG_UNDEALED, false)
+					.getData();
+			result.add(new Infobox("infobox-red", "icon-phone", alarmPage.getTotalCount() + "条", "报警信息", getRealLink(
+					httpSession, "/ercs/alarm")));
+		}
 
 		// 定期检修提醒
-		Page<ReminderSetting> reminderSettingPage = new Page<ReminderSetting>(Integer.MAX_VALUE);
-		reminderSettingPage = (Page<ReminderSetting>) reminderSettingController.page(reminderSettingPage, null, null,
-				null).getData();
-		result.add(new Infobox("infobox-blue", "icon-dashboard", reminderSettingPage.getTotalCount() + "条", "定期检修到期提醒",
-				getRealLink(httpSession, "/spmi/jdd/equipment/alert")));
+		if (accountService.hasPermission(roleId, "/spmi/tfk/maintenance/schedule")) {
+			Page<ReminderSetting> reminderSettingPage = new Page<ReminderSetting>(Integer.MAX_VALUE);
+			reminderSettingPage = (Page<ReminderSetting>) reminderSettingController.page(reminderSettingPage, null,
+					null, null).getData();
+			result.add(new Infobox("infobox-blue", "icon-dashboard", reminderSettingPage.getTotalCount() + "条",
+					"定期检修到期提醒", getRealLink(httpSession, "/spmi/jdd/equipment/alert")));
+		}
 
-		// 应急救援任务
-		Page<EmergencyPlanInstance> emergencyPlanPage = new Page<EmergencyPlanInstance>(Integer.MAX_VALUE);
-		emergencyPlanPage = (Page<EmergencyPlanInstance>) emergencyPlanInstanceController.page(emergencyPlanPage, null,
-				httpSession, Boolean.FALSE).getData();
-		result.add(new Infobox("infobox-orange", "icon-list", emergencyPlanPage.getTotalCount() + "条", "应急救援任务",
-				getRealLink(httpSession, "/ercs/emergency-plan-instances")));
+		// 任务查看
+		if (accountService.hasPermission(roleId, "/ercs/perform-rescue/task-view")) {
+			Page<EmergencyPlanInstance> emergencyPlanPage = new Page<EmergencyPlanInstance>(Integer.MAX_VALUE);
+			emergencyPlanPage = (Page<EmergencyPlanInstance>) emergencyPlanInstanceController.page(emergencyPlanPage,
+					null, httpSession, Boolean.FALSE).getData();
+			result.add(new Infobox("infobox-orange", "icon-list", emergencyPlanPage.getTotalCount() + "条", "应急救援任务",
+					getRealLink(httpSession, "/ercs/emergency-plan-instances")));
+		}
 
-		// 定期保养提醒
-		Page<RegularMaintenanceRemind> reminderPage = new Page<RegularMaintenanceRemind>(Integer.MAX_VALUE);
-		reminderPage = (Page<RegularMaintenanceRemind>) regularMaintenanceRemindController.page(reminderPage, null)
-				.getData();
-		result.add(new Infobox("infobox-green", "icon-bell", reminderPage.getTotalCount() + "条", "定期保养提醒", getRealLink(
-				httpSession, "/electr/maintenance/regular-remind")));
+		// 定期保养
+		if (accountService.hasPermission(roleId, "/spmi/tfk/maintenance/schedule")) {
+			Page<RegularMaintenanceRemind> reminderPage = new Page<RegularMaintenanceRemind>(Integer.MAX_VALUE);
+			reminderPage = (Page<RegularMaintenanceRemind>) regularMaintenanceRemindController.page(reminderPage, null)
+					.getData();
+			result.add(new Infobox("infobox-orange2", "icon-bell", reminderPage.getTotalCount() + "条", "定期保养提醒",
+					getRealLink(httpSession, "/electr/maintenance/regular-remind")));
+		}
 
 		return new Response(result);
 	}
