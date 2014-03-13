@@ -247,7 +247,7 @@ public class InitService extends DataInitAbstractService {
 			dictionaryService.save(dictionary);
 		}
 		Folder folder = new Folder();
-		folder.setName("文件名");
+		folder.setName("根相册");
 		folderService.save(folder);
 		initElectrService.initCustomData();
 	}
