@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -24,29 +23,27 @@ div.imgFrame:hover div {
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
-					<button id="new" class="btn btn-small btn-success disabled"
-						title="请先选择要添加到的文件夹">
-						<i class="icon-plus-sign-alt"></i> <span class="hidden-phone">新建</span>
+					<button id="new" class="btn btn-small btn-success disabled" title="请先选择要添加到的文件夹">
+						<i class="icon-plus-sign-alt"></i>
+						<span class="hidden-phone">新建</span>
 					</button>
-					<button id="edit" class="btn btn-small btn-primary disabled"
-						title="选择文件夹后可编辑文件夹名">
-						<i class="icon-edit"></i> <span class="hidden-phone">编辑</span>
+					<button id="edit" class="btn btn-small btn-primary disabled" title="选择文件夹后可编辑文件夹名">
+						<i class="icon-edit"></i>
+						<span class="hidden-phone">编辑</span>
 					</button>
-					<button id="delete" class="btn btn-small btn-danger disabled"
-						title="如果文件夹包含数据，此文件夹将不能删除">
-						<i class="icon-trash"></i> <span class="hidden-phone">删除</span>
+					<button id="delete" class="btn btn-small btn-danger disabled" title="如果文件夹包含数据，此文件夹将不能删除">
+						<i class="icon-trash"></i>
+						<span class="hidden-phone">删除</span>
 					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon"> <input id="nav-search-input"
-							name="search" type="text" placeholder="输入图片名称..."
-							class="input-small nav-search-input nav-search-input210"
-							autocomplete="off"> <i
-							class="icon-search nav-search-icon"></i>
+						<span class="input-icon">
+							<input id="nav-search-input" name="search" type="text" placeholder="输入图片名称..." class="input-small nav-search-input nav-search-input210"
+								autocomplete="off">
+							<i class="icon-search nav-search-icon"></i>
 						</span>
-						<button id="nav-search-button"
-							class="btn btn-small btn-primary disabled">搜索</button>
+						<button id="nav-search-button" class="btn btn-small btn-primary disabled">搜索</button>
 					</form>
 				</div>
 			</div>
@@ -64,16 +61,18 @@ div.imgFrame:hover div {
 					<div class="span8">
 						<div class="tabbable">
 							<ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#basic">
+								<li class="active">
+									<a data-toggle="tab" href="#basic">
 										<i class="green icon-home"></i> 图片
-								</a></li>
+									</a>
+								</li>
 							</ul>
 							<div id="tab-content" class="tab-content">
 								<div class="row-fluid page-toolbar span12">
 									<div class="toolbar">
-										<button id="create" class="btn btn-small btn-success disabled"
-											title="上传图片，先选择机构">
-											<i class="icon-upload"></i> <span class="hidden-phone">上传</span>
+										<button id="create" class="btn btn-small btn-success disabled" title="上传图片，先选择机构">
+											<i class="icon-upload"></i>
+											<span class="hidden-phone">上传</span>
 										</button>
 									</div>
 								</div>
@@ -105,8 +104,7 @@ div.imgFrame:hover div {
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						onsubmit="return false;">
+					<form id="create-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label" for="name">图片名称</label>
 							<div class="controls">
@@ -116,16 +114,12 @@ div.imgFrame:hover div {
 						<div class="control-group" style="display: none;">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
-								<input id="attachment" readonly name="attachment" type="text"
-									class="span10" style="width: 350px;"> <input value="删除"
-									type="button" id="create-file-delete"
-									class="btn btn-small btn-success span2" style="width: 48px;">
+								<input id="attachment" readonly name="attachment" type="text" class="span10" style="width: 350px;">
+								<input value="删除" type="button" id="create-file-delete" class="btn btn-small btn-success span2" style="width: 48px;">
 							</div>
 						</div>
 					</form>
-					<form id="create-file-form" action="/simpleupload"
-						class="form-horizontal" method="post"
-						enctype="multipart/form-data" target="acceptFrame">
+					<form id="create-file-form" action="/simpleupload" class="form-horizontal" method="post" enctype="multipart/form-data" target="acceptFrame">
 						<div class="control-group">
 							<label class="control-label" for="credential">附件</label>
 							<div class="controls">
@@ -138,7 +132,8 @@ div.imgFrame:hover div {
 			<div id="create-message-alert" class="row-fluid hide">
 				<div class="span12">
 					<div class="alert alert-error">
-						<i class="icon-remove"></i> <span id="create-message-content"></span>
+						<i class="icon-remove"></i>
+						<span id="create-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -169,7 +164,8 @@ div.imgFrame:hover div {
 			<div id="remove-message-alert" class="row-fluid hide">
 				<div class="span12">
 					<div class="alert alert-error">
-						<i class="icon-remove"></i> <span id="remove-message-content"></span>
+						<i class="icon-remove"></i>
+						<span id="remove-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -210,8 +206,7 @@ div.imgFrame:hover div {
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="new-form" class="form-horizontal"
-						onsubmit="return false;">
+					<form id="new-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label" for="name">相册名称</label>
 							<div class="controls">
@@ -224,7 +219,8 @@ div.imgFrame:hover div {
 			<div id="new-message-alert" class="row-fluid hide">
 				<div class="span12">
 					<div class="alert alert-error">
-						<i class="icon-remove"></i> <span id="new-message-content"></span>
+						<i class="icon-remove"></i>
+						<span id="new-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -249,8 +245,7 @@ div.imgFrame:hover div {
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						onsubmit="return false;">
+					<form id="edit-form" class="form-horizontal" onsubmit="return false;">
 						<div class="control-group">
 							<label class="control-label" for="name">相册名称</label>
 							<div class="controls">
@@ -263,7 +258,8 @@ div.imgFrame:hover div {
 			<div id="edit-message-alert" class="row-fluid hide">
 				<div class="span12">
 					<div class="alert alert-error">
-						<i class="icon-remove"></i> <span id="edit-message-content"></span>
+						<i class="icon-remove"></i>
+						<span id="edit-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -294,7 +290,8 @@ div.imgFrame:hover div {
 			<div id="remove-message-alert" class="row-fluid hide">
 				<div class="span12">
 					<div class="alert alert-error">
-						<i class="icon-remove"></i> <span id="delete-message-content"></span>
+						<i class="icon-remove"></i>
+						<span id="delete-message-content"></span>
 					</div>
 				</div>
 			</div>
@@ -308,8 +305,7 @@ div.imgFrame:hover div {
 			</button>
 		</div>
 	</div>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100"
-		height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/picture/index');
 	</script>

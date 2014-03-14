@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:if test="${maintenance==null }">
-<div class="table-responsive" id="table_panel">
-没有数据!请改变查询条件
-</div>
+	<div class="table-responsive" id="table_panel">没有数据!请改变查询条件</div>
 </c:if>
 <c:if test="${maintenance!=null }">
 	<div class="table-responsive" id="table_panel">

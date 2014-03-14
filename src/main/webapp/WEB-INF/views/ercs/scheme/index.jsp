@@ -211,7 +211,7 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/scheme/index');
 	</script>
-	<iframe name="acceptFrame"  width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>

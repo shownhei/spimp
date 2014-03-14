@@ -76,10 +76,10 @@ public class Overhaul extends IDEntity {
 		return existProblem;
 	}
 
-	
 	public Date getOverhaulDate() {
 		return overhaulDate;
 	}
+
 	@Lob
 	public String getOverhaulPosition() {
 		return overhaulPosition;
