@@ -103,6 +103,11 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入资源编号' ]);
 			return;
 		}
+		if ( !$.isNumeric(object.amount)) {
+			Utils.modal.message('create', [ '请输入正确的数量' ]);
+			return;
+		}
+		
 		$.post('/ercs/emergency-resources', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

@@ -263,6 +263,35 @@
 			</button>
 		</div>
 	</div>
+	<!-- 错误提示 -->
+	<div id="error-modal" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-list"></i> 错误提示
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<i class="icon-warning-sign"></i> 提示：请先选择车辆!
+				</div>
+				<div id="error-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i>
+							<span id="error-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 知道了
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/electr/maintenance/daily/index');
 	</script>

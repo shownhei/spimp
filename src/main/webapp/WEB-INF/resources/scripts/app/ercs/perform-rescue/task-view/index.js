@@ -54,7 +54,15 @@ define(function(require, exports, module) {
 			}
 		},
 		name : 'alarm'
-	} ];
+	}, {
+		header : '查看',
+		name : 'id',
+		width : 50,
+		align : 'center',
+		render : function(value) {
+			return '<i data-role="detail" class="icon-list" style="cursor:pointer;"></i>';
+		}
+	}  ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -84,12 +92,25 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
+			if (target.attr('data-role') === 'detail') {
+				showDetail(data);
+			}
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
 		}
 	}).render();
+	// 查看
+	function showDetail(data) {
+		Utils.modal.reset('detail');
 
+		var object = $.extend({}, data);
+		object.alarm=object.alarm.accidentType.itemName;
+		object.emergencyCategory=object.emergencyCategory.itemName;
+		object.emergencyLevel=object.emergencyLevel.itemName;
+		Utils.form.fill('detail', object);
+		Utils.modal.show('detail');
+	}
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');

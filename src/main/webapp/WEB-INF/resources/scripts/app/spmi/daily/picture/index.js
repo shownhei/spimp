@@ -59,15 +59,13 @@ define(function(require, exports, module) {
 	$('#remove-save').click(function() {
 		$.del('/spmi/daily/pictures/' + pictureID, function(data) {
 			if (data.success === true) {
-				$.del('/ercs/uploaded-files/' + fileID, function(data) {
-					groupId = groupTree.getSelectedNodes()[0].id;
-					Utils.modal.hide('remove');
-					$("#column1").html("");
-					$("#column2").html("");
-					$("#column3").html("");
-					$("#column4").html("");
-					showPicture(groupId);
-				});
+				groupId = groupTree.getSelectedNodes()[0].id;
+				Utils.modal.hide('remove');
+				$("#column1").html("");
+				$("#column2").html("");
+				$("#column3").html("");
+				$("#column4").html("");
+				showPicture(groupId);
 			}
 		});
 	});
@@ -163,8 +161,7 @@ define(function(require, exports, module) {
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
-	var gridHeight = $(window).height()
-			- ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#groups-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
@@ -188,7 +185,6 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		object.groupId = groupTree.getSelectedNodes()[0].id;
-		console.log(object);
 		// 验证
 		if (object.name === '') {
 			Utils.modal.message('create', [ '图片不能为空' ]);
@@ -273,7 +269,7 @@ define(function(require, exports, module) {
 
 		// 验证
 		if (object.name === '') {
-			Utils.modal.message('new', [ '文件名' ]);
+			Utils.modal.message('new', [ '相册名称' ]);
 			return;
 		}
 
@@ -314,7 +310,7 @@ define(function(require, exports, module) {
 
 		// 验证
 		if (object.name === '') {
-			Utils.modal.message('edit', [ '请输入文件名' ]);
+			Utils.modal.message('edit', [ '请输入相册名称' ]);
 			return;
 		}
 
@@ -387,7 +383,7 @@ define(function(require, exports, module) {
 			attachment.parent().parent().show();
 			$('#create-save').removeClass('disabled');
 			$('#create-save').trigger('click');
-			
+
 		}
 	}
 	window.callBack = callBack;

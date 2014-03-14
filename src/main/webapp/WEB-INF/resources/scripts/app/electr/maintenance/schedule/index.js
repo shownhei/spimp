@@ -100,6 +100,7 @@ define(function(require, exports, module) {
 		} else {
 			var queryCar = $('#query_car').val();
 			if (queryCar === '') {
+				Utils.modal.showAlert('请先选择车辆');
 				return;
 			}
 			data = $("#query-form").serialize();

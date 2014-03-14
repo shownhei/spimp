@@ -91,13 +91,13 @@
 						<div class="control-group">
 							<label class="control-label" for="existProblem">存在问题</label>
 							<div class="controls">
-								<input id="create_existProblem" name="existProblem" type="text">
+								<textarea id="create_existProblem" name="existProblem" ></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="vestigialProblem">遗留问题</label>
 							<div class="controls">
-								<input id="create_vestigialProblem" name="vestigialProblem" type="text">
+								<textarea id="create_vestigialProblem" name="vestigialProblem" ></textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -166,13 +166,13 @@
 						<div class="control-group">
 							<label class="control-label" for="existProblem">存在问题</label>
 							<div class="controls">
-								<input id="edit_existProblem" name="existProblem" type="text">
+								<textarea id="edit_existProblem" name="existProblem" ></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="vestigialProblem">遗留问题</label>
 							<div class="controls">
-								<input id="edit_vestigialProblem" name="vestigialProblem" type="text">
+								<textarea id="edit_vestigialProblem" name="vestigialProblem"></textarea>
 							</div>
 						</div>
 					</form>

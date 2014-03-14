@@ -112,6 +112,10 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入可容纳人数' ]);
 			return;
 		}
+		if (object.quantity === '') {
+			Utils.modal.message('create', [ '请输入数量' ]);
+			return;
+		}
 		if (object.manager === '') {
 			Utils.modal.message('create', [ '请输入管理人员名称' ]);
 			return;

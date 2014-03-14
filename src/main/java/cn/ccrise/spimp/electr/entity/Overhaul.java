@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -70,14 +71,16 @@ public class Overhaul extends IDEntity {
 		return checker;
 	}
 
+	@Lob
 	public String getExistProblem() {
 		return existProblem;
 	}
 
+	
 	public Date getOverhaulDate() {
 		return overhaulDate;
 	}
-
+	@Lob
 	public String getOverhaulPosition() {
 		return overhaulPosition;
 	}

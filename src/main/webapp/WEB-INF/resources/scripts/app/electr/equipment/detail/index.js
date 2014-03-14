@@ -394,6 +394,9 @@ define(function(require, exports, module) {
 			grid.refresh();
 		}, '数据上传');
 	});
+	$('#download').click(function(){
+		open(resources+'/template/electr/equipment/electric_equipment_upload_tpl.xls');
+	});
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({

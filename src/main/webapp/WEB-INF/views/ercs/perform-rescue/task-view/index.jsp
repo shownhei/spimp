@@ -28,6 +28,52 @@
 			</div>
 		</div>
 	</div>
+	<!-- 详细信息 -->
+	<div id="detail-modal" class="modal modal-md hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-list"></i> 详细信息
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
+						<div class="control-group">
+							<label class="control-label" for="project">事故类型</label>
+							<div class="controls">
+								<input id="alarm" name="alarm" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="expirationDate">严重程度</label>
+							<div class="controls">
+								<input id="emergencyCategory" name="emergencyCategory" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="daysEarly">专业组</label>
+							<div class="controls">
+								<input id="emergencyLevel" name="emergencyLevel" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="recordDate">救援措施内容</label>
+							<div class="controls">
+								<input id="taskContent" name="taskContent" type="text" readonly="readonly">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/perform-rescue/task-view/index');
 	</script>

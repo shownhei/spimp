@@ -27,6 +27,9 @@
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
+					<button id="download" class="btn btn-small btn-primary ">
+						<i class="icon-download"></i> 模板下载
+					</button>
 					<button id="import" class="btn btn-small btn-primary ">
 						<i class="icon-upload"></i> 导入
 					</button>
@@ -778,7 +781,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-trash"></i> 查看说明书
+				<i class="icon-list"></i> 查看说明书
 			</h5>
 		</div>
 		<div class="modal-body">
