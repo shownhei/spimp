@@ -69,18 +69,10 @@
 								<input id="decide" name="decide" type="text">
 							</div>
 						</div>
-						<div class="row-fluid ">
-							<div class="control-group span6">
-								<label class="control-label span4" for="resourceNo">事故发生日期</label>
-								<div class="controls">
-									<input id="startTime" name="startTime" type="datetime" class="span12" style="width: 130px;">
-								</div>
-							</div>
-							<div class="control-group span6">
-								<label class="control-label span4" for="amount">事故发生时间</label>
-								<div class="controls">
-									<input id="create_startTime_tail" name="startTime_tail" type="time" value="1" class="span11" style="width: 122px;">
-								</div>
+						<div class="control-group">
+							<label class="control-label " for="principal">事故发生时间</label>
+							<div class="controls">
+								<input id="startTime" name="startTime" type="text">
 							</div>
 						</div>
 						<div class="control-group" style="display: none;">
@@ -154,7 +146,7 @@
 						<div class="control-group">
 							<label class="control-label " for="principal">事故发生时间</label>
 							<div class="controls">
-								<input name="startTime" type="text">
+								<input id="edit_startTime" name="startTime" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -219,12 +211,12 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/ercs/scheme/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame"  width="100" height="100" style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
+			<h5 class="green">
+				<i class="icon-list"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">

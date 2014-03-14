@@ -67,7 +67,7 @@ define(function(require, exports, module) {
 		if (model.planTitle === '') {
 			errorMsg.push('请输入计划名称');
 		}
-
+		
 		if (errorMsg.length > 0) {
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
@@ -93,9 +93,11 @@ define(function(require, exports, module) {
 		if (model.measureUnit === '') {
 			errorMsg.push('请输入度量单位');
 		}
-
 		if (model.price === '') {
 			errorMsg.push('请输入单价（元）');
+		}
+		if ( !$.isNumeric(model.price)) {
+			errorMsg.push('请输入正确的单价');
 		}
 		if (model.quantity === '') {
 			errorMsg.push('请输入数量');

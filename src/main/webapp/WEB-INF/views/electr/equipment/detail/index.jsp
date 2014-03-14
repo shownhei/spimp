@@ -781,7 +781,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h5 class="green">
-				<i class="icon-trash"></i> 查看说明书
+				<i class="icon-list"></i> 查看说明书
 			</h5>
 		</div>
 		<div class="modal-body">

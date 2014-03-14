@@ -137,9 +137,18 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请选择物资名称' ]);
 			return;
 		}
+		if ( !$.isNumeric(object.useAmount)) {
+			Utils.modal.message('create', [ '请输入正确的数量' ]);
+			return;
+		}
+		var id=$('#resource').attr('data-id');
+		if(!id){
+			Utils.modal.message('create', [ '请选择正确的物资名称' ]);
+			return;
+		}
 		var resource = {
 			resourceName : object.resource,
-			id : $('#resource').attr('data-id')
+			id : id
 		};
 		object.resource = resource;
 		$.post('/ercs/resource-use-records', JSON.stringify(object), function(data) {

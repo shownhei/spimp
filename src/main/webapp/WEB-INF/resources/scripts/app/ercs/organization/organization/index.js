@@ -98,9 +98,15 @@ define(function(require, exports, module) {
 			return;
 		}
 		// 处理属性
+		var id=$('#create-normal-name').attr('data-id');
 		var normalMember = {
-			id : $('#create-normal-name').attr('data-id')
+			id : id
 		};
+		if(!id){
+			Utils.modal.message('create-normal', [ '请通过检索正确的人员填写' ]);
+			return;
+		}
+		// 处理属性
 		delete object.normalMember;
 		object.normalMember = {
 			id : $('#create-normal-name').attr('data-id')
@@ -156,7 +162,9 @@ define(function(require, exports, module) {
 			return item.staffName;
 		}
 	}).result(function(e, item) {
-		$('#create-normal-name').attr('data-id', item.id);
+		if(item){
+			$('#create-normal-name').attr('data-id', item.id);
+		}
 	});
 	// ==========普通成员==
 	var normal_fields = [ {
@@ -268,10 +276,12 @@ define(function(require, exports, module) {
 			return item.name;
 		}
 	}).result(function(e, item) {
-		$('#create-expert-name').attr('data-id', item.id);
+		if(item){
+			$('#create-expert-name').attr('data-id', item.id);
+		}
 	});
 	// 保存
-	$('#create-expert-save').click(function() {
+	$('#create-expert-save').click(function() {alert(1);
 		var expertNameEl = $("#create-expert-name");
 		if (expertNameEl.attr('data-id') === '') {
 			expertNameEl.val('');
@@ -283,9 +293,14 @@ define(function(require, exports, module) {
 			Utils.modal.message('create-expert', [ '请输入人员名称' ]);
 			return;
 		}
+		var id=$('#create-expert-name').attr('data-id');
+		if(!id){
+			Utils.modal.message('create-expert', [ '请通过检索正确的人员填写' ]);
+			return;
+		}
 		// 处理属性
 		var expertMember = {
-			id : $('#create-expert-name').attr('data-id')
+			id : id
 		};
 		delete object.expertMember;
 		object.expertMember = expertMember;

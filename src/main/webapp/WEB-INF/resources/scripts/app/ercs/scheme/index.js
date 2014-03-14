@@ -6,6 +6,12 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
+	$('#edit_startTime').datetimepicker({
+		format : 'yyyy-mm-dd hh:ii:ss'
+	});
+	$('#startTime').datetimepicker({
+		format : 'yyyy-mm-dd hh:ii:ss'
+	});
 	Utils.input.date('input[type=datetime]');
 	Utils.select.remote([ 'create-type', 'edit-type' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
 	// 配置表格列
@@ -106,11 +112,6 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '请输入事故发生日期' ]);
 			return;
 		}
-		if (object.startTime_tail === '') {
-			Utils.modal.message('create', [ '请输入事故发生时间' ]);
-			return;
-		}
-		alert(object.attachment);
 		if (object.attachment===''||object.attachment.id === '') {
 			Utils.modal.message('create', [ '请添加附件' ]);
 			return;
@@ -125,11 +126,6 @@ define(function(require, exports, module) {
 		};
 		delete object.filePath;
 		object.attachment = attachment;
-		var startTime=object.startTime+' '+object.startTime_tail+":00";
-		delete object.startTime;
-		delete object.startTime_tail;
-		object.startTime=startTime;
-		console.log(object);
 		$.post('/ercs/schemes', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

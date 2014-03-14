@@ -98,8 +98,8 @@ public class DocumentController {
 	@RequestMapping(value = "/spmi/document/documents", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Document> page, String office, String search, Long projectType, String documentName,
-			String keyword, String startDate, String endDate) {
-		page = documentService.pageQuery(page, office, search, projectType, documentName, keyword, startDate, endDate);
+			String keyWord, String startDate, String endDate) {
+		page = documentService.pageQuery(page, office, search, projectType, documentName, keyWord, startDate, endDate);
 		return new Response(page);
 	}
 

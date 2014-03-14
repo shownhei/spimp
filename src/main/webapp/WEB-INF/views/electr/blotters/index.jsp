@@ -309,12 +309,12 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/electr/blotters/index');
 	</script>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame"  style="display: none"></iframe>
 	<div id="view-modal" class="modal hide" style="width: 800px;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
+			<h5 class="green">
+				<i class="icon-list"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">

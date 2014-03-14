@@ -188,6 +188,11 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 
+		var id=$('#create_materialName').attr('data-id');
+		if(!id){
+			Utils.modal.message('create', ["请通过选择输入正确的物品名称"]);
+			return;
+		}
 		// 验证
 		if (!validate('create', object)) {
 			return false;

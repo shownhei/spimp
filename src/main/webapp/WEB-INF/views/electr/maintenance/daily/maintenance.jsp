@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:if test="${maintenance==null }">
+<div class="table-responsive" id="table_panel">
+没有数据!请改变查询条件
+</div>
+</c:if>
 <c:if test="${maintenance!=null }">
 	<div class="table-responsive" id="table_panel">
 		<table id="sample-table-1" data-id="${maintenance.id}" class="table table-striped table-bordered table-hover">
