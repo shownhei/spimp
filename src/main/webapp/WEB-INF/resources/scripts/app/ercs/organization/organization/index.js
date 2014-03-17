@@ -281,7 +281,7 @@ define(function(require, exports, module) {
 		}
 	});
 	// 保存
-	$('#create-expert-save').click(function() {alert(1);
+	$('#create-expert-save').click(function() {
 		var expertNameEl = $("#create-expert-name");
 		if (expertNameEl.attr('data-id') === '') {
 			expertNameEl.val('');
