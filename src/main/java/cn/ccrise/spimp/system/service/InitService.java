@@ -426,9 +426,11 @@ public class InitService extends DataInitAbstractService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/jdd/maintenance/daily", jddMaintenance, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期保养", "/spmi/jdd/maintenance/schedule", jddMaintenance, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("维修检测", "/spmi/jdd/maintenance/maintenance-testing", jddMaintenance,
-				"", i++);
+		resourceEntityServiceImpl.saveMenuResource("维修检测", "/spmi/jdd/maintenance/maintenance-testing", jddMaintenance,"", i++);
 		resourceEntityServiceImpl.saveMenuResource("故障记录", "/spmi/jdd/maintenance/problem", jddMaintenance, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("定期保养周期配置", "/electr/maintenance/regular-config", jddMaintenance, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("定期保养到期提醒", "/electr/maintenance/regular-remind", jddMaintenance, "", i++);
+		
 		String jddCar = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/car", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("车辆管理", "/spmi/jdd/car/car", jddCar, "", i++);
@@ -437,8 +439,6 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("年度公里统计", "/spmi/jdd/car/annual-kilometer", jddCar, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("月度油耗统计", "/spmi/jdd/car/monthly-oil", jddCar, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("月度运行统计", "/spmi/jdd/car/monthly-run", jddCar, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("定期保养周期配置", "/electr/maintenance/regular-config", jddCar, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("定期保养到期提醒", "/electr/maintenance/regular-remind", jddCar, "", i++);
 
 		// 综采队
 		String zcdQuality = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/quality", HttpMethod.GET);
