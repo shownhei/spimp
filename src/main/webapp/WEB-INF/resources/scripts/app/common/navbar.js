@@ -136,25 +136,64 @@ define(function(require, exports, module) {
 
 	// 显示提醒
 	function displayNotification(data) {
+		var notificationsArray=[];
+		var notificationsCount=0;
+		var messageArray=[];
+		var messageCount=0;
+		$.each(data.messages,function(key,val){
+			if(val.messageType===1){
+				notificationsArray.push(val);
+				notificationsCount+=val.count;
+			}else if(val.messageType===2){
+				messageArray.push(val);
+				messageCount+=val.count;
+			}
+		});
+		console.log(notificationsArray);
+		//notifications
 		$('#notifications').children('li:not(:first)').remove();
 
-		$('#notifications-count').html(data.count);
-		$('#notifications-title').html(data.count + '个提醒');
+		$('#notifications-count').html(notificationsCount);
+		$('#notifications-title').html(notificationsCount + '个提醒');
 
-		if (data.count > 0) {
+		if (notificationsCount > 0) {
 			$("#header_bell").addClass('icon-animated-bell');
 		} else {
 			$("#header_bell").removeClass('icon-animated-bell');
 		}
 
 		var html = '';
-		$.each(data.messages, function(k, v) {
+		$.each(notificationsArray, function(k, v) {
 			html += '<li><a href="' + v.link + '">';
 			html += '<div class="clearfix"><span class="pull-left">' + getIcon(v.category) + v.message;
 			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
 		});
 
 		$('#notifications').append(html);
+		
+		
+		
+		//====message
+		$('#messages').children('li:not(:first)').remove();
+
+		$('#messages-count').html(messageCount);
+		$('#messages-title').html(messageCount + '个消息');
+
+		if (messageCount > 0) {
+			$("#header_mail").addClass('icon-animated-bell');
+		} else {
+			$("#header_mail").removeClass('icon-animated-bell');
+		}
+
+		html = '';
+		$.each(messageArray, function(k, v) {
+			html += '<li><a href="' + v.link + '">';
+			html += '<div class="clearfix"><span class="pull-left">' + getIcon(v.category) + v.message;
+			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
+		});
+
+		$('#messages').append(html);
+		
 	}
 	// 推送提醒
 	var errorCount = 0;
