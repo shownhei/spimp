@@ -1,4 +1,4 @@
-package cn.ccrise.spimp.ercs.entity;
+package cn.ccrise.spimp.location.entity;
 
 import java.sql.Timestamp;
 
@@ -71,6 +71,24 @@ public class LocationStation extends IDEntity {
 	private String sysType;
 	private String typeString;
 
+	@Transient
+	public String getTypeString() {
+		return typeString;
+	}
+
+	public void setTypeString(String typeString) {
+		this.typeString = typeString;
+	}
+
+	@Column(name = "systype")
+	public String getSysType() {
+		return sysType;
+	}
+
+	public void setSysType(String sysType) {
+		this.sysType = sysType;
+	}
+
 	@Column(name = "areaid")
 	public String getAreaId() {
 		return areaId;
@@ -79,11 +97,6 @@ public class LocationStation extends IDEntity {
 	@Column(name = "bupdate")
 	public Boolean getbUpdate() {
 		return bUpdate;
-	}
-
-	@Transient
-	public Long getCurPersonNum() {
-		return curPersonNum;
 	}
 
 	@Column(name = "curstate")
@@ -113,19 +126,18 @@ public class LocationStation extends IDEntity {
 		return stationId;
 	}
 
-	@Column(name = "systype")
-	public String getSysType() {
-		return sysType;
-	}
-
 	@Column(name = "type")
 	public Integer getType() {
 		return type;
 	}
 
 	@Transient
-	public String getTypeString() {
-		return typeString;
+	public Long getCurPersonNum() {
+		return curPersonNum;
+	}
+
+	public void setCurPersonNum(Long curPersonNum) {
+		this.curPersonNum = curPersonNum;
 	}
 
 	public void setAreaId(String areaId) {
@@ -134,10 +146,6 @@ public class LocationStation extends IDEntity {
 
 	public void setbUpdate(Boolean bUpdate) {
 		this.bUpdate = bUpdate;
-	}
-
-	public void setCurPersonNum(Long curPersonNum) {
-		this.curPersonNum = curPersonNum;
 	}
 
 	public void setCurState(Integer curState) {
@@ -160,15 +168,7 @@ public class LocationStation extends IDEntity {
 		this.stationId = stationId;
 	}
 
-	public void setSysType(String sysType) {
-		this.sysType = sysType;
-	}
-
 	public void setType(Integer type) {
 		this.type = type;
-	}
-
-	public void setTypeString(String typeString) {
-		this.typeString = typeString;
 	}
 }

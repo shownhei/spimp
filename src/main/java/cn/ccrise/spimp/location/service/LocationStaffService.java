@@ -1,15 +1,15 @@
 /*
- * Copyright (C) 2010-2020 CCRISE.
+ * Copyright (C) 2012 CCRISE.
  */
-package cn.ccrise.spimp.ercs.service;
+package cn.ccrise.spimp.location.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
-import cn.ccrise.spimp.ercs.access.LocationStaffDAO;
-import cn.ccrise.spimp.ercs.entity.LocationStaff;
+import cn.ccrise.spimp.location.access.LocationStaffDAO;
+import cn.ccrise.spimp.location.entity.LocationStaff;
 
 /**
  * LocationStaff Service。

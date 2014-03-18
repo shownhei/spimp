@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2010-2020 CCRISE.
- */
-package cn.ccrise.spimp.ercs.entity;
+package cn.ccrise.spimp.location.entity;
 
 import java.sql.Timestamp;
 
@@ -114,6 +111,15 @@ public class LocationStaff extends IDEntity {
 	private Timestamp inMineTime;
 	private String stateString;
 
+	@Transient
+	public String getStateString() {
+		return stateString;
+	}
+
+	public void setStateString(String stateString) {
+		this.stateString = stateString;
+	}
+
 	@Column(name = "birthday")
 	public String getBirthday() {
 		return birthday;
@@ -200,11 +206,6 @@ public class LocationStaff extends IDEntity {
 		return state;
 	}
 
-	@Transient
-	public String getStateString() {
-		return stateString;
-	}
-
 	@Column(name = "troopname")
 	public String getTroopName() {
 		return troopName;
@@ -272,10 +273,6 @@ public class LocationStaff extends IDEntity {
 
 	public void setState(Integer state) {
 		this.state = state;
-	}
-
-	public void setStateString(String stateString) {
-		this.stateString = stateString;
 	}
 
 	public void setTroopName(String troopName) {

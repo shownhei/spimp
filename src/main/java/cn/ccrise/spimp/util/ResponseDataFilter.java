@@ -4,9 +4,17 @@
 package cn.ccrise.spimp.util;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.entity.ResourceEntity;
+import cn.ccrise.spimp.monitor.entity.MonitorAlarm;
+import cn.ccrise.spimp.monitor.entity.MonitorFiveMinutesData;
+import cn.ccrise.spimp.monitor.entity.MonitorNode;
+import cn.ccrise.spimp.monitor.entity.MonitorRealData;
+import cn.ccrise.spimp.monitor.entity.MonitorSensorType;
+import cn.ccrise.spimp.monitor.entity.MonitorState;
+import cn.ccrise.spimp.monitor.entity.MonitorValueChange;
 import cn.ccrise.spimp.system.entity.Account;
 
 /**
@@ -54,6 +62,104 @@ public abstract class ResponseDataFilter {
 		for (int i = 0; i < accounts.size(); i++) {
 			filter(accounts.get(i));
 		}
+	}
+
+	/**
+	 * 过滤MonitorAlarm中的关联数据.
+	 * 
+	 * @param monitorAlarm
+	 *            需要过滤的数据
+	 * @param monitorStateCache
+	 *            传感器状态缓存
+	 * @param monitorSensorTypeCache
+	 *            传感器类型缓存
+	 * @return 过滤后的数据
+	 */
+	public static MonitorAlarm filter(MonitorAlarm monitorAlarm, Map<Integer, MonitorState> monitorStateCache,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorAlarm.getSensorTypeId());
+		monitorAlarm.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		MonitorState monitorState = monitorStateCache.get(monitorAlarm.getStateId());
+		monitorAlarm.setStateName(monitorState == null ? "" : monitorState.getStateName());
+
+		return monitorAlarm;
+	}
+
+	/**
+	 * 过滤MonitorFiveMinutesData中的关联数据.
+	 * 
+	 * @param monitorFiveMinutesData
+	 *            需要过滤的数据
+	 * @param monitorSensorTypeCache
+	 *            传感器类型缓存
+	 * @return 过滤后的数据
+	 */
+	public static MonitorFiveMinutesData filter(MonitorFiveMinutesData monitorFiveMinutesData,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorFiveMinutesData.getSensorTypeId());
+		monitorFiveMinutesData.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		return monitorFiveMinutesData;
+	}
+
+	/**
+	 * 过滤MonitorNode中的关联数据.
+	 * 
+	 * @param monitorNode
+	 *            需要过滤的数据
+	 * @param monitorStateCache
+	 *            传感器状态缓存
+	 * @param monitorSensorTypeCache
+	 *            传感器类型缓存
+	 * @return 过滤后的数据
+	 */
+	public static MonitorNode filter(MonitorNode monitorNode, Map<Integer, MonitorState> monitorStateCache,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorNode.getSensorTypeId());
+		monitorNode.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		MonitorState monitorState = monitorStateCache.get(monitorNode.getStateId());
+		monitorNode.setStateName(monitorState == null ? "" : monitorState.getStateName());
+
+		return monitorNode;
+	}
+
+	/**
+	 * 过滤MonitorRealData中的关联数据.
+	 * 
+	 * @param monitorRealData
+	 *            需要过滤的数据
+	 * @param monitorSensorTypeCache
+	 *            传感器类型缓存
+	 * @return 过滤后的数据
+	 */
+	public static MonitorRealData filter(MonitorRealData monitorRealData,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache, Map<Integer, MonitorState> monitorStateCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorRealData.getSensorTypeId());
+		monitorRealData.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		MonitorState monitorState = monitorStateCache.get(monitorRealData.getStateId());
+		monitorRealData.setStateName(monitorState == null ? "" : monitorState.getStateName());
+
+		return monitorRealData;
+	}
+
+	/**
+	 * 过滤MonitorValueChange中的关联数据.
+	 * 
+	 * @param monitorValueChange
+	 *            需要过滤的数据
+	 * @param monitorSensorTypeCache
+	 *            传感器类型缓存
+	 * @return 过滤后的数据
+	 */
+	public static MonitorValueChange filter(MonitorValueChange monitorValueChange,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorValueChange.getSensorTypeId());
+		monitorValueChange.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		return monitorValueChange;
 	}
 
 	/**
