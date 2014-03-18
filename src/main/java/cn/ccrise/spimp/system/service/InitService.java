@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
+import cn.ccrise.spimp.monitor.service.MonitorSensorTypeService;
+import cn.ccrise.spimp.monitor.service.MonitorStateService;
 import cn.ccrise.spimp.spmi.daily.entity.Folder;
 import cn.ccrise.spimp.spmi.daily.service.FolderService;
 import cn.ccrise.spimp.system.entity.Account;
@@ -38,6 +40,10 @@ public class InitService extends DataInitAbstractService {
 	private DictionaryService dictionaryService;
 	@Autowired
 	private FolderService folderService;
+	@Autowired
+	private MonitorSensorTypeService monitorSensorTypeService;
+	@Autowired
+	private MonitorStateService monitorStateService;
 
 	@Override
 	public void initAdmin() {
@@ -250,6 +256,9 @@ public class InitService extends DataInitAbstractService {
 		folder.setName("根相册");
 		folderService.save(folder);
 		initElectrService.initCustomData();
+
+		initSensorType(); // 初始化传感器类型
+		initState(); // 初始化传感器状态
 	}
 
 	@Override
@@ -785,5 +794,70 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("菜单管理", "/system/resource", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/system/dictionary", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("日志查询", "/system/log", system, "", i++);
+	}
+
+	private void initSensorType() {
+		monitorSensorTypeService.save("其它", -1);
+		monitorSensorTypeService.save("其它(模拟量)", 0);
+		monitorSensorTypeService.save("甲烷", 1);
+		monitorSensorTypeService.save("风速", 2);
+		monitorSensorTypeService.save("风压", 3);
+		monitorSensorTypeService.save("CO", 4);
+		monitorSensorTypeService.save("温度", 5);
+		monitorSensorTypeService.save("水位", 6);
+		monitorSensorTypeService.save("煤位", 7);
+		monitorSensorTypeService.save("速度", 8);
+		monitorSensorTypeService.save("流量", 9);
+		monitorSensorTypeService.save("位移", 10);
+		monitorSensorTypeService.save("压力", 11);
+		monitorSensorTypeService.save("功率", 12);
+		monitorSensorTypeService.save("电流", 13);
+		monitorSensorTypeService.save("电压", 14);
+		monitorSensorTypeService.save("频率", 15);
+		monitorSensorTypeService.save("电量", 16);
+		monitorSensorTypeService.save("瓦斯流量", 17);
+		monitorSensorTypeService.save("标况流量", 18);
+		monitorSensorTypeService.save("CO2", 19);
+		monitorSensorTypeService.save("氧气", 20);
+		monitorSensorTypeService.save("压差", 21);
+		monitorSensorTypeService.save("位置", 22);
+		monitorSensorTypeService.save("湿度", 23);
+		monitorSensorTypeService.save("离层", 24);
+		monitorSensorTypeService.save("推进度", 25);
+		monitorSensorTypeService.save("氢气", 26);
+		monitorSensorTypeService.save("H2S", 27);
+		monitorSensorTypeService.save("其它(数字量)", 100);
+		monitorSensorTypeService.save("烟雾", 101);
+		monitorSensorTypeService.save("主扇开停", 102);
+		monitorSensorTypeService.save("局扇开停", 103);
+		monitorSensorTypeService.save("皮带开停", 104);
+		monitorSensorTypeService.save("水泵开停", 105);
+		monitorSensorTypeService.save("设备开停", 106);
+		monitorSensorTypeService.save("风筒", 107);
+		monitorSensorTypeService.save("风门开关", 108);
+		monitorSensorTypeService.save("馈电器", 109);
+		monitorSensorTypeService.save("断电器", 110);
+		monitorSensorTypeService.save("报警器", 111);
+		monitorSensorTypeService.save("其它(累计量)", 200);
+		monitorSensorTypeService.save("瓦斯累计量", 201);
+		monitorSensorTypeService.save("标况累计量", 202);
+		monitorSensorTypeService.save("提升钩数", 203);
+		monitorSensorTypeService.save("累计流量", 204);
+		monitorSensorTypeService.save("动态", 205);
+	}
+
+	private void initState() {
+		monitorStateService.save("正常", 1, "");
+		monitorStateService.save("超限", 2, "fc9c9c");
+		monitorStateService.save("超断电", 3, "fc9c9c");
+		monitorStateService.save("异常", 4, "fc9c9c");
+		monitorStateService.save("故障", 5, "fc9c9c");
+		monitorStateService.save("负漂", 6, "fc9c9c");
+		monitorStateService.save("溢出", 7, "fc9c9c");
+		monitorStateService.save("断线", 8, "fc9c9c");
+		monitorStateService.save("调校", 9, "fc9c9c");
+		monitorStateService.save("挂起", 10, "fc9c9c");
+		monitorStateService.save("未知", 11, "fc9c9c");
+		monitorStateService.save("报警", 12, "fc9c9c");
 	}
 }
