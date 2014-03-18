@@ -40,14 +40,14 @@ public class MonitorStation extends IDEntity {
 	private String stationMemo;
 
 	/**
-	 * 分站数据
+	 * 分站数据：0故障/1正常
 	 */
 	private String stationData;
 
 	/**
 	 * 数据上传时间
 	 */
-	private String dataTime;
+	private Timestamp dataTime;
 
 	/**
 	 * 数据是都有效
@@ -89,7 +89,7 @@ public class MonitorStation extends IDEntity {
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	@Column(name = "datatime")
-	public String getDataTime() {
+	public Timestamp getDataTime() {
 		return dataTime;
 	}
 
@@ -136,7 +136,7 @@ public class MonitorStation extends IDEntity {
 		this.createTime = createTime;
 	}
 
-	public void setDataTime(String dataTime) {
+	public void setDataTime(Timestamp dataTime) {
 		this.dataTime = dataTime;
 	}
 

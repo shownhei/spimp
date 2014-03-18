@@ -7,36 +7,6 @@ define(function(require, exports, module) {
 	});
 
 	/**
-	 * 处理图标路径
-	 */
-	function handleIcon(childrens) {
-		if (childrens) {
-			$.each(childrens, function(index, item) {
-				if (item.groupEntities) {
-					handleIcon(item.groupEntities);
-				}
-				switch (item.queryLabel) {
-					case 'mine':
-						item.icon = resources + '/images/icons/building.png';
-						break;
-					case 'office':
-						item.icon = resources + '/images/icons/monitor.png';
-						break;
-					case 'team':
-						item.icon = resources + '/images/icons/plugin_disabled.png';
-						break;
-					case 'other':
-						item.icon = resources + '/images/icons/house.png';
-						break;
-					default:
-						item.icon = resources + '/images/icons/page_white.png';
-						break;
-				}
-			});
-		}
-	}
-
-	/**
 	 * 填充机构详细信息
 	 */
 	function fillDetails(name, number, category, accountsCount, childrensCount) {
@@ -55,59 +25,25 @@ define(function(require, exports, module) {
 		fillDetails('&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;');
 	}
 
-	// 机构树配置
-	var groupTreeSetting = {
-		view : {
-			selectedMulti : false,
-			showTitle : false
-		},
-		async : {
-			enable : true,
-			url : contextPath + '/system/groups/1',
-			type : "get",
-			dataFilter : function(treeId, parentNode, responseData) {
-				responseData.data.iconOpen = resources + "/images/icons/chart_organisation.png";
-				responseData.data.iconClose = resources + "/images/icons/chart_organisation.png";
+	// 机构树
+	var groupTree = Utils.tree.group('groups-tree', contextPath + '/system/groups/1', function(event, treeId, treeNode, clickFlag) {
+		// 控制按钮状态/详细信息显示
+		if (treeNode.level > 0) {
+			Utils.button.enable([ 'create', 'edit' ]);
 
-				handleIcon(responseData.data.groupEntities);
-
-				return responseData.data;
-			}
-		},
-		data : {
-			key : {
-				children : 'groupEntities'
-			}
-		},
-		callback : {
-			onClick : function(event, treeId, treeNode, clickFlag) {
-				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-
-				// 控制按钮状态/详细信息显示
-				if (treeNode.level > 0) {
-					Utils.button.enable([ 'create', 'edit' ]);
-
-					$.get(contextPath + '/system/groups/' + treeNode.id + '/accounts?type=count', function(count) {
-						if (treeNode.groupEntities.length === 0 && count.data === 0) {
-							Utils.button.enable([ 'remove' ]);
-						} else {
-							Utils.button.disable([ 'remove' ]);
-						}
-
-						fillDetails(treeNode.name, treeNode.number, treeNode.category, count.data, treeNode.groupEntities.length);
-					});
+			$.get(contextPath + '/system/groups/' + treeNode.id + '/accounts?type=count', function(count) {
+				if (treeNode.groupEntities.length === 0 && count.data === 0) {
+					Utils.button.enable([ 'remove' ]);
 				} else {
-					reset();
+					Utils.button.disable([ 'remove' ]);
 				}
-			},
-			onAsyncSuccess : function(event, treeId, treeNode, msg) {
-				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-				groupTree.expandAll(true);
-			}
-		}
-	};
 
-	var groupTree = $.fn.zTree.init($('#groups-tree'), groupTreeSetting);
+				fillDetails(treeNode.name, treeNode.number, treeNode.category, count.data, treeNode.groupEntities.length);
+			});
+		} else {
+			reset();
+		}
+	});
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);

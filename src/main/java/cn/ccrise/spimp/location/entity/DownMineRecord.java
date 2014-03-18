@@ -39,68 +39,68 @@ public class DownMineRecord {
 	 */
 	private String state;
 
-	public String getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDepartment() {
 		return department;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public String getJobType() {
-		return jobType;
-	}
-
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
-
-	public String getTroopName() {
-		return troopName;
-	}
-
-	public void setTroopName(String troopName) {
-		this.troopName = troopName;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
 	}
 
 	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public String getJobType() {
+		return jobType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public String getStartTime() {
+		return startTime;
 	}
 
 	public String getState() {
 		return state;
 	}
 
+	public String getTroopName() {
+		return troopName;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public void setTroopName(String troopName) {
+		this.troopName = troopName;
 	}
 
 }

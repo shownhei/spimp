@@ -37,76 +37,76 @@ public class Track {
 	 */
 	private String state;
 
-	public String getStationName() {
-		return stationName;
-	}
-
-	public void setStationName(String stationName) {
-		this.stationName = stationName;
-	}
-
-	public String getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDepartment() {
 		return department;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public String getJobType() {
-		return jobType;
-	}
-
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
-
-	public String getTroopName() {
-		return troopName;
-	}
-
-	public void setTroopName(String troopName) {
-		this.troopName = troopName;
-	}
-
-	public String getStationId() {
-		return stationId;
-	}
-
-	public void setStationId(String stationId) {
-		this.stationId = stationId;
 	}
 
 	public String getEnterCurTime() {
 		return enterCurTime;
 	}
 
-	public void setEnterCurTime(String enterCurTime) {
-		this.enterCurTime = enterCurTime;
+	public String getJobType() {
+		return jobType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getStaffId() {
+		return staffId;
 	}
 
 	public String getState() {
 		return state;
 	}
 
+	public String getStationId() {
+		return stationId;
+	}
+
+	public String getStationName() {
+		return stationName;
+	}
+
+	public String getTroopName() {
+		return troopName;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public void setEnterCurTime(String enterCurTime) {
+		this.enterCurTime = enterCurTime;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
+
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public void setStationId(String stationId) {
+		this.stationId = stationId;
+	}
+
+	public void setStationName(String stationName) {
+		this.stationName = stationName;
+	}
+
+	public void setTroopName(String troopName) {
+		this.troopName = troopName;
 	}
 
 }

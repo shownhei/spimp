@@ -12,12 +12,116 @@
 	<div class="main-container container-fluid">
 		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
-			<div class="page-content" style="padding: 0">
-				<div class="row-fluid" id="image">
-					<img id="image" src="${resources}/images/temp/监测监控-实时监测.png" style="width: 100%">
+			<div class="page-content">
+				<div class="row-fluid">
+					<div class="span3 hide">
+						<div class="widget-box tree-widget-box">
+							<div class="widget-body tree-widget-body">
+								<div class="widget-main padding-8 tree-widget-main">
+									<div id="groupTree" class="ztree"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="span9 hide">
+						<div class="tabbable">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#tab1">全部测点</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#tab2">模拟量</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#tab3">开关量</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#tab4">累积量</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#tab5">瓦斯分站</a>
+								</li>
+								<li style="float: right;">
+									<div style="padding-top: 8px">
+										[今日瓦斯报警:
+										<span class="CH4">0</span>
+										][今日一氧化碳超限:
+										<span class="CO">0</span>
+										]
+									</div>
+								</li>
+							</ul>
+							<div class="tab-content" style="padding: 10px">
+								<div id="tab1" class="tab-pane active">
+									<div class="nav-query" style="position: inherit;">
+										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="monitorSensorType1" name="monitorSensorType" class="input-small" style="width: 100px">
+											</select>
+											<select id="monitorState1" name="monitorState" class="input-small" style="width: 100px">
+											</select>
+										</form>
+									</div>
+									<div id="grid1" class="row-fluid"></div>
+									<div id="statistic1" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
+								</div>
+								<div id="tab2" class="tab-pane">
+									<div class="nav-query" style="position: inherit;">
+										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="monitorSensorType2" name="monitorSensorType" class="input-small" style="width: 100px">
+											</select>
+											<select id="monitorState2" name="monitorState" class="input-small" style="width: 100px">
+											</select>
+										</form>
+									</div>
+									<div id="grid2" class="row-fluid"></div>
+									<div id="statistic2" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
+								</div>
+								<div id="tab3" class="tab-pane">
+									<div class="nav-query" style="position: inherit;">
+										<form id="query-form3" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="monitorSensorType3" name="monitorSensorType" class="input-small" style="width: 100px">
+											</select>
+											<select id="monitorState3" name="monitorState" class="input-small" style="width: 100px">
+											</select>
+										</form>
+									</div>
+									<div id="grid3" class="row-fluid"></div>
+									<div id="statistic3" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
+								</div>
+								<div id="tab4" class="tab-pane">
+									<div class="nav-query" style="position: inherit;">
+										<form id="query-form4" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="monitorSensorType4" name="monitorSensorType" class="input-small" style="width: 100px">
+											</select>
+											<select id="monitorState4" name="monitorState" class="input-small" style="width: 100px">
+											</select>
+										</form>
+									</div>
+									<div id="grid4" class="row-fluid"></div>
+									<div id="statistic4" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
+								</div>
+								<div id="tab5" class="tab-pane">
+									<div class="nav-query" style="position: inherit;">
+										<form id="query-form5" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select name="state" class="input-small" style="width: 100px">
+												<option value="" class="light-grey">选择分站状态</option>
+												<option value="true">正常</option>
+												<option value="false">故障</option>
+											</select>
+										</form>
+									</div>
+									<div id="grid5" class="row-fluid"></div>
+									<div id="statistic5" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		seajs.use('${resources}/scripts/app/monitor/realtime/index');
+	</script>
 </body>
 </html>

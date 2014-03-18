@@ -15,12 +15,14 @@ import cn.ccrise.ikjp.core.util.CodeGeneratorUtils;
 public class CodeGenerator {
 	// protected final String packageName = "cn.ccrise.spimp.spmi.schedule";
 	// protected final String packageName = "cn.ccrise.spimp.spmi.quality";
-	protected final String packageName = "cn.ccrise.spimp.spmi.daily";
+	// protected final String packageName = "cn.ccrise.spimp.spmi.daily";
+	protected final String packageName = "cn.ccrise.spimp.monitor";
 	// protected final String packageName = "cn.ccrise.spimp.system";
 	// protected final String packageName = "cn.ccrise.spimp.electr";
 	// protected final String uriPrefix = "spmi/schedule";
 	// protected final String uriPrefix = "spmi/quality";
-	protected final String uriPrefix = "spmi/daily";
+	// protected final String uriPrefix = "spmi/daily";
+	protected final String uriPrefix = "monitor";
 	// protected final String uriPrefix = "system";
 	// protected final String uriPrefix = "electr/equipment";
 	// protected final String entityName = "Output";
@@ -34,7 +36,8 @@ public class CodeGenerator {
 	// protected final String entityName = "Summary"; // 总结
 	// protected final String entityName = "Accident"; // 事故记录
 	// protected final String entityName = "DailyReport"; // 日报表
-	protected final String entityName = "Training"; // 培训
+	// protected final String entityName = "Training"; // 培训
+	protected final String entityName = "MonitorStation"; //
 
 	// protected final String entityName = "Staff";
 	// protected final String entityName = "Alteration";

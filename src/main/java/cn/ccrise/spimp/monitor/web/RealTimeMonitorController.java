@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.ccrise.ikjp.core.security.service.impl.GroupEntityServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.monitor.entity.MonitorNode;
@@ -23,6 +22,7 @@ import cn.ccrise.spimp.monitor.entity.MonitorState;
 import cn.ccrise.spimp.monitor.service.MonitorNodeService;
 import cn.ccrise.spimp.monitor.service.MonitorSensorTypeService;
 import cn.ccrise.spimp.monitor.service.MonitorStateService;
+import cn.ccrise.spimp.system.service.GroupService;
 import cn.ccrise.spimp.util.ResponseDataFilter;
 
 import com.google.common.collect.Lists;
@@ -43,12 +43,12 @@ public class RealTimeMonitorController {
 	@Autowired
 	private MonitorStateService monitorStateService;
 	@Autowired
-	private GroupEntityServiceImpl groupEntityServiceImpl;
+	private GroupService groupService;
 
 	@RequestMapping(value = "/monitor/real-time-datas", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<MonitorNode> page, Integer monitorSensorType, Integer monitorState, Integer type,
-			String query, String startTime, String endTime) {
+			String query, String startTime, String endTime, String mineId) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (monitorSensorType != null) {
 			criterions.add(Restrictions.eq("sensorTypeId", monitorSensorType));
@@ -74,6 +74,9 @@ public class RealTimeMonitorController {
 		if (StringUtils.isNotBlank(endTime)) {
 			criterions.add(Restrictions.le("endTime", Timestamp.valueOf(endTime)));
 		}
+		if (mineId != null) {
+			criterions.add(Restrictions.in("mineId", groupService.getChildrenMines(mineId)));
+		}
 
 		monitorNodeService.getPage(page, criterions.toArray(new Criterion[0]));
 
@@ -83,8 +86,7 @@ public class RealTimeMonitorController {
 		for (MonitorNode monitorNode : page.getResult()) {
 			ResponseDataFilter.filter(monitorNode, monitorStateCache, monitorSensorTypeCache);
 			if (monitorNode.getMineId() != null) {
-				monitorNode.setMineName(groupEntityServiceImpl.findUniqueBy("number", monitorNode.getMineId())
-						.getName());
+				monitorNode.setMineName(groupService.findUniqueBy("number", monitorNode.getMineId()).getName());
 			}
 		}
 
@@ -93,8 +95,8 @@ public class RealTimeMonitorController {
 
 	@RequestMapping(value = "/monitor/statistic-by-state", method = RequestMethod.GET)
 	@ResponseBody
-	public Response statisticByState(Integer type) {
-		return new Response(monitorNodeService.statisticByState(type));
+	public Response statisticByState(Integer type, String mineId, Integer monitorSensorType, Integer monitorState) {
+		return new Response(monitorNodeService.statisticByState(type, mineId, monitorSensorType, monitorState));
 	}
 
 	@RequestMapping(value = "/monitor/statistic-ch4-co", method = RequestMethod.GET)

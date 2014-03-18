@@ -147,9 +147,10 @@ define(function(require, exports, module) {
 		};
 		$('#' + processId + '-modal').show();
 	};
-	utils.modal.showAlert=function(_message){
-		if($("#__alertWindow").length<=0){
-			var _winHtml=[];
+
+	utils.modal.showAlert = function(_message) {
+		if ($("#__alertWindow").length <= 0) {
+			var _winHtml = [];
 			_winHtml.push('<div id="__alertWindow-modal" class="modal hide">');
 			_winHtml.push('<div class="modal-header">');
 			_winHtml.push('<button type="button" class="close" data-dismiss="modal">×</button>');
@@ -181,25 +182,25 @@ define(function(require, exports, module) {
 			$(_winHtml.join('')).appendTo($('body'));
 		}
 		utils.modal.show('__alertWindow');
-		$('#__message_panel').html('<i class="icon-warning-sign"></i> 提示'+_message+'？');
-		
+		$('#__message_panel').html('<i class="icon-warning-sign"></i> 提示' + _message + '？');
+
 	};
-	utils.modal.showUpload=function(url,callBack,winTitle){
-		var callbackFunc='callbackFunc';
-		if($("#__acceptFrame").length<=0){
+	utils.modal.showUpload = function(url, callBack, winTitle) {
+		var callbackFunc = 'callbackFunc';
+		if ($("#__acceptFrame").length <= 0) {
 			$('<iframe id="__acceptFrame" name="__acceptFrame" style="display: none"></iframe>').appendTo($('body'));
-			var _winHtml=[];
+			var _winHtml = [];
 			_winHtml.push('	<div id="__import-modal" class="modal hide" style="z-index:1053;">');
 			_winHtml.push('<div class="modal-header">');
 			_winHtml.push('<button type="button" class="close" data-dismiss="modal">×</button>');
 			_winHtml.push('<h5 class="blue">');
-			_winHtml.push('<i class="icon-upload"></i> '+winTitle);
+			_winHtml.push('<i class="icon-upload"></i> ' + winTitle);
 			_winHtml.push('</h5>');
 			_winHtml.push('</div>');
 			_winHtml.push('<div class="modal-body">');
 			_winHtml.push('<div class="row-fluid">');
 			_winHtml.push('<div class="span12">');
-			_winHtml.push('<form id="__import-form" class="form-horizontal" action="'+url+'" method="post"');
+			_winHtml.push('<form id="__import-form" class="form-horizontal" action="' + url + '" method="post"');
 			_winHtml.push('enctype="multipart/form-data" target="__acceptFrame"');
 			_winHtml.push('style="margin-bottom: 0px;">');
 			_winHtml.push('<div class="control-group">');
@@ -229,26 +230,26 @@ define(function(require, exports, module) {
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			$(_winHtml.join('')).appendTo($('body'));
-			$('#__import_file').bind('change',function onSelectChange(){
+			$('#__import_file').bind('change', function onSelectChange() {
 				$('#__import-form').submit();
 			});
-			$('#__import-form').submit(function _onSubmit(){
+			$('#__import-form').submit(function _onSubmit() {
 				var process = new utils.modal.showProcess('_process');
 				window.process = process;
 			});
-			$('#__acceptFrame').load(function(){
+			$('#__acceptFrame').load(function() {
 				window.process.stop();
 				window.process = null;
 			});
 		}
 		utils.modal.reset('__import');
 		utils.modal.show('__import');
-		var testFunction=function(data){
+		var testFunction = function(data) {
 			utils.modal.hide('__import');
 			callBack(data);
 		};
-		window[callbackFunc]=testFunction;
-		
+		window[callbackFunc] = testFunction;
+
 	};
 	/**
 	 * 下拉列表。
@@ -288,7 +289,6 @@ define(function(require, exports, module) {
 				var showText = '';
 				var itemName = '';
 				for (var i = 0; i < display.length; i++) {
-					console.log(display[i], entry[display[i]]);
 					if (entry[display[i]] && typeof entry[display[i]] === 'object') {
 						showText += utils.html.encode(entry[display[i]].itemName);
 					} else {
@@ -478,6 +478,78 @@ define(function(require, exports, module) {
 
 	utils.html.decode = function(string) {
 		return $('<div/>').html(string).text();
+	};
+
+	/**
+	 * 树
+	 */
+	utils.tree = {};
+
+	utils.tree.group = function(id, url, onClick) {
+		/**
+		 * 处理图标路径
+		 */
+		function handleIcon(childrens) {
+			if (childrens) {
+				$.each(childrens, function(index, item) {
+					if (item.groupEntities) {
+						handleIcon(item.groupEntities);
+					}
+					switch (item.queryLabel) {
+						case 'mine':
+							item.icon = resources + '/images/icons/building.png';
+							break;
+						case 'office':
+							item.icon = resources + '/images/icons/monitor.png';
+							break;
+						case 'team':
+							item.icon = resources + '/images/icons/plugin_disabled.png';
+							break;
+						case 'other':
+							item.icon = resources + '/images/icons/house.png';
+							break;
+						default:
+							item.icon = resources + '/images/icons/page_white.png';
+							break;
+					}
+				});
+			}
+		}
+
+		// 机构树配置
+		var groupTreeSetting = {
+			view : {
+				selectedMulti : false,
+				showTitle : false
+			},
+			async : {
+				enable : true,
+				url : url,
+				type : "get",
+				dataFilter : function(treeId, parentNode, responseData) {
+					responseData.data.iconOpen = resources + "/images/icons/chart_organisation.png";
+					responseData.data.iconClose = resources + "/images/icons/chart_organisation.png";
+
+					handleIcon(responseData.data.groupEntities);
+
+					return responseData.data;
+				}
+			},
+			data : {
+				key : {
+					children : 'groupEntities'
+				}
+			},
+			callback : {
+				onClick : onClick,
+				onAsyncSuccess : function(event, treeId, treeNode, msg) {
+					var groupTree = $.fn.zTree.getZTreeObj(treeId);
+					groupTree.expandAll(true);
+				}
+			}
+		};
+
+		return $.fn.zTree.init($('#' + id), groupTreeSetting);
 	};
 
 	module.exports = utils;

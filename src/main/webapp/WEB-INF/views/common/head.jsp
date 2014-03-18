@@ -35,6 +35,7 @@
 	var GRID_ROW_HEIGHT = 21;
 	//生产环境下改为false
 	var isDevelopment = true;
+	var showGroup = true; // 控制是否显示左侧机构树
 
 	(function() {
 		var alias = {

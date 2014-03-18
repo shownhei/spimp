@@ -91,7 +91,7 @@ public class HistoryQueryController {
 	public Response alarmDatasStatistic(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState,
 			String startTime, String endTime) {
 
-		this.genAlarmDatasStatisticDatas(page, monitorSensorType, monitorState, startTime, endTime);
+		genAlarmDatasStatisticDatas(page, monitorSensorType, monitorState, startTime, endTime);
 
 		return new Response(page);
 	}
@@ -202,7 +202,7 @@ public class HistoryQueryController {
 	public Response fiveMinutesData(Page<MonitorFiveMinutesData> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
 
-		this.genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
+		genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		return new Response(page);
 	}
@@ -222,7 +222,7 @@ public class HistoryQueryController {
 	public void fiveMinutesDataExport(HttpServletResponse response, Page<MonitorFiveMinutesData> page,
 			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
 
-		this.genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
+		genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
@@ -289,7 +289,7 @@ public class HistoryQueryController {
 				monitorAlarm.setAlarmUpperValue(ucValue[0]);
 				monitorAlarm.sethCutValue(ucValue[1]);
 			}
-			monitorAlarm.setTimeDiff(this.timeDiff(monitorAlarm.getStartTime(), monitorAlarm.getEndTime()));
+			monitorAlarm.setTimeDiff(timeDiff(monitorAlarm.getStartTime(), monitorAlarm.getEndTime()));
 		}
 	}
 
@@ -348,7 +348,7 @@ public class HistoryQueryController {
 			ma.setSensorName(String.valueOf(result[1]));
 			ma.setNodePlace(String.valueOf(result[2]));
 			ma.setTotalAlarmCount(NumberUtils.toInt(String.valueOf(result[3]), 0));
-			ma.setTimeDiff(this.secondDiff(NumberUtils.toLong(String.valueOf(result[4]), 0L) * 1000));
+			ma.setTimeDiff(secondDiff(NumberUtils.toLong(String.valueOf(result[4]), 0L) * 1000));
 			lists.add(ma);
 		}
 
@@ -484,7 +484,7 @@ public class HistoryQueryController {
 	public Response monitorRealData(Page<MonitorRealData> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
 
-		this.genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
+		genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		return new Response(page);
 	}
@@ -504,7 +504,7 @@ public class HistoryQueryController {
 	public void monitorRealDataExport(HttpServletResponse response, Page<MonitorRealData> page,
 			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
 
-		this.genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
+		genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
@@ -574,7 +574,7 @@ public class HistoryQueryController {
 	public Response valueChange(Page<MonitorValueChange> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
 
-		this.genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
+		genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		return new Response(page);
 	}
@@ -594,7 +594,7 @@ public class HistoryQueryController {
 	public void valueChangeExport(HttpServletResponse response, Page<MonitorValueChange> page,
 			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
 
-		this.genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
+		genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
 
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());

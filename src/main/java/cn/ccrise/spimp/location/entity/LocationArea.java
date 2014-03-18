@@ -75,15 +75,6 @@ public class LocationArea extends IDEntity {
 	private Boolean bUpdate;
 	private String typeString;
 
-	@Transient
-	public String getTypeString() {
-		return typeString;
-	}
-
-	public void setTypeString(String typeString) {
-		this.typeString = typeString;
-	}
-
 	@Column(name = "areaid")
 	public String getAreaId() {
 		return areaId;
@@ -136,6 +127,11 @@ public class LocationArea extends IDEntity {
 		return type;
 	}
 
+	@Transient
+	public String getTypeString() {
+		return typeString;
+	}
+
 	public void setAreaId(String areaId) {
 		this.areaId = areaId;
 	}
@@ -174,5 +170,9 @@ public class LocationArea extends IDEntity {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public void setTypeString(String typeString) {
+		this.typeString = typeString;
 	}
 }

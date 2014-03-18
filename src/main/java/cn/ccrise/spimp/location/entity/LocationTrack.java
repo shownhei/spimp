@@ -56,15 +56,6 @@ public class LocationTrack extends IDEntity {
 	private Timestamp dataTime;
 	private String stateString;
 
-	@Transient
-	public String getStateString() {
-		return stateString;
-	}
-
-	public void setStateString(String stateString) {
-		this.stateString = stateString;
-	}
-
 	@Column(name = "areaid")
 	public String getAreaId() {
 		return areaId;
@@ -94,6 +85,11 @@ public class LocationTrack extends IDEntity {
 		return state;
 	}
 
+	@Transient
+	public String getStateString() {
+		return stateString;
+	}
+
 	@Column(name = "stationid")
 	public String getStationId() {
 		return stationId;
@@ -117,6 +113,10 @@ public class LocationTrack extends IDEntity {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	public void setStateString(String stateString) {
+		this.stateString = stateString;
 	}
 
 	public void setStationId(String stationId) {

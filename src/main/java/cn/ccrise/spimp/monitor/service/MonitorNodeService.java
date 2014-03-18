@@ -1,6 +1,7 @@
 package cn.ccrise.spimp.monitor.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.Map;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.Query;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,10 @@ import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.spimp.monitor.access.MonitorNodeDAO;
 import cn.ccrise.spimp.monitor.entity.MonitorNode;
 import cn.ccrise.spimp.monitor.entity.MonitorState;
+import cn.ccrise.spimp.system.service.GroupService;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * MonitorNode Service.
@@ -30,6 +39,8 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 	private MonitorSensorTypeService monitorSensorTypeService;
 	@Autowired
 	private MonitorStateService monitorStateService;
+	@Autowired
+	private GroupService groupService;
 
 	private static int QUERY_TIMES = 0;
 	private static Map<String, Double[]> nodeUpperCutValue = new HashMap<String, Double[]>();
@@ -86,7 +97,7 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 			return nodeUpperCutValue;
 		}
 
-		List<Object[]> results = this.createQuery(sql).list();
+		List<Object[]> results = createQuery(sql).list();
 		for (int i = 0; i < results.size(); i++) {
 			Object[] result = results.get(i);
 			Double[] values = new Double[2];
@@ -107,7 +118,7 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 		int totalNum = 0;
 		StringBuffer result = new StringBuffer();
 		for (Map.Entry<Integer, MonitorState> monitorState : monitorStateCache.entrySet()) {
-			result.append("，").append(monitorState.getValue().getStateName());
+			result.append("、").append(monitorState.getValue().getStateName());
 
 			Integer num = statisticResult.get(monitorState.getKey());
 			result.append(num == null ? 0 : num);
@@ -117,7 +128,27 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 			}
 		}
 
-		return "测点总数:" + totalNum + "&nbsp;&nbsp;&nbsp;&nbsp;其中：" + result.toString().substring(1);
+		return "测点总数:" + totalNum + " 其中：" + result.toString().substring(1);
+	}
+
+	public String statisticByState(Integer type, String mineId, Integer monitorSensorType, Integer monitorState) {
+		Map<Integer, Integer> statisticResult = statisticResult(type, mineId, monitorSensorType, monitorState);
+
+		Map<Integer, MonitorState> monitorStateCache = monitorStateService.getAllInstanceAsMap();
+		int totalNum = 0;
+		StringBuffer result = new StringBuffer();
+		for (Map.Entry<Integer, MonitorState> ms : monitorStateCache.entrySet()) {
+			result.append("、").append(ms.getValue().getStateName());
+
+			Integer num = statisticResult.get(ms.getKey());
+			result.append(num == null ? 0 : num);
+
+			if (num != null) {
+				totalNum += num;
+			}
+		}
+
+		return "测点总数:" + totalNum + " 其中：" + result.toString().substring(1);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -144,5 +175,39 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 		}
 
 		return revs;
+	}
+
+	public Map<Integer, Integer> statisticResult(Integer type, String mineId, Integer monitorSensorType,
+			Integer monitorState) {
+		ArrayList<Criterion> criterions = Lists.newArrayList();
+
+		if (type != null && type != 0) {
+			Integer[] protocolNumber = monitorSensorTypeService.protocolAnalysis(type);
+			criterions.add(Restrictions.ge("sensorTypeId", protocolNumber[0]));
+			criterions.add(Restrictions.le("sensorTypeId", protocolNumber[1]));
+		}
+		if (mineId != null) {
+			criterions.add(Restrictions.in("mineId", groupService.getChildrenMines(mineId)));
+		}
+		if (monitorSensorType != null) {
+			criterions.add(Restrictions.eq("sensorTypeId", monitorSensorType));
+		}
+		if (monitorState != null) {
+			criterions.add(Restrictions.eq("stateId", monitorState));
+		}
+
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.groupProperty("stateId"));
+		projectionList.add(Projections.rowCount());
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> res = getDAO().createCriteria(criterions.toArray(new Criterion[0]))
+				.setProjection(projectionList).list();
+		Map<Integer, Integer> result = Maps.newHashMap();
+		for (Object[] o : res) {
+			result.put(NumberUtils.toInt(String.valueOf(o[0]), -1000), NumberUtils.toInt(String.valueOf(o[1]), 0));
+		}
+
+		return result;
 	}
 }

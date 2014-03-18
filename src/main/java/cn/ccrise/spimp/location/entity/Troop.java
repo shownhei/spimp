@@ -21,13 +21,14 @@ public class Troop extends IDEntity {
 	private String startTime;
 	private String endTime;
 
+	@Column(name = "endtime")
+	public String getEndTime() {
+		return endTime;
+	}
+
 	@Column(name = "name")
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Column(name = "starttime")
@@ -35,17 +36,16 @@ public class Troop extends IDEntity {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	@Column(name = "endtime")
-	public String getEndTime() {
-		return endTime;
-	}
-
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 }
