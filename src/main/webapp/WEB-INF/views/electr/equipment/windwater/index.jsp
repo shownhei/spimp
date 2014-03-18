@@ -67,25 +67,25 @@
 						<div class="control-group">
 							<label class="control-label" for="windAmount">安装套数</label>
 							<div class="controls">
-								<input id="create_windAmount" name="windAmount" type="text">
+								<input id="create_windAmount" name="windAmount" value="1" type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="windCycle">维护周期</label>
 							<div class="controls">
-								<input id="create_windCycle" name="windCycle" type="text">
+								<input id="create_windCycle" name="windCycle" type="text" value="每周六">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="waterAmount">安装套数</label>
 							<div class="controls">
-								<input id="create_waterAmount" name="waterAmount" type="text">
+								<input id="create_waterAmount" name="waterAmount"  value="1"  type="number">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="waterCycle">维护周期</label>
 							<div class="controls">
-								<input id="create_waterCycle" name="waterCycle" type="text">
+								<input id="create_waterCycle" name="waterCycle" type="text" value="每周六">
 							</div>
 						</div>
 						<div class="control-group">
@@ -103,7 +103,7 @@
 						<div class="control-group">
 							<label class="control-label" for="remark">备注</label>
 							<div class="controls">
-								<input id="create_remark" name="remark" type="text">
+								<input id="create_remark" name="remark" type="text" value="无">
 							</div>
 						</div>
 					</form>

@@ -288,7 +288,12 @@ define(function(require, exports, module) {
 		if (!validate('create', object)) {
 			return false;
 		}
-
+		if(object.pictureURL===''){
+			delete object.pictureURL;
+		}
+		if(object.specificationURL===''){
+			delete object.specificationURL;
+		}
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
