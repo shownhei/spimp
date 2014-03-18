@@ -393,6 +393,8 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/jdd/routine/reward", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/jdd/routine/picture", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/jdd/routine/summary", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/jdd/innovation/statistics", routine, "", i++);
 		String jddMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/material", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("采购计划", "/spmi/jdd/material/plan", jddMaterial, "", i++);
@@ -406,8 +408,6 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/jdd/equipment/overhaul", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/jdd/equipment/alert", jddEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/jdd/equipment/settings", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", jddEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/jdd/innovation/statistics", jddEquipment, "", i++);
 
 		// equipment-ledger
 		String jddEquipmentLedger = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/equipment-ledger",
@@ -482,8 +482,6 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("定期检修记录", "/spmi/zcd/equipment/overhaul", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修提醒", "/spmi/zcd/equipment/alert", zcdEquipment, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("定期检修设置", "/spmi/zcd/equipment/settings", zcdEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/zcd/innovation/innovation", zcdEquipment, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/zcd/innovation/statistics", zcdEquipment, "", i++);
 		String zcdMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/zcd/maintenance", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("日常保养", "/spmi/zcd/maintenance/daily", zcdMaintenance, "", i++);
