@@ -194,7 +194,7 @@ define("ikj/grid/1.4.0/grid-debug", [ "jquery/jquery/1.10.1/jquery-debug", "aral
                             value = _.escape(value);
                         }
                         if ($.isFunction(field.render)) {
-                            value = field.render(value);
+                            value = field.render(value, record);
                         }
                         var f = _.clone(field);
                         f.value = value;
@@ -288,11 +288,6 @@ define("ikj/grid/1.4.0/grid-debug", [ "jquery/jquery/1.10.1/jquery-debug", "aral
                     self.$("tr th:nth-child(" + index + ")").addClass("hidden-phone hidden-tablet");
                 }
             });
-            //设置最后一个可见列
-            //this.$('.grid-view .grid-row').each(function() {
-            ////最后一个可见的td
-            //$('td:visible:last', this).css('borderRight', 0);
-            //});
             this.trigger("loaded");
         },
         events: {
