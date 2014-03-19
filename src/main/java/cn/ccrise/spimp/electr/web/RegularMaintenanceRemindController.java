@@ -82,6 +82,7 @@ public class RegularMaintenanceRemindController {
 	@ResponseBody
 	public Response page(Page<RegularMaintenanceRemind> page, Long car) {
 		page = regularMaintenanceRemindService.pageQuery(page, car);
+		page.setTotalCount(page.getTotalCount()==-1?0:page.getTotalCount());
 		return new Response(page);
 	}
 

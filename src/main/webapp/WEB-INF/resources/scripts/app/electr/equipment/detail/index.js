@@ -288,7 +288,12 @@ define(function(require, exports, module) {
 		if (!validate('create', object)) {
 			return false;
 		}
-
+		if(object.pictureURL===''){
+			delete object.pictureURL;
+		}
+		if(object.specificationURL===''){
+			delete object.specificationURL;
+		}
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -341,15 +346,21 @@ define(function(require, exports, module) {
 			return false;
 		}
 
-		// 处理属性
 		var selectId = grid.selectedData('id');
-		object.id = selectId;
-		var specificationURL = {
-			id : $('#edit_specificationURL').attr('data-id')
-		};
-		delete object.specificationURL;
-		object.specificationURL = specificationURL;
-
+		if(object.pictureURL===''){
+			delete object.pictureURL;
+		}
+		if(object.specificationURL===''){
+			delete object.specificationURL;
+		}else{
+			// 处理属性
+			object.id = selectId;
+			var specificationURL = {
+					id : $('#edit_specificationURL').attr('data-id')
+			};
+			delete object.specificationURL;
+			object.specificationURL = specificationURL;
+		}
 		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

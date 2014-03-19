@@ -22,11 +22,12 @@
 				<li class="green">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 						<i class="icon-envelope icon-animated-vertical" id="header_mail"></i>
-						<span class="badge badge-success">0</span>
+						<span id="messages-count" class="badge badge-success">0</span>
 					</a>
-					<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
+					<ul id="messages" class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 						<li class="nav-header">
-							<i class="icon-envelope-alt"></i> 0 条消息
+						<i class="icon-warning-sign"></i>
+							<span id="messages-title" class="icon-envelope-alt">0 个提醒</span>
 						</li>
 						<li>
 							<a href="/ercs/perform-rescue/task-view">

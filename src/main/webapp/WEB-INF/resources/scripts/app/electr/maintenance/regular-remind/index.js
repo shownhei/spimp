@@ -106,9 +106,10 @@ define(function(require, exports, module) {
 
 		var object = $.extend({}, data);
 		object.car = object.car.carNo;
-
+		
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
+		$('#detail_maintenanceLevel').val(levelMap[$('#detail_maintenanceLevel').val()]);
 	}
 
 	// 关闭

@@ -20,14 +20,14 @@ define(function(require, exports, module) {
 			url : '/electr/innovation/detail/' + id,
 			success : function(data) {
 				Utils.button.disable([ 'submit', 'reset' ]);
-				$('#button_bar').fadeOut(200);
-				$('#material-table').fadeOut(200);
+				$('#button_bar').hide();
+				$('#material-table').hide();
 				$('#detail-panel').html(data);
-				$('#detail-panel').fadeIn(200);
+				$('#detail-panel').show();
 				$('#close_detail').bind('click', function() {
 					$('#detail-panel').hide();
-					$('#material-table').fadeIn(200);
-					$('#button_bar').fadeIn(200);
+					$('#material-table').show();
+					$('#button_bar').show();
 					Utils.button.enable([ 'submit', 'reset' ]);
 				});
 			}
@@ -184,33 +184,18 @@ define(function(require, exports, module) {
 			}
 		});
 	});
-	$('#file').bind('change', function() {
-		if ($('#file').val() !== '') {
-			$('#create-file-form').submit();
-			var process = new Utils.modal.showProcess('process');
-			window.process = process;
-		}
-	});
-	$('#create-file-delete').bind('click', function() {
-		var process = new Utils.modal.showProcess('process');
-		window.process = process;
-		$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
-			window.process.stop();
-			window.process = null;
-			$('#attachment').parent().parent().hide();
-			$('#create-file-form')[0].reset();
-			$('#create-file-form').show();
-		});
-	});
 	// 图片上传
 	$('#upload').click(function() {
 		if (Utils.button.isDisable('upload')) {
 			return;
 		}
-		Utils.modal.reset('upload');
-		Utils.modal.show('upload');
-		$('#create-file-form')[0].reset();
-		$('#create-file-form').show();
+		Utils.modal.showUpload('/simpleupload', function(data) {
+			var selectId = grid.selectedData('id');
+			$.post('/electr/innovation/innovation-images', JSON.stringify({
+				'innovationId' : selectId,
+				'imagePath' : data.data
+			}), function(data) {});
+		}, '上传图片');
 	});
 
 	// 上传保存
@@ -292,53 +277,43 @@ define(function(require, exports, module) {
 		grid.set('url', defaultUrl);
 		grid.refresh();
 	});
-	function callBack(data) {
-		window.process.stop();
-		window.process = null;
-		if (!data.success) {
-			alert("上传失败..." + data.data);
-			return false;
-		} else {
-			var selectId = grid.selectedData('id');
-			$.post('/electr/innovation/innovation-images', JSON.stringify({
-				'innovationId' : selectId,
-				'imagePath' : data.data
-			}), function(data) {
-				Utils.modal.hide('upload');
-			});
-		}
-	}
-	window.callBack = callBack;
 	// 删除图片
-	// removeImg
-	$(document).mouseover(function(event) {
-		var el = $(event.target);
-		var dataType = el.attr('data-type');
-		if (dataType === 'detail-image') {
-			el.parent().find("a").show();
-		}
-	});
-	$(document).mouseout(function(event) {
-		var el = $(event.target);
-		var dataType = el.attr('data-type');
-		if (dataType === 'detail-image') {
-			el.parent().find("a").hide();
-		}
-	});
 	$(document).click(function(event) {
 		var el = $(event.target);
 		var dataType = el.attr('data-type');
-		if (dataType === 'removeImg') {
-			var dataId = el.attr('data-id');
+		if (dataType === 'button_view') {
+			show(el);
+			return;
+		}
+		if (dataType === 'button_delete') {
 			$.ajax({
 				type : "delete",
-				url : "/electr/innovation/innovation-images/" + dataId,
+				url : "/electr/innovation/innovation-images/" + el.attr('data-id'),
 				dataType : 'json',
 				success : function(json) {
 					loadDetail(window.innovationId);
 				}
 			});
+			return;
 		}
 	});
-	window.$ = $;
+	function show(o) {
+		$("#imgfile").attr("src", $(o).parent().prev().attr("src"));
+		var tmpObj = new Image();
+		tmpObj.src = $(o).parent().prev().attr("src");
+		if (tmpObj.width > 500 && tmpObj.width > tmpObj.height) {
+			tmpObj.height = parseInt(500 * tmpObj.height / tmpObj.width, 10);
+			tmpObj.width = 500;
+		} else if (tmpObj.height > 500 && tmpObj.width < tmpObj.height) {
+			tmpObj.width = parseInt(500 * tmpObj.width / tmpObj.height, 10);
+			tmpObj.height = 500;
+		}
+		tmpObj.onload = function() {
+			var modalWidth = $("#details-modal").width();
+			$("#details-modal").width(800);
+			$("#imgfile").attr("style", "width:" + tmpObj.width + ";height:" + tmpObj.height + ";");
+			$("#check").html($(o).parent().prev().attr('data-id'));
+			Utils.modal.show('details');
+		};
+	}
 });
