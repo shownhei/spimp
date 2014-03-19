@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import cn.ccrise.ikjp.core.entity.IDEntity;
 
 /**
- * ResponseTeamMember。
+ * ResponseTeamMember。应急小组成员
  * 
  */
 @Entity

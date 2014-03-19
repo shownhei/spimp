@@ -1,13 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="table-responsive" id="table_panel">
-	<table id="sample-table-1" data-id="${maintenance.id}" class="table table-striped table-bordered table-hover">
+	<table id="sample-table-1" data-id="${maintenance.id}"
+		class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
 				<th colspan=4><center>
-						小改小革、小发明项目申报表
-						<a href="javascript:void(0);" id="close_detail" style="float: right;">返回</a>
+						小改小革、小发明项目申报表 <a href="javascript:void(0);" id="close_detail"
+							style="float: right;">返回</a>
 					</center></th>
 			</tr>
 			<tr>
@@ -50,13 +52,20 @@
 			</tr>
 			<tr>
 				<td>相关图片</td>
-				<td colspan=3>
-					<c:forEach items="${pictures}" var="pic" varStatus="listIndex">
-						<div class="span2" style="position: relative; height: 100%;">
-							<img src="${pic.imagePath }" data-type="detail-image" style="width: 400px; position: absolute; left: 1px; top: 1px;">
-							<a href="javascript:void(0)" data-id="${pic.id }" data-type="removeImg" style="position: absolute; left: 1px; top: 1px;">删除</a>
-						</div>
-					</c:forEach>
+				<td colspan=3 id="pictures">
+					<div id="basic" class="tab-pane in active">
+						<ul class="span3" style="list-style-type: none">
+							<c:forEach items="${pictures}" var="pic" varStatus="listIndex">
+								<li><div class="span12 imgFrame" style="position: relative">
+										<img src="${pic.imagePath }" width="100%" class="img-polaroid">
+										<div class="imgContent" style="position: absolute; left: 47px; bottom: 5px;">
+											<input name="view" type="button"  value="查看" data-id="${pic.id}" data-type="button_view" class="btn btn-mini">&nbsp;&nbsp;
+											<input name="download" type="button" value="删除" data-id="${pic.id}" data-type="button_delete" class="btn btn-mini">
+										</div>
+									</div></li>
+							</c:forEach>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</tbody>

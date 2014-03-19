@@ -6,7 +6,6 @@ package cn.ccrise.spimp.ercs.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,7 +14,7 @@ import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
- * SpeciaList。
+ * SpeciaList。 救援专家
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
@@ -95,7 +94,6 @@ public class SpeciaList extends IDEntity {
 		return physicalCondition;
 	}
 
-	@Lob
 	public String getRemark() {
 		return remark;
 	}

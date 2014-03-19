@@ -19,7 +19,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
- * Scheme。
+ * Scheme。 现场处置方案
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
