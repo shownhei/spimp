@@ -90,7 +90,7 @@
 								<label class="control-label " for="maintenanceDate1">维修时间(co2)</label>
 								<div class="controls">
 									<input id="create_maintenanceDate1" name="maintenanceDate1"
-										type="text" class="span2" style="width: 122px;">
+										type="datetime" class="span2" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 							<div class="control-group span6">
 								<label class="control-label " for="maintenance2">维修时间(干粉)</label>
 								<div class="controls">
-									<input id="create_maintenance2" name="maintenance2" type="text"
+									<input id="create_maintenance2" name="maintenance2" type="datetime"
 										class="span2" style="width: 122px;">
 								</div>
 							</div>
@@ -204,7 +204,7 @@
 								<label class="control-label " for="maintenanceDate1">维修时间(co2)</label>
 								<div class="controls">
 									<input id="edit_maintenanceDate1" name="maintenanceDate1"
-										type="text" class="span2" style="width: 122px;">
+										type="datetime" class="span2" style="width: 122px;">
 								</div>
 							</div>
 						</div>
