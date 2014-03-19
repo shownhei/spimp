@@ -6,12 +6,9 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-	$('#edit_startTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
-	$('#startTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#edit_startTime').datetimepicker();
+	$('#startTime').datetimepicker();
+
 	Utils.input.date('input[type=datetime]');
 	Utils.select.remote([ 'create-type', 'edit-type' ], '/system/dictionaries?typeCode=accident_category&list=true', 'id', 'itemName');
 	// 配置表格列

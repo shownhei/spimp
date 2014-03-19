@@ -8,13 +8,8 @@ define(function(require, exports, module) {
 	});
 	
 	// 日期时间选择控件
-	$('#create_time').datetimepicker({
-		format: 'yyyy-mm-dd hh:ii:ss'
-	});
-
-	$('#edit_time').datetimepicker({
-		format: 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#create_time').datetimepicker();
+	$('#edit_time').datetimepicker();
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
