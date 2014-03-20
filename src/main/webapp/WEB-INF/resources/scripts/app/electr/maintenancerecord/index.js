@@ -155,7 +155,6 @@ define(function(require, exports, module) {
 			return false;
 		}
 
-		console.log(object);
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

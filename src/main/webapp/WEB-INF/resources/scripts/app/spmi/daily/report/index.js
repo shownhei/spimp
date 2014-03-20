@@ -86,7 +86,6 @@ define(function(require, exports, module) {
 		Utils.modal.reset('detail');
 
 		var object = $.extend({}, data);
-		console.log("object:", object);
 
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');

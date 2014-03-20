@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -30,11 +29,8 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<input name="search" type="text"
-							style="height: 15px; width: 130px; font-size: 12px;"
-							placeholder="输入项目名称...">
-						<button id="submit" type="button"
-							class="btn btn-primary btn-small">查询</button>
+						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入项目名称...">
+						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
 				</div>
@@ -56,8 +52,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="create-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="create-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="projectName">项目名称</label>
 							<div class="controls">
@@ -68,16 +63,14 @@
 							<div class="control-group span6">
 								<label class="control-label " for="refugeType">负责人</label>
 								<div class="controls">
-									<input id="create_chargePerson" name="chargePerson" type="text"
-										class="span2" style="width: 130px;">
+									<input id="create_chargePerson" name="chargePerson" type="text" class="span2" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label " for="quantity">申报日期</label>
 								<div class="controls">
-									<input type="datetime" placeholder="请选择" class="input-small"
-										autocomplete="off" id="create_declarationDate"
-										name="declarationDate" class="span2" style="width: 122px;">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_declarationDate" name="declarationDate" class="span2"
+										style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -85,18 +78,14 @@
 							<div class="control-group span6">
 								<label class="control-label " for="refugeType">实施地点</label>
 								<div class="controls">
-									<input id="create_implementationAddress"
-										name="implementationAddress" type="text" class="span2"
-										style="width: 130px;">
+									<input id="create_implementationAddress" name="implementationAddress" type="text" class="span2" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label " for="quantity">实施时间</label>
 								<div class="controls">
-									<input type="datetime" placeholder="请选择" class="input-small"
-										autocomplete="off" id="create_implementationPeriod"
-										name="implementationPeriod" class="span2"
-										style="width: 122px;">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="create_implementationPeriod" name="implementationPeriod"
+										class="span2" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -109,24 +98,19 @@
 						<div class="control-group">
 							<label class="control-label" for="inventionPurpose">目的</label>
 							<div class="controls">
-								<input id="create_inventionPurpose" name="inventionPurpose"
-									type="text">
+								<input id="create_inventionPurpose" name="inventionPurpose" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="content">主要内容或原理</label>
 							<div class="controls">
-								<textarea id="create_content" name="content"
-									class="xheditor {skin:'nostyle',tools:'simple'}"
-									style="height: 100px;"></textarea>
+								<textarea id="create_content" name="content" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="analysis">效果及经济社会效益分析</label>
 							<div class="controls">
-								<textarea id="create_analysis" name="analysis"
-									class="xheditor {skin:'nostyle',tools:'simple'}"
-									style="height: 100px;"></textarea>
+								<textarea id="create_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 					</form>
@@ -134,7 +118,8 @@
 				<div id="create-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="create-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="create-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -160,8 +145,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="edit-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="edit-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="projectName">项目名称</label>
 							<div class="controls">
@@ -172,16 +156,14 @@
 							<div class="control-group span6">
 								<label class="control-label " for="refugeType">负责人</label>
 								<div class="controls">
-									<input id="edit_chargePerson" name="chargePerson" type="text"
-										class="span2" style="width: 130px;">
+									<input id="edit_chargePerson" name="chargePerson" type="text" class="span2" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label " for="quantity">申报日期</label>
 								<div class="controls">
-									<input type="datetime" placeholder="请选择" class="input-small"
-										autocomplete="off" id="edit_declarationDate"
-										name="declarationDate" class="span2" style="width: 122px;">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_declarationDate" name="declarationDate" class="span2"
+										style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -189,18 +171,14 @@
 							<div class="control-group span6">
 								<label class="control-label " for="refugeType">实施地点</label>
 								<div class="controls">
-									<input id="edit_implementationAddress"
-										name="implementationAddress" type="text" class="span2"
-										style="width: 130px;">
+									<input id="edit_implementationAddress" name="implementationAddress" type="text" class="span2" style="width: 130px;">
 								</div>
 							</div>
 							<div class="control-group span6">
 								<label class="control-label " for="quantity">实施时间</label>
 								<div class="controls">
-									<input type="datetime" placeholder="请选择" class="input-small"
-										autocomplete="off" id="edit_implementationPeriod"
-										name="implementationPeriod" class="span2"
-										style="width: 122px;">
+									<input type="datetime" placeholder="请选择" class="input-small" autocomplete="off" id="edit_implementationPeriod" name="implementationPeriod"
+										class="span2" style="width: 122px;">
 								</div>
 							</div>
 						</div>
@@ -213,24 +191,19 @@
 						<div class="control-group">
 							<label class="control-label" for="inventionPurpose">目的</label>
 							<div class="controls">
-								<input id="edit_inventionPurpose" name="inventionPurpose"
-									type="text">
+								<input id="edit_inventionPurpose" name="inventionPurpose" type="text">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="content">主要内容或原理</label>
 							<div class="controls">
-								<textarea id="edit_content" name="content"
-									class="xheditor {skin:'nostyle',tools:'simple'}"
-									style="height: 100px;"></textarea>
+								<textarea id="edit_content" name="content" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="analysis">效果及经济社会效益分析</label>
 							<div class="controls">
-								<textarea id="edit_analysis" name="analysis"
-									class="xheditor {skin:'nostyle',tools:'simple'}"
-									style="height: 100px;"></textarea>
+								<textarea id="edit_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
 					</form>
@@ -238,7 +211,8 @@
 				<div id="edit-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="edit-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="edit-message-content"></span>
 						</div>
 					</div>
 				</div>
@@ -264,69 +238,59 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="detail-form" class="form-horizontal"
-						style="margin-bottom: 0px;">
+					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="projectName">项目名称</label>
 							<div class="controls">
-								<input id="detail_projectName" name="projectName" type="text"
-									readonly="readonly">
+								<input id="detail_projectName" name="projectName" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="chargePerson">负责人</label>
 							<div class="controls">
-								<input id="detail_chargePerson" name="chargePerson" type="text"
-									readonly="readonly">
+								<input id="detail_chargePerson" name="chargePerson" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="declarationDate">申报日期</label>
 							<div class="controls">
-								<input id="detail_declarationDate" name="declarationDate"
-									type="text" readonly="readonly">
+								<input id="detail_declarationDate" name="declarationDate" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="implementationAddress">实施地点</label>
 							<div class="controls">
-								<input id="detail_implementationAddress"
-									name="implementationAddress" type="text" readonly="readonly">
+								<input id="detail_implementationAddress" name="implementationAddress" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="implementationPeriod">实施时间</label>
 							<div class="controls">
-								<input id="detail_implementationPeriod"
-									name="implementationPeriod" type="text" readonly="readonly">
+								<input id="detail_implementationPeriod" name="implementationPeriod" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="participant">参与人</label>
 							<div class="controls">
-								<input id="detail_participant" name="participant" type="text"
-									readonly="readonly">
+								<input id="detail_participant" name="participant" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inventionPurpose">目的</label>
 							<div class="controls">
-								<input id="detail_inventionPurpose" name="inventionPurpose"
-									type="text" readonly="readonly">
+								<input id="detail_inventionPurpose" name="inventionPurpose" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="content">主要内容或原理</label>
 							<div class="controls">
-								<input id="detail_content" name="content" type="text"
-									readonly="readonly">
+								<input id="detail_content" name="content" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="analysis">效果及经济社会效益分析</label>
 							<div class="controls">
-								<input id="detail_analysis" name="analysis" type="text"
-									readonly="readonly">
+								<input id="detail_analysis" name="analysis" type="text" readonly="readonly">
 							</div>
 						</div>
 					</form>
@@ -355,7 +319,8 @@
 				<div id="remove-message-alert" class="row-fluid hide">
 					<div class="span12">
 						<div class="alert alert-error">
-							<i class="icon-remove"></i> <span id="remove-message-content"></span>
+							<i class="icon-remove"></i>
+							<span id="remove-message-content"></span>
 						</div>
 					</div>
 				</div>

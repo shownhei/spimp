@@ -149,10 +149,9 @@ define(function(require, exports, module) {
 				messageCount += val.count;
 			}
 		});
-		console.log(notificationsArray);
+
 		// notifications
 		$('#notifications').children('li:not(:first)').remove();
-
 		$('#notifications-count').html(notificationsCount);
 		$('#notifications-title').html(notificationsCount + '个提醒');
 
@@ -168,12 +167,10 @@ define(function(require, exports, module) {
 			html += '<div class="clearfix"><span class="pull-left">' + getIcon(v.category) + v.message;
 			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
 		});
-
 		$('#notifications').append(html);
 
 		// ====message
 		$('#messages').children('li:not(:first)').remove();
-
 		$('#messages-count').html(messageCount);
 		$('#messages-title').html(messageCount + '个消息');
 
@@ -189,10 +186,9 @@ define(function(require, exports, module) {
 			html += '<div class="clearfix"><span class="pull-left">' + getIcon(v.category) + v.message;
 			html += '</span><span class="pull-right badge badge-info">' + v.count + '</span></div></a></li><li style="display:none"></li>';
 		});
-
 		$('#messages').append(html);
-
 	}
+
 	// 推送提醒
 	var errorCount = 0;
 	function pushNotification() {

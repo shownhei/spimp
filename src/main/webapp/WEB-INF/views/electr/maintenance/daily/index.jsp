@@ -17,13 +17,13 @@
 					<button id="create_maintenance" class="btn btn-small btn-success" title="创建保养单">
 						<i class="icon-plus-sign-alt"></i> 创建
 					</button>
-					<button id="create_maintenance_detail" class="btn btn-small btn-primary disabled"  title="添加保养单明细 ">
+					<button id="create_maintenance_detail" class="btn btn-small btn-primary disabled" title="添加保养单明细 ">
 						<i class="icon-edit"></i> 添加明细
 					</button>
-					<button id="remove_maintenance" class="btn btn-small btn-danger disabled"  title="删除保养单">
+					<button id="remove_maintenance" class="btn btn-small btn-danger disabled" title="删除保养单">
 						<i class="icon-trash"></i> 删除
 					</button>
-					<button id="export_maintenance" class="btn btn-small btn-pink disabled"  title="导出保养单">
+					<button id="export_maintenance" class="btn btn-small btn-pink disabled" title="导出保养单">
 						<i class="icon-download-alt"></i> 导出
 					</button>
 				</div>
@@ -47,9 +47,9 @@
 					</form>
 				</div>
 			</div>
-			<div class="page-content" >
-			    <div class="row-fluid" id="statisticPanel"></div>
-			    <div class="row-fluid" id="tablePanel" style="padding-top:10px;"></div>
+			<div class="page-content">
+				<div class="row-fluid" id="statisticPanel"></div>
+				<div class="row-fluid" id="tablePanel" style="padding-top: 10px;"></div>
 			</div>
 		</div>
 	</div>
@@ -145,7 +145,7 @@
 						<div class="control-group">
 							<label class="control-label" for="treatment">检修处理情况</label>
 							<div class="controls">
-								<textarea id="detail_treatment" name="treatment" ></textarea>
+								<textarea id="detail_treatment" name="treatment"></textarea>
 							</div>
 						</div>
 						<div class="control-group">

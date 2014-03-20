@@ -200,7 +200,6 @@ define(function(require, exports, module) {
 		name : 'normalMember',
 		width : 60,
 		render : function(v) {
-			console.log(v);
 			return v ? v.education.itemName : '';
 		}
 	}, {

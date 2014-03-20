@@ -26,13 +26,8 @@
 					</a>
 					<ul id="messages" class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 						<li class="nav-header">
-						<i class="icon-warning-sign"></i>
-							<span id="messages-title" class="icon-envelope-alt">0 个提醒</span>
-						</li>
-						<li>
-							<a href="/ercs/perform-rescue/task-view">
-								查看所有消息 <i class="icon-arrow-right"></i>
-							</a>
+							<i class="icon-envelope-alt"></i>
+							<span id="messages-title">0 个消息</span>
 						</li>
 					</ul>
 				</li>
