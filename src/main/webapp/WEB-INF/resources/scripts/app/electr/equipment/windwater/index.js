@@ -18,17 +18,23 @@ define(function(require, exports, module) {
 		header : '编号',
 		name : 'equipmentCode'
 	}, {
-		header : '安装套数',
-		name : 'windAmount'
+		header : '压风装置',
+		children : [ {
+			header : '安装套数',
+			name : 'windAmount'
+		}, {
+			header : '维护周期',
+			name : 'windCycle'
+		} ]
 	}, {
-		header : '维护周期',
-		name : 'windCycle'
-	}, {
-		header : '安装套数',
-		name : 'waterAmount'
-	}, {
-		header : '维护周期',
-		name : 'waterCycle'
+		header : '供水装置',
+		children : [ {
+			header : '安装套数',
+			name : 'waterAmount'
+		}, {
+			header : '维护周期',
+			name : 'waterCycle'
+		} ]
 	}, {
 		header : '负责人',
 		width : 80,

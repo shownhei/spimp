@@ -8,9 +8,7 @@ define(function(require, exports, module) {
 	});
 
 	// 日期时间选择控件
-	$('#create_updateTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#create_updateTime').datetimepicker();
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');

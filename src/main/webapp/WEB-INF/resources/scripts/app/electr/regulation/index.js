@@ -9,13 +9,8 @@ define(function(require, exports, module) {
 	});
 
 	// 日期时间选择控件
-	$('#create_uploadTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
-
-	$('#edit_uploadTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#create_uploadTime').datetimepicker();
+	$('#edit_uploadTime').datetimepicker();
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');

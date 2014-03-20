@@ -1,0 +1,22 @@
+{
+  "name": "datetimepicker2",
+  "family": "ikj",
+  "version": "3.0.0",
+  "description": "更好的日期时间选择组件",
+  "keywords": ["widget"],
+  "author": "Stone Lee <istonelee@gmail.com> (http://stonelee.info)",
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.22.18/stonelee/ikj-datetimepicker2.git"
+  },
+  "bugs": {
+    "url": "http://10.10.22.18/stonelee/ikj-datetimepicker2/issues"
+  },
+  "spm": {
+    "alias": {
+      "$": "$",
+      "bootstrap": "ikj/bootstrap/2.3.2/bootstrap"
+    },
+    "output": ["datetimepicker.js"]
+  }
+}

@@ -12,10 +12,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class ReminderMessage {
+	public static final Integer MESSAGE_TYPE_ALARM = 1;
+	public static final Integer MESSAGE_TYPE_MESSAGE = 2;
 	private String message; // 消息
 	private String link; // 链接
 	private Long count; // 消息数量
 	private String category; // 分类
+
+	/**
+	 * 分为"1:报警" 和"2:通知"两种
+	 */
+	private Integer messageType;//
 
 	public ReminderMessage() {
 	}
@@ -25,6 +32,15 @@ public class ReminderMessage {
 		this.link = link;
 		this.count = count;
 		this.category = category;
+	}
+
+	public ReminderMessage(String message, String link, Long count, String category, Integer messageType) {
+		super();
+		this.message = message;
+		this.link = link;
+		this.count = count;
+		this.category = category;
+		this.messageType = messageType;
 	}
 
 	public String getCategory() {
@@ -43,6 +59,10 @@ public class ReminderMessage {
 		return message;
 	}
 
+	public Integer getMessageType() {
+		return messageType;
+	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
@@ -57,6 +77,10 @@ public class ReminderMessage {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public void setMessageType(Integer messageType) {
+		this.messageType = messageType;
 	}
 
 	@Override

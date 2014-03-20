@@ -24,7 +24,7 @@
       "bootstrap": "ikj/bootstrap/2.3.2/bootstrap",
       "autocomplete": "ikj/autocomplete/1.2.3/autocomplete",
       "datepicker": "ikj/datepicker/1.2.0/datepicker",
-      "datetimepicker": "ikj/datetimepicker/2.0.0/datetimepicker",
+      "datetimepicker2": "ikj/datetimepicker2/3.0.0/datetimepicker",
       "cookie": "ikj/cookie/1.4.0/cookie",
       "xheditor": "ikj/xheditor/1.2.1/xheditor",
       "select2": "jquery/select2/3.4.5/select2-zh-cn"

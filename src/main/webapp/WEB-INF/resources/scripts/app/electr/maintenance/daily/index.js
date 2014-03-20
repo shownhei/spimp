@@ -6,7 +6,64 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
+	var fields = [ {
+		header : '车牌号',
+		width : 90,
+		name : 'car',
+		render : function(val) {
+			return val ? val.carNo : '';
+		}
+	}, {
+		header : '保养类别',
+		name : 'maintenanceLevel',
+		render : function(val) {
+			return '日常保养';
+		}
+	}, {
+		header : '保养日期',
+		width : 90,
+		name : 'maintenanceDate'
+	}, {
+		header : '保养人',
+		width:100,
+		name : 'maintenancePeople'
+	}, {
+		header : '验收人',
+		width:100,
+		name : 'accepter'
+	} ];
 
+	// 计算表格高度和行数
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 400);
+	var pageSize = Math.floor(gridHeight / 21);
+
+	// 配置表格
+	var defaultUrl = contextPath + operateUri + '?orderBy=id&order=desc&pageSize=' + pageSize;
+	var grid = new Grid({
+		parentNode : '#statisticPanel',
+		url : defaultUrl,
+		model : {
+			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
+			height : gridHeight
+		},
+		onClick : function(target, data) {
+			changeButtonsStatus(this.selected, data);
+			loadMaintenance(data.id);
+		},
+		onLoaded : function() {
+			changeButtonsStatus();
+
+			// 改变导出按钮状态
+			if (this.data.totalCount > 0) {
+				Utils.button.enable([ 'export' ]);
+			} else {
+				Utils.button.disable([ 'export' ]);
+			}
+		}
+	}).render();
+	
 	// 下拉列表初始化
 	Utils.select.remote([ 'create_car', 'query_car' ], '/electr/car/carslist', 'id', 'carNo', true, '维修车辆');
 
@@ -36,7 +93,7 @@ define(function(require, exports, module) {
 			} else if (el.attr('buttonType') === 'delete') {
 				// 删除明细
 				$.del('/electr/maintenance-details/' + detailId, function(data) {
-					$('#submit').trigger('click');
+					loadMaintenance(grid.selectedData('id'));
 					Utils.modal.hide('remove');
 				});
 			}
@@ -115,18 +172,17 @@ define(function(require, exports, module) {
 				changeButtonsStatus($('#tablePanel').children().length>0);
 				var mId = $('#sample-table-1').attr('data-id');
 				$('#edit_detail_maintenance').val(mId);
+				if(!mId){
+					changeButtonsStatus(false);
+					Utils.button.enable([ 'create_maintenance']);
+				}
 			}
 		});
 	};
 
 	// 日期时间选择控件
-	$('#create_recordDateTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
-
-	$('#edit_recordDateTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#create_recordDateTime').datetimepicker();
+	$('#edit_recordDateTime').datetimepicker();
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
@@ -176,7 +232,7 @@ define(function(require, exports, module) {
 
 		$.post("/electr/maintenance/maintenances", JSON.stringify(object), function(data) {
 			if (data.success) {
-				loadMaintenance(data.data.id);
+				grid.refresh();
 				changeButtonsStatus(true);
 				Utils.modal.hide('create_maintenance');
 			} else {
@@ -240,7 +296,8 @@ define(function(require, exports, module) {
 		var selectId = $('#sample-table-1').attr('data-id');
 		$.del('/electr/maintenance/maintenances/' + selectId, function(data) {
 			Utils.modal.hide('remove');
-			$('#submit').trigger('click');
+			$('#tablePanel').html('');
+			grid.refresh();
 		});
 	});
 

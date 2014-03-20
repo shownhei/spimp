@@ -18,7 +18,7 @@ import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 
 /**
- * EmergencyResource。
+ * EmergencyResource。应急资源
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */

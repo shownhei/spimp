@@ -305,7 +305,7 @@ div.imgFrame:hover div {
 			</button>
 		</div>
 	</div>
-	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
+	<iframe name="acceptFrame" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/picture/index');
 	</script>

@@ -98,7 +98,7 @@ define(function(require, exports, module) {
 
 	utils.modal.showProcess = function(processId) {
 		var _html = [ '<div id="' + processId + '-modal" class="modal hide" style="z-index:1056;">', '<div class="modal-header">', '<h5 class="green">',
-				'<i class="icon-upload"></i> 上传中请稍后...', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
+				'<i class="icon-upload"></i> 上传中请稍候...', '</h5>', '</div>', '<div class="modal-body">', '<div class="row-fluid">',
 				'<div class="control-group" id="processParent">', '<label class="control-label" ></label>', '<div class="controls">',
 				'<div class="progress progress-striped active span12" >', '<div class="bar" id="' + processId + '" style="width: 1px;"></div>', '</div>',
 				'</div>', '</div>', '</div>', '</div>', '<div class="modal-footer">', '<button class="btn btn-small" data-dismiss="modal">', '</button>',
@@ -131,7 +131,6 @@ define(function(require, exports, module) {
 		};
 		this.loopFunc = function() {
 			me.count += 2;
-			console.log(me.count);
 			me.process.css("width", me.count + "px");
 		};
 		this.intervalReference = setInterval(me.loopFunc, 200);
@@ -221,15 +220,13 @@ define(function(require, exports, module) {
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			_winHtml.push('<div class="modal-footer">');
-			_winHtml.push('<button id="__import-save" class="btn btn-small btn-danger">');
-			_winHtml.push('<i class="icon-ok"></i> 确定');
-			_winHtml.push('</button>');
 			_winHtml.push('<button class="btn btn-small" data-dismiss="modal">');
-			_winHtml.push('<i class="icon-remove"></i> 取消');
+			_winHtml.push('<i class="icon-remove" id=""></i> 关闭');
 			_winHtml.push('</button>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			$(_winHtml.join('')).appendTo($('body'));
+			$('<div class="modal-backdrop  in" id="__acceptFrame-modal-black" style="z-index:1052;display:none"></div>').appendTo($("body"));
 			$('#__import_file').bind('change', function onSelectChange() {
 				$('#__import-form').submit();
 			});
@@ -241,13 +238,34 @@ define(function(require, exports, module) {
 				window.process.stop();
 				window.process = null;
 			});
+			// bind event
+			$('#__import-modal').find('button[data-dismiss="modal"]').bind('click', function() {
+				$('#__acceptFrame-modal-black').hide();
+				$('#__import-modal').hide();
+			});
+			// css
+			var $importModal = $('#__import-modal');
+			var screenWidth = $(document).width(), screenHeight = $(document).height();
+			var modalWidth = $importModal.width(), modalHeight = $importModal.height();
+			var modalTop = 0, modalLeft = 0;
+
+			if (screenHeight > modalHeight) {
+				modalTop = (screenHeight - modalHeight) / 2;
+			}
+			$importModal.offset({
+				top : modalTop
+			});
 		}
 		utils.modal.reset('__import');
-		utils.modal.show('__import');
+
+		$('#__acceptFrame-modal-black').show();
+		$('#__import-modal').show();
 		var testFunction = function(data) {
-			utils.modal.hide('__import');
+			$('#__acceptFrame-modal-black').hide();
+			$('#__import-modal').hide();
 			callBack(data);
 		};
+		window.$ = $;
 		window[callbackFunc] = testFunction;
 
 	};

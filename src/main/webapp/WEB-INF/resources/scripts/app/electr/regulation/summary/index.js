@@ -18,13 +18,8 @@ define(function(require, exports, module) {
 	});
 
 	// 日期时间选择控件
-	$('#create_recordTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
-
-	$('#edit_recordTime').datetimepicker({
-		format : 'yyyy-mm-dd hh:ii:ss'
-	});
+	$('#create_recordTime').datetimepicker();
+	$('#edit_recordTime').datetimepicker();
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
