@@ -29,11 +29,11 @@ define(function(require, exports, module) {
 			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
 			return v ? html : '';
 		}
-	}];
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
-	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
 
 	/**
 	 * 修改/重置按钮状态
@@ -78,20 +78,20 @@ define(function(require, exports, module) {
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
 		var attachment = {
-				id : $('#attachment').attr('data-id'),
-				name : object.filePath
-			};
+			id : $('#attachment').attr('data-id'),
+			name : object.filePath
+		};
 		object.attachment = attachment;
 		// 验证
-		if(object.name===''){
+		if (object.name === '') {
 			Utils.modal.message('create', [ '文件名不能为空' ]);
 			return;
 		}
-		if($('#attachment').val()===''){
+		if ($('#attachment').val() === '') {
 			Utils.modal.message('create', [ '文件不能为空' ]);
 			return;
 		}
-		if(object.category===''){
+		if (object.category === '') {
 			Utils.modal.message('create', [ '分类不能为空' ]);
 			return;
 		}
@@ -131,18 +131,18 @@ define(function(require, exports, module) {
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		var attachment = {
-				id : $('#edit_attachment').attr('data-id')
-			};
-			delete object.attachment;
-			object.attachment = attachment;
-			if (object.name === '') {
-				Utils.modal.message('edit', [ '文件名不能为空' ]);
-				return;
-			}
-			if(object.category===''){
-				Utils.modal.message('edit', [ '分类不能为空' ]);
-				return;
-			}
+			id : $('#edit_attachment').attr('data-id')
+		};
+		delete object.attachment;
+		object.attachment = attachment;
+		if (object.name === '') {
+			Utils.modal.message('edit', [ '文件名不能为空' ]);
+			return;
+		}
+		if (object.category === '') {
+			Utils.modal.message('edit', [ '分类不能为空' ]);
+			return;
+		}
 		$.put(contextPath + '/spmi/daily/summaries/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -222,5 +222,5 @@ define(function(require, exports, module) {
 			$('#create-save').removeClass('disabled');
 		}
 	}
-	window.callBack=callBack;
+	window.callBack = callBack;
 });

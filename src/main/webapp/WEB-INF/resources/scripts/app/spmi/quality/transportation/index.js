@@ -93,7 +93,7 @@ define(function(require, exports, module) {
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 96);
-	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
 
 	/**
 	 * 修改/重置按钮状态
@@ -107,7 +107,8 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/spmi/quality/transportation-grades?' + encodeURI('category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize);
+	var defaultUrl = contextPath + '/spmi/quality/transportation-grades?'
+			+ encodeURI('category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize);
 	var grid = new Grid({
 		parentNode : '#grade-table',
 		url : defaultUrl,

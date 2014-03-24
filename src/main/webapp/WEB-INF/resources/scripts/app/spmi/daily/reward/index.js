@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 	// 获取机构
-	Utils.select.remote([ 'create-groupName','edit-groupName'], contextPath + '/system/groups', 'id', 'name');
+	Utils.select.remote([ 'create-groupName', 'edit-groupName' ], contextPath + '/system/groups', 'id', 'name');
 
 	// 配置表格列
 	var fields = [ {
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
-	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
 
 	/**
 	 * 修改/重置按钮状态
@@ -96,15 +96,15 @@ define(function(require, exports, module) {
 		var object = Utils.form.serialize('create');
 
 		// 验证
-		if(object.name===null||object.name===''){
+		if (object.name === null || object.name === '') {
 			Utils.modal.message('create', [ '奖惩人姓名不能为空' ]);
 			return;
 		}
-		if(object.category===''){
+		if (object.category === '') {
 			Utils.modal.message('create', [ '奖惩分类不能为空' ]);
 			return;
 		}
-		if(object.content===''){
+		if (object.content === '') {
 			Utils.modal.message('create', [ '奖惩内容不能为空' ]);
 			return;
 		}
@@ -140,22 +140,22 @@ define(function(require, exports, module) {
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
 		// 验证
-		if(object.name===null||object.name===''){
+		if (object.name === null || object.name === '') {
 			Utils.modal.message('edit', [ '奖惩人姓名不能为空' ]);
 			return;
 		}
-		if(object.category===''){
+		if (object.category === '') {
 			Utils.modal.message('edit', [ '奖惩分类不能为空' ]);
 			return;
 		}
-		if(object.content===''){
+		if (object.content === '') {
 			Utils.modal.message('edit', [ '奖惩内容不能为空' ]);
 			return;
 		}
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
-		
+
 		$.put(contextPath + '/spmi/daily/rewards/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

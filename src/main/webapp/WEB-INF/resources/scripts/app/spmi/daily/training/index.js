@@ -7,35 +7,30 @@ define(function(require, exports, module) {
 	});
 
 	// 配置表格列
-	var fields = [
-			{
-				header : '计划名称',
-				name : 'name'
-			},
-			{
-				header : '分类',
-				name : 'category'
-			},
-			{
-				header : '来源',
-				name : 'origin'
-			},
-			{
-				header : '附件',
-				name : 'attachment',
-				width : 300,
-				render : function(v) {
-					var name = v.simpleName;
-					var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>'
-							+ name.substring(0, 20) + '</a>&nbsp;&nbsp;';
-					html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
-					return v ? html : '';
-				}
-			} ];
+	var fields = [ {
+		header : '计划名称',
+		name : 'name'
+	}, {
+		header : '分类',
+		name : 'category'
+	}, {
+		header : '来源',
+		name : 'origin'
+	}, {
+		header : '附件',
+		name : 'attachment',
+		width : 300,
+		render : function(v) {
+			var name = v.simpleName;
+			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
+			return v ? html : '';
+		}
+	} ];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
-	var pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
 
 	/**
 	 * 修改/重置按钮状态
@@ -83,20 +78,20 @@ define(function(require, exports, module) {
 
 		// 处理属性
 		var attachment = {
-				id : $('#attachment').attr('data-id'),
-				name : object.filePath
-			};
+			id : $('#attachment').attr('data-id'),
+			name : object.filePath
+		};
 		object.attachment = attachment;
 		// 验证
-		if(object.name===''){
+		if (object.name === '') {
 			Utils.modal.message('create', [ '计划名称不能为空' ]);
 			return;
 		}
-		if($('#attachment').val()===''){
+		if ($('#attachment').val() === '') {
 			Utils.modal.message('create', [ '文件不能为空' ]);
 			return;
 		}
-		if(object.category===''){
+		if (object.category === '') {
 			Utils.modal.message('create', [ '分类不能为空' ]);
 			return;
 		}
@@ -135,18 +130,18 @@ define(function(require, exports, module) {
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		var attachment = {
-				id : $('#edit_attachment').attr('data-id')
-			};
-			delete object.attachment;
-			object.attachment = attachment;
-			if(object.name===''){
-				Utils.modal.message('edit', [ '计划名称不能为空' ]);
-				return;
-			}
-			if(object.category===''){
-				Utils.modal.message('edit', [ '分类不能为空' ]);
-				return;
-			}
+			id : $('#edit_attachment').attr('data-id')
+		};
+		delete object.attachment;
+		object.attachment = attachment;
+		if (object.name === '') {
+			Utils.modal.message('edit', [ '计划名称不能为空' ]);
+			return;
+		}
+		if (object.category === '') {
+			Utils.modal.message('edit', [ '分类不能为空' ]);
+			return;
+		}
 		$.put(contextPath + '/spmi/daily/trainings/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -226,5 +221,5 @@ define(function(require, exports, module) {
 			$('#create-save').removeClass('disabled');
 		}
 	}
-	window.callBack=callBack;
+	window.callBack = callBack;
 });

@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 	var map = {};
 	$.get('/system/dicitonary-types/list', function(data) {
 		$.each(data.data, function(entryIndex, entry) {
-			map[entry.dicType]=entry.typeTitle;
+			map[entry.dicType] = entry.typeTitle;
 		});
 	});
 	// 配置表格列
@@ -29,7 +29,7 @@ define(function(require, exports, module) {
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
-	var pageSize = Math.floor(gridHeight / 21);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
 
 	/**
 	 * 修改/重置按钮状态
