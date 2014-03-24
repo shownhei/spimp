@@ -6,6 +6,13 @@ define("ikj/rest/1.0.0/rest-debug", [ "$-debug" ], function(require, exports, mo
                 callback = data;
                 data = null;
             }
+            var modalBblack=$('#__confirm-modal-black');
+            if(modalBblack.length<=0){
+                $('<div class="modal-backdrop  in" id="__confirm-modal-black" style="z-index:1052;display:none"></div>').appendTo($("body"));
+            }
+            if(type==='POST'||type==='PUT'){
+                $('#__confirm-modal-black').show();
+            }
             $.ajax({
                 type: type,
                 url: url,
@@ -13,7 +20,13 @@ define("ikj/rest/1.0.0/rest-debug", [ "$-debug" ], function(require, exports, mo
                 cache: false,
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success: callback
+                success: function(data){
+                    var modalBlack=$('#__confirm-modal-black');
+                    if(modalBlack.length>0){
+                        modalBlack.hide();
+                    }
+                    callback(data);
+                }
             });
         };
     }

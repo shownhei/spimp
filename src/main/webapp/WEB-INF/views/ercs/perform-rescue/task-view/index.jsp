@@ -41,27 +41,27 @@
 				<div class="span12">
 					<form id="detail-form" class="form-horizontal" style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label" for="project">事故类型</label>
-							<div class="controls">
-								<input id="alarm" name="alarm" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="expirationDate">严重程度</label>
+							<label class="control-label" for="expirationDate">事故类型</label>
 							<div class="controls">
 								<input id="emergencyCategory" name="emergencyCategory" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="daysEarly">专业组</label>
+							<label class="control-label" for="daysEarly">严重程度</label>
 							<div class="controls">
 								<input id="emergencyLevel" name="emergencyLevel" type="text" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label" for="daysEarly">专业组</label>
+							<div class="controls">
+								<input id="team" name="team" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="recordDate">救援措施内容</label>
 							<div class="controls">
-								<input id="taskContent" name="taskContent" type="text" readonly="readonly">
+								<textarea id="taskContent" name="taskContent" style="height:100px;" readonly="readonly"></textarea>
 							</div>
 						</div>
 					</form>

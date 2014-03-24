@@ -160,7 +160,7 @@ define(function(require, exports, module) {
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
-				Utils.modal.hide('create');
+				//Utils.modal.hide('create');
 			} else {
 				Utils.modal.message('create', data.errors);
 			}
@@ -199,7 +199,7 @@ define(function(require, exports, module) {
 		$.put(operateUri + '/' + selectId, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
-				Utils.modal.hide('edit');
+				//Utils.modal.hide('edit');
 			} else {
 				Utils.modal.message('edit', data.errors);
 			}

@@ -1,7 +1,5 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
-	window.$ = $;
-	window.Utils = Utils;
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
@@ -11,7 +9,6 @@ define(function(require, exports, module) {
 
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
-	
 	// 配置表格列
 	var fields = [ {
 		header : '文档名称',
@@ -51,7 +48,7 @@ define(function(require, exports, module) {
 	}];
 	
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('#search_content').height() + $('#search_title').height() + $('.page-header').height() + 170);
+	var gridHeight = $(window).height() - ($('#search_content').height() + $('#search_title').height() + $('.page-header').height() + 160);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	// 配置表格
