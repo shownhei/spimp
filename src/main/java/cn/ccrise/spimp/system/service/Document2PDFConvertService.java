@@ -23,8 +23,14 @@ public class Document2PDFConvertService {
 	private OpenOfficeConnection connection;
 	private Process process;
 
-	// 这里是OpenOffice的安装目录,
-
+	private Document2PDFConvertService(){
+		super();
+		try {
+			startService();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 关闭服务
 	 */
