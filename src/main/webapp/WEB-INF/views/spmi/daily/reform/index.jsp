@@ -100,7 +100,7 @@
 						<div class="control-group">
 							<label class="control-label">整改措施</label>
 							<div class="controls">
-								<textarea name="measure" class="xheditor {skin:'nostyle',tools:'simple'}"></textarea>
+								<textarea name="measure" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -187,7 +187,7 @@
 						<div class="control-group">
 							<label class="control-label">整改措施</label>
 							<div class="controls">
-								<textarea id="edit-measure" name="measure" style="width: 560px;"></textarea>
+								<textarea id="edit-measure" name="measure" style="width: 560px; height: 100px"></textarea>
 							</div>
 						</div>
 						<div class="control-group">
