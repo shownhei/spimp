@@ -89,7 +89,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/spmi/quality/mining-grades?category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/spmi/quality/mining-grades?' + encodeURI('category=' + category + '&orderBy=year,month&order=desc,desc&pageSize=' + pageSize);
 	var grid = new Grid({
 		parentNode : '#grade-table',
 		url : defaultUrl,
