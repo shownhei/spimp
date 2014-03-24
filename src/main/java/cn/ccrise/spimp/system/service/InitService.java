@@ -105,6 +105,13 @@ public class InitService extends DataInitAbstractService {
 		dicitonaryTypeService.save("安全生产管理", "schedule_wellheads", "井口");
 		dicitonaryTypeService.save("安全生产管理", "schedule_alarm_type", "报警类型");
 		dicitonaryTypeService.save("安全生产管理", "document_project_type", "工程分类");
+		String projectTypes[] = { "防治水","掘进" };
+		for (String element : projectTypes) {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode("document_project_type");
+			dic.setItemName(element);
+			dictionaryService.save(dic);
+		}
 		// 事故类型
 		String accidentCategories[] = { "顶板事故", "瓦斯事故", "机电事故", "放炮事故", "火灾事故", "水害事故" };
 		for (String element : accidentCategories) {
