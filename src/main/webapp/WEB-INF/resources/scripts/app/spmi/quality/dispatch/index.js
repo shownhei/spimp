@@ -3,6 +3,10 @@ define(function(require, exports, module) {
 	var selectedId; // 选中的行
 	var category = '信息调度';
 
+	// 根据页面高度自适应
+	$('#create-grade-record-table,#edit-grade-record-table').height($(window).height() - 200);
+	$('#view-grade-record-table').height($(window).height() - 200 - 275);
+
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
