@@ -15,6 +15,7 @@ define(function(require, exports, module) {
 			'credential' : $('#credential').val()
 		}, function(data) {
 			if (data.success === true) {
+				open('/3d');
 				window.location = '/';
 			} else {
 				var message = '';
