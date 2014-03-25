@@ -219,4 +219,5 @@ define(function(require, exports, module) {
 
 	pullNotification();
 	pushNotification();
+	
 });

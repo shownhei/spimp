@@ -170,7 +170,6 @@ public class UploadController {
 		String pdfPath = null;
 		if (!fullName.endsWith(".pdf")) {
 			pdfRealPath = fullName + ".pdf";
-			document2PDFConvertService.service(fullName, pdfRealPath);
 		} else {
 			pdfRealPath = fullName;
 		}

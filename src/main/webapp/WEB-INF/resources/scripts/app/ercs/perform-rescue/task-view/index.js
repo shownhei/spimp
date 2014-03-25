@@ -104,10 +104,11 @@ define(function(require, exports, module) {
 	function showDetail(data) {
 		Utils.modal.reset('detail');
 
+		console.log(data);
 		var object = $.extend({}, data);
-		object.alarm=object.alarm.accidentType.itemName;
 		object.emergencyCategory=object.emergencyCategory.itemName;
 		object.emergencyLevel=object.emergencyLevel.itemName;
+		object.team=object.team.teamName;
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}

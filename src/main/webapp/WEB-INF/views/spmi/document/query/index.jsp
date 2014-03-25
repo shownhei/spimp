@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
@@ -14,63 +15,64 @@
 		<div class="main-content">
 			<div class="page-content">
 				<div id="search_title" class="header blue" style="margin-top: 0px;">
-					<img src="${resources}/images/icons/document_search.png" />
+					<img src="${resources}/images/icons/document_search.png"
+						style="height: 30px;" />
 					<h4 style="display: inline-block;">文档检索</h4>
 				</div>
-				<div id="search_content" style="margin-left: 80px;">
+				<div id="search_content">
 					<form id="query-form" class="form-inline" onsubmit="return false;">
-						<div>
-							<span style="display: block; margin-bottom: 5px;">
-								<div class="input-append">
-									<input name="documentName" type="text" style="height: 18px; width: 290px; font-size: 12px;" placeholder="文档名称">
-								</div>
-							</span>
-							<span style="display: block; margin-bottom: 5px;">
-								<div class="input-append">
-									<input name="keyWord" type="text" style="height: 18px; width: 290px; font-size: 12px;" placeholder="查询关键字">
-								</div>
-							</span>
-							<span style="display: block; margin-bottom: 5px;">
-								<div class="input-append">
-									<select id="query_projectType" name="projectType" style="height: 25px; width: 150px; font-size: 12px;"></select>
-								</div>
-								<div class="input-append">
-									<select id="query_office" name="office" style="height: 25px; width: 150px; font-size: 12px;">
-										<option value="">选择科室</option>
-										<option value="调度室">调度室</option>
-										<option value="安全科">安全科</option>
-										<option value="机电科">机电科</option>
-										<option value="通风科">通风科</option>
-										<option value="生产技术科">生产技术科</option>
-										<option value="防治水科">防治水科</option>
-										<option value="综掘队">综掘队</option>
-										<option value="综采队">综采队</option>
-										<option value="开拓队">开拓队</option>
-									</select>
-								</div>
-							</span>
-							<span style="display: block; margin-bottom: 5px;">
-								<div class="input-append">
-									<input name="startDate" type="datetime" style="width: 119px;" placeholder="开始时间" class="input-small">
-									<span class="add-on nav-add-on">
-										<i class="icon-calendar"></i>
-									</span>
-								</div>
-								<div class="input-append">
-									<input name="endDate" type="datetime" style="width: 119px;" placeholder="结束时间" class="input-small">
-									<span class="add-on nav-add-on">
-										<i class="icon-calendar"></i>
-									</span>
-								</div>
-							</span>
-							<span style="display: block; margin-left: 90px;">
-								<div class="input-append">
-									<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
-								</div>
-								<div class="input-append" style="margin-left: 40px;">
-									<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
-								</div>
-							</span>
+						<div style="display: block; margin-bottom: 5px;">
+							<div class="input-append">
+								<input name="documentName" type="text"
+									style="height: 18px; width: 290px; font-size: 12px;"
+									placeholder="文档名称">
+							</div>
+							<div class="input-append">
+								<input name="keyWord" type="text"
+									style="height: 18px; width: 290px; font-size: 12px;"
+									placeholder="查询关键字">
+							</div>
+						</div>
+						<div style="display: block; margin-bottom: 5px;">
+							<div class="input-append">
+								<select id="query_projectType" name="projectType"
+									style="height: 25px; width: 150px; font-size: 12px;"></select>
+							</div>
+							<div class="input-append">
+								<select id="query_office" name="office"
+									style="height: 25px; width: 150px; font-size: 12px;">
+									<option value="">选择科室</option>
+									<option value="调度室">调度室</option>
+									<option value="安全科">安全科</option>
+									<option value="机电科">机电科</option>
+									<option value="通风科">通风科</option>
+									<option value="生产技术科">生产技术科</option>
+									<option value="防治水科">防治水科</option>
+									<option value="综掘队">综掘队</option>
+									<option value="综采队">综采队</option>
+									<option value="开拓队">开拓队</option>
+								</select>
+							</div>
+							<div class="input-append">
+								<input name="startDate" type="datetime" style="width: 119px;"
+									placeholder="开始时间" class="input-small"> <span
+									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								</span>
+							</div>
+							<div class="input-append">
+								<input name="endDate" type="datetime" style="width: 119px;"
+									placeholder="结束时间" class="input-small"> <span
+									class="add-on nav-add-on"> <i class="icon-calendar"></i>
+								</span>
+							</div>
+							<div class="input-append">
+								<button id="submit" type="button"
+									class="btn btn-primary btn-small span1">查询</button>
+							</div>
+							<div class="input-append" style="margin-left: 10px;">
+								<button id="reset" type="reset"
+									class="btn btn-primary btn-small span1">重置</button>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -78,9 +80,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		seajs.use('${resources}/scripts/app/spmi/document/query/index');
-	</script>
 	<div id="view-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -90,7 +89,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row-fluid">
-				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				<iframe id="showDocument" src="" width="100%" height=355></iframe>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -99,5 +98,8 @@
 			</button>
 		</div>
 	</div>
+	<script type="text/javascript">
+		seajs.use('${resources}/scripts/app/spmi/document/query/index');
+	</script>
 </body>
 </html>
