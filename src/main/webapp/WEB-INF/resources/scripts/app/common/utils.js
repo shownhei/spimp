@@ -397,7 +397,6 @@ define(function(require, exports, module) {
 			} else {
 				urlParams += '&' + value.name + '=' + value.value;
 			}
-			urlParams+='&_t='+new Date().getTime();
 
 		});
 		return encodeURI(urlParams);

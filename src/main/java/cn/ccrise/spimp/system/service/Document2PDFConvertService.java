@@ -26,7 +26,7 @@ public class Document2PDFConvertService {
 	private Document2PDFConvertService(){
 		super();
 		try {
-			startService();
+			Runtime.getRuntime().exec("soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
