@@ -23,7 +23,7 @@ public class Document2PDFConvertService {
 	private OpenOfficeConnection connection;
 	private Process process;
 
-	private Document2PDFConvertService(){
+	private Document2PDFConvertService() {
 		super();
 		try {
 			Runtime.getRuntime().exec("soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"");
@@ -31,6 +31,7 @@ public class Document2PDFConvertService {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 关闭服务
 	 */

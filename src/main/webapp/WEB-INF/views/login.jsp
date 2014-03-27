@@ -16,7 +16,7 @@
 </script>
 <style type="text/css">
 .login_text {
-	width: 220px;
+	width: 140px;
 	height: 26px;
 	line-height: 24px;
 	vertical-align: middle;
@@ -26,18 +26,18 @@
 }
 
 .login_text_onfocus {
-	width: 218px;
+	width: 138px;
 	height: 24px;
 	line-height: 24px;
 	vertical-align: middle;
-	border: 2px solid #85C026;
+	border: 1px solid #85C026;
 	background: url("${resources}/images/inputbg.min.jpg") repeat
 		transparent;
 }
 
 .login_btn {
 	display: block;
-	width: 220px;
+	width: 140px;
 	line-height: 35px;
 	border: 1px solid #4C5576;
 	font-size: 12px;
@@ -75,7 +75,7 @@
 						type="password">
 				</td>
 			</tr>
-			<tr>
+			<tr height="45">
 				<td></td>
 				<td align="right">
 					<a class="login_btn" id="login">登&nbsp;录</a>

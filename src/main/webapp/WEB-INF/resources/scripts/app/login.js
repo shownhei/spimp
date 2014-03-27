@@ -57,8 +57,8 @@ define(function(require, exports, module) {
 			offsetLeft = 0;
 		}
 		$('#loginForm').offset({
-			top : offsetTop + 140,
-			left : offsetLeft + 320
+			top : offsetTop + 170,
+			left : offsetLeft + 315
 		});
 		$('#loginBg').offset({
 			top : offsetTop,
