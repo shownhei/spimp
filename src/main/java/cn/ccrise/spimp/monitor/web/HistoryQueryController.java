@@ -53,25 +53,18 @@ import com.google.common.collect.Lists;
  */
 @Controller
 public class HistoryQueryController {
-
 	@Autowired
 	private MonitorAlarmService monitorAlarmService;
-
 	@Autowired
 	private MonitorFiveMinutesDataService monitorFiveMinutesDataService;
-
 	@Autowired
 	private MonitorRealDataService monitorRealDataService;
-
 	@Autowired
 	private MonitorValueChangeService monitorValueChangeService;
-
 	@Autowired
 	private MonitorSensorTypeService monitorSensorTypeService;
-
 	@Autowired
 	private MonitorStateService monitorStateService;
-
 	@Autowired
 	private MonitorNodeService monitorNodeService;
 
@@ -90,9 +83,7 @@ public class HistoryQueryController {
 	@ResponseBody
 	public Response alarmDatasStatistic(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState,
 			String startTime, String endTime) {
-
 		genAlarmDatasStatisticDatas(page, monitorSensorType, monitorState, startTime, endTime);
-
 		return new Response(page);
 	}
 
@@ -110,9 +101,7 @@ public class HistoryQueryController {
 	@ResponseBody
 	public Response alarmDatasStatisticDetail(Page<MonitorAlarm> page, String nodeId, String sensorName,
 			String nodePlace) {
-
 		genAlarmDatas(page, null, null, null, null, null, nodeId, sensorName, nodePlace);
-
 		return new Response(page);
 	}
 
@@ -130,7 +119,6 @@ public class HistoryQueryController {
 	@RequestMapping(value = "/monitor/alarm-datas-statistic-export", method = RequestMethod.GET)
 	public void alarmDatasStatisticExport(HttpServletResponse response, Page<MonitorAlarm> page,
 			Integer monitorSensorType, Integer monitorState, String startTime, String endTime) throws Exception {
-
 		genAlarmDatasStatisticDatas(page, monitorSensorType, monitorState, startTime, endTime);
 
 		Map<String, Object> results = new HashMap<String, Object>();
@@ -201,9 +189,7 @@ public class HistoryQueryController {
 	@ResponseBody
 	public Response fiveMinutesData(Page<MonitorFiveMinutesData> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
-
 		genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
-
 		return new Response(page);
 	}
 

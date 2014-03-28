@@ -33,6 +33,7 @@ import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.ikjp.core.util.ValidationUtils;
+import cn.ccrise.spimp.monitor.service.AlarmConfigService;
 import cn.ccrise.spimp.system.entity.Account;
 import cn.ccrise.spimp.system.service.AccountService;
 import cn.ccrise.spimp.util.ResponseDataFilter;
@@ -56,6 +57,8 @@ public class AccountController {
 	private AccountService accountService;
 	@Autowired
 	private LogEntityServiceImpl logEntityServiceImpl;
+	@Autowired
+	private AlarmConfigService alarmConfigService;
 	@Autowired
 	private MessageSource messageSource;
 
@@ -139,6 +142,7 @@ public class AccountController {
 		}
 
 		boolean result = accountService.save(account);
+		result &= alarmConfigService.init(account.getId());
 		return response(account, result, "save");
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.security.service.impl.DataInitAbstractService;
+import cn.ccrise.spimp.monitor.service.AlarmConfigService;
 import cn.ccrise.spimp.monitor.service.MonitorSensorTypeService;
 import cn.ccrise.spimp.monitor.service.MonitorStateService;
 import cn.ccrise.spimp.spmi.daily.entity.Folder;
@@ -44,6 +45,8 @@ public class InitService extends DataInitAbstractService {
 	private MonitorSensorTypeService monitorSensorTypeService;
 	@Autowired
 	private MonitorStateService monitorStateService;
+	@Autowired
+	private AlarmConfigService alarmConfigService;
 
 	@Override
 	public void initAdmin() {
@@ -264,6 +267,7 @@ public class InitService extends DataInitAbstractService {
 		folderService.save(folder);
 		initElectrService.initCustomData();
 
+		initAlarmConfig(); // 初始化监测监控报警提示配置
 		initSensorType(); // 初始化传感器类型
 		initState(); // 初始化传感器状态
 	}
@@ -802,6 +806,10 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("菜单管理", "/system/resource", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("字典管理", "/system/dictionary", system, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("日志查询", "/system/log", system, "", i++);
+	}
+
+	private void initAlarmConfig() {
+		alarmConfigService.init(1L);
 	}
 
 	private void initSensorType() {
