@@ -8,6 +8,10 @@ define(function(require, exports, module) {
 		$('.page-content .row-fluid .span3').remove();
 		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
 	}
+	var mineField = [ {
+		header : '煤矿名称',
+		name : 'mineName'
+	} ];
 
 	// 获取测点类型
 	Utils.select.remote([ 'monitorSensorType1' ], contextPath + '/monitor/monitor-sensor-types', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
@@ -27,9 +31,6 @@ define(function(require, exports, module) {
 
 	// 配置表格列
 	var fields1 = [ {
-		header : '煤矿名称',
-		name : 'mineName'
-	}, {
 		header : '测点编号',
 		name : 'nodeId'
 	}, {
@@ -58,9 +59,6 @@ define(function(require, exports, module) {
 	} ];
 
 	var fields2 = [ {
-		header : '煤矿名称',
-		name : 'mineName'
-	}, {
 		header : '分站编号',
 		name : 'stationId'
 	}, {
@@ -78,6 +76,12 @@ define(function(require, exports, module) {
 		name : 'dataTime',
 		width : 150
 	} ];
+
+	// 控制显示表格煤矿名称列
+	if (showGroup) {
+		fields1 = mineField.concat(fields1);
+		fields2 = mineField.concat(fields2);
+	}
 
 	// 配置表格
 	function configGrid(parentNode, fields) {
