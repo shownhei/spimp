@@ -48,7 +48,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/spmi/daily/plans?orderBy=id&order=desc&status=已完成&category=整改安排&filter=false&pageSize=' + pageSize;
+	var defaultUrl = contextPath + '/spmi/daily/plans?' + encodeURI('orderBy=id&order=desc&status=已完成&category=整改安排&filter=false&pageSize=' + pageSize);
 	var grid = new Grid({
 		parentNode : '#records',
 		url : defaultUrl,
