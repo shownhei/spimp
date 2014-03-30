@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.ccrise.ikjp.core.security.entity.AccountEntity;
 import cn.ccrise.ikjp.core.security.entity.ResourceEntity;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
@@ -95,8 +96,13 @@ public class ReminderController {
 	public ReminderDeferredResult<ReminderResponse> pushNotification(HttpSession httpSession) {
 		ReminderDeferredResult<ReminderResponse> deferredResult = new ReminderDeferredResult<>(3600000, httpSession);
 
+		AccountEntity accountEntity = WebUtils.getAccount(httpSession);
+		if (null == accountEntity) {
+			return deferredResult;
+		}
+
 		// 每用户的每一个session允许建立一个长连接
-		String key = WebUtils.getAccount(httpSession).getPrincipal() + "-" + httpSession.getId();
+		String key = accountEntity.getPrincipal() + "-" + httpSession.getId();
 
 		messageQueue.put(key, deferredResult);
 		return deferredResult;
