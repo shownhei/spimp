@@ -1,18 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
-	// 控制显示左侧机构树
-	if (showGroup) {
-		$('.page-content .row-fluid div').removeClass('hide');
-	} else {
-		$('.page-content .row-fluid .span3').remove();
-		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
-	}
-	var mineField = [ {
-		header : '煤矿名称',
-		name : 'mineName'
-	} ];
-
 	// 启用日期控件
 	Utils.input.date('input[type=datetime]');
 
@@ -133,13 +121,47 @@ define(function(require, exports, module) {
 		name : 'createtime'
 	} ];
 
-	// 控制显示表格煤矿名称列
+	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
+	var groupTree;
+	var mineField = [ {
+		header : '煤矿名称',
+		name : 'mineName'
+	} ];
 	if (showGroup) {
+		$('.page-content .row-fluid div').removeClass('hide');
+
+		// 控制显示机构树
+		groupTree = Utils.tree.group('groupTree', contextPath + '/system/groups/2?label=mine', function(event, treeId, treeNode, clickFlag) {
+			switch ($('.tab-content .active').attr('id')) {
+				case 'tab1':
+					loadGrid(grid1, 'query-form1', gridUrl1, treeNode.number);
+					break;
+				case 'tab2':
+					loadGrid(grid2, 'query-form2', gridUrl2, treeNode.number);
+					break;
+				case 'tab3':
+					loadGrid(grid3, 'query-form3', gridUrl3, treeNode.number);
+					break;
+				case 'tab4':
+					loadGrid(grid4, 'query-form4', gridUrl4, treeNode.number);
+					break;
+				case 'tab5':
+					loadGrid(grid5, 'query-form5', gridUrl5, treeNode.number);
+					break;
+				default:
+					break;
+			}
+		});
+
+		// 控制显示表格煤矿名称列
 		fields1 = mineField.concat(fields1);
 		fields2 = mineField.concat(fields2);
 		fields3 = mineField.concat(fields3);
 		fields4 = mineField.concat(fields4);
 		fields5 = mineField.concat(fields5);
+	} else {
+		$('.page-content .row-fluid .span3').remove();
+		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
 	}
 
 	// 配置表格
@@ -163,29 +185,6 @@ define(function(require, exports, module) {
 	var grid3 = configGrid('#grid3', fields3);
 	var grid4 = configGrid('#grid4', fields4);
 	var grid5 = configGrid('#grid5', fields5);
-
-	// 机构树
-	var groupTree = Utils.tree.group('groupTree', contextPath + '/system/groups/2?label=mine', function(event, treeId, treeNode, clickFlag) {
-		switch ($('.tab-content .active').attr('id')) {
-			case 'tab1':
-				loadGrid(grid1, 'query-form1', gridUrl1, treeNode.number);
-				break;
-			case 'tab2':
-				loadGrid(grid2, 'query-form2', gridUrl2, treeNode.number);
-				break;
-			case 'tab3':
-				loadGrid(grid3, 'query-form3', gridUrl3, treeNode.number);
-				break;
-			case 'tab4':
-				loadGrid(grid4, 'query-form4', gridUrl4, treeNode.number);
-				break;
-			case 'tab5':
-				loadGrid(grid5, 'query-form5', gridUrl5, treeNode.number);
-				break;
-			default:
-				break;
-		}
-	});
 
 	// 计算树和表格高度
 	function resize() {
@@ -224,7 +223,7 @@ define(function(require, exports, module) {
 		if (number !== undefined) { // 根据number来判断是点击机构树还是点击tab
 			gridUrl = gridUrl + '&mineId=' + number;
 		} else {
-			if (groupTree.getSelectedNodes()[0] !== undefined) {
+			if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) {
 				gridUrl = gridUrl + '&mineId=' + groupTree.getSelectedNodes()[0].number;
 			}
 		}

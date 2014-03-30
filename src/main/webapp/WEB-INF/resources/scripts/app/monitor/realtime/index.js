@@ -1,18 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
-	// 控制显示左侧机构树
-	if (showGroup) {
-		$('.page-content .row-fluid div').removeClass('hide');
-	} else {
-		$('.page-content .row-fluid .span3').remove();
-		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
-	}
-	var mineField = [ {
-		header : '煤矿名称',
-		name : 'mineName'
-	} ];
-
 	// 获取测点类型
 	Utils.select.remote([ 'monitorSensorType1' ], contextPath + '/monitor/monitor-sensor-types', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
 	Utils.select.remote([ 'monitorSensorType2' ], contextPath + '/monitor/monitor-sensor-types?type=1', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
@@ -77,10 +65,52 @@ define(function(require, exports, module) {
 		width : 150
 	} ];
 
-	// 控制显示表格煤矿名称列
+	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
+	var groupTree;
+	var mineField = [ {
+		header : '煤矿名称',
+		name : 'mineName'
+	} ];
 	if (showGroup) {
+		$('.page-content .row-fluid div').removeClass('hide');
+
+		// 控制显示机构树
+		groupTree = Utils.tree.group('groupTree', contextPath + '/system/groups/2?label=mine', function(event, treeId, treeNode, clickFlag) {
+			switch ($('.tab-content .active').attr('id')) {
+				case 'tab1':
+					loadGrid(grid1, 0, 'query-form1', gridUrl1, treeNode.number);
+					statistic(0, treeNode.number);
+					break;
+				case 'tab2':
+					loadGrid(grid2, 1, 'query-form2', gridUrl2, treeNode.number);
+					statistic(1, treeNode.number);
+					break;
+				case 'tab3':
+					loadGrid(grid3, 2, 'query-form3', gridUrl3, treeNode.number);
+					statistic(2, treeNode.number);
+					break;
+				case 'tab4':
+					loadGrid(grid4, 3, 'query-form4', gridUrl4, treeNode.number);
+					statistic(3, treeNode.number);
+					break;
+				case 'tab5':
+					gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&mineId=' + treeNode.number + '&pageSize=' + pageSize;
+					grid5.set('url', gridUrl5 + Utils.form.buildParams('query-form5'));
+					$.get(contextPath + '/monitor/statistic-by-data?mineId=' + treeNode.number + Utils.form.buildParams('query-form5'), function(data) {
+						$('#statistic5').html(data.data);
+					});
+					break;
+				default:
+					break;
+			}
+		});
+
+		// 控制显示表格煤矿名称列
 		fields1 = mineField.concat(fields1);
 		fields2 = mineField.concat(fields2);
+	} else {
+		$('.page-content .row-fluid .span3').remove();
+		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
 	}
 
 	// 配置表格
@@ -116,37 +146,6 @@ define(function(require, exports, module) {
 	selectChange('query-form3');
 	selectChange('query-form4');
 	selectChange('query-form5');
-
-	// 机构树
-	var groupTree = Utils.tree.group('groupTree', contextPath + '/system/groups/2?label=mine', function(event, treeId, treeNode, clickFlag) {
-		switch ($('.tab-content .active').attr('id')) {
-			case 'tab1':
-				loadGrid(grid1, 0, 'query-form1', gridUrl1, treeNode.number);
-				statistic(0, treeNode.number);
-				break;
-			case 'tab2':
-				loadGrid(grid2, 1, 'query-form2', gridUrl2, treeNode.number);
-				statistic(1, treeNode.number);
-				break;
-			case 'tab3':
-				loadGrid(grid3, 2, 'query-form3', gridUrl3, treeNode.number);
-				statistic(2, treeNode.number);
-				break;
-			case 'tab4':
-				loadGrid(grid4, 3, 'query-form4', gridUrl4, treeNode.number);
-				statistic(3, treeNode.number);
-				break;
-			case 'tab5':
-				gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&mineId=' + treeNode.number + '&pageSize=' + pageSize;
-				grid5.set('url', gridUrl5 + Utils.form.buildParams('query-form5'));
-				$.get(contextPath + '/monitor/statistic-by-data?mineId=' + treeNode.number + Utils.form.buildParams('query-form5'), function(data) {
-					$('#statistic5').html(data.data);
-				});
-				break;
-			default:
-				break;
-		}
-	});
 
 	// 计算树和表格高度
 	function resize() {
@@ -185,7 +184,7 @@ define(function(require, exports, module) {
 		if (number !== undefined) { // 根据number来判断是点击机构树还是点击tab
 			gridUrl = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=' + type + '&mineId=' + number + '&pageSize=' + pageSize;
 		} else {
-			if (groupTree.getSelectedNodes()[0] !== undefined) { // 有可能未选择任何机构树节点
+			if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) { // 有可能未选择任何机构树节点
 				gridUrl = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=' + type + '&mineId=' + groupTree.getSelectedNodes()[0].number
 						+ '&pageSize=' + pageSize;
 			}
@@ -232,7 +231,7 @@ define(function(require, exports, module) {
 				break;
 			case '#tab5':
 				var statisticUrl5 = contextPath + '/monitor/statistic-by-data?';
-				if (groupTree.getSelectedNodes()[0] !== undefined) {
+				if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) {
 					gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&mineId=' + groupTree.getSelectedNodes()[0].number + '&pageSize='
 							+ pageSize;
 					statisticUrl5 = contextPath + '/monitor/statistic-by-data?mineId=' + groupTree.getSelectedNodes()[0].number;

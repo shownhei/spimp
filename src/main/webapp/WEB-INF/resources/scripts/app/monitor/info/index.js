@@ -51,13 +51,12 @@ define(function(require, exports, module) {
 		name : 'corRelativeNodes'
 	} ];
 
-	// 控制显示左侧机构树
+	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
 	var groupTree;
 	var mineField = [ {
 		header : '煤矿名称',
 		name : 'mineName'
 	} ];
-	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
 	if (showGroup) {
 		$('.page-content .row-fluid div').removeClass('hide');
 
