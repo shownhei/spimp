@@ -200,13 +200,13 @@ define(function(require, exports, module) {
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
 				displayNotification(data);
-				pushNotification();
 			},
 			error : function(jqXHR, textStatus) {
 				errorCount++;
-				if (errorCount < 48) { // 只重试48次，每次超时1小时。
-					pushNotification();
-				}
+			}
+		}).always(function() {
+			if (errorCount < 48) { // 只重试48次，每次超时1小时。
+				pushNotification();
 			}
 		});
 	}
@@ -219,5 +219,4 @@ define(function(require, exports, module) {
 
 	pullNotification();
 	pushNotification();
-	
 });

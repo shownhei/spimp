@@ -4,7 +4,7 @@
 package cn.ccrise.spimp.system.web;
 
 import java.util.List;
-import java.util.Queue;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +36,7 @@ import cn.ccrise.spimp.system.web.entity.ReminderDeferredResult;
 import cn.ccrise.spimp.system.web.entity.ReminderMessage;
 import cn.ccrise.spimp.system.web.entity.ReminderResponse;
 
-import com.google.common.collect.Queues;
+import com.google.common.collect.Maps;
 
 /**
  * 提醒控制器。
@@ -47,7 +47,7 @@ import com.google.common.collect.Queues;
 public class ReminderController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public final Queue<ReminderDeferredResult<ReminderResponse>> messageQueue = Queues.newConcurrentLinkedQueue();
+	public final Map<String, ReminderDeferredResult<ReminderResponse>> messageQueue = Maps.newConcurrentMap();
 	@Autowired
 	private AccountService accountService;
 	@Autowired
@@ -74,7 +74,9 @@ public class ReminderController {
 	public void push() {
 		logger.debug("Start to push,queue size:{}", messageQueue.size());
 
-		for (ReminderDeferredResult<ReminderResponse> reminderDeferredResult : messageQueue) {
+		for (String key : messageQueue.keySet()) {
+			ReminderDeferredResult<ReminderResponse> reminderDeferredResult = messageQueue.get(key);
+
 			boolean isSetOrExpired = reminderDeferredResult.isSetOrExpired();
 			boolean setResult = false;
 			try {
@@ -84,7 +86,7 @@ public class ReminderController {
 				logger.warn("{},isSetOrExpired:{},setResult:{}", exception.getClass(), isSetOrExpired, setResult);
 			}
 
-			messageQueue.remove(reminderDeferredResult);
+			messageQueue.remove(key);
 		}
 	}
 
@@ -92,7 +94,11 @@ public class ReminderController {
 	@ResponseBody
 	public ReminderDeferredResult<ReminderResponse> pushNotification(HttpSession httpSession) {
 		ReminderDeferredResult<ReminderResponse> deferredResult = new ReminderDeferredResult<>(3600000, httpSession);
-		messageQueue.add(deferredResult);
+
+		// 每用户的每一个session允许建立一个长连接
+		String key = WebUtils.getAccount(httpSession).getPrincipal() + "-" + httpSession.getId();
+
+		messageQueue.put(key, deferredResult);
 		return deferredResult;
 	}
 
