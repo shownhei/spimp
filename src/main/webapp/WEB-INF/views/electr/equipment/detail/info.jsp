@@ -18,7 +18,7 @@
 		<div id="BasePanel" class="tab-pane in active">
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td width="70">设备分类</td>
 						<td width="180">${equipment.deviceClass.itemName}</td>
 						<td width="70">设备种类</td>
@@ -28,7 +28,7 @@
 						<td width="70">设备名称</td>
 						<td>${equipment.deviceName}</td>
 					</tr>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td>设备型号</td>
 						<td>${equipment.deviceModel}</td>
 						<td>使用环境</td>
@@ -38,7 +38,7 @@
 						<td>存放地点</td>
 						<td>${equipment.stowedPosition.itemName}</td>
 					</tr>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td>用途</td>
 						<td>${equipment.usage}</td>
 						<td>生产厂家</td>
@@ -48,7 +48,7 @@
 						<td>出厂编号</td>
 						<td>${equipment.factoryNumber}</td>
 					</tr>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td>出厂日期</td>
 						<td>${equipment.productionDate}</td>
 						<td>包机人</td>
@@ -58,14 +58,14 @@
 						<td>三开一防锁</td>
 						<td>${equipment.openLocker}</td>
 					</tr>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td>数量</td>
 						<td>${equipment.lockerNumber}</td>
 						<td></td>
 						<td></td>
 						<td colspan=4></td>
 					</tr>
-					<tr class="page_report_table_tr">
+					<tr class="page-report-table-tr">
 						<td>图片</td>
 						<td colspan="3">
 							<c:if test="${!empty equipment.pictureURL}">
@@ -102,7 +102,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${accessories}" var="data" varStatus="status">
-						<tr class="page_report_table_tr">
+						<tr class="page-report-table-tr">
 							<td>${data.accessoryName }</td>
 							<td>${data.accessoryModel }</td>
 							<td>${data.accessoryNumber }</td>

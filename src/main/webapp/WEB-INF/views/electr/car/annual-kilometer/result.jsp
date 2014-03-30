@@ -17,7 +17,7 @@
 		</thead>
 		<tbody>
 			<c:forEach items="${result}" var="data" varStatus="listIndex">
-				<tr class="grid-row page_report_table_tr">
+				<tr class="grid-row page-report-table-tr">
 					<td>${listIndex.index+1}月份</td>
 					<c:forEach begin="1" end="${fn:length(carList)+1}" step="1" var="index">
 						<td>

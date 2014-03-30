@@ -27,7 +27,7 @@
 	</thead>
 	<tbody>
 		<c:forEach items="${result}" var="data">
-			<tr class="page_report_table_tr">
+			<tr class="page-report-table-tr">
 				<td>${data.materialName1 }</td>
 				<td class="hidden-480">${data.quantity1 }</td>
 				<td>${data.measureUnit1 }</td>

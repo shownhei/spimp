@@ -21,7 +21,7 @@
 		<tbody>
 			<c:forEach items="${category}" var="list" varStatus="status">
 				<c:forEach items="${list}" var="data" varStatus="listIndex">
-					<tr class="grid-row page_report_table_tr">
+					<tr class="grid-row page-report-table-tr">
 						<td>${data.carNo}</td>
 						<td>${data.trainNumber}</td>
 						<td>${data.distance}</td>

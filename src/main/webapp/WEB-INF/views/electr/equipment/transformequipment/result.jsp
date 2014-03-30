@@ -47,7 +47,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${reducerDevices }" var="data">
-								<tr class="grid-row page_report_table_tr">
+								<tr class="grid-row page-report-table-tr">
 									<td dataType="showRemark">
 										<div style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.deviceModel}</div>
 									</td>
@@ -91,7 +91,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${electromotorDevices }" var="data">
-							<tr class="grid-row page_report_table_tr">
+							<tr class="grid-row page-report-table-tr">
 								<td dataType="showRemark">
 									<div style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.deviceModel}</div>
 								</td>
@@ -133,7 +133,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${brakeDeviceDevices }" var="data">
-							<tr class="grid-row page_report_table_tr">
+							<tr class="grid-row page-report-table-tr">
 								<td dataType="showRemark">
 									<div style="width: 100px; height: 20px; overflow: hidden; white-space: nowrap;">${data.deviceModel}</div>
 								</td>
@@ -179,7 +179,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${tensioningDevices }" var="data">
-								<tr class="grid-row page_report_table_tr">
+								<tr class="grid-row page-report-table-tr">
 									<td>${data.takeUp}</td>
 									<td>${data.deviceName}</td>
 									<td dataType="showRemark">

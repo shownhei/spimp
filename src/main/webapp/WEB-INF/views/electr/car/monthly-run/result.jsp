@@ -43,7 +43,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${result}" var="data" varStatus="listIndex">
-					<tr class="grid-row page_report_table_tr">
+					<tr class="grid-row page-report-table-tr">
 						<td>${listIndex.index+1}日</td>
 						<c:forEach begin="1" end="${fn:length(data)}" step="1" var="index">
 							<td <c:if test="${(index-1)%10==0}">style="border-left-color:black;"</c:if>>
@@ -52,7 +52,7 @@
 						</c:forEach>
 					</tr>
 				</c:forEach>
-				<tr class="grid-row page_report_table_tr">
+				<tr class="grid-row page-report-table-tr">
 					<td>合计</td>
 					<c:forEach items="${sumList}" var="data" varStatus="index">
 						<td <c:if test="${(index.index)%10==0}">style="border-left-color:black;"</c:if>>

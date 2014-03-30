@@ -26,7 +26,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${details}" var="data" varStatus="status">
-					<tr class="grid-row page_report_table_tr">
+					<tr class="grid-row page-report-table-tr">
 						<td>${status.index+1}</td>
 						<td>${data.materialName }</td>
 						<td>${data.model }</td>
