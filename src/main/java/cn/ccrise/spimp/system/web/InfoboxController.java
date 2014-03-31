@@ -108,7 +108,7 @@ public class InfoboxController {
 			emergencyPlanPage = (Page<EmergencyPlanInstance>) emergencyPlanInstanceController.page(emergencyPlanPage,
 					null, httpSession, Boolean.FALSE).getData();
 			result.add(new Infobox("infobox-orange", "icon-list", emergencyPlanPage.getTotalCount() + "条", "应急救援任务",
-					getRealLink(httpSession, "/ercs/emergency-plan-instances")));
+					getRealLink(httpSession, "/ercs/perform-rescue/task-view")));
 		}
 
 		// 定期保养

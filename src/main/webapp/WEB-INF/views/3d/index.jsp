@@ -73,7 +73,7 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12">
-						<object id="wgl" classid="CLSID:D7CD41DE-8EA4-4956-BFC2-B9E6EB749AD1"></object>
+						<object id="WebMineSystem" classid="CLSID:95EE964E-4A33-423A-9DED-3D81BBE20D66" height="500" width="500"></object>
 						<!--img id="wgl" src="${resources}/images/3d/capture/主界面.png" style="width: 100%"-->
 					</div>
 				</div>

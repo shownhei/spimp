@@ -157,7 +157,7 @@ public class ReminderController {
 			emergencyPlanPage = (Page<EmergencyPlanInstance>) emergencyPlanInstanceController.page(emergencyPlanPage,
 					null, httpSession, Boolean.FALSE).getData();
 			reminderResponse.addReminderMessage(new ReminderMessage(
-					"你有" + emergencyPlanPage.getTotalCount() + "应急救援任务", "/ercs/emergency-plan-instances",
+					"你有" + emergencyPlanPage.getTotalCount() + "应急救援任务", "/ercs/perform-rescue/task-view",
 					emergencyPlanPage.getTotalCount(), "报警", ReminderMessage.MESSAGE_TYPE_ALARM));
 		}
 
