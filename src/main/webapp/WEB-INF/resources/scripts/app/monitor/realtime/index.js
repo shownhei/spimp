@@ -1,6 +1,11 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
+	// 提示信息
+	$('select[title]').tooltip({
+		placement : 'right'
+	});
+
 	// 获取测点类型
 	Utils.select.remote([ 'monitorSensorType1' ], contextPath + '/monitor/monitor-sensor-types', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
 	Utils.select.remote([ 'monitorSensorType2' ], contextPath + '/monitor/monitor-sensor-types?type=1', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
@@ -243,4 +248,32 @@ define(function(require, exports, module) {
 				break;
 		}
 	}
+
+	// 自动刷新
+	var refreshFunction;
+	function refresh(selectId) {
+		window.clearInterval(refreshFunction);
+		refreshFunction = window.setInterval(function() {
+			loadTab('#' + $('.tab-content .active').attr('id'));
+		}, $('#' + selectId).val());
+	}
+	function change(selectId) {
+		$('#' + selectId).change(function() {
+			refresh(selectId);
+
+			// 同步更新其他自动刷新下拉列表选项
+			Utils.select.setOption('refresh1', $(this).val());
+			Utils.select.setOption('refresh2', $(this).val());
+			Utils.select.setOption('refresh3', $(this).val());
+			Utils.select.setOption('refresh4', $(this).val());
+			Utils.select.setOption('refresh5', $(this).val());
+		});
+	}
+
+	change('refresh1');
+	change('refresh2');
+	change('refresh3');
+	change('refresh4');
+	change('refresh5');
+	refresh('refresh1');
 });

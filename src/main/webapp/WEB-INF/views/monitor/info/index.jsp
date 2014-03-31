@@ -43,7 +43,7 @@
 								<div id="tab2" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType2" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType2" name="monitorSensorType" style="width: 100px">
 											</select>
 										</form>
 									</div>

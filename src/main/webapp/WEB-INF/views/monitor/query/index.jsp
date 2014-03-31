@@ -46,9 +46,9 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType1" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType1" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState1" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState1" name="monitorState" style="width: 100px">
 											</select>
 											<input name="timeLast" type="text" placeholder="时长大于" class="input-mini" autocomplete="off">
 											<span>秒</span>
@@ -74,9 +74,9 @@
 								<div id="tab2" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType2" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType2" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState2" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState2" name="monitorState" style="width: 100px">
 											</select>
 											<div class="input-append">
 												<input name="startTime" type="datetime" placeholder="开始日期" class="input-small" autocomplete="off">
@@ -100,9 +100,9 @@
 								<div id="tab3" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form3" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType3" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType3" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="nodePlace3" name="nodePlace" class="input-small" style="width: 100px" disabled title="先选择测点类型">
+											<select id="nodePlace3" name="nodePlace" style="width: 100px" disabled title="先选择测点类型">
 												<option value="">选择位置</option>
 											</select>
 											<div class="input-append">
@@ -127,9 +127,9 @@
 								<div id="tab4" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form4" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType4" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType4" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="nodePlace4" name="nodePlace" class="input-small" style="width: 100px" disabled title="先选择测点类型">
+											<select id="nodePlace4" name="nodePlace" style="width: 100px" disabled title="先选择测点类型">
 												<option value="">选择位置</option>
 											</select>
 											<div class="input-append">

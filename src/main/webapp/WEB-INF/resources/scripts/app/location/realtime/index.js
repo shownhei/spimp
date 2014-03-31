@@ -1,6 +1,11 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
+	// 提示信息
+	$('select[title]').tooltip({
+		placement : 'right'
+	});
+
 	// 配置表格列
 	var fields1 = [ {
 		header : '区域编号',
@@ -207,4 +212,28 @@ define(function(require, exports, module) {
 	}
 
 	reset('reset3', grid3, 'query-form3', gridUrl3);
+
+	// 自动刷新
+	var refreshFunction;
+	function refresh(selectId) {
+		window.clearInterval(refreshFunction);
+		refreshFunction = window.setInterval(function() {
+			loadTab('#' + $('.tab-content .active').attr('id'));
+		}, $('#' + selectId).val());
+	}
+	function change(selectId) {
+		$('#' + selectId).change(function() {
+			refresh(selectId);
+
+			// 同步更新其他自动刷新下拉列表选项
+			Utils.select.setOption('refresh1', $(this).val());
+			Utils.select.setOption('refresh2', $(this).val());
+			Utils.select.setOption('refresh3', $(this).val());
+		});
+	}
+
+	change('refresh1');
+	change('refresh2');
+	change('refresh3');
+	refresh('refresh1');
 });

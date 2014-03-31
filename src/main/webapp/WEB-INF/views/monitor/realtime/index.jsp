@@ -55,9 +55,16 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType1" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType1" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState1" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState1" name="monitorState" style="width: 100px">
+											</select>
+											<select id="refresh1" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
 											</select>
 										</form>
 									</div>
@@ -67,9 +74,16 @@
 								<div id="tab2" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType2" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType2" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState2" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState2" name="monitorState" style="width: 100px">
+											</select>
+											<select id="refresh2" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
 											</select>
 										</form>
 									</div>
@@ -79,9 +93,16 @@
 								<div id="tab3" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form3" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType3" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType3" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState3" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState3" name="monitorState" style="width: 100px">
+											</select>
+											<select id="refresh3" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
 											</select>
 										</form>
 									</div>
@@ -91,9 +112,16 @@
 								<div id="tab4" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form4" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select id="monitorSensorType4" name="monitorSensorType" class="input-small" style="width: 100px">
+											<select id="monitorSensorType4" name="monitorSensorType" style="width: 100px">
 											</select>
-											<select id="monitorState4" name="monitorState" class="input-small" style="width: 100px">
+											<select id="monitorState4" name="monitorState" style="width: 100px">
+											</select>
+											<select id="refresh4" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
 											</select>
 										</form>
 									</div>
@@ -103,10 +131,17 @@
 								<div id="tab5" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form5" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
-											<select name="state" class="input-small" style="width: 100px">
+											<select name="state" style="width: 100px">
 												<option value="" class="light-grey">选择分站状态</option>
 												<option value="true">正常</option>
 												<option value="false">故障</option>
+											</select>
+											<select id="refresh5" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
 											</select>
 										</form>
 									</div>

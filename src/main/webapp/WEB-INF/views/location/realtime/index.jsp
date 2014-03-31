@@ -39,19 +39,42 @@
 							<div class="tab-content" style="padding: 10px">
 								<div id="tab1" class="tab-pane active">
 									<div class="nav-query" style="position: inherit;">
-										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px"></form>
+										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="refresh1" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
+											</select>
+										</form>
 									</div>
 									<div id="grid1" class="row-fluid"></div>
 								</div>
 								<div id="tab2" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
-										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px"></form>
+										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="refresh2" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
+											</select>
+										</form>
 									</div>
 									<div id="grid2" class="row-fluid"></div>
 								</div>
 								<div id="tab3" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form3" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
+											<select id="refresh3" title="当前刷新周期" style="width: 60px">
+												<option value="5000" selected>5秒</option>
+												<option value="10000">10秒</option>
+												<option value="30000">30秒</option>
+												<option value="60000">1分钟</option>
+												<option value="300000">5分钟</option>
+											</select>
 											<input name="staffQueryIn" type="text" placeholder="姓名/部门/工种/职务查询" class="input-medium" autocomplete="off">
 											<button id="query3" class="btn btn-small btn-primary">查询</button>
 											<button id="reset3" type="reset" class="btn btn-primary btn-small">重置</button>
