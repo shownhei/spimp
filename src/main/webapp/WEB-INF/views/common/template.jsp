@@ -2,7 +2,7 @@
 <script id="menu-template" type="text/x-handlebars-template">
 {{#each resourceEntities}}
 <li>
-	<a href="{{uri}}" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
+	<a href="{{uri}}" target="safe" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
 		<i class="{{iconCls}}"></i>
 		<span class="menu-text"> {{name}} </span>
 		{{#if resourceEntities}}
@@ -13,7 +13,7 @@
 	<ul class="submenu">
 		{{#each resourceEntities}}
 		<li>
-			<a href="{{uri}}" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
+			<a href="{{uri}}" target="safe" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
 				<i class="icon-double-angle-right"></i> <i class="icon-reorder"></i> {{name}}
 				{{#if resourceEntities}}
 				<b class="arrow icon-angle-down"></b>
@@ -23,7 +23,7 @@
 			<ul class="submenu" style="background-color: #f5f5f5;">
 				{{#each resourceEntities}}
 				<li>
-					<a href="{{uri}}" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
+					<a href="{{uri}}" target="safe" {{#if resourceEntities}} class="dropdown-toggle" {{/if}}>
 						<i class="icon-angle-right"></i>{{name}}
 						{{#if resourceEntities}}
 						<b class="arrow icon-angle-down"></b>
@@ -33,7 +33,7 @@
 					<ul class="submenu">
 						{{#each resourceEntities}}
 						<li>
-							<a href="{{uri}}">
+							<a href="{{uri}}" target="safe">
 								<i class="icon-angle-right"></i>{{name}}
 							</a>
 						</li>
