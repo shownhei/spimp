@@ -1,20 +1,21 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
-
-	$('#layer-control-button').click(function() {
-		$('#layer-control-div').toggleClass('open');
-		$('#layer-control-icon').toggleClass('icon-chevron-right').toggleClass('icon-chevron-left');
-	});
-
+	window.$=$;
+	
 	function resize() {
+		var toolBar=42;//1
+		var controlBarWidth=$('#control-bar').width();//2
+		var controlDiv=$('#layer-control-div');
+		var controlWidth=controlDiv.is(":hidden")?0:controlDiv.width();//3
 		var tabHeight = $(window).height() - 170;
 		$('div[class*="tab-pane"]').filter('div[data-level="first"]').css({
 			'max-height' : tabHeight + 'px',
 			'height' : tabHeight + 'px'
 		});
-		$('#map-image').height($(window).height() - 86);
+		$('#WebMineSystem').height($(window).height() - 90);
+		var newWidth=$(window).width() -toolBar-controlBarWidth-controlWidth;
+		$('#WebMineSystem').width(newWidth);
 	}
-	resize();
 	window.onresize = resize;
 
 	/**
@@ -147,4 +148,17 @@ define(function(require, exports, module) {
 			$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
 		}
 	});
+	resize();
+	$('#control-bar').height($(window).height() - 95);
+	$('#control-bar').click(function() {
+		$('#layer-control-div').toggleClass('open');
+		resize();
+	});
+	$('#water').click(function(){
+		WebMineSystem.LocationObject("主水仓");
+	});
+	$('#sendMessage').click(function(){
+		WebMineSystem.SendMsg("三维数字矿山");  
+	});
+	
 });

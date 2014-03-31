@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -50,6 +51,14 @@
 						<i class="icon-puzzle-piece"></i>
 						<span>应急资源</span>
 					</button>
+					<button class="btn btn-small btn-info" data-image="应急资源.jpg" id="water">
+						<i class="icon-puzzle-piece"></i>
+						<span>主水仓</span>
+					</button>
+					<button class="btn btn-small btn-info" data-image="应急资源.jpg" id="sendMessage">
+						<i class="icon-puzzle-piece"></i>
+						<span>发消息</span>
+					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
@@ -64,15 +73,14 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12">
-						<img id="map-image" src="${resources}/images/3d/capture/主界面.png" style="width: 100%">
+						<object id="WebMineSystem" classid="CLSID:95EE964E-4A33-423A-9DED-3D81BBE20D66" height="500" width="500"></object>
+						<!--img id="wgl" src="${resources}/images/3d/capture/主界面.png" style="width: 100%"-->
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="layer-control" class="ace-settings-container">
-			<div id="layer-control-button" class="btn btn-app btn-xs btn-info ace-settings-btn" style="height: 41px; padding: 0px; width: 30px; margin-top: 1px">
-				<i id="layer-control-icon" class="icon-chevron-right" style="font-size: 30px; margin: 4px 0"></i>
-			</div>
+		    <a id="control-bar" href="javascript:void(0);" style="display:block;width:15px;height:40px;background-color:white;float:left;" >a</a>
 			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
 				<div class="tabbable" style="margin-top: 0; background-color: #c5d0dc">
 					<ul class="nav nav-tabs padding-12 tab-color-blue background-blue">
@@ -93,7 +101,8 @@
 							</ul>
 						</li>
 					</ul>
-					<div class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
+					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
+					 
 						<div id="layer" data-level="first" class="tab-pane active">
 							<div id="layer-tree" class="ztree"></div>
 						</div>

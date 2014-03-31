@@ -2,7 +2,7 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<a href="/" class="brand">
+			<a href="/" class="brand" target="safe">
 				<small> <i class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
 				</small>
 			</a>

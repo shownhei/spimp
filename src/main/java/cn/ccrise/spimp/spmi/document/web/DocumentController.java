@@ -56,7 +56,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/develop", method = RequestMethod.GET)
 	public String developIndex() {
-		return "spmi/document/develop/index";
+		return "spmi/document/index";
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/dig", method = RequestMethod.GET)
 	public String digIndex() {
-		return "spmi/document/dig/index";
+		return "spmi/document/index";
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/exploit", method = RequestMethod.GET)
 	public String exploitIndex() {
-		return "spmi/document/exploit/index";
+		return "spmi/document/index";
 	}
 
 	@RequestMapping(value = "/spmi/document/documents/{id}", method = RequestMethod.GET)
@@ -92,7 +92,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/machine", method = RequestMethod.GET)
 	public String machineIndex() {
-		return "spmi/document/machine/index";
+		return "spmi/document/index";
 	}
 
 	@RequestMapping(value = "/spmi/document/documents", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/produce", method = RequestMethod.GET)
 	public String produceIndex() {
-		return "spmi/document/produce/index";
+		return "spmi/document/index";
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/query", method = RequestMethod.GET)
 	public String queryIndex() {
-		return "spmi/document/query/index";
+		return "spmi/document/index";
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/safe", method = RequestMethod.GET)
 	public String safeIndex() {
-		return "spmi/document/safe/index";
+		return "spmi/document/index";
 	}
 
 	@RequestMapping(value = "/spmi/document/documents", method = RequestMethod.POST)
@@ -153,7 +153,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/schedule", method = RequestMethod.GET)
 	public String scheduleIndex() {
-		return "spmi/document/schedule/index";
+		return "spmi/document/index";
 	}
 
 	@RequestMapping(value = "/spmi/document/documents/{id}", method = RequestMethod.PUT)
@@ -171,7 +171,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/water", method = RequestMethod.GET)
 	public String waterIndex() {
-		return "spmi/document/water/index";
+		return "spmi/document/index";
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/wind", method = RequestMethod.GET)
 	public String windIndex() {
-		return "spmi/document/wind/index";
+		return "spmi/document/index";
 	}
 
 	private String getCurUser(HttpSession httpSession) {
@@ -195,7 +195,7 @@ public class DocumentController {
 	}
 
 	private ModelAndView modelAndView(String tag) {
-		ModelAndView modelAndView = new ModelAndView("spmi/document/document/index");
+		ModelAndView modelAndView = new ModelAndView("spmi/document/index");
 		modelAndView.addObject("office", tag);
 		return modelAndView;
 	}

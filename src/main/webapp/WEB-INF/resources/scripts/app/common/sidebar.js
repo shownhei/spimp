@@ -105,6 +105,10 @@ define(function(require, exports, module) {
 			height += $(li).height();
 		});
 		$('<style>.nav-list>li>.submenu:before{height:' + height + 'px}</style>').appendTo('head');
+		var m3dMenu=$("a[href$='/3d']");
+		if(m3dMenu.length>0){
+			m3dMenu.attr('target','3d');
+		}
 	}
 
 });
