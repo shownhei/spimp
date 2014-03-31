@@ -78,24 +78,23 @@ define(function(require, exports, module) {
 		groupTree = Utils.tree.group('groupTree', contextPath + '/system/groups/2?label=mine', function(event, treeId, treeNode, clickFlag) {
 			switch ($('.tab-content .active').attr('id')) {
 				case 'tab1':
-					loadGrid(grid1, 0, 'query-form1', gridUrl1, treeNode.number);
+					loadGrid(grid1, 'query-form1', gridUrl1, treeNode.number);
 					statistic(0, treeNode.number);
 					break;
 				case 'tab2':
-					loadGrid(grid2, 1, 'query-form2', gridUrl2, treeNode.number);
+					loadGrid(grid2, 'query-form2', gridUrl2, treeNode.number);
 					statistic(1, treeNode.number);
 					break;
 				case 'tab3':
-					loadGrid(grid3, 2, 'query-form3', gridUrl3, treeNode.number);
+					loadGrid(grid3, 'query-form3', gridUrl3, treeNode.number);
 					statistic(2, treeNode.number);
 					break;
 				case 'tab4':
-					loadGrid(grid4, 3, 'query-form4', gridUrl4, treeNode.number);
+					loadGrid(grid4, 'query-form4', gridUrl4, treeNode.number);
 					statistic(3, treeNode.number);
 					break;
 				case 'tab5':
-					gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&mineId=' + treeNode.number + '&pageSize=' + pageSize;
-					grid5.set('url', gridUrl5 + Utils.form.buildParams('query-form5'));
+					loadGrid(grid5, 'query-form5', gridUrl5, treeNode.number);
 					$.get(contextPath + '/monitor/statistic-by-data?mineId=' + treeNode.number + Utils.form.buildParams('query-form5'), function(data) {
 						$('#statistic5').html(data.data);
 					});
@@ -180,13 +179,12 @@ define(function(require, exports, module) {
 	});
 
 	// 加载grid
-	function loadGrid(grid, type, formId, gridUrl, number) {
+	function loadGrid(grid, formId, gridUrl, number) {
 		if (number !== undefined) { // 根据number来判断是点击机构树还是点击tab
-			gridUrl = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=' + type + '&mineId=' + number + '&pageSize=' + pageSize;
+			gridUrl = gridUrl + '&mineId=' + number;
 		} else {
-			if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) { // 有可能未选择任何机构树节点
-				gridUrl = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=' + type + '&mineId=' + groupTree.getSelectedNodes()[0].number
-						+ '&pageSize=' + pageSize;
+			if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) {
+				gridUrl = gridUrl + '&mineId=' + groupTree.getSelectedNodes()[0].number;
 			}
 		}
 
@@ -195,17 +193,16 @@ define(function(require, exports, module) {
 
 	// 测点统计
 	function statistic(type, number) {
-		var statisticUrl = contextPath + '/monitor/statistic-by-state?type=' + type + Utils.form.buildParams('query-form' + (type + 1));
+		var statisticUrl = contextPath + '/monitor/statistic-by-state?type=' + type;
 		if (number !== undefined) {
-			statisticUrl = contextPath + '/monitor/statistic-by-state?type=' + type + '&mineId=' + number + Utils.form.buildParams('query-form' + (type + 1));
+			statisticUrl = statisticUrl + '&mineId=' + number;
 		} else {
 			if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) {
-				statisticUrl = contextPath + '/monitor/statistic-by-state?type=' + type + '&mineId=' + groupTree.getSelectedNodes()[0].number
-						+ Utils.form.buildParams('query-form' + (type + 1));
+				statisticUrl = statisticUrl + '&mineId=' + groupTree.getSelectedNodes()[0].number;
 			}
 		}
 
-		$.get(statisticUrl, function(data) {
+		$.get(statisticUrl + Utils.form.buildParams('query-form' + (type + 1)), function(data) {
 			$('#statistic' + (type + 1)).html(data.data);
 		});
 	}
@@ -214,30 +211,28 @@ define(function(require, exports, module) {
 	function loadTab(tab) {
 		switch (tab) {
 			case '#tab1':
-				loadGrid(grid1, 0, 'query-form1', gridUrl1);
+				loadGrid(grid1, 'query-form1', gridUrl1);
 				statistic(0);
 				break;
 			case '#tab2':
-				loadGrid(grid2, 1, 'query-form2', gridUrl2);
+				loadGrid(grid2, 'query-form2', gridUrl2);
 				statistic(1);
 				break;
 			case '#tab3':
-				loadGrid(grid3, 2, 'query-form3', gridUrl3);
+				loadGrid(grid3, 'query-form3', gridUrl3);
 				statistic(2);
 				break;
 			case '#tab4':
-				loadGrid(grid4, 3, 'query-form4', gridUrl4);
+				loadGrid(grid4, 'query-form4', gridUrl4);
 				statistic(3);
 				break;
 			case '#tab5':
+				loadGrid(grid5, 'query-form5', gridUrl5);
+
 				var statisticUrl5 = contextPath + '/monitor/statistic-by-data?';
 				if (groupTree !== undefined && groupTree.getSelectedNodes()[0] !== undefined) {
-					gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&mineId=' + groupTree.getSelectedNodes()[0].number + '&pageSize='
-							+ pageSize;
-					statisticUrl5 = contextPath + '/monitor/statistic-by-data?mineId=' + groupTree.getSelectedNodes()[0].number;
+					statisticUrl5 = statisticUrl5 + 'mineId=' + groupTree.getSelectedNodes()[0].number;
 				}
-
-				grid5.set('url', gridUrl5 + Utils.form.buildParams('query-form5'));
 
 				$.get(statisticUrl5 + Utils.form.buildParams('query-form5'), function(data) {
 					$('#statistic5').html(data.data);
