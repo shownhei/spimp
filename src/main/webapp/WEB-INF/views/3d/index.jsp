@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<div id="layer-control" class="ace-settings-container">
-		    <a id="control-bar" href="javascript:void(0);" style="display:block;width:15px;height:50px;background-color:red;float:left;" >a</a>
+		    <a id="control-bar" href="javascript:void(0);" style="display:block;width:15px;height:40px;background-color:white;float:left;" >a</a>
 			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
 				<div class="tabbable" style="margin-top: 0; background-color: #c5d0dc">
 					<ul class="nav nav-tabs padding-12 tab-color-blue background-blue">

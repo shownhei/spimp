@@ -3,14 +3,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>调度室录入 - 山西王庄煤业数字矿山综合管理平台</title>
-<%@ include file="../../../common/head.jsp"%>
-<%@ include file="../../../common/template.jsp"%>
+<title>文档录入 - 山西王庄煤业数字矿山综合管理平台</title>
+<%@ include file="../../common/head.jsp"%>
+<%@ include file="../../common/template.jsp"%>
 </head>
 <body class="navbar-fixed">
-	<%@ include file="../../../common/navbar.jsp"%>
+	<%@ include file="../../common/navbar.jsp"%>
 	<div class="main-container container-fluid">
-		<%@ include file="../../../common/sidebar.jsp"%>
+		<%@ include file="../../common/sidebar.jsp"%>
 		<div class="main-content">
 			<div class="page-toolbar">
 				<div class="toolbar">
@@ -199,7 +199,7 @@
 	</div>
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
-		var officeCode = 'schedule';
+		var officeCode = 'develop';
 		seajs.use('${resources}/scripts/app/spmi/document/document/index');
 	</script>
 	<div id="view-modal" class="modal modal-xl hide">
