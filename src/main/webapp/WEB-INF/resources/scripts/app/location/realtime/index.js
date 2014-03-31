@@ -1,54 +1,77 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
-	// 获取测点类型
-	Utils.select.remote([ 'monitorSensorType2' ], contextPath + '/monitor/monitor-sensor-types', 'sensorTypeId', 'sensorTypeName', true, '选择测点类型');
-
 	// 配置表格列
 	var fields1 = [ {
-		header : '分站编号',
-		name : 'id'
+		header : '区域编号',
+		name : 'areaId'
 	}, {
-		header : '分站位置',
-		name : 'nodeId'
+		header : '区域位置',
+		name : 'pos'
 	}, {
-		header : '备注',
-		name : 'sensorName'
+		header : '区域类型',
+		name : 'typeString'
+	}, {
+		header : '区域人数',
+		name : 'curPersonNum',
+		render : function(value) {
+			return '<a href="#" data-name=' + value + '>' + value + '</a>';
+		}
+	}, {
+		header : '时间',
+		name : 'createTime'
 	} ];
 
 	var fields2 = [ {
-		header : '测点编号',
-		name : 'nodeId'
-	}, {
-		header : '测点类型',
-		name : 'sensorName'
-	}, {
-		header : '安装位置',
-		name : 'nodePlace'
-	}, {
-		header : '所属分站编号',
+		header : '分站编号',
 		name : 'stationId'
 	}, {
-		header : '报警上限',
-		name : 'alarmUpperValue'
+		header : '分站位置',
+		name : 'pos'
 	}, {
-		header : '报警下限',
-		name : 'alarmLowerValue'
+		header : '分站人数',
+		name : 'curPersonNum',
+		render : function(value) {
+			return '<a href="#" data-name=' + value + '>' + value + '</a>';
+		}
 	}, {
-		header : '高断电值',
-		name : 'hCutValue'
+		header : '分站类型',
+		name : 'typeString'
 	}, {
-		header : '低断电值',
-		name : 'lCutValue'
+		header : '时间',
+		name : 'dataTime'
+	} ];
+
+	var fields3 = [ {
+		header : '人员编号',
+		name : 'staffId',
+		render : function(value) {
+			return "<b style='display:false'>" + value + "</b>";
+		}
 	}, {
-		header : '高复电值',
-		name : 'hResetValue'
+		header : '姓名',
+		name : 'name'
 	}, {
-		header : '低复电值',
-		name : 'lResetValue'
+		header : '部门',
+		name : 'department'
 	}, {
-		header : '测点控制关系',
-		name : 'corRelativeNodes'
+		header : '职务',
+		name : 'jobName'
+	}, {
+		header : '所在位置',
+		name : 'curStationId'
+	}, {
+		header : '所在位置时间',
+		name : 'indataTime'
+	}, {
+		header : '状态',
+		name : 'stateString'
+	}, {
+		header : '轨迹',
+		name : "staffId",
+		render : function(value) {
+			return '<a href="#" link-name=' + value + '>' + '轨迹' + '</a>';
+		}
 	} ];
 
 	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
@@ -69,6 +92,9 @@ define(function(require, exports, module) {
 				case 'tab2':
 					loadGrid(grid2, 'query-form2', gridUrl2, treeNode.number);
 					break;
+				case 'tab3':
+					loadGrid(grid3, 'query-form3', gridUrl3, treeNode.number);
+					break;
 				default:
 					break;
 			}
@@ -77,6 +103,7 @@ define(function(require, exports, module) {
 		// 控制显示表格煤矿名称列
 		fields1 = mineField.concat(fields1);
 		fields2 = mineField.concat(fields2);
+		fields3 = mineField.concat(fields3);
 	} else {
 		$('.page-content .row-fluid .span3').remove();
 		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
@@ -95,19 +122,12 @@ define(function(require, exports, module) {
 		}).render();
 	}
 
-	// 下拉框选择查询
-	function selectChange(formId) {
-		$('#' + formId + ' select').change(function() {
-			loadTab('#' + $('.tab-content .active').attr('id'));
-		});
-	}
-
-	// 配置grid
+	// 配置grid、查询、统计
 	var gridHeight, pageSize;
-	var gridUrl1, gridUrl2;
+	var gridUrl1, gridUrl2, gridUrl3;
 	var grid1 = configGrid('#grid1', fields1);
 	var grid2 = configGrid('#grid2', fields2);
-	selectChange('query-form2');
+	var grid3 = configGrid('#grid3', fields3);
 
 	// 计算树和表格高度
 	function resize() {
@@ -124,8 +144,9 @@ define(function(require, exports, module) {
 		pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
 		// 初始化grid的url，type不同
-		gridUrl1 = contextPath + '/monitor/information-stations?orderBy=id&order=desc&pageSize=' + pageSize;
-		gridUrl2 = contextPath + '/monitor/information-nodes?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl1 = contextPath + '/location/location-areas?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl2 = contextPath + '/location/location-stations?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl3 = contextPath + '/location/location-staffs?orderBy=id&order=desc&pageSize=' + pageSize;
 
 		// 根据激活的tab，重新加载tab中的grid数据
 		loadTab('#' + $('.tab-content .active').attr('id'));
@@ -160,8 +181,30 @@ define(function(require, exports, module) {
 			case '#tab2':
 				loadGrid(grid2, 'query-form2', gridUrl2);
 				break;
+			case '#tab3':
+				loadGrid(grid3, 'query-form3', gridUrl3);
+				break;
 			default:
 				break;
 		}
 	}
+
+	// 查询
+	function query(buttonId, grid, queryForm, gridUrl) {
+		$('#' + buttonId).click(function() {
+			loadGrid(grid, queryForm, gridUrl);
+		});
+	}
+
+	query('query3', grid3, 'query-form3', gridUrl3);
+
+	// 重置
+	function reset(buttonId, grid, queryForm, gridUrl, nodePlaceId) {
+		$('#' + buttonId).click(function() {
+			document.getElementById(queryForm).reset();
+			loadGrid(grid, queryForm, gridUrl);
+		});
+	}
+
+	reset('reset3', grid3, 'query-form3', gridUrl3);
 });

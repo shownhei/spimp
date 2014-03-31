@@ -95,7 +95,8 @@ define(function(require, exports, module) {
 					break;
 				case 'tab5':
 					loadGrid(grid5, 'query-form5', gridUrl5, treeNode.number);
-					$.get(contextPath + '/monitor/statistic-by-data?mineId=' + treeNode.number + Utils.form.buildParams('query-form5'), function(data) {
+					$.get(encodeURI(contextPath + '/monitor/statistic-by-data?mineId=' + treeNode.number + Utils.form.buildParams('query-form5')), function(
+							data) {
 						$('#statistic5').html(data.data);
 					});
 					break;
@@ -188,7 +189,7 @@ define(function(require, exports, module) {
 			}
 		}
 
-		grid.set('url', gridUrl + Utils.form.buildParams(formId));
+		grid.set('url', encodeURI(gridUrl + Utils.form.buildParams(formId)));
 	}
 
 	// 测点统计
@@ -202,7 +203,7 @@ define(function(require, exports, module) {
 			}
 		}
 
-		$.get(statisticUrl + Utils.form.buildParams('query-form' + (type + 1)), function(data) {
+		$.get(encodeURI(statisticUrl + Utils.form.buildParams('query-form' + (type + 1))), function(data) {
 			$('#statistic' + (type + 1)).html(data.data);
 		});
 	}
@@ -234,7 +235,7 @@ define(function(require, exports, module) {
 					statisticUrl5 = statisticUrl5 + 'mineId=' + groupTree.getSelectedNodes()[0].number;
 				}
 
-				$.get(statisticUrl5 + Utils.form.buildParams('query-form5'), function(data) {
+				$.get(encodeURI(statisticUrl5 + Utils.form.buildParams('query-form5')), function(data) {
 					$('#statistic5').html(data.data);
 				});
 				break;

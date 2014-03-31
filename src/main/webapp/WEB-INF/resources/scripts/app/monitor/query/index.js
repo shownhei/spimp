@@ -228,7 +228,7 @@ define(function(require, exports, module) {
 			}
 		}
 
-		grid.set('url', gridUrl + Utils.form.buildParams(formId));
+		grid.set('url', encodeURI(gridUrl + Utils.form.buildParams(formId)));
 	}
 
 	// 加载tab
