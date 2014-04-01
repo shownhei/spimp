@@ -1,58 +1,16 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
 
-	// 提示信息
-	$('select[title]').tooltip({
-		placement : 'right'
-	});
+	// 启用日期控件
+	Utils.input.date('input[type=datetime]');
+
+	// 获取部门
+	Utils.select.remote([ 'department1', 'department2', 'department3' ], contextPath + '/location/location-staffs-department', 'name', 'name', true, '选择部门');
 
 	// 配置表格列
 	var fields1 = [ {
-		header : '区域编号',
-		name : 'areaId'
-	}, {
-		header : '区域位置',
-		name : 'pos'
-	}, {
-		header : '区域类型',
-		name : 'typeString'
-	}, {
-		header : '区域人数',
-		name : 'curPersonNum',
-		render : function(value) {
-			return '<a href="#" data-name=' + value + '>' + value + '</a>';
-		}
-	}, {
-		header : '时间',
-		name : 'createTime'
-	} ];
-
-	var fields2 = [ {
-		header : '分站编号',
-		name : 'stationId'
-	}, {
-		header : '分站位置',
-		name : 'pos'
-	}, {
-		header : '分站人数',
-		name : 'curPersonNum',
-		render : function(value) {
-			return '<a href="#" data-name=' + value + '>' + value + '</a>';
-		}
-	}, {
-		header : '分站类型',
-		name : 'typeString'
-	}, {
-		header : '时间',
-		name : 'dataTime'
-	} ];
-
-	var fields3 = [ {
 		header : '人员编号',
-		name : 'staffId',
-		render : function(value) {
-			return "<b style='display:false'>" + value + "</b>";
-		}
+		name : 'staffId'
 	}, {
 		header : '姓名',
 		name : 'name'
@@ -60,23 +18,66 @@ define(function(require, exports, module) {
 		header : '部门',
 		name : 'department'
 	}, {
-		header : '职务',
-		name : 'jobName'
+		header : '工种',
+		name : 'jobType'
+	}, {
+		header : '班次',
+		name : 'troopName'
+	}, {
+		header : '下井时间',
+		name : 'startTime'
+	}, {
+		header : '升井时间',
+		name : 'endTime'
+	}, {
+		header : '持续时间',
+		name : 'timeRegion'
+	} ];
+
+	var fields2 = [ {
+		header : '姓名',
+		name : 'name'
+	}, {
+		header : '部门',
+		name : 'department'
+	}, {
+		header : '工种',
+		name : 'jobType'
+	}, {
+		header : '班组',
+		name : 'troopName'
 	}, {
 		header : '所在位置',
-		name : 'curStationId'
+		name : 'stationName'
 	}, {
-		header : '所在位置时间',
-		name : 'indataTime'
+		header : '进入时间',
+		name : 'enterCurTime'
 	}, {
 		header : '状态',
-		name : 'stateString'
+		name : 'state'
+	} ];
+
+	var fields3 = [ {
+		header : '姓名',
+		name : 'name'
 	}, {
-		header : '轨迹',
-		name : "staffId",
-		render : function(value) {
-			return '<a href="#" link-name=' + value + '>' + '轨迹' + '</a>';
-		}
+		header : '部门',
+		name : 'department'
+	}, {
+		header : '工种',
+		name : 'jobType'
+	}, {
+		header : '班组',
+		name : 'troopName'
+	}, {
+		header : '所在位置',
+		name : 'stationId'
+	}, {
+		header : '进入时间',
+		name : 'enterCurTime'
+	}, {
+		header : '状态',
+		name : 'state'
 	} ];
 
 	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
@@ -127,7 +128,7 @@ define(function(require, exports, module) {
 		}).render();
 	}
 
-	// 配置grid、查询、统计
+	// 配置grid
 	var gridHeight, pageSize;
 	var gridUrl1, gridUrl2, gridUrl3;
 	var grid1 = configGrid('#grid1', fields1);
@@ -148,10 +149,10 @@ define(function(require, exports, module) {
 		// 重新计算表格行数
 		pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
-		// 初始化grid的url，type不同
-		gridUrl1 = contextPath + '/location/location-areas?orderBy=id&order=desc&pageSize=' + pageSize;
-		gridUrl2 = contextPath + '/location/location-stations?orderBy=id&order=desc&pageSize=' + pageSize;
-		gridUrl3 = contextPath + '/location/location-staffs?orderBy=id&order=desc&pageSize=' + pageSize;
+		// 初始化grid的url
+		gridUrl1 = contextPath + '/location/location-attendances-query?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl2 = contextPath + '/location/location-tracks-query?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl3 = contextPath + '/location/location-warn-query?orderBy=id&order=desc&pageSize=' + pageSize;
 
 		// 根据激活的tab，重新加载tab中的grid数据
 		loadTab('#' + $('.tab-content .active').attr('id'));
@@ -201,6 +202,8 @@ define(function(require, exports, module) {
 		});
 	}
 
+	query('query1', grid1, 'query-form1', gridUrl1);
+	query('query2', grid2, 'query-form2', gridUrl2);
 	query('query3', grid3, 'query-form3', gridUrl3);
 
 	// 重置
@@ -215,29 +218,39 @@ define(function(require, exports, module) {
 		});
 	}
 
-	reset('reset3', grid3, 'query-form3', gridUrl3);
+	reset('reset1', grid1, 'query-form1', gridUrl1, 'staffId1');
+	reset('reset2', grid2, 'query-form2', gridUrl2, 'staffId2');
+	reset('reset3', grid3, 'query-form3', gridUrl3, 'staffId3');
 
-	// 自动刷新
-	var refreshFunction;
-	function refresh(selectId) {
-		window.clearInterval(refreshFunction);
-		refreshFunction = window.setInterval(function() {
-			loadTab('#' + $('.tab-content .active').attr('id'));
-		}, $('#' + selectId).val());
-	}
-	function change(selectId) {
+	// 级联下拉列表
+	function change(selectId, cascadeId, url, value, display, blank, blankText) {
 		$('#' + selectId).change(function() {
-			refresh(selectId);
-
-			// 同步更新其他自动刷新下拉列表选项
-			Utils.select.setOption('refresh1', $(this).val());
-			Utils.select.setOption('refresh2', $(this).val());
-			Utils.select.setOption('refresh3', $(this).val());
+			if ($(this).val() === '') {
+				$('#' + cascadeId).attr('disabled', 'disabled');
+			} else {
+				Utils.select.remote([ cascadeId ], encodeURI(url + $(this).val()), value, display, blank, blankText);
+				$('#' + cascadeId).removeAttr('disabled');
+			}
 		});
 	}
 
-	change('refresh1');
-	change('refresh2');
-	change('refresh3');
-	refresh('refresh1');
+	change('department1', 'staffId1', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+	change('department2', 'staffId2', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+	change('department3', 'staffId3', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+
+	// 导出
+	var EXPORT_PAGE_SIZE = 10000;
+	var exportUrl1 = contextPath + '/location/location-attendances-export?orderBy=id&order=desc&pageSize=' + EXPORT_PAGE_SIZE;
+	var exportUrl2 = contextPath + '/location/location-tracks-export?orderBy=id&order=desc&pageSize=' + EXPORT_PAGE_SIZE;
+	var exportUrl3 = contextPath + '/location/location-warn-export?orderBy=id&order=desc&pageSize=' + EXPORT_PAGE_SIZE;
+
+	function exportExcel(buttonId, exportUrl, formId) {
+		$('#' + buttonId).click(function() {
+			window.open(encodeURI(exportUrl + Utils.form.buildParams(formId)));
+		});
+	}
+
+	exportExcel('export1', exportUrl1, 'query-form1');
+	exportExcel('export2', exportUrl2, 'query-form2');
+	exportExcel('export3', exportUrl3, 'query-form3');
 });

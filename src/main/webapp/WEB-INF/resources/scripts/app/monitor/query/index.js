@@ -268,13 +268,13 @@ define(function(require, exports, module) {
 	query('query5', grid5, 'query-form5', gridUrl5);
 
 	// 重置
-	function reset(buttonId, grid, queryForm, gridUrl, nodePlaceId) {
+	function reset(buttonId, grid, queryForm, gridUrl, disabledId) {
 		$('#' + buttonId).click(function() {
 			document.getElementById(queryForm).reset();
 			loadGrid(grid, queryForm, gridUrl);
 
-			if (nodePlaceId !== undefined) {
-				$('#' + nodePlaceId).attr('disabled', 'disabled');
+			if (disabledId !== undefined) {
+				$('#' + disabledId).attr('disabled', 'disabled');
 			}
 		});
 	}
@@ -286,22 +286,20 @@ define(function(require, exports, module) {
 	reset('reset5', grid5, 'query-form5', gridUrl5, 'nodePlace5');
 
 	// 级联下拉列表
-	function change(selectId, nodePlaceId) {
-		$('#' + selectId).change(
-				function() {
-					if ($(this).val() === '') {
-						$('#' + nodePlaceId).attr('disabled', 'disabled');
-					} else {
-						Utils.select.remote([ nodePlaceId ], contextPath + '/monitor/monitor-node-places?sensorTypeId=' + $(this).val(), 'nodeId', 'nodePlace',
-								true, '选择位置');
-						$('#' + nodePlaceId).removeAttr('disabled');
-					}
-				});
+	function change(selectId, cascadeId, url, value, display, blank, blankText) {
+		$('#' + selectId).change(function() {
+			if ($(this).val() === '') {
+				$('#' + cascadeId).attr('disabled', 'disabled');
+			} else {
+				Utils.select.remote([ cascadeId ], encodeURI(url + $(this).val()), value, display, blank, blankText);
+				$('#' + cascadeId).removeAttr('disabled');
+			}
+		});
 	}
 
-	change('monitorSensorType3', 'nodePlace3');
-	change('monitorSensorType4', 'nodePlace4');
-	change('monitorSensorType5', 'nodePlace5');
+	change('monitorSensorType3', 'nodePlace3', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
+	change('monitorSensorType4', 'nodePlace4', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
+	change('monitorSensorType5', 'nodePlace5', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
 
 	// 导出
 	var EXPORT_PAGE_SIZE = 10000;
@@ -313,7 +311,7 @@ define(function(require, exports, module) {
 
 	function exportExcel(buttonId, exportUrl, formId) {
 		$('#' + buttonId).click(function() {
-			window.open(exportUrl + Utils.form.buildParams(formId));
+			window.open(encodeURI(exportUrl + Utils.form.buildParams(formId)));
 		});
 	}
 
