@@ -35,6 +35,7 @@ public class UpdateController {
 
 	public static final String ROOT_UPDATE_PATH = "/WEB-INF/resources/update/";
 	public static final String RESOURCES_PATH = "/static-resources/update/";
+	public static final String VERSION_SEPARATE = "-";
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	@ResponseBody
@@ -48,21 +49,15 @@ public class UpdateController {
 
 		Path searchPath = Paths.get(httpSession.getServletContext().getRealPath(ROOT_UPDATE_PATH));
 
-		logger.debug("search:{}", prefix + "-*." + suffix);
-
-		UpdateFileVisitor visitor = new UpdateFileVisitor(prefix + "-*." + suffix);
+		UpdateFileVisitor visitor = new UpdateFileVisitor(prefix + VERSION_SEPARATE + "*." + suffix);
 		try {
 			Files.walkFileTree(searchPath, visitor);
 
 			long latestVersion = getLatestVersion(visitor.getList());
 			if (latestVersion != 0) {
-				StringBuilder stringBuilder = new StringBuilder("http://");
-				stringBuilder.append(httpServletRequest.getLocalAddr());
-				stringBuilder.append(":");
-				stringBuilder.append(httpServletRequest.getLocalPort());
-				stringBuilder.append(RESOURCES_PATH);
+				StringBuilder stringBuilder = new StringBuilder(RESOURCES_PATH);
 				stringBuilder.append(prefix);
-				stringBuilder.append("-");
+				stringBuilder.append(VERSION_SEPARATE);
 				stringBuilder.append(latestVersion);
 				stringBuilder.append(".");
 				stringBuilder.append(suffix);
@@ -87,15 +82,14 @@ public class UpdateController {
 		for (Path file : paths) {
 			String fileName = file.toFile().getName();
 
-			if (fileName.matches(".*\\-{1}\\d+\\.{1}\\w+")) {
-				long currentVersion = Long.parseLong(fileName.split("\\-")[1].split("\\.")[0]);
+			if (fileName.matches(".*\\" + VERSION_SEPARATE + "{1}\\d+\\.{1}\\w+")) {
+				long currentVersion = Long.parseLong(fileName.split("\\" + VERSION_SEPARATE)[1].split("\\.")[0]);
 
 				if (currentVersion > latestVersion) {
 					latestVersion = currentVersion;
 				}
 			}
 		}
-		logger.debug("version:{}", latestVersion);
 
 		return latestVersion;
 	}

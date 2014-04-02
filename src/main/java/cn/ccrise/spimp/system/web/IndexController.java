@@ -22,6 +22,11 @@ public class IndexController {
 		return "auto/index";
 	}
 
+	@RequestMapping(value = "/3d.html", method = RequestMethod.GET)
+	public String dd() {
+		return "3d/3d";
+	}
+
 	// 三维综合管理
 	@RequestMapping(value = "/3d", method = RequestMethod.GET)
 	public String ddd() {
