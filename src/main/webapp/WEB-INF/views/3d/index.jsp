@@ -212,22 +212,24 @@
 		seajs.use('${resources}/scripts/app/3d/index');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
-	    console.log("ObjectSelected:"+id+"  "+name);
 	    var infos=WebMineSystem.GetObjProperty(id,"");
-	    console.log(infos);
-	    var temp=null;
-		eval("var temp="+infos);
+	    var temp=$.parseJSON(infos);
 	    callbackClt.showObjectInfo(temp);
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
-        console.log(evt);
 	    var jsonData=JSON.parse(evt);
-	    console.log(jsonData);
 	    callbackClt.test(jsonData);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
-	    //alert('load');
-	    WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
+	    define(function(require, exports, module) {
+			var $ = require('kjquery');
+			$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+				var paths = data.data.split('/');
+				WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+				WebMineSystem.LoadProjectFile(paths[3]);
+			});
+	        //WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
+		});
     </SCRIPT>
 </body>
 </html>

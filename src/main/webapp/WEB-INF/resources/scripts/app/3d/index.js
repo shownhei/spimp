@@ -166,8 +166,7 @@ define(function(require, exports, module) {
 	    }else{
 	    	resultData=WebMineSystem.FuzzyQuery('巷道');
 	    }
-		var temp=null;
-		eval("var temp="+resultData);
+		var temp=$.parseJSON( resultData );
 		window.callbackClt.test(temp);
 	});
 	resize();
