@@ -1,21 +1,27 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
 	window.$=$;
-	
 	function resize() {
 		var toolBar=42;//1
 		var controlBarWidth=$('#control-bar').width();//2
 		var controlDiv=$('#layer-control-div');
+		console.log(controlDiv.is(":hidden"));
 		var controlWidth=controlDiv.is(":hidden")?0:controlDiv.width();//3
 		var tabHeight = $(window).height() - 170;
 		$('div[class*="tab-pane"]').filter('div[data-level="first"]').css({
 			'max-height' : tabHeight + 'px',
 			'height' : tabHeight + 'px'
 		});
-		$('#WebMineSystem').height($(window).height() - 90);
+		var mainHeight=$(window).height() - 90;
+		$('#WebMineSystem').height(mainHeight);
 		var newWidth=$(window).width() -toolBar-controlBarWidth-controlWidth;
 		$('#WebMineSystem').width(newWidth);
+		$('#control-bar').height(mainHeight);
+		var paddingTop=($(window).height() - 90)/2;
+		$('#control-bar').height(mainHeight);
+		console.log(newWidth+" "+controlBarWidth+" " +controlWidth);
 	}
+	$('.ace-settings-container').css({'top':'41px'});
 	window.onresize = resize;
 
 	/**
@@ -148,17 +154,76 @@ define(function(require, exports, module) {
 			$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
 		}
 	});
-	resize();
 	$('#control-bar').height($(window).height() - 95);
 	$('#control-bar').click(function() {
 		$('#layer-control-div').toggleClass('open');
 		resize();
 	});
-	$('#water').click(function(){
-		WebMineSystem.LocationObject("主水仓");
+	$('#nav-search-button').click(function(){
+		var resultData=null;
+		if($('#nav-search-input').val()){
+			resultData=WebMineSystem.FuzzyQuery($('#nav-search-input').val());
+	    }else{
+	    	resultData=WebMineSystem.FuzzyQuery('巷道');
+	    }
+		var temp=null;
+		eval("var temp="+resultData);
+		window.callbackClt.test(temp);
 	});
-	$('#sendMessage').click(function(){
-		WebMineSystem.SendMsg("三维数字矿山");  
-	});
-	
+	resize();
+	var callbackClt={};
+	callbackClt.global={};//全局
+	//加载dxf等格式
+	callbackClt.global.load=function(){
+		
+	};
+	callbackClt.config={};//设置相关
+	//设置相关--连接数据库
+	callbackClt.config.connectDB=function(_jsonData){
+		
+	};
+	callbackClt.tool={};//工具
+	callbackClt.create={};//创建
+	callbackClt.control={};//操作
+	callbackClt.query={};//查询
+	callbackClt.showObjectInfo=function(_jsonData){
+		var data=[];
+		var groupIndex=0;
+		for(var key in _jsonData){
+			 var groupRaw={};
+			 groupRaw.groupCode=groupIndex++;
+			 groupRaw.groupName=key;
+			 var group=_jsonData[key];
+			 var childrenArray=[];
+			 var j=0;
+			 for(var keyj in group){
+				 var child={};
+				 child.childCode=j++;
+				 child.childName=keyj;
+				 child.childValue=group[keyj];
+				 childrenArray.push(child);
+			 }
+			 groupRaw.children=childrenArray;
+			 data.push(groupRaw);
+		 }
+		var template = Handlebars.compile($('#objectinfo-template').html());
+		var html = template({"result":data});
+		$('#object').html(html);
+	};
+	callbackClt.test=function(_jsonData){
+		 var i=0;
+		 var data=[];
+		 for(var key in _jsonData){
+			 var raw={};
+			 raw.typeCode=i++;
+			 raw.typeName=key;
+			 raw.children=_jsonData[key];
+			 raw.count=raw.children.length;
+			 data.push(raw);
+		 }
+		var template = Handlebars.compile($('#queryresult-template').html());
+		var html = template({"result":data});
+		$('#object').html(html);
+	};
+	window.callbackClt=callbackClt;
 });
