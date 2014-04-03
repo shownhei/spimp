@@ -8,10 +8,10 @@
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
 <script id="objectinfo-template" type="text/x-handlebars-template">
-<div id="queryresult-template" class="accordion-style1 panel-group">
+<div id="queryresult-template" class="accordion-style1">
 {{#each result}}
    <div class="panel panel-default ">
-        <div class="panel-heading">
+        <div class="panel-heading ">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{groupName}}</a>
             </h4>
@@ -33,10 +33,10 @@
 
 </script>
 <script id="queryresult-template" type="text/x-handlebars-template">
-<div id="queryresult-template" class="accordion-style1 panel-group">
+<div id="queryresult-template" class="accordion-style1">
 {{#each result}}
-   <div class="panel panel-default">
-        <div class="panel-heading">
+   <div class="panel panel-default ">
+        <div class="panel-heading profile-info-name">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{typeName}}({{count}})</a>
             </h4>
@@ -111,7 +111,6 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200"></object>
-						<!--img id="wgl" src="${resources}/images/3d/capture/主界面.png" style="width: 100%"-->
 					</div>
 				</div>
 			</div>
@@ -179,25 +178,25 @@
 						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('工业广场');">
 									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">工业广场</span></a>
 								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('工作面');">
 									<img src="${resources}/images/3d/viewpoint/2.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">工作面</span></a>
 								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('水泵房');">
 									<img src="${resources}/images/3d/viewpoint/3.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">水泵房</span></a>
 								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('变电所');">
 									<img src="${resources}/images/3d/viewpoint/4.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">变电所</span></a>
 								</div>
 							</div>
 							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('通风机房');">
 									<img src="${resources}/images/3d/viewpoint/5.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">通风机房</span></a>
 								</div>
@@ -217,19 +216,28 @@
 	    callbackClt.showObjectInfo(temp);
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
-	    var jsonData=JSON.parse(evt);
+	    var jsonData=$.parseJSON(evt);
 	    callbackClt.test(jsonData);
+    </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
+        var objInfo=_SelectedObjs;
+        for(var key in objInfo){
+			 console.log(key+":"+objInfo[key]);
+		 }
+        console.log(_SelectedObjs);
+        console.log(_SelectedObjsCount);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
 	    define(function(require, exports, module) {
 			var $ = require('kjquery');
-			$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+			/*$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
 				var paths = data.data.split('/');
 				WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
 				WebMineSystem.LoadProjectFile(paths[3]);
-			});
-	        //WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
+			});*/
+	        
 		});
+	    WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
     </SCRIPT>
 </body>
 </html>
