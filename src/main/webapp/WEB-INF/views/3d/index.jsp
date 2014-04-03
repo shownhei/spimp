@@ -7,6 +7,51 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+<script id="objectinfo-template" type="text/x-handlebars-template">
+<div id="queryresult-template" class="accordion-style1 panel-group">
+{{#each result}}
+   <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{groupName}}</a>
+            </h4>
+        </div>
+        <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
+           
+              <table class="table table-striped table-bordered table-hover">
+              <thead><tr><th>名称</th><th class="hidden-480">参数</th></tr></thead>
+              <tbody>
+              {{#each children}}
+              <tr><td><a href="#">{{childName}}</a></td><td>{{childValue}}</td></tr>
+              {{/each}}
+              </tbody></table>
+            
+        </div>
+    </div>
+{{/each}}
+</div>
+
+</script>
+<script id="queryresult-template" type="text/x-handlebars-template">
+<div id="queryresult-template" class="accordion-style1 panel-group">
+{{#each result}}
+   <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{typeName}}({{count}})</a>
+            </h4>
+        </div>
+        <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
+            {{#each children}}
+            <div class="panel-body">
+              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
+             </div>
+            {{/each}}
+        </div>
+    </div>
+{{/each}}
+</div>
+</script>
 </head>
 <body class="navbar-fixed">
 	<%@ include file="navbar.jsp"%>
@@ -51,14 +96,6 @@
 						<i class="icon-puzzle-piece"></i>
 						<span>应急资源</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="应急资源.jpg" id="water">
-						<i class="icon-puzzle-piece"></i>
-						<span>主水仓</span>
-					</button>
-					<button class="btn btn-small btn-info" data-image="应急资源.jpg" id="sendMessage">
-						<i class="icon-puzzle-piece"></i>
-						<span>发消息</span>
-					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
@@ -73,14 +110,14 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12">
-						<object id="WebMineSystem" classid="CLSID:95EE964E-4A33-423A-9DED-3D81BBE20D66" height="500" width="500"></object>
+						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200"></object>
 						<!--img id="wgl" src="${resources}/images/3d/capture/主界面.png" style="width: 100%"-->
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="layer-control" class="ace-settings-container">
-		    <a id="control-bar" href="javascript:void(0);" style="display:block;width:15px;height:40px;background-color:white;float:left;" >a</a>
+		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:20px;height:40px;background-color:white;float:left;" ></a>
 			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
 				<div class="tabbable" style="margin-top: 0; background-color: #c5d0dc">
 					<ul class="nav nav-tabs padding-12 tab-color-blue background-blue">
@@ -106,12 +143,12 @@
 						<div id="layer" data-level="first" class="tab-pane active">
 							<div id="layer-tree" class="ztree"></div>
 						</div>
-						<div id="object" data-level="first" class="tab-pane">
+						<div id="object" data-level="first" class="tab-pane col-sm-6 accordion-style1">
 							<div class="well">
 								<h4 class="green smaller lighter">对象信息</h4>
 								返回在三维场景中选中的设备信息。
 							</div>
-							<div class="profile-user-info profile-user-info-striped" style="margin: 0">
+							<div id="object-infopanel" class="profile-user-info profile-user-info-striped accordion-style1" style="margin: 0">
 								<div class="profile-info-row">
 									<div class="profile-info-name">ID</div>
 									<div class="profile-info-value">
@@ -142,27 +179,27 @@
 						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">
-								<div class="span3">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
 									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">工业广场</span>
+									<span style="font-size: 11px">工业广场</span></a>
 								</div>
-								<div class="span3">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
 									<img src="${resources}/images/3d/viewpoint/2.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">工作面</span>
+									<span style="font-size: 11px">工作面</span></a>
 								</div>
-								<div class="span3">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
 									<img src="${resources}/images/3d/viewpoint/3.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">水泵房</span>
+									<span style="font-size: 11px">水泵房</span></a>
 								</div>
-								<div class="span3">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
 									<img src="${resources}/images/3d/viewpoint/4.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">变电所</span>
+									<span style="font-size: 11px">变电所</span></a>
 								</div>
 							</div>
 							<div class="row-fluid">
-								<div class="span3">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
 									<img src="${resources}/images/3d/viewpoint/5.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">通风机房</span>
+									<span style="font-size: 11px">通风机房</span></a>
 								</div>
 							</div>
 						</div>
@@ -174,5 +211,23 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/3d/index');
 	</script>
+	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
+	    console.log("ObjectSelected:"+id+"  "+name);
+	    var infos=WebMineSystem.GetObjProperty(id,"");
+	    console.log(infos);
+	    var temp=null;
+		eval("var temp="+infos);
+	    callbackClt.showObjectInfo(temp);
+    </SCRIPT>
+	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
+        console.log(evt);
+	    var jsonData=JSON.parse(evt);
+	    console.log(jsonData);
+	    callbackClt.test(jsonData);
+    </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
+	    //alert('load');
+	    WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
+    </SCRIPT>
 </body>
 </html>
