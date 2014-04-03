@@ -200,7 +200,7 @@ define(function(require, exports, module) {
 		// 重新计算表格行数
 		pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
-		// 初始化grid的url，type不同
+		// 初始化grid的url
 		gridUrl1 = contextPath + '/monitor/alarm-datas?orderBy=id&order=desc&pageSize=' + pageSize;
 		gridUrl2 = contextPath + '/monitor/alarm-datas-statistic?orderBy=id&order=desc&pageSize=' + pageSize;
 		gridUrl3 = contextPath + '/monitor/real-datas?orderBy=id&order=desc&pageSize=' + pageSize;

@@ -148,7 +148,7 @@ define(function(require, exports, module) {
 		// 重新计算表格行数
 		pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
-		// 初始化grid的url，type不同
+		// 初始化grid的url
 		gridUrl1 = contextPath + '/location/location-areas?orderBy=id&order=desc&pageSize=' + pageSize;
 		gridUrl2 = contextPath + '/location/location-stations?orderBy=id&order=desc&pageSize=' + pageSize;
 		gridUrl3 = contextPath + '/location/location-staffs?orderBy=id&order=desc&pageSize=' + pageSize;
