@@ -208,6 +208,8 @@ define(function(require, exports, module) {
 		var template = Handlebars.compile($('#objectinfo-template').html());
 		var html = template({"result":data});
 		$('#object').html(html);
+		$('#info-tab').trigger('click');
+		
 	};
 	callbackClt.test=function(_jsonData){
 		 var i=0;
@@ -222,7 +224,7 @@ define(function(require, exports, module) {
 		 }
 		var template = Handlebars.compile($('#queryresult-template').html());
 		var html = template({"result":data});
-		$('#object').html(html);
+		$('#result').html(html);
 	};
 	window.callbackClt=callbackClt;
 });
