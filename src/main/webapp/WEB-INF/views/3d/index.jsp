@@ -7,6 +7,15 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+<script id="multipleObjectsSelected-template" type="text/x-handlebars-template">
+      <table class="table table-striped table-bordered table-hover">
+              <thead><tr><th style="width:40px;">id</th><th class="hidden-480">参数</th></tr></thead>
+              <tbody>
+              {{#each result}}
+              <tr><td>{{key}}</td><td><a href="javascript:void(0)" onclick="WebMineSystem.PositonByName('{{value}}');">{{value}}</a></td></tr>
+              {{/each}}
+              </tbody></table>
+</script>
 <script id="objectinfo-template" type="text/x-handlebars-template">
 <div id="objectinfo-template" class="accordion-style1">
 {{#each result}}
@@ -22,7 +31,7 @@
               <thead><tr><th style="width:40px;">名称</th><th class="hidden-480">参数</th></tr></thead>
               <tbody>
               {{#each children}}
-              <tr><td><a href="#">{{childName}}</a></td><td>{{childValue}}</td></tr>
+              <tr><td>{{childName}}</td><td>{{childValue}}</td></tr>
               {{/each}}
               </tbody></table>
             
@@ -217,12 +226,7 @@
 	    callbackClt.test(jsonData);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
-        var objInfo=_SelectedObjs;
-        for(var key in objInfo){
-			 console.log(key+":"+objInfo[key]);
-		 }
-        console.log(_SelectedObjs);
-        console.log(_SelectedObjsCount);
+        callbackClt.multipleObjectsSelected(_SelectedObjs);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
 	    define(function(require, exports, module) {

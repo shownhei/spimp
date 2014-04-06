@@ -184,7 +184,19 @@ define(function(require, exports, module) {
 	callbackClt.tool={};//工具
 	callbackClt.create={};//创建
 	callbackClt.control={};//操作
-	callbackClt.query={};//查询
+	callbackClt.multipleObjectsSelected=function(_SelectedObjs,_SelectedObjsCount){
+		var jsonData=$.parseJSON(_SelectedObjs);
+		var result=[];
+		for(var key in jsonData){
+			if(jsonData[key]){
+				result.push({'key':key,'value':jsonData[key]});
+			}
+		 }
+		var template = Handlebars.compile($('#multipleObjectsSelected-template').html());
+		var html = template({"result":result});
+		$('#result').html(html);
+		$('#result-tab').trigger('click');
+	};//查询
 	callbackClt.showObjectInfo=function(_jsonData){
 		var data=[];
 		var groupIndex=0;
