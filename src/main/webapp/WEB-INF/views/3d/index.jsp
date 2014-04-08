@@ -9,10 +9,10 @@
 <%@ include file="../common/template.jsp"%>
 <script id="multipleObjectsSelected-template" type="text/x-handlebars-template">
       <table class="table table-striped table-bordered table-hover">
-              <thead><tr><th style="width:40px;">id</th><th class="hidden-480">参数</th></tr></thead>
+              <thead><tr><th class="hidden-480">名称</th></tr></thead>
               <tbody>
               {{#each result}}
-              <tr><td>{{key}}</td><td><a href="javascript:void(0)" onclick="WebMineSystem.PositonByName('{{value}}');">{{value}}</a></td></tr>
+              <tr><td><a href="javascript:void(0)" onclick="WebMineSystem.PositonByName('{{value}}');">{{value}}</a></td></tr>
               {{/each}}
               </tbody></table>
 </script>
@@ -50,7 +50,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{typeName}}({{count}})</a>
             </h4>
         </div>
-        <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
+        <div class="panel-collapse in collapse" id="collapse{{@index}}" style="height: auto;">
             {{#each children}}
             <div class="panel-body">
               <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
@@ -231,14 +231,14 @@
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
 	    define(function(require, exports, module) {
 			var $ = require('kjquery');
-			/*$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+			$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
 				var paths = data.data.split('/');
 				WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
 				WebMineSystem.LoadProjectFile(paths[3]);
-			});*/
-	        
+				var result=WebMineSystem.GetAllLayers();
+				initLayerTree(result);
+			});
 		});
-	    WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
     </SCRIPT>
 </body>
 </html>

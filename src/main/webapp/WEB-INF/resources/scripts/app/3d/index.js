@@ -54,6 +54,50 @@ define(function(require, exports, module) {
 		}
 	}
 
+	var initLayerTree=function(zNodes){
+		var array=$.parseJSON(zNodes);
+		var children=[];
+		var id=1;
+		for(var key in array){
+			 var raw=array[key];
+			 raw.id=id++;
+			 raw.iconOpen = resources + "/images/icons/chart_organisation.png";
+			 raw.iconClose = resources + "/images/icons/chart_organisation.png";
+			 raw.checked=null;
+			 raw.name=raw.Name;
+			 raw.pId=-1;
+			 children.push(raw);
+		 }
+		var result={id:"-1",name:"王庄煤业","pId":0,open:true,children:children};
+		
+		var setting = {
+				check : {
+					enable : true
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				callback :{
+					onClick :  function(event, treeId, treeNode, clickFlag) {
+					   var groupTree = $.fn.zTree.getZTreeObj(treeId);
+					},
+					onCheck:function(event, treeId, treeNode){
+						if(!(treeNode.children)){
+							if(treeNode.checked){
+								WebMineSystem.SetLayerOn(treeNode.name);
+							}else{
+								WebMineSystem.SetLayerOFF(treeNode.name);
+							}
+						}
+					}
+				}
+		};
+		$.fn.zTree.init($("#layer-tree"), setting, result);
+	};
+	window.initLayerTree=initLayerTree;
+	/*
 	// 机构树配置
 	var layerTreeSetting = {
 		view : {
@@ -92,8 +136,8 @@ define(function(require, exports, module) {
 		}
 	};
 
-	var layerTree = $.fn.zTree.init($('#layer-tree'), layerTreeSetting);
-
+	var layerTree = $.fn.zTree.init($('#layer-tree'), layerTreeSetting);*/
+    
 	$('button[data-image],a[data-image]').click(function() {
 		if ($(this).data('type') !== undefined) {
 			switch ($(this).data('type')) {
