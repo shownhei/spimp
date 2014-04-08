@@ -7,6 +7,19 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+
+<script id="allCameraViews-template" type="text/x-handlebars-template">
+    {{#each result}}
+        <div class="row-fluid">
+               {{#each children}}
+        		<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('{{name}}');">
+        			<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
+	        		<span style="font-size: 11px">{{name}}</span></a>
+	        	</div>
+               {{/each}}
+        </div>
+    {{/each}}
+</script>
 <script id="multipleObjectsSelected-template" type="text/x-handlebars-template">
       <table class="table table-striped table-bordered table-hover">
               <thead><tr><th class="hidden-480">名称</th></tr></thead>
@@ -236,7 +249,10 @@
 				WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
 				WebMineSystem.LoadProjectFile(paths[3]);
 				var result=WebMineSystem.GetAllLayers();
+				console.log(paths[3]);
+				alert(paths[3]);
 				initLayerTree(result);
+				callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
 			});
 		});
     </SCRIPT>

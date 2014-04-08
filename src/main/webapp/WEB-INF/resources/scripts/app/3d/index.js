@@ -226,7 +226,27 @@ define(function(require, exports, module) {
 		
 	};
 	callbackClt.tool={};//工具
-	callbackClt.create={};//创建
+	//所有的试点相机
+	callbackClt.onGetAllCameraViews=function(_jsonData){
+		var array=$.parseJSON(_jsonData);
+		var result=[];
+		var group=[];
+		var index=0;
+		for(var key in array){
+			if(index%4==0){
+				group=[];
+				result.push({children:group});
+			}
+			index+=1;
+			var raw=array[key];
+			raw.id=raw.ID;
+			raw.name=raw.名称;
+			group.push(raw);
+		}
+		var template = Handlebars.compile($('#allCameraViews-template').html());
+		var html = template({"result":result});
+		$('#viewpoint').html(html);
+	};
 	callbackClt.control={};//操作
 	callbackClt.multipleObjectsSelected=function(_SelectedObjs,_SelectedObjsCount){
 		var jsonData=$.parseJSON(_SelectedObjs);
