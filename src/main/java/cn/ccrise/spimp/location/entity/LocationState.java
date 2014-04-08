@@ -1,8 +1,6 @@
 package cn.ccrise.spimp.location.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
 
@@ -13,8 +11,8 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * 
  * @author Jackie Tsui
  */
-@Entity
-@Table(name = "m_state")
+// @Entity
+// @Table(name = "m_state")
 public class LocationState extends IDEntity {
 	/**
 	 * 状态编号

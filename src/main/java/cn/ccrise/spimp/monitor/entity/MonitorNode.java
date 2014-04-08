@@ -6,6 +6,7 @@ package cn.ccrise.spimp.monitor.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,7 +16,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
-import cn.ccrise.spimp.system.entity.PositionEntity;
+import cn.ccrise.spimp.monitor.entity.id.MineIdNodeId;
 
 /**
  * 监测监控测点的基本和实时信息.
@@ -25,16 +26,12 @@ import cn.ccrise.spimp.system.entity.PositionEntity;
  */
 @Entity
 @Table(name = "k_node")
-public class MonitorNode extends PositionEntity {
+public class MonitorNode {
+	private MineIdNodeId id; // 复合主键
 	/**
-	 * 系统数据id
+	 * 煤矿名称
 	 */
-	private String sysId;
-
-	/**
-	 * 节点id(测点编号)
-	 */
-	private String nodeId;
+	private String mineName;
 
 	/**
 	 * 节点位置(安装位置)
@@ -276,16 +273,6 @@ public class MonitorNode extends PositionEntity {
 	 */
 	private String sysType;
 
-	/**
-	 * 煤矿编号
-	 */
-	private String mineId;
-
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
-
 	@Column(name = "alaavgdata")
 	public Double getAlaAvgData() {
 		return alaAvgData;
@@ -456,6 +443,11 @@ public class MonitorNode extends PositionEntity {
 		return hResetValue;
 	}
 
+	@EmbeddedId
+	public MineIdNodeId getId() {
+		return id;
+	}
+
 	@Column(name = "isvalid")
 	public Boolean getIsValid() {
 		return isValid;
@@ -476,19 +468,9 @@ public class MonitorNode extends PositionEntity {
 		return lResetValue;
 	}
 
-	@Column(name = "mineid")
-	public String getMineId() {
-		return mineId;
-	}
-
 	@Transient
 	public String getMineName() {
 		return mineName;
-	}
-
-	@Column(name = "nodeid")
-	public String getNodeId() {
-		return nodeId;
 	}
 
 	@Column(name = "nodememo")
@@ -529,11 +511,6 @@ public class MonitorNode extends PositionEntity {
 	@Column(name = "stationid")
 	public String getStationId() {
 		return stationId;
-	}
-
-	@Column(name = "sysid")
-	public String getSysId() {
-		return sysId;
 	}
 
 	@Column(name = "systype")
@@ -690,6 +667,10 @@ public class MonitorNode extends PositionEntity {
 		this.hResetValue = hResetValue;
 	}
 
+	public void setId(MineIdNodeId id) {
+		this.id = id;
+	}
+
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
 	}
@@ -706,16 +687,8 @@ public class MonitorNode extends PositionEntity {
 		this.lResetValue = lResetValue;
 	}
 
-	public void setMineId(String mineId) {
-		this.mineId = mineId;
-	}
-
 	public void setMineName(String mineName) {
 		this.mineName = mineName;
-	}
-
-	public void setNodeId(String nodeId) {
-		this.nodeId = nodeId;
 	}
 
 	public void setNodeMemo(String nodeMemo) {
@@ -748,10 +721,6 @@ public class MonitorNode extends PositionEntity {
 
 	public void setStationId(String stationId) {
 		this.stationId = stationId;
-	}
-
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
 	}
 
 	public void setSysType(String sysType) {

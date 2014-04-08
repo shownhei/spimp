@@ -3,6 +3,7 @@ package cn.ccrise.spimp.location.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -10,9 +11,9 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.location.entity.id.MineIdAreaId;
 
 /**
  * PositionArea
@@ -23,11 +24,13 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  */
 @Entity
 @Table(name = "m_area")
-public class LocationArea extends IDEntity {
+public class LocationArea {
+	private MineIdAreaId id; // 复合主键
+
 	/**
-	 * 区域id
+	 * 煤矿名称
 	 */
-	private String areaId;
+	private String mineName;
 
 	/**
 	 * 区域名称
@@ -73,12 +76,8 @@ public class LocationArea extends IDEntity {
 	 * 数据采集软件更新标志，1为有效
 	 */
 	private Boolean bUpdate;
-	private String typeString;
 
-	@Column(name = "areaid")
-	public String getAreaId() {
-		return areaId;
-	}
+	private String typeString;
 
 	@Column(name = "areaname")
 	public String getAreaName() {
@@ -97,7 +96,7 @@ public class LocationArea extends IDEntity {
 		return createTime;
 	}
 
-	@Column(name = "curpersonnum")
+	@Transient
 	public Integer getCurPersonNum() {
 		return curPersonNum;
 	}
@@ -107,9 +106,19 @@ public class LocationArea extends IDEntity {
 		return fixedPersons;
 	}
 
+	@EmbeddedId
+	public MineIdAreaId getId() {
+		return id;
+	}
+
 	@Column(name = "isvalid")
 	public Boolean getIsValid() {
 		return isValid;
+	}
+
+	@Transient
+	public String getMineName() {
+		return mineName;
 	}
 
 	@Column(name = "pos")
@@ -132,10 +141,6 @@ public class LocationArea extends IDEntity {
 		return typeString;
 	}
 
-	public void setAreaId(String areaId) {
-		this.areaId = areaId;
-	}
-
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
@@ -156,8 +161,16 @@ public class LocationArea extends IDEntity {
 		this.fixedPersons = fixedPersons;
 	}
 
+	public void setId(MineIdAreaId id) {
+		this.id = id;
+	}
+
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
+	}
+
+	public void setMineName(String mineName) {
+		this.mineName = mineName;
 	}
 
 	public void setPos(String pos) {

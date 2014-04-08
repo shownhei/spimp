@@ -4,6 +4,7 @@
 package cn.ccrise.spimp.electr.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -70,6 +71,7 @@ public class MaterialsPlanDetail extends IDEntity {
 	}
 
 	@ManyToOne
+	@JoinColumn(name = "materials_plan")
 	public MaterialsPlan getPlan() {
 		return plan;
 	}

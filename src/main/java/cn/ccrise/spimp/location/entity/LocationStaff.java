@@ -3,6 +3,7 @@ package cn.ccrise.spimp.location.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -10,9 +11,9 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.location.entity.id.MineIdStaffId;
 
 /**
  * PositionStaff
@@ -23,12 +24,12 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  */
 @Entity
 @Table(name = "m_staff")
-public class LocationStaff extends IDEntity {
-
+public class LocationStaff {
+	private MineIdStaffId id; // 复合主键
 	/**
-	 * 员工id
+	 * 煤矿名称
 	 */
-	private String staffId;
+	private String mineName;
 
 	/**
 	 * 员工姓名
@@ -109,6 +110,7 @@ public class LocationStaff extends IDEntity {
 	 * 入井时间
 	 */
 	private Timestamp inMineTime;
+
 	private String stateString;
 
 	@Column(name = "birthday")
@@ -148,6 +150,11 @@ public class LocationStaff extends IDEntity {
 		return department;
 	}
 
+	@EmbeddedId
+	public MineIdStaffId getId() {
+		return id;
+	}
+
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	@Column(name = "indatatime")
@@ -177,6 +184,11 @@ public class LocationStaff extends IDEntity {
 		return jobType;
 	}
 
+	@Transient
+	public String getMineName() {
+		return mineName;
+	}
+
 	@Column(name = "name")
 	public String getName() {
 		return name;
@@ -185,11 +197,6 @@ public class LocationStaff extends IDEntity {
 	@Column(name = "sex")
 	public String getSex() {
 		return sex;
-	}
-
-	@Column(name = "staffid")
-	public String getStaffId() {
-		return staffId;
 	}
 
 	@Column(name = "state")
@@ -235,6 +242,10 @@ public class LocationStaff extends IDEntity {
 		this.department = department;
 	}
 
+	public void setId(MineIdStaffId id) {
+		this.id = id;
+	}
+
 	public void setIndataTime(Timestamp indataTime) {
 		this.indataTime = indataTime;
 	}
@@ -255,16 +266,16 @@ public class LocationStaff extends IDEntity {
 		this.jobType = jobType;
 	}
 
+	public void setMineName(String mineName) {
+		this.mineName = mineName;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	public void setSex(String sex) {
 		this.sex = sex;
-	}
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
 	}
 
 	public void setState(Integer state) {

@@ -4,16 +4,18 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Index;
+import org.hibernate.annotations.GenericGenerator;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.MineIdAndName;
 
 /**
  * MonitorAlarm
@@ -24,12 +26,8 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  */
 @Entity
 @Table(name = "k_alarm")
-public class MonitorAlarm extends IDEntity {
-	/**
-	 * 系统数据id
-	 */
-	private String sysId;
-
+public class MonitorAlarm extends MineIdAndName {
+	private Long alarmId;
 	/**
 	 * 节点id
 	 */
@@ -135,15 +133,13 @@ public class MonitorAlarm extends IDEntity {
 	 */
 	private String timeDiff;
 
-	/**
-	 * 煤矿编号
-	 */
-	private String mineId;
-
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
+	@GeneratedValue(generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Id
+	@Column(name = "alarmid")
+	public Long getAlarmId() {
+		return alarmId;
+	}
 
 	@Transient
 	public Double getAlarmUpperValue() {
@@ -169,7 +165,6 @@ public class MonitorAlarm extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_alarm_etime")
 	@Column(name = "endtime")
 	public Timestamp getEndTime() {
 		return endTime;
@@ -204,16 +199,6 @@ public class MonitorAlarm extends IDEntity {
 		return minDataTime;
 	}
 
-	@Column(name = "mineid")
-	public String getMineId() {
-		return mineId;
-	}
-
-	@Transient
-	public String getMineName() {
-		return mineName;
-	}
-
 	@Column(name = "nodeid")
 	public String getNodeId() {
 		return nodeId;
@@ -241,7 +226,6 @@ public class MonitorAlarm extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_alarm_stime")
 	@Column(name = "starttime")
 	public Timestamp getStartTime() {
 		return startTime;
@@ -257,11 +241,6 @@ public class MonitorAlarm extends IDEntity {
 		return stateName;
 	}
 
-	@Column(name = "sysid")
-	public String getSysId() {
-		return sysId;
-	}
-
 	@Transient
 	public String getTimeDiff() {
 		return timeDiff;
@@ -275,6 +254,10 @@ public class MonitorAlarm extends IDEntity {
 	@Column(name = "totreccount")
 	public Long getTotRecCount() {
 		return totRecCount;
+	}
+
+	public void setAlarmId(Long alarmId) {
+		this.alarmId = alarmId;
 	}
 
 	public void setAlarmUpperValue(Double alarmUpperValue) {
@@ -317,14 +300,6 @@ public class MonitorAlarm extends IDEntity {
 		this.minDataTime = minDataTime;
 	}
 
-	public void setMineId(String mineId) {
-		this.mineId = mineId;
-	}
-
-	public void setMineName(String mineName) {
-		this.mineName = mineName;
-	}
-
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
@@ -355,10 +330,6 @@ public class MonitorAlarm extends IDEntity {
 
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
-	}
-
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
 	}
 
 	public void setTimeDiff(String timeDiff) {

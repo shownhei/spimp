@@ -4,8 +4,6 @@
 package cn.ccrise.spimp.location.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
 
@@ -14,8 +12,8 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-@Entity
-@Table(name = "m_troop")
+// @Entity
+// @Table(name = "m_troop")
 public class Troop extends IDEntity {
 	private String name;
 	private String startTime;

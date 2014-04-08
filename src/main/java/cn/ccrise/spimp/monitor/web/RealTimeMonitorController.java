@@ -85,8 +85,8 @@ public class RealTimeMonitorController {
 		Map<Integer, MonitorState> monitorStateCache = monitorStateService.getAllInstanceAsMap();
 		for (MonitorNode monitorNode : page.getResult()) {
 			ResponseDataFilter.filter(monitorNode, monitorStateCache, monitorSensorTypeCache);
-			if (monitorNode.getMineId() != null) {
-				monitorNode.setMineName(groupService.findUniqueBy("number", monitorNode.getMineId()).getName());
+			if (monitorNode.getId().getMineId() != null) {
+				monitorNode.setMineName(groupService.findUniqueBy("number", monitorNode.getId().getMineId()).getName());
 			}
 		}
 

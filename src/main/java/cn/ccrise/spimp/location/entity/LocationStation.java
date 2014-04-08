@@ -3,6 +3,7 @@ package cn.ccrise.spimp.location.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -10,9 +11,9 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.location.entity.id.MineIdAreaIdStationId;
 
 /**
  * PositionStation
@@ -23,17 +24,12 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  */
 @Entity
 @Table(name = "m_station")
-public class LocationStation extends IDEntity {
-
+public class LocationStation {
+	private MineIdAreaIdStationId id;
 	/**
-	 * 区域id
+	 * 煤矿名称
 	 */
-	private String areaId;
-
-	/**
-	 * 基站id
-	 */
-	private String stationId;
+	private String mineName;
 
 	/**
 	 * 基站所在位置描述
@@ -44,6 +40,7 @@ public class LocationStation extends IDEntity {
 	 * 基站类型
 	 */
 	private Integer type;
+
 	/**
 	 * 分站当前人数
 	 */
@@ -68,13 +65,10 @@ public class LocationStation extends IDEntity {
 	 * 数据采集软件更新标志，1为有效
 	 */
 	private Boolean bUpdate;
-	private String sysType;
-	private String typeString;
 
-	@Column(name = "areaid")
-	public String getAreaId() {
-		return areaId;
-	}
+	private String sysType;
+
+	private String typeString;
 
 	@Column(name = "bupdate")
 	public Boolean getbUpdate() {
@@ -98,19 +92,24 @@ public class LocationStation extends IDEntity {
 		return dataTime;
 	}
 
+	@EmbeddedId
+	public MineIdAreaIdStationId getId() {
+		return id;
+	}
+
 	@Column(name = "isvalid")
 	public Boolean getIsValid() {
 		return isValid;
 	}
 
+	@Transient
+	public String getMineName() {
+		return mineName;
+	}
+
 	@Column(name = "pos")
 	public String getPos() {
 		return pos;
-	}
-
-	@Column(name = "stationid")
-	public String getStationId() {
-		return stationId;
 	}
 
 	@Column(name = "systype")
@@ -126,10 +125,6 @@ public class LocationStation extends IDEntity {
 	@Transient
 	public String getTypeString() {
 		return typeString;
-	}
-
-	public void setAreaId(String areaId) {
-		this.areaId = areaId;
 	}
 
 	public void setbUpdate(Boolean bUpdate) {
@@ -148,16 +143,20 @@ public class LocationStation extends IDEntity {
 		this.dataTime = dataTime;
 	}
 
+	public void setId(MineIdAreaIdStationId id) {
+		this.id = id;
+	}
+
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
 	}
 
-	public void setPos(String pos) {
-		this.pos = pos;
+	public void setMineName(String mineName) {
+		this.mineName = mineName;
 	}
 
-	public void setStationId(String stationId) {
-		this.stationId = stationId;
+	public void setPos(String pos) {
+		this.pos = pos;
 	}
 
 	public void setSysType(String sysType) {

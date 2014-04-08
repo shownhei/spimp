@@ -66,8 +66,9 @@ public class MonitorStationController {
 		monitorStationService.getPage(page, criterions.toArray(new Criterion[0]));
 
 		for (MonitorStation monitorStation : page.getResult()) {
-			if (monitorStation.getMineId() != null) {
-				monitorStation.setMineName(groupService.findUniqueBy("number", monitorStation.getMineId()).getName());
+			if (monitorStation.getId().getMineId() != null) {
+				monitorStation.setMineName(groupService.findUniqueBy("number", monitorStation.getId().getMineId())
+						.getName());
 			}
 		}
 

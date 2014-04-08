@@ -3,17 +3,17 @@ package cn.ccrise.spimp.monitor.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Index;
+import org.hibernate.annotations.GenericGenerator;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.MineIdAndName;
 
 /**
  * MonitorRealData
@@ -22,13 +22,10 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Entity
-@Table(name = "k_real_data_detail")
-public class MonitorRealData extends IDEntity {
-	/**
-	 * 系统数据id
-	 */
-	private String sysId;
+// @Entity
+// @Table(name = "k_realdata")
+public class MonitorRealData extends MineIdAndName {
+	private Long realId;
 
 	/**
 	 * 节点id
@@ -80,16 +77,6 @@ public class MonitorRealData extends IDEntity {
 	 */
 	private Timestamp createTime;
 
-	/**
-	 * 煤矿编号
-	 */
-	private String mineId;
-
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
-
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	@Column(name = "createtime")
@@ -99,7 +86,6 @@ public class MonitorRealData extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_realdata_time")
 	@Column(name = "datatime")
 	public Timestamp getDataTime() {
 		return dataTime;
@@ -108,16 +94,6 @@ public class MonitorRealData extends IDEntity {
 	@Column(name = "kdid")
 	public Integer getKdId() {
 		return kdId;
-	}
-
-	@Column(name = "mineid")
-	public String getMineId() {
-		return mineId;
-	}
-
-	@Transient
-	public String getMineName() {
-		return mineName;
 	}
 
 	@Column(name = "nodeid")
@@ -133,6 +109,14 @@ public class MonitorRealData extends IDEntity {
 	@Column(name = "realdata")
 	public Double getRealData() {
 		return realData;
+	}
+
+	@GeneratedValue(generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Id
+	@Column(name = "realid")
+	public Long getRealId() {
+		return realId;
 	}
 
 	@Transient
@@ -155,11 +139,6 @@ public class MonitorRealData extends IDEntity {
 		return stateName;
 	}
 
-	@Column(name = "sysid")
-	public String getSysId() {
-		return sysId;
-	}
-
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
@@ -172,14 +151,6 @@ public class MonitorRealData extends IDEntity {
 		this.kdId = kdId;
 	}
 
-	public void setMineId(String mineId) {
-		this.mineId = mineId;
-	}
-
-	public void setMineName(String mineName) {
-		this.mineName = mineName;
-	}
-
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
@@ -190,6 +161,10 @@ public class MonitorRealData extends IDEntity {
 
 	public void setRealData(Double realData) {
 		this.realData = realData;
+	}
+
+	public void setRealId(Long realId) {
+		this.realId = realId;
 	}
 
 	public void setSensorName(String sensorName) {
@@ -208,7 +183,4 @@ public class MonitorRealData extends IDEntity {
 		this.stateName = stateName;
 	}
 
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
-	}
 }

@@ -89,7 +89,8 @@ public class LocationStationController {
 		List<LocationStation> stations = Lists.newArrayList();
 		stations = page.getResult();
 		for (LocationStation station : stations) {
-			station.setCurPersonNum(locationStaffService.count(Restrictions.eq("curStationId", station.getStationId())));
+			station.setCurPersonNum(locationStaffService.count(Restrictions.eq("curStationId", station.getId()
+					.getStationId())));
 			station.setTypeString(stationMaps.get(station.getType()));
 		}
 		page.setResult(stations);

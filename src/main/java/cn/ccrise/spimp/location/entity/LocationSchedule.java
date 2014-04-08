@@ -2,9 +2,6 @@ package cn.ccrise.spimp.location.entity;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import cn.ccrise.ikjp.core.entity.IDEntity;
 
 /**
@@ -14,8 +11,8 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Entity
-@Table(name = "m_schedule")
+// @Entity
+// @Table(name = "m_schedule")
 public class LocationSchedule extends IDEntity {
 	/**
 	 * 带班日期

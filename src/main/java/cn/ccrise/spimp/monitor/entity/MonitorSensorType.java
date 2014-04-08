@@ -32,7 +32,7 @@ public class MonitorSensorType extends IDEntity {
 	 */
 	private String sensorUnit;
 
-	@Column(name = "sensortypeid", nullable = false, unique = true)
+	@Column(name = "sensortypeid")
 	public Integer getSensorTypeId() {
 		return sensorTypeId;
 	}

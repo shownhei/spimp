@@ -3,8 +3,6 @@ package cn.ccrise.spimp.location.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -21,8 +19,8 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * 
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
-@Entity
-@Table(name = "m_track_detail")
+// @Entity
+// @Table(name = "m_track_detail")
 public class LocationTrack extends IDEntity {
 
 	/**

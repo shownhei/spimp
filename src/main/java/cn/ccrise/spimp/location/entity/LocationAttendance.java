@@ -8,11 +8,10 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Index;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.MineIdAndNameWithId;
 
 /**
  * PositionAttendance
@@ -22,8 +21,8 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "m_attendance")
-public class LocationAttendance extends IDEntity {
+@Table(name = "m_kaoqininfo")
+public class LocationAttendance extends MineIdAndNameWithId {
 
 	/**
 	 * 员工id
@@ -42,7 +41,6 @@ public class LocationAttendance extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_m_attendance_etime")
 	@Column(name = "endtime")
 	public Timestamp getEndTime() {
 		return endTime;
@@ -55,7 +53,6 @@ public class LocationAttendance extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_m_attendance_stime")
 	@Column(name = "starttime")
 	public Timestamp getStartTime() {
 		return startTime;

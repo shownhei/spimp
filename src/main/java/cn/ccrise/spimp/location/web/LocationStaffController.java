@@ -214,15 +214,15 @@ public class LocationStaffController {
 		if (!Strings.isNullOrEmpty(department)) {
 			for (LocationStaff locationStaff : locationStaffService.findBy("department", department)) {
 				StaffSelect select = new StaffSelect();
-				select.setName(locationStaff.getName() + "|" + locationStaff.getStaffId());
-				select.setStaffId(locationStaff.getStaffId());
+				select.setName(locationStaff.getName() + "|" + locationStaff.getId().getStaffId());
+				select.setStaffId(locationStaff.getId().getStaffId());
 				lists.add(select);
 			}
 		} else {
 			for (LocationStaff locationStaff : locationStaffService.getAll()) {
 				StaffSelect select = new StaffSelect();
-				select.setName(locationStaff.getName() + "|" + locationStaff.getStaffId());
-				select.setStaffId(locationStaff.getStaffId());
+				select.setName(locationStaff.getName() + "|" + locationStaff.getId().getStaffId());
+				select.setStaffId(locationStaff.getId().getStaffId());
 				lists.add(select);
 			}
 		}

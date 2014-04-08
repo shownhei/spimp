@@ -4,16 +4,17 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Index;
+import org.hibernate.annotations.GenericGenerator;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.MineIdAndName;
 
 /**
  * MonitorValueChange
@@ -23,12 +24,9 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "k_value_change")
-public class MonitorValueChange extends IDEntity {
-	/**
-	 * 系统数据id
-	 */
-	private String sysId;
+@Table(name = "k_valchange")
+public class MonitorValueChange extends MineIdAndName {
+	private Long staChangeId;
 
 	/**
 	 * 节点id
@@ -70,16 +68,6 @@ public class MonitorValueChange extends IDEntity {
 	 */
 	private Timestamp createtime;
 
-	/**
-	 * 煤矿编号
-	 */
-	private String mineId;
-
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
-
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
 	@Column(name = "createtime")
@@ -89,20 +77,9 @@ public class MonitorValueChange extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_value_change_etime")
 	@Column(name = "endtime")
 	public Timestamp getEndTime() {
 		return endTime;
-	}
-
-	@Column(name = "mineid")
-	public String getMineId() {
-		return mineId;
-	}
-
-	@Transient
-	public String getMineName() {
-		return mineName;
 	}
 
 	@Column(name = "nodeid")
@@ -130,17 +107,19 @@ public class MonitorValueChange extends IDEntity {
 		return sensorTypeId;
 	}
 
+	@GeneratedValue(generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Id
+	@Column(name = "stachangeid")
+	public Long getStaChangeId() {
+		return staChangeId;
+	}
+
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_value_change_stime")
 	@Column(name = "starttime")
 	public Timestamp getStartTime() {
 		return startTime;
-	}
-
-	@Column(name = "sysid")
-	public String getSysId() {
-		return sysId;
 	}
 
 	public void setCreatetime(Timestamp createtime) {
@@ -149,14 +128,6 @@ public class MonitorValueChange extends IDEntity {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
-	}
-
-	public void setMineId(String mineId) {
-		this.mineId = mineId;
-	}
-
-	public void setMineName(String mineName) {
-		this.mineName = mineName;
 	}
 
 	public void setNodeId(String nodeId) {
@@ -179,11 +150,11 @@ public class MonitorValueChange extends IDEntity {
 		this.sensorTypeId = sensorTypeId;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setStaChangeId(Long staChangeId) {
+		this.staChangeId = staChangeId;
 	}
 
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
 }

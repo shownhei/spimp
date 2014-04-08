@@ -70,7 +70,7 @@ public class MonitorState extends IDEntity {
 		return stateColor;
 	}
 
-	@Column(name = "stateid", nullable = false, unique = true)
+	@Column(name = "stateid")
 	public Integer getStateId() {
 		return stateId;
 	}

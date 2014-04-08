@@ -4,16 +4,17 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Index;
+import org.hibernate.annotations.GenericGenerator;
 
-import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
+import cn.ccrise.spimp.system.entity.MineIdAndName;
 
 /**
  * MonitorFiveMinutesData
@@ -23,13 +24,9 @@ import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
  * @author Panfeng Niu(david.kosoon@gmail.com)
  */
 @Entity
-@Table(name = "k_five_minute_data")
-public class MonitorFiveMinutesData extends IDEntity {
-	/**
-	 * 系统数据id
-	 */
-	private String sysId;
-
+@Table(name = "k_fiveminutedata")
+public class MonitorFiveMinutesData extends MineIdAndName {
+	private Long fiveMinuteDataId;
 	/**
 	 * 节点id
 	 */
@@ -95,16 +92,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 	 */
 	private Timestamp createtime;
 
-	/**
-	 * 煤矿编号
-	 */
-	private String mineId;
-
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
-
 	@Column(name = "avgdata")
 	public Double getAvgData() {
 		return avgData;
@@ -124,6 +111,14 @@ public class MonitorFiveMinutesData extends IDEntity {
 		return dataTime;
 	}
 
+	@GeneratedValue(generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
+	@Id
+	@Column(name = "fiveminutedataid")
+	public Long getFiveMinuteDataId() {
+		return fiveMinuteDataId;
+	}
+
 	@Column(name = "maxdata")
 	public Double getMaxData() {
 		return maxData;
@@ -131,7 +126,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 
 	@JsonSerialize(using = JsonTimeSerializer.class)
 	@JsonDeserialize(using = JsonTimeDeserializer.class)
-	@Index(name = "index_k_five_minute_data_time")
 	@Column(name = "maxdatatime")
 	public Timestamp getMaxDataTime() {
 		return maxDataTime;
@@ -147,16 +141,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 	@Column(name = "mindatatime")
 	public Timestamp getMinDataTime() {
 		return minDataTime;
-	}
-
-	@Column(name = "mineid")
-	public String getMineId() {
-		return mineId;
-	}
-
-	@Transient
-	public String getMineName() {
-		return mineName;
 	}
 
 	@Column(name = "nodeid")
@@ -184,11 +168,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 		return sensorUnit;
 	}
 
-	@Column(name = "sysid")
-	public String getSysId() {
-		return sysId;
-	}
-
 	@Column(name = "totreccount")
 	public Long getTotRecCount() {
 		return totRecCount;
@@ -206,6 +185,10 @@ public class MonitorFiveMinutesData extends IDEntity {
 		this.dataTime = dataTime;
 	}
 
+	public void setFiveMinuteDataId(Long fiveMinuteDataId) {
+		this.fiveMinuteDataId = fiveMinuteDataId;
+	}
+
 	public void setMaxData(Double maxData) {
 		this.maxData = maxData;
 	}
@@ -220,14 +203,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 
 	public void setMinDataTime(Timestamp minDataTime) {
 		this.minDataTime = minDataTime;
-	}
-
-	public void setMineId(String mineId) {
-		this.mineId = mineId;
-	}
-
-	public void setMineName(String mineName) {
-		this.mineName = mineName;
 	}
 
 	public void setNodeId(String nodeId) {
@@ -248,10 +223,6 @@ public class MonitorFiveMinutesData extends IDEntity {
 
 	public void setSensorUnit(String sensorUnit) {
 		this.sensorUnit = sensorUnit;
-	}
-
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
 	}
 
 	public void setTotRecCount(Long totRecCount) {
