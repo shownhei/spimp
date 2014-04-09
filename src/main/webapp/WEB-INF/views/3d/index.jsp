@@ -201,24 +201,6 @@
 									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">我的相机</span></a>
 								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('工作面');">
-									<img src="${resources}/images/3d/viewpoint/2.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">工作面</span></a>
-								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('水泵房');">
-									<img src="${resources}/images/3d/viewpoint/3.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">水泵房</span></a>
-								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('变电所');">
-									<img src="${resources}/images/3d/viewpoint/4.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">变电所</span></a>
-								</div>
-							</div>
-							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('通风机房');">
-									<img src="${resources}/images/3d/viewpoint/5.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">通风机房</span></a>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -242,19 +224,8 @@
         callbackClt.multipleObjectsSelected(_SelectedObjs);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
-	    define(function(require, exports, module) {
-			var $ = require('kjquery');
-			$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
-				var paths = data.data.split('/');
-				WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
-				WebMineSystem.LoadProjectFile(paths[3]);
-				var result=WebMineSystem.GetAllLayers();
-				console.log(paths[3]);
-				alert(paths[3]);
-				initLayerTree(result);
-				callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
-			});
-		});
+        // alert('Platform3DStarted()');
+        setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
 </body>
 </html>

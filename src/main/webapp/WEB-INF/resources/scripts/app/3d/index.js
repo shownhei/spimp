@@ -5,7 +5,6 @@ define(function(require, exports, module) {
 		var toolBar=42;//1
 		var controlBarWidth=$('#control-bar').width();//2
 		var controlDiv=$('#layer-control-div');
-		console.log(controlDiv.is(":hidden"));
 		var controlWidth=controlDiv.is(":hidden")?0:controlDiv.width();//3
 		var tabHeight = $(window).height() - 170;
 		$('div[class*="tab-pane"]').filter('div[data-level="first"]').css({
@@ -19,7 +18,6 @@ define(function(require, exports, module) {
 		$('#control-bar').height(mainHeight);
 		var paddingTop=($(window).height() - 90)/2;
 		$('#control-bar').height(mainHeight);
-		console.log(newWidth+" "+controlBarWidth+" " +controlWidth);
 	}
 	$('.ace-settings-container').css({'top':'41px'});
 	window.onresize = resize;
@@ -72,7 +70,9 @@ define(function(require, exports, module) {
 		
 		var setting = {
 				check : {
-					enable : true
+					enable : true,
+					autoCheckTrigger: true,
+					chkStyle : "checkbox"
 				},
 				data: {
 					simpleData: {
@@ -94,7 +94,9 @@ define(function(require, exports, module) {
 					}
 				}
 		};
-		$.fn.zTree.init($("#layer-tree"), setting, result);
+		var tree=$.fn.zTree.init($("#layer-tree"), setting, result);
+		var rootNode=tree.getNodeByParam("id",-1);
+		tree.checkNode(rootNode, true, true);
 	};
 	window.initLayerTree=initLayerTree;
 	/*
@@ -225,7 +227,18 @@ define(function(require, exports, module) {
 	callbackClt.config.connectDB=function(_jsonData){
 		
 	};
-	callbackClt.tool={};//工具
+	//平台加载完毕回调
+	callbackClt.Platform3DStarted=function(){
+		$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+			var paths = data.data.split('/');
+			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+			WebMineSystem.UpdateProjectFile(paths[3]);
+			WebMineSystem.LoadProjectFile(paths[3]);
+			var result=WebMineSystem.GetAllLayers();
+			initLayerTree(result);
+			callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
+		});
+	};
 	//所有的试点相机
 	callbackClt.onGetAllCameraViews=function(_jsonData){
 		var array=$.parseJSON(_jsonData);
@@ -248,6 +261,7 @@ define(function(require, exports, module) {
 		$('#viewpoint').html(html);
 	};
 	callbackClt.control={};//操作
+	//多个物体选中
 	callbackClt.multipleObjectsSelected=function(_SelectedObjs,_SelectedObjsCount){
 		var jsonData=$.parseJSON(_SelectedObjs);
 		var result=[];
@@ -301,6 +315,7 @@ define(function(require, exports, module) {
 		var template = Handlebars.compile($('#queryresult-template').html());
 		var html = template({"result":data});
 		$('#result').html(html);
+		$('#result-tab').trigger('click');
 	};
 	window.callbackClt=callbackClt;
 });
