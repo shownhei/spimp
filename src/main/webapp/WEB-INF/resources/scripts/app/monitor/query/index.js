@@ -19,19 +19,23 @@ define(function(require, exports, module) {
 		name : 'nodeId'
 	}, {
 		header : '测点类型',
-		name : 'sensorName'
+		name : 'sensorName',
+		width : 80
 	}, {
 		header : '报警类型',
-		name : 'stateName'
+		name : 'stateName',
+		width : 80
 	}, {
 		header : '安装位置',
 		name : 'nodePlace'
 	}, {
 		header : '开始时间',
-		name : 'startTime'
+		name : 'startTime',
+		width : 150
 	}, {
 		header : '结束时间',
-		name : 'endTime'
+		name : 'endTime',
+		width : 150
 	}, {
 		header : '持续时间',
 		name : 'timeDiff'
@@ -42,7 +46,8 @@ define(function(require, exports, module) {
 		header : '报警/断电值',
 		render : function(value, record) {
 			return record.alarmUpperValue + '/' + record.hCutValue;
-		}
+		},
+		width : 80
 	} ];
 
 	var fields2 = [ {
@@ -53,9 +58,7 @@ define(function(require, exports, module) {
 		name : 'nodePlace'
 	}, {
 		header : '累计报警次数',
-		render : function(value, record) {
-			return '<a href="#" data-name="' + record.nodeId + ',' + record.sensorName + ',' + record.nodePlace + '">' + record.totalAlarmCount + '</a>';
-		}
+		name : 'totalAlarmCount'
 	}, {
 		header : '累计报警时间',
 		name : 'timeDiff'
@@ -63,7 +66,10 @@ define(function(require, exports, module) {
 
 	var fields3 = [ {
 		header : '测点编号',
-		name : 'nodeId'
+		name : 'id',
+		render : function(v) {
+			return v.nodeId;
+		}
 	}, {
 		header : '测点类型',
 		name : 'sensorName'
@@ -78,30 +84,39 @@ define(function(require, exports, module) {
 		name : 'stateName'
 	}, {
 		header : '数据时间',
-		name : 'dataTime'
+		name : 'id',
+		render : function(v) {
+			return v.dataTime;
+		}
 	} ];
 
 	var fields4 = [ {
 		header : '测点编号',
-		name : 'nodeId'
+		name : 'nodeId',
+		width : 120
 	}, {
 		header : '测点类型',
-		name : 'sensorName'
+		name : 'sensorName',
+		width : 80
 	}, {
 		header : '安装位置',
 		name : 'nodePlace'
 	}, {
 		header : '报警最大值',
-		name : 'maxData'
+		name : 'maxData',
+		width : 80
 	}, {
 		header : '报警最小值',
-		name : 'minData'
+		name : 'minData',
+		width : 80
 	}, {
 		header : '平均值',
-		name : 'avgData'
+		name : 'avgData',
+		width : 80
 	}, {
 		header : '数据时间',
-		name : 'dataTime'
+		name : 'dataTime',
+		width : 150
 	} ];
 
 	var fields5 = [ {
@@ -297,9 +312,9 @@ define(function(require, exports, module) {
 		});
 	}
 
-	change('monitorSensorType3', 'nodePlace3', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
-	change('monitorSensorType4', 'nodePlace4', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
-	change('monitorSensorType5', 'nodePlace5', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'nodeId', 'nodePlace', true, '选择位置');
+	change('monitorSensorType3', 'nodePlace3', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'id.nodeId', 'nodePlace', true, '选择位置');
+	change('monitorSensorType4', 'nodePlace4', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'id.nodeId', 'nodePlace', true, '选择位置');
+	change('monitorSensorType5', 'nodePlace5', contextPath + '/monitor/monitor-node-places?sensorTypeId=', 'id.nodeId', 'nodePlace', true, '选择位置');
 
 	// 导出
 	var EXPORT_PAGE_SIZE = 10000;

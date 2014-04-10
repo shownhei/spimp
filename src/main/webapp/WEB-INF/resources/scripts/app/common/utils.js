@@ -285,7 +285,12 @@ define(function(require, exports, module) {
 				}
 			}
 			$.each(data.data, function(entryIndex, entry) {
-				html += '<option value="' + entry[value] + '">' + utils.html.encode(entry[display]) + '</option>';
+				var valueArray = value.split('.');
+				if (valueArray.length === 1) {
+					html += '<option value="' + entry[value] + '">' + utils.html.encode(entry[display]) + '</option>';
+				} else if (valueArray.length === 2) {
+					html += '<option value="' + entry[valueArray[0]][valueArray[1]] + '">' + utils.html.encode(entry[display]) + '</option>';
+				}
 			});
 
 			$.each(ids, function(key, value) {

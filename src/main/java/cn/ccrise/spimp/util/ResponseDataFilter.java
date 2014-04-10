@@ -12,6 +12,7 @@ import cn.ccrise.spimp.monitor.entity.MonitorAlarm;
 import cn.ccrise.spimp.monitor.entity.MonitorFiveMinutesData;
 import cn.ccrise.spimp.monitor.entity.MonitorNode;
 import cn.ccrise.spimp.monitor.entity.MonitorRealData;
+import cn.ccrise.spimp.monitor.entity.MonitorRealDatas;
 import cn.ccrise.spimp.monitor.entity.MonitorSensorType;
 import cn.ccrise.spimp.monitor.entity.MonitorState;
 import cn.ccrise.spimp.monitor.entity.MonitorValueChange;
@@ -143,6 +144,17 @@ public abstract class ResponseDataFilter {
 		monitorRealData.setStateName(monitorState == null ? "" : monitorState.getStateName());
 
 		return monitorRealData;
+	}
+
+	public static MonitorRealDatas filter(MonitorRealDatas monitorRealDatas,
+			Map<Integer, MonitorSensorType> monitorSensorTypeCache, Map<Integer, MonitorState> monitorStateCache) {
+		MonitorSensorType monitorSensorType = monitorSensorTypeCache.get(monitorRealDatas.getSensorTypeId());
+		monitorRealDatas.setSensorName(monitorSensorType == null ? "" : monitorSensorType.getSensorTypeName());
+
+		MonitorState monitorState = monitorStateCache.get(monitorRealDatas.getStateId());
+		monitorRealDatas.setStateName(monitorState == null ? "" : monitorState.getStateName());
+
+		return monitorRealDatas;
 	}
 
 	/**

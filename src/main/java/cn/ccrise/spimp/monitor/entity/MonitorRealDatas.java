@@ -37,10 +37,10 @@ public class MonitorRealDatas {
 
 	private Integer kdId;
 
-	/**
-	 * 煤矿名称
-	 */
-	private String mineName;
+	private String mineName; // 煤矿名称，非持久化字段
+	private String nodePlace; // 安装位置，非持久化字段
+	private Integer sensorTypeId; // 测点类型，非持久化字段
+	private String sensorName; // 传感器名称，非持久化字段
 
 	@EmbeddedId
 	public MineIdNodeIdDataTime getId() {
@@ -57,9 +57,24 @@ public class MonitorRealDatas {
 		return mineName;
 	}
 
+	@Transient
+	public String getNodePlace() {
+		return nodePlace;
+	}
+
 	@Column(name = "realdata")
 	public Double getRealData() {
 		return realData;
+	}
+
+	@Transient
+	public String getSensorName() {
+		return sensorName;
+	}
+
+	@Transient
+	public Integer getSensorTypeId() {
+		return sensorTypeId;
 	}
 
 	@Column(name = "stateid")
@@ -84,8 +99,20 @@ public class MonitorRealDatas {
 		this.mineName = mineName;
 	}
 
+	public void setNodePlace(String nodePlace) {
+		this.nodePlace = nodePlace;
+	}
+
 	public void setRealData(Double realData) {
 		this.realData = realData;
+	}
+
+	public void setSensorName(String sensorName) {
+		this.sensorName = sensorName;
+	}
+
+	public void setSensorTypeId(Integer sensorTypeId) {
+		this.sensorTypeId = sensorTypeId;
 	}
 
 	public void setStateId(Integer stateId) {

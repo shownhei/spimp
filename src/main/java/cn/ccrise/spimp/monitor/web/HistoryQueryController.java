@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.IntegerType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +29,15 @@ import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.monitor.entity.MonitorAlarm;
 import cn.ccrise.spimp.monitor.entity.MonitorFiveMinutesData;
-import cn.ccrise.spimp.monitor.entity.MonitorRealData;
+import cn.ccrise.spimp.monitor.entity.MonitorNode;
+import cn.ccrise.spimp.monitor.entity.MonitorRealDatas;
 import cn.ccrise.spimp.monitor.entity.MonitorSensorType;
 import cn.ccrise.spimp.monitor.entity.MonitorState;
 import cn.ccrise.spimp.monitor.entity.MonitorValueChange;
 import cn.ccrise.spimp.monitor.service.MonitorAlarmService;
 import cn.ccrise.spimp.monitor.service.MonitorFiveMinutesDataService;
 import cn.ccrise.spimp.monitor.service.MonitorNodeService;
-import cn.ccrise.spimp.monitor.service.MonitorRealDataService;
+import cn.ccrise.spimp.monitor.service.MonitorRealDatasService;
 import cn.ccrise.spimp.monitor.service.MonitorSensorTypeService;
 import cn.ccrise.spimp.monitor.service.MonitorStateService;
 import cn.ccrise.spimp.monitor.service.MonitorValueChangeService;
@@ -53,12 +56,12 @@ import com.google.common.collect.Lists;
  */
 @Controller
 public class HistoryQueryController {
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private MonitorAlarmService monitorAlarmService;
 	@Autowired
 	private MonitorFiveMinutesDataService monitorFiveMinutesDataService;
-	@Autowired
-	private MonitorRealDataService monitorRealDataService;
 	@Autowired
 	private MonitorValueChangeService monitorValueChangeService;
 	@Autowired
@@ -67,6 +70,8 @@ public class HistoryQueryController {
 	private MonitorStateService monitorStateService;
 	@Autowired
 	private MonitorNodeService monitorNodeService;
+	@Autowired
+	private MonitorRealDatasService monitorRealDatasService;
 
 	// 报警统计
 	/**
@@ -195,36 +200,18 @@ public class HistoryQueryController {
 
 	/**
 	 * 模拟量查询(导出)
-	 * 
-	 * @param response
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/monitor/five-minute-datas-export", method = RequestMethod.GET)
 	public void fiveMinutesDataExport(HttpServletResponse response, Page<MonitorFiveMinutesData> page,
 			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
-
 		genFiveMinutesData(page, monitorSensorType, nodePlace, startTime, endTime);
-
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
-
 		exportExcel(response, "模拟量导出", TemplateUtil.loadTemplate("FiveMinuteDatasExport.xml", results));
 	}
 
 	/**
 	 * 报警明细(数据)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param monitorState
-	 * @param timeLast
-	 * @param startTime
-	 * @param endTime
 	 */
 	public void genAlarmDatas(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState,
 			Integer timeLast, String startTime, String endTime, String nodeId, String sensorName, String nodePlace) {
@@ -243,11 +230,11 @@ public class HistoryQueryController {
 		}
 
 		if (StringUtils.isNotBlank(startTime)) {
-			criterions.add(Restrictions.ge("startTime", Timestamp.valueOf(startTime)));
+			criterions.add(Restrictions.ge("startTime", Timestamp.valueOf(startTime + " 00:00:00")));
 		}
 
 		if (StringUtils.isNotBlank(endTime)) {
-			criterions.add(Restrictions.le("startTime", Timestamp.valueOf(endTime)));
+			criterions.add(Restrictions.le("startTime", Timestamp.valueOf(endTime + " 23:59:59")));
 		}
 
 		if (StringUtils.isNotBlank(nodeId)) {
@@ -281,12 +268,6 @@ public class HistoryQueryController {
 
 	/**
 	 * 报警统计(数据)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param monitorState
-	 * @param startTime
-	 * @param endTime
 	 */
 	@SuppressWarnings("unchecked")
 	public void genAlarmDatasStatisticDatas(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState,
@@ -344,12 +325,6 @@ public class HistoryQueryController {
 
 	/**
 	 * 模拟量查询(导出)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
 	 */
 	public void genFiveMinutesData(Page<MonitorFiveMinutesData> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
@@ -363,11 +338,11 @@ public class HistoryQueryController {
 		}
 
 		if (StringUtils.isNotBlank(startTime)) {
-			criterions.add(Restrictions.ge("dataTime", Timestamp.valueOf(startTime)));
+			criterions.add(Restrictions.ge("dataTime", Timestamp.valueOf(startTime + " 00:00:00")));
 		}
 
 		if (StringUtils.isNotBlank(endTime)) {
-			criterions.add(Restrictions.le("dataTime", Timestamp.valueOf(endTime)));
+			criterions.add(Restrictions.le("dataTime", Timestamp.valueOf(endTime + " 23:59:59")));
 		}
 
 		monitorFiveMinutesDataService.getPage(page, criterions.toArray(new Criterion[0]));
@@ -381,50 +356,40 @@ public class HistoryQueryController {
 
 	/**
 	 * 密采查询(数据查询)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
 	 */
-	public void genMonitorRealData(Page<MonitorRealData> page, Integer monitorSensorType, String nodePlace,
-			String startTime, String endTime) {
+	public void genMonitorRealDatas(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
-		if (monitorSensorType != null) {
-			criterions.add(Restrictions.eq("sensorTypeId", monitorSensorType));
-		}
-
 		if (nodePlace != null) {
-			criterions.add(Restrictions.eq("nodeId", nodePlace));
+			criterions.add(Restrictions.eq("id.nodeId", nodePlace));
 		}
-
 		if (StringUtils.isNotBlank(startTime)) {
-			criterions.add(Restrictions.ge("createTime", Timestamp.valueOf(startTime)));
+			criterions.add(Restrictions.ge("id.dataTime", Timestamp.valueOf(startTime + " 00:00:00")));
 		}
-
 		if (StringUtils.isNotBlank(endTime)) {
-			criterions.add(Restrictions.le("createTime", Timestamp.valueOf(endTime)));
+			criterions.add(Restrictions.le("id.dataTime", Timestamp.valueOf(endTime + " 23:59:59")));
 		}
 
-		monitorRealDataService.getPage(page, criterions.toArray(new Criterion[0]));
+		monitorRealDatasService.getPage(page, criterions.toArray(new Criterion[0]));
 
 		// 过滤关联数据
 		Map<Integer, MonitorSensorType> monitorSensorTypeCache = monitorSensorTypeService.getAllInstanceAsMap();
 		Map<Integer, MonitorState> monitorStateCache = monitorStateService.getAllInstanceAsMap();
-		for (MonitorRealData monitorRealData : page.getResult()) {
-			ResponseDataFilter.filter(monitorRealData, monitorSensorTypeCache, monitorStateCache);
+		for (MonitorRealDatas monitorRealDatas : page.getResult()) {
+			// 从MonitorNode中查询其他数据
+			MonitorNode monitorNode = monitorNodeService.findUnique(
+					Restrictions.eq("id.mineId", monitorRealDatas.getId().getMineId()),
+					Restrictions.eq("id.nodeId", monitorRealDatas.getId().getNodeId()));
+			if (null != monitorNode) {
+				monitorRealDatas.setNodePlace(monitorNode.getNodePlace());
+				monitorRealDatas.setSensorTypeId(monitorNode.getSensorTypeId());
+			}
+
+			ResponseDataFilter.filter(monitorRealDatas, monitorSensorTypeCache, monitorStateCache);
 		}
 	}
 
 	/**
 	 * 开关量查询(数据)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
 	 */
 	public void genValueChangeDatas(Page<MonitorValueChange> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
@@ -438,11 +403,11 @@ public class HistoryQueryController {
 		}
 
 		if (StringUtils.isNotBlank(startTime)) {
-			criterions.add(Restrictions.ge("startTime", Timestamp.valueOf(startTime)));
+			criterions.add(Restrictions.ge("startTime", Timestamp.valueOf(startTime + " 00:00:00")));
 		}
 
 		if (StringUtils.isNotBlank(endTime)) {
-			criterions.add(Restrictions.le("startTime", Timestamp.valueOf(endTime)));
+			criterions.add(Restrictions.le("startTime", Timestamp.valueOf(endTime + " 23:59:59")));
 		}
 
 		monitorValueChangeService.getPage(page, criterions.toArray(new Criterion[0]));
@@ -457,144 +422,76 @@ public class HistoryQueryController {
 	// 密采查询
 	/**
 	 * 密采查询(表格)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/monitor/real-datas", method = RequestMethod.GET)
 	@ResponseBody
-	public Response monitorRealData(Page<MonitorRealData> page, Integer monitorSensorType, String nodePlace,
-			String startTime, String endTime) {
-
-		genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
-
+	public Response monitorRealData(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime) {
+		genMonitorRealDatas(page, nodePlace, startTime, endTime);
 		return new Response(page);
 	}
 
 	/**
 	 * 密采查询(导出)
-	 * 
-	 * @param response
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/monitor/real-datas-export", method = RequestMethod.GET)
-	public void monitorRealDataExport(HttpServletResponse response, Page<MonitorRealData> page,
-			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
-
-		genMonitorRealData(page, monitorSensorType, nodePlace, startTime, endTime);
-
+	public void monitorRealDataExport(HttpServletResponse response, Page<MonitorRealDatas> page, String nodePlace,
+			String startTime, String endTime) throws Exception {
+		genMonitorRealDatas(page, nodePlace, startTime, endTime);
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
-
 		exportExcel(response, "密采查询导出", TemplateUtil.loadTemplate("RealDataExport.xml", results));
 	}
 
 	// 报警明细
 	/**
 	 * 报警明细(表格)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param monitorState
-	 * @param timeLast
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/monitor/alarm-datas", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState, Integer timeLast,
 			String startTime, String endTime) {
-
 		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null);
-
 		return new Response(page);
 	}
 
 	/**
 	 * 报警明细(导出)
-	 * 
-	 * @param response
-	 * @param page
-	 * @param monitorSensorType
-	 * @param monitorState
-	 * @param timeLast
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/monitor/alarm-datas-export", method = RequestMethod.GET)
 	public void pageExport(HttpServletResponse response, Page<MonitorAlarm> page, Integer monitorSensorType,
 			Integer monitorState, Integer timeLast, String startTime, String endTime) throws Exception {
-
 		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null);
-
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
-
 		exportExcel(response, "报警明细", TemplateUtil.loadTemplate("AlarmDatasExport.xml", results));
 	}
 
 	// 开关量查询
 	/**
 	 * 开关量查询(表格)
-	 * 
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/monitor/value-change", method = RequestMethod.GET)
 	@ResponseBody
 	public Response valueChange(Page<MonitorValueChange> page, Integer monitorSensorType, String nodePlace,
 			String startTime, String endTime) {
-
 		genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
-
 		return new Response(page);
 	}
 
 	/**
 	 * 开关量查询(导出)
-	 * 
-	 * @param response
-	 * @param page
-	 * @param monitorSensorType
-	 * @param nodePlace
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/monitor/value-change-export", method = RequestMethod.GET)
 	public void valueChangeExport(HttpServletResponse response, Page<MonitorValueChange> page,
 			Integer monitorSensorType, String nodePlace, String startTime, String endTime) throws Exception {
-
 		genValueChangeDatas(page, monitorSensorType, nodePlace, startTime, endTime);
-
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
-
 		exportExcel(response, "开关量导出", TemplateUtil.loadTemplate("ValueChangeExport.xml", results));
 	}
 
 	/**
 	 * 通用EXCEL导出接口
-	 * 
-	 * @param response
-	 * @param fileName
-	 * @param sourceCode
-	 * @throws Exception
 	 */
 	private void exportExcel(HttpServletResponse response, String fileName, String sourceCode) throws Exception {
 		response.setHeader("Content-Type", "application/force-download");
