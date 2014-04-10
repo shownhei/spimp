@@ -91,7 +91,7 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Double[]> getNodeUpperCutValue() {
-		String sql = "select mn.nodeId,mn.alarmUpperValue,mn.hCutValue from MonitorNode mn";
+		String sql = "select mn.id.nodeId,mn.alarmUpperValue,mn.hCutValue from MonitorNode mn";
 		if (QUERY_TIMES % 10 != 0 && nodeUpperCutValue != null) {
 			QUERY_TIMES++;
 			return nodeUpperCutValue;
@@ -195,6 +195,7 @@ public class MonitorNodeService extends HibernateDataServiceImpl<MonitorNode, Lo
 		if (monitorState != null) {
 			criterions.add(Restrictions.eq("stateId", monitorState));
 		}
+		criterions.add(Restrictions.eq("isValid", 1));
 
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.groupProperty("stateId"));

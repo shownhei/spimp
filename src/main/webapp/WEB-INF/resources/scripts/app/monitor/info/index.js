@@ -7,10 +7,13 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields1 = [ {
 		header : '分站编号',
-		name : 'id'
+		name : 'id',
+		render : function(v) {
+			return v.stationId;
+		}
 	}, {
 		header : '分站位置',
-		name : 'nodeId'
+		name : 'stationPlace'
 	}, {
 		header : '备注',
 		name : 'sensorName'
@@ -18,7 +21,10 @@ define(function(require, exports, module) {
 
 	var fields2 = [ {
 		header : '测点编号',
-		name : 'nodeId'
+		name : 'id',
+		render : function(v) {
+			return v.nodeId;
+		}
 	}, {
 		header : '测点类型',
 		name : 'sensorName'

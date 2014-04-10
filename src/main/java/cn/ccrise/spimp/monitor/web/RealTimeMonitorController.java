@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.monitor.entity.MonitorNode;
@@ -77,6 +78,7 @@ public class RealTimeMonitorController {
 		if (mineId != null) {
 			criterions.add(Restrictions.in("mineId", groupService.getChildrenMines(mineId)));
 		}
+		criterions.add(Restrictions.eq("isValid", 1));
 
 		monitorNodeService.getPage(page, criterions.toArray(new Criterion[0]));
 
@@ -86,7 +88,10 @@ public class RealTimeMonitorController {
 		for (MonitorNode monitorNode : page.getResult()) {
 			ResponseDataFilter.filter(monitorNode, monitorStateCache, monitorSensorTypeCache);
 			if (monitorNode.getId().getMineId() != null) {
-				monitorNode.setMineName(groupService.findUniqueBy("number", monitorNode.getId().getMineId()).getName());
+				GroupEntity groupEntity = groupService.findUniqueBy("number", monitorNode.getId().getMineId());
+				if (null != groupEntity) {
+					monitorNode.setMineName(groupEntity.getName());
+				}
 			}
 		}
 

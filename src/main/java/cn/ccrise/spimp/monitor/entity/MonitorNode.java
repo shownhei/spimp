@@ -261,7 +261,7 @@ public class MonitorNode {
 	/**
 	 * 该信息是否有效
 	 */
-	private Boolean isValid;
+	private Integer isValid;
 
 	/**
 	 * 数据采集软件更新标志，1为有效
@@ -449,7 +449,7 @@ public class MonitorNode {
 	}
 
 	@Column(name = "isvalid")
-	public Boolean getIsValid() {
+	public Integer getIsValid() {
 		return isValid;
 	}
 
@@ -671,7 +671,7 @@ public class MonitorNode {
 		this.id = id;
 	}
 
-	public void setIsValid(Boolean isValid) {
+	public void setIsValid(Integer isValid) {
 		this.isValid = isValid;
 	}
 

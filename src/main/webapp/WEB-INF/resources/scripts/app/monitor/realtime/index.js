@@ -25,7 +25,10 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields1 = [ {
 		header : '测点编号',
-		name : 'nodeId'
+		name : 'id',
+		render : function(v) {
+			return v.nodeId;
+		}
 	}, {
 		header : '类型',
 		name : 'sensorName'
@@ -40,11 +43,12 @@ define(function(require, exports, module) {
 		}
 	}, {
 		header : '状态',
-		name : 'stateName'
+		name : 'stateName',
+		width : 80
 	}, {
 		header : '安装位置',
 		name : 'nodePlace',
-		width : 150
+		width : 200
 	}, {
 		header : '时间',
 		name : 'dataTime',
@@ -53,7 +57,10 @@ define(function(require, exports, module) {
 
 	var fields2 = [ {
 		header : '分站编号',
-		name : 'stationId'
+		name : 'id',
+		render : function(v) {
+			return v.stationId;
+		}
 	}, {
 		header : '安装位置',
 		name : 'stationPlace',

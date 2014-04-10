@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.monitor.entity.MonitorStation;
@@ -67,8 +68,10 @@ public class MonitorStationController {
 
 		for (MonitorStation monitorStation : page.getResult()) {
 			if (monitorStation.getId().getMineId() != null) {
-				monitorStation.setMineName(groupService.findUniqueBy("number", monitorStation.getId().getMineId())
-						.getName());
+				GroupEntity groupEntity = groupService.findUniqueBy("number", monitorStation.getId().getMineId());
+				if (null != groupEntity) {
+					monitorStation.setMineName(groupEntity.getName());
+				}
 			}
 		}
 
