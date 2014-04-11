@@ -55,7 +55,7 @@ public class LocationArea {
 	/**
 	 * 区域内当前人数
 	 */
-	private Integer curPersonNum;
+	private Long curPersonNum;
 
 	/**
 	 * 状态
@@ -97,7 +97,7 @@ public class LocationArea {
 	}
 
 	@Transient
-	public Integer getCurPersonNum() {
+	public Long getCurPersonNum() {
 		return curPersonNum;
 	}
 
@@ -153,7 +153,7 @@ public class LocationArea {
 		this.createTime = createTime;
 	}
 
-	public void setCurPersonNum(Integer curPersonNum) {
+	public void setCurPersonNum(Long curPersonNum) {
 		this.curPersonNum = curPersonNum;
 	}
 

@@ -9,7 +9,10 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields1 = [ {
 		header : '区域编号',
-		name : 'areaId'
+		name : 'id',
+		render : function(value) {
+			return value.areaId;
+		}
 	}, {
 		header : '区域位置',
 		name : 'pos'
@@ -29,7 +32,10 @@ define(function(require, exports, module) {
 
 	var fields2 = [ {
 		header : '分站编号',
-		name : 'stationId'
+		name : 'id',
+		render : function(value) {
+			return value.stationId;
+		}
 	}, {
 		header : '分站位置',
 		name : 'pos'
@@ -49,9 +55,9 @@ define(function(require, exports, module) {
 
 	var fields3 = [ {
 		header : '人员编号',
-		name : 'staffId',
+		name : 'id',
 		render : function(value) {
-			return "<b style='display:false'>" + value + "</b>";
+			return '<b>' + value.staffId + '</b>';
 		}
 	}, {
 		header : '姓名',
@@ -67,15 +73,16 @@ define(function(require, exports, module) {
 		name : 'curStationId'
 	}, {
 		header : '所在位置时间',
-		name : 'indataTime'
+		name : 'indataTime',
+		width : 150
 	}, {
 		header : '状态',
 		name : 'stateString'
 	}, {
 		header : '轨迹',
-		name : "staffId",
+		name : 'id',
 		render : function(value) {
-			return '<a href="#" link-name=' + value + '>' + '轨迹' + '</a>';
+			return '<a href="#" link-name=' + value.staffId + '>' + '轨迹' + '</a>';
 		}
 	} ];
 

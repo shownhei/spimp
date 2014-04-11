@@ -5,7 +5,6 @@ package cn.ccrise.spimp.location.web;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -29,8 +28,6 @@ import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.service.LocationStaffService;
 import cn.ccrise.spimp.location.service.LocationStationService;
 
-import com.google.common.collect.Lists;
-
 /**
  * LocationStation Controller。
  * 
@@ -47,9 +44,6 @@ public class LocationStationController {
 
 	/**
 	 * 分站内人员信息详情页面-转向
-	 * 
-	 * @param param
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-stations-staff/detail", method = RequestMethod.GET)
 	public ModelAndView alarmDetail(String param) {
@@ -58,23 +52,6 @@ public class LocationStationController {
 		params.put("param", param);
 		modelAndView.addObject("datas", params);
 		return modelAndView;
-	}
-
-	@RequestMapping(value = "/location/location-stations/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(locationStationService.delete(id));
-	}
-
-	@RequestMapping(value = "/location/location-stations/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(locationStationService.get(id));
-	}
-
-	@RequestMapping(value = "/location/location-station", method = RequestMethod.GET)
-	public String index() {
-		return "location/location-station/index";
 	}
 
 	@RequestMapping(value = "/location/location-stations", method = RequestMethod.GET)
@@ -86,14 +63,13 @@ public class LocationStationController {
 		stationMaps.put(1, "井口考勤");
 		stationMaps.put(2, "井底（考勤）");
 		stationMaps.put(3, "井下禁区");
-		List<LocationStation> stations = Lists.newArrayList();
-		stations = page.getResult();
-		for (LocationStation station : stations) {
-			station.setCurPersonNum(locationStaffService.count(Restrictions.eq("curStationId", station.getId()
-					.getStationId())));
+		for (LocationStation station : page.getResult()) {
 			station.setTypeString(stationMaps.get(station.getType()));
+
+			station.setCurPersonNum(locationStaffService.count(
+					Restrictions.eq("curStationId", station.getId().getStationId()),
+					Restrictions.eq("id.mineId", station.getId().getMineId())));
 		}
-		page.setResult(stations);
 		return new Response(page);
 	}
 

@@ -126,8 +126,8 @@ public class LocationStaffController {
 					staff.setStateString(stateMaps.get(staff.getState()));
 				}
 				if (staff.getCurStationId() != null) {
-					staff.setCurStationId(String.valueOf((locationStationService.findUniqueBy("stationId",
-							staff.getCurStationId())) != null ? (locationStationService.findUniqueBy("stationId",
+					staff.setCurStationId(String.valueOf((locationStationService.findUniqueBy("id.stationId",
+							staff.getCurStationId())) != null ? (locationStationService.findUniqueBy("id.stationId",
 							staff.getCurStationId()).getPos()) : ""));
 				}
 				// if (staff.getBirthday() != null) {

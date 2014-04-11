@@ -43,9 +43,6 @@ public class LocationAreaController {
 
 	/**
 	 * 区域详细人数页面-转向
-	 * 
-	 * @param param
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-areas-staff/detail", method = RequestMethod.GET)
 	public ModelAndView alarmDetail(String param) {
@@ -56,23 +53,6 @@ public class LocationAreaController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/location/location-areas/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(locationAreaService.delete(id));
-	}
-
-	@RequestMapping(value = "/location/location-areas/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(locationAreaService.get(id));
-	}
-
-	@RequestMapping(value = "/location/location-area", method = RequestMethod.GET)
-	public String index() {
-		return "location/location-area/index";
-	}
-
 	@RequestMapping(value = "/location/location-areas", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<LocationArea> page) {
@@ -81,13 +61,16 @@ public class LocationAreaController {
 		areaMaps.put(0, "正常区域");
 		areaMaps.put(1, "重点区域");
 		areaMaps.put(2, "限制区域");
-		if (page.getResult().size() > 0) {
-			for (LocationArea area : page.getResult()) {
-				if (area.getType() != null) {
-					area.setTypeString(areaMaps.get(area.getType()));
-				}
+		for (LocationArea area : page.getResult()) {
+			if (area.getType() != null) {
+				area.setTypeString(areaMaps.get(area.getType()));
 			}
+
+			// 统计区域人数
+			area.setCurPersonNum(locationStaffService.count(Restrictions.eq("id.mineId", area.getId().getMineId()),
+					Restrictions.eq("curAreaId", area.getId().getAreaId())));
 		}
+
 		return new Response(page);
 	}
 
@@ -99,17 +82,10 @@ public class LocationAreaController {
 
 	/**
 	 * 返回区域内人员信息详情数据
-	 * 
-	 * @param page
-	 * @param nodeId
-	 * @param sensorName
-	 * @param nodePlace
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-areas-detail", method = RequestMethod.GET)
 	@ResponseBody
 	public Response stationStaffDatasDetail(Page<LocationStaff> page, String areaId) {
-
 		page = locationStaffService.getPage(page, Restrictions.eq("curAreaId", areaId));
 		for (LocationStaff locationStaff : page.getResult()) {
 			String[] dates = locationStaff.getBirthday().split(" ");

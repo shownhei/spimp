@@ -181,8 +181,9 @@ public class LocationAttendanceController {
 		StringBuffer filterTable = new StringBuffer();
 		String regionString = "";
 		// 查询结果hql语句
-		String hql = "SELECT staff.staffId,staff.name,staff.department,staff.jobName,staff.troopName,attendance.startTime,attendance.endTime "
-				+ "From LocationStaff staff,LocationAttendance attendance " + "WHERE staff.staffId=attendance.staffId ";
+		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,attendance.startTime,attendance.endTime "
+				+ "From LocationStaff staff,LocationAttendance attendance "
+				+ "WHERE staff.id.staffId=attendance.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
 		if (!Strings.isNullOrEmpty(department)) {
@@ -203,7 +204,7 @@ public class LocationAttendanceController {
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationAttendance attendance "
-				+ "WHERE staff.staffId=attendance.staffId ";
+				+ "WHERE staff.id.staffId=attendance.staffId ";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) locationStaffService.getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
