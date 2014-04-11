@@ -147,41 +147,47 @@ define(function(require, exports, module) {
 		$('#' + processId + '-modal').show();
 	};
 
-	utils.modal.showAlert = function(_message) {
-		if ($("#__alertWindow").length <= 0) {
+	utils.modal.showAlert = function(_message,title,winCode,callBackFunc) {
+		var alertCode=winCode?winCode:'';
+		if ($("#"+alertCode+"__alertWindow-modal").length <= 0) {
 			var _winHtml = [];
-			_winHtml.push('<div id="__alertWindow-modal" class="modal hide">');
+			_winHtml.push('<div id="'+alertCode+'__alertWindow-modal" class="modal hide">');
 			_winHtml.push('<div class="modal-header">');
 			_winHtml.push('<button type="button" class="close" data-dismiss="modal">×</button>');
 			_winHtml.push('<h5 class="orange">');
-			_winHtml.push('<i class="icon-list"></i> 关闭');
+			_winHtml.push('<i class="icon-list"></i> '+(title?title:"提示"));
 			_winHtml.push('</h5>');
 			_winHtml.push('</div>');
 			_winHtml.push('<div class="modal-body">');
 			_winHtml.push('<div class="row-fluid">');
-			_winHtml.push('<div class="span12" id="__message_panel">');
+			_winHtml.push('<div class="span12" id="'+alertCode+'__message_panel">');
 			_winHtml.push('<i class="icon-warning-sign"></i> 提示：确实要关闭本提醒？');
 			_winHtml.push('</div>');
-			_winHtml.push('<div id="__alertWindow-message-alert" class="row-fluid hide">');
+			_winHtml.push('<div id="'+alertCode+'__alertWindow-message-alert" class="row-fluid hide">');
 			_winHtml.push('<div class="span12">');
 			_winHtml.push('<div class="alert alert-error">');
 			_winHtml.push('<i class="icon-remove"></i>');
-			_winHtml.push('<span id="__alertWindow-message-content"></span>');
+			_winHtml.push('<span id="'+alertCode+'__alertWindow-message-content"></span>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			_winHtml.push('<div class="modal-footer">');
-			_winHtml.push('<button class="btn btn-small" data-dismiss="modal">');
+			_winHtml.push('<button class="btn btn-small" data-dismiss="modal" id="'+alertCode+'__alertWindow_confirm" >');
 			_winHtml.push('<i class="icon-remove"></i> 好的');
 			_winHtml.push('</button>');
 			_winHtml.push('</div>');
 			_winHtml.push('</div>');
 			$(_winHtml.join('')).appendTo($('body'));
+			if(callBackFunc!==undefined){
+				$('#'+alertCode+'__alertWindow_confirm').bind('click',function(){
+					callBackFunc();
+				});
+			}
 		}
-		utils.modal.show('__alertWindow');
-		$('#__message_panel').html('<i class="icon-warning-sign"></i> 提示' + _message + '？');
+		utils.modal.show(alertCode+'__alertWindow');
+		$('#'+alertCode+'__message_panel').html('<i class="icon-warning-sign"></i> ' + _message );
 
 	};
 	utils.modal.showUpload = function(url, callBack, winTitle) {
