@@ -224,7 +224,7 @@
         callbackClt.multipleObjectsSelected(_SelectedObjs);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
-        // alert('Platform3DStarted()');
+        //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
         setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
 </body>

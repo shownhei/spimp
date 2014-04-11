@@ -237,6 +237,7 @@ define(function(require, exports, module) {
 			var result=WebMineSystem.GetAllLayers();
 			initLayerTree(result);
 			callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
+			window.projectLoaded=true;
 		});
 	};
 	//所有的试点相机
@@ -318,4 +319,9 @@ define(function(require, exports, module) {
 		$('#result-tab').trigger('click');
 	};
 	window.callbackClt=callbackClt;
+	setTimeout(function(){
+		if(!window.projectLoaded){
+			callbackClt.Platform3DStarted();
+		}
+	},5000);
 });
