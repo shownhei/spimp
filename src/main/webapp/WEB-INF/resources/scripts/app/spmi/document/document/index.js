@@ -40,23 +40,10 @@ define(function(require, exports, module) {
 			office = '未指定';
 	}
 	
-	Utils.select.remote([ 'create_projectType', 'edit_projectType', 'query_projectType' ], '/system/dictionaries?typeCode=document_project_type&list=true', 'id', 'itemName', true, '工程分类');
-
-	$('#query_projectType').bind('change', function() {
-		$('#submit').trigger('click');
-	});
-	
 	// 配置表格列
 	var fields = [ {
 		header : '文档名称',
 		name : 'documentName'
-	}, {
-		header : '工程分类',
-		name : 'projectType',
-		width : 100,
-		render : function(value) {
-			return value.itemName;
-		}
 	}, {
 		header : '附件',
 		name : 'attachment',
@@ -119,6 +106,7 @@ define(function(require, exports, module) {
 		}
 	}).render();
 
+	$('#folders-tree').css({height:(gridHeight+30)});
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
@@ -136,10 +124,6 @@ define(function(require, exports, module) {
 		// 验证
 		if (object.documentName === '') {
 			Utils.modal.message('create', [ '请输入文档名称' ]);
-			return;
-		}
-		if (object.projectType.id === '') {
-			Utils.modal.message('create', [ '请添选择工程分类' ]);
 			return;
 		}
 		if (object.attachment === '') {
@@ -192,10 +176,6 @@ define(function(require, exports, module) {
 			Utils.modal.message('edit', [ '请输入文档名称' ]);
 			return;
 		}
-		if (object.projectType.id === '') {
-			Utils.modal.message('edit', [ '请添选择工程分类' ]);
-			return;
-		}
 		
 		var attachment = {
 			id : $('#edit_attachment').attr('data-id')
@@ -242,8 +222,8 @@ define(function(require, exports, module) {
 	
 	// 重置
 	$('#reset').click(function() {
-		grid.set('url', defaultUrl);
-        grid.refresh();
+		$('#search_folder_documentname').val('');
+		$('#submit').trigger('click');
 	});
 	
 	// 文件上传
@@ -278,15 +258,133 @@ define(function(require, exports, module) {
 			Utils.modal.show('view');
 		}
 	});
-});
+	
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes) return null;
+		var result=childNodes.data.result;
+		for (var i=0, l=result.length; i<l; i++) {
+			result[i].isParent=true;
+		}
+		return result;
+	}
+	var nodeOperation={};
+	nodeOperation.onClick=function(event, treeId, treeNode){
+		$('#create_parentId').val(treeNode.id);
+		if(treeNode.parentId!==-1){
+			Utils.button.enable([ 'create-folder','remove-folder','create' ]);
+		}else{
+			Utils.button.disable([ 'remove-folder','create' ]);
+		}
+		Utils.button.enable([ 'create-folder']);
+		$('#search_folder_id').val(treeNode.id);
+		$('#create_folderId').val(treeNode.id);
+		$.fn.zTree.getZTreeObj("folders-tree").expandNode(treeNode,true);
+		$('#submit').trigger('click');
+	};
+	var setting = {
+			view: {
+				dblClickExpand: true,
+				showLine: true,
+				selectedMulti: false
+			},
+			async: {
+				enable: true,
+				url:"/spimp/document/document-folders",
+				autoParam:["id=parentId", "name=folderName", "level=lv"],
+				type: "get",
+				dataFilter: filter
+			},
+			callback: {
+				onExpand:function(event, treeId, treeNode){
+					$('#create_parentId').val(treeNode.id);
+				},
+				onClick:function(event, treeId, treeNode){
+					nodeOperation.onClick(event, treeId, treeNode);
+				},
+				onAsyncSuccess:function(event, treeId){
+					//自动展开第一个节点
+					var ztree=$.fn.zTree.getZTreeObj("folders-tree");
+					var nodes = ztree.getNodes();
+					ztree.expandNode(nodes[0], true);
+				}
+			},
+			data : {
+				key : {
+					name : 'folderName'
+				}
+			}
+		};
+	var folderTree=$.fn.zTree.init($("#folders-tree"), setting);
+	
+	//create-folder
+	// 新建
+	$('#create-folder').click(function() {
+		if (Utils.button.isDisable('create-folder')) {
+			return;
+		}
+		Utils.modal.reset('create-folder');
+		Utils.modal.show('create-folder');
+		$('#create_folderName')[0].focus();
+	});
+	$('#refresh-folder').click(function(){
+		var tree=$.fn.zTree.getZTreeObj("folders-tree");
+		var nodes = tree.getNodes();
+		tree.reAsyncChildNodes(nodes[0], "refresh");
+	});
+	$('#remove-folder').click(function() {
+		if (Utils.button.isDisable('remove-folder')) {
+			return;
+		}
+		var tree = $.fn.zTree.getZTreeObj("folders-tree");
+		var nodes = tree.getSelectedNodes();
+		if(nodes.length===0){
+			Utils.modal.showAlert("<span style='color:red;'>先选择要删除的文件夹</span>","警告",'warning');
+			return ;
+		}
+		Utils.modal.showAlert("确实要删除选中文件夹吗?",'提示','remove',function(){
+			$.del(contextPath + '/spimp/document/document-folders/' + nodes[0].id, function(data) {
+				var parentNode=nodes[0].getParentNode();
+				tree.reAsyncChildNodes(parentNode, "refresh");
+				tree.expandNode(parentNode,true);
+			});
+		});
+	});
+	
+	$('#create-folder-save').click(function(){
+		var object = Utils.form.serialize('create-folder');
+		// 验证
+		if (object.folderName === '') {
+			Utils.modal.message('create-folder', [ '请输入文件夹名称' ]);
+			return;
+		}
+		delete object.account;
+		$.post('/spimp/document/document-folders', JSON.stringify(object), function(data) {
+			if (data.success) {
+				Utils.modal.hide('create-folder');
+				var tree=$.fn.zTree.getZTreeObj("folders-tree");
+				var currentFolderNode = tree.getSelectedNodes()[0];
+				tree.reAsyncChildNodes(currentFolderNode, "refresh");
+				tree.expandNode(currentFolderNode,true);
+			} else {
+				Utils.modal.message('create-folder', data.errors);
+			}
+		});
+	});
 // 文件上传回调
-function callBack(data) {
-	var attachment = $('#create_attachment');
-	attachment.val(data.data.simpleName);
-	attachment.attr('data-id', data.data.id);
-	$('#create-file-form').hide();
-	attachment.parent().parent().show();
-	$('#create-save').removeClass('disabled');
-	window.process.stop();
-	window.process = null;
-}
+	var callBack=function(data) {
+		var attachment = $('#create_attachment');
+		var docName=$('#create_documentName');
+		if(docName.val()===''){
+			docName.val(data.data.simpleName);
+		}
+		attachment.val(data.data.simpleName);
+		attachment.attr('data-id', data.data.id);
+		$('#create-file-form').hide();
+		attachment.parent().parent().show();
+		$('#create-save').removeClass('disabled');
+		window.process.stop();
+		window.process = null;
+	};
+	window.callBack=callBack;
+	
+});

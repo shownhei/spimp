@@ -97,9 +97,9 @@ public class DocumentController {
 
 	@RequestMapping(value = "/spmi/document/documents", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Document> page, String office, String search, Long projectType, String documentName,
-			String keyWord, String startDate, String endDate) {
-		page = documentService.pageQuery(page, office, search, projectType, documentName, keyWord, startDate, endDate);
+	public Response page(Page<Document> page, String office, String search, String documentName,
+			String keyWord, String startDate, String endDate,Long folderId) {
+		page = documentService.pageQuery(page, office, search, documentName, keyWord, startDate, endDate,folderId);
 		return new Response(page);
 	}
 
@@ -120,7 +120,7 @@ public class DocumentController {
 	 */
 	@RequestMapping(value = "/spmi/document/query", method = RequestMethod.GET)
 	public String queryIndex() {
-		return "spmi/document/index";
+		return "spmi/document/query";
 	}
 
 	/**
