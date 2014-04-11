@@ -7,39 +7,6 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	
-	var office;
-	switch(officeCode){
-		case('schedule'):
-			office = '调度室';
-			break;
-		case('safe'):
-			office = '安全科';
-			break;
-		case('machine'):
-			office = '机电科';
-			break;
-		case('wind'):
-			office = '通风科';
-			break;
-		case('produce'):
-			office = '生产技术科';
-			break;
-		case('water'):
-			office = '防治水科';
-			break;
-		case('dig'):
-			office = '综掘队';
-			break;
-		case('exploit'):
-			office = '综采队';
-			break;
-		case('develop'):
-			office = '开拓队';
-			break;
-		default:
-			office = '未指定';
-	}
-	
 	// 配置表格列
 	var fields = [ {
 		header : '文档名称',
@@ -88,7 +55,7 @@ define(function(require, exports, module) {
 	}
 
 	// 配置表格
-	var defaultUrl = contextPath + '/spmi/document/documents?orderBy=id&order=desc&pageSize=' + pageSize + '&office=' + office;
+	var defaultUrl = contextPath + '/spmi/document/documents?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
 		parentNode : '#plan-table',
 		url : defaultUrl,
@@ -138,7 +105,6 @@ define(function(require, exports, module) {
 		delete object.filePath;
 		object.attachment = attachment;
 		
-		object.office = office;
 		$.post('/spmi/document/documents', JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();

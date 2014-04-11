@@ -23,10 +23,6 @@ define(function(require, exports, module) {
 	}, {
 		header : '关键字',
 		name : 'keyword'
-	},{
-		header : '科室',
-		name : 'office',
-		width : 80
 	},  {
 		header : '创建人',
 		name : 'createBy',

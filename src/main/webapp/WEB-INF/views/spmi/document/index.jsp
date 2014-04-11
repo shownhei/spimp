@@ -57,8 +57,6 @@
 				<div class="row-fluid">
 
 					<div class="span3 ztree">
-
-
 						<div class="widget-box tree-widget-box">
 							<div class="widget-body tree-widget-body">
 								<div class="widget-main padding-8 tree-widget-main">
@@ -192,8 +190,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden"> <input name="office"
-							type="hidden"> <input name="createTime" type="hidden">
+						<input name="id" type="hidden"> <input name="createTime" type="hidden">
 						<input name="createBy" type="hidden">
 						<div class="control-group">
 							<label class="control-label " for="principal">文档名称</label>
@@ -269,7 +266,6 @@
 	<iframe name="acceptFrame" border="1" frameborder="1" width="100"
 		height="100" style="display: none"></iframe>
 	<script type="text/javascript">
-		var officeCode = 'develop';
 		seajs.use('${resources}/scripts/app/spmi/document/document/index');
 	</script>
 	<div id="view-modal" class="modal modal-xl hide">
