@@ -27,7 +27,8 @@ define(function(require, exports, module) {
 		}
 	}, {
 		header : '测点类型',
-		name : 'sensorName'
+		name : 'sensorName',
+		width : 80
 	}, {
 		header : '安装位置',
 		name : 'nodePlace'
@@ -36,22 +37,28 @@ define(function(require, exports, module) {
 		name : 'stationId'
 	}, {
 		header : '报警上限',
-		name : 'alarmUpperValue'
+		name : 'alarmUpperValue',
+		width : 70
 	}, {
 		header : '报警下限',
-		name : 'alarmLowerValue'
+		name : 'alarmLowerValue',
+		width : 70
 	}, {
 		header : '高断电值',
-		name : 'hCutValue'
+		name : 'hCutValue',
+		width : 70
 	}, {
 		header : '低断电值',
-		name : 'lCutValue'
+		name : 'lCutValue',
+		width : 70
 	}, {
 		header : '高复电值',
-		name : 'hResetValue'
+		name : 'hResetValue',
+		width : 70
 	}, {
 		header : '低复电值',
-		name : 'lResetValue'
+		name : 'lResetValue',
+		width : 70
 	}, {
 		header : '测点控制关系',
 		name : 'corRelativeNodes'
