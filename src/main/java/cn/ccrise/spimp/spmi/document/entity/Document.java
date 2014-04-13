@@ -14,9 +14,12 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.ikjp.core.security.entity.AccountEntity;
+import cn.ccrise.ikjp.core.security.entity.GroupEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 import cn.ccrise.spimp.ercs.entity.UploadedFile;
+import cn.ccrise.spimp.util.PageFields;
 
 /**
  * Document。
@@ -28,7 +31,6 @@ import cn.ccrise.spimp.ercs.entity.UploadedFile;
 public class Document extends IDEntity {
 	// 文档名称
 	private String documentName;
-
 
 	// 科室
 	private String office;
@@ -50,8 +52,47 @@ public class Document extends IDEntity {
 
 	// 附件
 	private UploadedFile attachment;
+	/**
+	 * 文件夹id
+	 */
 	private Long folderId;
+
+	/**
+	 * 文档的保密层级
+	 * 3:公开(所有人可见)
+	 * 2:保护(同组织内可见)
+	 * 1:私有(仅自己可见) 
+	 */
+	private Integer securityLevel;
+	@PageFields(describtion = "创建人", allowedNull = false, search = false)
+	private AccountEntity account;
+	@PageFields(describtion = "上传机构", allowedNull = false, search = false)
+	private GroupEntity uploadGroup;
+	@ManyToOne
+	public GroupEntity getUploadGroup() {
+		return uploadGroup;
+	}
+
+	public void setUploadGroup(GroupEntity uploadGroup) {
+		this.uploadGroup = uploadGroup;
+	}
+
+	@ManyToOne
+	public AccountEntity getAccount() {
+		return account;
+	}
 	
+	public void setAccount(AccountEntity account) {
+		this.account = account;
+	}
+
+	public Integer getSecurityLevel() {
+		return securityLevel;
+	}
+
+	public void setSecurityLevel(Integer securityLevel) {
+		this.securityLevel = securityLevel;
+	}
 
 	public Long getFolderId() {
 		return folderId;

@@ -35,7 +35,7 @@
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<img class="nav-user-photo" src="${resources}/images/avatar.png" alt="Jason's Photo">
 						<span class="user-info">
-							<small>欢迎，</small> ${account.realName}
+							<small id="current_user_account_id" data-id="${account.id}">欢迎，</small> ${account.realName}
 						</span>
 						<i class="icon-caret-down"></i>
 					</a>

@@ -7,11 +7,9 @@ define(function(require, exports, module) {
 		placement : 'bottom'
 	});
 	
+	var securityLevel={'1':'私有(仅自己可见) ','2':'保护(同组织内可见)','3':'公开(所有人可见)'};
 	// 配置表格列
 	var fields = [ {
-		header : '文档名称',
-		name : 'documentName'
-	}, {
 		header : '附件',
 		name : 'attachment',
 		width : 300,
@@ -21,7 +19,14 @@ define(function(require, exports, module) {
 			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
 			return v ? html : '';
 		}
-	}, {
+	},{
+		header : '开放程度',
+		name : 'securityLevel',
+		render:function(v){
+			var key=''+v;
+			return securityLevel[key];
+		}
+	},  {
 		header : '创建人',
 		name : 'createBy',
 		width : 80
@@ -31,13 +36,8 @@ define(function(require, exports, module) {
 		width : 145
 	}, {
 		header : '更新人',
-		name : 'updateBy',
-		width : 80
-	}, {
-		header : '更新时间',
-		name : 'lastModifyTime',
-		width : 145
-	} ];
+		name : 'updateBy'
+	}];
 
 	// 计算表格高度和行数
 	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
@@ -48,7 +48,12 @@ define(function(require, exports, module) {
 	 */
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
-			Utils.button.enable([ 'edit', 'remove' ]);
+			var accountId=$('#current_user_account_id').attr('data-id');
+			if(data.account.id===parseInt(accountId)){
+				Utils.button.enable([ 'edit', 'remove' ]);
+			}else{
+				Utils.button.disable([ 'edit', 'remove' ]);
+			}
 		} else {
 			Utils.button.disable([ 'edit', 'remove' ]);
 		}
@@ -129,6 +134,8 @@ define(function(require, exports, module) {
 			Utils.form.fill('edit', object);
 			$('#edit_attachment').val(object.attachment.simpleName);
 			$('#edit_attachment').attr('data-id', object.attachment.id);
+			$('#edit_account').val( object.account.id);
+			$('#edit_uploadGroup').val(object.uploadGroup.id);
 			Utils.modal.show('edit');
 		});
 	});
@@ -149,6 +156,14 @@ define(function(require, exports, module) {
 		delete object.attachment;
 		object.attachment = attachment;
 		
+		
+		var account={id:$('#edit_account').val()};
+		delete object.account;
+		object.account = account;
+		
+		var uploadGroup={id:$('#edit_uploadGroup').val()};
+		delete object.uploadGroup;
+		object.uploadGroup = uploadGroup;
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		$.put('/spmi/document/documents/' + selectId, JSON.stringify(object), function(data) {
@@ -307,6 +322,7 @@ define(function(require, exports, module) {
 			Utils.modal.showAlert("<span style='color:red;'>先选择要删除的文件夹</span>","警告",'warning');
 			return ;
 		}
+		console.log(nodes[0]);
 		Utils.modal.showAlert("确实要删除选中文件夹吗?",'提示','remove',function(){
 			$.del(contextPath + '/spimp/document/document-folders/' + nodes[0].id, function(data) {
 				var parentNode=nodes[0].getParentNode();

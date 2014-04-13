@@ -7,14 +7,20 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
+import cn.ccrise.ikjp.core.security.entity.AccountEntity;
+import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.spmi.document.access.DocumentDAO;
@@ -36,11 +42,25 @@ public class DocumentService extends HibernateDataServiceImpl<Document, Long> {
 	}
 
 	public Page<Document> pageQuery(Page<Document> page, String office, String search,
-			String documentName, String keyword, String startDate, String endDate,Long folderId) {
-		if(folderId!=null&&folderId==1l){
-			return getPage(page);
-		}
+			String documentName, String keyword, String startDate, String endDate,Long folderId,HttpSession httpSession) {
+		AccountEntity account=WebUtils.getAccount(httpSession);
 		List<Criterion> criterions = new ArrayList<Criterion>();
+		
+		SimpleExpression case1=Restrictions.eq("securityLevel", 1);
+		SimpleExpression accountEq=Restrictions.eq("account", account);
+		LogicalExpression level1=Restrictions.and(case1,accountEq);
+		//2
+		SimpleExpression eq=Restrictions.eq("uploadGroup", account.getGroupEntity());
+		SimpleExpression case2=Restrictions.eq("securityLevel", 2);
+		
+		LogicalExpression level2=Restrictions.and(eq,case2);
+		
+		//3
+		SimpleExpression case3=Restrictions.eq("securityLevel", 3);
+		criterions.add(Restrictions.or(level1,level2,case3));
+		if(folderId!=null&&folderId==1l){
+			return getPage(page, criterions.toArray(new Criterion[0]));
+		}
 		if (StringUtils.isNotBlank(office)) {
 			criterions.add(Restrictions.eq("office", office));
 		}
