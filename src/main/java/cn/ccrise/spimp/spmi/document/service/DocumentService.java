@@ -35,8 +35,11 @@ public class DocumentService extends HibernateDataServiceImpl<Document, Long> {
 		return documentDAO;
 	}
 
-	public Page<Document> pageQuery(Page<Document> page, String office, String search, Long projectType,
-			String documentName, String keyword, String startDate, String endDate) {
+	public Page<Document> pageQuery(Page<Document> page, String office, String search,
+			String documentName, String keyword, String startDate, String endDate,Long folderId) {
+		if(folderId!=null&&folderId==1l){
+			return getPage(page);
+		}
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		if (StringUtils.isNotBlank(office)) {
 			criterions.add(Restrictions.eq("office", office));
@@ -47,7 +50,7 @@ public class DocumentService extends HibernateDataServiceImpl<Document, Long> {
 		}
 
 		if (StringUtils.isNotBlank(keyword)) {
-			criterions.add(Restrictions.ilike("keyword", keyword, MatchMode.ANYWHERE));
+			criterions.add(Restrictions.ilike("keyWord", keyword, MatchMode.ANYWHERE));
 		}
 
 		if (StringUtils.isNotBlank(startDate)) {
@@ -65,10 +68,9 @@ public class DocumentService extends HibernateDataServiceImpl<Document, Long> {
 					Restrictions.ilike("updateBy", search, MatchMode.ANYWHERE)));
 		}
 
-		if (projectType != null) {
-			criterions.add(Restrictions.eq("projectType.id", projectType));
+		if (folderId!=null) {
+			criterions.add(Restrictions.eq("folderId",folderId));
 		}
-
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }

@@ -7,11 +7,33 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+
+<script id="allCameraViews-template" type="text/x-handlebars-template">
+    {{#each result}}
+        <div class="row-fluid">
+               {{#each children}}
+        		<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('{{name}}');">
+        			<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
+	        		<span style="font-size: 11px">{{name}}</span></a>
+	        	</div>
+               {{/each}}
+        </div>
+    {{/each}}
+</script>
+<script id="multipleObjectsSelected-template" type="text/x-handlebars-template">
+      <table class="table table-striped table-bordered table-hover">
+              <thead><tr><th class="hidden-480">名称</th></tr></thead>
+              <tbody>
+              {{#each result}}
+              <tr><td><a href="javascript:void(0)" onclick="WebMineSystem.PositonByName('{{value}}');">{{value}}</a></td></tr>
+              {{/each}}
+              </tbody></table>
+</script>
 <script id="objectinfo-template" type="text/x-handlebars-template">
-<div id="queryresult-template" class="accordion-style1 panel-group">
+<div id="objectinfo-template" class="accordion-style1">
 {{#each result}}
    <div class="panel panel-default ">
-        <div class="panel-heading">
+        <div class="panel-heading ">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{groupName}}</a>
             </h4>
@@ -19,10 +41,10 @@
         <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
            
               <table class="table table-striped table-bordered table-hover">
-              <thead><tr><th>名称</th><th class="hidden-480">参数</th></tr></thead>
+              <thead><tr><th style="width:40px;">名称</th><th class="hidden-480">参数</th></tr></thead>
               <tbody>
               {{#each children}}
-              <tr><td><a href="#">{{childName}}</a></td><td>{{childValue}}</td></tr>
+              <tr><td>{{childName}}</td><td>{{childValue}}</td></tr>
               {{/each}}
               </tbody></table>
             
@@ -33,15 +55,15 @@
 
 </script>
 <script id="queryresult-template" type="text/x-handlebars-template">
-<div id="queryresult-template" class="accordion-style1 panel-group">
+<div id="queryresult-template" class="accordion-style1">
 {{#each result}}
-   <div class="panel panel-default">
+   <div class="panel panel-default ">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{typeName}}({{count}})</a>
             </h4>
         </div>
-        <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
+        <div class="panel-collapse in collapse" id="collapse{{@index}}" style="height: auto;">
             {{#each children}}
             <div class="panel-body">
               <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
@@ -111,36 +133,36 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200"></object>
-						<!--img id="wgl" src="${resources}/images/3d/capture/主界面.png" style="width: 100%"-->
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="layer-control" class="ace-settings-container">
-		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:20px;height:40px;background-color:white;float:left;" ></a>
+		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:10px;height:40px;background-color:white;float:left;" ></a>
 			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
-				<div class="tabbable" style="margin-top: 0; background-color: #c5d0dc">
-					<ul class="nav nav-tabs padding-12 tab-color-blue background-blue">
-						<li class="active">
-							<a id="layer-tab" data-toggle="tab" href="#layer">图层管理</a>
+				<div class="tabbable tabs-right" style="margin-top: 0; background-color: #c5d0dc">
+					<ul class="nav nav-tabs tab-color-blue background-blue" style="min-width: 5px">
+					    <li class="active" style="min-width: 4px">
+							<a id="result-tab" data-toggle="tab" href="#result" style="min-width: 4px;width:4px;">查<br>询<br>结<br>果</a>
 						</li>
-						<li>
-							<a id="info-tab" data-toggle="tab" href="#object">对象信息</a>
+						<li style="min-width: 4px">
+							<a id="info-tab" data-toggle="tab" href="#object" style="min-width: 4px;width:4px;">对<br>象<br>信<br>息</a>
 						</li>
-						<li class="dropdown">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								更多 <i class="icon-caret-down bigger-110 width-auto"></i>
-							</a>
-							<ul class="dropdown-menu dropdown-info" style="min-width: 80px">
-								<li>
-									<a data-toggle="tab" href="#viewpoint">视点导航</a>
-								</li>
-							</ul>
+						<li style="min-width: 4px">
+							<a id="layer-tab" data-toggle="tab" href="#layer" style="min-width: 4px;width:4px;">图<br>层<br>管<br>理</a>
+						</li>
+						<li  >
+							<a data-toggle="tab" href="#viewpoint" style="min-width: 4px;width:4px;">视点导航</a>
 						</li>
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
-					 
-						<div id="layer" data-level="first" class="tab-pane active">
+					    <div id="result" data-level="first" class="tab-pane active">
+					    	<div class="well">
+								<h4 class="green smaller lighter">查询结果</h4>
+								显示框选或者查询结果的列表信息。
+							</div>
+						</div>
+						<div id="layer" data-level="first" class="tab-pane">
 							<div id="layer-tree" class="ztree"></div>
 						</div>
 						<div id="object" data-level="first" class="tab-pane col-sm-6 accordion-style1">
@@ -148,58 +170,12 @@
 								<h4 class="green smaller lighter">对象信息</h4>
 								返回在三维场景中选中的设备信息。
 							</div>
-							<div id="object-infopanel" class="profile-user-info profile-user-info-striped accordion-style1" style="margin: 0">
-								<div class="profile-info-row">
-									<div class="profile-info-name">ID</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">1028097</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">位置</div>
-									<div class="profile-info-value">
-										<i class="icon-map-marker light-orange bigger-110"></i>
-										<span class="editable editable-click">变电站</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">名称</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">2号主变B相</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">类型ID</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">1</span>
-									</div>
-								</div>
-							</div>
-							<img id="info-image-1" src="${resources}/images/3d/capture/信息统计-右侧属性栏.jpg" style="width: 100%; display: none;">
 						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
+								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('我的相机');">
 									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">工业广场</span></a>
-								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
-									<img src="${resources}/images/3d/viewpoint/2.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">工作面</span></a>
-								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
-									<img src="${resources}/images/3d/viewpoint/3.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">水泵房</span></a>
-								</div>
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
-									<img src="${resources}/images/3d/viewpoint/4.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">变电所</span></a>
-								</div>
-							</div>
-							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('主水仓');">
-									<img src="${resources}/images/3d/viewpoint/5.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">通风机房</span></a>
+									<span style="font-size: 11px">我的相机</span></a>
 								</div>
 							</div>
 						</div>
@@ -212,22 +188,20 @@
 		seajs.use('${resources}/scripts/app/3d/index');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
-	    console.log("ObjectSelected:"+id+"  "+name);
 	    var infos=WebMineSystem.GetObjProperty(id,"");
-	    console.log(infos);
-	    var temp=null;
-		eval("var temp="+infos);
+	    var temp=$.parseJSON(infos);
 	    callbackClt.showObjectInfo(temp);
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
-        console.log(evt);
-	    var jsonData=JSON.parse(evt);
-	    console.log(jsonData);
+	    var jsonData=$.parseJSON(evt);
 	    callbackClt.test(jsonData);
     </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
+        callbackClt.multipleObjectsSelected(_SelectedObjs);
+    </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
-	    //alert('load');
-	    WebMineSystem.LoadProjectFile('sywz-0.MDocSegment');
+        //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
+        setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
 </body>
 </html>

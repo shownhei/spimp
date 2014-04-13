@@ -33,7 +33,9 @@ public class Repackage {
 
 		webxml(version);
 		applicationContextmvcxml();
-		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
+//		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
+		//王庄sqlserver
+		forSpimpWZ("sa", "1234", "jdbc:sqlserver://WIN-V0ANRG2CIBH:1433; DatabaseName=spimp", "2014-12-31");
 		log4jxml("WARN");
 		wroproperties();
 		headjsp();
@@ -41,7 +43,7 @@ public class Repackage {
 		WarUtils.zip("target/ROOT.war", "target/ROOT");
 	}
 
-	private static void applicationContextmvcxml() {
+	protected static void applicationContextmvcxml() {
 		String fileName = "target/ROOT/WEB-INF/classes/spring/applicationContext-mvc.xml";
 		List<String> lines = readLines(fileName);
 
@@ -50,7 +52,7 @@ public class Repackage {
 		writeLinesToFile(fileName, lines);
 	}
 
-	private static void applicationserverproperties(String username, String password, String url, String day) {
+	protected static void applicationserverproperties(String username, String password, String url, String day) {
 		String fileName = "target/ROOT/WEB-INF/classes/application.server.properties";
 		List<String> lines = readLines(fileName);
 
@@ -64,6 +66,30 @@ public class Repackage {
 		writeLinesToFile(fileName, lines);
 	}
 
+	private static void forSpimpWZ(String username, String password, String url, String day){
+		String fileName = "target/ROOT/WEB-INF/classes/application.server.properties";
+		List<String> lines = readLines(fileName);
+
+		lines.set(4 - 1, "jdbc.username=" + username);
+		lines.set(5 - 1, "jdbc.password=" + password);
+		lines.set(8 - 1, "#"+lines.get(8-1));
+		lines.set(9 - 1, "#"+lines.get(9-1));
+		lines.set(10 - 1, "#"+lines.get(10-1));
+		String array[]={
+				"database:sqlserver2008",
+				"jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver",
+				"jdbc.url=jdbc:sqlserver://WIN-V0ANRG2CIBH:1433; DatabaseName=spimp",
+				"hibernate.dialect=org.hibernate.dialect.SQLServer2008Dialect"
+		};
+		
+		for(int i=11;i<15;i++){
+			lines.set(i - 1, array[i-11]);
+		}
+		String license = AES.encodeAes128(LoginController.KEY, day);
+		lines.set(35 - 1, "app.license=" + license);
+
+		writeLinesToFile(fileName, lines);
+	}
 	private static void headjsp() {
 		String fileName1 = "target/ROOT/WEB-INF/views/common/head.jsp";
 		List<String> lines1 = readLines(fileName1);

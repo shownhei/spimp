@@ -5,21 +5,20 @@ define(function(require, exports, module) {
 		var toolBar=42;//1
 		var controlBarWidth=$('#control-bar').width();//2
 		var controlDiv=$('#layer-control-div');
-		console.log(controlDiv.is(":hidden"));
 		var controlWidth=controlDiv.is(":hidden")?0:controlDiv.width();//3
 		var tabHeight = $(window).height() - 170;
 		$('div[class*="tab-pane"]').filter('div[data-level="first"]').css({
 			'max-height' : tabHeight + 'px',
 			'height' : tabHeight + 'px'
 		});
-		var mainHeight=$(window).height() - 90;
+		var mainHeight=$(window).height() - 92;
 		$('#WebMineSystem').height(mainHeight);
 		var newWidth=$(window).width() -toolBar-controlBarWidth-controlWidth;
 		$('#WebMineSystem').width(newWidth);
 		$('#control-bar').height(mainHeight);
 		var paddingTop=($(window).height() - 90)/2;
 		$('#control-bar').height(mainHeight);
-		console.log(newWidth+" "+controlBarWidth+" " +controlWidth);
+		$('#rightPanel').height(mainHeight-40);
 	}
 	$('.ace-settings-container').css({'top':'41px'});
 	window.onresize = resize;
@@ -54,6 +53,54 @@ define(function(require, exports, module) {
 		}
 	}
 
+	var initLayerTree=function(zNodes){
+		var array=$.parseJSON(zNodes);
+		var children=[];
+		var id=1;
+		for(var key in array){
+			 var raw=array[key];
+			 raw.id=id++;
+			 raw.iconOpen = resources + "/images/icons/chart_organisation.png";
+			 raw.iconClose = resources + "/images/icons/chart_organisation.png";
+			 raw.checked=null;
+			 raw.name=raw.Name;
+			 raw.pId=-1;
+			 children.push(raw);
+		 }
+		var result={id:"-1",name:"王庄煤业","pId":0,open:true,children:children};
+		
+		var setting = {
+				check : {
+					enable : true,
+					autoCheckTrigger: true,
+					chkStyle : "checkbox"
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				callback :{
+					onClick :  function(event, treeId, treeNode, clickFlag) {
+					   var groupTree = $.fn.zTree.getZTreeObj(treeId);
+					},
+					onCheck:function(event, treeId, treeNode){
+						if(!(treeNode.children)){
+							if(treeNode.checked){
+								WebMineSystem.SetLayerOn(treeNode.name);
+							}else{
+								WebMineSystem.SetLayerOFF(treeNode.name);
+							}
+						}
+					}
+				}
+		};
+		var tree=$.fn.zTree.init($("#layer-tree"), setting, result);
+		var rootNode=tree.getNodeByParam("id",-1);
+		tree.checkNode(rootNode, true, true);
+	};
+	window.initLayerTree=initLayerTree;
+	/*
 	// 机构树配置
 	var layerTreeSetting = {
 		view : {
@@ -92,8 +139,8 @@ define(function(require, exports, module) {
 		}
 	};
 
-	var layerTree = $.fn.zTree.init($('#layer-tree'), layerTreeSetting);
-
+	var layerTree = $.fn.zTree.init($('#layer-tree'), layerTreeSetting);*/
+    
 	$('button[data-image],a[data-image]').click(function() {
 		if ($(this).data('type') !== undefined) {
 			switch ($(this).data('type')) {
@@ -166,8 +213,7 @@ define(function(require, exports, module) {
 	    }else{
 	    	resultData=WebMineSystem.FuzzyQuery('巷道');
 	    }
-		var temp=null;
-		eval("var temp="+resultData);
+		var temp=$.parseJSON( resultData );
 		window.callbackClt.test(temp);
 	});
 	resize();
@@ -182,10 +228,55 @@ define(function(require, exports, module) {
 	callbackClt.config.connectDB=function(_jsonData){
 		
 	};
-	callbackClt.tool={};//工具
-	callbackClt.create={};//创建
+	//平台加载完毕回调
+	callbackClt.Platform3DStarted=function(){
+		$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+			var paths = data.data.split('/');
+			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+			WebMineSystem.UpdateProjectFile(paths[3]);
+			WebMineSystem.LoadProjectFile(paths[3]);
+			var result=WebMineSystem.GetAllLayers();
+			initLayerTree(result);
+			callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
+			window.projectLoaded=true;
+		});
+	};
+	//所有的试点相机
+	callbackClt.onGetAllCameraViews=function(_jsonData){
+		var array=$.parseJSON(_jsonData);
+		var result=[];
+		var group=[];
+		var index=0;
+		for(var key in array){
+			if(index%4==0){
+				group=[];
+				result.push({children:group});
+			}
+			index+=1;
+			var raw=array[key];
+			raw.id=raw.ID;
+			raw.name=raw.名称;
+			group.push(raw);
+		}
+		var template = Handlebars.compile($('#allCameraViews-template').html());
+		var html = template({"result":result});
+		$('#viewpoint').html(html);
+	};
 	callbackClt.control={};//操作
-	callbackClt.query={};//查询
+	//多个物体选中
+	callbackClt.multipleObjectsSelected=function(_SelectedObjs,_SelectedObjsCount){
+		var jsonData=$.parseJSON(_SelectedObjs);
+		var result=[];
+		for(var key in jsonData){
+			if(jsonData[key]){
+				result.push({'key':key,'value':jsonData[key]});
+			}
+		 }
+		var template = Handlebars.compile($('#multipleObjectsSelected-template').html());
+		var html = template({"result":result});
+		$('#result').html(html);
+		$('#result-tab').trigger('click');
+	};//查询
 	callbackClt.showObjectInfo=function(_jsonData){
 		var data=[];
 		var groupIndex=0;
@@ -209,6 +300,8 @@ define(function(require, exports, module) {
 		var template = Handlebars.compile($('#objectinfo-template').html());
 		var html = template({"result":data});
 		$('#object').html(html);
+		$('#info-tab').trigger('click');
+		
 	};
 	callbackClt.test=function(_jsonData){
 		 var i=0;
@@ -223,7 +316,13 @@ define(function(require, exports, module) {
 		 }
 		var template = Handlebars.compile($('#queryresult-template').html());
 		var html = template({"result":data});
-		$('#object').html(html);
+		$('#result').html(html);
+		$('#result-tab').trigger('click');
 	};
 	window.callbackClt=callbackClt;
+	setTimeout(function(){
+		if(!window.projectLoaded){
+			callbackClt.Platform3DStarted();
+		}
+	},5000);
 });

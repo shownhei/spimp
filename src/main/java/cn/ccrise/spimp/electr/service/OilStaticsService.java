@@ -73,8 +73,8 @@ public class OilStaticsService {
 		c.set(Calendar.DAY_OF_MONTH, DateUtil.getCurrentMonthLastDay());
 		Date endDate = new Date(c.getTime().getTime());
 		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
+		buff.append("select l.car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
+		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo,l.car.carCategory.itemName");
 		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
 		query.setDate("startDate", startDate);
 		query.setDate("endDate", endDate);
@@ -98,8 +98,8 @@ public class OilStaticsService {
 		c.set(Calendar.DAY_OF_MONTH, 31);
 		Date endDate = new Date(c.getTime().getTime());
 		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
-		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo");
+		buff.append("select l.car.carNo,sum(l.trainNumber) as c, sum(l.distance) as a, sum(l.refuelNumber) as b,l.car.carCategory.itemName  ");
+		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo,l.car.carCategory.itemName");
 		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
 		query.setDate("startDate", startDate);
 		query.setDate("endDate", endDate);

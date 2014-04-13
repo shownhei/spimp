@@ -17,7 +17,6 @@ import cn.ccrise.ikjp.core.entity.IDEntity;
 import cn.ccrise.ikjp.core.util.JsonTimeDeserializer;
 import cn.ccrise.ikjp.core.util.JsonTimeSerializer;
 import cn.ccrise.spimp.ercs.entity.UploadedFile;
-import cn.ccrise.spimp.system.entity.Dictionary;
 
 /**
  * Document。
@@ -30,8 +29,6 @@ public class Document extends IDEntity {
 	// 文档名称
 	private String documentName;
 
-	// 工程分类
-	private Dictionary projectType;
 
 	// 科室
 	private String office;
@@ -53,6 +50,16 @@ public class Document extends IDEntity {
 
 	// 附件
 	private UploadedFile attachment;
+	private Long folderId;
+	
+
+	public Long getFolderId() {
+		return folderId;
+	}
+
+	public void setFolderId(Long folderId) {
+		this.folderId = folderId;
+	}
 
 	@ManyToOne
 	public UploadedFile getAttachment() {
@@ -91,11 +98,6 @@ public class Document extends IDEntity {
 		return office;
 	}
 
-	@ManyToOne
-	public Dictionary getProjectType() {
-		return projectType;
-	}
-
 	public String getUpdateBy() {
 		return updateBy;
 	}
@@ -126,10 +128,6 @@ public class Document extends IDEntity {
 
 	public void setOffice(String office) {
 		this.office = office;
-	}
-
-	public void setProjectType(Dictionary projectType) {
-		this.projectType = projectType;
 	}
 
 	public void setUpdateBy(String updateBy) {

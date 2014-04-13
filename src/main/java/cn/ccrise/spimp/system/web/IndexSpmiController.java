@@ -33,7 +33,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/aqk/document/query", method = RequestMethod.GET)
 	public String spmiAqkDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/aqk/info", method = RequestMethod.GET)
@@ -68,7 +68,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/dck/document/query", method = RequestMethod.GET)
 	public String spmiDckDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/dck/info", method = RequestMethod.GET)
@@ -98,7 +98,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/dds/document/query", method = RequestMethod.GET)
 	public String spmiDdsDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/dds/info", method = RequestMethod.GET)
@@ -150,7 +150,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/fzs/document/query", method = RequestMethod.GET)
 	public String spmiFzsDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/fzs/info", method = RequestMethod.GET)
@@ -220,7 +220,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/jdd/document/query", method = RequestMethod.GET)
 	public String spmiJddDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/jdd/equipment/alert", method = RequestMethod.GET)
@@ -380,7 +380,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/jdk/document/query", method = RequestMethod.GET)
 	public String spmiJdkDocumentQuery() {
-		return "spmi/document/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/jdk/info", method = RequestMethod.GET)
@@ -410,7 +410,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/jje/document/query", method = RequestMethod.GET)
 	public String spmiJjeDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/jje/info", method = RequestMethod.GET)
@@ -435,7 +435,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/jjy/document/query", method = RequestMethod.GET)
 	public String spmiJjyDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/jjy/info", method = RequestMethod.GET)
@@ -460,7 +460,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/kte/document/query", method = RequestMethod.GET)
 	public String spmiKteDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/kte/info", method = RequestMethod.GET)
@@ -485,7 +485,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/kty/document/query", method = RequestMethod.GET)
 	public String spmiKtyDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/kty/info", method = RequestMethod.GET)
@@ -603,7 +603,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/sjk/document/query", method = RequestMethod.GET)
 	public String spmiSjkDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/sjk/info", method = RequestMethod.GET)
@@ -638,7 +638,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/tfk/document/query", method = RequestMethod.GET)
 	public String spmiTfkDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/tfk/equipment/alert", method = RequestMethod.GET)
@@ -743,7 +743,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/tfs/document/query", method = RequestMethod.GET)
 	public String spmiTfsDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/tfs/info", method = RequestMethod.GET)
@@ -803,7 +803,7 @@ public class IndexSpmiController {
 
 	@RequestMapping(value = "/spmi/zcd/document/query", method = RequestMethod.GET)
 	public String spmiZcdDocumentQuery() {
-		return "spmi/document/query/index";
+		return "spmi/document/query";
 	}
 
 	@RequestMapping(value = "/spmi/zcd/equipment/alert", method = RequestMethod.GET)

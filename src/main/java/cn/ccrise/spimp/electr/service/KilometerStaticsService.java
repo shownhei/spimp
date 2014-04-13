@@ -61,7 +61,7 @@ public class KilometerStaticsService {
 		}// 位置存储完毕
 
 		StringBuffer buff = new StringBuffer();
-		buff.append("select car.carNo,sum(l.distance),month(l.addDate)  ");
+		buff.append("select l.car.carNo,sum(l.distance),month(l.addDate)  ");
 		buff.append(" from RunLog l where l.addDate between :startDate and :endDate group by l.car.carNo,month(l.addDate)");
 		Query query = runLogService.getDAO().getSession().createQuery(buff.toString());
 		query.setDate("startDate", startDate);
