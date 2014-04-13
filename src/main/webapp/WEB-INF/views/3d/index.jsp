@@ -157,6 +157,10 @@
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
 					    <div id="result" data-level="first" class="tab-pane active">
+					    	<div class="well">
+								<h4 class="green smaller lighter">查询结果</h4>
+								显示框选或者查询结果的列表信息。
+							</div>
 						</div>
 						<div id="layer" data-level="first" class="tab-pane">
 							<div id="layer-tree" class="ztree"></div>
@@ -166,34 +170,6 @@
 								<h4 class="green smaller lighter">对象信息</h4>
 								返回在三维场景中选中的设备信息。
 							</div>
-							<div id="object-infopanel" class="profile-user-info profile-user-info-striped accordion-style1" style="margin: 0">
-								<div class="profile-info-row">
-									<div class="profile-info-name">ID</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">1028097</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">位置</div>
-									<div class="profile-info-value">
-										<i class="icon-map-marker light-orange bigger-110"></i>
-										<span class="editable editable-click">变电站</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">名称</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">2号主变B相</span>
-									</div>
-								</div>
-								<div class="profile-info-row">
-									<div class="profile-info-name">类型ID</div>
-									<div class="profile-info-value">
-										<span class="editable editable-click">1</span>
-									</div>
-								</div>
-							</div>
-							<img id="info-image-1" src="${resources}/images/3d/capture/信息统计-右侧属性栏.jpg" style="width: 100%; display: none;">
 						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">

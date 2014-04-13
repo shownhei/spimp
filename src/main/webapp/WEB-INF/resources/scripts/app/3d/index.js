@@ -11,13 +11,14 @@ define(function(require, exports, module) {
 			'max-height' : tabHeight + 'px',
 			'height' : tabHeight + 'px'
 		});
-		var mainHeight=$(window).height() - 90;
+		var mainHeight=$(window).height() - 92;
 		$('#WebMineSystem').height(mainHeight);
 		var newWidth=$(window).width() -toolBar-controlBarWidth-controlWidth;
 		$('#WebMineSystem').width(newWidth);
 		$('#control-bar').height(mainHeight);
 		var paddingTop=($(window).height() - 90)/2;
 		$('#control-bar').height(mainHeight);
+		$('#rightPanel').height(mainHeight-40);
 	}
 	$('.ace-settings-container').css({'top':'41px'});
 	window.onresize = resize;
