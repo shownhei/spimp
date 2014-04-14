@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.validation.Valid;
-
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,17 +49,8 @@ public class LocationStaffController {
 	@Autowired
 	private LocationStationService locationStationService;
 
-	@RequestMapping(value = "/location/location-staffs/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(locationStaffService.delete(id));
-	}
-
 	/**
 	 * 得到所有部门或者根据人员信息得到对应部门信息
-	 * 
-	 * @param staffId
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-staffs-department", method = RequestMethod.GET)
 	@ResponseBody
@@ -88,11 +76,6 @@ public class LocationStaffController {
 
 	/**
 	 * 人员基本信息查询
-	 * 
-	 * @param page
-	 * @param staffQueryIn
-	 * @return
-	 * @throws UnsupportedEncodingException
 	 */
 	@RequestMapping(value = "/location/location-staffs", method = RequestMethod.GET)
 	@ResponseBody
@@ -130,13 +113,6 @@ public class LocationStaffController {
 							staff.getCurStationId())) != null ? (locationStationService.findUniqueBy("id.stationId",
 							staff.getCurStationId()).getPos()) : ""));
 				}
-				// if (staff.getBirthday() != null) {
-				// String[] dates = staff.getBirthday().split(" ");
-
-				// staff.setBirthday(Integer.parseInt(dates[3]) + "-"
-				// + Integer.parseInt(dates[0]) + "-"
-				// + Integer.parseInt(dates[2]));
-				// }
 			}
 		}
 		return new Response(page);
@@ -144,10 +120,6 @@ public class LocationStaffController {
 
 	/**
 	 * 紧急避险系统中人员监测
-	 * 
-	 * @param page
-	 * @param staffQueryIn
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-staffs/hedge", method = RequestMethod.GET)
 	@ResponseBody
@@ -195,17 +167,8 @@ public class LocationStaffController {
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/location/location-staffs", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody LocationStaff locationStaff) {
-		return new Response(locationStaffService.save(locationStaff));
-	}
-
 	/**
 	 * 得到所有人员信息或者根据部门信息得到对应人员信息
-	 * 
-	 * @param department
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-staffs-staff", method = RequestMethod.GET)
 	@ResponseBody
@@ -231,21 +194,11 @@ public class LocationStaffController {
 
 	/**
 	 * 查询当前分站人员详情
-	 * 
-	 * @param id
-	 * @param page
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-station-staffs/{selectItemID}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response station(@PathVariable String selectItemID, Page<LocationStaff> page) {
 		page = locationStaffService.getPage(page, Restrictions.eq("curStationId", selectItemID));
 		return new Response(page);
-	}
-
-	@RequestMapping(value = "/location/location-staffs/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody LocationStaff locationStaff, @PathVariable long id) {
-		return new Response(locationStaffService.update(locationStaff));
 	}
 }

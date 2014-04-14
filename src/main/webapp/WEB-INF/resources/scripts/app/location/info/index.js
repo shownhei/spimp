@@ -4,7 +4,10 @@ define(function(require, exports, module) {
 	// 配置表格列
 	var fields1 = [ {
 		header : '区域编号',
-		name : 'areaId'
+		name : 'id',
+		render : function(value) {
+			return value.areaId;
+		}
 	}, {
 		header : '区域名称',
 		name : 'areaName'
@@ -21,7 +24,10 @@ define(function(require, exports, module) {
 
 	var fields2 = [ {
 		header : '分站编号',
-		name : 'stationId'
+		name : 'id',
+		render : function(value) {
+			return value.stationId;
+		}
 	}, {
 		header : '分站位置',
 		name : 'pos'
