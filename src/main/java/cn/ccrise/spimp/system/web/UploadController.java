@@ -29,6 +29,7 @@ import cn.ccrise.spimp.ercs.entity.UploadedFile;
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
 import cn.ccrise.spimp.system.service.Document2PDFConvertService;
 import cn.ccrise.spimp.system.service.PDF2SwfService;
+import cn.ccrise.spimp.util.JavaImageUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
@@ -85,6 +86,7 @@ public class UploadController {
 			// 记录日志
 			logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
 
+			this.compressPic(newFile.getAbsolutePath(), newFile.getAbsolutePath());
 			// 设置响应
 			response.setContentType("text/html");
 			response.getWriter().write(
@@ -200,6 +202,13 @@ public class UploadController {
 		return instance;
 	}
 
+	/**
+	 * 
+	 */
+	private void compressPic(String inputDir,String outputDir){
+		JavaImageUtil util= new JavaImageUtil();
+		util.compressPic(inputDir, outputDir);
+	}
 	private String generatePath(MultipartFile file) {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 
