@@ -7,15 +7,11 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,42 +69,13 @@ public class LocationStationController {
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/location/location-stations", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody LocationStation locationStation) {
-		return new Response(locationStationService.save(locationStation));
-	}
-
 	/**
 	 * 返回分站内人员信息详情数据
-	 * 
-	 * @param page
-	 * @param nodeId
-	 * @param sensorName
-	 * @param nodePlace
-	 * @return
-	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/location/location-stations-detail", method = RequestMethod.GET)
 	@ResponseBody
 	public Response stationStaffDatasDetail(Page<LocationStaff> page, String stationId) throws ParseException {
-
 		page = locationStaffService.getPage(page, Restrictions.eq("curStationId", stationId));
-
-		// for (LocationStaff locationStaff : page.getResult()) {
-		// String[] dates = locationStaff.getBirthday().split(" ");
-
-		// locationStaff.setBirthday(Integer.parseInt(dates[3]) + "-"
-		// + Integer.parseInt(dates[0]) + "-"
-		// + Integer.parseInt(dates[2]));
-		// }
-
 		return new Response(page);
-	}
-
-	@RequestMapping(value = "/location/location-stations/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody LocationStation locationStation, @PathVariable long id) {
-		return new Response(locationStationService.update(locationStation));
 	}
 }

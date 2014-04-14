@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -27,7 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.location.entity.Department;
+import cn.ccrise.spimp.location.entity.Leader;
 import cn.ccrise.spimp.location.entity.LocationStaff;
+import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.entity.StaffSelect;
 import cn.ccrise.spimp.location.service.LocationStaffService;
 import cn.ccrise.spimp.location.service.LocationStationService;
@@ -48,6 +51,15 @@ public class LocationStaffController {
 	private LocationStaffService locationStaffService;
 	@Autowired
 	private LocationStationService locationStationService;
+
+	/**
+	 * 实时下井总人数
+	 */
+	@RequestMapping(value = "/location/location-staffs/count", method = RequestMethod.GET)
+	@ResponseBody
+	public Response count() {
+		return new Response(locationStaffService.count(Restrictions.ge("state", 3)));
+	}
 
 	/**
 	 * 得到所有部门或者根据人员信息得到对应部门信息
@@ -72,6 +84,30 @@ public class LocationStaffController {
 			lists.add(department);
 		}
 		return new Response(lists);
+	}
+
+	/**
+	 * 按照读卡器编号或安装位置查询在线人数，包括人员名称、职务、工种、部门、联系电话等。
+	 */
+	@RequestMapping(value = "/location/location-staffs/detail", method = RequestMethod.GET)
+	@ResponseBody
+	public Response detail(String staffId, String pos) {
+		ArrayList<Criterion> criterions = Lists.newArrayList();
+		if (staffId != null) {
+			criterions.add(Restrictions.eq("id.staffId", staffId));
+		}
+		if (pos != null) {
+			List<String> stationsId = Lists.newArrayList();
+
+			for (LocationStation locationStation : locationStationService.find(Restrictions.like("pos", pos,
+					MatchMode.ANYWHERE))) {
+				stationsId.add(locationStation.getId().getStationId());
+			}
+
+			criterions.add(Restrictions.in("curStationId", stationsId));
+		}
+
+		return new Response(locationStaffService.find(criterions.toArray(new Criterion[0])));
 	}
 
 	/**
@@ -148,17 +184,28 @@ public class LocationStaffController {
 		return new Response(page);
 	}
 
-	@RequestMapping(value = "/location/location-staff", method = RequestMethod.GET)
-	public String index() {
-		return "location/location-staff/index";
+	/**
+	 * 实时下井领导
+	 */
+	@RequestMapping(value = "/location/location-staffs/leader", method = RequestMethod.GET)
+	@ResponseBody
+	public Response leader() {
+		List<LocationStaff> result = locationStaffService.find(Restrictions.ge("state", 3),
+				Restrictions.or(Restrictions.eq("jobType", 2), Restrictions.eq("jobType", 3)));
+
+		List<Leader> leaders = Lists.newArrayList();
+		for (LocationStaff locationStaff : result) {
+			Leader leader = new Leader(locationStaff.getName(), locationStationService.findUnique(
+					Restrictions.eq("id.mineId", locationStaff.getId().getMineId()),
+					Restrictions.eq("id.stationId", locationStaff.getCurStationId())).getPos());
+			leaders.add(leader);
+		}
+
+		return new Response(leaders);
 	}
 
 	/**
 	 * 查询当前区域人数
-	 * 
-	 * @param id
-	 * @param page
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-staffs/{id}", method = RequestMethod.GET)
 	@ResponseBody
