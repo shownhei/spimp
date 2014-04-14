@@ -245,7 +245,7 @@ public class InitService extends DataInitAbstractService {
 			dictionaryService.save(dictionary);
 		}
 		// 职务职称
-		String duties[] = { "队长", "副队长", "班长", "组长" };
+		String duties[] = { "队长", "副队长", "班长", "组长","工人" };
 		for (String duty : duties) {
 			Dictionary dictionary = new Dictionary();
 			dictionary.setItemName(duty);
