@@ -5,34 +5,85 @@ define(function(require, exports, module) {
 	$('button[title]').tooltip({
 		placement : 'bottom'
 	});
-
 	/**
-	 * 重置页面状态
+	 * 修改/重置按钮状态
 	 */
-	function picture(path, j, id, fileId, name) {
-		var htmlP = "";
-		if (path !== '') {
-			htmlP += "<li>";
-			htmlP += "<div class='span12 imgFrame'  style='position:relative'>";
-			// ID是机构ID，fileID是附件ID
-			htmlP += "<input type='text' value=" + id + " data-id=" + id + " style='display:none'>";
-			// 附件路径和名称
-			htmlP += "<img  src=" + path + " width='100%' data-id=" + name + " class='img-polaroid' >";
-			htmlP += "<div class='imgContent' style='position:absolute;left:47px;bottom:5px;'>";
-			htmlP += "<input name='view' type='button' value='查看' onclick='show(this)' class='btn btn-mini'/>&nbsp;&nbsp;";
-			htmlP += "<input name='download' type='button' value='删除' onclick='deletePic(this)' class='btn btn-mini'/>";
-			htmlP += "</div>";
-			htmlP += "</div>";
-			htmlP += "</li>";
-			$("#column" + j).append(htmlP);
+	function changeButtonsStatus(selected, data) {
+		if (selected) {
+			Utils.button.enable([  'remove' ]);
 		} else {
-			$("#column" + j).append("");
+			Utils.button.disable([  'remove' ]);
 		}
 	}
-	function show(o) {
-		$("#imgfile").attr("src", $(o).parent().prev().attr("src"));
+	// 配置表格列
+	var fields = [ {
+		header : '图片',
+		name : 'attachment',
+		render : function(value) {
+			return '<a href="javascript:void(0);" data-type="show_picture"><image src="' + value + '" style="height:30px;"/></a>' ;
+		}
+	},{
+		header : '上传人',
+		width:80,
+		name : 'uploader'
+	},{
+		header : '上传时间',
+		width:200,
+		name : 'uploadTime'
+	},{
+		header : '操作',
+		width:80,
+		name : 'id',
+		render:function(id){
+			return '<a href="javascript:void(0);" data-id="'+id+'" data-type="delete_picture" class="icon-trash" title="删除图片">&nbsp;</a>' ;
+		}
+	} ];
+	// 计算表格高度和行数
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 84);
+	var pageSize = Math.floor((gridHeight - 1) / GRID_ROW_HEIGHT);
+	// 配置表格
+	var defaultUrl = contextPath + '/spmi/daily/pictures?orderBy=id&order=desc&pageSize=' + pageSize;
+	var grid = new Grid({
+		parentNode : '#pictureTable',
+		url : defaultUrl,
+		model : {
+			fields : fields,
+			needOrder : true,
+			orderWidth : 50,
+			height : gridHeight
+		},
+		onClick : function(target, data) {
+			changeButtonsStatus(this.selected, data);
+		},
+		onLoaded : function() {
+			changeButtonsStatus();
+		}
+	}).render();
+	
+	$(document).click(function(event) {
+		var el = $(event.target);
+		if(el.is('a')&& el.attr('data-type')==='delete_picture'){
+			Utils.modal.showAlert('确实要删除该图片吗','确认删除','delete_pic',function(){
+				var selectId = grid.selectedData('id');
+				$.del('/spmi/daily/pictures/' + selectId, function(data) {
+					if (data.success === true) {
+						grid.refresh();
+					}
+				});
+			});
+			return;
+		}
+		var parentEl=el.parent();
+		var elType = parentEl.attr('data-type');
+		if (parentEl.is('a') && elType === 'show_picture') {
+			show(el.attr("src"));
+			return;
+		}
+	});
+	function show(src) {
+		$("#imgfile").attr("src", src);
 		var tmpObj = new Image();
-		tmpObj.src = $(o).parent().prev().attr("src");
+		tmpObj.src = src;
 		if (tmpObj.width > 500 && tmpObj.width > tmpObj.height) {
 			tmpObj.height = parseInt(500 * tmpObj.height / tmpObj.width, 10);
 			tmpObj.width = 500;
@@ -44,48 +95,18 @@ define(function(require, exports, module) {
 			var modalWidth = $("#detail-modal").width();
 			$("#detail-modal").width(tmpObj.width);
 			$("#imgfile").attr("style", "width:" + tmpObj.width + ";height:" + tmpObj.height + ";");
-			$("#check").html($(o).parent().prev().attr('data-id'));
 			Utils.modal.show('detail');
 		};
 	}
-	function deletePic(o) {
-		Utils.modal.show('remove');
-		fileID = $(o).parent().prev().prev().attr('data-id');
-		pictureID = $(o).parent().prev().prev().attr("value");
-
-	}
-
 	// 删除确认
 	$('#remove-save').click(function() {
 		$.del('/spmi/daily/pictures/' + pictureID, function(data) {
 			if (data.success === true) {
 				groupId = groupTree.getSelectedNodes()[0].id;
 				Utils.modal.hide('remove');
-				$("#column1").html("");
-				$("#column2").html("");
-				$("#column3").html("");
-				$("#column4").html("");
-				showPicture(groupId);
 			}
 		});
 	});
-	function showPicture(groupId) {
-		$.get("/spmi/daily/pictures?groupId=" + groupId, function(data) {
-			var columns = Math.ceil(data.data.result.length / 4);
-			for (j = 1; j <= columns; j++) {
-				for (var i = (j - 1) * 4; i < j * 4; i++) {
-					var path = "";
-					if (i < data.data.result.length) {
-						path = data.data.result[i].attachment;
-						id = data.data.result[i].id;
-						name = data.data.result[i].name;
-						picture(path, i % 4 + 1, id, null, name);
-					}
-				}
-			}
-		});
-	}
-
 	/**
 	 * 处理图标路径
 	 */
@@ -123,32 +144,15 @@ define(function(require, exports, module) {
 		callback : {
 			onClick : function(event, treeId, treeNode, clickFlag) {
 				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-				var groupId = groupTree.getSelectedNodes()[0].id;
-				$("#column1").html("");
-				$("#column2").html("");
-				$("#column3").html("");
-				$("#column4").html("");
-				showPicture(groupId);
-				// 控制按钮状态/详细信息显示
-				if (treeNode.level >= 0) {
-					Utils.button.enable([ 'new' ]);
+				var selectNode=groupTree.getSelectedNodes()[0];
+				var groupId = selectNode.id;
+				if(selectNode.name==='根相册'){
+					Utils.button.disable([ 'edit','upload','delete' ]);
+				}else{
+					Utils.button.enable([ 'edit','upload','delete' ]);
 				}
-				// 控制按钮状态/详细信息显示
-				if (treeNode.level > 0) {
-					Utils.button.enable([ 'new', 'edit', 'create' ]);
-					$("#nav-search-button").removeClass("disabled");
-					$.get(contextPath + '/spmi/daily/pictures/' + treeNode.id + '/count', function(count) {
-						if (treeNode.folders.length === 0 && count.data === 0) {
-							Utils.button.enable([ 'delete' ]);
-						} else {
-							Utils.button.disable([ 'delete' ]);
-						}
-
-					});
-				} else {
-					Utils.button.disable([ 'create' ]);
-					$("#nav-search-button").addClass("disabled");
-				}
+				Utils.button.enable([ 'new' ]);
+				grid.set('url', defaultUrl+'&groupId='+ treeNode.id );
 			},
 			onAsyncSuccess : function(event, treeId, treeNode, msg) {
 				var groupTree = $.fn.zTree.getZTreeObj(treeId);
@@ -169,21 +173,11 @@ define(function(require, exports, module) {
 		$('#groups-tree').height(150);
 		$('#tab-content').height(treeHeight - 170);
 	}
-	// 新建
-	$('#create').click(function() {
-		if (Utils.button.isDisable('create')) {
-			return;
-		}
-		Utils.modal.reset('create');
-		Utils.modal.show('create');
-		$('#attachment').parent().parent().hide();
-		$('#create-file-form')[0].reset();
-		$('#create-file-form').show();
-		Utils.modal.hide('remove');
-	});
 	// 保存
 	$('#create-save').click(function() {
+		$('#create-name').val($('#attachment').val());
 		var object = Utils.form.serialize('create');
+		
 		object.groupId = groupTree.getSelectedNodes()[0].id;
 		// 验证
 		if (object.name === '') {
@@ -195,70 +189,27 @@ define(function(require, exports, module) {
 			return;
 		}
 		// 处理属性
-
 		$.post(contextPath + '/spmi/daily/pictures', JSON.stringify(object), function(data) {
 			if (data.success) {
-				Utils.modal.hide('create');
-				$("#column1").html("");
-				$("#column2").html("");
-				$("#column3").html("");
-				$("#column4").html("");
-				groupId = groupTree.getSelectedNodes()[0].id;
-				showPicture(groupId);
+				grid.refresh();
 			} else {
 				Utils.modal.message('create', data.errors);
 			}
 		});
 	});
-	// 文件上传
-	$('#file').bind('change', function() {
-		var extArray = [ ".jpg", ".gif", ".jpeg", ".png", ".ico", ".bmp", ".tif" ];
-		var file = $('#file').val();
-		var allowSubmit = false;
-		if (!file) {
-			return;
-		}
-		while (file.indexOf("\\") !== -1) {
-			file = file.slice(file.indexOf("\\") + 1);
-		}
-		var ext = file.slice(file.indexOf(".")).toLowerCase();
-		for (var i = 0; i < extArray.length; i++) {
-			if (extArray[i] === ext) {
-				allowSubmit = true;
-				break;
-			}
-		}
-		if (allowSubmit) {
-			if ($('#file').val() !== '') {
-				$('#create-file-form').submit();
-				var process = new Utils.modal.showProcess('process');
-				window.process = process;
-			}
-		} else {
-			$('#file').val("");
-			alert("只能上传以下格式的文件:" + (extArray.join("")) + "\n请重新选择再上传.");
-		}
+	
+	$('#upload').click(function(){
+		Utils.modal.showUpload('/simpleupload',function(data){
+			var attachment = $('#attachment');
+			attachment.val(data.data);
+			$('#create-save').trigger('click');
+		},'图片上传');
 	});
-	$('#create-file-delete').bind('click', function() {
-		$('#attachment').parent().parent().hide();
-		$('#create-file-form')[0].reset();
-		if ($('#attachment').val()) {
-			var process = new Utils.modal.showProcess('process');
-			window.process = process;
-			$.del('/ercs/uploaded-files/' + $('#attachment').attr('data-id'), function(data) {
-				window.process.stop();
-				window.process = null;
-				Utils.modal.hide('remove');
-			});
-		}
-		$('#create-file-form').show();
-	});
-
+	
 	$('#new').click(function() {
 		if (Utils.button.isDisable('new')) {
 			return;
 		}
-
 		Utils.modal.reset('new');
 		Utils.modal.show('new');
 	});
@@ -296,9 +247,7 @@ define(function(require, exports, module) {
 		var selectId = groupTree.getSelectedNodes()[0].id;
 		$.get(contextPath + '/spmi/daily/folders/' + selectId, function(data) {
 			var object = data.data;
-
 			object.category = object.category + '-' + object.queryLabel;
-
 			Utils.form.fill('edit', object);
 			Utils.modal.show('edit');
 		});
@@ -322,7 +271,6 @@ define(function(require, exports, module) {
 			if (data.success) {
 				groupTree.reAsyncChildNodes(null, "refresh");
 				Utils.modal.hide('edit');
-				reset();
 			} else {
 				Utils.modal.message('edit', data.errors);
 			}
@@ -349,45 +297,6 @@ define(function(require, exports, module) {
 	// 搜索
 	$('#nav-search-button').click(function() {
 		var selectId = groupTree.getSelectedNodes()[0].id;
-		$.get("/spmi/daily/pictures?groupId=" + selectId + Utils.form.buildParams('search-form'), function(data) {
-			var columns = Math.ceil(data.data.result.length / 4);
-			$("#column1").html("");
-			$("#column2").html("");
-			$("#column3").html("");
-			$("#column4").html("");
-			for (j = 1; j <= columns; j++) {
-				for (var i = (j - 1) * 4; i < j * 4; i++) {
-					var path = "";
-					if (i < data.data.result.length) {
-						path = data.data.result[i].attachment.filePath;
-						fileId = data.data.result[i].attachment.id;
-						id = data.data.result[i].id;
-						name = data.data.result[i].name;
-						picture(path, i % 4 + 1, id, fileId, name);
-					}
-				}
-			}
-		});
+		grid.set('url', defaultUrl + Utils.form.buildParams('search-form'));
 	});
-	// 文件上传回调
-	function callBack(data) {
-		window.process.stop();
-		window.process = null;
-		if (!data.success) {
-			alert("上传失败..." + data.data);
-			return false;
-		} else {
-			var attachment = $('#attachment');
-			attachment.val(data.data);
-			$('#create-file-form').hide();
-			attachment.parent().parent().show();
-			$('#create-save').removeClass('disabled');
-			$('#create-save').trigger('click');
-
-		}
-	}
-	window.callBack = callBack;
-	window.show = show;
-	window.deletePic = deletePic;
-
 });

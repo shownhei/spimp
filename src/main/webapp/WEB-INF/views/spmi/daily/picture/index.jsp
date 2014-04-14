@@ -31,6 +31,10 @@ div.imgFrame:hover div {
 						<i class="icon-edit"></i>
 						<span class="hidden-phone">编辑</span>
 					</button>
+					<button id="upload" class="btn btn-small btn-success disabled" title="上传图片，先选择文件夹">
+						<i class="icon-upload"></i>
+						<span class="hidden-phone">上传</span>
+					</button>
 					<button id="delete" class="btn btn-small btn-danger disabled" title="如果文件夹包含数据，此文件夹将不能删除">
 						<i class="icon-trash"></i>
 						<span class="hidden-phone">删除</span>
@@ -49,7 +53,7 @@ div.imgFrame:hover div {
 			</div>
 			<div class="page-content">
 				<div class="row-fluid">
-					<div class="span4">
+					<div class="span3">
 						<div class="widget-box tree-widget-box">
 							<div class="widget-body tree-widget-body">
 								<div class="widget-main padding-8 tree-widget-main">
@@ -58,36 +62,8 @@ div.imgFrame:hover div {
 							</div>
 						</div>
 					</div>
-					<div class="span8">
-						<div class="tabbable">
-							<ul class="nav nav-tabs">
-								<li class="active">
-									<a data-toggle="tab" href="#basic">
-										<i class="green icon-home"></i> 图片
-									</a>
-								</li>
-							</ul>
-							<div id="tab-content" class="tab-content">
-								<div class="row-fluid page-toolbar span12">
-									<div class="toolbar">
-										<button id="create" class="btn btn-small btn-success disabled" title="上传图片，先选择机构">
-											<i class="icon-upload"></i>
-											<span class="hidden-phone">上传</span>
-										</button>
-									</div>
-								</div>
-								<div id="basic" class="tab-pane in active">
-									<ul id="column1" class="span3" style="list-style-type: none">
-									</ul>
-									<ul id="column2" class="span3" style="list-style-type: none">
-									</ul>
-									<ul id="column3" class="span3" style="list-style-type: none">
-									</ul>
-									<ul id="column4" class="span3" style="list-style-type: none">
-									</ul>
-								</div>
-							</div>
-						</div>
+					<div class="span9">
+						<div id="pictureTable" ></div>
 					</div>
 				</div>
 			</div>
@@ -108,7 +84,7 @@ div.imgFrame:hover div {
 						<div class="control-group">
 							<label class="control-label" for="name">图片名称</label>
 							<div class="controls">
-								<input name="name" type="text">
+								<input id="create-name" name="name" type="text">
 							</div>
 						</div>
 						<div class="control-group" style="display: none;">
@@ -284,7 +260,7 @@ div.imgFrame:hover div {
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<i class="icon-warning-sign"></i> 提示：确认删除选中的机构？
+					<i class="icon-warning-sign"></i> 提示：确认删除选中的相册？
 				</div>
 			</div>
 			<div id="remove-message-alert" class="row-fluid hide">
@@ -305,7 +281,6 @@ div.imgFrame:hover div {
 			</button>
 		</div>
 	</div>
-	<iframe name="acceptFrame" width="100" height="100" style="display: none"></iframe>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/spmi/daily/picture/index');
 	</script>
