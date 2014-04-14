@@ -47,7 +47,10 @@ define(function(require, exports, module) {
 		name : 'cardId'
 	}, {
 		header : '出生日期',
-		name : 'birthday'
+		name : 'birthday',
+		render : function(value) {
+			return value.substring(0, 10);
+		}
 	}, {
 		header : '部门',
 		name : 'department'

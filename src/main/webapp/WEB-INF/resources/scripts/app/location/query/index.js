@@ -26,11 +26,17 @@ define(function(require, exports, module) {
 	}, {
 		header : '下井时间',
 		name : 'startTime',
-		width : 160
+		width : 160,
+		render : function(value) {
+			return value.substring(0, 19);
+		}
 	}, {
 		header : '升井时间',
 		name : 'endTime',
-		width : 160
+		width : 160,
+		render : function(value) {
+			return value.substring(0, 19);
+		}
 	}, {
 		header : '持续时间',
 		name : 'timeRegion'
@@ -54,7 +60,10 @@ define(function(require, exports, module) {
 	}, {
 		header : '进入时间',
 		name : 'enterCurTime',
-		width : 160
+		width : 160,
+		render : function(value) {
+			return value.substring(0, 19);
+		}
 	}, {
 		header : '状态',
 		name : 'state'
@@ -78,7 +87,10 @@ define(function(require, exports, module) {
 	}, {
 		header : '进入时间',
 		name : 'enterCurTime',
-		width : 160
+		width : 160,
+		render : function(value) {
+			return value.substring(0, 19);
+		}
 	}, {
 		header : '状态',
 		name : 'state'
