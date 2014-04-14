@@ -186,12 +186,8 @@ public class LocationAttendanceController {
 				+ "WHERE staff.id.staffId=attendance.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
-		if (!Strings.isNullOrEmpty(department)) {
-			filterTable.append(" AND staff.department='").append(department).append("'");
-
-		}
 		if (!Strings.isNullOrEmpty(staffId)) {
-			filterTable.append(" AND staff.staffId='").append(staffId).append("'");
+			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 
 		}
 		if (StringUtils.isNotBlank(startTime)) {
@@ -222,8 +218,6 @@ public class LocationAttendanceController {
 				attendance.setJobType(String.valueOf(result[3]));
 				attendance.setTroopName(String.valueOf(result[4]));
 				attendance.setStartTime(String.valueOf(result[5]));
-				logger.debug("4:", String.valueOf(result[5]));
-				logger.debug("start:", attendance.getStartTime());
 				attendance.setEndTime(String.valueOf(result[6]));
 				if (result[5] != null && result[6] != null) {
 					Timestamp timeStart = Timestamp.valueOf(String.valueOf(result[5]));

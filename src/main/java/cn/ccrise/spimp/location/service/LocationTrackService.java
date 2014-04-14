@@ -15,6 +15,7 @@ import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.location.access.LocationTrackDAO;
+import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.entity.LocationTrack;
 import cn.ccrise.spimp.location.entity.Warn;
 
@@ -52,9 +53,9 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 		stateMaps.put(6, "井下（禁区求救）");
 		stateMaps.put(7, "井下（超时）");
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
-		String hql = "SELECT staff.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.enterCurTime,track.state "
-				+ "From LocationStaff staff,LocationTrack track "
-				+ "WHERE staff.staffId=track.staffId AND track.state>3";
+		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state "
+				+ "From LocationStaff staff,LocationStaffRealDatas track "
+				+ "WHERE staff.id.staffId=track.id.staffId AND track.state>3";
 		tempTable.append(hql);
 		if (!Strings.isNullOrEmpty(warnQueryIn)) {
 			filterTable.append(" AND (staff.department LIKE '%").append(warnQueryIn)
@@ -76,15 +77,10 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 			default:
 				break;
 			}
-
 		}
 		// 查询行数与查询结果通用条件
-		if (!Strings.isNullOrEmpty(department)) {
-			filterTable.append(" AND staff.department='").append(department).append("'");
-
-		}
 		if (!Strings.isNullOrEmpty(staffId)) {
-			filterTable.append(" AND staff.staffId='").append(staffId).append("'");
+			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 
 		}
 		if (StringUtils.isNotBlank(startTime)) {
@@ -96,8 +92,8 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 		}
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
-		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationTrack track "
-				+ "WHERE staff.staffId=track.staffId AND track.state>3";
+		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationStaffRealDatas track "
+				+ "WHERE staff.id.staffId=track.id.staffId AND track.state>3";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
@@ -114,8 +110,12 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 				warn.setDepartment(String.valueOf(result[2]));
 				warn.setJobType(String.valueOf(result[3]));
 				warn.setTroopName(String.valueOf(result[4]));
-				warn.setStationId(String.valueOf(locationStationService.findUniqueBy("stationId",
-						String.valueOf(result[5])).getPos()));
+				List<LocationStation> locationStations = locationStationService.findBy("id.stationId",
+						String.valueOf(result[5]));
+				if (locationStations.size() > 0) {
+					warn.setStationId(locationStations.get(0).getPos());
+				}
+
 				warn.setEnterCurTime(String.valueOf(result[6]));
 				String staffState = stateMaps.get(Integer.parseInt(String.valueOf(result[7])));
 				warn.setState(staffState);

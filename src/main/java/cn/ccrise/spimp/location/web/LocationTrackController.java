@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.entity.LocationTrack;
 import cn.ccrise.spimp.location.entity.Track;
 import cn.ccrise.spimp.location.entity.Warn;
@@ -53,23 +54,8 @@ public class LocationTrackController {
 	@Autowired
 	private LocationStationService locationStationService;
 
-	@RequestMapping(value = "/location/location-tracks/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(locationTrackService.delete(id));
-	}
-
 	/**
 	 * 报警导出
-	 * 
-	 * @param response
-	 * @param page
-	 * @param type
-	 * @param department
-	 * @param staffId
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/location/location-warn-export", method = RequestMethod.GET)
 	@ResponseBody
@@ -84,10 +70,6 @@ public class LocationTrackController {
 
 	/**
 	 * 井下人员实时轨迹详情
-	 * 
-	 * @param id
-	 * @param page
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-tracks/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -129,29 +111,23 @@ public class LocationTrackController {
 		stateMaps.put(7, "井下（超时）");
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
 		// 查询结果hql语句
-		String hql = "SELECT staff.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.enterCurTime,track.state "
-				+ "From LocationStaff staff,LocationTrack track " + "WHERE staff.staffId=track.staffId ";
+		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state "
+				+ "From LocationStaff staff,LocationStaffRealDatas track " + "WHERE staff.id.staffId=track.id.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
-		if (!Strings.isNullOrEmpty(department)) {
-			filterTable.append(" AND staff.department='").append(department).append("'");
-
-		}
 		if (!Strings.isNullOrEmpty(staffId)) {
-			filterTable.append(" AND staff.staffId='").append(staffId).append("'");
-
+			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 		}
 		if (StringUtils.isNotBlank(startTime)) {
 			filterTable.append(" AND track.enterCurTime >= CONVERT(DATETIME, '").append(startTime).append("', 102) ");
 		}
-
 		if (StringUtils.isNotBlank(endTime)) {
 			filterTable.append(" AND track.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
-		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationTrack track "
-				+ "WHERE staff.staffId=track.staffId ";
+		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationStaffRealDatas track "
+				+ "WHERE staff.id.staffId=track.id.staffId ";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) locationStaffService.getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
@@ -168,8 +144,13 @@ public class LocationTrackController {
 				track.setDepartment(String.valueOf(result[2]));
 				track.setJobType(String.valueOf(result[3]));
 				track.setTroopName(String.valueOf(result[4]));
-				track.setStationName(String.valueOf(locationStationService.findUniqueBy("stationId",
-						String.valueOf(result[5])).getPos()));
+
+				List<LocationStation> locationStations = locationStationService.findBy("id.stationId",
+						String.valueOf(result[5]));
+				if (locationStations.size() > 0) {
+					track.setStationName(locationStations.get(0).getPos());
+				}
+
 				track.setEnterCurTime(String.valueOf(result[6]));
 				String state = stateMaps.get(Integer.parseInt(String.valueOf(result[7])));
 				track.setState(state);
@@ -181,11 +162,6 @@ public class LocationTrackController {
 		}
 	}
 
-	@RequestMapping(value = "/location/location-track", method = RequestMethod.GET)
-	public String index() {
-		return "location/location-track/index";
-	}
-
 	@RequestMapping(value = "/location/location-tracks", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<LocationTrack> page) {
@@ -194,13 +170,6 @@ public class LocationTrackController {
 
 	/**
 	 * 下井轨迹查询
-	 * 
-	 * @param page
-	 * @param department
-	 * @param staffs
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-tracks-query", method = RequestMethod.GET)
 	@ResponseBody
@@ -211,14 +180,6 @@ public class LocationTrackController {
 
 	/**
 	 * 报警查询
-	 * 
-	 * @param page
-	 * @param type
-	 * @param department
-	 * @param staffId
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-warn-query", method = RequestMethod.GET)
 	@ResponseBody
@@ -244,12 +205,6 @@ public class LocationTrackController {
 		results.put("datas", page.getResult());
 
 		exportExcel(response, "入井考勤", TemplateUtil.loadTemplate("TrackDetails.xml", results));
-	}
-
-	@RequestMapping(value = "/location/location-tracks/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public Response update(@Valid @RequestBody LocationTrack locationTrack, @PathVariable long id) {
-		return new Response(locationTrackService.update(locationTrack));
 	}
 
 	private void exportExcel(HttpServletResponse response, String fileName, String sourceCode) throws Exception {

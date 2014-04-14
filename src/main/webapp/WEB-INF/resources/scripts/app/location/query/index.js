@@ -25,10 +25,12 @@ define(function(require, exports, module) {
 		name : 'troopName'
 	}, {
 		header : '下井时间',
-		name : 'startTime'
+		name : 'startTime',
+		width : 160
 	}, {
 		header : '升井时间',
-		name : 'endTime'
+		name : 'endTime',
+		width : 160
 	}, {
 		header : '持续时间',
 		name : 'timeRegion'
@@ -51,7 +53,8 @@ define(function(require, exports, module) {
 		name : 'stationName'
 	}, {
 		header : '进入时间',
-		name : 'enterCurTime'
+		name : 'enterCurTime',
+		width : 160
 	}, {
 		header : '状态',
 		name : 'state'
@@ -74,7 +77,8 @@ define(function(require, exports, module) {
 		name : 'stationId'
 	}, {
 		header : '进入时间',
-		name : 'enterCurTime'
+		name : 'enterCurTime',
+		width : 160
 	}, {
 		header : '状态',
 		name : 'state'
