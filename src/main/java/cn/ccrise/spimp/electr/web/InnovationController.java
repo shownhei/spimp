@@ -53,7 +53,16 @@ public class InnovationController {
 	public Response delete(@PathVariable long id) {
 		return new Response(innovationService.delete(id));
 	}
-
+	@RequestMapping(value = "/electr/innovation/innovations/setpatent/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response setPatent(@PathVariable long id) {
+		return new Response(innovationService.setPatentStatus(id,1));
+	}
+	@RequestMapping(value = "/electr/innovation/innovations/unsetpatent/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Response unSetPatent(@PathVariable long id) {
+		return new Response(innovationService.setPatentStatus(id,0));
+	}
 	@RequestMapping(value = "/electr/innovation/detail/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView detail(@PathVariable long id) {
@@ -68,7 +77,7 @@ public class InnovationController {
 			Date endDate) throws Exception {
 		Page<Innovation> page = new Page<Innovation>();
 		page.setPageSize(100000);
-		page = innovationService.pageQuery(page, search, startDate, endDate);
+		page = innovationService.pageQuery(page, search,null, startDate, endDate);
 
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		root.put("lists", page.getResult());
@@ -91,8 +100,8 @@ public class InnovationController {
 
 	@RequestMapping(value = "/electr/innovation/innovations", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Innovation> page, String search, Date startDate, Date endDate) {
-		page = innovationService.pageQuery(page, search, startDate, endDate);
+	public Response page(Page<Innovation> page, String search, Integer isPatent,Date startDate, Date endDate) {
+		page = innovationService.pageQuery(page, search, isPatent,startDate, endDate);
 		return new Response(page);
 	}
 

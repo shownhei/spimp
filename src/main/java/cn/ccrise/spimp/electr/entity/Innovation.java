@@ -22,6 +22,10 @@ import cn.ccrise.spimp.util.PageFields;
 @Table(name = "electr_innovations")
 public class Innovation extends IDEntity {
 	/**
+	 * 是否为专利发明 ：1 --是、0 --否
+	 */
+	private Integer isPatent;
+	/**
 	 * 项目名称
 	 */
 	@PageFields(describtion = "项目名称", columnShow = true, search = true, allowedNull = false)
@@ -72,6 +76,15 @@ public class Innovation extends IDEntity {
 	 */
 	@PageFields(describtion = "记录组织", columnShow = false, search = false, allowedNull = true)
 	private GroupEntity recordGroup;
+
+	
+	public Integer getIsPatent() {
+		return isPatent;
+	}
+
+	public void setIsPatent(Integer isPatent) {
+		this.isPatent = isPatent;
+	}
 
 	@Lob
 	public String getAnalysis() {

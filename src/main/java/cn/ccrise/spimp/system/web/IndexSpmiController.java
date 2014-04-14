@@ -877,7 +877,7 @@ public class IndexSpmiController {
 	}
 
 	/**
-	 * 专利发明
+	 * 小改小革
 	 * 
 	 * @return
 	 */
@@ -887,7 +887,7 @@ public class IndexSpmiController {
 	}
 
 	/**
-	 * 专利发明统计
+	 * 小改小革统计
 	 * 
 	 * @return
 	 */

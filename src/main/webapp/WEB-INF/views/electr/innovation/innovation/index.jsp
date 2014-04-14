@@ -23,6 +23,12 @@
 					<button id="upload" class="btn btn-small btn-primary disabled">
 						<i class="icon-upload"></i> 图片
 					</button>
+					<button id="setPatent" class="btn btn-small btn-primary disabled">
+						<i class="icon-check"></i> 设为专利
+					</button>
+					<button id="unsetPatent" class="btn btn-small btn-primary disabled">
+						<i class="icon-share-alt"></i> 取消专利
+					</button>
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除
 					</button>
@@ -30,6 +36,11 @@
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
 						<input name="search" type="text" style="height: 15px; width: 130px; font-size: 12px;" placeholder="输入项目名称...">
+						<select name="isPatent" id="search-isPatent">
+						   <option value="2">选择类型</option>
+						   <option value="1">专利发明</option>
+						   <option value="0">小改小革</option>
+						</select>
 						<button id="submit" type="button" class="btn btn-primary btn-small">查询</button>
 						<button id="reset" type="reset" class="btn btn-primary btn-small">重置</button>
 					</form>
@@ -113,6 +124,7 @@
 								<textarea id="create_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
+						<input type="hidden" name="isPatent" value="0">
 					</form>
 				</div>
 				<div id="create-message-alert" class="row-fluid hide">
@@ -206,6 +218,7 @@
 								<textarea id="edit_analysis" name="analysis" class="xheditor {skin:'nostyle',tools:'simple'}" style="height: 100px;"></textarea>
 							</div>
 						</div>
+						<input type="hidden" name="isPatent">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
