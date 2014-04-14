@@ -58,7 +58,7 @@ public class LocationStaffController {
 		List<Department> lists = Lists.newArrayList();
 		Set<String> departments = new TreeSet<String>();
 		if (!Strings.isNullOrEmpty(staffId)) {
-			for (LocationStaff locationStaff : locationStaffService.findBy("staffId", staffId)) {
+			for (LocationStaff locationStaff : locationStaffService.findBy("id.staffId", staffId)) {
 				departments.add(locationStaff.getDepartment());
 			}
 		} else {

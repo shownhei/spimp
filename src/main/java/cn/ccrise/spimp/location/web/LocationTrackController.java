@@ -74,7 +74,7 @@ public class LocationTrackController {
 	@RequestMapping(value = "/location/location-tracks/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Response get(@PathVariable String id, Page<LocationTrack> page) {
-		Timestamp inMineTime = locationStaffService.findUniqueBy("staffId", id).getInMineTime();
+		Timestamp inMineTime = locationStaffService.findUniqueBy("id.staffId", id).getInMineTime();
 		Map<Integer, String> stateMaps = new HashMap<Integer, String>();
 		stateMaps.put(0, "井上");
 		stateMaps.put(1, "入井");

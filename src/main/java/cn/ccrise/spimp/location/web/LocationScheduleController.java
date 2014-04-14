@@ -46,33 +46,10 @@ public class LocationScheduleController {
 	@Autowired
 	private LocationStaffService locationStaffService;
 
-	@RequestMapping(value = "/location/location-schedules/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public Response delete(@PathVariable long id) {
-		return new Response(locationScheduleService.delete(id));
-	}
-
-	@RequestMapping(value = "/location/location-schedules/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Response get(@PathVariable long id) {
-		return new Response(locationScheduleService.get(id));
-	}
-
-	@RequestMapping(value = "/location/location-schedule", method = RequestMethod.GET)
-	public String index() {
-		return "location/location-schedule/index";
-	}
-
 	@RequestMapping(value = "/location/location-schedules", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<LocationSchedule> page) {
 		return new Response(locationScheduleService.getPage(page));
-	}
-
-	@RequestMapping(value = "/location/location-schedules", method = RequestMethod.POST)
-	@ResponseBody
-	public Response save(@Valid @RequestBody LocationSchedule locationSchedule) {
-		return new Response(locationScheduleService.save(locationSchedule));
 	}
 
 	@RequestMapping(value = "/location/location-schedules-staff", method = RequestMethod.POST)
@@ -101,8 +78,8 @@ public class LocationScheduleController {
 		if (!Strings.isNullOrEmpty(scheduleQueryIn)) {
 			scheduleQueryIn = URLDecoder.decode(scheduleQueryIn, "UTF-8");
 		}
-		String hql = "SELECT staff.staffId,staff.name,staff.department,staff.jobName,schedule.classes,schedule.date,schedule.id "
-				+ "FROM LocationStaff staff,LocationSchedule schedule " + "WHERE staff.staffId=schedule.staffid ";
+		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,schedule.classes,schedule.date,schedule.id "
+				+ "FROM LocationStaff staff,LocationSchedule schedule " + "WHERE staff.id.staffId=schedule.staffid ";
 		tempTable.append(hql);
 		if (!Strings.isNullOrEmpty(scheduleQueryIn)) {
 			filterTable.append(" AND (staff.department LIKE '%").append(scheduleQueryIn)
@@ -119,7 +96,7 @@ public class LocationScheduleController {
 		}
 		tempTable.append(filterTable);
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationSchedule schedule "
-				+ "WHERE staff.staffId=schedule.staffid ";
+				+ "WHERE staff.id.staffId=schedule.staffid ";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 

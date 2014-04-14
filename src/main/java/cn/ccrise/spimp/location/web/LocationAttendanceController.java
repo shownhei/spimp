@@ -52,13 +52,6 @@ public class LocationAttendanceController {
 
 	/**
 	 * 领导带班-下井记录查询
-	 * 
-	 * @param page
-	 * @param recordQueryIn
-	 * @param startTime
-	 * @param endTime
-	 * @return
-	 * @throws UnsupportedEncodingException
 	 */
 	@RequestMapping(value = "/location/location-attendances-staff", method = RequestMethod.GET)
 	@ResponseBody
@@ -80,8 +73,9 @@ public class LocationAttendanceController {
 		stateMaps.put(7, "井下（超时）");
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
 		// 查询结果hql语句
-		String hql = "SELECT staff.staffId,staff.name,staff.department,staff.jobName,staff.troopName,attendance.startTime,attendance.endTime,staff.state "
-				+ "From LocationStaff staff,LocationAttendance attendance " + "WHERE staff.staffId=attendance.staffId ";
+		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,attendance.startTime,attendance.endTime,staff.state "
+				+ "From LocationStaff staff,LocationAttendance attendance "
+				+ "WHERE staff.id.staffId=attendance.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
 		if (!Strings.isNullOrEmpty(recordQueryIn)) {
@@ -99,7 +93,7 @@ public class LocationAttendanceController {
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationAttendance attendance "
-				+ "WHERE staff.staffId=attendance.staffId ";
+				+ "WHERE staff.id.staffId=attendance.staffId ";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) locationStaffService.getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
@@ -132,14 +126,6 @@ public class LocationAttendanceController {
 
 	/**
 	 * 入井考勤记录Excel导出
-	 * 
-	 * @param response
-	 * @param page
-	 * @param department
-	 * @param staffId
-	 * @param startTime
-	 * @param endTime
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/location/location-attendances-export", method = RequestMethod.GET)
 	public void attendanceDetailExport(HttpServletResponse response, Page<Attendance> page, String department,
@@ -167,12 +153,6 @@ public class LocationAttendanceController {
 
 	/**
 	 * 入井考勤详细查询
-	 * 
-	 * @param page
-	 * @param department
-	 * @param staffId
-	 * @param startTime
-	 * @param endTime
 	 */
 	@SuppressWarnings({ "unchecked" })
 	public void getAttendanceDetails(Page<Attendance> page, String department, String staffId, String startTime,
@@ -249,13 +229,6 @@ public class LocationAttendanceController {
 
 	/**
 	 * 下井考勤查询
-	 * 
-	 * @param page
-	 * @param department
-	 * @param staffId
-	 * @param startTime
-	 * @param endTime
-	 * @return
 	 */
 	@RequestMapping(value = "/location/location-attendances-query", method = RequestMethod.GET)
 	@ResponseBody
