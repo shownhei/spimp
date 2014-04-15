@@ -925,4 +925,12 @@ public class IndexSpmiController {
 	public String spmiZcdStaff() {
 		return "system/staff/index";
 	}
+	/**
+	 * 机电机运队 队组文化
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/team-culture", method = RequestMethod.GET)
+	public String index() {
+		return "teamculture/teamculture/index";
+	}
 }
