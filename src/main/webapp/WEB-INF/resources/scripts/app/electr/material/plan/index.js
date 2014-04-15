@@ -260,4 +260,17 @@ define(function(require, exports, module) {
 			}
 		});
 	});
+	
+	function caculate(){
+		var create_price =$('#create_price').val();
+		var create_quantity =$('#create_quantity').val();
+		if(create_price!=='' && create_quantity!==''){
+			$('#create_sumMoney').val(create_price*create_quantity);
+		}else{
+			$('#create_sumMoney').val(0);
+		}
+	}
+	$('#create_price,#create_quantity').keyup(function(){
+		caculate();
+	});
 });
