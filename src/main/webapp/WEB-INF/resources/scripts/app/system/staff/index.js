@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 	// 获取机构
 	Utils.select.remote([ 'create-groupEntity', 'edit-groupEntity' ], contextPath + '/system/groups?label=mine,office,team', 'id', 'name');
 	// 文化程度
-	Utils.select.remote([ 'create-education', 'edit-education' ], contextPath + '/system/dictionaries?list=true&typeCode=system_education', 'itemName',
+	Utils.select.remote([ 'create-education', 'edit-education' ], contextPath + '/system/dictionaries?list=true&typeCode=education_level', 'itemName',
 			'itemName', true, '请选择文化程度');
 	// 职务职称
 	Utils.select.remote([ 'create-duty', 'edit-duty' ], contextPath + '/system/dictionaries?list=true&typeCode=system_duty', 'itemName', 'itemName', true,

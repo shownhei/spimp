@@ -245,7 +245,7 @@ public class InitService extends DataInitAbstractService {
 			dictionaryService.save(dictionary);
 		}
 		// 职务职称
-		String duties[] = { "队长", "副队长", "班长", "组长" };
+		String duties[] = { "队长", "副队长", "班长", "组长","工人" };
 		for (String duty : duties) {
 			Dictionary dictionary = new Dictionary();
 			dictionary.setItemName(duty);
@@ -413,8 +413,9 @@ public class InitService extends DataInitAbstractService {
 		resourceEntityServiceImpl.saveMenuResource("奖惩记录", "/spmi/jdd/routine/reward", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("图片管理", "/spmi/jdd/routine/picture", routine, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("每月总结", "/spmi/jdd/routine/summary", routine, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明", "/spmi/jdd/innovation/innovation", routine, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("专利发明统计", "/spmi/jdd/innovation/statistics", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("小改小革", "/spmi/jdd/innovation/innovation", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("小改小革统计", "/spmi/jdd/innovation/statistics", routine, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("队组文化", "/electr/team-culture", routine, "", i++);
 		String jddMaterial = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/material", HttpMethod.GET);
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("采购计划", "/spmi/jdd/material/plan", jddMaterial, "", i++);

@@ -45,6 +45,13 @@ define(function(require, exports, module) {
 		header : '申报日期',
 		width : 90,
 		name : 'declarationDate'
+	},{
+		header : '是否专利',
+		name : 'isPatent',
+		width : 90,
+		render:function(v){
+			return v===1?'<i class="icon-check"></i>':'';
+		}
 	}, {
 		header : '实施地点',
 		name : 'implementationAddress'
@@ -77,7 +84,7 @@ define(function(require, exports, module) {
 		if (selected) {
 			Utils.button.enable([ 'edit', 'upload', 'remove' ]);
 		} else {
-			Utils.button.disable([ 'edit', 'upload', 'remove' ]);
+			Utils.button.disable([ 'edit', 'upload', 'remove','setPatent','unsetPatent' ]);
 		}
 	}
 
@@ -94,7 +101,14 @@ define(function(require, exports, module) {
 		},
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
-
+            if(data.isPatent===0){
+            	Utils.button.disable([ 'unsetPatent' ]);
+            	Utils.button.enable([ 'setPatent' ]);
+            }
+            else{
+            	Utils.button.disable([ 'setPatent' ]);
+            	Utils.button.enable([ 'unsetPatent' ]);
+            }
 			if (target.attr('data-role') === 'detail') {
 				showDetail(data);
 			}
@@ -271,7 +285,23 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-
+	$('#setPatent').click(function() {
+		if (Utils.button.isDisable('setPatent')) {
+			return;
+		}
+		var selectId = grid.selectedData('id');
+		$.get('/electr/innovation/innovations/setpatent/' + selectId, function(data) {grid.refresh();});
+	});
+	$('#unsetPatent').click(function() {
+		if (Utils.button.isDisable('unsetPatent')) {
+			return;
+		}
+		var selectId = grid.selectedData('id');
+		$.get('/electr/innovation/innovations/unsetpatent/' + selectId, function(data) {grid.refresh();});
+	});
+	$('#search-isPatent').change(function(){
+		$('#submit').trigger('click');
+	});
 	// 查询条件重置
 	$('#reset').click(function() {
 		grid.set('url', defaultUrl);

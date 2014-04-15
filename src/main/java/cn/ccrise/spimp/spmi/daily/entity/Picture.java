@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -32,7 +30,6 @@ public class Picture extends IDEntity {
 	 * 附件
 	 */
 	private String attachment;
-	// 非持久化属性
 	private String uploader; // 上传人
 	private Long groupId;// 所属机构ID
 
@@ -48,7 +45,6 @@ public class Picture extends IDEntity {
 		return name;
 	}
 
-	@Transient
 	public String getUploader() {
 		return uploader;
 	}

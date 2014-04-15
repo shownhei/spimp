@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import cn.ccrise.ikjp.core.security.entity.AccountEntity;
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
 import cn.ccrise.spimp.spmi.daily.entity.Picture;
 import cn.ccrise.spimp.spmi.daily.service.PictureService;
+import cn.ccrise.spimp.system.entity.Account;
 
 import com.google.common.base.Strings;
 
@@ -66,7 +65,6 @@ public class PictureController {
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Picture> page, Long groupId, String search) {
-		page.setPageSize(1000);
 		if (!Strings.isNullOrEmpty(search)) {
 			return new Response(pictureService.getPage(page, Restrictions.eq("groupId", groupId),
 					Restrictions.ilike("name", search, MatchMode.ANYWHERE)));
@@ -77,8 +75,10 @@ public class PictureController {
 	@RequestMapping(value = "/spmi/daily/pictures", method = RequestMethod.POST)
 	@ResponseBody
 	public Response save(HttpSession httpSession, @Valid @RequestBody Picture picture) {
-		AccountEntity account = WebUtils.getAccount(httpSession);
+		Account account = (Account)WebUtils.getAccount(httpSession);
 		picture.setUploaderId(account.getId());
+		picture.setUploader(account.getRealName());
+		logger.debug("{}",account.getRealName());
 		return new Response(pictureService.save(picture));
 	}
 

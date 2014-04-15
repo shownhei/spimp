@@ -98,8 +98,8 @@ public class DocumentController {
 	@RequestMapping(value = "/spmi/document/documents", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<Document> page, String office, String search, String documentName,
-			String keyWord, String startDate, String endDate,Long folderId) {
-		page = documentService.pageQuery(page, office, search, documentName, keyWord, startDate, endDate,folderId);
+			String keyWord, String startDate, String endDate,Long folderId,Integer securityLevel,HttpSession httpSession) {
+		page = documentService.pageQuery(page, office, search, documentName, keyWord, startDate, endDate,folderId,httpSession);
 		return new Response(page);
 	}
 
@@ -143,6 +143,8 @@ public class DocumentController {
 		String curUser = getCurUser(httpSession);
 		document.setCreateBy(curUser);
 		document.setUpdateBy(curUser);
+		document.setAccount(WebUtils.getAccount(httpSession));
+		document.setUploadGroup(WebUtils.getAccount(httpSession).getGroupEntity());
 		return new Response(documentService.save(document));
 	}
 

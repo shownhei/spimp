@@ -35,7 +35,11 @@ public class InnovationService extends HibernateDataServiceImpl<Innovation, Long
 		return innovationDAO;
 	}
 
-	public Page<Innovation> pageQuery(Page<Innovation> page, String search, Date startDate, Date endDate) {
+	public boolean setPatentStatus(Long id,Integer isPatent){
+		getDAO().getSession().createQuery("update Innovation a set a.isPatent="+isPatent+" where a.id="+id).executeUpdate();
+		return true;
+	}
+	public Page<Innovation> pageQuery(Page<Innovation> page, String search,Integer isPatent, Date startDate, Date endDate) {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 
 		if (StringUtils.isNotBlank(search)) {
@@ -46,6 +50,9 @@ public class InnovationService extends HibernateDataServiceImpl<Innovation, Long
 		}
 		if (endDate != null) {
 			criterions.add(Restrictions.le("declarationDate", endDate));
+		}
+		if (isPatent != null && isPatent!=2) {
+			criterions.add(Restrictions.eq("isPatent", isPatent));
 		}
 		return getPage(page, criterions.toArray(new Criterion[0]));
 	}

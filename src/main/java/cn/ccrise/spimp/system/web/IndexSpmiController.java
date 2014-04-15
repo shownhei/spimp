@@ -877,7 +877,7 @@ public class IndexSpmiController {
 	}
 
 	/**
-	 * 专利发明
+	 * 小改小革
 	 * 
 	 * @return
 	 */
@@ -887,7 +887,7 @@ public class IndexSpmiController {
 	}
 
 	/**
-	 * 专利发明统计
+	 * 小改小革统计
 	 * 
 	 * @return
 	 */
@@ -924,5 +924,13 @@ public class IndexSpmiController {
 	@RequestMapping(value = "/spmi/zcd/staff", method = RequestMethod.GET)
 	public String spmiZcdStaff() {
 		return "system/staff/index";
+	}
+	/**
+	 * 机电机运队 队组文化
+	 * @return
+	 */
+	@RequestMapping(value = "/electr/team-culture", method = RequestMethod.GET)
+	public String index() {
+		return "teamculture/teamculture/index";
 	}
 }

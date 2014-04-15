@@ -127,15 +127,25 @@
 					<form id="create-form" class="form-horizontal"
 						style="margin-bottom: 0px;">
 						<div class="control-group">
-							<label class="control-label " for="principal">文档名称</label>
+							<label class="control-label " for="documentName">文档名称</label>
 							<div class="controls">
 								<input id="create_documentName" name="documentName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label " for="principal">查询关键字</label>
+							<label class="control-label " for="keyWord">查询关键字</label>
 							<div class="controls">
 								<input id="create_keyWord" name="keyWord" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label " for="securityLevel">开放等级</label>
+							<div class="controls">
+								<select id="create_security_level" name="securityLevel" >
+								   <option value="3" title="所有人可见">公开(所有人可见)</option>
+								   <option value="2" title="同组织内可见">保护(同组织内可见)</option>
+								   <option value="1" title="仅自己可见">私有(仅自己可见)</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group" style="display: none;">
@@ -193,25 +203,37 @@
 						<input name="id" type="hidden"> <input name="createTime" type="hidden">
 						<input name="createBy" type="hidden">
 						<div class="control-group">
-							<label class="control-label " for="principal">文档名称</label>
+							<label class="control-label " for="documentName">文档名称</label>
 							<div class="controls">
 								<input id="edit_documentName" name="documentName" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label " for="principal">查询关键字</label>
+							<label class="control-label " for="keyWord">查询关键字</label>
 							<div class="controls">
 								<input id="edit_keyWord" name="keyWord" type="text">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="credential">附件</label>
+							<label class="control-label " for="securityLevel">开放等级</label>
+							<div class="controls">
+								<select id="edit_security_level" name="securityLevel" >
+								   <option value="3" title="所有人可见">公开(所有人可见)</option>
+								   <option value="2" title="同组织内可见">保护(同组织内可见)</option>
+								   <option value="1" title="仅自己可见">私有(仅自己可见)</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="attachment">附件</label>
 							<div class="controls">
 								<input name="attachment" id="edit_attachment" readonly
 									type="text">
 							</div>
 						</div>
 						<input type="hidden" name="folderId" id="edit_folderId">
+						<input type="hidden" name="account" id="edit_account">
+						<input type="hidden" name="uploadGroup" id="edit_uploadGroup">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
