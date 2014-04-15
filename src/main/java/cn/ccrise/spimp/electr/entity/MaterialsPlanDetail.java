@@ -4,6 +4,7 @@
 package cn.ccrise.spimp.electr.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -122,5 +123,4 @@ public class MaterialsPlanDetail extends IDEntity {
 	public void setSumMoney(Double sumMoney) {
 		this.sumMoney = sumMoney;
 	}
-
 }
