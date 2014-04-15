@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	window.$ = $;
+	$.ajaxSetup({ cache: false }); //解决 ztree ie11下面的缓存问题
 	window.Utils = Utils;
 	// 提示信息
 	$('button[title]').tooltip({
@@ -209,6 +210,13 @@ define(function(require, exports, module) {
 	
 	// 文件上传
 	$('#file').bind('change', function() {
+		var val=$('#file').val();
+		var postfix = val.substring(val.lastIndexOf(".")+1).toLowerCase();
+		var types=['doc','docx','ppt','pptx','xls','xlsx','txt','pdf'];
+		if(types.indexOf(postfix)===-1){
+			Utils.modal.showAlert('不支持当前格式文件上传','提示','typeAlert');
+			return ;
+		}
 		if ($('#file').val() !== '') {
 			$('#create-file-form').submit();
 			var process = new Utils.modal.showProcess('process');
@@ -322,7 +330,6 @@ define(function(require, exports, module) {
 			Utils.modal.showAlert("<span style='color:red;'>先选择要删除的文件夹</span>","警告",'warning');
 			return ;
 		}
-		console.log(nodes[0]);
 		Utils.modal.showAlert("确实要删除选中文件夹吗?",'提示','remove',function(){
 			$.del(contextPath + '/spimp/document/document-folders/' + nodes[0].id, function(data) {
 				var parentNode=nodes[0].getParentNode();
