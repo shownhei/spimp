@@ -69,6 +69,7 @@ public class MaterialsPlanDetail extends IDEntity {
 	public String getModel() {
 		return model;
 	}
+
 	@ManyToOne
 	@JoinColumn(name = "materials_plan")
 	public MaterialsPlan getPlan() {
