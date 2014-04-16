@@ -52,6 +52,7 @@ public class DocumentFolderController {
 	@RequestMapping(value = "/spimp/document/document-folders", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<DocumentFolder> page,Long parentId,HttpSession httpSession) {
+		page.setPageSize(900000);
 		page = documentFolderService.pageQuery(page,parentId,httpSession);
 		return new Response(page);
 	}

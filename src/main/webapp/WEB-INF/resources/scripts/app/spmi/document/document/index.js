@@ -334,9 +334,13 @@ define(function(require, exports, module) {
 			nodes = tree.getSelectedNodes();
 			var parentNode=nodes[0].getParentNode();
 			$.del(contextPath + '/spimp/document/document-folders/' + nodes[0].id, function(data) {
-				tree.reAsyncChildNodes(parentNode, "refresh");
-				tree.expandNode(parentNode,true);
-				Utils.button.disable([ 'remove-folder','create' ]);
+				if (data.success) {
+					tree.reAsyncChildNodes(parentNode, "refresh");
+					tree.expandNode(parentNode,true);
+					Utils.button.disable([ 'remove-folder','create' ]);
+				}else{
+					Utils.modal.showAlert("删除失败，文件夹内不为空!",'提示','afterdelete');
+				}
 			});
 		});
 	});

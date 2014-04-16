@@ -40,9 +40,9 @@ public class DocumentFolderService extends HibernateDataServiceImpl<DocumentFold
 		Long folderCount=(Long)folerCountResult.get(0);
 		
 		if(docCount==0 && folderCount==0){
-			this.delete(id);
+			return delete(id);
 		}
-		return true;
+		return false;
 	}
 	@Override
 	public HibernateDAO<DocumentFolder, Long> getDAO() {
