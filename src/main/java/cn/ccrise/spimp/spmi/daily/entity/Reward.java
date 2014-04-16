@@ -29,6 +29,7 @@ public class Reward extends IDEntity {
 	private String groupName; // 奖惩人所属部门
 	private String category; // 分类：奖励/惩罚
 	private String content; // 奖惩内容
+	private Double sumMoney;//奖惩金额
 	private String reason; // 理由
 	private Date rewardDate; // 奖惩日期
 	private String executor; // 授奖人
@@ -39,6 +40,14 @@ public class Reward extends IDEntity {
 
 	public String getContent() {
 		return content;
+	}
+
+	public Double getSumMoney() {
+		return sumMoney;
+	}
+
+	public void setSumMoney(Double sumMoney) {
+		this.sumMoney = sumMoney;
 	}
 
 	public String getExecutor() {

@@ -20,15 +20,21 @@ define(function(require, exports, module) {
 		name : 'groupName'
 	}, {
 		header : '分类',
+		width:90,
 		name : 'category'
 	}, {
 		header : '奖惩内容',
 		name : 'content'
+	},{
+		header : '奖惩金额',
+		name : 'sumMoney'
 	}, {
 		header : '授奖人',
+		width:90,
 		name : 'executor'
 	}, {
 		header : '奖惩日期',
+		width:90,
 		name : 'rewardDate'
 	}, {
 		header : '查看',
@@ -108,7 +114,11 @@ define(function(require, exports, module) {
 			Utils.modal.message('create', [ '奖惩内容不能为空' ]);
 			return;
 		}
-		// 处理属性
+		if (object.sumMoney === '') {
+			Utils.modal.message('create', [ '奖惩金额不能为空' ]);
+			return;
+		}
+		// 处理属性 
 
 		$.post(contextPath + '/spmi/daily/rewards', JSON.stringify(object), function(data) {
 			if (data.success) {
