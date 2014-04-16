@@ -190,8 +190,10 @@ public class LocationStaffController {
 	@RequestMapping(value = "/location/location-staffs/leader", method = RequestMethod.GET)
 	@ResponseBody
 	public Response leader() {
-		List<LocationStaff> result = locationStaffService.find(Restrictions.ge("state", 3),
-				Restrictions.or(Restrictions.eq("jobType", 2), Restrictions.eq("jobType", 3)));
+//		List<LocationStaff> result = locationStaffService.find(Restrictions.ge("state", 3),
+//				Restrictions.or(Restrictions.eq("jobType", 2), Restrictions.eq("jobType", 3)));
+		
+		List<LocationStaff> result = locationStaffService.find(Restrictions.ge("state", 2),Restrictions.eq("department", "矿领导"));
 
 		List<Leader> leaders = Lists.newArrayList();
 		for (LocationStaff locationStaff : result) {
