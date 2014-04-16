@@ -3,8 +3,14 @@
  */
 package cn.ccrise.spimp.spmi.daily.web;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -48,14 +54,22 @@ public class RewardController {
 
 	@RequestMapping(value = "/spmi/daily/rewards", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<Reward> page, String search) {
-		if (search != null) {
-			page = rewardService.getPage(page, Restrictions.ilike("name", search, MatchMode.ANYWHERE));
-			return new Response(page);
-		} else {
+	public Response page(Page<Reward> page,String category, String search,Date startDate,Date endDate) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
 
-			return new Response(rewardService.getPage(page));
+		if (StringUtils.isNotBlank(category)) {
+			criterions.add(Restrictions.eq("category", category));
 		}
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.ilike("name", search, MatchMode.ANYWHERE));
+		}
+		if(startDate!=null){
+			criterions.add(Restrictions.ge("rewardDate",startDate));
+		}
+		if(endDate!=null){
+			criterions.add(Restrictions.le("rewardDate", endDate));
+		}
+		return new Response(rewardService.getPage(page, criterions.toArray(new Criterion[0])));
 	}
 
 	@RequestMapping(value = "/spmi/daily/rewards", method = RequestMethod.POST)
