@@ -331,10 +331,12 @@ define(function(require, exports, module) {
 			return ;
 		}
 		Utils.modal.showAlert("确实要删除选中文件夹吗?",'提示','remove',function(){
+			nodes = tree.getSelectedNodes();
+			var parentNode=nodes[0].getParentNode();
 			$.del(contextPath + '/spimp/document/document-folders/' + nodes[0].id, function(data) {
-				var parentNode=nodes[0].getParentNode();
 				tree.reAsyncChildNodes(parentNode, "refresh");
 				tree.expandNode(parentNode,true);
+				Utils.button.disable([ 'remove-folder','create' ]);
 			});
 		});
 	});

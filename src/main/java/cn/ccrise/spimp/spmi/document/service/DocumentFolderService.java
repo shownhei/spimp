@@ -33,12 +33,16 @@ public class DocumentFolderService extends HibernateDataServiceImpl<DocumentFold
 
 	public boolean deleteFolder(Long id){
 		@SuppressWarnings("unchecked")
-		List<Object> result=documentService.getDAO().getSession().createQuery("select count(*) from Document a where a.folderId="+id).list();
-		Long count=(Long)result.get(0);
-		if(count==0){
+		List<Object> docCountResult=documentService.getDAO().getSession().createQuery("select count(*) from Document a where a.folderId="+id).list();
+		Long docCount=(Long)docCountResult.get(0);
+		@SuppressWarnings("unchecked")
+		List<Object> folerCountResult=documentService.getDAO().getSession().createQuery("select count(*) from DocumentFolder a where a.parentId="+id).list();
+		Long folderCount=(Long)folerCountResult.get(0);
+		
+		if(docCount==0 && folderCount==0){
 			this.delete(id);
 		}
-		return false;
+		return true;
 	}
 	@Override
 	public HibernateDAO<DocumentFolder, Long> getDAO() {
