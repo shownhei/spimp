@@ -29,9 +29,26 @@
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
+					   <div class="input-append">
+							<input id="query-startDate" name="startDate" type="datetime" placeholder="截止开始日期" class="input-small" autocomplete="off">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
+						<div class="input-append">
+							<input id="query-endDate" name="endDate" type="datetime" placeholder="截止结束日期" class="input-small" autocomplete="off">
+							<span class="add-on nav-add-on">
+								<i class="icon-calendar"></i>
+							</span>
+						</div>
 						<span class="input-icon">
 							<input id="nav-search-input" name="search" type="text" placeholder="输入奖惩人姓名..." class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
+						    <select id="search_category" name="category" style="height: 25px; width: 120px; font-size: 12px;">
+						       <option value=""></option>
+						       <option value="奖励">奖励</option>
+							   <option value="惩罚">惩罚</option>
+						    </select>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
 					</form>
@@ -79,6 +96,12 @@
 							<label class="control-label">奖惩内容</label>
 							<div class="controls">
 								<input name="content" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">金额</label>
+							<div class="controls">
+								<input name="sumMoney" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -157,6 +180,12 @@
 							<label class="control-label">奖惩内容</label>
 							<div class="controls">
 								<input name="content" type="text">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">金额</label>
+							<div class="controls">
+								<input name="sumMoney" type="text">
 							</div>
 						</div>
 						<div class="control-group">
@@ -264,6 +293,12 @@
 							<label class="control-label">奖惩内容</label>
 							<div class="controls">
 								<input name="content" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">金额</label>
+							<div class="controls">
+								<input name="sumMoney"  readonly="readonly" type="text">
 							</div>
 						</div>
 						<div class="control-group">

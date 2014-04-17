@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
+	$.ajaxSetup({ cache: false }); //解决 ztree ie11下面的缓存问题
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'

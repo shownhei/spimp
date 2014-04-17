@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" id="navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a href="/" class="brand" target="safe">
