@@ -35,7 +35,7 @@ public class Repackage {
 		applicationContextmvcxml();
 //		applicationserverproperties("root", "admin", "jdbc:mysql://localhost:3306/spimp", "2014-12-31");
 		//王庄sqlserver
-		forSpimpWZ("sa", "1234", "jdbc:sqlserver://WIN-V0ANRG2CIBH:1433; DatabaseName=spimp", "2014-12-31");
+		forSpimpWZ("sa", "sywz1234", "jdbc:sqlserver://WIN-V0ANRG2CIBH:1433; DatabaseName=spimp", "2014-12-31");
 		log4jxml("WARN");
 		wroproperties();
 		headjsp();
@@ -78,7 +78,7 @@ public class Repackage {
 		String array[]={
 				"database:sqlserver2008",
 				"jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver",
-				"jdbc.url=jdbc:sqlserver://WIN-V0ANRG2CIBH:1433; DatabaseName=spimp",
+				"jdbc.url=jdbc:sqlserver://192.168.70.211:1433; DatabaseName=spimp_sywz",
 				"hibernate.dialect=org.hibernate.dialect.SQLServer2008Dialect"
 		};
 		

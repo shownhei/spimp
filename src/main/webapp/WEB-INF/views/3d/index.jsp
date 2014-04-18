@@ -80,7 +80,7 @@
 	<div class="main-container container-fluid">
 		<%@ include file="sidebar.jsp"%>
 		<div class="main-content">
-			<div class="page-toolbar">
+			<div class="page-toolbar" id="page-toolbar">
 				<div class="toolbar">
 					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="main">
 						<i class="icon-home"></i>
@@ -131,7 +131,7 @@
 			</div>
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
-					<div class="span12">
+					<div class="span12" id="active_panel">
 						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200"></object>
 					</div>
 				</div>

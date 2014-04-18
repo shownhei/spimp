@@ -27,38 +27,38 @@
 	</div>
 	<ul class="nav nav-list">
 		<li>
-			<a title="全屏" data-image="全屏.png" data-type="fullscreen">
-				<i class="icon-fullscreen"></i>
+			<a title="全屏" data-image="全屏.png"  data-type="fullscreen" >
+				<i class="icon-fullscreen" data-type="fullscreen" ></i>
 			</a>
 		</li>
 		<li>
-			<a title="全图显示" data-image="全图显示.png">
-				<i class="icon-picture"></i>
+			<a title="全图显示" data-image="全图显示.png"  data-type="doCommand" data-param="工具 全图">
+				<i class="icon-picture"  data-type="doCommand"></i>
 			</a>
 		</li>
 		<li>
-			<a title="巷道半显示" data-image="巷道半显示.png">
-				<i class="icon-upload"></i>
+			<a title="巷道半显示" data-image="巷道半显示.png"  data-type="doCommand" data-param="设置 半巷道">
+				<i class="icon-upload"  data-type="doCommand"></i>
 			</a>
 		</li>
 		<li>
-			<a title="巷道交叉处理" data-image="巷道交叉处理.png">
-				<i class="icon-remove"></i>
+			<a title="巷道交叉处理" data-image="巷道交叉处理.png"  data-type="doCommand" data-param="设置 交叉">
+				<i class="icon-remove"  data-type="doCommand"></i>
 			</a>
 		</li>
 		<li>
-			<a title="拉框放大" data-image="拉框放大-放大前.png,拉框放大-放大后.png" data-type="zoom-in">
-				<i class="icon-resize-full"></i>
+			<a title="拉框放大" data-image="拉框放大-放大前.png,拉框放大-放大后.png" data-type="doCommand" data-param="工具 拉框全图">
+				<i class="icon-resize-full"  data-type="doCommand"></i>
 			</a>
 		</li>
 		<li>
-			<a title="量测工具" data-image="量测工具.png">
-				<i class="icon-crop"></i>
+			<a title="量测工具" data-image="量测工具.png" data-type="doCommand" data-param="工具 量测">
+				<i class="icon-crop"  data-type="doCommand"></i>
 			</a>
 		</li>
 		<li>
-			<a title="巷道漫游" data-image="巷道漫游.png">
-				<i class="icon-compass"></i>
+			<a title="巷道漫游" data-image="巷道漫游.png" data-type="doCommand" data-param="工具 巷道漫游">
+				<i class="icon-compass"  data-type="doCommand"></i>
 			</a>
 		</li>
 	</ul>

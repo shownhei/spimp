@@ -263,6 +263,9 @@ define(function(require, exports, module) {
 		$('#viewpoint').html(html);
 	};
 	callbackClt.control={};//操作
+	callbackClt.control.doCommand=function(cmd){
+		WebMineSystem.DoCommand(cmd);
+	};
 	//多个物体选中
 	callbackClt.multipleObjectsSelected=function(_SelectedObjs,_SelectedObjsCount){
 		var jsonData=$.parseJSON(_SelectedObjs);
@@ -325,4 +328,84 @@ define(function(require, exports, module) {
 			callbackClt.Platform3DStarted();
 		}
 	},5000);
+	
+	setInterval(function(){
+		//1. 实时下井总人数
+		$.get(contextPath + '/location/location-staffs/count', function(data) {
+			WebMineSystem._Rydw_SetWellPersonNum('{"wellpersonnum":'+data.data+'}');
+		});
+		//2. 实时下井领导（名字，所在位置）
+		$.get(contextPath + '/location/location-staffs/leader', function(data) {
+			var buff=[];
+			var header='{"wellleader":[';
+			$.each(data.data,function(key,val){
+				buff.push('"'+val.name+'"');
+			});
+			var footer=']}';
+			WebMineSystem._Rydw_SetWellLeader(header+buff.join(',')+footer);
+		});
+	},1000);
+	$(document).click(function(event) {
+		var el = $(event.target);
+		var elType = el.attr('data-type');
+		if(elType==='doCommand'){
+			var aEl=null;
+			if(el.is('i')){
+				aEl=el.parent();
+			}else{
+				aEl=el;
+			}
+			callbackClt.control.doCommand(aEl.attr('data-param'));
+			return;
+		}
+		if(elType==='fullscreen'){
+			toggleFullScreen();
+		}
+	});
+	/**切换全屏效果*/
+	var fullscreen={};
+	fullscreen.goFullScreen=function(){
+		$('.navbar-fixed').css({'padding-top':'0px'});
+		$('#page-toolbar').hide();
+		$('#navbar-fixed-top').hide();
+		$('#menu-toggler').hide();
+		$('#layer-control').hide();
+		$('#sidebar').hide();
+		setTimeout(function(){
+			var panel=$('#active_panel');
+			panel.css({'position':'absolute','left':'0px','top':'0px;'});
+			$('#WebMineSystem').width($(window).width());
+			$('#WebMineSystem').height($(window).height());
+		},2000);
+	};
+	fullscreen.exitFullScreen=function(){
+		$('.navbar-fixed').css({'padding-top':'45px'});
+		$('#page-toolbar').show();
+		$('#navbar-fixed-top').show();
+		$('#menu-toggler').show();
+		$('#layer-control').show();
+		$('#sidebar').show();
+		setTimeout(function(){
+			var panel=$('#active_panel');
+			panel.css({'position':'relative'});
+			resize();
+		},2000);
+	};
+	var toggleFullScreen=function(){
+		if($("#layer-control").is(":hidden")){
+			fullscreen.exitFullScreen();
+		}else{
+			fullscreen.goFullScreen();
+		}
+	};
+	$(document).keydown(function(event){
+		switch(event.keyCode){
+		      // f11 全屏toggle
+              case 122:toggleFullScreen();
+		         break;
+		      // 退出全屏
+              case 27:fullscreen.exitFullScreen();
+		         break;
+		}
+	});
 });
