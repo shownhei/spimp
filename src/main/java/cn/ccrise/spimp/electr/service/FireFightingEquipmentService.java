@@ -32,7 +32,6 @@ import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.electr.access.FireFightingEquipmentDAO;
 import cn.ccrise.spimp.electr.entity.FireFightingEquipment;
-
 /**
  * FireFightingEquipment Service。
  * 
@@ -46,7 +45,12 @@ public class FireFightingEquipmentService extends HibernateDataServiceImpl<FireF
 	public HibernateDAO<FireFightingEquipment, Long> getDAO() {
 		return fireFightingEquipmentDAO;
 	}
-
+	public List<FireFightingEquipment> fetchByEquipmentIds(List<String> equipmentIds){
+		if(equipmentIds.size()==0){
+			return null;
+		}
+		return this.find(Restrictions.in("equipmentCode", equipmentIds.toArray(new String[0])));
+	}
 	public void importFormExcel(String fileName) throws ParsePropertyException, InvalidFormatException,
 			FileNotFoundException, Exception {
 		HashMap<String, Object> root = new HashMap<String, Object>();
