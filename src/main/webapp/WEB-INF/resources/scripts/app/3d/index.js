@@ -431,4 +431,18 @@ define(function(require, exports, module) {
 		         break;
 		}
 	});
+	var rjhTest=function(){
+		$.ajax({
+			type : 'get',
+			dataType : 'text',
+			url : '/location/location-areas/rjhcommand',
+			success : function(data) {
+				$('#result').html(data);
+				$('#result-tab').trigger('click');
+			}
+		});
+		
+	};
+	window.rjhTest=rjhTest;
+	rjhTest();
 });

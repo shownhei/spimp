@@ -40,6 +40,35 @@ public class LocationAreaController {
 	private LocationAreaService locationAreaService;
 	@Autowired
 	private LocationStaffService locationStaffService;
+	/**
+	 * 人机环
+	 * 
+	 * @param accidentRecord
+	 * @returnd
+	 */
+	@RequestMapping(value = "/location/location-areas/rjhcommand", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView save() {
+		StringBuilder buff = new StringBuilder();
+		buff.append("{'ENRIROMENT':");
+		buff.append("[{'DBID':'MineID:14291000017;NodeID:0000000102;','TABLE':'K_Node','TYPE':'ENRIROMENT'},");
+		buff.append("{'DBID':'MineID:14291000017;NodeID:0000000103;','TABLE':'K_Node','TYPE':'ENRIROMENT'}");
+		buff.append("],");
+		buff.append("'EQIPMENT':[");
+		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:GP01','STATE':'暂无信号','TABLE':'electr_equipments','TYPE':'EQIPMENT'},");
+		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:7＃皮带机','STATE':'暂无信号','TABLE':'electr_transform_equipments','TYPE':'EQIPMENT'},");
+		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:aa','STATE':'暂无信号','TABLE':'electr_wind_water_equipments','TYPE':'EQIPMENT'},");
+		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:bb','STATE':'暂无信号','TABLE':'electr_fire_fighting_equipments','TYPE':'EQIPMENT'}");
+		buff.append("],");
+		buff.append("'PERSON':[");
+		buff.append("{'DBID':'MineID:14040002001;StationID:0403;','TABLE':'','TYPE':'PERSON'},");
+		buff.append("{'DBID':'MineID:14040002001;StationID:0505;','TABLE':'M_Station','TYPE':'PERSON'}");
+		buff.append("]}");
+		String json=buff.toString();
+		HashMap<String,Object> root = new HashMap<String,Object>();
+		locationAreaService.deal(json,root);
+		return new ModelAndView("3d/rjhTemplate",root);
+	}
 
 	/**
 	 * 区域详细人数页面-转向

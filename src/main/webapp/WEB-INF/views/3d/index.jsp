@@ -7,7 +7,55 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+<script id="queryresult-template" type="text/x-handlebars-template">
+<div id="rjhCommand-template" class="accordion-style1">
 
+   <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_r">{{typeName}}({{count}})</a>
+            </h4>
+        </div>
+        <div class="panel-collapse in collapse" id="collapse_r" style="height: auto;">
+            {{#each children}}
+            <div class="panel-body">
+              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
+             </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_j">{{typeName}}({{count}})</a>
+            </h4>
+        </div>
+        <div class="panel-collapse in collapse" id="collapse_j" style="height: auto;">
+            {{#each children}}
+            <div class="panel-body">
+              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
+             </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_h">{{typeName}}({{count}})</a>
+            </h4>
+        </div>
+        <div class="panel-collapse in collapse" id="collapse_h" style="height: auto;">
+            {{#each children}}
+            <div class="panel-body">
+              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
+             </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+</script>
 <script id="allCameraViews-template" type="text/x-handlebars-template">
     {{#each result}}
         <div class="row-fluid">

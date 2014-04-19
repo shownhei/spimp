@@ -47,7 +47,12 @@ public class WindWaterEquipmentService extends HibernateDataServiceImpl<WindWate
 	public HibernateDAO<WindWaterEquipment, Long> getDAO() {
 		return windWaterEquipmentDAO;
 	}
-
+	public List<WindWaterEquipment> fetchByEquipmentIds(List<String> equipmentIds){
+		if(equipmentIds.size()==0){
+			return null;
+		}
+		return this.find(Restrictions.in("equipmentCode", equipmentIds.toArray(new String[0])));
+	}
 	public void importFormExcel(String fileName) throws ParsePropertyException, InvalidFormatException,
 			FileNotFoundException, Exception {
 		HashMap<String, Object> root = new HashMap<String, Object>();
