@@ -366,7 +366,23 @@ define(function(require, exports, module) {
         $.get(contextPath + '/monitor/monitor-real-datas/max?sensorTypeId=4&date='+dateStr, function(data) {
         	//{"success":true,"data":[[2.75,"采区回风巷一氧化碳"]],"errors":null}
 			
-		});        
+		});   
+        //7 所有读卡器 下 所有人
+        $.get(contextPath + '/location/read_cards_staff', function(data) {
+        	var array=[];
+			$.each(data.data,function(key,value){
+				array.push({"DBID":key,"PERSON":value});
+			});
+			var tansferJson={"ID":array};
+			WebMineSystem._Rydw_SetReadCardName(JSON.stringify(tansferJson));
+		}); 
+        //8 安全监控传感器实时值
+        $.get(contextPath + '/monitor/monitor-nodes-value', function(data) {
+			var tansferJson={"ID":data.data};
+			WebMineSystem._SF_SetSensorPointValue(tansferJson);
+		}); 
+        //9 设置人员轨迹
+        //10 重复人员轨迹
 	},1000);
 	$(document).click(function(event) {
 		var el = $(event.target);

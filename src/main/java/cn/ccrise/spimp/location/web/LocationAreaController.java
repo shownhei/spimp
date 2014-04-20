@@ -4,10 +4,13 @@
 package cn.ccrise.spimp.location.web;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +111,59 @@ public class LocationAreaController {
 	public Response save(@Valid @RequestBody LocationArea locationArea) {
 		return new Response(locationAreaService.save(locationArea));
 	}
-
+	/**
+	 * 查询所有的读卡器所有的相关人员
+	 * @param page
+	 * @param areaId
+	 * @return
+	 */
+	@RequestMapping(value = "/location/read_cards_staff", method = RequestMethod.GET)
+	@ResponseBody
+	public Response readCardsStaffs() {
+		StringBuilder buff = new StringBuilder();
+		buff.append("SELECT DISTINCT stn.MineId,stn.StationId,stf.StaffId,stf.Name,stf.CardId ");
+		buff.append("FROM M_Station stn, M_Staff stf WHERE stf.CurStationId=stn.StationId and stf.state>=2");
+		SQLQuery query=locationAreaService.getDAO().getSession().createSQLQuery(buff.toString());
+		List<Object> list=(List<Object>)query.list();
+		Object []raw=null;
+		HashMap<String,LinkedList<HashMap<String,Object>>> result=new HashMap<String,LinkedList<HashMap<String,Object>>>();
+		String key=null;
+		String mineId=null;
+		String stationId=null;
+		String staffId= null;
+		String staffName=null;
+		int index=0;
+		LinkedList<HashMap<String,Object>> resultRaw= null;
+		HashMap<String,Object> entity=null;
+		buff.delete(0, buff.capacity());
+		int count=0;
+		for(Object temp:list){
+			raw=(Object [])temp;
+			index=0;
+			mineId=(String)raw[index++];
+			stationId=(String)raw[index++];
+			staffId=(String)raw[index++];
+			staffName=(String)raw[index++];
+			//build key
+			buff.delete(0, buff.capacity());
+			buff.append("MineID:");
+			buff.append(mineId);
+			buff.append(";");
+			buff.append("StationID:");
+			buff.append(stationId);
+			key=buff.toString();
+			if(!result.containsKey(key)){
+				resultRaw = new LinkedList<HashMap<String,Object>> ();
+				result.put(key, resultRaw);
+			}
+			resultRaw=result.get(key);
+			entity = new HashMap<String,Object>();
+			entity.put("STAFFID", staffId);
+			entity.put("NAME", staffName);
+			resultRaw.add(entity);
+		}
+		return new Response(result);
+	}
 	/**
 	 * 返回区域内人员信息详情数据
 	 */
