@@ -19,6 +19,7 @@ define(function(require, exports, module) {
 		var paddingTop=($(window).height() - 90)/2;
 		$('#control-bar').height(mainHeight);
 		$('#rightPanel').height(mainHeight-40);
+		$('#traceReplayInfo').height(mainHeight-280);
 	}
 	$('.ace-settings-container').css({'top':'41px'});
 	window.onresize = resize;
@@ -100,46 +101,6 @@ define(function(require, exports, module) {
 		tree.checkNode(rootNode, true, true);
 	};
 	window.initLayerTree=initLayerTree;
-	/*
-	// 机构树配置
-	var layerTreeSetting = {
-		view : {
-			selectedMulti : false,
-			showTitle : false
-		},
-		async : {
-			enable : true,
-			url : resources + '/datas/layer-data.json',
-			type : "get",
-			dataFilter : function(treeId, parentNode, responseData) {
-				responseData.data.iconOpen = resources + "/images/icons/chart_organisation.png";
-				responseData.data.iconClose = resources + "/images/icons/chart_organisation.png";
-
-				handleIcon(responseData.data.groupEntities);
-
-				return responseData.data;
-			}
-		},
-		check : {
-			enable : true
-		},
-		data : {
-			key : {
-				children : 'groupEntities'
-			}
-		},
-		callback : {
-			onClick : function(event, treeId, treeNode, clickFlag) {
-				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-			},
-			onAsyncSuccess : function(event, treeId, treeNode, msg) {
-				var groupTree = $.fn.zTree.getZTreeObj(treeId);
-				groupTree.expandAll(true);
-			}
-		}
-	};
-
-	var layerTree = $.fn.zTree.init($('#layer-tree'), layerTreeSetting);*/
     
 	$('button[data-image],a[data-image]').click(function() {
 		if ($(this).data('type') !== undefined) {
@@ -195,19 +156,6 @@ define(function(require, exports, module) {
 				case 'traceReplay':
 					//轨迹回放
 					$('#trace-tab').trigger('click');
-			        $.ajax({
-						type : 'get',
-						dataType : 'json',
-						url : '/location/location-staffs/alldepartment',
-						success : function(datas) {
-							$("#trace_department option").each(function(){ $(this).remove(); });
-							var _select=$("#trace_department");
-							$("<option value=''>请选择部门</option>").appendTo(_select);
-							$.each(datas.data,function(key,value){
-								$("<option value='"+value+"'>"+value+"</option>").appendTo(_select);
-							});
-						}
-					});
 					break;		
 				default:
 					break;
@@ -548,6 +496,23 @@ define(function(require, exports, module) {
 			WebMineSystem._Rydw_SetMineWorkerTrajectory(JSON.stringify(_jsonResult));
 		});
 	});
+	
+	$('#trace-tab').bind('click',function(){
+		$.ajax({
+			type : 'get',
+			dataType : 'json',
+			url : '/location/location-staffs/alldepartment',
+			success : function(datas) {
+				$("#trace_department option").each(function(){ $(this).remove(); });
+				var _select=$("#trace_department");
+				$("<option value=''>请选择部门</option>").appendTo(_select);
+				$.each(datas.data,function(key,value){
+					$("<option value='"+value+"'>"+value+"</option>").appendTo(_select);
+				});
+			}
+		});
+	});
+	
 	$('#trace_startDateTime').datetimepicker();
 	$('#trace_endDateTime').datetimepicker();
 });

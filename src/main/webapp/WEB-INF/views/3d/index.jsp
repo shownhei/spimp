@@ -8,12 +8,12 @@
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
 <script id="staffTraceList-template" type="text/x-handlebars-template">
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover" width="100%">
   <thead><tr>
-    <th class="hidden-480">基站id</th>
-    <th class="hidden-480">基站</th>
-    <th class="hidden-480">进入时间</th>
-    <th class="hidden-480">停留时间</th>
+    <th class="hidden-480" width="10%">id</th>
+    <th class="hidden-480" width="40%">基站</th>
+    <th class="hidden-480" width="32%">进入时间</th>
+    <th class="hidden-480" width="18%">停留时间</th>
     </tr></thead>
     <tbody>
     {{#each result}}
@@ -25,55 +25,6 @@
       </tr>
     {{/each}}
      </tbody></table>
-</script>
-<script id="queryresult-template" type="text/x-handlebars-template">
-<div id="rjhCommand-template" class="accordion-style1">
-
-   <div class="panel panel-default ">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_r">{{typeName}}({{count}})</a>
-            </h4>
-        </div>
-        <div class="panel-collapse in collapse" id="collapse_r" style="height: auto;">
-            {{#each children}}
-            <div class="panel-body">
-              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
-             </div>
-            {{/each}}
-        </div>
-    </div>
-
-    <div class="panel panel-default ">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_j">{{typeName}}({{count}})</a>
-            </h4>
-        </div>
-        <div class="panel-collapse in collapse" id="collapse_j" style="height: auto;">
-            {{#each children}}
-            <div class="panel-body">
-              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
-             </div>
-            {{/each}}
-        </div>
-    </div>
-
-    <div class="panel panel-default ">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_h">{{typeName}}({{count}})</a>
-            </h4>
-        </div>
-        <div class="panel-collapse in collapse" id="collapse_h" style="height: auto;">
-            {{#each children}}
-            <div class="panel-body">
-              <a href="javascript:void(0);" onclick="WebMineSystem.PositonByName('{{this}}');">{{this}}</a>
-             </div>
-            {{/each}}
-        </div>
-    </div>
-</div>
 </script>
 <script id="allCameraViews-template" type="text/x-handlebars-template">
     {{#each result}}
@@ -108,7 +59,7 @@
         <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
            
               <table class="table table-striped table-bordered table-hover">
-              <thead><tr><th style="width:40px;">名称</th><th class="hidden-480">参数</th></tr></thead>
+              <thead><tr><th >名称</th><th class="hidden-480">参数</th></tr></thead>
               <tbody>
               {{#each children}}
               <tr><td>{{childName}}</td><td>{{childValue}}</td></tr>
@@ -206,7 +157,7 @@
 		</div>
 		<div id="layer-control" class="ace-settings-container">
 		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:10px;height:40px;background-color:white;float:left;" ></a>
-			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
+			<div id="layer-control-div" class="ace-settings-box open" style="width: 300px; border: 0; padding: 0">
 				<div class="tabbable tabs-right" style="margin-top: 0; background-color: #c5d0dc">
 					<ul class="nav nav-tabs tab-color-blue background-blue" style="min-width: 5px">
 					    <li class="active" style="min-width: 4px">
@@ -291,20 +242,25 @@
 													class="add-on nav-add-on"> <i class="icon-calendar"></i>
 												</span>
 											</div>
-											<div class="input-append">
-											    <button id="trace_query_btn" class="btn btn-small btn-success disabled pull-right">
-							                       <i class="icon-search"></i> 查询
-						                        </button>
-						                        <button id="trace_playback_btn" class="btn btn-small btn-success disabled pull-right">
-							                       <i class="icon-search"></i> 轨迹回放
-						                        </button>
+											<div class="input-append ">
+											    <table width="150">
+											      <tr><td>
+												    <button id="trace_query_btn" class="btn btn-small btn-success disabled">
+								                       <i class="icon-search"></i>查询
+							                        </button>
+											      </td><td align="right">
+								                       <button id="trace_playback_btn" class="btn btn-small btn-success disabled">
+									                       <i class="icon-list"></i>轨迹回放
+								                       </button>
+											      </td></tr>
+											    </table>
 											</div>
 										</div>
 									</form>
 							</div>
 							</div>
-							<div class="well" id="traceReplayInfo" style="padding:0 0 0 0">
-							    
+							<div class="well"  style="padding:0 0 0 0;overflow:scroll;">
+							   <div id="traceReplayInfo" style="width:500px;height:200px;"></div>
 							</div>
 						</div>
 					</div>
