@@ -187,11 +187,10 @@ define(function(require, exports, module) {
 						$('#map-image').attr('src', resources + '/images/3d/capture/' + pic2);
 					}, 600);
 					break;
-				case 'info':
-					$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
-
-					$('#info-tab').trigger('click');
-					$('#object').html('<img src="' + resources + '/images/3d/capture/信息统计-右侧属性栏.jpg" style="width: 100%">');
+				case 'renJiHuan':
+					//切换到人机环界面
+					//加载所有的区域信息
+					WebMineSystem.DoCommand('工具 人机环');
 					break;
 				default:
 					break;
@@ -383,7 +382,7 @@ define(function(require, exports, module) {
 		}); 
         //9 设置人员轨迹
         //10 重复人员轨迹
-	},1000);
+	},60000);
 	$(document).click(function(event) {
 		var el = $(event.target);
 		var elType = el.attr('data-type');
@@ -447,18 +446,23 @@ define(function(require, exports, module) {
 		         break;
 		}
 	});
-	var rjhTest=function(){
+	var rjhTest=function(data){
 		$.ajax({
-			type : 'get',
+			type : 'post',
 			dataType : 'text',
+			data:'rjhParam='+data,
 			url : '/location/location-areas/rjhcommand',
-			success : function(data) {
-				$('#result').html(data);
-				$('#result-tab').trigger('click');
+			success : function(datas) {
+				$('#renJiHuanInfo').html(datas);
 			}
 		});
 		
 	};
 	window.rjhTest=rjhTest;
-	rjhTest();
+	//人机环区域切换
+	$('#renJiHuanAreas').change(function(){
+		//RequireAreaRJH
+		var param=JSON.stringify({'NAME':$('#renJiHuanAreas').val()});
+		WebMineSystem.RequireAreaRJH(param);
+	});
 });

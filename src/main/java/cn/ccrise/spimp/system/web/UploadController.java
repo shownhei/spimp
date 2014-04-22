@@ -170,6 +170,7 @@ public class UploadController {
 		String fullName = newFile.getAbsolutePath();
 		String pdfRealPath = null;
 		String pdfPath = null;
+		fullName=fullName.toLowerCase();
 		if (!fullName.endsWith(".pdf")) {
 			pdfRealPath = fullName + ".pdf";
 		} else {
@@ -187,13 +188,17 @@ public class UploadController {
 				/**
 				 * 转化pdf
 				 */
+				System.out.println("开始转化pdf："+fullName);
 				document2PDFConvertService.service(fullName, pdfRealPath);
+				System.out.println("转化pdf完毕："+pdfRealPath);
 			}
 			/**
 			 * 转化swf
 			 */
+			System.out.println("开始转化swf："+pdfRealPath);
 			pDF2SwfService.convertPDF2SWF(pdfRealPath, newFile.getParentFile().getAbsolutePath() + "\\",
 					instance.getId() + ".swf");
+			System.out.println("转化swf完毕：");
 		} catch (Exception e) {
 			throw new Exception("服务启动失败" + e.getMessage());
 		}

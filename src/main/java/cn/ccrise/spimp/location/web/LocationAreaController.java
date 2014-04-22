@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -49,9 +50,9 @@ public class LocationAreaController {
 	 * @param accidentRecord
 	 * @returnd
 	 */
-	@RequestMapping(value = "/location/location-areas/rjhcommand", method = RequestMethod.GET)
+	@RequestMapping(value = "/location/location-areas/rjhcommand", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView save() {
+	public ModelAndView rjhCommand(String rjhParam) {
 		StringBuilder buff = new StringBuilder();
 		buff.append("{'ENRIROMENT':");
 		buff.append("[{'DBID':'MineID:14291000017;NodeID:0000000102;','TABLE':'K_Node','TYPE':'ENRIROMENT'},");
@@ -68,6 +69,9 @@ public class LocationAreaController {
 		buff.append("{'DBID':'MineID:14040002001;StationID:0505;','TABLE':'M_Station','TYPE':'PERSON'}");
 		buff.append("]}");
 		String json=buff.toString();
+		if(StringUtils.isNotBlank(rjhParam)){
+			json=rjhParam;
+		}
 		HashMap<String,Object> root = new HashMap<String,Object>();
 		locationAreaService.deal(json,root);
 		return new ModelAndView("3d/rjhTemplate",root);
@@ -124,6 +128,7 @@ public class LocationAreaController {
 		buff.append("SELECT DISTINCT stn.MineId,stn.StationId,stf.StaffId,stf.Name,stf.CardId ");
 		buff.append("FROM M_Station stn, M_Staff stf WHERE stf.CurStationId=stn.StationId and stf.state>=2");
 		SQLQuery query=locationAreaService.getDAO().getSession().createSQLQuery(buff.toString());
+		@SuppressWarnings("unchecked")
 		List<Object> list=(List<Object>)query.list();
 		Object []raw=null;
 		HashMap<String,LinkedList<HashMap<String,Object>>> result=new HashMap<String,LinkedList<HashMap<String,Object>>>();
@@ -136,7 +141,6 @@ public class LocationAreaController {
 		LinkedList<HashMap<String,Object>> resultRaw= null;
 		HashMap<String,Object> entity=null;
 		buff.delete(0, buff.capacity());
-		int count=0;
 		for(Object temp:list){
 			raw=(Object [])temp;
 			index=0;

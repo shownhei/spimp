@@ -96,7 +96,6 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 		}
 		//环境
 		Object ENRIROMENT = (Object) engine.get("ENRIROMENT");
-		System.out.println(ENRIROMENT!=null && !isUndefined(ENRIROMENT));
 		if (ENRIROMENT!=null &&!isUndefined(ENRIROMENT)) {
 			List<Map> ENRIROMENTs = (List<Map>) ENRIROMENT;
 			dealEnriroment(ENRIROMENTs,root);

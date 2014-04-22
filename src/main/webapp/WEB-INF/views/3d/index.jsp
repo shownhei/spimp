@@ -150,9 +150,9 @@
 						<i class="icon-random"></i>
 						<span>连接力控</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="info">
+					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
 						<i class="icon-info-sign"></i>
-						<span>信息统计</span>
+						<span>人机环</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="路线飞行.png">
 						<i class="icon-rocket"></i>
@@ -199,8 +199,11 @@
 						<li style="min-width: 4px">
 							<a id="layer-tab" data-toggle="tab" href="#layer" style="min-width: 4px;width:4px;">图<br>层<br>管<br>理</a>
 						</li>
-						<li  >
+						<li >
 							<a data-toggle="tab" href="#viewpoint" style="min-width: 4px;width:4px;">视点导航</a>
+						</li>
+						<li >
+							<a id="rjh-tab" data-toggle="tab" href="#renJiHuan" style="min-width: 4px;width:4px;">人机环</a>
 						</li>
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
@@ -227,6 +230,18 @@
 								</div>
 							</div>
 						</div>
+						<div id="renJiHuan" data-level="first" class="tab-pane col-sm-6 accordion-style1">
+							<div class="well">
+								<h4 class="green smaller lighter">人机环信息</h4>
+								<select id="renJiHuanAreas" style="height: 25px; width: 150px; font-size: 12px;">
+								   <option value="区域1">区域1</option>
+								   <option value="区域2">区域2</option>
+								</select>
+							</div>
+							<div class="well" id="renJiHuanInfo">
+							    
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -251,5 +266,19 @@
         //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
         setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=GetAreaNames(jsonAreas)>
+        $('#rjh-tab').trigger('click');
+        //{"AREA":[{"NAME":"3045工作面"},{"NAME":"3046工作面"}]}
+        $("#renJiHuanAreas option").each(function(){ $(this).remove(); });
+        var _select=$("#renJiHuanAreas");
+        $("<option value=''>请选择区域</option>").appendTo(_select);
+        $.each($.parseJSON(jsonAreas).AREA,function(key,value){
+            $("<option value='"+value.NAME+"'>"+value.NAME+"</option>").appendTo(_select);
+        });
+    </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=RJHCommand(jsonData)>
+       rjhTest(jsonData);
+    </SCRIPT>
+    
 </body>
 </html>

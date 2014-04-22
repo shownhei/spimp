@@ -88,6 +88,7 @@ public class Document2PDFConvertService {
 		String command = "soffice.exe -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\"";
 		try {
 			logger.debug(command);
+			System.out.println(command);
 			process = Runtime.getRuntime().exec(command);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String temp = null;
