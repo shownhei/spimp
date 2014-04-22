@@ -1,6 +1,7 @@
 package cn.ccrise.spimp.location.entity;
 
 public class Track {
+	private String mineId;
 	private String staffId;
 	/**
 	 * 员工姓名
@@ -31,11 +32,33 @@ public class Track {
 	 * 进入当前区域时间
 	 */
 	private String enterCurTime;
+	/**
+	 * 停留时间
+	 */
+	private String indataTime;
 
 	/**
 	 * 状态
 	 */
 	private String state;
+
+	
+	
+	public String getMineId() {
+		return mineId;
+	}
+
+	public void setMineId(String mineId) {
+		this.mineId = mineId;
+	}
+
+	public String getIndataTime() {
+		return indataTime;
+	}
+
+	public void setIndataTime(String indataTime) {
+		this.indataTime = indataTime;
+	}
 
 	public String getDepartment() {
 		return department;

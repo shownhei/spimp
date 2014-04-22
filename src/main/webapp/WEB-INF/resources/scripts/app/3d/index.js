@@ -192,6 +192,23 @@ define(function(require, exports, module) {
 					//加载所有的区域信息
 					WebMineSystem.DoCommand('工具 人机环');
 					break;
+				case 'traceReplay':
+					//轨迹回放
+					$('#trace-tab').trigger('click');
+			        $.ajax({
+						type : 'get',
+						dataType : 'json',
+						url : '/location/location-staffs/alldepartment',
+						success : function(datas) {
+							$("#trace_department option").each(function(){ $(this).remove(); });
+							var _select=$("#trace_department");
+							$("<option value=''>请选择部门</option>").appendTo(_select);
+							$.each(datas.data,function(key,value){
+								$("<option value='"+value+"'>"+value+"</option>").appendTo(_select);
+							});
+						}
+					});
+					break;		
 				default:
 					break;
 			}
@@ -465,4 +482,72 @@ define(function(require, exports, module) {
 		var param=JSON.stringify({'NAME':$('#renJiHuanAreas').val()});
 		WebMineSystem.RequireAreaRJH(param);
 	});
+	//部门选择发生变化  加载对应的员工信息
+	$('#trace_department').change(function(){
+		var _department=$('#trace_department').val();
+		$("#trace_staff option").each(function(){ $(this).remove(); });
+		if(!_department){
+			return;
+		}
+		$.ajax({
+			type : 'get',
+			dataType : 'json',
+			data:'department='+encodeURI(_department),
+			url : '/location/location-staffs/departmentstaff',
+			success : function(datas) {
+				var _select=$("#trace_staff");
+				$("<option value=''>请选择人员</option>").appendTo(_select);
+				$.each(datas.data,function(key,value){
+					console.log(value);
+					$("<option value='"+value.id.staffId+"' data-param='"+value.id.mineId+"'>"+value.name+"</option>").appendTo(_select);
+				});
+			}
+		});
+	});//
+	$('#trace_staff').change(function(){
+		var staffVal=$(this).val();
+		if(!staffVal){
+			$('#trace_query_btn').addClass('disabled');
+			$('#trace_playback_btn').addClass('disabled');
+		}else{
+			$('#trace_query_btn').removeClass('disabled');
+			$('#trace_playback_btn').removeClass('disabled');
+		}
+	});
+	$('#trace_query_btn').click(function() {
+		if($('#trace_query_btn').hasClass('disabled')){
+			return;
+		}
+		//查询人员信息列表
+		var _param='department='+$("#trace_department").val();
+		_param+='&staffId='+$('#trace_staff').val();
+		_param+='&startTime='+$('#trace_startDateTime').val();
+		_param+='&endTime='+$('#trace_endDateTime').val();
+		$.get(contextPath + '/location/location-tracks-query?'+_param, function(data) {
+			var tracetemplate = Handlebars.compile($('#staffTraceList-template').html());
+			var tracehtml = tracetemplate(data.data);
+			$('#traceReplayInfo').html(tracehtml);
+		}); 
+	});
+	$('#trace_playback_btn').click(function(){
+		if($('#trace_query_btn').hasClass('disabled')){
+			return;
+		}
+		var _param='department='+$("#trace_department").val();
+		_param+='&staffId='+$('#trace_staff').val();
+		_param+='&startTime='+$('#trace_startDateTime').val();
+		_param+='&endTime='+$('#trace_endDateTime').val();
+		$.get(contextPath + '/location/location-tracks-query?'+_param, function(data) {
+			var _jsonResult={};
+			_jsonResult.PEOPLE=$("#trace_staff").find("option:selected").text();
+			var READCARD=[];
+			$.each(data.data.result,function(key,value){
+				READCARD.push({'DBID':'MineID:'+value.mineId+';StationID:'+value.stationId+';'});
+			});
+			_jsonResult.READCARD=READCARD;
+			WebMineSystem._Rydw_SetMineWorkerTrajectory(JSON.stringify(_jsonResult));
+		});
+	});
+	$('#trace_startDateTime').datetimepicker();
+	$('#trace_endDateTime').datetimepicker();
 });

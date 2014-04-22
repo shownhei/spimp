@@ -7,6 +7,25 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+<script id="staffTraceList-template" type="text/x-handlebars-template">
+<table class="table table-striped table-bordered table-hover">
+  <thead><tr>
+    <th class="hidden-480">基站id</th>
+    <th class="hidden-480">基站</th>
+    <th class="hidden-480">进入时间</th>
+    <th class="hidden-480">停留时间</th>
+    </tr></thead>
+    <tbody>
+    {{#each result}}
+      <tr>
+          <td>{{stationId}}</td>
+          <td>{{stationName}}</td>
+          <td>{{enterCurTime}}</td>
+          <td>{{indataTime}}</td>
+      </tr>
+    {{/each}}
+     </tbody></table>
+</script>
 <script id="queryresult-template" type="text/x-handlebars-template">
 <div id="rjhCommand-template" class="accordion-style1">
 
@@ -134,7 +153,7 @@
 						<i class="icon-home"></i>
 						<span>主界面</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="轨迹回放.png">
+					<button class="btn btn-small btn-info" data-image="轨迹回放.png" data-type="traceReplay">
 						<i class="icon-retweet"></i>
 						<span>轨迹回放</span>
 					</button>
@@ -205,6 +224,9 @@
 						<li >
 							<a id="rjh-tab" data-toggle="tab" href="#renJiHuan" style="min-width: 4px;width:4px;">人机环</a>
 						</li>
+						<li >
+							<a id="trace-tab" data-toggle="tab" href="#traceReplay" style="min-width: 4px;width:4px;">轨迹回放</a>
+						</li>
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
 					    <div id="result" data-level="first" class="tab-pane active">
@@ -239,6 +261,49 @@
 								</select>
 							</div>
 							<div class="well" id="renJiHuanInfo">
+							</div>
+						</div>
+						<div id="traceReplay" data-level="first" class="tab-pane col-sm-6 accordion-style1">
+							<div class="well">
+								<h4 class="green smaller lighter">轨迹回放信息</h4>
+								<div id="search_content">
+									<form id="query-form" class="form-inline" onsubmit="return false;">
+										<div style="display: block; margin-bottom: 5px;">
+											<div class="input-append">
+												<select name="department" id="trace_department" 
+													style="height: 25px; width: 150px; font-size: 12px;">
+												</select>
+											</div>
+											<div class="input-append">
+												<select name="staff" id="trace_staff"
+													style="height: 25px; width: 150px; font-size: 12px;">
+												</select>
+											</div>
+											<div class="input-append">
+												<input name="startDateTime" type="datetime"  id="trace_startDateTime" style="width: 119px;"
+													placeholder="开始时间" class="input-small"> <span
+													class="add-on nav-add-on"> <i class="icon-calendar"></i>
+												</span>
+											</div>
+											<div class="input-append">
+												<input name="endDateTime" type="datetime"  id="trace_endDateTime" style="width: 119px;"
+													placeholder="截止时间" class="input-small"> <span
+													class="add-on nav-add-on"> <i class="icon-calendar"></i>
+												</span>
+											</div>
+											<div class="input-append">
+											    <button id="trace_query_btn" class="btn btn-small btn-success disabled pull-right">
+							                       <i class="icon-search"></i> 查询
+						                        </button>
+						                        <button id="trace_playback_btn" class="btn btn-small btn-success disabled pull-right">
+							                       <i class="icon-search"></i> 轨迹回放
+						                        </button>
+											</div>
+										</div>
+									</form>
+							</div>
+							</div>
+							<div class="well" id="traceReplayInfo" style="padding:0 0 0 0">
 							    
 							</div>
 						</div>
