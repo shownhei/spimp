@@ -268,6 +268,9 @@ define(function(require, exports, module) {
 		var html = template({"result":data});
 		$('#object').html(html);
 		$('#info-tab').trigger('click');
+		$.each($("a[data-type='object-info-group']"),function(k,v){
+			$(v).trigger('click');
+		});
 		
 	};
 	callbackClt.test=function(_jsonData){
