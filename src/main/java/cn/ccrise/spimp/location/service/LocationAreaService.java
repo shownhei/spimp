@@ -13,6 +13,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -109,14 +110,20 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 	private void dealPerson(List<Map> PERSONs,HashMap<String,Object> root){
 		String DBID=null;
 		ArrayList<String> curStationIds=new ArrayList<String>();
+		int i=0;
 		for (Map raw : PERSONs) {
 			this.logger.debug("{}",raw);
 			DBID=(String)raw.get("DBID");
+			if(StringUtils.isBlank(DBID)){
+				continue;
+			}
 			System.out.println(DBID);
-			
+			i+=1;
 			curStationIds.add(DBID.split(";")[1].split(":")[1]);
 		}
-		root.put("PERSON",locationStaffService.find(Restrictions.in("curStationId", curStationIds.toArray(new String[0]))));
+		if(i>0){
+			root.put("PERSON",locationStaffService.find(Restrictions.in("curStationId", curStationIds.toArray(new String[0]))));
+		}
 	}
 	/**
 	 * 设备 设计到三种表 electr_equipments
@@ -141,8 +148,12 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 		reuslt.put(fire, new LinkedList<String>());
 		for (Map raw : EQIPMENTs) {
 			DBID=(String)raw.get("DBID");
+			if(StringUtils.isBlank(DBID)){
+				continue;
+			}
 			equipmentId=DBID.split(";")[1].split(":")[1];
 			TABLE=(String)raw.get("TABLE");
+			
 			TABLE=TABLE.toLowerCase();
 			if(!reuslt.containsKey(TABLE)){
 				logger.warn("加载设备信息出现 不识别的表名"+TABLE);
@@ -151,10 +162,18 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			}
 		}
 		HashMap<String,Object> equipments=new HashMap<String,Object>();
-		equipments.put(equipment, equipmentService.fetchByEquipmentIds(reuslt.get(equipment)));
-		equipments.put(transform, transformEquipmentService.fetchByEquipmentIds(reuslt.get(transform)));
-		equipments.put(windwater, windWaterEquipmentService.fetchByEquipmentIds(reuslt.get(windwater)));
-		equipments.put(fire, fireFightingEquipmentService.fetchByEquipmentIds(reuslt.get(fire)));
+		if(reuslt.get(equipment).size()>0){
+			equipments.put(equipment, equipmentService.fetchByEquipmentIds(reuslt.get(equipment)));
+		}
+		if(reuslt.get(transform).size()>0){
+		   equipments.put(transform, transformEquipmentService.fetchByEquipmentIds(reuslt.get(transform)));
+		}
+		if(reuslt.get(windwater).size()>0){
+			equipments.put(windwater, windWaterEquipmentService.fetchByEquipmentIds(reuslt.get(windwater)));
+		}
+		if(reuslt.get(fire).size()>0){
+			equipments.put(fire, fireFightingEquipmentService.fetchByEquipmentIds(reuslt.get(fire)));
+		}
 		root.put("EQIPMENT", equipments);
 	}
 	/**
@@ -168,17 +187,24 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 		StringBuilder buff = new StringBuilder();
 		buff.append(" select nodeid, nodeplace,stationid,sensorTypeId,sensorName,currentData");
 		buff.append(" from K_Node where nodeid in( ");
+		int i=0;
 		for (Map raw : ENRIROMENTs) {
 			DBID=(String)raw.get("DBID");
+			if(StringUtils.isBlank(DBID)){
+				continue;
+			}
+			i+=1;
 			buff.append("'");
 			nodeId=DBID.split(";")[1].split(":")[1];
 			buff.append(nodeId);
 			buff.append("',");
 		}
-		buff.delete(buff.length()-1, buff.length());
-		buff.append(")");
-		SQLQuery query=getDAO().getSession().createSQLQuery(buff.toString());
-		root.put("ENRIROMENT",query.list());
+		if(i>0){
+			buff.delete(buff.length()-1, buff.length());
+			buff.append(")");
+			SQLQuery query=getDAO().getSession().createSQLQuery(buff.toString());
+			root.put("ENRIROMENT",query.list());
+		}
 	}
 	@Override
 	public HibernateDAO<LocationArea, Long> getDAO() {

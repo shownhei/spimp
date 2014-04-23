@@ -65,6 +65,7 @@ public class LocationStaffController {
 	@RequestMapping(value = "/location/location-staffs/departmentstaff", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getDepartmentStaff(String department) {
+		System.out.println("in...."+department);   
 		return new Response(locationStaffService.getDepartmentStaff(department));
 	}
 	/**

@@ -211,7 +211,8 @@
 								   <option value="区域2">区域2</option>
 								</select>
 							</div>
-							<div class="well" id="renJiHuanInfo">
+							<div class="well"  style="padding:0 0 0 0;overflow:scroll;">
+							    <div id="renJiHuanInfo" style="width:500px;"></div>
 							</div>
 						</div>
 						<div id="traceReplay" data-level="first" class="tab-pane col-sm-6 accordion-style1">
@@ -259,8 +260,8 @@
 									</form>
 							</div>
 							</div>
-							<div class="well"  style="padding:0 0 0 0;overflow:scroll;">
-							   <div id="traceReplayInfo" style="width:500px;height:200px;"></div>
+							<div class="well"  style="padding:0 0 0 0;">
+							   <div id="traceReplayInfo" style="height:200px;overflow:auto;width:500px;"></div>
 							</div>
 						</div>
 					</div>
