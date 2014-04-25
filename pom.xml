@@ -21,7 +21,7 @@
 	<inceptionYear>2013</inceptionYear>
 
 	<properties>
-		<ikjp.version>1.4.2</ikjp.version>
+		<ikjp.version>1.4.3</ikjp.version>
 		<spring.version>3.2.6.RELEASE</spring.version>
 		<hibernate.version>4.2.5.Final</hibernate.version>
 		<jetty.version>9.1.2.v20140210</jetty.version>
