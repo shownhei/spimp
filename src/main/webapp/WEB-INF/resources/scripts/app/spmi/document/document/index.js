@@ -367,16 +367,20 @@ define(function(require, exports, module) {
 	});
 // 文件上传回调
 	var callBack=function(data) {
-		var attachment = $('#create_attachment');
-		var docName=$('#create_documentName');
-		if(docName.val()===''){
-			docName.val(data.data.simpleName);
+		if(data.success){
+			var attachment = $('#create_attachment');
+			var docName=$('#create_documentName');
+			if(docName.val()===''){
+				docName.val(data.data.simpleName);
+			}
+			attachment.val(data.data.simpleName);
+			attachment.attr('data-id', data.data.id);
+			$('#create-file-form').hide();
+			attachment.parent().parent().show();
+			$('#create-save').removeClass('disabled');
+		}else{
+			alert(data.data);
 		}
-		attachment.val(data.data.simpleName);
-		attachment.attr('data-id', data.data.id);
-		$('#create-file-form').hide();
-		attachment.parent().parent().show();
-		$('#create-save').removeClass('disabled');
 		window.process.stop();
 		window.process = null;
 	};

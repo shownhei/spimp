@@ -55,6 +55,15 @@ public class TransformEquipmentService extends HibernateDataServiceImpl<Transfor
 	@Autowired
 	private TensioningDeviceService tensioningDeviceService;
 
+	public List<TransformEquipment> fetchByEquipmentIds(List<String> equipmentIds){
+		if(equipmentIds.size()==0){
+			return null;
+		}
+		return this.find(Restrictions.in("equipmentNumber", equipmentIds.toArray(new String[0])));
+	}
+	
+	
+	
 	@Override
 	public HibernateDAO<TransformEquipment, Long> getDAO() {
 		return transformEquipmentDAO;

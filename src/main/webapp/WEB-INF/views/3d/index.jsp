@@ -7,7 +7,25 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
-
+<script id="staffTraceList-template" type="text/x-handlebars-template">
+<table class="table table-striped table-bordered table-hover" width="100%">
+  <thead><tr>
+    <th class="hidden-480" width="10%">id</th>
+    <th class="hidden-480" width="40%">基站</th>
+    <th class="hidden-480" width="32%">进入时间</th>
+    <th class="hidden-480" width="18%">停留时间</th>
+    </tr></thead>
+    <tbody>
+    {{#each result}}
+      <tr>
+          <td>{{stationId}}</td>
+          <td>{{stationName}}</td>
+          <td>{{enterCurTime}}</td>
+          <td>{{indataTime}}</td>
+      </tr>
+    {{/each}}
+     </tbody></table>
+</script>
 <script id="allCameraViews-template" type="text/x-handlebars-template">
     {{#each result}}
         <div class="row-fluid">
@@ -35,13 +53,13 @@
    <div class="panel panel-default ">
         <div class="panel-heading ">
             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{groupName}}</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}" data-type="object-info-group">{{groupName}}</a>
             </h4>
         </div>
         <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
            
               <table class="table table-striped table-bordered table-hover">
-              <thead><tr><th style="width:40px;">名称</th><th class="hidden-480">参数</th></tr></thead>
+              <thead><tr><th >名称</th><th class="hidden-480">参数</th></tr></thead>
               <tbody>
               {{#each children}}
               <tr><td>{{childName}}</td><td>{{childValue}}</td></tr>
@@ -86,7 +104,7 @@
 						<i class="icon-home"></i>
 						<span>主界面</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="轨迹回放.png">
+					<button class="btn btn-small btn-info" data-image="轨迹回放.png" data-type="traceReplay">
 						<i class="icon-retweet"></i>
 						<span>轨迹回放</span>
 					</button>
@@ -102,9 +120,9 @@
 						<i class="icon-random"></i>
 						<span>连接力控</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="info">
+					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
 						<i class="icon-info-sign"></i>
-						<span>信息统计</span>
+						<span>人机环</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="路线飞行.png">
 						<i class="icon-rocket"></i>
@@ -139,7 +157,7 @@
 		</div>
 		<div id="layer-control" class="ace-settings-container">
 		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:10px;height:40px;background-color:white;float:left;" ></a>
-			<div id="layer-control-div" class="ace-settings-box open" style="width: 260px; border: 0; padding: 0">
+			<div id="layer-control-div" class="ace-settings-box open" style="width: 300px; border: 0; padding: 0">
 				<div class="tabbable tabs-right" style="margin-top: 0; background-color: #c5d0dc">
 					<ul class="nav nav-tabs tab-color-blue background-blue" style="min-width: 5px">
 					    <li class="active" style="min-width: 4px">
@@ -151,8 +169,14 @@
 						<li style="min-width: 4px">
 							<a id="layer-tab" data-toggle="tab" href="#layer" style="min-width: 4px;width:4px;">图<br>层<br>管<br>理</a>
 						</li>
-						<li  >
+						<li >
 							<a data-toggle="tab" href="#viewpoint" style="min-width: 4px;width:4px;">视点导航</a>
+						</li>
+						<li >
+							<a id="rjh-tab" data-toggle="tab" href="#renJiHuan" style="min-width: 4px;width:4px;">人机环</a>
+						</li>
+						<li >
+							<a id="trace-tab" data-toggle="tab" href="#traceReplay" style="min-width: 4px;width:4px;">轨迹回放</a>
 						</li>
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
@@ -179,6 +203,67 @@
 								</div>
 							</div>
 						</div>
+						<div id="renJiHuan" data-level="first" class="tab-pane col-sm-6 accordion-style1">
+							<div class="well">
+								<h4 class="green smaller lighter">人机环信息</h4>
+								<select id="renJiHuanAreas" style="height: 25px; width: 150px; font-size: 12px;">
+								   <option value="区域1">区域1</option>
+								   <option value="区域2">区域2</option>
+								</select>
+							</div>
+							<div class="well"  style="padding:0 0 0 0;overflow:scroll;">
+							    <div id="renJiHuanInfo" style="width:500px;"></div>
+							</div>
+						</div>
+						<div id="traceReplay" data-level="first" class="tab-pane col-sm-6 accordion-style1">
+							<div class="well">
+								<h4 class="green smaller lighter">轨迹回放信息</h4>
+								<div id="search_content">
+									<form id="query-form" class="form-inline" onsubmit="return false;">
+										<div style="display: block; margin-bottom: 5px;">
+											<div class="input-append">
+												<select name="department" id="trace_department" 
+													style="height: 25px; width: 150px; font-size: 12px;">
+												</select>
+											</div>
+											<div class="input-append">
+												<select name="staff" id="trace_staff"
+													style="height: 25px; width: 150px; font-size: 12px;">
+												</select>
+											</div>
+											<div class="input-append">
+												<input name="startDateTime" type="datetime"  id="trace_startDateTime" style="width: 119px;"
+													placeholder="开始时间" class="input-small"> <span
+													class="add-on nav-add-on"> <i class="icon-calendar"></i>
+												</span>
+											</div>
+											<div class="input-append">
+												<input name="endDateTime" type="datetime"  id="trace_endDateTime" style="width: 119px;"
+													placeholder="截止时间" class="input-small"> <span
+													class="add-on nav-add-on"> <i class="icon-calendar"></i>
+												</span>
+											</div>
+											<div class="input-append ">
+											    <table width="150">
+											      <tr><td>
+												    <button id="trace_query_btn" class="btn btn-small btn-success disabled">
+								                       <i class="icon-search"></i>查询
+							                        </button>
+											      </td><td align="right">
+								                       <button id="trace_playback_btn" class="btn btn-small btn-success disabled">
+									                       <i class="icon-list"></i>轨迹回放
+								                       </button>
+											      </td></tr>
+											    </table>
+											</div>
+										</div>
+									</form>
+							</div>
+							</div>
+							<div class="well"  style="padding:0 0 0 0;">
+							   <div id="traceReplayInfo" style="height:200px;overflow:auto;width:500px;"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -203,5 +288,19 @@
         //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
         setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=GetAreaNames(jsonAreas)>
+        $('#rjh-tab').trigger('click');
+        //{"AREA":[{"NAME":"3045工作面"},{"NAME":"3046工作面"}]}
+        $("#renJiHuanAreas option").each(function(){ $(this).remove(); });
+        var _select=$("#renJiHuanAreas");
+        $("<option value=''>请选择区域</option>").appendTo(_select);
+        $.each($.parseJSON(jsonAreas).AREA,function(key,value){
+            $("<option value='"+value.NAME+"'>"+value.NAME+"</option>").appendTo(_select);
+        });
+    </SCRIPT>
+    <SCRIPT FOR=WebMineSystem EVENT=RJHCommand(jsonData)>
+       rjhTest(jsonData);
+    </SCRIPT>
+    
 </body>
 </html>

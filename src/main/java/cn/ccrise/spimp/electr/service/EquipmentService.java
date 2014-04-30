@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import net.sf.jxls.exception.ParsePropertyException;
@@ -61,6 +60,9 @@ public class EquipmentService extends HibernateDataServiceImpl<Equipment, Long> 
 		return delete(tEquipment);
 	}
 
+	public List<Equipment> fetchByEquipmentIds(List<String> equipmentIds){
+		return this.find(Restrictions.in("deviceNumber", equipmentIds.toArray(new String[0])));
+	}
 	@Override
 	public HibernateDAO<Equipment, Long> getDAO() {
 		return equipmentDAO;

@@ -51,7 +51,23 @@ public class LocationStaffController {
 	private LocationStaffService locationStaffService;
 	@Autowired
 	private LocationStationService locationStationService;
-
+	/**
+	 * 获得所有的部门
+	 */
+	@RequestMapping(value = "/location/location-staffs/alldepartment", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getAllDepartment() {
+		return new Response(locationStaffService.getAllDepartment());
+	}
+	/**
+	 * 获得给定部门的所有人员
+	 */
+	@RequestMapping(value = "/location/location-staffs/departmentstaff", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getDepartmentStaff(String department) {
+		System.out.println("in...."+department);   
+		return new Response(locationStaffService.getDepartmentStaff(department));
+	}
 	/**
 	 * 实时下井总人数
 	 */

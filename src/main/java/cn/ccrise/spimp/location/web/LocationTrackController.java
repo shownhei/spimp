@@ -112,17 +112,17 @@ public class LocationTrackController {
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
 		// 查询结果hql语句
 		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state "
-				+ "From LocationStaff staff,LocationStaffRealDatas track " + "WHERE staff.id.staffId=track.id.staffId ";
+				+ ", staff.indataTime,staff.id.mineId From LocationStaff staff,LocationStaffRealDatas track " + "WHERE staff.id.staffId=track.id.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
 		if (!Strings.isNullOrEmpty(staffId)) {
 			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 		}
 		if (StringUtils.isNotBlank(startTime)) {
-			filterTable.append(" AND track.enterCurTime >= CONVERT(DATETIME, '").append(startTime).append("', 102) ");
+			filterTable.append(" AND track.id.enterCurTime >= CONVERT(DATETIME, '").append(startTime).append("', 102) ");
 		}
 		if (StringUtils.isNotBlank(endTime)) {
-			filterTable.append(" AND track.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
+			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
@@ -132,6 +132,7 @@ public class LocationTrackController {
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) locationStaffService.getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
 		if (totalRows > 0) {
+			System.out.println(tempTable.toString());
 			@SuppressWarnings("unchecked")
 			List<Object[]> results = locationStaffService.getDAO().createQuery(tempTable.toString())
 					.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1)).setMaxResults(page.getPageSize())
@@ -144,7 +145,7 @@ public class LocationTrackController {
 				track.setDepartment(String.valueOf(result[2]));
 				track.setJobType(String.valueOf(result[3]));
 				track.setTroopName(String.valueOf(result[4]));
-
+				
 				List<LocationStation> locationStations = locationStationService.findBy("id.stationId",
 						String.valueOf(result[5]));
 				if (locationStations.size() > 0) {
@@ -155,6 +156,8 @@ public class LocationTrackController {
 				String state = stateMaps.get(Integer.parseInt(String.valueOf(result[7])));
 				track.setState(state);
 				track.setStationId(String.valueOf(result[5]));
+				track.setIndataTime(String.valueOf(result[7]));
+				track.setMineId(String.valueOf(result[8]));
 				lists.add(track);
 			}
 			page.setTotalCount(totalRows);
