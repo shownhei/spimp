@@ -30,7 +30,7 @@ define(function(require, exports, module) {
         width:100,
         name: 'groupEntity',
         render :function(v){
-        	return v.name;
+            return v.name;
         }
     },
     {
@@ -43,10 +43,10 @@ define(function(require, exports, module) {
         width: 90,
         name: 'attachment',
         render :function(v){
-        	if(v){
-        		return '<a href="'+v+'" target="_blank">附件</a>';
-        	}
-        	return '--';
+            if(v){
+                return '<a href="'+v+'" target="_blank">附件</a>';
+            }
+            return '--';
         }
     },
     {
@@ -274,8 +274,8 @@ define(function(require, exports, module) {
     
     
     $('#create_attachment').click(function(){
-    	Utils.modal.showUpload('/simpleupload',function(data){
-    		$('#create_attachment').val(data.data);
-    	},'附件上传');
+        Utils.modal.showUpload('/simpleupload',function(data){
+            $('#create_attachment').val(data.data);
+        },'附件上传');
     });
 });

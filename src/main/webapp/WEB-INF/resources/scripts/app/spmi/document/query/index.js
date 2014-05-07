@@ -74,7 +74,9 @@ define(function(require, exports, module) {
 	
 	
 	function filter(treeId, parentNode, childNodes) {
-		if (!childNodes) return null;
+		if (!childNodes){
+			return null;
+		}
 		var result=childNodes.data.result;
 		for (var i=0, l=result.length; i<l; i++) {
 			result[i].isParent=true;

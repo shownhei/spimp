@@ -165,7 +165,6 @@ define(function(require, exports, module) {
 
 	// 计算树和表格高度
 	var treeHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + 87);
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('#group-detail').height() + 162);
 	if ($(window).width() >= 768) {
 		$('#groups-tree').height(treeHeight + 39);
 		$('#tab-content').height(treeHeight);
