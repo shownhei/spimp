@@ -59,14 +59,16 @@ define(function(require, exports, module) {
 		var children=[];
 		var id=1;
 		for(var key in array){
-			 var raw=array[key];
-			 raw.id=id++;
-			 raw.iconOpen = resources + "/images/icons/chart_organisation.png";
-			 raw.iconClose = resources + "/images/icons/chart_organisation.png";
-			 raw.checked=null;
-			 raw.name=raw.Name;
-			 raw.pId=-1;
-			 children.push(raw);
+			if(array.hasOwnProperty(key)) {
+				var raw=array[key];
+				raw.id=id++;
+				raw.iconOpen = resources + "/images/icons/chart_organisation.png";
+				raw.iconClose = resources + "/images/icons/chart_organisation.png";
+				raw.checked=null;
+				raw.name=raw.Name;
+				raw.pId=-1;
+				children.push(raw);
+			}
 		 }
 		var result={id:"-1",name:"王庄煤业","pId":0,open:true,children:children};
 		
@@ -175,7 +177,7 @@ define(function(require, exports, module) {
 		if($('#nav-search-input').val()){
 			resultData=WebMineSystem.FuzzyQuery($('#nav-search-input').val());
 	    }else{
-	    	resultData=WebMineSystem.FuzzyQuery('巷道');
+			resultData=WebMineSystem.FuzzyQuery('巷道');
 	    }
 		var temp=$.parseJSON( resultData );
 		window.callbackClt.test(temp);
@@ -197,12 +199,12 @@ define(function(require, exports, module) {
 		$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
 			var paths = data.data.split('/');
 			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+			window.projectLoaded=true;
 			WebMineSystem.UpdateProjectFile(paths[3]);
 			WebMineSystem.LoadProjectFile(paths[3]);
 			var result=WebMineSystem.GetAllLayers();
 			initLayerTree(result);
 			callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
-			window.projectLoaded=true;
 		});
 	};
 	//所有的试点相机
@@ -212,15 +214,17 @@ define(function(require, exports, module) {
 		var group=[];
 		var index=0;
 		for(var key in array){
-			if(index%4==0){
-				group=[];
-				result.push({children:group});
+			if(array.hasOwnProperty(key)) {
+				if(index%4===0){
+					group=[];
+					result.push({children:group});
+				}
+				index+=1;
+				var raw=array[key];
+				raw.id=raw.ID;
+				raw.name=raw['名称'];
+				group.push(raw);
 			}
-			index+=1;
-			var raw=array[key];
-			raw.id=raw.ID;
-			raw.name=raw.名称;
-			group.push(raw);
 		}
 		var template = Handlebars.compile($('#allCameraViews-template').html());
 		var html = template({"result":result});
@@ -248,21 +252,25 @@ define(function(require, exports, module) {
 		var data=[];
 		var groupIndex=0;
 		for(var key in _jsonData){
-			 var groupRaw={};
-			 groupRaw.groupCode=groupIndex++;
-			 groupRaw.groupName=key;
-			 var group=_jsonData[key];
-			 var childrenArray=[];
-			 var j=0;
-			 for(var keyj in group){
-				 var child={};
-				 child.childCode=j++;
-				 child.childName=keyj;
-				 child.childValue=group[keyj];
-				 childrenArray.push(child);
-			 }
-			 groupRaw.children=childrenArray;
-			 data.push(groupRaw);
+			if(_jsonData.hasOwnProperty(key)) {
+				var groupRaw={};
+				groupRaw.groupCode=groupIndex++;
+				groupRaw.groupName=key;
+				var group=_jsonData[key];
+				var childrenArray=[];
+				var j=0;
+				for(var keyj in group){
+					if(group.hasOwnProperty(keyj)) {
+						var child={};
+						child.childCode=j++;
+						child.childName=keyj;
+						child.childValue=group[keyj];
+						childrenArray.push(child);
+					}
+				}
+				groupRaw.children=childrenArray;
+				data.push(groupRaw);
+			}
 		 }
 		var template = Handlebars.compile($('#objectinfo-template').html());
 		var html = template({"result":data});
@@ -277,12 +285,14 @@ define(function(require, exports, module) {
 		 var i=0;
 		 var data=[];
 		 for(var key in _jsonData){
-			 var raw={};
-			 raw.typeCode=i++;
-			 raw.typeName=key;
-			 raw.children=_jsonData[key];
-			 raw.count=raw.children.length;
-			 data.push(raw);
+			 if(_jsonData.hasOwnProperty(key)) {
+				 var raw={};
+				 raw.typeCode=i++;
+				 raw.typeName=key;
+				 raw.children=_jsonData[key];
+				 raw.count=raw.children.length;
+				 data.push(raw);
+			 }
 		 }
 		var template = Handlebars.compile($('#queryresult-template').html());
 		var html = template({"result":data});
@@ -319,9 +329,9 @@ define(function(require, exports, module) {
 		});
 		//4 实时最大一氧化碳浓度数值及其传感器位置
         $.get(contextPath + '/monitor/monitor-nodes/max?sensorTypeId=4', function(data) {
-        	//{"success":true,"data":[[1.5,"E302进风顺槽3部机头一氧化碳"],[1.5,"E302进风顺槽1部机头一氧化碳"]],"errors":null}
-			//{“CO”:0.5 }
-        	WebMineSystem.SF_SetRealMaxCO('{"CO":'+data.data[0][0]+'}');
+            //{"success":true,"data":[[1.5,"E302进风顺槽3部机头一氧化碳"],[1.5,"E302进风顺槽1部机头一氧化碳"]],"errors":null}
+            //{“CO”:0.5 }
+            WebMineSystem.SF_SetRealMaxCO('{"CO":'+data.data[0][0]+'}');
 		});
         //5 当天最大瓦斯浓度数值及其传感器位置
         var currentDate = new Date();
@@ -331,12 +341,12 @@ define(function(require, exports, module) {
 		});
         //6 当天最大一氧化碳浓度数值及其传感器位置
         $.get(contextPath + '/monitor/monitor-real-datas/max?sensorTypeId=4&date='+dateStr, function(data) {
-        	//{"success":true,"data":[[2.75,"采区回风巷一氧化碳"]],"errors":null}
+            //{"success":true,"data":[[2.75,"采区回风巷一氧化碳"]],"errors":null}
 			
 		});   
         //7 所有读卡器 下 所有人
         $.get(contextPath + '/location/read_cards_staff', function(data) {
-        	var array=[];
+            var array=[];
 			$.each(data.data,function(key,value){
 				array.push({"DBID":key,"PERSON":value});
 			});
