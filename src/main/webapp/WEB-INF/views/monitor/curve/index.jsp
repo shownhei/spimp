@@ -27,43 +27,14 @@
 								<i class="icon-calendar"></i>
 							</span>
 						</div>
-						<div class="checkbox" style="float: left; margin-right: 5px">
-							<label>
-								<input id="avgValue" name="valueType" type="checkbox" class="ace" value="VT1" checked>
-								<span class="lbl"> 平均值</span>
-							</label>
-						</div>
-						<div class="checkbox" style="float: left; margin-right: 5px">
-							<label>
-								<input id="maxValue" name="valueType" type="checkbox" class="ace" value="VT2">
-								<span class="lbl"> 最大值</span>
-							</label>
-						</div>
-						<div class="checkbox" style="float: left; margin-right: 5px">
-							<label>
-								<input id="minValue" name="valueType" type="checkbox" class="ace" value="VT3">
-								<span class="lbl"> 最小值</span>
-							</label>
-						</div>
 						<button id="query" class="btn btn-small btn-primary">
 							<i class="icon-search"></i> 查询
 						</button>
 					</form>
 				</div>
 			</div>
-			<div class="page-content">
-				<div class="row-fluid">
-					<div class="span3 hide">
-						<div class="widget-box tree-widget-box">
-							<div class="widget-body tree-widget-body">
-								<div class="widget-main padding-8 tree-widget-main">
-									<div id="groupTree" class="ztree"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="span9 hide"></div>
-				</div>
+			<div class="page-content">	
+				<div class="row" id="historyChart"/></div>
 			</div>
 		</div>
 	</div>
