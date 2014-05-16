@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
@@ -16,23 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	// 综合自动化管控平台
-	@RequestMapping(value = "/auto", method = RequestMethod.GET)
-	public String auto() {
-		return "auto/index";
-	}
-
-	@RequestMapping(value = "/3d.html", method = RequestMethod.GET)
-	public String dd() {
-		return "3d/3d";
-	}
-
-	// 三维综合管理
-	@RequestMapping(value = "/3d", method = RequestMethod.GET)
-	public String ddd() {
-		return "3d/index";
-	}
-
+	
 	@RequestMapping(value = "/location/foreman", method = RequestMethod.GET)
 	public String locationForeman() {
 		return "location/foreman/index";
