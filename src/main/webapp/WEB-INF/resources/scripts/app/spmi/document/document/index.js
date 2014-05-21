@@ -24,8 +24,7 @@ define(function(require, exports, module) {
 		header : '开放程度',
 		name : 'securityLevel',
 		render:function(v){
-			var key=''+v;
-			return securityLevel[key];
+			return securityLevel[v.toString()];
 		}
 	},  {
 		header : '创建人',
@@ -50,7 +49,7 @@ define(function(require, exports, module) {
 	function changeButtonsStatus(selected, data) {
 		if (selected) {
 			var accountId=$('#current_user_account_id').attr('data-id');
-			if(data.account.id===parseInt(accountId)){
+			if(data.account.id===window.parseInt(accountId)){
 				Utils.button.enable([ 'edit', 'remove' ]);
 			}else{
 				Utils.button.disable([ 'edit', 'remove' ]);
@@ -243,13 +242,15 @@ define(function(require, exports, module) {
 	$(document).click(function(event) {
 		var docId = $(event.target).attr('doc_id');
 		if (docId) {
-			$('#showDocument').attr('src', '/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
+			$('#showDocument').attr('src', '/ignore/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
 			Utils.modal.show('view');
 		}
 	});
 	
 	function filter(treeId, parentNode, childNodes) {
-		if (!childNodes) return null;
+		if (!childNodes){
+			return null;
+		}
 		var result=childNodes.data.result;
 		for (var i=0, l=result.length; i<l; i++) {
 			result[i].isParent=true;

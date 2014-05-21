@@ -7,6 +7,7 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <%@ include file="../common/template.jsp"%>
+
 <script id="staffTraceList-template" type="text/x-handlebars-template">
 <table class="table table-striped table-bordered table-hover" width="100%">
   <thead><tr>
@@ -150,7 +151,7 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12" id="active_panel">
-						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200"></object>
+						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="600" width="400" codebase="${resources}/cab/publish.cab"></object>
 					</div>
 				</div>
 			</div>
@@ -164,19 +165,10 @@
 							<a id="result-tab" data-toggle="tab" href="#result" style="min-width: 4px;width:4px;">查<br>询<br>结<br>果</a>
 						</li>
 						<li style="min-width: 4px">
-							<a id="info-tab" data-toggle="tab" href="#object" style="min-width: 4px;width:4px;">对<br>象<br>信<br>息</a>
-						</li>
-						<li style="min-width: 4px">
 							<a id="layer-tab" data-toggle="tab" href="#layer" style="min-width: 4px;width:4px;">图<br>层<br>管<br>理</a>
 						</li>
 						<li >
 							<a data-toggle="tab" href="#viewpoint" style="min-width: 4px;width:4px;">视点导航</a>
-						</li>
-						<li >
-							<a id="rjh-tab" data-toggle="tab" href="#renJiHuan" style="min-width: 4px;width:4px;">人机环</a>
-						</li>
-						<li >
-							<a id="trace-tab" data-toggle="tab" href="#traceReplay" style="min-width: 4px;width:4px;">轨迹回放</a>
 						</li>
 					</ul>
 					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
@@ -189,79 +181,12 @@
 						<div id="layer" data-level="first" class="tab-pane">
 							<div id="layer-tree" class="ztree"></div>
 						</div>
-						<div id="object" data-level="first" class="tab-pane col-sm-6 accordion-style1">
-							<div class="well">
-								<h4 class="green smaller lighter">对象信息</h4>
-								返回在三维场景中选中的设备信息。
-							</div>
-						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">
 								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('我的相机');">
 									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
 									<span style="font-size: 11px">我的相机</span></a>
 								</div>
-							</div>
-						</div>
-						<div id="renJiHuan" data-level="first" class="tab-pane col-sm-6 accordion-style1">
-							<div class="well">
-								<h4 class="green smaller lighter">人机环信息</h4>
-								<select id="renJiHuanAreas" style="height: 25px; width: 150px; font-size: 12px;">
-								   <option value="区域1">区域1</option>
-								   <option value="区域2">区域2</option>
-								</select>
-							</div>
-							<div class="well"  style="padding:0 0 0 0;overflow:scroll;">
-							    <div id="renJiHuanInfo" style="width:500px;"></div>
-							</div>
-						</div>
-						<div id="traceReplay" data-level="first" class="tab-pane col-sm-6 accordion-style1">
-							<div class="well">
-								<h4 class="green smaller lighter">轨迹回放信息</h4>
-								<div id="search_content">
-									<form id="query-form" class="form-inline" onsubmit="return false;">
-										<div style="display: block; margin-bottom: 5px;">
-											<div class="input-append">
-												<select name="department" id="trace_department" 
-													style="height: 25px; width: 150px; font-size: 12px;">
-												</select>
-											</div>
-											<div class="input-append">
-												<select name="staff" id="trace_staff"
-													style="height: 25px; width: 150px; font-size: 12px;">
-												</select>
-											</div>
-											<div class="input-append">
-												<input name="startDateTime" type="datetime"  id="trace_startDateTime" style="width: 119px;"
-													placeholder="开始时间" class="input-small"> <span
-													class="add-on nav-add-on"> <i class="icon-calendar"></i>
-												</span>
-											</div>
-											<div class="input-append">
-												<input name="endDateTime" type="datetime"  id="trace_endDateTime" style="width: 119px;"
-													placeholder="截止时间" class="input-small"> <span
-													class="add-on nav-add-on"> <i class="icon-calendar"></i>
-												</span>
-											</div>
-											<div class="input-append ">
-											    <table width="150">
-											      <tr><td>
-												    <button id="trace_query_btn" class="btn btn-small btn-success disabled">
-								                       <i class="icon-search"></i>查询
-							                        </button>
-											      </td><td align="right">
-								                       <button id="trace_playback_btn" class="btn btn-small btn-success disabled">
-									                       <i class="icon-list"></i>轨迹回放
-								                       </button>
-											      </td></tr>
-											    </table>
-											</div>
-										</div>
-									</form>
-							</div>
-							</div>
-							<div class="well"  style="padding:0 0 0 0;">
-							   <div id="traceReplayInfo" style="height:200px;overflow:auto;width:500px;"></div>
 							</div>
 						</div>
 					</div>
@@ -271,13 +196,17 @@
 	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/3d/index');
+		seajs.use('${resources}/scripts/app/3d/rjh-module');
+		seajs.use('${resources}/scripts/app/3d/realtime-module');
+		seajs.use('${resources}/scripts/app/3d/trace-playback');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
 	    var infos=WebMineSystem.GetObjProperty(id,"");
-	    var temp=$.parseJSON(infos);
-	    callbackClt.showObjectInfo(temp);
+	    callbackClt.showObjectInfo(infos);
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
+	   alert(evt);
+	   alert(typeof evt);
 	    var jsonData=$.parseJSON(evt);
 	    callbackClt.test(jsonData);
     </SCRIPT>
@@ -285,21 +214,20 @@
         callbackClt.multipleObjectsSelected(_SelectedObjs);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
+    alert('Platform3DStarted()');
         //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
         setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=GetAreaNames(jsonAreas)>
-        $('#rjh-tab').trigger('click');
         //{"AREA":[{"NAME":"3045工作面"},{"NAME":"3046工作面"}]}
-        $("#renJiHuanAreas option").each(function(){ $(this).remove(); });
-        var _select=$("#renJiHuanAreas");
-        $("<option value=''>请选择区域</option>").appendTo(_select);
+        var areas=[];
         $.each($.parseJSON(jsonAreas).AREA,function(key,value){
-            $("<option value='"+value.NAME+"'>"+value.NAME+"</option>").appendTo(_select);
+        	areas.push(value.NAME);
         });
+        rjhProcessInDialog(encodeURI('/3d/rjh?areas='+areas.join(',')));
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=RJHCommand(jsonData)>
-       rjhTest(jsonData);
+       rjhProcess(jsonData);
     </SCRIPT>
     
 </body>

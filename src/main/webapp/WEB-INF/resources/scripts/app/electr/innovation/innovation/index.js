@@ -102,12 +102,12 @@ define(function(require, exports, module) {
 		onClick : function(target, data) {
 			changeButtonsStatus(this.selected, data);
             if(data.isPatent===0){
-            	Utils.button.disable([ 'unsetPatent' ]);
-            	Utils.button.enable([ 'setPatent' ]);
+                Utils.button.disable([ 'unsetPatent' ]);
+                Utils.button.enable([ 'setPatent' ]);
             }
             else{
-            	Utils.button.disable([ 'setPatent' ]);
-            	Utils.button.enable([ 'unsetPatent' ]);
+                Utils.button.disable([ 'setPatent' ]);
+                Utils.button.enable([ 'unsetPatent' ]);
             }
 			if (target.attr('data-role') === 'detail') {
 				showDetail(data);

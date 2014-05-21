@@ -170,7 +170,7 @@ public class IndexErcsController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/ercs/view-pdf/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ignore/ercs/view-pdf/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView ercsViewPdf(@PathVariable long id) {
 		HashMap<String, Object> root = new HashMap<String, Object>();

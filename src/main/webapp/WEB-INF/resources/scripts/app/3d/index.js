@@ -59,14 +59,16 @@ define(function(require, exports, module) {
 		var children=[];
 		var id=1;
 		for(var key in array){
-			 var raw=array[key];
-			 raw.id=id++;
-			 raw.iconOpen = resources + "/images/icons/chart_organisation.png";
-			 raw.iconClose = resources + "/images/icons/chart_organisation.png";
-			 raw.checked=null;
-			 raw.name=raw.Name;
-			 raw.pId=-1;
-			 children.push(raw);
+			if(array.hasOwnProperty(key)) {
+				var raw=array[key];
+				raw.id=id++;
+				raw.iconOpen = resources + "/images/icons/chart_organisation.png";
+				raw.iconClose = resources + "/images/icons/chart_organisation.png";
+				raw.checked=null;
+				raw.name=raw.Name;
+				raw.pId=-1;
+				children.push(raw);
+			}
 		 }
 		var result={id:"-1",name:"王庄煤业","pId":0,open:true,children:children};
 		
@@ -155,7 +157,9 @@ define(function(require, exports, module) {
 					break;
 				case 'traceReplay':
 					//轨迹回放
-					$('#trace-tab').trigger('click');
+					var traceReplayUrl='http://' + location.hostname + ":" + location.port +'/3d/trace-playback';
+					WebMineSystem.WebInterface('{"URL":"'+traceReplayUrl+'","ISWEB":1,"WIDTH":820,"HEIGHT":600}');
+					WebMineSystem.DoCommand('设置 网页 开');
 					break;		
 				default:
 					break;
@@ -175,34 +179,24 @@ define(function(require, exports, module) {
 		if($('#nav-search-input').val()){
 			resultData=WebMineSystem.FuzzyQuery($('#nav-search-input').val());
 	    }else{
-	    	resultData=WebMineSystem.FuzzyQuery('巷道');
+			resultData=WebMineSystem.FuzzyQuery('巷道');
 	    }
 		var temp=$.parseJSON( resultData );
 		window.callbackClt.test(temp);
 	});
 	resize();
 	var callbackClt={};
-	callbackClt.global={};//全局
-	//加载dxf等格式
-	callbackClt.global.load=function(){
-		
-	};
-	callbackClt.config={};//设置相关
-	//设置相关--连接数据库
-	callbackClt.config.connectDB=function(_jsonData){
-		
-	};
 	//平台加载完毕回调
 	callbackClt.Platform3DStarted=function(){
 		$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
 			var paths = data.data.split('/');
 			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+			window.projectLoaded=true;
 			WebMineSystem.UpdateProjectFile(paths[3]);
 			WebMineSystem.LoadProjectFile(paths[3]);
 			var result=WebMineSystem.GetAllLayers();
 			initLayerTree(result);
 			callbackClt.onGetAllCameraViews(WebMineSystem.GetAllCameraViews());
-			window.projectLoaded=true;
 		});
 	};
 	//所有的试点相机
@@ -212,15 +206,17 @@ define(function(require, exports, module) {
 		var group=[];
 		var index=0;
 		for(var key in array){
-			if(index%4==0){
-				group=[];
-				result.push({children:group});
+			if(array.hasOwnProperty(key)) {
+				if(index%4===0){
+					group=[];
+					result.push({children:group});
+				}
+				index+=1;
+				var raw=array[key];
+				raw.id=raw.ID;
+				raw.name=raw['名称'];
+				group.push(raw);
 			}
-			index+=1;
-			var raw=array[key];
-			raw.id=raw.ID;
-			raw.name=raw.名称;
-			group.push(raw);
 		}
 		var template = Handlebars.compile($('#allCameraViews-template').html());
 		var html = template({"result":result});
@@ -245,44 +241,22 @@ define(function(require, exports, module) {
 		$('#result-tab').trigger('click');
 	};//查询
 	callbackClt.showObjectInfo=function(_jsonData){
-		var data=[];
-		var groupIndex=0;
-		for(var key in _jsonData){
-			 var groupRaw={};
-			 groupRaw.groupCode=groupIndex++;
-			 groupRaw.groupName=key;
-			 var group=_jsonData[key];
-			 var childrenArray=[];
-			 var j=0;
-			 for(var keyj in group){
-				 var child={};
-				 child.childCode=j++;
-				 child.childName=keyj;
-				 child.childValue=group[keyj];
-				 childrenArray.push(child);
-			 }
-			 groupRaw.children=childrenArray;
-			 data.push(groupRaw);
-		 }
-		var template = Handlebars.compile($('#objectinfo-template').html());
-		var html = template({"result":data});
-		$('#object').html(html);
-		$('#info-tab').trigger('click');
-		$.each($("a[data-type='object-info-group']"),function(k,v){
-			$(v).trigger('click');
-		});
-		
+		var objInfoUrl='http://' + location.hostname + ":" + location.port +'/3d/single-click';
+		WebMineSystem.WebInterface('{"URL":"'+objInfoUrl+'","ISWEB":1,"POST":"'+encodeURI(_jsonData)+'","WIDTH":750,"HEIGHT":500}');
+		WebMineSystem.DoCommand('设置 网页 开');	
 	};
 	callbackClt.test=function(_jsonData){
 		 var i=0;
 		 var data=[];
 		 for(var key in _jsonData){
-			 var raw={};
-			 raw.typeCode=i++;
-			 raw.typeName=key;
-			 raw.children=_jsonData[key];
-			 raw.count=raw.children.length;
-			 data.push(raw);
+			 if(_jsonData.hasOwnProperty(key)) {
+				 var raw={};
+				 raw.typeCode=i++;
+				 raw.typeName=key;
+				 raw.children=_jsonData[key];
+				 raw.count=raw.children.length;
+				 data.push(raw);
+			 }
 		 }
 		var template = Handlebars.compile($('#queryresult-template').html());
 		var html = template({"result":data});
@@ -296,61 +270,7 @@ define(function(require, exports, module) {
 		}
 	},5000);
 	
-	setInterval(function(){
-		//1. 实时下井总人数
-		$.get(contextPath + '/location/location-staffs/count', function(data) {
-			WebMineSystem._Rydw_SetWellPersonNum('{"wellpersonnum":'+data.data+'}');
-		});
-		//2. 实时下井领导（名字，所在位置）
-		$.get(contextPath + '/location/location-staffs/leader', function(data) {
-			var buff=[];
-			var header='{"wellleader":[';
-			$.each(data.data,function(key,val){
-				buff.push('"'+val.name+'"');
-			});
-			var footer=']}';
-			WebMineSystem._Rydw_SetWellLeader(header+buff.join(',')+footer);
-		});
-		//3 实时最大瓦斯浓度数值及其传感器位置
-		$.get(contextPath + '/monitor/monitor-nodes/max?sensorTypeId=1', function(data) {
-			//{"success":true,"data":[[0.3,"E302工作面上隅角瓦斯"]],"errors":null}
-			//{“CH4”:0.5 }
-			WebMineSystem.SF_SetRealMaxCH4('{"CH4":'+data.data[0][0]+'}');
-		});
-		//4 实时最大一氧化碳浓度数值及其传感器位置
-        $.get(contextPath + '/monitor/monitor-nodes/max?sensorTypeId=4', function(data) {
-        	//{"success":true,"data":[[1.5,"E302进风顺槽3部机头一氧化碳"],[1.5,"E302进风顺槽1部机头一氧化碳"]],"errors":null}
-			//{“CO”:0.5 }
-        	WebMineSystem.SF_SetRealMaxCO('{"CO":'+data.data[0][0]+'}');
-		});
-        //5 当天最大瓦斯浓度数值及其传感器位置
-        var currentDate = new Date();
-        var dateStr=currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate();
-        $.get(contextPath + '/monitor/monitor-real-datas/max?sensorTypeId=1&date='+dateStr, function(data) {
-			//{"success":true,"data":[[0.22,"9#煤水泵房工作面回风甲烷"]],"errors":null}
-		});
-        //6 当天最大一氧化碳浓度数值及其传感器位置
-        $.get(contextPath + '/monitor/monitor-real-datas/max?sensorTypeId=4&date='+dateStr, function(data) {
-        	//{"success":true,"data":[[2.75,"采区回风巷一氧化碳"]],"errors":null}
-			
-		});   
-        //7 所有读卡器 下 所有人
-        $.get(contextPath + '/location/read_cards_staff', function(data) {
-        	var array=[];
-			$.each(data.data,function(key,value){
-				array.push({"DBID":key,"PERSON":value});
-			});
-			var tansferJson={"ID":array};
-			WebMineSystem._Rydw_SetReadCardName(JSON.stringify(tansferJson));
-		}); 
-        //8 安全监控传感器实时值
-        $.get(contextPath + '/monitor/monitor-nodes-value', function(data) {
-			var tansferJson={"ID":data.data};
-			WebMineSystem._SF_SetSensorPointValue(tansferJson);
-		}); 
-        //9 设置人员轨迹
-        //10 重复人员轨迹
-	},60000);
+	
 	$(document).click(function(event) {
 		var el = $(event.target);
 		var elType = el.attr('data-type');
@@ -414,108 +334,4 @@ define(function(require, exports, module) {
 		         break;
 		}
 	});
-	var rjhTest=function(data){
-		$.ajax({
-			type : 'post',
-			dataType : 'text',
-			data:'rjhParam='+data,
-			url : '/location/location-areas/rjhcommand',
-			success : function(datas) {
-				$('#renJiHuanInfo').html(datas);
-			}
-		});
-		
-	};
-	window.rjhTest=rjhTest;
-	//人机环区域切换
-	$('#renJiHuanAreas').change(function(){
-		//RequireAreaRJH
-		var param=JSON.stringify({'NAME':$('#renJiHuanAreas').val()});
-		WebMineSystem.RequireAreaRJH(param);
-	});
-	//部门选择发生变化  加载对应的员工信息
-	$('#trace_department').change(function(){
-		var _department=$('#trace_department').val();
-		$("#trace_staff option").each(function(){ $(this).remove(); });
-		if(!_department){
-			return;
-		}
-		$.ajax({
-			type : 'get',
-			dataType : 'json',
-			data:'department='+encodeURI(_department),
-			url : '/location/location-staffs/departmentstaff',
-			success : function(datas) {
-				var _select=$("#trace_staff");
-				$("<option value=''>请选择人员</option>").appendTo(_select);
-				$.each(datas.data,function(key,value){
-					console.log(value);
-					$("<option value='"+value.id.staffId+"' data-param='"+value.id.mineId+"'>"+value.name+"</option>").appendTo(_select);
-				});
-			}
-		});
-	});//
-	$('#trace_staff').change(function(){
-		var staffVal=$(this).val();
-		if(!staffVal){
-			$('#trace_query_btn').addClass('disabled');
-			$('#trace_playback_btn').addClass('disabled');
-		}else{
-			$('#trace_query_btn').removeClass('disabled');
-			$('#trace_playback_btn').removeClass('disabled');
-		}
-	});
-	$('#trace_query_btn').click(function() {
-		if($('#trace_query_btn').hasClass('disabled')){
-			return;
-		}
-		//查询人员信息列表
-		var _param='department='+$("#trace_department").val();
-		_param+='&staffId='+$('#trace_staff').val();
-		_param+='&startTime='+$('#trace_startDateTime').val();
-		_param+='&endTime='+$('#trace_endDateTime').val();
-		$.get(contextPath + '/location/location-tracks-query?'+_param, function(data) {
-			var tracetemplate = Handlebars.compile($('#staffTraceList-template').html());
-			var tracehtml = tracetemplate(data.data);
-			$('#traceReplayInfo').html(tracehtml);
-		}); 
-	});
-	$('#trace_playback_btn').click(function(){
-		if($('#trace_query_btn').hasClass('disabled')){
-			return;
-		}
-		var _param='department='+$("#trace_department").val();
-		_param+='&staffId='+$('#trace_staff').val();
-		_param+='&startTime='+$('#trace_startDateTime').val();
-		_param+='&endTime='+$('#trace_endDateTime').val();
-		$.get(contextPath + '/location/location-tracks-query?'+_param, function(data) {
-			var _jsonResult={};
-			_jsonResult.PEOPLE=$("#trace_staff").find("option:selected").text();
-			var READCARD=[];
-			$.each(data.data.result,function(key,value){
-				READCARD.push({'DBID':'MineID:'+value.mineId+';StationID:'+value.stationId+';'});
-			});
-			_jsonResult.READCARD=READCARD;
-			WebMineSystem._Rydw_SetMineWorkerTrajectory(JSON.stringify(_jsonResult));
-		});
-	});
-	
-	$('#trace-tab').bind('click',function(){
-		$.ajax({
-			type : 'get',
-			dataType : 'json',
-			url : '/location/location-staffs/alldepartment',
-			success : function(datas) {
-				$("#trace_department option").each(function(){ $(this).remove(); });
-				var _select=$("#trace_department");
-				$("<option value=''>请选择部门</option>").appendTo(_select);
-				$.each(datas.data,function(key,value){
-					$("<option value='"+value+"'>"+value+"</option>").appendTo(_select);
-				});
-			}
-		});
-	});
-	
-	$('#trace_startDateTime').datetimepicker();
-	$('#trace_endDateTime').datetimepicker();
 });
