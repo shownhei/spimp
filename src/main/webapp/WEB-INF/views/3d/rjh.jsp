@@ -46,6 +46,7 @@
 	<SCRIPT type="text/javascript">
 		define(function(require, exports, module) {
 			var $ = require('kjquery');
+			var Utils = require('../common/utils');
 			//人机环区域切换
 			$('#renJiHuanArea').change(function() {
 				var param = JSON.stringify({
@@ -55,6 +56,10 @@
 				external.RequireAreaRJH(param);
 			});
 			var rjhProcess=function(data){
+				if(!data||data==='null'){
+					Utils.modal.showAlert("没有数据","提示");
+					return;
+				}
 				var url='/location/location-areas/rjhcommand';
 				$.ajax({
 					type : 'post',

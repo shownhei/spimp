@@ -151,7 +151,7 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12" id="active_panel">
-						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="200" width="200" codebase="${resources}/publish.cab"></object>
+						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="600" width="400" codebase="${resources}/cab/publish.cab"></object>
 					</div>
 				</div>
 			</div>
@@ -205,6 +205,8 @@
 	    callbackClt.showObjectInfo(infos);
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
+	   alert(evt);
+	   alert(typeof evt);
 	    var jsonData=$.parseJSON(evt);
 	    callbackClt.test(jsonData);
     </SCRIPT>
@@ -212,6 +214,7 @@
         callbackClt.multipleObjectsSelected(_SelectedObjs);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
+    alert('Platform3DStarted()');
         //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
         setTimeout(" callbackClt.Platform3DStarted();",2000);
     </SCRIPT>

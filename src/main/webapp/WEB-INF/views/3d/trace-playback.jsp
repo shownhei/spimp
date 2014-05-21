@@ -85,10 +85,11 @@
 				width : 90,
 				name : 'id',
 				render:function(v){
-					return v?v.staffId:'';
+					return v;
 				}
 			}, {
 				header : '员工姓名',
+				width:80,
 				name : 'name'
 			},{
 				header : '工种',
@@ -122,7 +123,8 @@
 					orderWidth : 50,
 					height : gridHeight
 				},
-				onClick : function(target, data) {},
+				onClick : function(target, data) {
+				},
 				onLoaded : function() {}
 			}).render();
 			
@@ -167,11 +169,10 @@
 				_param+='&staffId='+$('#trace_staff').val();
 				_param+='&startTime='+$('#trace_startDateTime').val();
 				_param+='&endTime='+$('#trace_endDateTime').val();
-				$.get(contextPath + '/location/location-tracks-query?'+_param, function(data) {
-					var tracetemplate = Handlebars.compile($('#staffTraceList-template').html());
-					var tracehtml = tracetemplate(data.data);
-					$('#traceReplayInfo').html(tracehtml);
-				}); 
+				_param=encodeURI(_param);
+				
+				grid.set('url', contextPath + '/location/location-tracks-query?'+_param);
+				grid.refresh();
 			});
 			//轨迹回放
 			$('#trace_playback_btn').click(function(){
