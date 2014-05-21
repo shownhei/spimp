@@ -442,7 +442,7 @@ define(function(require, exports, module) {
 		closeTips(el);
 		var elType = el.attr('elType');
 		if (el.is('a') && elType === 'showDocument') {
-			$('#showDocument').attr('src', '/ercs/view-pdf/' + el.attr('data-id') + "?t=" + new Date().getTime());
+			$('#showDocument').attr('src', '/ignore/ercs/view-pdf/' + el.attr('data-id') + "?t=" + new Date().getTime());
 			Utils.modal.show('view');
 			return;
 		}

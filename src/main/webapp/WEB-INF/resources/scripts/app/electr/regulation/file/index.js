@@ -281,7 +281,7 @@ define(function(require, exports, module) {
 	$(document).click(function(event) {
 		var docId = $(event.target).attr('doc_id');
 		if (docId) {
-			$('#showDocument').attr('src', '/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
+			$('#showDocument').attr('src', '/ignore/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
 			Utils.modal.show('view');
 		}
 	});
