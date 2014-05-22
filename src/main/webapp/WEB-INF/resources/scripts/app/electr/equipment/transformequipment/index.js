@@ -272,7 +272,7 @@ define(function(require, exports, module) {
 			return;
 		}
 
-		window.location.href = operateUri + '/export-excel';
+		window.location.href = '/ignore'+operateUri + '/export-excel';
 	});
 
 	// 搜索
@@ -440,7 +440,7 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('import')) {
 			return;
 		}
-		var uploadUrl = '/electr/equipment/transform-equipments/upload';
+		var uploadUrl = '/ignore/electr/equipment/transform-equipments/upload';
 		Utils.modal.showUpload(uploadUrl, function(data) {
 		}, '数据上传');
 	});
