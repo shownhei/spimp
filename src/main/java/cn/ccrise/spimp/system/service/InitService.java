@@ -794,7 +794,7 @@ public class InitService extends DataInitAbstractService {
 		i = 1;
 		resourceEntityServiceImpl.saveMenuResource("实时监测", "/location/realtime", location, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("历史查询", "/location/query", location, "", i++);
-		resourceEntityServiceImpl.saveMenuResource("领导带班", "/location/foreman", location, "", i++);
+//		resourceEntityServiceImpl.saveMenuResource("领导带班", "/location/foreman", location, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("基础信息", "/location/info", location, "", i++);
 
 		// 系统管理

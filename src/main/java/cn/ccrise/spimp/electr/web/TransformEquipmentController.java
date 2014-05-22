@@ -420,7 +420,7 @@ public class TransformEquipmentController {
 	 * @param uploadPath
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/electr/equipment/transform-equipments/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/ignore/electr/equipment/transform-equipments/upload", method = RequestMethod.POST)
 	public void upload(@RequestParam MultipartFile file, String callBackFunction, HttpSession httpSession,
 			HttpServletResponse response, final String uploadPath) throws IOException {
 		// 生成文件路径

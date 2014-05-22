@@ -157,7 +157,7 @@ public class LocationTrackController {
 				track.setState(state);
 				track.setStationId(String.valueOf(result[5]));
 				track.setIndataTime(String.valueOf(result[7]));
-				track.setMineId(String.valueOf(result[8]));
+				track.setMineId(String.valueOf(result[9]));
 				lists.add(track);
 			}
 			page.setTotalCount(totalRows);

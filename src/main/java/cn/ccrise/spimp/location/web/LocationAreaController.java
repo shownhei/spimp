@@ -54,9 +54,9 @@ public class LocationAreaController {
 	@ResponseBody
 	public ModelAndView rjhCommand(String rjhParam) {
 		StringBuilder buff = new StringBuilder();
-		buff.append("{'ENRIROMENT':");
-		buff.append("[{'DBID':'MineID:14291000017;NodeID:0000000102;','TABLE':'K_Node','TYPE':'ENRIROMENT'},");
-		buff.append("{'DBID':'MineID:14291000017;NodeID:0000000103;','TABLE':'K_Node','TYPE':'ENRIROMENT'}");
+		buff.append("{'ENVIROMENT':");
+		buff.append("[{'DBID':'MineID:14291000017;NodeID:0000000102;','TABLE':'K_Node','TYPE':'ENVIROMENT'},");
+		buff.append("{'DBID':'MineID:14291000017;NodeID:0000000103;','TABLE':'K_Node','TYPE':'ENVIROMENT'}");
 		buff.append("],");
 		buff.append("'EQIPMENT':[");
 		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:GP01','STATE':'暂无信号','TABLE':'electr_equipments','TYPE':'EQIPMENT'},");

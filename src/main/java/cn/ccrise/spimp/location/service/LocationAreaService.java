@@ -75,7 +75,7 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 		buff.append(";");
 		buff.append("var PERSON= json.PERSON;"); 
 		buff.append("var EQIPMENT= json.EQIPMENT;");
-		buff.append("var ENRIROMENT= json.ENRIROMENT;");
+		buff.append("var ENVIROMENT= json.ENVIROMENT;");
 		try {
 			engine.eval(buff.toString());
 		} catch (ScriptException e) {
@@ -96,10 +96,10 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			dealEquipment(EQIPMENTs,root);
 		}
 		//环境
-		Object ENRIROMENT = (Object) engine.get("ENRIROMENT");
-		if (ENRIROMENT!=null &&!isUndefined(ENRIROMENT)) {
-			List<Map> ENRIROMENTs = (List<Map>) ENRIROMENT;
-			dealEnriroment(ENRIROMENTs,root);
+		Object ENVIROMENT = (Object) engine.get("ENVIROMENT");
+		if (ENVIROMENT!=null &&!isUndefined(ENVIROMENT)) {
+			List<Map> ENVIROMENTs = (List<Map>) ENVIROMENT;
+			dealEnviroment(ENVIROMENTs,root);
 		}
 	}
 	/**
@@ -178,17 +178,18 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 	}
 	/**
 	 * 环境
-	 * @param ENRIROMENTs
+	 * @param ENVIROMENTs
 	 */
 	@SuppressWarnings("rawtypes")
-	private void dealEnriroment(List<Map> ENRIROMENTs,HashMap<String,Object> root){
+	private void dealEnviroment(List<Map> ENVIROMENTs,HashMap<String,Object> root){
 		String DBID=null;
 		String nodeId=null;
 		StringBuilder buff = new StringBuilder();
-		buff.append(" select nodeid, nodeplace,stationid,sensorTypeId,sensorName,currentData");
+		buff.append(" select NodeID,NodePlace,StationID,SensorName");
+		buff.append(" ,BoundUpperValue,BoundLowerValue,AlarmUpperValue,AlarmLowerValue,CurrentData,SensorUnit ");
 		buff.append(" from K_Node where nodeid in( ");
 		int i=0;
-		for (Map raw : ENRIROMENTs) {
+		for (Map raw : ENVIROMENTs) {
 			DBID=(String)raw.get("DBID");
 			if(StringUtils.isBlank(DBID)){
 				continue;
@@ -203,7 +204,7 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			buff.delete(buff.length()-1, buff.length());
 			buff.append(")");
 			SQLQuery query=getDAO().getSession().createSQLQuery(buff.toString());
-			root.put("ENRIROMENT",query.list());
+			root.put("ENVIROMENT",query.list());
 		}
 	}
 	@Override

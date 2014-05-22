@@ -93,20 +93,29 @@
 				<thead>
 					<tr>
 						<th>设备编号</th>
-						<th>设备类型</th>
-						<th>检测值</th>
-						<th>是否超限</th>
-						<th>安放地点</th>
+						<th>设备位置</th>
+						<th>所属分站</th>
+						<th>测点名称</th>
+						
+						<th>上限</th>
+						<th>下限</th>
+						<th>报警上限</th>
+						<th>报警下限</th>
+						<th>当前值</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${ENRIROMENT}" var="data" varStatus="status">
+					<c:forEach items="${ENVIROMENT}" var="data" varStatus="status">
 						<tr>
 							<td>${ data[0]}</td>
 							<td>${ data[1]}</td>
 							<td>${ data[2]}</td>
 							<td>${ data[3]}</td>
 							<td>${ data[4]}</td>
+							<td>${ data[5]}</td>
+							<td>${ data[6]}</td>
+							<td>${ data[7]}</td>
+							<td>${ data[8]}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

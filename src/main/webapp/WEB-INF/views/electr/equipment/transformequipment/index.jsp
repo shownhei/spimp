@@ -639,7 +639,7 @@
 		<div class="modal-body">
 			<div class="row-fluid">
 				<div class="span12">
-					<form id="upload-data-form" class="form-horizontal" action="/electr/equipment/transform-equipments/upload" method="post" enctype="multipart/form-data"
+					<form id="upload-data-form" class="form-horizontal" action="/ignore/electr/equipment/transform-equipments/upload" method="post" enctype="multipart/form-data"
 						target="acceptFrame" style="margin-bottom: 0px;">
 						<div class="control-group">
 							<label class="control-label" for="location">模板下载</label>

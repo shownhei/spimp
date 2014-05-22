@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 		});
 	};
 	// 下拉列表初始化
-	Utils.select.remote([ 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName', true, '设备分类');
+	Utils.select.remote([ 'create_deviceClass', 'edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=equipment_device_class', 'id', 'itemName', true, '设备分类');
 	Utils.select.remote([ 'search_deviceCategory', 'create_deviceCategory', 'edit_deviceCategory' ],
 			'/system/dictionaries?list=true&typeCode=equipment_deviceCategory', 'id', 'itemName', true, '设备种类');
 	Utils.select.remote([ 'search_deviceType', 'create_deviceType', 'edit_deviceType' ], '/system/dictionaries?list=true&typeCode=equipment_deviceType', 'id',
