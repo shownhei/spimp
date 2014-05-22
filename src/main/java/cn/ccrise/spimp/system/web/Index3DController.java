@@ -24,7 +24,7 @@ public class Index3DController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	// 综合自动化管控平台
-	@RequestMapping(value = "/auto", method = RequestMethod.GET)
+	@RequestMapping(value = "/ignore/auto", method = RequestMethod.GET)
 	public String auto() {
 		return "auto/index";
 	}

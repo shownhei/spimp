@@ -101,41 +101,41 @@
 		<div class="main-content">
 			<div class="page-toolbar" id="page-toolbar">
 				<div class="toolbar">
-					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="main">
-						<i class="icon-home"></i>
-						<span>主界面</span>
+					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
+						<i class="icon-info-sign"></i>
+						<span>人-机-环</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="轨迹回放.png" data-type="traceReplay">
 						<i class="icon-retweet"></i>
 						<span>轨迹回放</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="人员信息.png">
-						<i class="icon-user"></i>
-						<span>人员信息</span>
-					</button>
-					<button class="btn btn-small btn-info" data-image="安全监控.png">
-						<i class="icon-desktop"></i>
-						<span>安全监控</span>
-					</button>
-					<button class="btn btn-small btn-info">
-						<i class="icon-random"></i>
-						<span>连接力控</span>
-					</button>
-					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
-						<i class="icon-info-sign"></i>
-						<span>人机环</span>
-					</button>
 					<button class="btn btn-small btn-info" data-image="路线飞行.png">
 						<i class="icon-rocket"></i>
 						<span>路线飞行</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png">
-						<i class="icon-road"></i>
-						<span>避灾路线</span>
+					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="main">
+						<i class="icon-home"></i>
+						<span>主通风</span>
+					</button>
+					<button class="btn btn-small btn-info" data-image="人员信息.png">
+						<i class="icon-user"></i>
+						<span>主排水</span>
+					</button>
+					<button class="btn btn-small btn-info" data-image="安全监控.png">
+						<i class="icon-desktop"></i>
+						<span>皮带运输</span>
+					</button>
+					<button class="btn btn-small btn-info">
+						<i class="icon-random"></i>
+						<span>35KV变电站</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="应急资源.jpg">
 						<i class="icon-puzzle-piece"></i>
-						<span>应急资源</span>
+						<span>中央变电所</span>
+					</button>
+					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png">
+						<i class="icon-road"></i>
+						<span>避灾路线</span>
 					</button>
 				</div>
 				<div class="nav-search">

@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
-	setInterval(function() {
+	var loop=function(){
+
 		//1. 实时下井总人数
 		$.get(contextPath + '/location/location-staffs/count', function(data) {
 			WebMineSystem._Rydw_SetWellPersonNum('{"wellpersonnum":' + data.data + '}');
@@ -18,14 +19,14 @@ define(function(require, exports, module) {
 		//3 实时最大瓦斯浓度数值及其传感器位置
 		$.get(contextPath + '/monitor/monitor-nodes/max?sensorTypeId=1', function(data) {
 			//{"success":true,"data":[[0.3,"E302工作面上隅角瓦斯"]],"errors":null}
-			//{“CH4”:0.5 }
-			WebMineSystem.SF_SetRealMaxCH4('{"CH4":' + data.data[0][0] + '}');
+			//{"CH4":"0.5" }
+			WebMineSystem.SF_SetRealMaxCH4('{"CH4":"' + data.data[0][0] + '"}');
 		});
 		//4 实时最大一氧化碳浓度数值及其传感器位置
 		$.get(contextPath + '/monitor/monitor-nodes/max?sensorTypeId=4', function(data) {
 			//{"success":true,"data":[[1.5,"E302进风顺槽3部机头一氧化碳"],[1.5,"E302进风顺槽1部机头一氧化碳"]],"errors":null}
-			//{“CO”:0.5 }
-			WebMineSystem.SF_SetRealMaxCO('{"CO":' + data.data[0][0] + '}');
+			//{"CO":"0.5" }
+			WebMineSystem.SF_SetRealMaxCO('{"CO":"' + data.data[0][0] + '"}');
 		});
 		//5 当天最大瓦斯浓度数值及其传感器位置
 		var currentDate = new Date();
@@ -61,5 +62,7 @@ define(function(require, exports, module) {
 		});
 		//9 设置人员轨迹
 		//10 重复人员轨迹
-	}, 6000000);
+	};
+	loop();
+	setInterval(loop, 60000);
 });
