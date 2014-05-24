@@ -31,6 +31,12 @@ body {
 		<script type="text/javascript">
 		var flexPaperViewer = "${resources}/scripts/sea-modules/ikj/flexpaper/1.0.0/FlexPaperViewer.swf";
 		var swfFile='${file.swfPath}?t=' + new Date().getTime();
+		var isIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
+		if (isIE11) {
+			if (typeof window.attachEvent == "undefined" || !window.attachEvent) {
+				window.attachEvent = window.addEventListener;
+			}
+		}
 		seajs.config({
 	        alias: {
 	          $: 'jquery/jquery/1.10.1/jquery',
