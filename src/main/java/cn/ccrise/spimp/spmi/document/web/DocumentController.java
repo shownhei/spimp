@@ -42,7 +42,11 @@ public class DocumentController {
 	public ModelAndView commonPage(String code) {
 		return modelAndView(code);
 	}
-
+	@RequestMapping(value = "/spmi/document/move", method = RequestMethod.GET)
+	@ResponseBody
+	public Response index(Long docId,Long folderId) {
+		return new Response(documentService.moveDocument(docId,folderId));
+	}
 	@RequestMapping(value = "/spmi/document/documents/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {

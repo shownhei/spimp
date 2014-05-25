@@ -64,7 +64,7 @@ public class EquipmentController {
 		return new Response(equipmentService.deleteEquipment(id, httpSession));
 	}
 
-	@RequestMapping(value = "/electr/equipment/equipments/export-excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/ignore/equipment/equipments/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpServletResponse response, Long deviceClass, Long deviceCategory, Long deviceType,
 			Long serviceEnvironment, Long deviceArea, Long stowedPosition) throws Exception {
 		Page<Equipment> page = new Page<Equipment>();
@@ -80,7 +80,7 @@ public class EquipmentController {
 		response.setContentType("application/force-download");
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-Disposition",
-				"attachment;filename=" + URLEncoder.encode("定期检修设置管理 - 安全生产综合管理平台", "UTF-8") + ".xls");
+				"attachment;filename=" + URLEncoder.encode("电器设备台账 - 安全生产综合管理平台", "UTF-8") + ".xls");
 
 		OutputStream ouputStream = response.getOutputStream();
 		wb.write(ouputStream);

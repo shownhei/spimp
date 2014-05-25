@@ -36,6 +36,9 @@
 						<button id="edit" class="btn btn-small btn-primary disabled">
 							<i class="icon-edit"></i> 文件编辑
 						</button>
+						<button id="move" class="btn btn-small btn-primary disabled">
+							<i class="icon-move"></i> 文件移动
+						</button>
 						<button id="remove" class="btn btn-small btn-danger disabled">
 							<i class="icon-trash"></i>文件删除
 						</button>
@@ -141,10 +144,10 @@
 						<div class="control-group">
 							<label class="control-label " for="securityLevel">开放等级</label>
 							<div class="controls">
-								<select id="create_security_level" name="securityLevel" >
-								   <option value="3" title="所有人可见">公开(所有人可见)</option>
-								   <option value="2" title="同组织内可见">保护(同组织内可见)</option>
-								   <option value="1" title="仅自己可见">私有(仅自己可见)</option>
+								<select id="create_security_level" name="securityLevel">
+									<option value="3" title="所有人可见">公开(所有人可见)</option>
+									<option value="2" title="同组织内可见">保护(同组织内可见)</option>
+									<option value="1" title="仅自己可见">私有(仅自己可见)</option>
 								</select>
 							</div>
 						</div>
@@ -200,8 +203,8 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<form id="edit-form" class="form-horizontal">
-						<input name="id" type="hidden"> <input name="createTime" type="hidden">
-						<input name="createBy" type="hidden">
+						<input name="id" type="hidden"> <input name="createTime"
+							type="hidden"> <input name="createBy" type="hidden">
 						<div class="control-group">
 							<label class="control-label " for="documentName">文档名称</label>
 							<div class="controls">
@@ -217,10 +220,10 @@
 						<div class="control-group">
 							<label class="control-label " for="securityLevel">开放等级</label>
 							<div class="controls">
-								<select id="edit_security_level" name="securityLevel" >
-								   <option value="3" title="所有人可见">公开(所有人可见)</option>
-								   <option value="2" title="同组织内可见">保护(同组织内可见)</option>
-								   <option value="1" title="仅自己可见">私有(仅自己可见)</option>
+								<select id="edit_security_level" name="securityLevel">
+									<option value="3" title="所有人可见">公开(所有人可见)</option>
+									<option value="2" title="同组织内可见">保护(同组织内可见)</option>
+									<option value="1" title="仅自己可见">私有(仅自己可见)</option>
 								</select>
 							</div>
 						</div>
@@ -231,9 +234,9 @@
 									type="text">
 							</div>
 						</div>
-						<input type="hidden" name="folderId" id="edit_folderId">
-						<input type="hidden" name="account" id="edit_account">
-						<input type="hidden" name="uploadGroup" id="edit_uploadGroup">
+						<input type="hidden" name="folderId" id="edit_folderId"> <input
+							type="hidden" name="account" id="edit_account"> <input
+							type="hidden" name="uploadGroup" id="edit_uploadGroup">
 					</form>
 				</div>
 				<div id="edit-message-alert" class="row-fluid hide">
@@ -254,6 +257,56 @@
 			</button>
 		</div>
 	</div>
+
+
+
+
+
+
+	<div id="move-modal" class="modal  modal-md hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="blue">
+				<i class="icon-edit"></i>移动到
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="widget-box tree-widget-box">
+						<div class="widget-body tree-widget-body">
+							<div class="widget-main padding-8 tree-widget-main">
+								<div id="move-tree" class="ztree" style="height: 320px;">
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" id="move-targert-folder">
+				</div>
+				<div id="move-message-alert" class="row-fluid hide">
+					<div class="span12">
+						<div class="alert alert-error">
+							<i class="icon-remove"></i> <span id="move-message-content"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button id="move-save" class="btn btn-small btn-primary">
+				<i class="icon-ok"></i> 确定
+			</button>
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 取消
+			</button>
+		</div>
+	</div>
+
+
+
+
+
+
 	<!-- 删除 -->
 	<div id="remove-modal" class="modal modal-xs hide">
 		<div class="modal-header">
