@@ -27,7 +27,7 @@ import cn.ccrise.ikjp.core.security.service.impl.LogEntityServiceImpl;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.ercs.entity.UploadedFile;
 import cn.ccrise.spimp.ercs.service.UploadedFileService;
-import cn.ccrise.spimp.system.service.Document2PDFConvertService;
+import cn.ccrise.spimp.system.service.LibreOfficeConverterService;
 import cn.ccrise.spimp.system.service.PDF2SwfService;
 import cn.ccrise.spimp.util.JavaImageUtil;
 
@@ -45,7 +45,7 @@ public class UploadController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	private String defaultUploadPath = DEFAULT_PATH;
 	@Autowired
-	private Document2PDFConvertService document2PDFConvertService;
+	private LibreOfficeConverterService document2PDFConvertService;
 	@Autowired
 	private PDF2SwfService pDF2SwfService;
 	@Autowired
