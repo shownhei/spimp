@@ -14,7 +14,8 @@
 			<a class="btn btn-small btn-warning" href="${contextPath}/3d" target="_blank" title="三维综合管理">
 				<i class="icon-picture"></i>
 			</a>
-			<a class="btn btn-small btn-danger" href="${contextPath}/ignore/auto" target="safe" title="综合自动化管控平台">
+			<!-- TODO: 可配置的地址 -->
+			<a class="btn btn-small btn-danger" href="http://192.168.20.104/" target="safe" title="综合自动化管控平台">
 				<i class="icon-cogs"></i>
 			</a>
 		</div>

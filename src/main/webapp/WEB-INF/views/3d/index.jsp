@@ -113,25 +113,25 @@
 						<i class="icon-rocket"></i>
 						<span>路线飞行</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="main">
+					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="wind">
 						<i class="icon-home"></i>
 						<span>主通风</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="人员信息.png">
+					<button class="btn btn-small btn-info" data-image="人员信息.png" data-type="water">
 						<i class="icon-user"></i>
 						<span>主排水</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="安全监控.png">
+					<button class="btn btn-small btn-info" data-image="安全监控.png" data-type="conveyor">
 						<i class="icon-desktop"></i>
 						<span>皮带运输</span>
 					</button>
-					<button class="btn btn-small btn-info">
+					<button class="btn btn-small btn-info" data-image="" data-type="substation">
 						<i class="icon-random"></i>
 						<span>35KV变电站</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="应急资源.jpg">
+					<button class="btn btn-small btn-info" data-image="应急资源.jpg" data-type="workshop">
 						<i class="icon-puzzle-piece"></i>
-						<span>中央变电所</span>
+						<span>动筛车间</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png">
 						<i class="icon-road"></i>

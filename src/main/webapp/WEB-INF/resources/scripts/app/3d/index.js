@@ -105,6 +105,15 @@ define(function(require, exports, module) {
 	window.initLayerTree=initLayerTree;
     
 	$('button[data-image],a[data-image]').click(function() {
+		var AUTO_URL_BASE = 'http://192.168.20.104/';
+		var AUTO_SUB_URL = {
+			'wind': '2.htm',
+			'water': '5.htm',
+			'conveyor': '3.htm',
+			'substation': '6.htm',
+			'workshop': '7.htm'
+		};
+		var AUTO_NAME = 'automation';
 		if ($(this).data('type') !== undefined) {
 			switch ($(this).data('type')) {
 				case 'fullscreen':
@@ -160,7 +169,27 @@ define(function(require, exports, module) {
 					var traceReplayUrl='http://' + location.hostname + ":" + location.port +'/3d/trace-playback';
 					WebMineSystem.WebInterface('{"URL":"'+traceReplayUrl+'","ISWEB":1,"WIDTH":820,"HEIGHT":600}');
 					WebMineSystem.DoCommand('设置 网页 开');
-					break;		
+					break;
+				case 'wind':
+					//主通风
+					window.open(AUTO_URL_BASE + AUTO_SUB_URL.wind, AUTO_NAME);
+					break;
+				case 'water':
+					//主排水
+					window.open(AUTO_URL_BASE + AUTO_SUB_URL.water, AUTO_NAME);
+					break;
+				case 'conveyor':
+					//皮带运输
+					window.open(AUTO_URL_BASE + AUTO_SUB_URL.conveyor, AUTO_NAME);
+					break;
+				case 'substation':
+					//35KV变电站
+					window.open(AUTO_URL_BASE + AUTO_SUB_URL.substation, AUTO_NAME);
+					break;
+				case 'workshop':
+					//动筛车间
+					window.open(AUTO_URL_BASE + AUTO_SUB_URL.workshop, AUTO_NAME);
+					break;
 				default:
 					break;
 			}
