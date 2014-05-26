@@ -62,7 +62,7 @@ public class Repackage {
 
 		String license = AES.encodeAes128(LoginController.KEY, day);
 		lines.set(35 - 1, "app.license=" + license);
-
+		lines.set(37 - 1, "libreOfficePath=C:/Program Files (x86)/LibreOffice 4");
 		writeLinesToFile(fileName, lines);
 	}
 
