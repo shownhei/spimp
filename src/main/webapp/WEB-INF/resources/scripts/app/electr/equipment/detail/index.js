@@ -394,7 +394,7 @@ define(function(require, exports, module) {
 			return;
 		}
 
-		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
+		open('/ignore/equipment/equipments/export-excel?' + Utils.form.buildParams('search-form'));
 	});
 	// 导入
 	$('#import').click(function() {

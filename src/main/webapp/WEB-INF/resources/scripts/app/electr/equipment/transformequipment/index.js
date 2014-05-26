@@ -271,8 +271,7 @@ define(function(require, exports, module) {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-
-		window.location.href = '/ignore'+operateUri + '/export-excel';
+		open('/ignore/equipment/transform-equipments/export-excel');
 	});
 
 	// 搜索

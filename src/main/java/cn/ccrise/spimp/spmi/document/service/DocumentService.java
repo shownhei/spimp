@@ -36,6 +36,17 @@ public class DocumentService extends HibernateDataServiceImpl<Document, Long> {
 	@Autowired
 	private DocumentDAO documentDAO;
 
+	/**
+	 * 移动文件到某个文件夹
+	 * @param documentId
+	 * @param folderId
+	 * @return
+	 */
+	public boolean moveDocument(Long documentId,Long folderId){
+		Document doc= findUniqueBy("id", documentId);
+		doc.setFolderId(folderId);
+		return save(doc);
+	}
 	@Override
 	public HibernateDAO<Document, Long> getDAO() {
 		return documentDAO;

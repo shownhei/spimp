@@ -90,7 +90,7 @@ public class TransformEquipmentController {
 		return new Response(transformEquipmentService.delete(id));
 	}
 
-	@RequestMapping(value = "/electr/equipment/transform-equipments/export-excel", method = RequestMethod.GET)
+	@RequestMapping(value = "/ignore/equipment/transform-equipments/export-excel", method = RequestMethod.GET)
 	public void exportExcel(HttpSession httpSession, HttpServletResponse response, Long deviceClass, String search)
 			throws Exception {
 		Page<TransformEquipment> page = new Page<TransformEquipment>();
@@ -233,7 +233,9 @@ public class TransformEquipmentController {
 							tempCell = row.getCell(brakeStartCol);
 							setComment(sheet, tempCell, brake.getDeviceModel());
 							row.getCell(brakeStartCol + 1).setCellValue(brake.getFactoryNumber());
-							row.getCell(brakeStartCol + 2).setCellValue(brake.getProductionDate());
+							if(brake.getProductionDate()!=null){
+								row.getCell(brakeStartCol + 2).setCellValue(brake.getProductionDate());
+							}
 							row.getCell(brakeStartCol + 3).setCellValue(brake.getProducer());
 						}
 						int rowCount = brakeMap.get(equipment.getId()).size();
@@ -257,7 +259,9 @@ public class TransformEquipmentController {
 							setComment(sheet, tempCell, electromotor.getDeviceModel());
 
 							row.getCell(electromotorStartCol + 1).setCellValue(electromotor.getFactoryNumber());
-							row.getCell(electromotorStartCol + 2).setCellValue(electromotor.getProductionDate());
+							if(electromotor.getProductionDate()!=null){
+								row.getCell(electromotorStartCol + 2).setCellValue(electromotor.getProductionDate());
+							}
 							row.getCell(electromotorStartCol + 3).setCellValue(electromotor.getProducer());
 						}
 						int rowCount = electromotorMap.get(equipment.getId()).size();
