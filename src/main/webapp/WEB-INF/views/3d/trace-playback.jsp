@@ -7,19 +7,20 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 </head>
-<body class="navbar-fixed">
+<body class="navbar-fixed" style="min-width: 820px;">
 	<div class="main-container container-fluid">
 		<div class="navbar navbar-fixed-top" id="navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a href="/" class="brand" target="safe"> <small> <i
-							class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
+					<a href="/" class="brand" target="safe">
+					<small>
+						<i class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
 					</small>
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="main-content">
+		<div class="main-content" style="margin-left: 0;">
 			<div class="page-toolbar">
 				<div class="toolbar"></div>
 				<div class="nav-search">
@@ -138,7 +139,7 @@
 				$.ajax({
 					type : 'get',
 					dataType : 'json',
-					data:'department='+encodeURI(_department),
+					data: 'department=' + encodeURI(_department),
 					url : '/location/location-staffs/departmentstaff',
 					success : function(datas) {
 						var _select=$("#trace_staff");
@@ -195,7 +196,7 @@
 				});
 			});
 			
-			var loadDepartMent=function (){
+			function loadDepartMent() {
 				$.ajax({
 					type : 'get',
 					dataType : 'json',
@@ -210,9 +211,9 @@
 					}
 				});
 			};
-			loadDepartMent();
 			$('#trace_startDateTime').datetimepicker();
 			$('#trace_endDateTime').datetimepicker();
+			setTimeout(loadDepartMent, 100);
 		})
 	</SCRIPT>
 </body>

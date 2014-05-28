@@ -103,7 +103,7 @@
 				<div class="toolbar">
 					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
 						<i class="icon-info-sign"></i>
-						<span>人-机-环</span>
+						<span>生产动态</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="轨迹回放.png" data-type="traceReplay">
 						<i class="icon-retweet"></i>
@@ -201,15 +201,21 @@
 		seajs.use('${resources}/scripts/app/3d/trace-playback');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
-	    var infos=WebMineSystem.GetObjProperty(id,"");
-	    callbackClt.showObjectInfo(infos);
+	    var infos = WebMineSystem.GetObjProperty(id,"");
+	    var toolstate = WebMineSystem.GetManipulatorMode();
+	    if (toolstate != "人机环") {
+	    	callbackClt.showObjectInfo(infos);
+	    }
     </SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
-	    var jsonData=$.parseJSON(evt);
+	    var jsonData = $.parseJSON(evt);
 	    callbackClt.test(jsonData);
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
-        callbackClt.multipleObjectsSelected(_SelectedObjs);
+    	var toolstate = WebMineSystem.GetManipulatorMode();
+    	if (toolstate != "人机环") {
+			callbackClt.multipleObjectsSelected(_SelectedObjs);
+    	}
     </SCRIPT>
     <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
         //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行

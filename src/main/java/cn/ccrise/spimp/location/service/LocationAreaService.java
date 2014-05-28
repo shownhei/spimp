@@ -73,20 +73,27 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 		buff.append(" var json=");
 		buff.append(jsonData);
 		buff.append(";");
-		buff.append("var PERSON= json.PERSON;"); 
-		buff.append("var EQIPMENT= json.EQIPMENT;");
-		buff.append("var ENVIROMENT= json.ENVIROMENT;");
+		buff.append("var CAMERA = json.CAMERA;");
+		buff.append("var PERSON = json.PERSON;"); 
+		buff.append("var EQIPMENT = json.EQIPMENT;");
+		buff.append("var ENVIROMENT = json.ENVIROMENT;");
 		try {
 			engine.eval(buff.toString());
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
+		//摄像头
+		Object CAMERA = (Object) engine.get("CAMERA");
+		logger.debug("CAMERA",CAMERA);
+		if (CAMERA != null && !isUndefined(CAMERA)) {
+			List<Map> CAMERAs = (List<Map>) CAMERA;
+			dealCamera(CAMERAs,root);
+		}
+		
 		//人员
 		Object PERSON = (Object) engine.get("PERSON");
-		
 		if (PERSON!=null && !isUndefined(PERSON)) {
 			List<Map> PERSONs = (List<Map>) PERSON;
-			
 			dealPerson(PERSONs,root);
 		}
 		//设备
@@ -102,6 +109,21 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			dealEnviroment(ENVIROMENTs,root);
 		}
 	}
+
+	/**
+	 * 摄像头处理
+	 * @param CAMERAs
+	 */
+	@SuppressWarnings("rawtypes")
+	private void dealCamera(List<Map> CAMERAs, HashMap<String, Object> root) {
+		ArrayList<Map> cameras=new ArrayList<Map>();
+		for (Map raw : CAMERAs) {
+			cameras.add(raw);
+		}
+		this.logger.debug("{}",cameras);
+		root.put("CAMERA", cameras);
+	}
+	
 	/**
 	 * 人员处理
 	 * @param PERSONs

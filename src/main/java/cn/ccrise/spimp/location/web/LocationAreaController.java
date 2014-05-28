@@ -74,7 +74,7 @@ public class LocationAreaController {
 		}
 		HashMap<String,Object> root = new HashMap<String,Object>();
 		locationAreaService.deal(json,root);
-		return new ModelAndView("3d/rjhTemplate",root);
+		return new ModelAndView("3d/complexTemplate",root);
 	}
 
 	/**
