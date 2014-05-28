@@ -26,10 +26,12 @@
 					<div class="span9 hide">
 						<div class="tabbable">
 							<ul class="nav nav-tabs">
-								<li class="active">
+<!--
+								<li>
 									<a data-toggle="tab" href="#tab1">下井考勤查询</a>
 								</li>
-								<li>
+-->
+								<li class="active">
 									<a data-toggle="tab" href="#tab2">人员轨迹查询</a>
 								</li>
 								<li>
@@ -37,7 +39,7 @@
 								</li>
 							</ul>
 							<div class="tab-content" style="padding: 10px">
-								<div id="tab1" class="tab-pane active">
+								<div id="tab1" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
 											<select id="department1" name="department" style="width: 100px">
@@ -64,7 +66,7 @@
 									</div>
 									<div id="grid1" class="row-fluid"></div>
 								</div>
-								<div id="tab2" class="tab-pane">
+								<div id="tab2" class="tab-pane active">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form2" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
 											<select id="department2" name="department" style="width: 100px">

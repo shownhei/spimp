@@ -178,7 +178,7 @@ define(function(require, exports, module) {
 		gridUrl2 = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=1&pageSize=' + pageSize;
 		gridUrl3 = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=2&pageSize=' + pageSize;
 		gridUrl4 = contextPath + '/monitor/real-time-datas?orderBy=id&order=desc&type=3&pageSize=' + pageSize;
-		gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl5 = contextPath + '/monitor/monitor-stations?orderBy=id&order=asc&pageSize=' + pageSize;
 
 		// 根据激活的tab，重新加载tab中的grid数据
 		loadTab('#' + $('.tab-content .active').attr('id'));

@@ -112,14 +112,16 @@ public class LocationTrackController {
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
 		// 查询结果hql语句
 		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state "
-				+ ", staff.indataTime,staff.id.mineId From LocationStaff staff,LocationStaffRealDatas track " + "WHERE staff.id.staffId=track.id.staffId ";
+				+ ", staff.indataTime,staff.id.mineId From LocationStaff staff,LocationStaffRealDatas track "
+				+ "WHERE staff.id.staffId=track.id.staffId " + "ORDER BY track.id.enterCurTime DESC";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
 		if (!Strings.isNullOrEmpty(staffId)) {
 			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 		}
 		if (StringUtils.isNotBlank(startTime)) {
-			filterTable.append(" AND track.id.enterCurTime >= CONVERT(DATETIME, '").append(startTime).append("', 102) ");
+			filterTable.append(" AND track.id.enterCurTime >= CONVERT(DATETIME, '").append(startTime)
+					.append("', 102) ");
 		}
 		if (StringUtils.isNotBlank(endTime)) {
 			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
@@ -145,7 +147,7 @@ public class LocationTrackController {
 				track.setDepartment(String.valueOf(result[2]));
 				track.setJobType(String.valueOf(result[3]));
 				track.setTroopName(String.valueOf(result[4]));
-				
+
 				List<LocationStation> locationStations = locationStationService.findBy("id.stationId",
 						String.valueOf(result[5]));
 				if (locationStations.size() > 0) {
