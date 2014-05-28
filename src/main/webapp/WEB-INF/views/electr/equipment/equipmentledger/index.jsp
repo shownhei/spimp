@@ -21,8 +21,11 @@
 					<button id="edit" class="btn btn-small btn-primary disabled">
 						<i class="icon-edit"></i> 编辑
 					</button>
-					<button id="upload" class="btn btn-small btn-primary ">
+					<button id="upload" class="btn btn-small btn-primary " data-param="">
 						<i class="icon-upload"></i> 上传
+					</button>
+					<button id="download" class="btn btn-small btn-primary ">
+						<i class="icon-download"></i> 模板下载
 					</button>
 					<button id="remove" class="btn btn-small btn-danger disabled">
 						<i class="icon-trash"></i> 删除

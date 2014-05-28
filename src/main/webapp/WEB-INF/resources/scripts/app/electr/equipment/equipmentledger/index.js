@@ -282,6 +282,9 @@ define(function(require, exports, module) {
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
+	$('#download').click(function(){
+		open(resources+'/template/electr/equipment/equipment-ledgers.xls');
+	});
 	// 搜索
 	$('#submit').click(function() {
 		grid.set({
