@@ -80,8 +80,8 @@
 	<div id="view-modal" class="modal modal-xl hide">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h5 class="red">
-				<i class="icon-trash"></i> 查看
+			<h5 class="blue">
+				<i class="icon-list"></i> 查看
 			</h5>
 		</div>
 		<div class="modal-body">

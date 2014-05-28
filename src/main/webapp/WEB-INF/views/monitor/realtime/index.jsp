@@ -32,12 +32,15 @@
 								<li>
 									<a data-toggle="tab" href="#tab2">模拟量</a>
 								</li>
+							
 								<li>
 									<a data-toggle="tab" href="#tab3">开关量</a>
 								</li>
+<!--  
 								<li>
 									<a data-toggle="tab" href="#tab4">累积量</a>
 								</li>
+-->
 								<li>
 									<a data-toggle="tab" href="#tab5">瓦斯分站</a>
 								</li>
@@ -109,7 +112,7 @@
 									<div id="grid3" class="row-fluid"></div>
 									<div id="statistic3" style="margin-top: 4px">统计数据加载中，请稍侯...</div>
 								</div>
-								<div id="tab4" class="tab-pane">
+								<div id="tab4" class="tab-pane" >
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form4" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
 											<select id="monitorSensorType4" name="monitorSensorType" style="width: 100px">

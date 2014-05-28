@@ -81,6 +81,22 @@ public class UploadController {
 		 * 图片上传处理过程
 		 */
 		String lowerFileName = filePath.toLowerCase();
+		//非图片  office文档 的上传文件
+		if (lowerFileName.endsWith("cad") || lowerFileName.endsWith("dwg") || lowerFileName.endsWith("dxf")
+				|| lowerFileName.endsWith("rar") || lowerFileName.endsWith("zip")) {
+			// 记录日志
+			logEntityServiceImpl.info("上传文件：" + file.getOriginalFilename() + "，目录：" + defaultUploadPath + filePath);
+			// 设置响应
+			UploadedFile instance = new UploadedFile();
+			instance.setSimpleName(file.getOriginalFilename());
+			instance.setFilePath(defaultUploadPath.replaceFirst("/WEB-INF", "") + filePath); 
+			uploadedFileService.save(instance);
+			response.setContentType("text/html");
+			response.getWriter().write(
+					"<script>parent." + callBack + "(" + JSON.toJSONString(new Response(instance)) + ")</script>");
+			response.flushBuffer();
+			return;
+		}
 		if (lowerFileName.endsWith("jpg") || lowerFileName.endsWith("jpeg") || lowerFileName.endsWith("bmp")
 				|| lowerFileName.endsWith("gif") || lowerFileName.endsWith("png")) {
 			// 记录日志
