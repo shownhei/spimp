@@ -17,9 +17,14 @@ define(function(require, exports, module) {
 		width : 300,
 		render : function(v) {
 			var name = v.simpleName;
-			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			var html=null;
+			if(v.swfPath){
+				html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			}else{
+				html=v.simpleName;
+			}
 			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
-			return v ? html : '';
+			return html;
 		}
 	}, {
 		header : '关键字',
