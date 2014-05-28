@@ -22,9 +22,14 @@ define(function(require, exports, module) {
 		width : 300,
 		render : function(v) {
 			var name = v.simpleName;
-			var html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			var html=null;
+			if(v.swfPath){
+				html = '<a href="javascript:void(0);" doc_id=' + v.id + ' title=' + name + '>' + name.substring(0, 20) + '</a>&nbsp;&nbsp;';
+			}else{
+				html=v.simpleName;
+			}
 			html += '<a href="' + v.filePath + '" target="_blank" class="pull-right">下载</a>';
-			return v ? html : '';
+			return html;
 		}
 	}, {
 		header : '开放程度',
@@ -248,7 +253,7 @@ define(function(require, exports, module) {
 	$('#file').bind('change', function() {
 		var val = $('#file').val();
 		var postfix = val.substring(val.lastIndexOf(".") + 1).toLowerCase();
-		var types = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'pdf', 'odt', 'ods', 'odp', 'odg', 'wps', 'htm', 'html'];
+		var types = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'pdf', 'odt', 'ods', 'odp', 'odg', 'wps', 'htm', 'html','dwg','dxf','cad','rar','zip'];
 		if (types.indexOf(postfix) === -1) {
 			Utils.modal.showAlert('不支持当前格式文件上传', '提示', 'typeAlert');
 			return;
