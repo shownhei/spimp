@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=jodconverter-core-3.0-beta-4.jar -DgroupId=com.artofsolving -DartifactId=jodconverter-core-3.0-beta-4-jahia2 -Dversion=3.0-beta-4-jahia2 -Dpackaging=jar

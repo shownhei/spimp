@@ -442,6 +442,9 @@ public class InitService extends DataInitAbstractService {
 				jddEquipmentLedger, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("井下消防设备", "/spmi/jdd/equipment-ledger/fire-fighting",
 				jddEquipmentLedger, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("设备台账", "/electr/equipment/equipment-ledger",
+				jddEquipmentLedger, "", i++);
+		
 
 		String jddMaintenance = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/jdd/maintenance", HttpMethod.GET);
 		i = 1;
