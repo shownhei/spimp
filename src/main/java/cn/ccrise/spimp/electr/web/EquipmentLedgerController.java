@@ -5,11 +5,10 @@ package cn.ccrise.spimp.electr.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +18,11 @@ import net.sf.jxls.exception.ParsePropertyException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +41,11 @@ import com.google.common.base.Strings;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.electr.entity.AnnualOil;
 import cn.ccrise.spimp.electr.entity.EquipmentLedger;
 import cn.ccrise.spimp.electr.service.EquipmentLedgerService;
 import cn.ccrise.spimp.system.web.UploadController;
+import cn.ccrise.spimp.util.ExcelCallBackInteface;
 import cn.ccrise.spimp.util.ExcelHelper;
 
 /**
@@ -54,18 +59,19 @@ public class EquipmentLedgerController {
 
 	@Autowired
 	private EquipmentLedgerService equipmentLedgerService;
+
 	@RequestMapping(value = "/ignore/equipment/equipment-ledgers/detail", method = RequestMethod.GET)
 	public ModelAndView getPlan(Long equipmentId) {
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		if (equipmentId != null) {
 			EquipmentLedger instance = equipmentLedgerService.get(equipmentId);
 			root.put("equipment", instance);
-		}else{
+		} else {
 			root.put("equipment", new EquipmentLedger());
 		}
 		return new ModelAndView("electr/equipment/equipmentledger/detail", root);
 	}
-	
+
 	@RequestMapping(value = "/electr/equipment/equipment-ledgers/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Response delete(@PathVariable long id) {
@@ -85,8 +91,8 @@ public class EquipmentLedgerController {
 
 	@RequestMapping(value = "/electr/equipment/equipment-ledgers", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<EquipmentLedger> page,String search) {
-		page = equipmentLedgerService.pageQuery(page, search);
+	public Response page(Page<EquipmentLedger> page, Long deviceClass, String search) {
+		page = equipmentLedgerService.pageQuery(page, deviceClass, search);
 		return new Response(page);
 	}
 
@@ -101,26 +107,123 @@ public class EquipmentLedgerController {
 	public Response update(@Valid @RequestBody EquipmentLedger equipmentLedger, @PathVariable long id) {
 		return new Response(equipmentLedgerService.update(equipmentLedger));
 	}
-	
+
 	@RequestMapping(value = "/electr/equipment/equipment-ledgers/export-excel", method = RequestMethod.GET)
-	public void exportExcel(HttpServletResponse response,String search) throws Exception {
+	public void exportExcel(HttpSession httpSession, HttpServletResponse response, Long deviceClass, String search)
+			throws Exception {
 		Page<EquipmentLedger> page = new Page<EquipmentLedger>();
-		page.setPageSize(100000);
-		page = equipmentLedgerService.pageQuery(page, search);
-		
-		String[] headers = {"设备名称","设备编号","规格型号","生产厂家","技术特征","单位","数量","出厂日期","出厂编号","购买日期","使用日期","使用年限","在籍","使用","备用","待修","待报废","已报废","借入","借出","主要附机","原值","净值","使用地点","是否防爆"};
-		
-		HSSFWorkbook wb = new ExcelHelper<EquipmentLedger>().genExcel("设备台账 - 安全生产综合管理平台", headers, page.getResult(), "yyyy-MM-dd");    
-        response.setContentType("application/force-download");
-        response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("故障管理 - 安全生产综合管理平台", "UTF-8")
-				+ ".xls");
-		
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close();  
+		page.setPageSize(900000);
+		page = equipmentLedgerService.pageQuery(page, deviceClass, search);
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		root.put("result", page.getResult());
+		new ExcelHelper<AnnualOil>().genExcelWithTel(httpSession, response, "electr/equipment/equipment-ledgers.xls",
+				root, "设备台账", new String[] { "所有设备" }, new ExcelCallBackInteface() {
+
+					@SuppressWarnings("unused")
+					@Override
+					public void process(Workbook book, HashMap<String, Object> root) {
+
+						final int startRow = 3;// 开始行
+						final int startCol = 0;// 开始列
+						final int colCount = 27;// 属性个数
+						Sheet sheet = book.getSheetAt(0);
+						@SuppressWarnings("unchecked")
+						List<EquipmentLedger> result = (List<EquipmentLedger>) root.get("result");
+						Row currentRow = null;
+						int rowIndex = startRow;
+						int colIndex = startCol;
+						Cell currentCell = null;
+						CellStyle style = sheet.getRow(3).getCell(0).getCellStyle();
+						style.setAlignment(CellStyle.ALIGN_LEFT);
+						for (EquipmentLedger equipment : result) {
+							currentRow = sheet.createRow(rowIndex++);
+							for (int col = 0; col < colCount; col++) {
+								currentCell = currentRow.createCell(col);
+								currentCell.setCellValue("");
+								currentCell.setCellStyle(style);
+							}
+						}
+						rowIndex = startRow;
+						for (EquipmentLedger equipment : result) {
+							Row row = sheet.getRow(rowIndex++);
+							colIndex = startCol;
+							// "设备分类",
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceClass().getItemName());
+							// "设备名称",
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceName());
+							// "设备编号",
+							row.getCell(colIndex++).setCellValue(equipment.getEquipmentID());
+							// "规格型号",
+							row.getCell(colIndex++).setCellValue(equipment.getDeviceModel());
+							// "生产厂家",
+							row.getCell(colIndex++).setCellValue(equipment.getProducer());
+							// "技术特征",
+							row.getCell(colIndex++).setCellValue(equipment.getTechnology());
+							// "单位",
+							row.getCell(colIndex++).setCellValue(equipment.getMeasureUnit());
+							// "数量",
+							row.getCell(colIndex++).setCellValue(equipment.getAmount());
+							// "出厂日期",
+							if (equipment.getProductionDate() == null) {
+								row.getCell(colIndex++).setCellValue("");
+							} else {
+								row.getCell(colIndex++).setCellValue(equipment.getProductionDate());
+							}
+							// "出厂编号",
+							row.getCell(colIndex++).setCellValue(equipment.getFactoryNumber());
+							// "购买日期",
+							if (equipment.getProductionDate() == null) {
+								row.getCell(colIndex++).setCellValue("");
+							} else {
+								row.getCell(colIndex++).setCellValue(equipment.getBuyDate());
+							}
+							// "使用日期",
+							if (equipment.getProductionDate() == null) {
+								row.getCell(colIndex++).setCellValue("");
+							} else {
+								row.getCell(colIndex++).setCellValue(equipment.getUseDate());
+							}
+							// "使用年限",
+							row.getCell(colIndex++).setCellValue(equipment.getServiceLife());
+							// "在籍",
+							row.getCell(colIndex++).setCellValue(equipment.getInMembership());
+							// "使用",
+							row.getCell(colIndex++).setCellValue(equipment.getInUse());
+							// "备用",
+							row.getCell(colIndex++).setCellValue(equipment.getIsSpare());
+							// "闲置",
+							row.getCell(colIndex++).setCellValue(equipment.getIsIdle());
+							// "待修",
+							row.getCell(colIndex++).setCellValue(equipment.getNeedsRepair());
+							// "待报废",
+							row.getCell(colIndex++).setCellValue(equipment.getPrepareScrapped());
+							// "已报废",
+							row.getCell(colIndex++).setCellValue(equipment.getScrapped());
+							// "借入",
+							if (equipment.getBorrowed() == null) {
+								row.getCell(colIndex++).setCellValue("");
+							} else {
+								row.getCell(colIndex++).setCellValue(equipment.getBorrowed());
+							}
+							// "借出",
+							row.getCell(colIndex++).setCellValue(equipment.getIsLoan());
+							// "主要附机",
+							row.getCell(colIndex++).setCellValue(equipment.getAttachedDevice());
+							// "原值",
+							row.getCell(colIndex++).setCellValue(equipment.getOriginalValue());
+							// "净值",
+							row.getCell(colIndex++).setCellValue(equipment.getNetWorth());
+							// "使用地点",
+							row.getCell(colIndex++).setCellValue(equipment.getUsePlace());
+							// "是否防爆"
+							row.getCell(colIndex++).setCellValue(equipment.getExplosionProof());
+
+						}
+					}
+
+				});
 	}
+
 	@RequestMapping(value = "/electr/equipment/equipment-ledger/upload", method = RequestMethod.POST)
 	public void upload(@RequestParam MultipartFile file, String callBackFunction, HttpSession httpSession,
 			HttpServletResponse response, final String uploadPath) throws IOException {

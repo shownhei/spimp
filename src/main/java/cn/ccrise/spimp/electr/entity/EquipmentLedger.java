@@ -6,9 +6,11 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.ccrise.ikjp.core.entity.IDEntity;
+import cn.ccrise.spimp.system.entity.Dictionary;
 import cn.ccrise.spimp.util.PageFields;
 
 /**
@@ -18,6 +20,11 @@ import cn.ccrise.spimp.util.PageFields;
 @Entity
 @Table(name = "electr_equipment_ledgers")
 public class EquipmentLedger extends IDEntity {
+	/**
+	 * 设备分类
+	 */
+	@PageFields(describtion = "设备分类", allowedNull = false, search = true, type = "select", selectDataUri = "/system/dictionaries?list=true&typeCode=", selectShowField = "itemName")
+	private Dictionary deviceClass;
 	/**
 	 * 设备名称
 	 */
@@ -99,6 +106,11 @@ public class EquipmentLedger extends IDEntity {
 	private String isSpare;
 
 	/**
+	 * 闲置
+	 */
+	@PageFields(describtion = "闲置", allowedNull = true, search = false)
+	private String isIdle;
+	/**
 	 * 待修
 	 */
 	@PageFields(describtion = "待修", allowedNull = true, search = false)
@@ -155,6 +167,15 @@ public class EquipmentLedger extends IDEntity {
 	 */
 	@PageFields(describtion = "是否防爆", allowedNull = true, search = false)
 	private String explosionProof;
+
+	@ManyToOne
+	public Dictionary getDeviceClass() {
+		return deviceClass;
+	}
+
+	public void setDeviceClass(Dictionary deviceClass) {
+		this.deviceClass = deviceClass;
+	}
 
 	public String getDeviceName() {
 		return deviceName;
@@ -274,6 +295,14 @@ public class EquipmentLedger extends IDEntity {
 
 	public void setIsSpare(String isSpare) {
 		this.isSpare = isSpare;
+	}
+
+	public String getIsIdle() {
+		return isIdle;
+	}
+
+	public void setIsIdle(String isIdle) {
+		this.isIdle = isIdle;
 	}
 
 	public String getNeedsRepair() {

@@ -1,10 +1,18 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../../common/utils');
 	var operateUri = '/electr/equipment/equipment-ledgers';
-
+	
 	// 提示信息
 	$('button[title]').tooltip({
 		placement : 'bottom'
+	});
+	
+	// 下拉列表初始化
+	Utils.select.remote([ 'search_deviceClass','create_deviceClass','edit_deviceClass' ], '/system/dictionaries?list=true&typeCode=', 'id', 'itemName',true,'设备分类');
+
+	// 下拉列表change事件
+	$('#search_deviceClass').bind('change',function(){
+		$('#submit').trigger('click');
 	});
 
 	// 启用日期控件
@@ -68,21 +76,6 @@ define(function(require, exports, module) {
 		}
 	}
 
-	var loadDetailInfo = function(equipmentId) {
-		var data = '';
-		if (equipmentId) {
-			data += 'equipmentId=' + equipmentId;
-		}
-		$.ajax({
-			type : 'get',
-			data : data,
-			dataType : 'text',
-			url : '/ignore/equipment/equipment-ledgers/detail',
-			success : function(data) {
-				$('#detailInfo').html(data);
-			}
-		});
-	};
 	// 配置表格
 	var defaultUrl = contextPath + operateUri + '?orderBy=id&order=desc&pageSize=' + pageSize;
 	var grid = new Grid({
@@ -100,7 +93,7 @@ define(function(require, exports, module) {
 		},
 		onLoaded : function() {
 			changeButtonsStatus();
-
+			
 			// 改变导出按钮状态
 			if (this.data.totalCount > 0) {
 				Utils.button.enable([ 'export' ]);
@@ -110,7 +103,27 @@ define(function(require, exports, module) {
 			loadDetailInfo();
 		}
 	}).render();
-
+	var loadDetailInfo = function(equipmentId) {
+		var data = '';
+		if (equipmentId) {
+			data += 'equipmentId=' + equipmentId;
+		}
+		$.ajax({
+			type : 'get',
+			data : data,
+			dataType : 'text',
+			url : '/ignore/equipment/equipment-ledgers/detail',
+			success : function(data) {
+				$('#detailInfo').html(data);
+			}
+		});
+	};
+	//上传
+	$('#upload').click(function(){
+		Utils.modal.showUpload('/electr/equipment/equipment-ledger/upload', function(data) {
+			grid.refresh();
+		}, '数据上传');
+	});
 	// 新建
 	$('#create').click(function() {
 		Utils.modal.reset('create');
@@ -118,8 +131,12 @@ define(function(require, exports, module) {
 	});
 
 	// 验证
-	function validate(showType, model) {
+	function validate(showType, model){
 		var errorMsg = [];
+		
+		if (model.deviceClass.id === '') {
+			errorMsg.push('请输入设备分类');
+		}
 
 		if (model.deviceName === '') {
 			errorMsg.push('请输入设备名称');
@@ -161,32 +178,35 @@ define(function(require, exports, module) {
 			errorMsg.push('使用年限为数字格式');
 		}
 
-		if (errorMsg.length > 0) {
+		if(errorMsg.length > 0){
 			Utils.modal.message(showType, [ errorMsg.join(',') ]);
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	// 查看
-	function showDetail(data) {
+	function showDetail(data){
 		Utils.modal.reset('detail');
+		
+		var object = $.extend({},data);
+		object.deviceClass = object.deviceClass.itemName;
 
-		var object = $.extend({}, data);
 
 		Utils.form.fill('detail', object);
 		Utils.modal.show('detail');
 	}
-
+	
 	// 保存
 	$('#create-save').click(function() {
 		var object = Utils.form.serialize('create');
+		
 		// 验证
-		if (!validate('create', object)) {
+		if(!validate('create', object)){
 			return false;
 		}
-
+		
 		$.post(operateUri, JSON.stringify(object), function(data) {
 			if (data.success) {
 				grid.refresh();
@@ -214,21 +234,15 @@ define(function(require, exports, module) {
 		});
 	});
 
-	//上传
-	$('#upload').click(function(){
-		Utils.modal.showUpload('/electr/equipment/equipment-ledger/upload', function(data) {
-			grid.refresh();
-		}, '数据上传');
-	});
 	// 更新
 	$('#edit-save').click(function() {
 		var object = Utils.form.serialize('edit');
-
+		
 		// 验证
-		if (!validate('edit', object)) {
+		if(!validate('edit', object)){
 			return false;
 		}
-
+		
 		// 处理属性
 		var selectId = grid.selectedData('id');
 		object.id = selectId;
@@ -258,13 +272,13 @@ define(function(require, exports, module) {
 			Utils.modal.hide('remove');
 		});
 	});
-
+	
 	// 导出
 	$('#export').click(function() {
 		if (Utils.button.isDisable('export')) {
 			return;
 		}
-
+		
 		window.location.href = operateUri + '/export-excel?' + Utils.form.buildParams('search-form');
 	});
 
@@ -274,10 +288,10 @@ define(function(require, exports, module) {
 			url : defaultUrl + Utils.form.buildParams('search-form')
 		});
 	});
-
+	
 	// 查询条件重置
-	$('#reset').click(function() {
-		grid.set('url', defaultUrl);
-		grid.refresh();
-	});
+    $('#reset').click(function() {
+        grid.set('url', defaultUrl);
+        grid.refresh();
+    });
 });

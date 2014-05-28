@@ -30,6 +30,8 @@ import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.spimp.electr.access.EquipmentLedgerDAO;
 import cn.ccrise.spimp.electr.entity.EquipmentLedger;
+import cn.ccrise.spimp.system.entity.Dictionary;
+import cn.ccrise.spimp.system.service.DictionaryService;
 import cn.ccrise.spimp.util.DateUtil;
 
 /**
@@ -39,6 +41,16 @@ import cn.ccrise.spimp.util.DateUtil;
  */
 @Service
 public class EquipmentLedgerService extends HibernateDataServiceImpl<EquipmentLedger, Long> {
+	@Autowired
+	private DictionaryService dictionaryService;
+	private void convertToMap(List<Dictionary> list, HashMap<String, Dictionary> aimMap) {
+		Iterator<Dictionary> it = list.iterator();
+		Dictionary temp = null;
+		while (it.hasNext()) {
+			temp = it.next();
+			aimMap.put(temp.getItemName(), temp);
+		}
+	}
 	public void importFormExcel(String filePath) throws Exception{
 		InputStream ins = new FileInputStream(new File(filePath));
 		XLSTransformer transformer = new XLSTransformer();
@@ -46,18 +58,51 @@ public class EquipmentLedgerService extends HibernateDataServiceImpl<EquipmentLe
 		Workbook book = transformer.transformXLS(ins, root);
 		Sheet sheet = book.getSheetAt(0);
 		Iterator<Row> rowIt = sheet.rowIterator();
+		HashMap<String, Dictionary> deviceClass = new HashMap<String, Dictionary>();
+		convertToMap(dictionaryService.find(Restrictions.eq("typeCode", "equipment_deviceCategory")), deviceClass);
 		Row row = null;
 		getDAO().getSession().createSQLQuery("DELETE FROM electr_equipment_ledgers ").executeUpdate();
 		while (rowIt.hasNext()) {
 			row = rowIt.next();
-			saveData(row);
+			saveData(row,deviceClass);
 		}
 	}
-	private void saveData(Row row){
+	/**
+	 * 根据名称查找字典数据，如果找不到就首先创建对应的字典，然后再加载到缓存中，并且使用
+	 * 
+	 * @param groupCode
+	 *            字典数据的分组key
+	 * @param srcName
+	 *            导入数据的值
+	 * @param dataCache
+	 *            当前缓存数据的集合
+	 * @return
+	 */
+	private Dictionary getConvertDictionary(String groupCode, String srcName, HashMap<String, Dictionary> dataCache) {
+		Dictionary result = null;
+		srcName = srcName.replaceAll("　", "").trim();
+		if (dataCache.containsKey(srcName)) {
+			result = dataCache.get(srcName);
+		} else {
+			Dictionary dic = new Dictionary();
+			dic.setTypeCode(groupCode);
+			dic.setItemName(srcName);
+			dictionaryService.save(dic);
+			dataCache.put(srcName, dic);
+			result = dic;
+		}
+		return result;
+	}
+	private void saveData(Row row,HashMap<String, Dictionary> deviceClass){
 		if (row.getRowNum() >= 2) {
 			Cell cell=null;
-			int colIndex = 1;
+			int colIndex = 0;
 			EquipmentLedger instance = new EquipmentLedger();
+			
+			//设备分类
+			cell = row.getCell(colIndex++);
+			instance.setDeviceClass(getConvertDictionary("equipment_deviceCategory", getStringValue(cell),
+					deviceClass));
 			//设备名称
 			cell = row.getCell(colIndex++);
 			instance.setDeviceName(getStringValue(cell));
@@ -104,6 +149,9 @@ public class EquipmentLedgerService extends HibernateDataServiceImpl<EquipmentLe
 			cell = row.getCell(colIndex++);
 			instance.setInUse(getStringValue(cell));
 			//备用
+			cell = row.getCell(colIndex++);
+			instance.setIsSpare(getStringValue(cell));
+			//闲置
 			cell = row.getCell(colIndex++);
 			instance.setIsSpare(getStringValue(cell));
 			//待修
@@ -204,5 +252,18 @@ public class EquipmentLedgerService extends HibernateDataServiceImpl<EquipmentLe
 			}
 		}
 		return null;
+	}
+	public Page<EquipmentLedger> pageQuery(Page<EquipmentLedger> page,Long deviceClass,String search) {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		
+		if (StringUtils.isNotBlank(search)) {
+			criterions.add(Restrictions.or(Restrictions.ilike("deviceName", search, MatchMode.ANYWHERE),Restrictions.ilike("equipmentID", search, MatchMode.ANYWHERE),Restrictions.ilike("factoryNumber", search, MatchMode.ANYWHERE),Restrictions.ilike("inMembership", search, MatchMode.ANYWHERE)));
+		}
+		
+		if (deviceClass != null){
+			criterions.add(Restrictions.eq("deviceClass.id", deviceClass));
+		}
+		
+		return getPage(page, criterions.toArray(new Criterion[0]));
 	}
 }
