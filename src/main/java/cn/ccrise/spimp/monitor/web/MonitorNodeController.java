@@ -54,7 +54,7 @@ public class MonitorNodeController {
 			raw = new HashMap<String,Object> ();
 			buff.append("MineID:");
 			buff.append(node.getId().getMineId());
-			buff.append(";StationID:");
+			buff.append(";NodeID:");
 			buff.append(node.getId().getNodeId());
 			raw.put("DBID", buff.toString());
 			raw.put("DATA", node.getCurrentData());
