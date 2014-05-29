@@ -138,7 +138,7 @@
 						<i class="icon-puzzle-piece"></i>
 						<span>动筛车间</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png">
+					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png" onclick="WebMineSystem.NoteRoute()">
 						<i class="icon-road"></i>
 						<span>避灾路线</span>
 					</button>
