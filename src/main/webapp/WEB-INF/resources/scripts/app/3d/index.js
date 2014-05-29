@@ -116,6 +116,10 @@ define(function(require, exports, module) {
 		var AUTO_NAME = 'automation';
 		if ($(this).data('type') !== undefined) {
 			switch ($(this).data('type')) {
+				case 'basicInfo':
+					WebMineSystem.WebInterface('{"URL":"http://' + location.hostname + ":" + location.port +'/3d/basicinfo","ISWEB":1,"WIDTH":820,"HEIGHT":600}');
+					WebMineSystem.DoCommand('设置 网页 开');
+					break;
 				case 'fullscreen':
 					$('#layer-tab').trigger('click');
 					$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
