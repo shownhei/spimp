@@ -126,19 +126,27 @@ public class LocationTrackController {
 		if (StringUtils.isNotBlank(endTime)) {
 			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
-		filterTable
+		StringBuffer filteruery = new StringBuffer();
+		filteruery.append(filterTable);
+		filteruery
 				.append(" GROUP BY staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state, staff.indataTime,staff.id.mineId");
-		filterTable.append(" ORDER BY track.id.enterCurTime ASC");
+		filteruery.append(" ORDER BY track.id.enterCurTime ASC");
 
-		tempTable.append(filterTable);
+		tempTable.append(filteruery);
+
 		// 查询结果条数hql语句
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationStaffRealDatas track "
 				+ "WHERE staff.id.staffId=track.id.staffId ";
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
+
 		Long totalRows = (Long) locationStaffService.getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
+
+		if (totalRows == null) {
+			totalRows = 0L;
+		}
 		if (totalRows > 0) {
-			System.out.println(tempTable.toString());
+
 			@SuppressWarnings("unchecked")
 			List<Object[]> results = locationStaffService.getDAO().createQuery(tempTable.toString())
 					.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1)).setMaxResults(page.getPageSize())
