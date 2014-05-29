@@ -3,7 +3,7 @@ define(function(require, exports, module) {
 	window.$=$;
 
 	window.getAutoURL = function () {
-		return location.host.indexOf('219') == 0 ? 'http://219.146.166.202:3000/' : 'http://192.168.20.104/';
+		return location.host.indexOf('219') === 0 ? 'http://219.146.166.202:3000/' : 'http://192.168.20.104/';
 	};
 
 	function resize() {
@@ -226,9 +226,12 @@ define(function(require, exports, module) {
 	var callbackClt={};
 	//平台加载完毕回调
 	callbackClt.Platform3DStarted=function(){
-		$.get(contextPath + '/update?prefix=sywz&suffix=MDocSegment', function(data) {
+		WebMineSystem.DoCommand("设置 连接力控");
+		$.get(contextPath + '/update?prefix=sywz&suffix=MDoc', function(data) {
+			console.log(data);
 			var paths = data.data.split('/');
 			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
+			WebMineSystem.SetSysParam("显示标签宿主信息", "是");
 			window.projectLoaded=true;
 			WebMineSystem.UpdateProjectFile(paths[3]);
 			WebMineSystem.LoadProjectFile(paths[3]);

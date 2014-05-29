@@ -3,6 +3,7 @@
  */
 package cn.ccrise.spimp.location.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,16 +54,21 @@ public class LocationAreaController {
 	@RequestMapping(value = "/location/location-areas/rjhcommand", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView rjhCommand(String rjhParam) {
+		try {
+			rjhParam = java.net.URLDecoder.decode(rjhParam, "UTF-8");
+			System.out.println(rjhParam);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		StringBuilder buff = new StringBuilder();
 		buff.append("{'ENVIROMENT':");
 		buff.append("[{'DBID':'MineID:14291000017;NodeID:0000000102;','TABLE':'K_Node','TYPE':'ENVIROMENT'},");
 		buff.append("{'DBID':'MineID:14291000017;NodeID:0000000103;','TABLE':'K_Node','TYPE':'ENVIROMENT'}");
 		buff.append("],");
 		buff.append("'EQIPMENT':[");
-		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:GP01','STATE':'暂无信号','TABLE':'electr_equipments','TYPE':'EQIPMENT'},");
-		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:7＃皮带机','STATE':'暂无信号','TABLE':'electr_transform_equipments','TYPE':'EQIPMENT'},");
-		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:aa','STATE':'暂无信号','TABLE':'electr_wind_water_equipments','TYPE':'EQIPMENT'},");
-		buff.append("{'DBID':'MineID:14291000017;EQUIPMETNID:bb','STATE':'暂无信号','TABLE':'electr_fire_fighting_equipments','TYPE':'EQIPMENT'}");
+		buff.append("{'DBID':'equipmetnid:GP01','STATE':'没匹配','TABLE':'electr_equipment_ledgers','TYPE':'EQIPMENT'},");
+		buff.append("{'DBID':'equipmetnid:GP01','STATE':'没匹配','TABLE':'electr_equipment_ledgers','TYPE':'EQIPMENT'},");
+		buff.append("{'DBID':'equipmetnid:GP01','STATE':'没匹配','TABLE':'electr_equipment_ledgers','TYPE':'EQIPMENT'}");
 		buff.append("],");
 		buff.append("'PERSON':[");
 		buff.append("{'DBID':'MineID:14040002001;StationID:0403;','TABLE':'','TYPE':'PERSON'},");

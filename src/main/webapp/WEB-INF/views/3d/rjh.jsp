@@ -33,6 +33,24 @@
 			</div>
 		</div>
 	</div>
+	<div id="view-modal" class="modal modal-xl hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 class="green">
+				<i class="icon-th-list"></i> 查看
+			</h5>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<iframe id="showDocument" src="" width="100%" height=355 border=0 margin=0 frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-small" data-dismiss="modal">
+				<i class="icon-remove"></i> 关闭
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript">
 	define(function(require, exports, module) {
 		var $ = require('kjquery');
@@ -85,24 +103,28 @@
 		
 		function resizeBlocks (blockId) {
 			var $block;
+			var $window = $(window);
+			var $windowHeight = $window.height();
+			var $windowWidth = $window.width();
 			if (blockId) {
 				$block = $('#' + blockId);
 				if ($block.attr('resize-state') === 'full') { // Block is full windowed.
 					$('.widget-body', $block).height('100%');
-					$('.widget-main', $block).height($(window).height() - 50);
+					$('.widget-main', $block).height($windowHeight - 50);
 				} else { // Block restored to original size.
 					$('.widget-body', $block).removeAttr('style');
-					$('.widget-main').height(($(window).height() - 250) / 2);
+					$('.widget-main').height(($windowHeight - 250) / 2);
 				}
 			} else {
 				if (window['full-window']) {
 					$block = $('#' + window['full-window']);
-					$('.widget-main', $block).height($(window).height() - 50);
-					$block.width($(window).width());
+					$('.widget-main', $block).height($windowHeight - 50);
+					$block.width($windowWidth);
 				} else {
-					$('.widget-main').height(($(window).height() - 250) / 2);
+					$('.widget-main').height(($windowHeight - 250) / 2);
 				}
 			}
+			$('#col2_0').height($windowHeight - 130);
 		}
 		
 		function toggleFullWindow (event) {
@@ -183,12 +205,12 @@
 				Utils.modal.showAlert("没有可显示的数据。","提示");
 				return;
 			}
-			var url='/location/location-areas/rjhcommand?time=' + new Date();
+			var url='/location/location-areas/rjhcommand?time=' + (new Date()).getTime();
 			var cameras = $.parseJSON(data).CAMERA;
 			$.ajax({
 				type: 'post',
 				dataType: 'text',
-				data: 'rjhParam=' + data,
+				data: 'rjhParam=' + encodeURI(data),
 				url: url,
 				success: function(data) {
 					$('#renJiHuanInfo').html(data);
@@ -208,6 +230,14 @@
 			videoObject.StopView();
 			videoObject.StartView();
 		};
+		$(document).click(function(event) {
+			var docId = $(event.target).attr('data-id');
+			var swf= $(event.target).attr('data-swf');
+			if (swf) {
+				$('#showDocument').attr('src', '/ignore/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
+				Utils.modal.show('view');
+			}
+		});
 	});
 	</script>
 </body>

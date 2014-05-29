@@ -3,6 +3,10 @@
  */
 package cn.ccrise.spimp.location.service;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
+import cn.ccrise.spimp.electr.entity.EquipmentLedger;
 import cn.ccrise.spimp.electr.service.EquipmentLedgerService;
 import cn.ccrise.spimp.electr.service.EquipmentService;
 import cn.ccrise.spimp.electr.service.FireFightingEquipmentService;
@@ -163,23 +168,62 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			root.put("PERSON",locationStaffService.find(Restrictions.in("curStationId", curStationIds.toArray(new String[0]))));
 		}
 	}
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void dealEquipment(List<Map> EQIPMENTs,HashMap<String,Object> root){
 		String DBID=null;
 		String equipmentId=null;
 		ArrayList<String> ids=new ArrayList<String>();
+		String STATE=null;
+		HashMap<String,String> stateMap = new HashMap<String,String> ();
 		for (Map raw : EQIPMENTs) {
 			DBID=(String)raw.get("DBID");
 			if(StringUtils.isBlank(DBID)){
 				continue;
 			}
+			STATE=(String)raw.get("STATE");
 			equipmentId=DBID.split(";")[0].split(":")[1];
+			stateMap.put(equipmentId, STATE);
 			ids.add(equipmentId);
 		}
 		if(ids.size()>0){
-			root.put("equipments", equipmentLedgerService.find(Restrictions.in("equipmentID", ids)));
+			ArrayList<Map<String,Object>> equipments= new ArrayList<Map<String,Object>>();
+			Map<String,Object> tempMap = null;
+			for(EquipmentLedger raw :equipmentLedgerService.find(Restrictions.in("equipmentID", ids))){
+				try {
+					tempMap=convertBean(raw);
+					tempMap.put("STATE", stateMap.get(raw.getEquipmentID()));
+					equipments.add(tempMap);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			root.put("equipments",equipments );
 		}
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private   Map convertBean(Object bean)
+            throws Exception {
+        Class type = bean.getClass();
+        Map returnMap = new HashMap();
+        BeanInfo beanInfo = Introspector.getBeanInfo(type);
+
+        PropertyDescriptor[] propertyDescriptors =  beanInfo.getPropertyDescriptors();
+        for (int i = 0; i< propertyDescriptors.length; i++) {
+            PropertyDescriptor descriptor = propertyDescriptors[i];
+            String propertyName = descriptor.getName();
+            if (!propertyName.equals("class")) {
+                Method readMethod = descriptor.getReadMethod();
+                Object result = readMethod.invoke(bean, new Object[0]);
+                if (result != null) {
+                    returnMap.put(propertyName, result);
+                } else {
+                    returnMap.put(propertyName, "");
+                }
+            }
+        }
+        return returnMap;
+    }
+
 	/**
 	 * 设备 设计到三种表 electr_equipments
 	 * electr_transform_equipments
