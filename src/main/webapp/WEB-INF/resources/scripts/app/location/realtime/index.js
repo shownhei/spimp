@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 		header : '区域人数',
 		name : 'curPersonNum',
 		render : function(value) {
-			return value;//'<a href="#" data-name=' + value + '>' + value + '</a>';
+			return value;
 		}
 	}, {
 		header : '时间',
@@ -43,7 +43,7 @@ define(function(require, exports, module) {
 		header : '分站人数',
 		name : 'curPersonNum',
 		render : function(value) {
-			return value;//'<a href="#" data-name=' + value + '>' + value + '</a>';
+			return value;
 		}
 	}, {
 		header : '分站类型',
@@ -78,13 +78,7 @@ define(function(require, exports, module) {
 	}, {
 		header : '状态',
 		name : 'stateString'
-	}/*, {
-		header : '轨迹',
-		name : 'id',
-		render : function(value) {
-			return '<a href="#" link-name=' + value.staffId + '>' + '轨迹' + '</a>';
-		}
-	} */];
+	} ];
 
 	// 根据是否显示机构，控制页面显示、机构树加载、表格列等
 	var groupTree;
@@ -235,7 +229,6 @@ define(function(require, exports, module) {
 	function change(selectId) {
 		$('#' + selectId).change(function() {
 			refresh(selectId);
-
 			// 同步更新其他自动刷新下拉列表选项
 			Utils.select.setOption('refresh1', $(this).val());
 			Utils.select.setOption('refresh2', $(this).val());

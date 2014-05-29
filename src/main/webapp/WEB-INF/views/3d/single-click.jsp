@@ -23,22 +23,23 @@
 </script>
 </head>
 <body class="navbar-fixed">
-	<div class="container-fluid">
+	<div class="main-container container-fluid">
 		<div class="navbar navbar-fixed-top" id="navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a href="javascript:void(0);" class="brand" target="safe"> <small>
-							<i class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
+					<a href="/" class="brand" target="safe">
+					<small>
+						<i class="icon-leaf"></i> 王庄煤业数字矿山综合管理平台
 					</small>
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="main-content">
+		<div class="main-content"  style="margin-left: 0;">
 			<div class="page-toolbar">
 				<div class="toolbar"></div>
 				<div class="nav-search">
-					<form id="query-form" class="form-inline" onsubmit="return false;">
+					<form class="form-inline" >
 					</form>
 				</div>
 			</div>

@@ -113,7 +113,7 @@ public class LocationTrackController {
 		// 查询结果hql语句
 		String hql = "SELECT staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state "
 				+ ", staff.indataTime,staff.id.mineId From LocationStaff staff,LocationStaffRealDatas track "
-				+ "WHERE staff.id.staffId=track.id.staffId " + "ORDER BY track.id.enterCurTime DESC";
+				+ "WHERE staff.id.staffId=track.id.staffId ";
 		tempTable.append(hql);
 		// 查询行数与查询结果通用条件
 		if (!Strings.isNullOrEmpty(staffId)) {
@@ -126,6 +126,10 @@ public class LocationTrackController {
 		if (StringUtils.isNotBlank(endTime)) {
 			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
+		filterTable
+				.append(" GROUP BY staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state, staff.indataTime,staff.id.mineId");
+		filterTable.append(" ORDER BY track.id.enterCurTime ASC");
+
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationStaffRealDatas track "

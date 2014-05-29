@@ -36,11 +36,11 @@
 								<li>
 									<a data-toggle="tab" href="#tab3">开关量</a>
 								</li>
-<!--  
+								<!--  
 								<li>
 									<a data-toggle="tab" href="#tab4">累积量</a>
 								</li>
--->
+								-->
 								<li>
 									<a data-toggle="tab" href="#tab5">瓦斯分站</a>
 								</li>

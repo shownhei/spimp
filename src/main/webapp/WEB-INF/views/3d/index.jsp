@@ -101,6 +101,11 @@
 		<div class="main-content">
 			<div class="page-toolbar" id="page-toolbar">
 				<div class="toolbar">
+				
+				    <button class="btn btn-small btn-info" data-image="信息统计.png" data-type="basicInfo">
+						<i class="icon-info-sign"></i>
+						<span>基本信息</span>
+					</button>
 					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
 						<i class="icon-info-sign"></i>
 						<span>生产动态</span>

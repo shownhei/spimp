@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.security.service.util.WebUtils;
+import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.PropertiesUtils;
+import cn.ccrise.spimp.spmi.document.entity.BasicInfomation;
+import cn.ccrise.spimp.spmi.document.service.BasicInfomationService;
 import cn.ccrise.spimp.system.entity.Account;
 
 /**
@@ -44,28 +48,51 @@ public class Index3DController {
 	@RequestMapping(value = "/3d", method = RequestMethod.GET)
 	public String ddd(HttpSession httpSession) {
 		Account account = ((Account) WebUtils.getAccount(httpSession));
-		if(account==null){
+		if (account == null) {
 			return "redirect:" + PropertiesUtils.getString(PropertiesUtils.LOGIN_PATH_PROPERTY);
 		}
-		logger.debug("{}",account);
+		logger.debug("{}", account);
 		return "3d/index";
 	}
-	//人机环对话框界面
+
+	// 人机环对话框界面
 	@RequestMapping(value = "/3d/rjh", method = RequestMethod.GET)
 	public ModelAndView rjh(String areas) {
 		System.out.println(areas);
 		HashMap<String, Object> root = new HashMap<String, Object>();
-		LinkedList<String> areaList=new LinkedList<String>();
-		if(StringUtils.isNotBlank(areas)){
-			for(String temp:areas.split(",")){
+		LinkedList<String> areaList = new LinkedList<String>();
+		if (StringUtils.isNotBlank(areas)) {
+			for (String temp : areas.split(",")) {
 				areaList.add(temp);
 			}
 		}
 		root.put("areas", areaList);
-		return new ModelAndView("3d/rjh",root);
+		return new ModelAndView("3d/rjh", root);
 	}
+	@Autowired
+	private BasicInfomationService basicInfomationService;
+	// 基本情况
+	@RequestMapping(value = "/3d/basicinfo", method = RequestMethod.GET)
+	public ModelAndView basicInfo() {
+		HashMap<String, Object> root = new HashMap<String, Object>();
+		Page<BasicInfomation> page=new Page<BasicInfomation> ();
+		page.setPageSize(20);
+		page.setPageNumber(1);
+		page.setOrder("desc");
+		page.setOrderBy("id");
+		page = basicInfomationService.pageQuery(page);
+		if(page.getResult().size()>0){
+			String temp=page.getResult().get(0).getBasicContent();
+			root.put("content", temp);
+		}else{
+			root.put("content", "");
+		}
+		return new ModelAndView("3d/basicInfo", root);
+	}
+
 	/**
 	 * 轨迹回放
+	 * 
 	 * @param areas
 	 * @return
 	 */
@@ -73,17 +100,19 @@ public class Index3DController {
 	public ModelAndView tracePlayback(String areas) {
 		System.out.println(areas);
 		HashMap<String, Object> root = new HashMap<String, Object>();
-		LinkedList<String> areaList=new LinkedList<String>();
-		if(StringUtils.isNotBlank(areas)){
-			for(String temp:areas.split(",")){
+		LinkedList<String> areaList = new LinkedList<String>();
+		if (StringUtils.isNotBlank(areas)) {
+			for (String temp : areas.split(",")) {
 				areaList.add(temp);
 			}
 		}
 		root.put("areas", areaList);
-		return new ModelAndView("3d/trace-playback",root);
+		return new ModelAndView("3d/trace-playback", root);
 	}
+
 	/**
 	 * 点选一个物体
+	 * 
 	 * @param areas
 	 * @return
 	 */
@@ -92,12 +121,12 @@ public class Index3DController {
 		System.out.println(content);
 		HashMap<String, Object> root = new HashMap<String, Object>();
 		try {
-			String decodeStr=java.net.URLDecoder.decode(content,"UTF-8");
+			String decodeStr = java.net.URLDecoder.decode(content, "UTF-8");
 			System.out.println(decodeStr);
 			root.put("content", decodeStr);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return new ModelAndView("3d/single-click",root);
+		return new ModelAndView("3d/single-click", root);
 	}
 }

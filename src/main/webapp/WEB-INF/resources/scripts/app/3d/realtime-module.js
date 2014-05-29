@@ -43,6 +43,7 @@ define(function(require, exports, module) {
 		$.get(contextPath + '/location/read_cards_staff', function(data) {
 			var array = [];
 			$.each(data.data, function(key, value) {
+				key+=';';
 				array.push({
 					"DBID" : key,
 					"PERSON" : value
@@ -58,7 +59,7 @@ define(function(require, exports, module) {
 			var tansferJson = {
 				"ID" : data.data
 			};
-			WebMineSystem._SF_SetSensorPointValue(tansferJson);
+			WebMineSystem._SF_SetSensorPointValue(JSON.stringify(tansferJson));
 		});
 		//9 设置人员轨迹
 		//10 重复人员轨迹

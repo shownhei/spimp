@@ -6,6 +6,7 @@ package cn.ccrise.spimp.electr.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -208,7 +209,7 @@ public class EquipmentLedger extends IDEntity {
 	public void setProducer(String producer) {
 		this.producer = producer;
 	}
-
+	@Lob
 	public String getTechnology() {
 		return technology;
 	}
@@ -345,6 +346,7 @@ public class EquipmentLedger extends IDEntity {
 		this.isLoan = isLoan;
 	}
 
+	@Lob
 	public String getAttachedDevice() {
 		return attachedDevice;
 	}
