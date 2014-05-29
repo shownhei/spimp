@@ -7,8 +7,8 @@
 	</ul>
 	<div class="tab-content" id="tab-content">
 	<div id="tab1" class="tab-pane in active">
-		<div class="row-fluid" id="row1">
-			<div class="span6" id="col1_1">
+		<div class="row-fluid" id="row0">
+			<div class="span6" id="col0_0">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<i class="green icon-th-list"></i>视频信息<i class="blue icon-resize-full complex-button-resize"></i>
 				</div>
@@ -23,18 +23,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="span6" id="col1_2">
+			<div class="span6" id="col0_1">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<i class="green icon-th-list"></i>人员情况<i class="blue icon-resize-full complex-button-resize"></i>
 				</div>
 				<div class="widget-body complex-widget-body">
-					<div class="widget-main complex-widget-main">
+					<div class="widget-main complex-widget-main" style="border:1px;">
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>姓名</th>
 								<th>部门</th>
 								<th>岗位</th>
+								<th>工种</th>
 								<th>班组</th>
 							</tr>
 						</thead>
@@ -44,6 +45,7 @@
 									<td>${ data.name}</td>
 									<td>${ data.department}</td>
 									<td>${ data.jobName}</td>
+									<td>${ data.jobType}</td>
 									<td>${ data.troopName}</td>
 								</tr>
 							</c:forEach>
@@ -53,8 +55,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid" id="row2" style="margin-top: 10px;">
-			<div class="span6" id="col2_1">
+		<div class="row-fluid" id="row1" style="margin-top: 10px;">
+			<div class="span6" id="col1_0">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<i class="green icon-th-list"></i>设备情况<i class="blue icon-resize-full complex-button-resize"></i>
 				</div>
@@ -67,6 +69,7 @@
 									<th>编号</th>
 									<th>类型</th>
 									<th>位置</th>
+									<th>开停</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -112,7 +115,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="span6" id="col2_2">
+			<div class="span6" id="col1_1">
 				<div class="widget-header widget-header-flat widget-header-small">
 					<i class="green icon-th-list"></i>环境信息<i class="blue icon-resize-full complex-button-resize"></i>
 				</div>
