@@ -254,7 +254,7 @@ define(function(require, exports, module) {
 		var val = $('#file').val();
 		var postfix = val.substring(val.lastIndexOf(".") + 1).toLowerCase();
 		var types = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'pdf', 'odt', 'ods', 'odp', 'odg', 'wps', 'htm', 'html','dwg','dxf','cad','rar','zip'];
-		if (types.indexOf(postfix) === -1) {
+		if ($.inArray(postfix, types) < 0) {
 			Utils.modal.showAlert('不支持当前格式文件上传', '提示', 'typeAlert');
 			return;
 		}
