@@ -1,8 +1,17 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery'), Grid = require('grid'), Utils = require('../../common/utils');
+	
+	$('#startTime2').datetimepicker();
+	$('#endTime2').datetimepicker();
+	
+	$('#startTime3').datetimepicker();
+	$('#endTime3').datetimepicker();
+	
+	var param_test = Utils.form.buildParams('query-form3');
+	console.log(param_test);
 
 	// 启用日期控件
-	Utils.input.date('input[type=datetime]');
+//	Utils.input.date('input[type=datetime]');
 
 	// 获取部门
 	Utils.select.remote([ 'department1', 'department2', 'department3' ], contextPath + '/location/location-staffs-department', 'name', 'name', true, '选择部门');
@@ -190,8 +199,7 @@ define(function(require, exports, module) {
 				gridUrl = gridUrl + '&mineId=' + groupTree.getSelectedNodes()[0].number;
 			}
 		}
-
-		grid.set('url', encodeURI(gridUrl + Utils.form.buildParams(formId)));
+		grid.set('url', gridUrl + Utils.form.buildParams(formId));
 	}
 
 	// 加载tab
