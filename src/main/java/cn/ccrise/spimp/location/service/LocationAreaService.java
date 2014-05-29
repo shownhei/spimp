@@ -23,12 +23,14 @@ import org.springframework.stereotype.Service;
 
 import cn.ccrise.ikjp.core.access.HibernateDAO;
 import cn.ccrise.ikjp.core.service.HibernateDataServiceImpl;
+import cn.ccrise.spimp.electr.service.EquipmentLedgerService;
 import cn.ccrise.spimp.electr.service.EquipmentService;
 import cn.ccrise.spimp.electr.service.FireFightingEquipmentService;
 import cn.ccrise.spimp.electr.service.TransformEquipmentService;
 import cn.ccrise.spimp.electr.service.WindWaterEquipmentService;
 import cn.ccrise.spimp.location.access.LocationAreaDAO;
 import cn.ccrise.spimp.location.entity.LocationArea;
+import cn.ccrise.spimp.spmi.document.service.DocumentService;
 
 /**
  * LocationArea Service。
@@ -42,6 +44,11 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 	private LocationAreaDAO locationAreaDAO;
 	@Autowired
 	private LocationStaffService locationStaffService;
+	/**
+	 * 根据机电科的设备台账最新做的台账管理service
+	 */
+	@Autowired
+	private EquipmentLedgerService equipmentLedgerService;
 	/**
 	 * 电器设备
 	 */
@@ -108,8 +115,17 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			List<Map> ENVIROMENTs = (List<Map>) ENVIROMENT;
 			dealEnviroment(ENVIROMENTs,root);
 		}
+		//先暂时加载所有的上传文档
+		dealRelatedDocument(root);
 	}
-
+	@Autowired
+	private DocumentService documentService;
+	/**
+	 * 加载相关文档
+	 */
+	private void dealRelatedDocument(HashMap<String,Object> root) {
+		root.put("documents", this.documentService.find());
+	}
 	/**
 	 * 摄像头处理
 	 * @param CAMERAs
@@ -147,6 +163,23 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			root.put("PERSON",locationStaffService.find(Restrictions.in("curStationId", curStationIds.toArray(new String[0]))));
 		}
 	}
+	@SuppressWarnings("rawtypes")
+	private void dealEquipment(List<Map> EQIPMENTs,HashMap<String,Object> root){
+		String DBID=null;
+		String equipmentId=null;
+		ArrayList<String> ids=new ArrayList<String>();
+		for (Map raw : EQIPMENTs) {
+			DBID=(String)raw.get("DBID");
+			if(StringUtils.isBlank(DBID)){
+				continue;
+			}
+			equipmentId=DBID.split(";")[0].split(":")[1];
+			ids.add(equipmentId);
+		}
+		if(ids.size()>0){
+			root.put("equipments", equipmentLedgerService.find(Restrictions.in("equipmentID", ids)));
+		}
+	}
 	/**
 	 * 设备 设计到三种表 electr_equipments
 	 * electr_transform_equipments
@@ -155,7 +188,7 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 	 * @param EQIPMENTs
 	 */
 	@SuppressWarnings("rawtypes")
-	private void dealEquipment(List<Map> EQIPMENTs,HashMap<String,Object> root){
+	protected void dealEquipmentOld(List<Map> EQIPMENTs,HashMap<String,Object> root){
 		String DBID=null;
 		String TABLE=null;
 		String equipmentId=null;
@@ -173,7 +206,7 @@ public class LocationAreaService extends HibernateDataServiceImpl<LocationArea, 
 			if(StringUtils.isBlank(DBID)){
 				continue;
 			}
-			equipmentId=DBID.split(";")[1].split(":")[1];
+			equipmentId=DBID.split(";")[0].split(":")[1];
 			TABLE=(String)raw.get("TABLE");
 			
 			TABLE=TABLE.toLowerCase();
