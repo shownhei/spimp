@@ -84,11 +84,12 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 
 		}
 		if (StringUtils.isNotBlank(startTime)) {
-			filterTable.append(" AND track.enterCurTime >= CONVERT(DATETIME, '").append(startTime).append("', 102) ");
+			filterTable.append(" AND track.id.enterCurTime >= CONVERT(DATETIME, '").append(startTime)
+					.append("', 102) ");
 		}
 
 		if (StringUtils.isNotBlank(endTime)) {
-			filterTable.append(" AND track.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
+			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
 		tempTable.append(filterTable);
 		// 查询结果条数hql语句

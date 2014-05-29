@@ -26,13 +26,13 @@
 					<div class="span9 hide">
 						<div class="tabbable">
 							<ul class="nav nav-tabs">
-								<li class="active">
+								<li>
 									<a data-toggle="tab" href="#tab1">报警明细</a>
 								</li>
 								<li>
 									<a data-toggle="tab" href="#tab2">报警统计</a>
 								</li>
-								<li>
+								<li  class="active">
 									<a data-toggle="tab" href="#tab3">密采查询</a>
 								</li>
 								<li>
@@ -43,7 +43,7 @@
 								</li>
 							</ul>
 							<div class="tab-content" style="padding: 10px">
-								<div id="tab1" class="tab-pane active">
+								<div id="tab1" class="tab-pane">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form1" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
 											<select id="monitorSensorType1" name="monitorSensorType" style="width: 100px">
@@ -97,7 +97,7 @@
 									</div>
 									<div id="grid2" class="row-fluid"></div>
 								</div>
-								<div id="tab3" class="tab-pane">
+								<div id="tab3" class="tab-pane  active">
 									<div class="nav-query" style="position: inherit;">
 										<form id="query-form3" class="form-inline" onsubmit="return false;" style="margin-bottom: 10px">
 											<select id="monitorSensorType3" name="monitorSensorType" style="width: 100px">
