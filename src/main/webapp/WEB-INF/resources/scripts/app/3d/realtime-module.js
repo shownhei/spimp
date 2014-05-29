@@ -56,6 +56,9 @@ define(function(require, exports, module) {
 		});
 		//8 安全监控传感器实时值
 		$.get(contextPath + '/monitor/monitor-nodes-value', function(data) {
+			for(var i=0;i<data.data.length;i++){
+				data.data[i].DBID+=';';
+			}
 			var tansferJson = {
 				"ID" : data.data
 			};
@@ -65,5 +68,6 @@ define(function(require, exports, module) {
 		//10 重复人员轨迹
 	};
 	loop();
+	window.$=$;
 	setInterval(loop, 60000);
 });
