@@ -15,7 +15,7 @@
 				<i class="icon-picture"></i>
 			</a>
 			<!-- TODO: 可配置的地址 -->
-			<a class="btn btn-small btn-danger" href="http://192.168.20.104/" target="safe" title="综合自动化管控平台">
+			<a class="btn btn-small btn-danger" href="#" onclick="javascript:window.open(getAutoURL());return true;" title="综合自动化管控平台">
 				<i class="icon-cogs"></i>
 			</a>
 		</div>

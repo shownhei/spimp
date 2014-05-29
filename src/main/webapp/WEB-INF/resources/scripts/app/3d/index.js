@@ -1,6 +1,11 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
 	window.$=$;
+
+	window.getAutoURL = function () {
+		return location.host.indexOf('219') == 0 ? 'http://219.146.166.202:3000/' : 'http://192.168.20.104/';
+	};
+
 	function resize() {
 		var toolBar=42;//1
 		var controlBarWidth=$('#control-bar').width();//2
@@ -105,7 +110,7 @@ define(function(require, exports, module) {
 	window.initLayerTree=initLayerTree;
     
 	$('button[data-image],a[data-image]').click(function() {
-		var AUTO_URL_BASE = 'http://192.168.20.104/';
+		var AUTO_URL_BASE = getAutoURL();
 		var AUTO_SUB_URL = {
 			'wind': '2.htm',
 			'water': '5.htm',
