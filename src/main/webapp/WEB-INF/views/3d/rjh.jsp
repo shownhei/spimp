@@ -73,12 +73,13 @@
 			var videoId = camera.ID;
 			var videoObject = document.getElementById(videoId);
 			var scriptElement = document.createElement('script');
+			var head = document.getElementsByTagName('head')[0];
 			startVideoPreview(videoObject, camera);
 			scriptElement.setAttribute('language', 'JavaScript');
 			scriptElement.setAttribute('event', 'EventNotify(ocxid, type, param)');
 			scriptElement.setAttribute('for', videoId);
-			scriptElement.innerHTML = 'changeChannel("' + videoId + '");';
-			document.head.appendChild(scriptElement);
+			scriptElement.text = 'changeChannel("' + videoId + '");';
+			head.appendChild(scriptElement);
 		}
 		
 		function resizeVideos (blockId) {
@@ -143,7 +144,7 @@
 				$block.attr('resize-state', 'full');
 				$block.attr('orig-height', $block.height());
 				// Move the block to the first child node of the body element.
-				reference = document.querySelector('.main-container');
+				reference = $('.main-container')[0];
 				document.body.insertBefore(block, reference);
 				// Enlarge the block.
 				$block.css('position', 'absolute');
@@ -160,7 +161,7 @@
 				$block.removeAttr('style');
 				// Move the block to the original place.
 				// Row id looks like 'row0', block id looks like 'col0_0'.
-				row = document.querySelector('#row' + block.id.charAt(3));
+				row = $('#row' + block.id.charAt(3))[0];
 				if (block.id.charAt(5) === '0') { // First column of the row.
 					reference = row.firstChild;
 					row.insertBefore(block, reference);

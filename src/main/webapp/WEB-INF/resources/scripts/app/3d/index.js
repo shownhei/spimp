@@ -1,6 +1,11 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
 	window.$=$;
+	if (window.console) {
+		window.console = {
+			log: function() {}
+		};
+	}
 
 	window.getAutoURL = function () {
 		return location.host.indexOf('219') === 0 ? 'http://219.146.166.202:3000/' : 'http://192.168.20.104/';
@@ -228,11 +233,11 @@ define(function(require, exports, module) {
 	callbackClt.Platform3DStarted=function(){
 		WebMineSystem.DoCommand("设置 连接力控");
 		$.get(contextPath + '/update?prefix=sywz&suffix=MDoc', function(data) {
-			console.log(data);
+			//console.log(data);
 			var paths = data.data.split('/');
 			WebMineSystem.SetSysParam("资源地址", 'http://' + location.hostname + ':' + location.port + '/' + paths[1] + '/' + paths[2] + '/');
 			WebMineSystem.SetSysParam("显示标签宿主信息", "是");
-			window.projectLoaded=true;
+			window.projectLoaded = true;
 			WebMineSystem.UpdateProjectFile(paths[3]);
 			WebMineSystem.LoadProjectFile(paths[3]);
 			var result=WebMineSystem.GetAllLayers();
@@ -309,7 +314,7 @@ define(function(require, exports, module) {
 		if(!window.projectLoaded){
 			callbackClt.Platform3DStarted();
 		}
-	},5000);
+	}, 1000);
 	
 	
 	$(document).click(function(event) {
@@ -343,7 +348,7 @@ define(function(require, exports, module) {
 			panel.css({'position':'absolute','left':'0px','top':'0px;'});
 			$('#WebMineSystem').width($(window).width());
 			$('#WebMineSystem').height($(window).height());
-		},2000);
+		}, 2000);
 	};
 	fullscreen.exitFullScreen=function(){
 		$('.navbar-fixed').css({'padding-top':'45px'});
