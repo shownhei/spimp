@@ -201,9 +201,7 @@
 	</div>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/3d/index');
-		seajs.use('${resources}/scripts/app/3d/rjh-module');
 		seajs.use('${resources}/scripts/app/3d/realtime-module');
-		seajs.use('${resources}/scripts/app/3d/trace-playback');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
 	    var infos = WebMineSystem.GetObjProperty(id,"");

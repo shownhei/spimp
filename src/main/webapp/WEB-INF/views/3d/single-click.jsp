@@ -85,7 +85,7 @@
 			var html = template({"result":data});
 			$('#content').html(html);
 			$('#firsttab').trigger('click');
-		})
+		});
 	</SCRIPT>
 </body>
 </html>
