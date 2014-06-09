@@ -1,7 +1,3 @@
-define(function(require, exports, module) {
-	var $ = require('kjquery');
-	var Utils = require('${resources}/scripts/app/common/utils');
-
 	function startVideoPreview(videoObject, option) {
 		videoObject.Channel = 1; // 0: 主码流; 1: 子码流
 		videoObject.ocxid = 1000;
@@ -10,8 +6,10 @@ define(function(require, exports, module) {
 		videoObject.User = option.USERNAME || 'guest';
 		videoObject.Password = option.PASSWORD || '';
 		setTimeout(function() {
-			videoObject.StartView();
-			videoObject.VideoParamGet();
+			if (videoObject.StartView) {
+				videoObject.StartView();
+				videoObject.VideoParamGet();
+			}
 		}, 1);
 	}
 
@@ -104,7 +102,7 @@ define(function(require, exports, module) {
 		} else { // Full size
 			// Restore block attributes.
 			$block.removeAttr('resize-state');
-			delete window['full-window'];
+			window['full-window']=null;
 			$block.removeAttr('width');
 			$block.removeAttr('height');
 			$block.removeAttr('style');
@@ -150,22 +148,18 @@ define(function(require, exports, module) {
 	});
 
 	window.rjhProcess = function(data) {
-		alert('rjhProcess');
-		if (!data || data === 'null') {alert('null');
+		if (!data || data === 'null') {
 			$('#renJiHuanInfo').html('');
-			Utils.modal.showAlert("没有可显示的数据。", "提示");
 			return;
 		}
 		var url = '/location/location-areas/rjhcommand?time=' + (new Date()).getTime();
 		var cameras = $.parseJSON(data).CAMERA;
-		alert('ajax');
 		$.ajax({
 			type : 'post',
 			dataType : 'text',
 			data : 'rjhParam=' + encodeURI(data),
 			url : url,
 			success : function(data) {
-				alert('ajax success');
 				$('#renJiHuanInfo').html(data);
 				initBlocks();
 				if (cameras) {
@@ -183,12 +177,51 @@ define(function(require, exports, module) {
 		videoObject.StopView();
 		videoObject.StartView();
 	};
+
+	function show(prefix) {
+		var $modal = $('#' + prefix + '-modal');
+		$modal.modal({
+			backdrop : 'static'
+		});
+
+		// jquery-ui没有考虑具有marginLeft时left的取值问题
+		function getContainerment() {
+			var marginLeft = parseInt($modal.css('marginLeft'), 10) || 0, marginTop = parseInt($modal.css('marginTop'), 10) || 0, width = $modal.outerWidth(), height = $modal
+					.outerHeight(), wholeWidth = $(document).width(), wholeHeight = $(document).height();
+
+			return [ -marginLeft, -marginTop, wholeWidth - width - marginLeft, wholeHeight - height - marginTop ];
+		}
+
+		$modal.draggable({
+			addClasses : false,
+			handle : '.modal-header',
+			containment : getContainerment()
+		});
+
+		// 完全居中
+		var screenWidth = $(window).width(), screenHeight = $(window).height();
+		var modalWidth = $modal.width(), modalHeight = $modal.height();
+		var modalTop = 0, modalLeft = 0;
+
+		if (screenHeight > modalHeight) {
+			modalTop = (screenHeight - modalHeight) / 2;
+		}
+		if (screenWidth > modalWidth) {
+			modalLeft = (screenWidth - modalWidth) / 2;
+		}
+
+		$modal.offset({
+			top : modalTop + $(document).scrollTop(),
+			left : modalLeft
+		});
+
+		return $modal;
+	}
 	$(document).click(function(event) {
 		var docId = $(event.target).attr('data-id');
 		var swf = $(event.target).attr('data-swf');
 		if (swf) {
 			$('#showDocument').attr('src', '/ignore/ercs/view-pdf/' + docId + "?t=" + new Date().getTime());
-			Utils.modal.show('view');
+			show('view');
 		}
 	});
-});

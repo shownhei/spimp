@@ -8,6 +8,7 @@
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
 <link href="${resources}/styles/complex.css" rel="stylesheet">
+<script type="text/javascript" src="${resources}/scripts/jquery/jquery-1.11.1.min.js"></script>
 </head>
 <body style="overflow: hidden;">
 	<div class="main-container container-fluid">
@@ -51,8 +52,7 @@
 			</button>
 		</div>
 	</div>
-	<script type="text/javascript">
-	   seajs.use('${resources}/scripts/app/3d/rjh-module');
+	<script type="text/javascript" src="${resources}/scripts/app/3d/rjh-module.js">
 	</script>
 </body>
 </html>
