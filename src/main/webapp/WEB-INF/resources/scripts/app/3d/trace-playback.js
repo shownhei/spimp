@@ -1,5 +1,4 @@
 define(function(require, exports, module) {
-	var $ = require('kjquery');
 	var Grid = require('grid');
 	// 配置表格列
 	var fields = [ {

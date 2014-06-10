@@ -6,6 +6,7 @@
 <head>
 <title>三维综合管理 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="head.jsp"%>
+<script type="text/javascript" src="${resources}/scripts/jquery/jquery-1.4.3.js"></script>
 </head>
 <body class="navbar-fixed" style="min-width: 820px;">
 	<div class="main-container container-fluid">
