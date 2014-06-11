@@ -37,15 +37,15 @@
 									style="height: 25px; width: 150px; font-size: 12px;">
 								</select>
 							</div>
-							<div class="input-append">
+							<div class="input-append" id="trace_startDateTime">
 								<input name="startDateTime" type="datetime"
-									id="trace_startDateTime" style="width: 119px;"
+									 style="width: 119px;"
 									placeholder="开始时间" class="input-small"> <span
 									class="add-on nav-add-on"> <i class="icon-calendar"></i>
 								</span>
 							</div>
-							<div class="input-append">
-								<input name="endDateTime" type="datetime" id="trace_endDateTime"
+							<div class="input-append" id="trace_endDateTime">
+								<input name="endDateTime" type="datetime" 
 									style="width: 119px;" placeholder="截止时间" class="input-small">
 								<span class="add-on nav-add-on"> <i class="icon-calendar"></i>
 								</span>
