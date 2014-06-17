@@ -6,7 +6,6 @@
 <title>首页 - 山西王庄煤业数字矿山综合管理平台</title>
 <%@ include file="common/head.jsp"%>
 <%@ include file="common/template.jsp"%>
-<script src="${resources}/scripts/app/common/echarts-plain.js" type="text/javascript"></script>
 </head>
 <body class="navbar-fixed breadcrumbs-fixed">
 	<%@ include file="common/navbar.jsp"%>
@@ -80,6 +79,8 @@
 			</div>
 		</div>
 	</div>
+	
+<script src="${resources}/scripts/app/common/echarts-plain.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/index');
 	</script>
