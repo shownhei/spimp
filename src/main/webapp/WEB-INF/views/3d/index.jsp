@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML>
@@ -39,7 +40,8 @@
         </div>
     {{/each}}
 </script>
-<script id="multipleObjectsSelected-template" type="text/x-handlebars-template">
+<script id="multipleObjectsSelected-template"
+	type="text/x-handlebars-template">
       <table class="table table-striped table-bordered table-hover">
               <thead><tr><th class="hidden-480">名称</th></tr></thead>
               <tbody>
@@ -52,12 +54,12 @@
 <div id="objectinfo-template" class="accordion-style1">
 {{#each result}}
    <div class="panel panel-default ">
-        <div class="panel-heading ">
+        <div class="panel-heading widget-header">
             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}" data-type="object-info-group">{{groupName}}</a>
+                <a  data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}" data-type="object-info-group">{{groupName}}</a>
             </h4>
         </div>
-        <div class="panel-collapse in" id="collapse{{@index}}" style="height: auto;">
+        <div class="panel-collapse collapse" id="collapse{{@index}}" style="height: 0px;">
            
               <table class="table table-striped table-bordered table-hover">
               <thead><tr><th >名称</th><th class="hidden-480">参数</th></tr></thead>
@@ -101,52 +103,52 @@
 		<div class="main-content">
 			<div class="page-toolbar" id="page-toolbar">
 				<div class="toolbar">
-				
-				    <button class="btn btn-small btn-info" data-image="信息统计.png" data-type="basicInfo">
-						<i class="icon-info-sign"></i>
-						<span>基本信息</span>
+
+					<button class="btn btn-small btn-info" data-image="信息统计.png"
+						data-type="basicInfo">
+						<i class="icon-info-sign"></i> <span>基本信息</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="信息统计.png" data-type="renJiHuan">
-						<i class="icon-info-sign"></i>
-						<span>生产动态</span>
+					<button class="btn btn-small btn-info" data-image="信息统计.png"
+						data-type="renJiHuan">
+						<i class="icon-info-sign"></i> <span>生产动态</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="轨迹回放.png" data-type="traceReplay">
-						<i class="icon-retweet"></i>
-						<span>轨迹回放</span>
+					<button class="btn btn-small btn-info" data-image="轨迹回放.png"
+						data-type="traceReplay">
+						<i class="icon-retweet"></i> <span>轨迹回放</span>
 					</button>
 					<button class="btn btn-small btn-info" data-image="路线飞行.png">
-						<i class="icon-rocket"></i>
-						<span>路线飞行</span>
+						<i class="icon-rocket"></i> <span>路线飞行</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="主界面.png" data-type="wind">
-						<i class="icon-home"></i>
-						<span>主通风</span>
+					<button class="btn btn-small btn-info" data-image="主界面.png"
+						data-type="wind">
+						<i class="icon-home"></i> <span>主通风</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="人员信息.png" data-type="water">
-						<i class="icon-user"></i>
-						<span>主排水</span>
+					<button class="btn btn-small btn-info" data-image="人员信息.png"
+						data-type="water">
+						<i class="icon-user"></i> <span>主排水</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="安全监控.png" data-type="conveyor">
-						<i class="icon-desktop"></i>
-						<span>皮带运输</span>
+					<button class="btn btn-small btn-info" data-image="安全监控.png"
+						data-type="conveyor">
+						<i class="icon-desktop"></i> <span>皮带运输</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="" data-type="substation">
-						<i class="icon-random"></i>
-						<span>35KV变电站</span>
+					<button class="btn btn-small btn-info" data-image=""
+						data-type="substation">
+						<i class="icon-random"></i> <span>35KV变电站</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="应急资源.jpg" data-type="workshop">
-						<i class="icon-puzzle-piece"></i>
-						<span>动筛车间</span>
+					<button class="btn btn-small btn-info" data-image="应急资源.jpg"
+						data-type="workshop">
+						<i class="icon-puzzle-piece"></i> <span>动筛车间</span>
 					</button>
-					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png" onclick="WebMineSystem.NoteRoute()">
-						<i class="icon-road"></i>
-						<span>避灾路线</span>
+					<button class="btn btn-small btn-info" data-image="避灾路线-火灾1.png"
+						onclick="WebMineSystem.NoteRoute()">
+						<i class="icon-road"></i> <span>避灾路线</span>
 					</button>
 				</div>
 				<div class="nav-search">
 					<form id="search-form" class="form-search" onsubmit="return false;">
-						<span class="input-icon">
-							<input id="nav-search-input" name="search" type="text" placeholder="输入..." class="input-small nav-search-input" autocomplete="off">
+						<span class="input-icon"> <input id="nav-search-input"
+							name="search" type="text" placeholder="输入..."
+							class="input-small nav-search-input" autocomplete="off">
 							<i class="icon-search nav-search-icon"></i>
 						</span>
 						<button id="nav-search-button" class="btn btn-small btn-primary">搜索</button>
@@ -156,41 +158,120 @@
 			<div class="page-content" style="padding: 0">
 				<div class="row-fluid">
 					<div class="span12" id="active_panel">
-						<object id="WebMineSystem" classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="600" width="400" codebase="${resources}/cab/publish.cab"></object>
+						<object id="WebMineSystem"
+							classid="CLSID:481854E7-4443-4E9E-873B-05CDB7C070B8" height="600"
+							width="400" codebase="${resources}/cab/publish.cab"></object>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="layer-control" class="ace-settings-container">
-		    <a id="control-bar" href="javascript:void(0);" class="icon-double-angle-right" style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:10px;height:40px;background-color:white;float:left;" ></a>
-			<div id="layer-control-div" class="ace-settings-box open" style="width: 300px; border: 0; padding: 0">
-				<div class="tabbable tabs-right" style="margin-top: 0; background-color: #c5d0dc">
-					<ul class="nav nav-tabs tab-color-blue background-blue" style="min-width: 5px">
-					    <li class="active" style="min-width: 4px">
-							<a id="result-tab" data-toggle="tab" href="#result" style="min-width: 4px;width:4px;">查<br>询<br>结<br>果</a>
-						</li>
-						<li style="min-width: 4px">
-							<a id="layer-tab" data-toggle="tab" href="#layer" style="min-width: 4px;width:4px;">图<br>层<br>管<br>理</a>
-						</li>
-						<li >
-							<a data-toggle="tab" href="#viewpoint" style="min-width: 4px;width:4px;">视点导航</a>
+			<a id="control-bar" href="javascript:void(0);"
+				class="icon-double-angle-right"
+				style="background:url(${resources}/images/control-bar.png);background-position:245px 0px;display:block;text-align:center;width:10px;height:40px;background-color:white;float:left;"></a>
+			<div id="layer-control-div" class="ace-settings-box open"
+				style="width: 300px; border: 0; padding: 0">
+				<div class="tabbable tabs-right"
+					style="margin-top: 0; background-color: #c5d0dc">
+					<ul class="nav nav-tabs tab-color-blue background-blue"
+						style="min-width: 5px">
+						<li class="active" style="min-width: 4px"><a id="result-tab"
+							data-toggle="tab" href="#result"
+							style="min-width: 4px; width: 4px;">查<br>询<br>结<br>果
+						</a></li>
+						<li><a id="objectinfo-tab" data-toggle="tab"
+							href="#objectinfo" style="min-width: 4px; width: 4px;">基本信息</a></li>
+						<li style="min-width: 4px"><a id="layer-tab"
+							data-toggle="tab" href="#layer"
+							style="min-width: 4px; width: 4px;">图<br>层<br>管<br>理
+						</a></li>
+						<li>
+						   <a data-toggle="tab" href="#viewpoint" style="min-width: 4px; width: 4px;">视点导航</a></li>
+						<li>
+						   <a id="tracePlayBack-tab" data-toggle="tab" href="#tracePlayBack" style="min-width: 4px; width: 4px;">视点导航</a>
 						</li>
 					</ul>
-					<div id="rightPanel" class="tab-content" style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
-					    <div id="result" data-level="first" class="tab-pane active">
-					    	<div class="well">
+					<div id="rightPanel" class="tab-content"
+						style="box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.2); background-color: #fff">
+						<div id="result" data-level="first" class="tab-pane active">
+							<div class="well">
 								<h4 class="green smaller lighter">查询结果</h4>
 								显示框选或者查询结果的列表信息。
 							</div>
 						</div>
+						<div id="objectinfo" data-level="first"></div>
 						<div id="layer" data-level="first" class="tab-pane">
 							<div id="layer-tree" class="ztree"></div>
 						</div>
 						<div id="viewpoint" data-level="first" class="tab-pane">
 							<div class="row-fluid">
-								<div class="span3"><a href="javascript:void(0);" onclick="WebMineSystem.GoToCamLocation('我的相机');">
-									<img src="${resources}/images/3d/viewpoint/1.png" class="img-rounded" style="width: 100%">
-									<span style="font-size: 11px">我的相机</span></a>
+								<div class="span3">
+									<a href="javascript:void(0);"
+										onclick="WebMineSystem.GoToCamLocation('我的相机');"> <img
+										src="${resources}/images/3d/viewpoint/1.png"
+										class="img-rounded" style="width: 100%"> <span
+										style="font-size: 11px">我的相机</span></a>
+								</div>
+							</div>
+						</div>
+						<div id="tracePlayBack" data-level="first" class="tab-pane" style="padding-top:0px;">
+							<div class="main-content" style="margin-left: 0;">
+								<div class="row-fluid">
+									<div class="page-toolbar" style="height:180px;">
+										<div class="nav-search" style="padding-left:20px;">
+											<form id="query-form" onsubmit="return false;">
+												<div style="display: block; margin-left: 5px;">
+													<div class="input-append">
+														<select name="department" id="trace_department"
+															style="height: 25px; width: 150px; font-size: 12px;">
+														</select>
+													</div>
+													<div class="input-append">
+														<select name="staff" id="trace_staff"
+															style="height: 25px; width: 150px; font-size: 12px;">
+														</select>
+													</div>
+													<div class="input-append" id="trace_startDateTime">
+														<input name="startDateTime" type="datetime"
+															style="width: 119px;" placeholder="开始时间"
+															class="input-small"> <span
+															class="add-on nav-add-on"> <i
+															class="icon-calendar"></i>
+														</span>
+													</div>
+													<div class="input-append" id="trace_endDateTime">
+														<input name="endDateTime" type="datetime"
+															style="width: 119px;" placeholder="截止时间"
+															class="input-small"> <span
+															class="add-on nav-add-on"> <i
+															class="icon-calendar"></i>
+														</span>
+													</div>
+													<div class="input-append ">
+														<table width="150">
+															<tr>
+																<td>
+																	<button id="trace_query_btn"
+																		class="btn btn-small btn-success disabled">
+																		<i class="icon-search"></i>查询
+																	</button>
+																</td>
+																<td align="right">
+																	<button id="trace_playback_btn"
+																		class="btn btn-small btn-success disabled">
+																		<i class="icon-list"></i>轨迹回放
+																	</button>
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="page-content" style="overflow-x:auto;padding-left:0px;">
+										<div id="stafflist-table"  style="width:600px;"></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -202,39 +283,41 @@
 	<script type="text/javascript">
 		seajs.use('${resources}/scripts/app/3d/index');
 		seajs.use('${resources}/scripts/app/3d/realtime-module');
+		seajs.use('${resources}/scripts/app/3d/trace-playback');
 	</script>
 	<SCRIPT FOR=WebMineSystem EVENT=ObjectSelected(id,name)>
-	    var infos = WebMineSystem.GetObjProperty(id,"");
-	    var toolstate = WebMineSystem.GetManipulatorMode();
-	    if (toolstate != "人机环") {
-	    	callbackClt.showObjectInfo(infos);
-	    }
-    </SCRIPT>
+		var infos = WebMineSystem.GetObjProperty(id, "");
+		var toolstate = WebMineSystem.GetManipulatorMode();
+		if (toolstate != "人机环") {
+			callbackClt.showObjectInfo(infos);
+		}
+	</SCRIPT>
 	<SCRIPT FOR=WebMineSystem EVENT=CommandFinished(evt)>
-	    var jsonData = $.parseJSON(evt);
-	    callbackClt.test(jsonData);
-    </SCRIPT>
-    <SCRIPT FOR=WebMineSystem EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
-    	var toolstate = WebMineSystem.GetManipulatorMode();
-    	if (toolstate != "人机环") {
+		var jsonData = $.parseJSON(evt);
+		callbackClt.test(jsonData);
+	</SCRIPT>
+	<SCRIPT FOR=WebMineSystem
+		EVENT=MultipleObjectsSelected(_SelectedObjs,_SelectedObjsCount)>
+		var toolstate = WebMineSystem.GetManipulatorMode();
+		if (toolstate != "人机环") {
 			callbackClt.multipleObjectsSelected(_SelectedObjs);
-    	}
-    </SCRIPT>
-    <SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
-        //调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
-        setTimeout(" callbackClt.Platform3DStarted();",2000);
-    </SCRIPT>
-    <SCRIPT FOR=WebMineSystem EVENT=GetAreaNames(jsonAreas)>
-        //{"AREA":[{"NAME":"3045工作面"},{"NAME":"3046工作面"}]}
-        var areas=[];
-        $.each($.parseJSON(jsonAreas).AREA,function(key,value){
-        	areas.push(value.NAME);
-        });
-        rjhProcessInDialog(encodeURI('/3d/rjh?areas='+areas.join(',')));
-    </SCRIPT>
-    <SCRIPT FOR=WebMineSystem EVENT=RJHCommand(jsonData)>
-       rjhProcess(jsonData);
-    </SCRIPT>
-    
+		}
+	</SCRIPT>
+	<SCRIPT FOR=WebMineSystem EVENT=Platform3DStarted()>
+		//调用加载模型的方法 如果 此方法无效 js文件最后 有个定时监测机制可以再走一次检查然后执行
+		setTimeout(" callbackClt.Platform3DStarted();", 2000);
+	</SCRIPT>
+	<SCRIPT FOR=WebMineSystem EVENT=GetAreaNames(jsonAreas)>
+		//{"AREA":[{"NAME":"3045工作面"},{"NAME":"3046工作面"}]}
+		var areas = [];
+		$.each($.parseJSON(jsonAreas).AREA, function(key, value) {
+			areas.push(value.NAME);
+		});
+		rjhProcessInDialog(encodeURI('/3d/rjh?areas=' + areas.join(',')));
+	</SCRIPT>
+	<SCRIPT FOR=WebMineSystem EVENT=RJHCommand(jsonData)>
+		rjhProcess(jsonData);
+	</SCRIPT>
+
 </body>
 </html>

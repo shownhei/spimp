@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+	var $ = require('kjquery');
 	var Grid = require('grid');
 	// 配置表格列
 	var fields = [ {
@@ -30,7 +31,7 @@ define(function(require, exports, module) {
 	} ];
 
 	// 计算表格高度和行数
-	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 100);
+	var gridHeight = $(window).height() - ($('.navbar').height() + $('.page-toolbar').height() + $('.page-header').height() + 330);
 	var pageSize = Math.floor(gridHeight / 21);
 
 	// 配置表格
@@ -137,7 +138,5 @@ define(function(require, exports, module) {
 			}
 		});
 	}
-	$('#trace_startDateTime').datetimepicker();
-	$('#trace_endDateTime').datetimepicker();
-	setTimeout(loadDepartMent, 100);
+	window.loadDepartMent=loadDepartMent;
 });

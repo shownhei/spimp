@@ -1,7 +1,9 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
+	//$('#trace_startDateTime').datetimepicker();
+	//$('#trace_endDateTime').datetimepicker();
 	window.$=$;
-	if (window.console) {
+	if (!window.console) {
 		window.console = {
 			log: function() {}
 		};
@@ -181,8 +183,10 @@ define(function(require, exports, module) {
 				case 'traceReplay':
 					//轨迹回放
 					var traceReplayUrl='http://' + location.hostname + ":" + location.port +'/3d/trace-playback';
-					WebMineSystem.WebInterface('{"URL":"'+traceReplayUrl+'","ISWEB":1,"WIDTH":820,"HEIGHT":600}');
-					WebMineSystem.DoCommand('设置 网页 开');
+					loadDepartMent();
+					$('#tracePlayBack-tab').trigger('click');
+					/*WebMineSystem.WebInterface('{"URL":"'+traceReplayUrl+'","ISWEB":1,"WIDTH":820,"HEIGHT":600}');
+					WebMineSystem.DoCommand('设置 网页 开');*/
 					break;
 				case 'wind':
 					//主通风
@@ -286,10 +290,34 @@ define(function(require, exports, module) {
 		$('#result').html(html);
 		$('#result-tab').trigger('click');
 	};//查询
-	callbackClt.showObjectInfo=function(_jsonData){
-		var objInfoUrl='http://' + location.hostname + ":" + location.port +'/3d/single-click';
-		WebMineSystem.WebInterface('{"URL":"'+objInfoUrl+'","ISWEB":1,"POST":"'+encodeURI(_jsonData)+'","WIDTH":750,"HEIGHT":500}');
-		WebMineSystem.DoCommand('设置 网页 开');	
+	callbackClt.showObjectInfo=function(_jsonDataStr){
+		var _jsonData=$.parseJSON( _jsonDataStr );
+		var data=[];
+		var groupIndex=0;
+		for(var key in _jsonData){
+			 var groupRaw={};
+			 groupRaw.groupCode=groupIndex++;
+			 groupRaw.groupName=key;
+			 var group=_jsonData[key];
+			 var childrenArray=[];
+			 var j=0;
+			 for(var keyj in group){
+				 var child={};
+				 child.childCode=j++;
+				 child.childName=keyj;
+				 child.childValue=group[keyj];
+				 childrenArray.push(child);
+			 }
+			 groupRaw.children=childrenArray;
+			 data.push(groupRaw);
+		 }
+		var template = Handlebars.compile($('#objectinfo-template').html());
+		var html = template({"result":data});
+		$('#objectinfo').html(html);
+		$('#objectinfo-tab').trigger('click');
+		/*WebMineSystem.WebInterface('{"URL":"'+objInfoUrl+'","ISWEB":1,"POST":"'+encodeURI(_jsonData)+'","WIDTH":750,"HEIGHT":500}');
+		WebMineSystem.DoCommand('设置 网页 开');*/
+		
 	};
 	callbackClt.test=function(_jsonData){
 		 var i=0;
