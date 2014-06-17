@@ -92,7 +92,7 @@ define(function(require, exports, module) {
 							var len = v.length;
 							var currentType = null;
 							for (var i = 0; i < len; i++) {
-								if (carTypes.indexOf(v[i].carCategory) === -1) {
+								if ($.inArray(v[i].carCategory,carTypes) === -1) {
 									currentType = {
 										run : 0,
 										kilomiter : 0,
