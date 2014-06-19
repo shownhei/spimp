@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var $ = require('$'), Handlebars = require('handlebars');
-
+	
 	// 自适应高度
 	function resize() {
 		var mainHeight = $(window).height() - ($('.navbar').height() + $('#breadcrumbs').height() + 20);

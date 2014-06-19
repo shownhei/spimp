@@ -1,7 +1,19 @@
 define(function(require, exports, module) {
 	var $ = require('kjquery');
-	//$('#trace_startDateTime').datetimepicker();
-	//$('#trace_endDateTime').datetimepicker();
+	(function (){
+		var userAgent = window.navigator.userAgent.toLowerCase();
+		var is10=/msie 10\.0/i.test(userAgent);
+		var is9=/msie 9\.0/i.test(userAgent);
+		var is8=/msie 8\.0/i.test(userAgent);
+		if( !is9 && !is8){
+			$('#trace_startDateTime_input').datetimepicker();
+			$('#trace_endDateTime_input').datetimepicker();
+		}else{
+			$('#trace_startDateTime').datetimepicker();
+			$('#trace_endDateTime').datetimepicker();
+		}
+	})();
+	
 	window.$=$;
 	if (!window.console) {
 		window.console = {

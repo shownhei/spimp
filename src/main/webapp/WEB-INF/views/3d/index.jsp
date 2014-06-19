@@ -79,7 +79,7 @@
 <div id="queryresult-template" class="accordion-style1">
 {{#each result}}
    <div class="panel panel-default ">
-        <div class="panel-heading">
+        <div class="panel-heading  widget-header">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">{{typeName}}({{count}})</a>
             </h4>
@@ -199,7 +199,7 @@
 								显示框选或者查询结果的列表信息。
 							</div>
 						</div>
-						<div id="objectinfo" data-level="first"></div>
+						<div id="objectinfo" data-level="first" class="tab-pane"></div>
 						<div id="layer" data-level="first" class="tab-pane">
 							<div id="layer-tree" class="ztree"></div>
 						</div>
@@ -232,7 +232,7 @@
 														</select>
 													</div>
 													<div class="input-append" id="trace_startDateTime">
-														<input name="startDateTime" type="datetime"
+														<input name="startDateTime" type="datetime" id="trace_startDateTime_input"
 															style="width: 119px;" placeholder="开始时间"
 															class="input-small"> <span
 															class="add-on nav-add-on"> <i
@@ -240,7 +240,7 @@
 														</span>
 													</div>
 													<div class="input-append" id="trace_endDateTime">
-														<input name="endDateTime" type="datetime"
+														<input name="endDateTime" type="datetime" id="trace_endDateTime_input"
 															style="width: 119px;" placeholder="截止时间"
 															class="input-small"> <span
 															class="add-on nav-add-on"> <i
