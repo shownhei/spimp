@@ -101,6 +101,11 @@ public class IndexSpmiController {
 		return "spmi/document/query";
 	}
 
+	@RequestMapping(value = "/spmi/dds/basicInfo", method = RequestMethod.GET)
+	public String spmiDdsBasicInfo() {
+		return "spmi/info/edit";
+	}
+
 	@RequestMapping(value = "/spmi/dds/info", method = RequestMethod.GET)
 	public String spmiDdsInfo() {
 		return "spmi/info/index";
@@ -925,8 +930,10 @@ public class IndexSpmiController {
 	public String spmiZcdStaff() {
 		return "system/staff/index";
 	}
+
 	/**
 	 * 机电机运队 队组文化
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/electr/team-culture", method = RequestMethod.GET)

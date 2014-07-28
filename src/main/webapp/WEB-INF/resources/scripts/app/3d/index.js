@@ -224,8 +224,8 @@ define(function(require, exports, module) {
 					break;
 			}
 		} else {
-			$('#layer-tab').trigger('click');
-			$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
+//			$('#layer-tab').trigger('click');
+//			$('#map-image').attr('src', resources + '/images/3d/capture/' + $(this).data('image'));
 		}
 	});
 	$('#control-bar').height($(window).height() - 95);

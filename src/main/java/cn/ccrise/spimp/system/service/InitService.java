@@ -3,7 +3,6 @@
  */
 package cn.ccrise.spimp.system.service;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ public class InitService extends DataInitAbstractService {
 	private GroupService groupService;
 
 	@Override
-	@Test
 	public void initAdmin() {
 		Account admin = new Account();
 		admin.setRealName("超级管理员");
@@ -575,6 +573,7 @@ public class InitService extends DataInitAbstractService {
 		// resourceEntityServiceImpl.saveMenuResource("安全整改", "/spmi/dds/daily",
 		// dds, "", i++);
 		resourceEntityServiceImpl.saveMenuResource("产量管理", "/spmi/dds/output", dds, "", i++);
+		resourceEntityServiceImpl.saveMenuResource("基本信息", "/spmi/dds/basicInfo", dds, "", i++);
 
 		// 安全科
 		String aqk = resourceEntityServiceImpl.getDefaultIdentifier("/spmi/aqk", HttpMethod.GET);
