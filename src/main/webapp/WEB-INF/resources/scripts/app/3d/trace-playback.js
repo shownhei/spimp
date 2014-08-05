@@ -15,7 +15,8 @@ define(function(require, exports, module) {
 		flex:1
 	}, {
 		header : '基站',
-		name : 'stationName'
+		name : 'stationName',
+		width : 150
 	}, {
 		header : '进入时间',
 		name : 'enterCurTime',
