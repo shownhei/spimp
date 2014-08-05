@@ -3,13 +3,6 @@ define(function(require, exports, module) {
 	var Grid = require('grid');
 	// 配置表格列
 	var fields = [ {
-		header : 'id',
-		width : 90,
-		name : 'id',
-		render : function(v) {
-			return v;
-		}
-	}, {
 		header : '员工姓名',
 		width : 80,
 		name : 'name'
@@ -18,16 +11,19 @@ define(function(require, exports, module) {
 		name : 'jobType'
 	}, {
 		header : '班组',
-		name : 'troopName'
+		name : 'troopName',
+		flex:1
 	}, {
 		header : '基站',
 		name : 'stationName'
 	}, {
 		header : '进入时间',
-		name : 'enterCurTime'
+		name : 'enterCurTime',
+		width : 150
 	}, {
 		header : '停留时间',
-		name : 'indataTime'
+		name : 'indataTime',
+		width : 150
 	} ];
 
 	// 计算表格高度和行数

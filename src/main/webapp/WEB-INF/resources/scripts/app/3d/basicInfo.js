@@ -2,7 +2,28 @@ define(function(require, exports, module) {
 	var $ = require('kjquery');
 	var Utils = require('../common/utils');
 	var operation = {};
+	console.log("start");
+	KindEditor.basePath = resources+'/scripts/kindeditor/';
+	window.keditor = KindEditor.create('textarea[name="content"]', {
+		items : [ 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft',
+				'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist','table', '|', 'emoticons', 'image', 'link' ]
+	});
+	$.ajax({
+		type : 'get',
+		dataType : 'text',
+		url : '/ignore/document/basic-infomations',
+		success : function(data) {
+			$('#displayPanel').hide();
+			$('#editPanel').show();
+			console.log("data:",data);
+			$('#temp').html(data);
+			keditor.html(data);
+			Utils.button.enable([ 'save' ]);
+			Utils.button.disable([ 'edit' ]);
+		}
+	});
 	operation.inoEdit = function() {
+		console.log("kindeditor");
 		KindEditor.basePath = resources+'/scripts/kindeditor/';
 		window.keditor = KindEditor.create('textarea[name="content"]', {
 			items : [ 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft',
@@ -15,6 +36,7 @@ define(function(require, exports, module) {
 			success : function(data) {
 				$('#displayPanel').hide();
 				$('#editPanel').show();
+				console.log("data:",data);
 				$('#temp').html(data);
 				keditor.html(data);
 				Utils.button.enable([ 'save' ]);
