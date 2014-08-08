@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 @Service
 public class PDF2SwfService {
 
@@ -33,8 +33,9 @@ public class PDF2SwfService {
 			return -1;
 
 		}
-
-		String command = "pdf2swf -z -s flashversion=9 \"" + sourcePath + "\" -o \"" + destPath + fileName + "\"";
+		String languagePath=PropertiesUtils.getString("languagePath");
+		String pdf2swfPath=PropertiesUtils.getString("pdf2swfPath");
+		String command = pdf2swfPath+" -z -s flashversion=9 \"" + sourcePath + "\" -o \"" + destPath + fileName + "\" -s " + " languagedir="+languagePath;
 		logger.debug(command);
 		Process pro = Runtime.getRuntime().exec(command);
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(pro.getInputStream()));
