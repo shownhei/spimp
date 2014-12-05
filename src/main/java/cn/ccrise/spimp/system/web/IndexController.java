@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	
 	@RequestMapping(value = "/location/foreman", method = RequestMethod.GET)
 	public String locationForeman() {
 		return "location/foreman/index";
@@ -111,5 +111,65 @@ public class IndexController {
 	@RequestMapping(value = "/system/staff", method = RequestMethod.GET)
 	public String systemStaff() {
 		return "system/staff/index";
+	}
+
+	/**
+	 * 监察监控三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/monitor/realtime3D", method = RequestMethod.GET)
+	public String monitor3D() {
+		return "monitor/realtime/index3D";
+	}
+
+	/**
+	 * 人员定位三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/location/realtime3D", method = RequestMethod.GET)
+	public String location3D() {
+		return "location/realtime/index3D";
+	}
+
+	/**
+	 * 人员定位历史查询三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/location/query3D", method = RequestMethod.GET)
+	public String locationQuery3D() {
+		return "location/query/index3D";
+	}
+
+	/**
+	 * 人员定位基本信息三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/location/info3D", method = RequestMethod.GET)
+	public String locationInfo3D() {
+		return "location/info/index3D";
+	}
+
+	/**
+	 * 监测监控历史曲线三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/monitor/curve3D", method = RequestMethod.GET)
+	public String monitorCurve3D() {
+		return "monitor/curve/index3D";
+	}
+
+	/**
+	 * 监测监控历史曲线三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/monitor/query3D", method = RequestMethod.GET)
+	public String monitorQuery3D() {
+		return "monitor/query/index3D";
 	}
 }
