@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.util.Page;
 import cn.ccrise.ikjp.core.util.Response;
@@ -51,6 +53,7 @@ public class LocationStaffController {
 	private LocationStaffService locationStaffService;
 	@Autowired
 	private LocationStationService locationStationService;
+
 	/**
 	 * 获得所有的部门
 	 */
@@ -59,15 +62,17 @@ public class LocationStaffController {
 	public Response getAllDepartment() {
 		return new Response(locationStaffService.getAllDepartment());
 	}
+
 	/**
 	 * 获得给定部门的所有人员
 	 */
 	@RequestMapping(value = "/location/location-staffs/departmentstaff", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getDepartmentStaff(String department) {
-		System.out.println("in...."+department);   
+		System.out.println("in...." + department);
 		return new Response(locationStaffService.getDepartmentStaff(department));
 	}
+
 	/**
 	 * 实时下井总人数
 	 */
@@ -226,6 +231,70 @@ public class LocationStaffController {
 		}
 
 		return new Response(leaders);
+	}
+
+	/**
+	 * 实时下井领导和井下人数-3D
+	 */
+	@RequestMapping(value = "/location/location-staffs/leader-count", method = RequestMethod.GET)
+	@ResponseBody
+	public Response leaderAndCount(String mineId) {
+		// List<LocationStaff> result =
+		// locationStaffService.find(Restrictions.ge("state", 3),
+		// Restrictions.or(Restrictions.eq("jobType", 2),
+		// Restrictions.eq("jobType", 3)));
+		String sql = "SELECT distinct COUNT(*),(select COUNT(*) from LocationStaff staffone where staffone.state=3 and staffone.id.mineId=:mineId),"
+				+ "(select stafftwo.name,stafftwo.curStationId from LocationStaff stafftwo where stafftwo.department="
+				+ "矿领导" + " and stafftwo.id.mineId=:mineId) FROM LocationStaff staff where staff.id.mineId=:mineId";
+		Query resultQuery = locationStaffService.getDAO().createQuery(sql);
+		resultQuery.setParameter("mineID", mineId);
+		List<Object[]> results = Lists.newArrayList();
+		results = resultQuery.list();
+
+		List<Leader> leaders = Lists.newArrayList();
+		for (Object[] result : results) {
+			Leader leader = new Leader(String.valueOf(result[2]), String.valueOf(result[3]));
+			leaders.add(leader);
+		}
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("total", String.valueOf(results.get(0)[0]));
+		data.put("inMine", String.valueOf(results.get(0)[1]));
+		data.put("leaders", leaders);
+		return new Response(data);
+	}
+
+	/**
+	 * 查询当前分站人员信息列表
+	 */
+	@RequestMapping(value = "/location/station-staffs", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getStationStaffs(String nodeId, Page<LocationStaff> page) {
+		page = locationStaffService.getPage(page, Restrictions.eq("curStationId", nodeId));
+		return new Response(page);
+	}
+
+	/**
+	 * 让3D访问返回页面
+	 * 
+	 * @param nodeId
+	 * @return
+	 */
+	@RequestMapping(value = "/location/station-staffs-index", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView getStationStaffIndex(String nodeId) {
+		Map<String, String> node = new HashMap<String, String>();
+		node.put("nodeId", nodeId);
+		return new ModelAndView("location/3D/index", node);
+	}
+
+	/**
+	 * 查询当前分站人数
+	 */
+	@RequestMapping(value = "/location/location-staffs-count", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getStationCount(String nodeId) {
+		Long count = locationStaffService.count(Restrictions.eq("id.nodeId", nodeId));
+		return new Response(count);
 	}
 
 	/**
