@@ -1,9 +1,7 @@
 package cn.ccrise.spimp.monitor.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -76,14 +74,28 @@ public class MonitorRealDatasController {
 	@RequestMapping(value = "/monitor/realdatas-3d/realdata", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getRealData3D(String mineId) {
-		String sql = "SELECT COUNT(*) AS count,(select COUNT(*) from MonitorNode nodeone where nodeone.sensortypeid between 0 and 99 and nodeone.id.mineId=:mineID) as moli"
-				+ ",(select COUNT(*) from MonitorNode nodetwo where nodetwo.sensortypeid>99 and nodetwo.id.mineId=:mineID) as kaiguan,"
-				+ "(select nodethree.nodeplace from MonitorNode nodethree where nodethree.currentdata=(select MAX(nodefour.currentdata) from MonitorNode nodefour where nodefour.sensortypeid=1 and nodefour.id.mineId=:mineID)) as place,"
-				+ "(select MAX(nodefive.currentdata) from MonitorNode nodefive where nodefive.sensortypeid=1 and nodefive.id.mineId=:mineID) as maxdata,"
-				+ "(select nodesix.nodeplace from MonitorNode nodesix where nodesix.currentdata=(select MAX(nodeseven.currentdata) from MonitorNode nodeseven where nodeseven.sensortypeid=4 adn nodeseven.id.mineId=:mineID)) as COplace,"
-				+ "(select MAX(nodeeight.currentdata) from MonitorNode nodeeight where nodeeight.sensortypeid=4 adn nodeeight.id.mineId=:mineID) as COmaxdata  FROM MonitorNode node";
-		Query resultQuery = monitorRealDatasService.getDAO().createQuery(sql);
-		resultQuery.setParameter("mineID", mineId);
+		String sql = "SELECT DISTINCT COUNT(*) AS count,(select COUNT(*) from K_Node nodeone where (nodeone.sensorTypeId between 0 and 99) and nodeone.mineId="
+				+ mineId
+				+ ") as moli,"
+				+ "(select COUNT(*) from K_Node nodetwo where nodetwo.sensorTypeId>99 and nodetwo.mineId="
+				+ mineId
+				+ ") as kaiguan,"
+				+ "(select Top 1 nodethree.nodePlace from K_Node nodethree where nodethree.currentData=(select MAX(nodefour.currentData) "
+				+ "from K_Node nodefour where nodefour.sensorTypeId=1 and nodefour.mineId="
+				+ mineId
+				+ ")) as place,"
+				+ "(select MAX(nodefive.currentData) from K_Node nodefive where nodefive.sensorTypeId=1 and nodefive.mineId="
+				+ mineId
+				+ ") as maxdata,"
+				+ "(select Top 1 nodesix.nodePlace from K_Node nodesix where nodesix.currentData=(select  MAX(nodeseven.currentData)"
+				+ " from K_Node nodeseven where nodeseven.sensorTypeId=4 and nodeseven.mineId="
+				+ mineId
+				+ ")) as COplace,"
+				+ "(select MAX(nodeeight.currentData) from K_Node nodeeight where nodeeight.sensorTypeId=4 and nodeeight.mineId="
+				+ mineId + ") as COmaxdata  FROM K_Node node";
+
+		Query resultQuery = monitorRealDatasService.getDAO().createSQLQuery(sql);
+		// resultQuery.setParameter("mineID", mineId);
 		List<Object[]> results = Lists.newArrayList();
 		results = resultQuery.list();
 		RealData realData = new RealData();
@@ -92,19 +104,29 @@ public class MonitorRealDatasController {
 		realData.setSwitchCount(String.valueOf(results.get(0)[2]));
 		realData.setCh4Place(String.valueOf(results.get(0)[3]));
 		realData.setCh4Data(String.valueOf(results.get(0)[4]));
-		realData.setCh4Place(String.valueOf(results.get(0)[5]));
+		realData.setCoPlace(String.valueOf(results.get(0)[5]));
 		realData.setCoData(String.valueOf(results.get(0)[6]));
 		return new Response(realData);
 	}
 
+	/**
+	 * 返回测点数据-3D
+	 * 
+	 * @param nodeId
+	 * @return
+	 */
 	@RequestMapping(value = "/monitor/nodedata-3d/realdata", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getNodeData3D(String nodeId) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		criterions.add(Restrictions.eq("id.nodeId", nodeId));
-		Map<String, String> datas = new HashMap<String, String>();
-		datas.put(nodeId, monitorNodeService.findUnique(criterions.toArray(new Criterion[0])).getCurrentData()
-				.toString());
-		return new Response(datas);
+		String data = "";
+		try {
+			data = monitorNodeService.findUnique(criterions.toArray(new Criterion[0])).getCurrentData().toString();
+		} catch (Exception e) {
+			data = null;
+		}
+
+		return new Response(data);
 	}
 }

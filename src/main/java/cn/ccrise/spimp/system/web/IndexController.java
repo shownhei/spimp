@@ -164,7 +164,7 @@ public class IndexController {
 	}
 
 	/**
-	 * 监测监控历史曲线三维显示接口界面
+	 * 监测监控历史查询三维显示接口界面
 	 * 
 	 * @return
 	 */

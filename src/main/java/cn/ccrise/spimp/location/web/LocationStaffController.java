@@ -236,6 +236,7 @@ public class LocationStaffController {
 	/**
 	 * 实时下井领导和井下人数-3D
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/location/location-staffs/leader-count", method = RequestMethod.GET)
 	@ResponseBody
 	public Response leaderAndCount(String mineId) {
@@ -243,17 +244,20 @@ public class LocationStaffController {
 		// locationStaffService.find(Restrictions.ge("state", 3),
 		// Restrictions.or(Restrictions.eq("jobType", 2),
 		// Restrictions.eq("jobType", 3)));
-		String sql = "SELECT distinct COUNT(*),(select COUNT(*) from LocationStaff staffone where staffone.state=3 and staffone.id.mineId=:mineId),"
-				+ "(select stafftwo.name,stafftwo.curStationId from LocationStaff stafftwo where stafftwo.department="
-				+ "矿领导" + " and stafftwo.id.mineId=:mineId) FROM LocationStaff staff where staff.id.mineId=:mineId";
+		String sql = "SELECT distinct COUNT(*),(select COUNT(*) from LocationStaff staffone where staffone.state=3 and staffone.id.mineId=:mineID) from LocationStaff staff";
+		String leadersql = "select stafftwo.name,(select station.pos from LocationStation station where station.id.stationId =stafftwo.curStationId ) from LocationStaff stafftwo where stafftwo.department="
+				+ "'矿领导'" + " and stafftwo.state=3 and stafftwo.id.mineId=:mineID";
 		Query resultQuery = locationStaffService.getDAO().createQuery(sql);
+		Query leaderQuery = locationStaffService.getDAO().createQuery(leadersql);
 		resultQuery.setParameter("mineID", mineId);
+		leaderQuery.setParameter("mineID", mineId);
 		List<Object[]> results = Lists.newArrayList();
 		results = resultQuery.list();
-
+		List<Object[]> leaderResults = Lists.newArrayList();
+		leaderResults = leaderQuery.list();
 		List<Leader> leaders = Lists.newArrayList();
-		for (Object[] result : results) {
-			Leader leader = new Leader(String.valueOf(result[2]), String.valueOf(result[3]));
+		for (Object[] result : leaderResults) {
+			Leader leader = new Leader(String.valueOf(result[0]), String.valueOf(result[1]));
 			leaders.add(leader);
 		}
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -281,9 +285,9 @@ public class LocationStaffController {
 	 */
 	@RequestMapping(value = "/location/station-staffs-index", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView getStationStaffIndex(String nodeId) {
+	public ModelAndView getStationStaffIndex(String stationId) {
 		Map<String, String> node = new HashMap<String, String>();
-		node.put("nodeId", nodeId);
+		node.put("nodeId", stationId);
 		return new ModelAndView("location/3D/index", node);
 	}
 
@@ -292,8 +296,8 @@ public class LocationStaffController {
 	 */
 	@RequestMapping(value = "/location/location-staffs-count", method = RequestMethod.GET)
 	@ResponseBody
-	public Response getStationCount(String nodeId) {
-		Long count = locationStaffService.count(Restrictions.eq("id.nodeId", nodeId));
+	public Response getStationCount(String stationId) {
+		Long count = locationStaffService.count(Restrictions.eq("id.curStationId", stationId));
 		return new Response(count);
 	}
 
