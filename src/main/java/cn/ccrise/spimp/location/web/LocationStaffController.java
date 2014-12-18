@@ -297,7 +297,7 @@ public class LocationStaffController {
 	@RequestMapping(value = "/location/location-staffs-count", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getStationCount(String stationId) {
-		Long count = locationStaffService.count(Restrictions.eq("id.curStationId", stationId));
+		Long count = locationStaffService.count(Restrictions.eq("curStationId", stationId));
 		return new Response(count);
 	}
 
