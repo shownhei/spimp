@@ -108,6 +108,30 @@ public class LocationStaffController {
 	}
 
 	/**
+	 * 得到所有部门或者根据部门信息得到所在部门所有人员信息-3d
+	 */
+	@RequestMapping(value = "/location/location-department-3d", method = RequestMethod.GET)
+	@ResponseBody
+	public Response departments3D(String department) {
+		List<Department> lists = Lists.newArrayList();
+		Set<String> departments = new TreeSet<String>();
+		if (!Strings.isNullOrEmpty(department)) {
+			return new Response(locationStaffService.findBy("department", department));
+		} else {
+			for (LocationStaff locationStaff : locationStaffService.getAll()) {
+				departments.add(locationStaff.getDepartment());
+			}
+			for (String name : departments) {
+				Department result = new Department();
+				result.setName(name);
+				lists.add(result);
+			}
+			return new Response(lists);
+		}
+
+	}
+
+	/**
 	 * 按照读卡器编号或安装位置查询在线人数，包括人员名称、职务、工种、部门、联系电话等。
 	 */
 	@RequestMapping(value = "/location/location-staffs/detail", method = RequestMethod.GET)

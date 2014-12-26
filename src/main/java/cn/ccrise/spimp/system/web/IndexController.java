@@ -144,6 +144,16 @@ public class IndexController {
 	}
 
 	/**
+	 * 人员定位历史轨迹查询三维显示接口界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/location/track3D", method = RequestMethod.GET)
+	public String locationTrackQuery3D() {
+		return "location/query/track3D";
+	}
+
+	/**
 	 * 人员定位基本信息三维显示接口界面
 	 * 
 	 * @return
@@ -171,5 +181,15 @@ public class IndexController {
 	@RequestMapping(value = "/monitor/query3D", method = RequestMethod.GET)
 	public String monitorQuery3D() {
 		return "monitor/query/index3D";
+	}
+
+	/**
+	 * 测试
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/location/test3D", method = RequestMethod.GET)
+	public String test3D() {
+		return "location/realtime/test3D";
 	}
 }

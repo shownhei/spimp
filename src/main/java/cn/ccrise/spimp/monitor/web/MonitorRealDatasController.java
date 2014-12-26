@@ -1,7 +1,9 @@
 package cn.ccrise.spimp.monitor.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ccrise.ikjp.core.util.Response;
+import cn.ccrise.spimp.monitor.entity.MonitorNode;
 import cn.ccrise.spimp.monitor.service.MonitorNodeService;
 import cn.ccrise.spimp.monitor.service.MonitorRealDatasService;
 import cn.ccrise.spimp.monitor.web.entity.RealData;
@@ -128,5 +131,36 @@ public class MonitorRealDatasController {
 		}
 
 		return new Response(data);
+	}
+
+	/**
+	 * 返回所有测点数据-3D
+	 * 
+	 * @param nodeId
+	 * @return
+	 */
+	@RequestMapping(value = "/monitor/nodedata-all-3d/realdata", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getAllNodeData3D(String mineId) {
+		ArrayList<Criterion> criterions = Lists.newArrayList();
+		criterions.add(Restrictions.eq("id.mineId", mineId));
+		List<MonitorNode> nodes = Lists.newArrayList();
+		List<Map<Double, String>> datas = Lists.newArrayList();
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			nodes = monitorNodeService.find(criterions.toArray(new Criterion[0]));
+			for (MonitorNode node : nodes) {
+				Map<Double, String> map = new HashMap<Double, String>();
+				String DBID = node.getId().getMineId() + ";" + node.getId().getNodeId();
+				Double data = node.getCurrentData();
+				map.put(data, DBID);
+				datas.add(map);
+				result.put("SENSORPOINT", datas);
+			}
+		} catch (Exception e) {
+			datas = null;
+		}
+
+		return new Response(result);
 	}
 }
