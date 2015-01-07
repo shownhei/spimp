@@ -39,8 +39,9 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 		return locationTrackDAO;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Page<Warn> getWarn(Page<Warn> page, String state, String department, String staffId, String startTime,
-			String endTime, String warnQueryIn) {
+			String endTime, String warnQueryIn, Boolean all) {
 		StringBuffer tempTable = new StringBuffer();
 		StringBuffer filterTable = new StringBuffer();
 		Map<Integer, String> stateMaps = new HashMap<Integer, String>();
@@ -99,10 +100,14 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
 		if (totalRows > 0) {
-			@SuppressWarnings("unchecked")
-			List<Object[]> results = getDAO().createQuery(tempTable.toString())
-					.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1)).setMaxResults(page.getPageSize())
-					.list();
+			List<Object[]> results = Lists.newArrayList();
+			if (all != null) {
+				results = getDAO().createQuery(tempTable.toString()).list();
+			} else {
+				results = getDAO().createQuery(tempTable.toString())
+						.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1))
+						.setMaxResults(page.getPageSize()).list();
+			}
 			List<Warn> lists = Lists.newArrayList();
 			for (Object[] result : results) {
 				Warn warn = new Warn();

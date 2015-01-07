@@ -106,7 +106,7 @@ public class HistoryQueryController {
 	@ResponseBody
 	public Response alarmDatasStatisticDetail(Page<MonitorAlarm> page, String nodeId, String sensorName,
 			String nodePlace) {
-		genAlarmDatas(page, null, null, null, null, null, nodeId, sensorName, nodePlace);
+		genAlarmDatas(page, null, null, null, null, null, nodeId, sensorName, nodePlace, null);
 		return new Response(page);
 	}
 
@@ -214,7 +214,8 @@ public class HistoryQueryController {
 	 * 报警明细(数据)
 	 */
 	public void genAlarmDatas(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState,
-			Integer timeLast, String startTime, String endTime, String nodeId, String sensorName, String nodePlace) {
+			Integer timeLast, String startTime, String endTime, String nodeId, String sensorName, String nodePlace,
+			Boolean all) {
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (monitorSensorType != null) {
 			criterions.add(Restrictions.eq("sensorTypeId", monitorSensorType));
@@ -248,8 +249,11 @@ public class HistoryQueryController {
 		if (StringUtils.isNotBlank(nodePlace)) {
 			criterions.add(Restrictions.eq("nodePlace", nodePlace));
 		}
-
-		monitorAlarmService.getPage(page, criterions.toArray(new Criterion[0]));
+		if (all != null) {
+			page.setResult(monitorAlarmService.find(criterions.toArray(new Criterion[0])));
+		} else {
+			monitorAlarmService.getPage(page, criterions.toArray(new Criterion[0]));
+		}
 
 		// 过滤关联数据
 		Map<Integer, MonitorSensorType> monitorSensorTypeCache = monitorSensorTypeService.getAllInstanceAsMap();
@@ -449,9 +453,13 @@ public class HistoryQueryController {
 	@RequestMapping(value = "/monitor/alarm-datas", method = RequestMethod.GET)
 	@ResponseBody
 	public Response page(Page<MonitorAlarm> page, Integer monitorSensorType, Integer monitorState, Integer timeLast,
-			String startTime, String endTime) {
-		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null);
-		return new Response(page);
+			String startTime, String endTime, Boolean all) {
+		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null, all);
+		if (all != null) {
+			return new Response(page.getResult());
+		} else {
+			return new Response(page);
+		}
 	}
 
 	/**
@@ -460,7 +468,7 @@ public class HistoryQueryController {
 	@RequestMapping(value = "/monitor/alarm-datas-export", method = RequestMethod.GET)
 	public void pageExport(HttpServletResponse response, Page<MonitorAlarm> page, Integer monitorSensorType,
 			Integer monitorState, Integer timeLast, String startTime, String endTime) throws Exception {
-		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null);
+		genAlarmDatas(page, monitorSensorType, monitorState, timeLast, startTime, endTime, null, null, null, null);
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
 		exportExcel(response, "报警明细", TemplateUtil.loadTemplate("AlarmDatasExport.xml", results));

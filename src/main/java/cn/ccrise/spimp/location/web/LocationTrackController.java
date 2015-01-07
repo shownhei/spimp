@@ -61,7 +61,7 @@ public class LocationTrackController {
 	@ResponseBody
 	public void exportWarn(HttpServletResponse response, Page<Warn> page, String type, String department,
 			String staffId, String startTime, String endTime, String warnQueryIn) throws Exception {
-		page = locationTrackService.getWarn(page, type, department, staffId, startTime, endTime, warnQueryIn);
+		page = locationTrackService.getWarn(page, type, department, staffId, startTime, endTime, warnQueryIn, null);
 
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
@@ -97,7 +97,9 @@ public class LocationTrackController {
 		return new Response(page);
 	}
 
-	public void getTrackDetails(Page<Track> page, String department, String staffId, String startTime, String endTime) {
+	@SuppressWarnings("unchecked")
+	public void getTrackDetails(Page<Track> page, String department, String staffId, String startTime, String endTime,
+			String all) {
 		StringBuffer tempTable = new StringBuffer();
 		StringBuffer filterTable = new StringBuffer();
 		Map<Integer, String> stateMaps = new HashMap<Integer, String>();
@@ -146,11 +148,15 @@ public class LocationTrackController {
 			totalRows = 0L;
 		}
 		if (totalRows > 0) {
+			List<Object[]> results = Lists.newArrayList();
+			if (Strings.isNullOrEmpty(all)) {
+				results = locationStaffService.getDAO().createQuery(tempTable.toString())
+						.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1))
+						.setMaxResults(page.getPageSize()).list();
+			} else {
+				results = locationStaffService.getDAO().createQuery(tempTable.toString()).list();
+			}
 
-			@SuppressWarnings("unchecked")
-			List<Object[]> results = locationStaffService.getDAO().createQuery(tempTable.toString())
-					.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1)).setMaxResults(page.getPageSize())
-					.list();
 			List<Track> lists = Lists.newArrayList();
 			for (Object[] result : results) {
 				Track track = new Track();
@@ -190,9 +196,15 @@ public class LocationTrackController {
 	 */
 	@RequestMapping(value = "/location/location-tracks-query", method = RequestMethod.GET)
 	@ResponseBody
-	public Response query(Page<Track> page, String department, String staffId, String startTime, String endTime) {
-		getTrackDetails(page, department, staffId, startTime, endTime);
-		return new Response(page);
+	public Response query(Page<Track> page, String department, String staffId, String startTime, String endTime,
+			String all) {
+		if (!Strings.isNullOrEmpty(all)) {
+			getTrackDetails(page, department, staffId, startTime, endTime, all);
+			return new Response(page.getResult());
+		} else {
+			getTrackDetails(page, department, staffId, startTime, endTime, all);
+			return new Response(page);
+		}
 	}
 
 	/**
@@ -201,9 +213,15 @@ public class LocationTrackController {
 	@RequestMapping(value = "/location/location-warn-query", method = RequestMethod.GET)
 	@ResponseBody
 	public Response queryWarn(Page<Warn> page, String type, String department, String staffId, String startTime,
-			String endTime, String warnQueryIn) {
-		page = locationTrackService.getWarn(page, type, department, staffId, startTime, endTime, warnQueryIn);
-		return new Response(page);
+			String endTime, String warnQueryIn, Boolean all) {
+		if (all != null) {
+			page = locationTrackService.getWarn(page, type, department, staffId, startTime, endTime, warnQueryIn, all);
+			return new Response(page.getResult());
+
+		} else {
+			page = locationTrackService.getWarn(page, type, department, staffId, startTime, endTime, warnQueryIn, null);
+			return new Response(page);
+		}
 	}
 
 	@RequestMapping(value = "/location/location-tracks", method = RequestMethod.POST)
@@ -214,9 +232,9 @@ public class LocationTrackController {
 
 	@RequestMapping(value = "/location/location-tracks-export", method = RequestMethod.GET)
 	public void trackDetailExport(HttpServletResponse response, Page<Track> page, String department, String staffId,
-			String startTime, String endTime) throws Exception {
+			String startTime, String endTime, String all) throws Exception {
 
-		getTrackDetails(page, department, staffId, startTime, endTime);
+		getTrackDetails(page, department, staffId, startTime, endTime, all);
 
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());

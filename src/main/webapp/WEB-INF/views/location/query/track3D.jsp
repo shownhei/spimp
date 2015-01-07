@@ -48,8 +48,8 @@
 												</span>
 											</div>
 											<button id="query2" class="btn btn-small btn-primary">查询</button>
-											<button id="export2" class="btn btn-small btn-primary">导出</button>
-											<button id="reset2" type="reset" class="btn btn-primary btn-small">重置</button>
+											<button id="trackback" class="btn btn-small btn-primary">轨迹回放</button>
+											
 										</form>
 									</div>
 									<div id="grid2" class="row-fluid"></div>

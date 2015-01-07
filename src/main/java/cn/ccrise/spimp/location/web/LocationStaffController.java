@@ -112,13 +112,14 @@ public class LocationStaffController {
 	 */
 	@RequestMapping(value = "/location/location-department-3d", method = RequestMethod.GET)
 	@ResponseBody
-	public Response departments3D(String department) {
+	public Response departments3D(String department, String mineId) {
 		List<Department> lists = Lists.newArrayList();
 		Set<String> departments = new TreeSet<String>();
 		if (!Strings.isNullOrEmpty(department)) {
-			return new Response(locationStaffService.findBy("department", department));
+			return new Response(locationStaffService.find(Restrictions.eq("id.mineId", mineId),
+					Restrictions.eq("department", department)));
 		} else {
-			for (LocationStaff locationStaff : locationStaffService.getAll()) {
+			for (LocationStaff locationStaff : locationStaffService.find(Restrictions.eq("id.mineId", mineId))) {
 				departments.add(locationStaff.getDepartment());
 			}
 			for (String name : departments) {

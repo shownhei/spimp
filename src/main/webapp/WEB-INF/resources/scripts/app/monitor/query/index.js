@@ -128,9 +128,13 @@ define(function(require, exports, module) {
 	}, {
 		header : '安装位置',
 		name : 'nodePlace'
+	
 	}, {
 		header : '实时数据',
-		name : 'realData'
+		name : 'realData',
+		render : function(value){
+				return value==0?"关":"开";
+		}
 	}, {
 		header : '数据时间',
 		name : 'createtime'

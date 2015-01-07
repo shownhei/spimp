@@ -39,29 +39,33 @@ public class MonitorNodeController {
 	private MonitorNodeService monitorNodeService;
 	@Autowired
 	private MonitorSensorTypeService monitorSensorTypeService;
+
 	/**
 	 * 返回所有测点的实时数据 for activex
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/monitor/monitor-nodes-value", method = RequestMethod.GET)
 	@ResponseBody
 	public Response sensorPointValue() {
-		LinkedList<HashMap<String,Object>> result = new LinkedList<HashMap<String,Object>>();
-		HashMap<String,Object> raw = null;
+		LinkedList<HashMap<String, Object>> result = new LinkedList<HashMap<String, Object>>();
+		HashMap<String, Object> raw = null;
 		StringBuilder buff = new StringBuilder();
-		for(MonitorNode node :monitorNodeService.find()){
+		for (MonitorNode node : monitorNodeService.find()) {
 			buff.delete(0, buff.capacity());
-			raw = new HashMap<String,Object> ();
+			raw = new HashMap<String, Object>();
 			buff.append("MineID:");
 			buff.append(node.getId().getMineId());
 			buff.append(";NodeID:");
 			buff.append(node.getId().getNodeId());
+			buff.append(";");
 			raw.put("DBID", buff.toString());
 			raw.put("DATA", node.getCurrentData());
 			result.add(raw);
 		}
 		return new Response(result);
 	}
+
 	/**
 	 * 监测监控实时监测部分的全部测点列表
 	 */

@@ -134,6 +134,26 @@ define(function(require, exports, module) {
 		$('.page-content .row-fluid .span9').removeClass('span9 hide').addClass('span12');
 	}
 
+	$("#trackback").click(function(event) {
+		$.getJSON('/location/location-tracks-query?all=all', Utils.form.buildParams("query-form2"), function(data, textStatus) {
+				/*optional stuff to do after success */
+			var _jsonResult = {};
+			var READCARD = [];
+			if(data.data.length!==0){
+				_jsonResult.PEOPLE = data.data[0].name;
+				$.each(data.data, function(key, value) {
+					READCARD.push({
+						'DBID' : 'MineID:' + value.mineId + ';StationID:' + value.stationId + ';'
+					});
+				});
+				_jsonResult.READCARD = READCARD;
+			}
+			var result = JSON.stringify(_jsonResult)
+			external.OnGuiji3d(_jsonResult);
+				
+		});
+		
+	});
 	// 配置表格
 	function configGrid(parentNode, fields) {
 		return new Grid({
