@@ -2,6 +2,7 @@ package cn.ccrise.spimp.monitor.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -164,6 +165,52 @@ public class MonitorRealDatasController {
 		realData.setWindData(String.valueOf(results.get(0)[16]));
 		realData.setWindState(String.valueOf(results.get(0)[17]));
 		return new Response(realData);
+	}
+
+	/**
+	 * 返回多个测点数据-3D
+	 * 
+	 * @param nodeId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/monitor/nodedata-3d/theme", method = RequestMethod.GET)
+	@ResponseBody
+	public Response getNodeDatas3D(String nodeIds, String mineId) {
+		// String nodes[] = nodeIds.split(",");
+		logger.debug("mineID:{}", mineId);
+		String nodes[] = nodeIds.split(",");
+		List<String> nodeAll = Lists.newArrayList();
+		for (String node : nodes) {
+			nodeAll.add(node);
+		}
+		String sql = "select node.id.mineId,node.id.nodeId,node.nodePlace,node.currentData,(select type.sensorTypeName from MonitorSensorType type where type.sensorTypeId=node.sensorTypeId)"
+				+ ",(select state.stateName from MonitorState state where state.stateId = node.stateId) from MonitorNode node where node.id.nodeId in (:nodeIds) and node.id.mineId=:mineId";
+		Query resultQuery = monitorNodeService.getDAO().createQuery(sql.toString());
+		resultQuery.setParameterList("nodeIds", nodeAll);
+		resultQuery.setParameter("mineId", mineId);
+		List<Object[]> results = Lists.newArrayList();
+		results = resultQuery.list();
+
+		LinkedList<HashMap<String, Object>> result = new LinkedList<HashMap<String, Object>>();
+		HashMap<String, Object> raw = null;
+		StringBuilder buff = new StringBuilder();
+		for (Object[] node : results) {
+			buff.delete(0, buff.capacity());
+			raw = new HashMap<String, Object>();
+			buff.append("MineID:");
+			buff.append(String.valueOf(node[0]));
+			buff.append(";NodeID:");
+			buff.append(String.valueOf(node[1]));
+			buff.append(";");
+			raw.put("DBID", buff.toString());
+			raw.put("DATA", String.valueOf(node[3]));
+			raw.put("PLACE", String.valueOf(node[2]));
+			raw.put("TYPE", String.valueOf(node[4]));
+			raw.put("STATE", String.valueOf(node[5]));
+			result.add(raw);
+		}
+		return new Response(result);
 	}
 
 	/**
