@@ -121,6 +121,9 @@ public class LocationTrackController {
 		if (!Strings.isNullOrEmpty(staffId)) {
 			filterTable.append(" AND staff.id.staffId='").append(staffId).append("'");
 		}
+		if (StringUtils.isNotBlank(department)) {
+			filterTable.append(" AND staff.department='").append(department).append("'");
+		}
 		if (StringUtils.isNotBlank(startTime)) {
 			filterTable.append(" AND track.id.enterCurTime >= CONVERT(DATETIME, '").append(startTime)
 					.append("', 102) ");
@@ -128,13 +131,9 @@ public class LocationTrackController {
 		if (StringUtils.isNotBlank(endTime)) {
 			filterTable.append(" AND track.id.enterCurTime <= CONVERT(DATETIME, '").append(endTime).append("', 102) ");
 		}
+
 		StringBuffer filteruery = new StringBuffer();
 		filteruery.append(filterTable);
-		filteruery
-				.append(" GROUP BY staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state, staff.indataTime,staff.id.mineId");
-		filteruery.append(" ORDER BY track.id.enterCurTime ASC");
-
-		tempTable.append(filteruery);
 
 		// 查询结果条数hql语句
 		String countHql = "SELECT count(*) " + "From LocationStaff staff,LocationStaffRealDatas track "
@@ -150,10 +149,22 @@ public class LocationTrackController {
 		if (totalRows > 0) {
 			List<Object[]> results = Lists.newArrayList();
 			if (Strings.isNullOrEmpty(all)) {
+				filteruery
+						.append(" GROUP BY staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state, staff.indataTime,staff.id.mineId");
+				filteruery.append(" ORDER BY staff.name desc,track.id.enterCurTime desc");
+
+				tempTable.append(filteruery);
+
 				results = locationStaffService.getDAO().createQuery(tempTable.toString())
 						.setFirstResult(page.getPageSize() * (page.getPageNumber() - 1))
 						.setMaxResults(page.getPageSize()).list();
 			} else {
+				filteruery
+						.append(" GROUP BY staff.id.staffId,staff.name,staff.department,staff.jobName,staff.troopName,track.stationId,track.id.enterCurTime,track.state, staff.indataTime,staff.id.mineId");
+				filteruery.append(" ORDER BY staff.name desc,track.id.enterCurTime asc");
+
+				tempTable.append(filteruery);
+
 				results = locationStaffService.getDAO().createQuery(tempTable.toString()).list();
 			}
 

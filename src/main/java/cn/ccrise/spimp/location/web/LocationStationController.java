@@ -3,10 +3,14 @@
  */
 package cn.ccrise.spimp.location.web;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,8 @@ import cn.ccrise.spimp.location.entity.LocationStaff;
 import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.service.LocationStaffService;
 import cn.ccrise.spimp.location.service.LocationStationService;
+
+import com.google.common.collect.Lists;
 
 /**
  * LocationStation Controller。
@@ -52,19 +58,26 @@ public class LocationStationController {
 
 	@RequestMapping(value = "/location/location-stations", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<LocationStation> page) {
+	public Response page(Page<LocationStation> page, Integer state) {
 		page = locationStationService.getPage(page);
+
 		Map<Integer, String> stationMaps = new HashMap<Integer, String>();
 		stationMaps.put(0, "井下定位");
 		stationMaps.put(1, "井口考勤");
 		stationMaps.put(2, "井底（考勤）");
 		stationMaps.put(3, "井下禁区");
 		for (LocationStation station : page.getResult()) {
+			ArrayList<Criterion> criterions = Lists.newArrayList();
+			if (state != null) {
+				criterions.add(Restrictions.eq("state", 3));
+			}
 			station.setTypeString(stationMaps.get(station.getType()));
-
-			station.setCurPersonNum(locationStaffService.count(
-					Restrictions.eq("curStationId", station.getId().getStationId()),
-					Restrictions.eq("id.mineId", station.getId().getMineId())));
+			criterions.add(Restrictions.eq("id.mineId", station.getId().getMineId()));
+			criterions.add(Restrictions.eq("curStationId", station.getId().getStationId()));
+			station.setCurPersonNum(locationStaffService.count(criterions.toArray(new Criterion[0])));
+			Date date = new Date();
+			Timestamp nousedate = new Timestamp(date.getTime());
+			station.setDataTime(nousedate);
 		}
 		return new Response(page);
 	}

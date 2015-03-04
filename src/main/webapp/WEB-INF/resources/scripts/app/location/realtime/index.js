@@ -150,9 +150,9 @@ define(function(require, exports, module) {
 		pageSize = Math.floor(gridHeight / GRID_ROW_HEIGHT);
 
 		// 初始化grid的url
-		gridUrl1 = contextPath + '/location/location-areas?orderBy=id&order=desc&pageSize=' + pageSize;
-		gridUrl2 = contextPath + '/location/location-stations?orderBy=id&order=desc&pageSize=' + pageSize;
-		gridUrl3 = contextPath + '/location/location-staffs?orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl1 = contextPath + '/location/location-areas?state=3&orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl2 = contextPath + '/location/location-stations?state=3&orderBy=id&order=desc&pageSize=' + pageSize;
+		gridUrl3 = contextPath + '/location/location-staffs?state=3&orderBy=id&order=desc&pageSize=' + pageSize;
 
 		// 根据激活的tab，重新加载tab中的grid数据
 		loadTab('#' + $('.tab-content .active').attr('id'));

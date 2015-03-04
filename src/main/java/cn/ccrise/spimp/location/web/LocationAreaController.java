@@ -4,6 +4,10 @@
 package cn.ccrise.spimp.location.web;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +17,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SQLQuery;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +31,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.location.entity.LocationArea;
 import cn.ccrise.spimp.location.entity.LocationStaff;
 import cn.ccrise.spimp.location.service.LocationAreaService;
 import cn.ccrise.spimp.location.service.LocationStaffService;
+import cn.ccrise.spimp.util.DateUtil;
+
+import com.google.common.collect.Lists;
 
 /**
  * LocationArea Controller。
@@ -98,20 +107,32 @@ public class LocationAreaController {
 
 	@RequestMapping(value = "/location/location-areas", method = RequestMethod.GET)
 	@ResponseBody
-	public Response page(Page<LocationArea> page) {
+	public Response page(Page<LocationArea> page, Integer state) {
 		page = locationAreaService.getPage(page);
+
 		Map<Integer, String> areaMaps = new HashMap<Integer, String>();
 		areaMaps.put(0, "正常区域");
 		areaMaps.put(1, "重点区域");
 		areaMaps.put(2, "限制区域");
 		for (LocationArea area : page.getResult()) {
+			logger.debug("mineID:{}", area.getId().getMineId());
+			logger.debug("curAreaId:{}", area.getId().getAreaId());
+			ArrayList<Criterion> criterions = Lists.newArrayList();
+			if (state != null) {
+				criterions.add(Restrictions.eq("state", 3));
+			}
 			if (area.getType() != null) {
 				area.setTypeString(areaMaps.get(area.getType()));
 			}
+			criterions.add(Restrictions.eq("id.mineId", area.getId().getMineId()));
+			criterions.add(Restrictions.eq("curAreaId", area.getId().getAreaId()));
+			logger.debug("sql:{}", locationStaffService.count(criterions.toArray(new Criterion[0])));
+			area.setCurPersonNum(locationStaffService.count(criterions.toArray(new Criterion[0])));
+			Date date = new Date();
+			Timestamp nousedate = new Timestamp(date.getTime());
 
+			area.setCreateTime(nousedate);
 			// 统计区域人数
-			area.setCurPersonNum(locationStaffService.count(Restrictions.eq("id.mineId", area.getId().getMineId()),
-					Restrictions.eq("curAreaId", area.getId().getAreaId())));
 		}
 
 		return new Response(page);
@@ -130,12 +151,19 @@ public class LocationAreaController {
 	 * @param areaId
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/location/read_cards_staff", method = RequestMethod.GET)
 	@ResponseBody
 	public Response readCardsStaffs() {
 		StringBuilder buff = new StringBuilder();
+		Calendar c = Calendar.getInstance();
+		String lazyTime = PropertiesUtils.getString("person.lazyTime");
+		c.add(c.HOUR, Integer.parseInt(lazyTime));
+		Date temp_date = c.getTime();
+		String lazy_data = DateUtil.formateDate(temp_date, "yyyy-MM-dd HH:mm:dd");
 		buff.append("SELECT DISTINCT stn.MineId,stn.StationId,stf.StaffId,stf.Name,stf.CardId ");
-		buff.append("FROM M_Station stn, M_Staff stf WHERE stf.CurStationId=stn.StationId and stf.state>=2");
+		buff.append("FROM M_Station stn, M_Staff stf WHERE stf.CurStationId=stn.StationId and stf.state>=2 and stf.indataTime>'"
+				+ lazy_data + "'");
 		SQLQuery query = locationAreaService.getDAO().getSession().createSQLQuery(buff.toString());
 		@SuppressWarnings("unchecked")
 		List<Object> list = query.list();

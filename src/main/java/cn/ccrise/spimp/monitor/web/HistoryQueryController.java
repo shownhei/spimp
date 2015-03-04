@@ -361,7 +361,11 @@ public class HistoryQueryController {
 	/**
 	 * 密采查询(数据查询)
 	 */
-	public void genMonitorRealDatas(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime) {
+	@SuppressWarnings("unchecked")
+	public void genMonitorRealDatas(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime,
+			Integer monitorSensorType) {
+		page.setOrderBy("id.dataTime");
+		page.setOrder("desc");
 		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (nodePlace != null) {
 			criterions.add(Restrictions.eq("id.nodeId", nodePlace));
@@ -372,7 +376,19 @@ public class HistoryQueryController {
 		if (StringUtils.isNotBlank(endTime)) {
 			criterions.add(Restrictions.le("id.dataTime", Timestamp.valueOf(endTime + " 23:59:59")));
 		}
-
+		if (monitorSensorType != null) {
+			List<MonitorNode> nodelists = monitorNodeService.getDAO()
+					.createCriteria(Restrictions.eq("sensorTypeId", monitorSensorType)).list();
+			List<String> nodeIds = Lists.newArrayList();
+			for (MonitorNode node : nodelists) {
+				nodeIds.add(node.getId().getNodeId());
+			}
+			if (nodeIds.size() > 0) {
+				criterions.add(Restrictions.in("id.nodeId", nodeIds));
+			} else {
+				criterions.add(Restrictions.in("id.nodeId", new String[] { "" }));
+			}
+		}
 		monitorRealDatasService.getPage(page, criterions.toArray(new Criterion[0]));
 
 		// 过滤关联数据
@@ -429,8 +445,9 @@ public class HistoryQueryController {
 	 */
 	@RequestMapping(value = "/monitor/real-datas", method = RequestMethod.GET)
 	@ResponseBody
-	public Response monitorRealData(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime) {
-		genMonitorRealDatas(page, nodePlace, startTime, endTime);
+	public Response monitorRealData(Page<MonitorRealDatas> page, String nodePlace, String startTime, String endTime,
+			Integer monitorSensorType) {
+		genMonitorRealDatas(page, nodePlace, startTime, endTime, monitorSensorType);
 		return new Response(page);
 	}
 
@@ -439,8 +456,8 @@ public class HistoryQueryController {
 	 */
 	@RequestMapping(value = "/monitor/real-datas-export", method = RequestMethod.GET)
 	public void monitorRealDataExport(HttpServletResponse response, Page<MonitorRealDatas> page, String nodePlace,
-			String startTime, String endTime) throws Exception {
-		genMonitorRealDatas(page, nodePlace, startTime, endTime);
+			String startTime, String endTime, Integer monitorSensorType) throws Exception {
+		genMonitorRealDatas(page, nodePlace, startTime, endTime, monitorSensorType);
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("datas", page.getResult());
 		exportExcel(response, "密采查询导出", TemplateUtil.loadTemplate("RealDataExport.xml", results));

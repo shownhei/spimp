@@ -54,7 +54,7 @@ public class LoginController {
 
 	public static void main(String[] args) {
 		String day = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils.addDays(new Date(System.currentTimeMillis()),
-				100));
+				5));
 		String license = AES.encodeAes128(KEY, day);
 		System.out.println(license);
 		System.out.println(AES.decodeAes128(KEY, license));

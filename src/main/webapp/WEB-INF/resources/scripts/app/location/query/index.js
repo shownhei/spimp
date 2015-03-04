@@ -135,7 +135,7 @@ define(function(require, exports, module) {
 	}
 
 	$("#trackback").click(function(event) {
-		$.getJSON('/location/location-tracks-query?all=all', Utils.form.buildParams("query-form2"), function(data, textStatus) {
+		$.getJSON(contextPath+'/location/location-tracks-query?all=all', Utils.form.buildParams("query-form2"), function(data, textStatus) {
 				/*optional stuff to do after success */
 			var _jsonResult = {};
 			var READCARD = [];
@@ -148,9 +148,8 @@ define(function(require, exports, module) {
 				});
 				_jsonResult.READCARD = READCARD;
 			}
-			var result = JSON.stringify(_jsonResult)
-			external.OnGuiji3d(_jsonResult);
-				
+			var result = JSON.stringify(_jsonResult);
+			external.OnGuiji3d(result);
 		});
 		
 	});
@@ -220,13 +219,13 @@ define(function(require, exports, module) {
 	function loadTab(tab) {
 		switch (tab) {
 			case '#tab1':
-				loadGrid(grid1, 'query-form1', gridUrl1);
+//				loadGrid(grid1, 'query-form1', gridUrl1);
 				break;
 			case '#tab2':
-				loadGrid(grid2, 'query-form2', gridUrl2);
+//				loadGrid(grid2, 'query-form2', gridUrl2);
 				break;
 			case '#tab3':
-				loadGrid(grid3, 'query-form3', gridUrl3);
+//				loadGrid(grid3, 'query-form3', gridUrl3);
 				break;
 			default:
 				break;
@@ -272,9 +271,9 @@ define(function(require, exports, module) {
 		});
 	}
 
-	change('department1', 'staffId1', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
-	change('department2', 'staffId2', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
-	change('department3', 'staffId3', '/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+	change('department1', 'staffId1', contextPath +'/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+	change('department2', 'staffId2', contextPath +'/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
+	change('department3', 'staffId3', contextPath +'/location/location-staffs-staff?department=', 'staffId', 'name', true, '选择人员');
 
 	// 导出
 	var EXPORT_PAGE_SIZE = 10000;

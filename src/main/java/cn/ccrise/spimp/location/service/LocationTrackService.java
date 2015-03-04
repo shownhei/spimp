@@ -99,7 +99,6 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 		StringBuffer countHqlBuffer = new StringBuffer();
 		countHqlBuffer.append(countHql).append(filterTable);
 		Long totalRows = (Long) getDAO().createQuery(countHqlBuffer.toString()).uniqueResult();
-		if (totalRows > 0) {
 			List<Object[]> results = Lists.newArrayList();
 			if (all != null) {
 				results = getDAO().createQuery(tempTable.toString()).list();
@@ -130,9 +129,6 @@ public class LocationTrackService extends HibernateDataServiceImpl<LocationTrack
 			page.setTotalCount(totalRows);
 			page.setResult(lists);
 			return page;
-		} else {
-			return page;
-		}
 
 	}
 }

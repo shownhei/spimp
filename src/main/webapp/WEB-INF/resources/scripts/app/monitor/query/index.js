@@ -254,19 +254,19 @@ define(function(require, exports, module) {
 	function loadTab(tab) {
 		switch (tab) {
 			case '#tab1':
-				loadGrid(grid1, 'query-form1', gridUrl1);
+//				loadGrid(grid1, 'query-form1', gridUrl1);
 				break;
 			case '#tab2':
-				loadGrid(grid2, 'query-form2', gridUrl2);
+//				loadGrid(grid2, 'query-form2', gridUrl2);
 				break;
 			case '#tab3':
-				loadGrid(grid3, 'query-form3', gridUrl3);
+//				loadGrid(grid3, 'query-form3', gridUrl3);
 				break;
 			case '#tab4':
-				loadGrid(grid4, 'query-form4', gridUrl4);
+//				loadGrid(grid4, 'query-form4', gridUrl4);
 				break;
 			case '#tab5':
-				loadGrid(grid5, 'query-form5', gridUrl5);
+//				loadGrid(grid5, 'query-form5', gridUrl5);
 				break;
 			default:
 				break;

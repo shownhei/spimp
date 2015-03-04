@@ -6,6 +6,8 @@ package cn.ccrise.spimp.location.web;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.ccrise.ikjp.core.util.Page;
+import cn.ccrise.ikjp.core.util.PropertiesUtils;
 import cn.ccrise.ikjp.core.util.Response;
 import cn.ccrise.spimp.location.entity.Department;
 import cn.ccrise.spimp.location.entity.Leader;
@@ -36,6 +39,7 @@ import cn.ccrise.spimp.location.entity.LocationStation;
 import cn.ccrise.spimp.location.entity.StaffSelect;
 import cn.ccrise.spimp.location.service.LocationStaffService;
 import cn.ccrise.spimp.location.service.LocationStationService;
+import cn.ccrise.spimp.util.DateUtil;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -162,22 +166,30 @@ public class LocationStaffController {
 	/**
 	 * 人员基本信息查询
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/location/location-staffs", method = RequestMethod.GET)
 	@ResponseBody
-	public Response filters(Page<LocationStaff> page, String staffQueryIn) throws UnsupportedEncodingException {
+	public Response filters(Page<LocationStaff> page, String staffQueryIn, Integer state)
+			throws UnsupportedEncodingException {
 		if (!Strings.isNullOrEmpty(staffQueryIn)) {
 			staffQueryIn = URLDecoder.decode(staffQueryIn, "UTF-8");
 		}
+		ArrayList<Criterion> criterions = Lists.newArrayList();
 		if (staffQueryIn != null) {
-			page = locationStaffService.getPage(
-					page,
-					Restrictions.or(Restrictions.ilike("name", staffQueryIn, MatchMode.ANYWHERE),
-							Restrictions.ilike("department", staffQueryIn, MatchMode.ANYWHERE),
-							Restrictions.ilike("jobName", staffQueryIn, MatchMode.ANYWHERE),
-							Restrictions.ilike("jobName", staffQueryIn, MatchMode.ANYWHERE)));
-		} else {
-			page = locationStaffService.getPage(page);
+			criterions.add(Restrictions.or(Restrictions.ilike("name", staffQueryIn, MatchMode.ANYWHERE),
+					Restrictions.ilike("department", staffQueryIn, MatchMode.ANYWHERE),
+					Restrictions.ilike("jobName", staffQueryIn, MatchMode.ANYWHERE),
+					Restrictions.ilike("jobName", staffQueryIn, MatchMode.ANYWHERE)));
 		}
+		if (state != null) {
+			criterions.add(Restrictions.eq("state", 3));
+		}
+		Calendar c = Calendar.getInstance();
+		String lazyTime = PropertiesUtils.getString("person.lazyTime");
+		c.add(c.HOUR, Integer.parseInt(lazyTime));
+		Date temp_date = c.getTime();
+		criterions.add(Restrictions.ge("indataTime", temp_date));
+		locationStaffService.getPage(page, criterions.toArray(new Criterion[0]));
 		Map<Integer, String> stateMaps = new HashMap<Integer, String>();
 		stateMaps.put(0, "井上");
 		stateMaps.put(1, "入井");
@@ -189,7 +201,9 @@ public class LocationStaffController {
 		stateMaps.put(7, "井下（超时）");
 		stateMaps.put(8, "井下（特种人员偏离轨道）");
 		if (page.getResult().size() > 0) {
+
 			for (LocationStaff staff : page.getResult()) {
+
 				if (staff.getState() != null) {
 					staff.setStateString(stateMaps.get(staff.getState()));
 				}
@@ -261,7 +275,7 @@ public class LocationStaffController {
 	/**
 	 * 实时下井领导和井下人数-3D
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "static-access" })
 	@RequestMapping(value = "/location/location-staffs/leader-count", method = RequestMethod.GET)
 	@ResponseBody
 	public Response leaderAndCount(String mineId) {
@@ -269,7 +283,14 @@ public class LocationStaffController {
 		// locationStaffService.find(Restrictions.ge("state", 3),
 		// Restrictions.or(Restrictions.eq("jobType", 2),
 		// Restrictions.eq("jobType", 3)));
-		String sql = "SELECT distinct COUNT(*),(select COUNT(*) from LocationStaff staffone where staffone.state=3 and staffone.id.mineId=:mineID) from LocationStaff staff";
+		Calendar c = Calendar.getInstance();
+		String lazyTime = PropertiesUtils.getString("person.lazyTime");
+		c.add(c.HOUR, Integer.parseInt(lazyTime));
+		Date temp_date = c.getTime();
+		String lazy_data = DateUtil.formateDate(temp_date, "yyyy-MM-dd HH:mm:dd");
+
+		String sql = "SELECT distinct COUNT(*),(select COUNT(*) from LocationStaff staffone where staffone.state=3 and staffone.id.mineId=:mineID and staffone.indataTime>'"
+				+ lazy_data + "') from LocationStaff staff";
 		String leadersql = "select stafftwo.name,(select station.pos from LocationStation station where station.id.stationId =stafftwo.curStationId ) from LocationStaff stafftwo where stafftwo.department="
 				+ "'矿领导'" + " and stafftwo.state=3 and stafftwo.id.mineId=:mineID";
 		Query resultQuery = locationStaffService.getDAO().createQuery(sql);
@@ -298,7 +319,12 @@ public class LocationStaffController {
 	@RequestMapping(value = "/location/station-staffs", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getStationStaffs(String nodeId, Page<LocationStaff> page) {
-		page = locationStaffService.getPage(page, Restrictions.eq("curStationId", nodeId));
+		Calendar c = Calendar.getInstance();
+		String lazyTime = PropertiesUtils.getString("person.lazyTime");
+		c.add(Calendar.HOUR, Integer.parseInt(lazyTime));
+		Date temp_date = c.getTime();
+		page = locationStaffService.getPage(page, Restrictions.eq("curStationId", nodeId),
+				Restrictions.ge("indataTime", temp_date));
 		return new Response(page);
 	}
 
@@ -322,7 +348,12 @@ public class LocationStaffController {
 	@RequestMapping(value = "/location/location-staffs-count", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getStationCount(String stationId) {
-		Long count = locationStaffService.count(Restrictions.eq("curStationId", stationId));
+		Calendar c = Calendar.getInstance();
+		String lazyTime = PropertiesUtils.getString("person.lazyTime");
+		c.add(Calendar.HOUR, Integer.parseInt(lazyTime));
+		Date temp_date = c.getTime();
+		Long count = locationStaffService.count(Restrictions.eq("curStationId", stationId),
+				Restrictions.ge("indataTime", temp_date));
 		return new Response(count);
 	}
 
